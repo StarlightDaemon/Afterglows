@@ -282,28 +282,47 @@
             background: rgba(0, 30, 10, 0.95);
         }
 
+        /* Fixed Legend (Vertical) */
         .timeline-legend {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 990;
+            background: rgba(10, 15, 12, 0.9);
+            border: 1px solid var(--accent-primary);
+            padding: 15px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
             display: flex;
-            gap: var(--space-lg);
-            margin-bottom: var(--space-xl);
-            padding: var(--space-md);
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-default);
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 12px;
+            border-radius: 0;
+            margin: 0;
+            width: auto;
+            transition: all var(--transition-fast);
+        }
+
+        .timeline-legend:hover {
+            box-shadow: 0 0 20px var(--accent-glow);
+            background: rgba(0, 30, 10, 0.95);
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: var(--text-sm);
+            gap: 10px;
+            font-size: 11px;
             color: var(--text-muted);
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .legend-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
+            box-shadow: 0 0 5px currentColor;
         }
 
         .legend-dot.stable {
@@ -341,11 +360,7 @@
 
 
 
-                <div class="timeline-legend">
-                    <div class="legend-item"><span class="legend-dot stable"></span> Stable</div>
-                    <div class="legend-item"><span class="legend-dot experimental"></span> Experimental</div>
-                    <div class="legend-item"><span class="legend-dot archived"></span> Archived</div>
-                </div>
+
 
                 <div class="timeline">
 
@@ -435,6 +450,11 @@
                 </div>
             </div>
         </main>
+    </div>
+    <div class="timeline-legend">
+        <div class="legend-item"><span class="legend-dot stable"></span> Stable</div>
+        <div class="legend-item"><span class="legend-dot experimental"></span> Experimental</div>
+        <div class="legend-item"><span class="legend-dot archived"></span> Archived</div>
     </div>
     <footer class="fixed-footer">
         <a href="../index.html">
