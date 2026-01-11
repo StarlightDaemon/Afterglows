@@ -1,56 +1,81 @@
-# Stargate Terminal Project Archive
+# Stargate Dialing Computer
 
-This archive contains all research, prototypes, and code assets generated for the "Starlight Daemon" header terminal project.
+A modular, canon-accurate Stargate dialing terminal built with vanilla HTML/CSS/JS.
 
-## 📂 File Manifest
+## 🚀 Live Demo
 
-### 🌟 The "Best Of" (Functional Prototypes)
-These are the most polished, functional versions ready for adaptation into a production site.
+**[View Main Demo →](index.html)**
 
-*   **`stargate_lcd_retro.html`** - **RECOMMENDED**. The definitive "Monitor/Terminal" version. Features a CSS-based 7-chevron dialing sequence, scanline flicker, chromatic aberration, and audio-visual cues (visual only currently).
-*   **`stargate_canvas_retro.html`** - A 100% HTML5 Canvas implementation. Renders pixel-by-pixel for a true GameBoy/8-bit aesthetic. Use this if performance or strict retro visuals are the priority.
-*   **`stargate_state_machine.html`** - A clean "State Machine" implementation separating Logic (JS) from View (CSS Grid). Good useful for integration into React/Vue apps.
+## Features
 
-### 🎨 Galleries & Variations
-Collections of different visual styles to choose from.
+- **Canon-Accurate Chevron Positions** - 9 chevrons mapped to clock positions per SG-1 lore
+- **Criss-Cross Dialing Pattern** - The authentic "Z-pattern" sequence (1→8→2→7→3→6→9)
+- **3 Dial Modes:**
+  - **7-CHV**: Intra-galactic (same galaxy)
+  - **8-CHV**: Inter-galactic (Pegasus/Asgard)
+  - **9-CHV**: Destiny Protocol
+- **Top Chevron Always Last** - The "Master Breaker" at 12:00 locks last
+- **Abort Functionality** - Cancel mid-dial
+- **Fully Responsive** - Scales with CSS variables
 
-*   **`all_stargate_variations.html`** - The massive "Multiverse" gallery containing **80 different styles** (Rust, Glass, Tron, ASCII, etc.).
-*   **`stargate_dialing_earth_gallery.html`** - Comparisons of 6 different color schemes (Green, Amber, Red, Blue, etc.) animating simultaneously.
-*   **`pixel_dialing_gallery.html`** - Specific focus on "Pixel Art" styles, comparing CSS `steps()` animation vs Canvas rendering.
+## Architecture
 
-### 📜 Historical / Legacy
-*   **`stargate_mockup.html`** - The initial single static mockup.
-*   **`stargate_variations_30.html`** - The first batch of 30 variations.
-*   **`stargate_variations_50.html`** - The second batch of 50 variations.
-*   **`legacy_header_mockups.html`** - The original project file containing non-Stargate concepts (Matrix rain, Hex grids, etc.).
+The terminal is built with a modular layer system:
 
-### 📚 Documentation
-*   **[TECHNICAL_RESEARCH.md](TECHNICAL_RESEARCH.md)** - Deep dive into the rendering approaches (Canvas vs DOM vs Steps).
-*   **[ORIGINAL_README.md](ORIGINAL_README.md)** - Original project notes and decision log.
+1. **Layer 0**: Page Foundation
+2. **Layer 1**: Terminal Container (border frame + scanlines)
+3. **Layer 2**: UI Header (mode selector, status)
+4. **Layer 3**: LCD Screen Area
+5. **Layer 4**: Stargate Container
+6. **Layer 5**: Gate Rings (outer + inner)
+7. **Layer 6**: Chevrons (9 positions with counter-rotation)
+8. **Layer 7**: Event Horizon (kawoosh + shimmer)
+9. **Layer 8**: Status Display Panel
+10. **Layer 9**: Footer Controls
 
----
+## Files
 
-## 🛠 Integration Guide
+| File | Description |
+|------|-------------|
+| `index.html` | **Main Demo** - Mark II Dialing Computer |
+| `mark3/` | **🚧 Mark III** - State-Driven Simulator (in development) |
+| `afterglow_lcd_retro_v1.html` | Legacy Mark I version (archived) |
+| `STARGATE_RESEARCH_NOTES.md` | Canon research & technical notes |
+| `G3P_STARGATE_RESEARCH.md` | Gemini 3 Pro research for Mark III |
+| `G3P_DEEP_RESEARCH_STARGATE.md` | Deep research analysis |
 
-### Option A: The "CSS Component" (Best for most sites)
-Use the code from **`stargate_lcd_retro.html`**.
-1. Copy the CSS inside `<style>` tags.
-2. Copy the HTML structure (`<div class="terminal">...</div>`).
-3. Copy the `<script>` block for the dialing logic.
+## Afterglows (Legacy Versions)
 
-### Option B: The "Game Object" (Best for retro consistency)
-Use the code from **`stargate_canvas_retro.html`**.
-1. Copy the `<canvas>` element.
-2. The entire render loop is contained in the JS. This is self-contained and easy to drop in, but harder to style with CSS.
+### afterglow_lcd_retro_v1.html
+The original LCD retro terminal. Simple dialing animation with phosphor green aesthetic. Preserved for reference.
 
-### Option C: The "Image" (Lightweight)
-If you don't need animation logic, open `all_stargate_variations.html`, screenshot your favorite style, and use it as a static `.png`.
+## Research
 
----
+See [STARGATE_RESEARCH_NOTES.md](STARGATE_RESEARCH_NOTES.md) for detailed canon information about:
+- Chevron count and clock mapping
+- Dialing sequences for 7/8/9 chevron addresses
+- The "Z-pattern" criss-cross lighting order
+- Destiny protocol specifics
 
-## 📝 Design Notes
-*   **Scanlines**: We used a `repeating-linear-gradient` overlay with `pointer-events: none` to simulate CRT interlacing without blocking clicks.
-*   **Phosphor Glow**: `text-shadow` and `box-shadow` are heavily used. For the "Retro" feel, we added specific Red/Blue offset shadows to simulate **Chromatic Aberration**.
-*   **Animation**: For the pixel-art versions, we used `animation-timing-function: steps(N)` instead of `linear` to prevent the rotation from looking "too smooth" and modern.
+## Usage
 
-Generated by **Antigravity** for **StarlightDaemon**.
+```bash
+# From project root
+npx http-server . -p 3000 -c-1 --cors
+
+# Then visit
+http://127.0.0.1:3000/Stargate/
+```
+
+## Customization
+
+All sizing is controlled via CSS variables in `:root`:
+
+```css
+:root {
+    --stargate-size: min(550px, 75vw);  /* Adjust gate size */
+    --lcd-green: #00ff41;                /* Primary color */
+    --chevron-locked: #ff6600;           /* Locked chevron color */
+    --wormhole-blue: #4488ff;            /* Event horizon color */
+}
+```

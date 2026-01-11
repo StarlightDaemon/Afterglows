@@ -7,7 +7,7 @@
 
 ## 🎯 Project Vision
 
-This project serves as an **experimental playground** and **archive**. **Afterglows** is an open-source collection of "scraped but cool" ideas, functional prototypes, and reusable CSS/JS libraries. It serves as a playground for retro-terminal aesthetics, sci-fi interfaces (Stargate, Matrix), and creative coding experiments.
+This project serves as an **experimental archive**. **Afterglows** is an open-source collection of "scraped but cool" ideas, functional prototypes, and reusable CSS/JS libraries. It's a collection of retro-terminal aesthetics, sci-fi interfaces (Stargate, Matrix), and creative coding experiments.
 - "Graveyard gold" - scrapped ideas worth preserving
 
 **All code is open source and free to use.** Take what you need, learn from it, remix it, ship it.

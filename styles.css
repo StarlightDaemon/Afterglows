@@ -67,6 +67,19 @@
     --transition-fast: 150ms ease;
     --transition-base: 250ms ease;
     --transition-slow: 350ms ease;
+
+    /* Z-Index Layers */
+    --z-background: -1;
+    --z-base: 1;
+    --z-card-content: 2;
+    --z-card-overlay: 5;
+    --z-sticky: 100;
+    --z-header: 1000;
+    --z-modal: 10000;
+    --z-tooltip: 10001;
+
+    /* Component Colors */
+    --bg-header: #000000;
 }
 
 /* ===========================
@@ -243,10 +256,13 @@ img {
 /* ===========================
    Unified Sticky Header
    =========================== */
+/* ===========================
+   Unified Sticky Header
+   =========================== */
 .site-header {
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: var(--z-header);
     display: flex;
     justify-content: flex-start;
     /* V5: Start from left */
@@ -254,7 +270,7 @@ img {
     gap: var(--space-lg);
     /* Space between Logo and Title */
     padding: var(--space-md) var(--space-lg);
-    background: #000;
+    background: var(--bg-header);
     /* V5.4: Solid Black */
     border-bottom: 3px solid var(--accent-primary);
     /* V5.4: Strong Underline */
@@ -266,74 +282,50 @@ img {
    Logo (Left Side)
    =========================== */
 .logo {
-    opacity: 0.8;
-    transition: opacity var(--transition-fast);
     flex-shrink: 0;
-}
-
-.logo:hover {
-    opacity: 1;
 }
 
 .logo img {
     width: 80px;
-    height: 80px;
-    border-radius: 50%;
+    height: auto;
     display: block;
-    filter: brightness(1.1) contrast(1.1);
+    transition: all var(--transition-base);
+}
+
+.logo:hover img {
+    transform: scale(1.05);
 }
 
 /* ===========================
    Buttons
    =========================== */
-.header-center {
-    text-align: left;
-    /* V5: Left align text */
-    flex: 0 1 auto;
-    /* Allow it to take necessary space but not force center */
-    padding: 0;
-}
 
+
+/* Main Title - Retro Terminal Style */
 .header-title {
     font-family: var(--font-display);
-    font-size: 1.75rem;
+    font-size: var(--text-2xl);
     font-weight: 700;
     color: var(--accent-primary);
-    /* text-transform: uppercase; - Removed to preserve StarlightDaemon casing */
+    text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin-bottom: 0.25rem;
-    text-shadow: 0 0 15px var(--accent-glow);
+    margin: 0;
+    line-height: 1.1;
+    text-shadow: 0 0 10px var(--accent-glow);
+    animation: glow 2s ease-in-out infinite alternate;
     position: relative;
     display: inline-block;
-    animation: glow 3s ease-in-out infinite alternate;
 }
 
-/* Blinking Terminal Cursor */
+/* Blinking Cursor Effect */
 .header-title::after {
-    content: '▌';
-    /* Half Block cursor */
+    content: '_';
     display: inline-block;
-    margin-left: 6px;
-    animation: blink 1s step-end infinite;
-    opacity: 1;
+    margin-left: 0.2em;
+    animation: cursor-blink 1s step-end infinite;
     color: var(--accent-primary);
-    text-shadow: 0 0 10px var(--accent-glow);
-    vertical-align: baseline;
-    font-size: 0.9em;
-}
-
-/* Animation Keyframes */
-@keyframes blink {
-
-    0%,
-    50% {
-        opacity: 1;
-    }
-
-    51%,
-    100% {
-        opacity: 0;
-    }
+    text-shadow: none;
+    opacity: 1;
 }
 
 @keyframes glow {
@@ -343,6 +335,18 @@ img {
 
     to {
         text-shadow: 0 0 20px var(--accent-glow), 0 0 30px var(--accent-glow);
+    }
+}
+
+@keyframes cursor-blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
     }
 }
 
