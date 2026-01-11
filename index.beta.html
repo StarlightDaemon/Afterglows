@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starlight Daemon | Archives</title>
+    <!-- Import existing CSS libraries to demonstrate utility -->
+    <link rel="stylesheet" href="Retro/crt_tools.css">
+    <link rel="stylesheet" href="Matrix Code/matrix_tools.css">
+    <style>
+        :root {
+            --term-green: #00ff41;
+            --term-bg: #050505;
+        }
+
+        body {
+            background-color: var(--term-bg);
+            color: var(--term-green);
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Container for the main content */
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            z-index: 100;
+            /* Above scanlines */
+            position: relative;
+        }
+
+        header {
+            border-bottom: 2px solid var(--term-green);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* Card Styling */
+        .card {
+            background: rgba(0, 20, 0, 0.4);
+            border: 1px solid var(--term-green);
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--term-green);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .card:hover {
+            background: rgba(0, 50, 0, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-bottom: 1px dashed var(--term-green);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            opacity: 0.9;
+            flex-grow: 1;
+        }
+
+        .status {
+            font-size: 0.7rem;
+            background: var(--term-green);
+            color: black;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding-top: 40px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            text-align: center;
+        }
+
+        /* Boot Sequence Animation */
+        .boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 9999;
+            color: var(--term-green);
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            pointer-events: none;
+            animation: boot-fade 0.5s 2.5s forwards;
+        }
+
+        .boot-line {
+            opacity: 0;
+            animation: type-line 0s forwards;
+        }
+
+        @keyframes type-line {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes boot-fade {
+            to {
+                opacity: 0;
+                pointer-events: none;
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Retro Effects (Reusable Classes) -->
+    <div class="scanlines-flicker screen-curve"
+        style="position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:90;"></div>
+
+    <!-- Boot Sequence -->
+    <div class="boot-screen">
+        <div class="boot-line" style="animation-delay: 0.2s">> BIOS CHECK... OK</div>
+        <div class="boot-line" style="animation-delay: 0.5s">> LOADING CSS MODULES... OK</div>
+        <div class="boot-line" style="animation-delay: 0.9s">> MOUNTING FILESYSTEM... OK</div>
+        <div class="boot-line" style="animation-delay: 1.4s">> INITIALIZING STARLIGHT DAEMON...</div>
+        <div class="boot-line" style="animation-delay: 2.0s">> SYSTEM READY.</div>
+    </div>
+
+    <div class="container phosphor-glow">
+        <header>
+            <h1 class="glitch-text" data-text="AFTERGLOWS">AFTERGLOWS</h1>
+            <div class="subtitle">Experimental Playground & Open Source Archive</div>
+        </header>
+
+        <div class="grid">
+
+            <!-- 1. Stargate -->
+            <a href="Stargate/stargate_lcd_retro.html" class="card">
+                <div class="card-title">
+                    <span>> STARGATE</span>
+                    <span class="status">ACTIVE</span>
+                </div>
+                <div class="card-desc">
+                    Full functional dialing sequence simulation.
+                    <br><br>
+                    Includes: State Machine, Sound, 7-Chevron Lock.
+                </div>
+            </a>
+
+            <!-- 2. Retro Tools -->
+            <a href="Retro/crt_demo.html" class="card">
+                <div class="card-title">
+                    <span>> RETRO_FX</span>
+                    <span class="status">LIB</span>
+                </div>
+                <div class="card-desc">
+                    CRT monitor emulation library.
+                    <br><br>
+                    Includes: Scanlines, Phosphor Glow, Chromatic Aberration.
+                </div>
+            </a>
+
+            <!-- 3. Matrix -->
+            <a href="Matrix Code/matrix_tools.css" class="card"
+                onclick="alert('This links directly to the CSS file for now! Check the subfolder for details.'); return false;">
+                <div class="card-title">
+                    <span>> MATRIX</span>
+                    <span class="status">CSS</span>
+                </div>
+                <div class="card-desc">
+                    Digital rain and cyberpunk text effects.
+                    <br><br>
+                    (View Source / Link to CSS)
+                </div>
+            </a>
+
+            <!-- 4. Others -->
+            <a href="Others/all_concepts_gallery.html" class="card">
+                <div class="card-title">
+                    <span>> CONCEPTS</span>
+                    <span class="status">ARCHIVE</span>
+                </div>
+                <div class="card-desc">
+                    The "Graveyard" of 30+ discarded header concepts.
+                    <br><br>
+                    Includes: Radar, DNA, Glitch, Hex Grid.
+                </div>
+            </a>
+
+            <!-- 5. Documentation -->
+            <a href="DEMOS_OVERVIEW.md" class="card" style="border-style: dotted;">
+                <div class="card-title">
+                    <span>> MAN_PAGES</span>
+                    <span class="status">DOCS</span>
+                </div>
+                <div class="card-desc">
+                    Master documentation index for the entire repository.
+                </div>
+            </a>
+
+        </div>
+
+        <footer>
+            <p>TERMINAL SESSION ACTIVE | AGENT007</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

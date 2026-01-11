@@ -1,0 +1,20 @@
+{
+  "name": "afterglows",
+  "version": "1.0.0",
+  "description": "Retro terminal archives and web demos.",
+  "scripts": {
+    "dev": "npx http-server . -p 8080 -c-1 --cors",
+    "start": "npm run dev"
+  },
+  "keywords": [
+    "retro",
+    "terminal",
+    "demos",
+    "css"
+  ],
+  "author": "StarlightDaemon",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
