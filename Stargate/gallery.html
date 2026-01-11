@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stargate - Version Gallery</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #000;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #00aa33;
+        }
+
+        h1 {
+            font-size: clamp(24px, 4vw, 48px);
+            color: #00ff41;
+            text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            color: #00aa33;
+            font-size: clamp(12px, 2vw, 16px);
+            letter-spacing: 2px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #00aa33;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #00aa33;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: #00ff41;
+            color: #000;
+            border-color: #00ff41;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+
+        .versions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .version-card {
+            background: rgba(0, 20, 0, 0.3);
+            border: 2px solid #00aa33;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+
+        .version-card:hover {
+            border-color: #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .version-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .version-title {
+            font-size: 20px;
+            color: #00ff41;
+            font-weight: bold;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            font-size: 11px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-stable {
+            background: #00ff41;
+            color: #000;
+        }
+
+        .status-experimental {
+            background: rgba(255, 119, 0, 0.2);
+            border: 1px solid #ff7700;
+            color: #ff7700;
+        }
+
+        .status-legacy {
+            background: rgba(100, 100, 100, 0.2);
+            border: 1px solid #666;
+            color: #999;
+        }
+
+        .version-description {
+            color: #00aa33;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            min-height: 80px;
+        }
+
+        .version-features {
+            margin-bottom: 20px;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: rgba(0, 170, 51, 0.2);
+            border: 1px solid #00aa33;
+            padding: 3px 10px;
+            font-size: 11px;
+            margin: 3px;
+            color: #00ff41;
+        }
+
+        .version-link {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .version-link:hover {
+            background: #00ff41;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+
+        .section-title {
+            color: #00ff41;
+            font-size: 24px;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #00aa33;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← BACK TO AFTERGLOWS</a>
+
+        <header>
+            <h1>⛩️ STARGATE VERSION GALLERY</h1>
+            <p class="subtitle">Evolution of the Dialing System</p>
+        </header>
+
+        <div class="section-title">✅ Current Mainline</div>
+        <div class="versions-grid">
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-title">Mark 3 v1.0</span>
+                    <span class="status-badge status-stable">Stable</span>
+                </div>
+                <p class="version-description">
+                    Side-panel control layout with 75/25 split. Features state machine engine, ring rotation physics,
+                    and dynamic mode selection (7/8/9 chevron). Clean terminal aesthetic with precise dialing mechanics.
+                </p>
+                <div class="version-features">
+                    <span class="feature-tag">State Machine</span>
+                    <span class="feature-tag">Ring Physics</span>
+                    <span class="feature-tag">Multi-Mode</span>
+                </div>
+                <a href="mark3/v1.html" class="version-link">► Launch Demo</a>
+            </div>
+        </div>
+
+        <div class="section-title">🔬 Experimental Variants</div>
+        <div class="versions-grid">
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-title">Rotary UI (A2-2)</span>
+                    <span class="status-badge status-experimental">Experimental</span>
+                </div>
+                <p class="version-description">
+                    Segmented control panel with digital rotary mode selector, signal strength analyzer, and compact
+                    vertical layout.
+                    Features enhanced glows, frame-style engage button, and refined keyboard grid.
+                </p>
+                <div class="version-features">
+                    <span class="feature-tag">Rotary Selector</span>
+                    <span class="feature-tag">Signal Graph</span>
+                    <span class="feature-tag">Compact Layout</span>
+                </div>
+                <a href="mark3/index.html" class="version-link">► Launch Demo</a>
+            </div>
+
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-title">Mark 3 Backup</span>
+                    <span class="status-badge status-legacy">Archive</span>
+                </div>
+                <p class="version-description">
+                    Original Mark 3 implementation before rotary UI refactor. Preserved for historical reference
+                    and rollback capability. Identical to v1.0 mainline.
+                </p>
+                <div class="version-features">
+                    <span class="feature-tag">Archive</span>
+                    <span class="feature-tag">Reference</span>
+                </div>
+                <a href="mark3/index_backup_v1.html" class="version-link">► View Archive</a>
+            </div>
+        </div>
+
+        <div class="section-title">📦 Legacy Versions</div>
+        <div class="versions-grid">
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-title">Mark 2 (v2.0)</span>
+                    <span class="status-badge status-legacy">Legacy</span>
+                </div>
+                <p class="version-description">
+                    Centered LCD-style layout with enhanced retro terminal aesthetic. Features responsive stargate
+                    sizing,
+                    mode buttons in header, and clean footer controls.
+                </p>
+                <div class="version-features">
+                    <span class="feature-tag">LCD Style</span>
+                    <span class="feature-tag">Centered</span>
+                </div>
+                <a href="index.html" class="version-link">► View Legacy</a>
+            </div>
+
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-title">LCD Retro v1</span>
+                    <span class="status-badge status-legacy">Legacy</span>
+                </div>
+                <p class="version-description">
+                    Early LCD-inspired variant with heavy CRT effects and monochrome green aesthetic.
+                    Experimental prototype exploring retro terminal styling.
+                </p>
+                <div class="version-features">
+                    <span class="feature-tag">CRT Effects</span>
+                    <span class="feature-tag">Prototype</span>
+                </div>
+                <a href="afterglow_lcd_retro_v1.html" class="version-link">► View Prototype</a>
+            </div>
+        </div>
+
+        <div class="section-title">🎨 Design Galleries</div>
+        <div class="versions-grid">
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-title">Variations Gallery</span>
+                    <span class="status-badge status-legacy">Reference</span>
+                </div>
+                <p class="version-description">
+                    Collection of 10 retro visual style variations including pixel art, CRT scanlines, amber terminal,
+                    wireframe, dithered, and glitch effects.
+                </p>
+                <div class="version-features">
+                    <span class="feature-tag">10 Styles</span>
+                    <span class="feature-tag">Visual Design</span>
+                </div>
+                <a href="stargate_variations.html" class="version-link">► View Gallery</a>
+            </div>
+
+            <div class="version-card">
+                <div class="version-header">
+                    <span class="version-title">Header Mockups</span>
+                    <span class="status-badge status-legacy">Reference</span>
+                </div>
+                <p class="version-description">
+                    Design exploration of different header and control panel layouts. Research and iteration
+                    documentation for UI/UX refinement.
+                </p>
+                <div class="version-features">
+                    <span class="feature-tag">UI Research</span>
+                    <span class="feature-tag">Mockups</span>
+                </div>
+                <a href="header_mockups.html" class="version-link">► View Mockups</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
