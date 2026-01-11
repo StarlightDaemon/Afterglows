@@ -40,7 +40,7 @@
 
 <body>
     <canvas id="matrix"></canvas>
-    <div class="info">Move your mouse to influence the rain</div>
+
 
     <script>
         const canvas = document.getElementById('matrix');
@@ -63,8 +63,7 @@
         });
 
         function draw() {
-            // Stronger fade effect - clears more aggressively
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.font = fontSize + 'px monospace';
@@ -74,19 +73,29 @@
                 const x = i * fontSize;
                 const y = drops[i] * fontSize;
 
-                // Distance from mouse affects brightness
+                // Distance from mouse - stronger effect radius
                 const dist = Math.sqrt((x - mouseX) ** 2 + (y - mouseY) ** 2);
-                const brightness = Math.max(0.15, Math.min(0.7, 1 - dist / 200));
+                const maxRadius = 250;
 
-                // Dimmer base color
-                const green = Math.floor(160 * brightness);
-                ctx.fillStyle = `rgb(0, ${green}, 0)`;
-                ctx.shadowBlur = brightness * 10;
-                ctx.shadowColor = '#050';
+                if (dist < maxRadius) {
+                    // Near cursor: bright white/green with glow
+                    const intensity = 1 - (dist / maxRadius);
+                    const green = Math.floor(150 + intensity * 105);
+                    const red = Math.floor(intensity * 200);
+                    ctx.fillStyle = `rgb(${red}, ${green}, ${Math.floor(intensity * 50)})`;
+                    ctx.shadowBlur = 20 * intensity;
+                    ctx.shadowColor = '#00ff00';
+
+                    // Speed boost near cursor
+                    if (intensity > 0.5) drops[i] += 0.5;
+                } else {
+                    // Far from cursor: dim green
+                    ctx.fillStyle = 'rgb(0, 60, 0)';
+                    ctx.shadowBlur = 0;
+                }
 
                 ctx.fillText(text, x, y);
 
-                // Reset drop randomly
                 if (y > canvas.height && Math.random() > 0.98) {
                     drops[i] = 0;
                 }

@@ -36,39 +36,11 @@
             text-shadow: 0 0 8px #00ff00, 0 0 20px #00ff00;
             animation-delay: calc(var(--i) * 0.1s);
         }
-
-        .overlay {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            text-align: center;
-        }
-
-        .overlay h1 {
-            font-size: 48px;
-            color: #00ff00;
-            text-shadow: 0 0 10px #00ff00, 0 0 30px #00ff00;
-            margin-bottom: 20px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .overlay p {
-            font-size: 16px;
-            color: #00aa00;
-            font-family: monospace;
-        }
     </style>
 </head>
 
 <body>
     <div class="matrix-rain" id="rainContainer"></div>
-
-    <div class="overlay">
-        <h1 class="glitch-text" data-text="THE MATRIX">THE MATRIX</h1>
-        <p>Classic CSS Digital Rain</p>
-    </div>
 
     <script>
         // Generate random matrix characters

@@ -15,10 +15,11 @@
 
         :root {
             --matrix-green: #00ff00;
-            --matrix-dim: #00aa00;
-            --matrix-dark: #003300;
-            --bg-primary: #0a0a0a;
-            --bg-card: rgba(0, 20, 0, 0.6);
+            --matrix-dim: #00dd00;
+            --matrix-dark: #00aa00;
+            --bg-primary: #0a0f0a;
+            --bg-card: rgba(0, 40, 0, 0.4);
+            --text-bright: #44ff44;
         }
 
         html,
@@ -65,6 +66,10 @@
             letter-spacing: 2px;
         }
 
+        .sidebar {
+            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(0, 30, 0, 0.95) 100%);
+        }
+
         .demo-list {
             flex: 1;
             overflow-y: auto;
@@ -72,12 +77,13 @@
         }
 
         .demo-card {
-            background: var(--bg-card);
-            border: 1px solid var(--matrix-dark);
-            padding: 20px;
-            margin-bottom: 15px;
+            background: transparent;
+            border: none;
+            border-left: 2px solid var(--matrix-dark);
+            padding: 8px 15px;
+            margin-bottom: 2px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             position: relative;
         }
 
@@ -102,13 +108,44 @@
         }
 
         .demo-card.active {
-            border-color: var(--matrix-green);
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+            border-left-color: var(--matrix-green);
+            background: rgba(0, 255, 0, 0.05);
         }
 
         .demo-card.active::before {
+            display: none;
+        }
+
+        .demo-card h3 {
+            font-size: 12px;
+            color: var(--matrix-dim);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .demo-card.active h3 {
+            color: var(--matrix-green);
+        }
+
+        .demo-card h3 .indicator {
+            width: 6px;
+            height: 6px;
+            background: var(--matrix-dark);
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .demo-card.active h3 .indicator {
             background: var(--matrix-green);
-            box-shadow: 0 0 10px var(--matrix-green);
+            box-shadow: 0 0 8px var(--matrix-green);
+        }
+
+        .demo-card p,
+        .demo-card .tags {
+            display: none;
         }
 
         .demo-card h3 {
@@ -313,14 +350,7 @@
                     </div>
                 </div>
 
-                <div class="demo-card" data-src="demo_wake.html" data-title="Code Wake">
-                    <h3><span class="indicator"></span> CODE WAKE</h3>
-                    <p>Cinematic "Wake up, Neo" sequence with typewriter effect.</p>
-                    <div class="tags">
-                        <span class="tag css">CSS</span>
-                        <span class="tag js">Canvas</span>
-                    </div>
-                </div>
+
 
                 <div class="demo-card" data-src="demo_binary.html" data-title="Binary Rain">
                     <h3><span class="indicator"></span> BINARY RAIN</h3>
@@ -338,35 +368,6 @@
                         <span class="tag css">Themes</span>
                     </div>
                 </div>
-
-                <div class="demo-card" data-src="demo_depth.html" data-title="3D Depth">
-                    <h3><span class="indicator"></span> 3D DEPTH</h3>
-                    <p>Parallax layers create illusion of depth.</p>
-                    <div class="tags">
-                        <span class="tag js">Canvas</span>
-                        <span class="tag js">Parallax</span>
-                    </div>
-                </div>
-
-                <div class="demo-card" data-src="demo_reveal.html" data-title="Text Reveal">
-                    <h3><span class="indicator"></span> TEXT REVEAL</h3>
-                    <p>Rain reveals a hidden message. Type your own.</p>
-                    <div class="tags">
-                        <span class="tag js">Canvas</span>
-                        <span class="tag js">Interactive</span>
-                    </div>
-                </div>
-
-
-
-                <div class="demo-card" data-src="demo_photo.html" data-title="Photo Dissolve">
-                    <h3><span class="indicator"></span> PHOTO DISSOLVE</h3>
-                    <p>Load an image and watch it dissolve into rain.</p>
-                    <div class="tags">
-                        <span class="tag js">Canvas</span>
-                        <span class="tag js">Image</span>
-                    </div>
-                </div>
             </div>
 
             <div class="back-link">
@@ -379,6 +380,7 @@
                 <div class="preview-title">PREVIEW: <span id="currentDemo">Classic Rain</span></div>
                 <div class="preview-controls">
                     <button class="preview-btn" onclick="reloadPreview()">↻ RELOAD</button>
+                    <button class="preview-btn halt" id="haltBtn" onclick="toggleHalt()">⏸ HALT</button>
                     <button class="preview-btn" onclick="openFullscreen()">⛶ FULLSCREEN</button>
                 </div>
             </div>
@@ -415,6 +417,27 @@
             const activeCard = document.querySelector('.demo-card.active');
             if (activeCard) {
                 window.open(activeCard.dataset.src, '_blank');
+            }
+        }
+
+        let isHalted = false;
+        function toggleHalt() {
+            const haltBtn = document.getElementById('haltBtn');
+            isHalted = !isHalted;
+
+            if (isHalted) {
+                previewFrame.src = 'about:blank';
+                haltBtn.textContent = '▶ RESUME';
+                haltBtn.style.borderColor = '#ff6600';
+                haltBtn.style.color = '#ff6600';
+            } else {
+                const activeCard = document.querySelector('.demo-card.active');
+                if (activeCard) {
+                    previewFrame.src = activeCard.dataset.src;
+                }
+                haltBtn.textContent = '⏸ HALT';
+                haltBtn.style.borderColor = '';
+                haltBtn.style.color = '';
             }
         }
     </script>
