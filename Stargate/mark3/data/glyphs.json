@@ -1,0 +1,205 @@
+{
+    "meta": {
+        "version": "1.0",
+        "total": 39,
+        "description": "Placeholder glyphs for Mark III. Replace with actual constellation SVGs."
+    },
+    "symbols": [
+        {
+            "id": 0,
+            "name": "Earth (PoO)",
+            "char": "⊕",
+            "type": "origin"
+        },
+        {
+            "id": 1,
+            "name": "Crater",
+            "char": "A"
+        },
+        {
+            "id": 2,
+            "name": "Virgo",
+            "char": "B"
+        },
+        {
+            "id": 3,
+            "name": "Boötes",
+            "char": "C"
+        },
+        {
+            "id": 4,
+            "name": "Centaurus",
+            "char": "D"
+        },
+        {
+            "id": 5,
+            "name": "Libra",
+            "char": "E"
+        },
+        {
+            "id": 6,
+            "name": "Serpens Caput",
+            "char": "F"
+        },
+        {
+            "id": 7,
+            "name": "Norma",
+            "char": "G"
+        },
+        {
+            "id": 8,
+            "name": "Scorpius",
+            "char": "H"
+        },
+        {
+            "id": 9,
+            "name": "Corona Australis",
+            "char": "I"
+        },
+        {
+            "id": 10,
+            "name": "Scutum",
+            "char": "J"
+        },
+        {
+            "id": 11,
+            "name": "Sagittarius",
+            "char": "K"
+        },
+        {
+            "id": 12,
+            "name": "Aquila",
+            "char": "L"
+        },
+        {
+            "id": 13,
+            "name": "Microscopium",
+            "char": "M"
+        },
+        {
+            "id": 14,
+            "name": "Capricornus",
+            "char": "N"
+        },
+        {
+            "id": 15,
+            "name": "Piscis Austrinus",
+            "char": "O"
+        },
+        {
+            "id": 16,
+            "name": "Equuleus",
+            "char": "P"
+        },
+        {
+            "id": 17,
+            "name": "Aquarius",
+            "char": "Q"
+        },
+        {
+            "id": 18,
+            "name": "Pegasus",
+            "char": "R"
+        },
+        {
+            "id": 19,
+            "name": "Sculptor",
+            "char": "S"
+        },
+        {
+            "id": 20,
+            "name": "Pisces",
+            "char": "T"
+        },
+        {
+            "id": 21,
+            "name": "Andromeda",
+            "char": "U"
+        },
+        {
+            "id": 22,
+            "name": "Triangulum",
+            "char": "V"
+        },
+        {
+            "id": 23,
+            "name": "Aries",
+            "char": "W"
+        },
+        {
+            "id": 24,
+            "name": "Perseus",
+            "char": "X"
+        },
+        {
+            "id": 25,
+            "name": "Cetus",
+            "char": "Y"
+        },
+        {
+            "id": 26,
+            "name": "Taurus",
+            "char": "Z"
+        },
+        {
+            "id": 27,
+            "name": "Auriga",
+            "char": "0"
+        },
+        {
+            "id": 28,
+            "name": "Eridanus",
+            "char": "1"
+        },
+        {
+            "id": 29,
+            "name": "Orion",
+            "char": "2"
+        },
+        {
+            "id": 30,
+            "name": "Canis Minor",
+            "char": "3"
+        },
+        {
+            "id": 31,
+            "name": "Monoceros",
+            "char": "4"
+        },
+        {
+            "id": 32,
+            "name": "Gemini",
+            "char": "5"
+        },
+        {
+            "id": 33,
+            "name": "Hydra",
+            "char": "6"
+        },
+        {
+            "id": 34,
+            "name": "Lynx",
+            "char": "7"
+        },
+        {
+            "id": 35,
+            "name": "Cancer",
+            "char": "8"
+        },
+        {
+            "id": 36,
+            "name": "Sextans",
+            "char": "9"
+        },
+        {
+            "id": 37,
+            "name": "Leo",
+            "char": "!"
+        },
+        {
+            "id": 38,
+            "name": "Leo Minor",
+            "char": "@"
+        }
+    ]
+}
