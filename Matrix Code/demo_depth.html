@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Rain | 3D Depth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .info {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #00aa00;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            text-align: center;
+            z-index: 10;
+            text-shadow: 0 0 10px #00ff00;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="matrix"></canvas>
+    <div class="info">3D Parallax Depth Effect</div>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホ0123456789';
+
+        // Create multiple layers with different properties
+        const layers = [
+            { speed: 0.3, size: 10, opacity: 0.15, columns: [], color: '#002200' },  // Far
+            { speed: 0.6, size: 14, opacity: 0.35, columns: [], color: '#004400' },  // Mid-far
+            { speed: 1.0, size: 18, opacity: 0.6, columns: [], color: '#006600' },  // Mid
+            { speed: 1.5, size: 22, opacity: 0.85, columns: [], color: '#00aa00' },  // Near
+            { speed: 2.2, size: 28, opacity: 1.0, columns: [], color: '#00ff00' }   // Closest
+        ];
+
+        // Initialize columns for each layer
+        layers.forEach(layer => {
+            const cols = Math.floor(canvas.width / layer.size);
+            for (let i = 0; i < cols; i++) {
+                layer.columns.push({
+                    x: i * layer.size + (Math.random() * layer.size * 0.5),
+                    y: Math.random() * canvas.height * -1,
+                    chars: generateString(10 + Math.floor(Math.random() * 15))
+                });
+            }
+        });
+
+        function generateString(len) {
+            let str = '';
+            for (let i = 0; i < len; i++) {
+                str += chars[Math.floor(Math.random() * chars.length)];
+            }
+            return str;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            layers.forEach(layer => {
+                ctx.font = `${layer.size}px monospace`;
+                ctx.globalAlpha = layer.opacity;
+
+                layer.columns.forEach(col => {
+                    // Draw the column of characters
+                    for (let i = 0; i < col.chars.length; i++) {
+                        const y = col.y + i * layer.size;
+
+                        if (y > -layer.size && y < canvas.height + layer.size) {
+                            // Gradient: lead char is white, others fade
+                            if (i === col.chars.length - 1) {
+                                ctx.fillStyle = '#ffffff';
+                                ctx.shadowBlur = 15;
+                                ctx.shadowColor = '#00ff00';
+                            } else {
+                                const fade = 1 - (i / col.chars.length);
+                                ctx.fillStyle = layer.color;
+                                ctx.shadowBlur = 0;
+                            }
+
+                            // Randomly change character
+                            if (Math.random() > 0.98) {
+                                col.chars = col.chars.substring(0, i) +
+                                    chars[Math.floor(Math.random() * chars.length)] +
+                                    col.chars.substring(i + 1);
+                            }
+
+                            ctx.fillText(col.chars[i], col.x, y);
+                        }
+                    }
+
+                    // Move column down
+                    col.y += layer.speed;
+
+                    // Reset when off screen
+                    if (col.y > canvas.height + col.chars.length * layer.size) {
+                        col.y = -col.chars.length * layer.size;
+                        col.chars = generateString(10 + Math.floor(Math.random() * 15));
+                    }
+                });
+            });
+
+            ctx.globalAlpha = 1;
+            ctx.shadowBlur = 0;
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+
+</html>
