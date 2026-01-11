@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Rain | Text Reveal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Courier New', monospace;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .controls input {
+            background: rgba(0, 20, 0, 0.8);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 10px 15px;
+            font-family: inherit;
+            font-size: 14px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .controls input:focus {
+            outline: none;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        .controls button {
+            background: transparent;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 10px 20px;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .controls button:hover {
+            background: #00ff00;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="matrix"></canvas>
+
+    <div class="controls">
+        <input type="text" id="message" value="THE MATRIX HAS YOU" placeholder="Enter message...">
+        <button onclick="reveal()">REVEAL</button>
+        <button onclick="reset()">RESET</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        const messageInput = document.getElementById('message');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = 'アイウエオカキクケコ0123456789';
+        const fontSize = 18;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = Array(columns).fill(1);
+
+        let revealedText = '';
+        let revealProgress = 0;
+        let isRevealing = false;
+
+        // Initialize
+        for (let i = 0; i < drops.length; i++) {
+            drops[i] = Math.floor(Math.random() * -20);
+        }
+
+        function reveal() {
+            revealedText = messageInput.value.toUpperCase();
+            revealProgress = 0;
+            isRevealing = true;
+        }
+
+        function reset() {
+            isRevealing = false;
+            revealProgress = 0;
+        }
+
+        function draw() {
+            // Fade
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw rain
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                const brightness = 0.3 + Math.random() * 0.4;
+                ctx.fillStyle = `rgba(0, ${Math.floor(brightness * 200)}, 0, ${brightness})`;
+                ctx.fillText(text, x, y);
+
+                if (y > canvas.height && Math.random() > 0.98) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+
+            // Draw revealed text
+            if (isRevealing && revealProgress < revealedText.length) {
+                revealProgress += 0.05;
+            }
+
+            if (revealProgress > 0) {
+                const visibleChars = Math.floor(revealProgress);
+                const displayText = revealedText.substring(0, visibleChars);
+
+                ctx.font = 'bold 64px monospace';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+
+                // Glow effect
+                ctx.shadowBlur = 30;
+                ctx.shadowColor = '#00ff00';
+                ctx.fillStyle = '#00ff00';
+                ctx.fillText(displayText, canvas.width / 2, canvas.height / 2);
+
+                // Bright outline
+                ctx.shadowBlur = 0;
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 1;
+                ctx.strokeText(displayText, canvas.width / 2, canvas.height / 2);
+
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'alphabetic';
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+
+</html>

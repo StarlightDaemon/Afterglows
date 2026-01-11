@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Rain | Photo Dissolve</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Courier New', monospace;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 10px 20px;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #00ff00;
+            color: #000;
+        }
+
+        .info {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #006600;
+            font-size: 12px;
+            z-index: 10;
+        }
+
+        #fileInput {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="controls">
+        <button class="btn" onclick="document.getElementById('fileInput').click()">📷 LOAD IMAGE</button>
+        <button class="btn" onclick="dissolve()">💀 DISSOLVE</button>
+        <button class="btn" onclick="reassemble()">🔄 REASSEMBLE</button>
+    </div>
+
+    <input type="file" id="fileInput" accept="image/*" onchange="loadImage(event)">
+    <canvas id="matrix"></canvas>
+    <div class="info">Load an image to see it dissolve into the Matrix</div>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = 'アイウエオカキクケコ0123456789';
+
+        let particles = [];
+        let imageLoaded = false;
+        let dissolving = false;
+        let reassembling = false;
+
+        // Background rain
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = Array(columns).fill(1);
+
+        for (let i = 0; i < drops.length; i++) {
+            drops[i] = Math.floor(Math.random() * -20);
+        }
+
+        function loadImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const img = new Image();
+            img.onload = () => {
+                // Calculate centered position
+                const scale = Math.min(
+                    (canvas.width * 0.6) / img.width,
+                    (canvas.height * 0.6) / img.height
+                );
+                const w = img.width * scale;
+                const h = img.height * scale;
+                const x = (canvas.width - w) / 2;
+                const y = (canvas.height - h) / 2;
+
+                // Create offscreen canvas to sample pixels
+                const offscreen = document.createElement('canvas');
+                offscreen.width = w;
+                offscreen.height = h;
+                const offCtx = offscreen.getContext('2d');
+                offCtx.drawImage(img, 0, 0, w, h);
+
+                const imageData = offCtx.getImageData(0, 0, w, h);
+                const data = imageData.data;
+
+                // Create particles from image pixels
+                particles = [];
+                const step = 8; // Sample every N pixels
+
+                for (let py = 0; py < h; py += step) {
+                    for (let px = 0; px < w; px += step) {
+                        const i = (py * w + px) * 4;
+                        const r = data[i];
+                        const g = data[i + 1];
+                        const b = data[i + 2];
+                        const a = data[i + 3];
+
+                        if (a > 128) {
+                            // Convert to green intensity
+                            const brightness = (r + g + b) / 3;
+                            const green = Math.floor(brightness);
+
+                            particles.push({
+                                homeX: x + px,
+                                homeY: y + py,
+                                x: x + px,
+                                y: y + py,
+                                char: chars[Math.floor(Math.random() * chars.length)],
+                                color: `rgb(0, ${green}, 0)`,
+                                velocity: { x: 0, y: 0 },
+                                dissolved: false
+                            });
+                        }
+                    }
+                }
+
+                imageLoaded = true;
+                dissolving = false;
+                reassembling = false;
+            };
+            img.src = URL.createObjectURL(file);
+        }
+
+        function dissolve() {
+            if (!imageLoaded) return;
+            dissolving = true;
+            reassembling = false;
+
+            particles.forEach(p => {
+                p.velocity.x = (Math.random() - 0.5) * 2;
+                p.velocity.y = 1 + Math.random() * 3;
+                p.dissolved = false;
+            });
+        }
+
+        function reassemble() {
+            if (!imageLoaded) return;
+            dissolving = false;
+            reassembling = true;
+        }
+
+        function draw() {
+            // Fade
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Background rain (subtle)
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillStyle = 'rgba(0, 50, 0, 0.3)';
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.99) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+
+            // Draw particles
+            if (imageLoaded) {
+                ctx.font = '10px monospace';
+
+                particles.forEach(p => {
+                    if (dissolving) {
+                        p.x += p.velocity.x;
+                        p.y += p.velocity.y;
+                        p.velocity.y += 0.05; // Gravity
+
+                        // Mark as fully dissolved when off screen
+                        if (p.y > canvas.height) {
+                            p.dissolved = true;
+                        }
+                    } else if (reassembling) {
+                        // Move back to home position
+                        p.x += (p.homeX - p.x) * 0.1;
+                        p.y += (p.homeY - p.y) * 0.1;
+                    }
+
+                    if (!p.dissolved) {
+                        ctx.fillStyle = p.color;
+                        ctx.shadowBlur = 3;
+                        ctx.shadowColor = '#00ff00';
+
+                        // Randomly change character
+                        if (Math.random() > 0.95) {
+                            p.char = chars[Math.floor(Math.random() * chars.length)];
+                        }
+
+                        ctx.fillText(p.char, p.x, p.y);
+                    }
+                });
+
+                ctx.shadowBlur = 0;
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+
+</html>
