@@ -4,266 +4,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Stargate Version Gallery - All iterations and experiments">
+    <meta name="description" content="Stargate Version Gallery - Timeline View">
     <meta name="author" content="StarlightDaemon">
-    <title>Stargate | Version Gallery</title>
+    <title>Stargate | Version Timeline</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../theme-toggle.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <style>
-        /* Override poster ratio for gallery - allow content to determine height */
-        .project-card {
-            aspect-ratio: unset !important;
-            overflow: visible !important;
+        /* Timeline Gallery Styles */
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-lg) 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        /* Main vertical line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
+        }
+
+        /* Timeline section */
+        .timeline-section {
+            position: relative;
+            margin-bottom: var(--space-xl);
+        }
+
+        /* Node dot */
+        .timeline-node {
+            position: absolute;
+            left: -33px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-primary);
+            border: 2px solid var(--bg-primary);
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .timeline-node.stable {
+            background: #00cc00;
+            box-shadow: 0 0 8px rgba(0, 204, 0, 0.5);
+        }
+
+        .timeline-node.experimental {
+            background: #ff7700;
+            box-shadow: 0 0 8px rgba(255, 119, 0, 0.5);
+        }
+
+        .timeline-node.archived {
+            background: #666;
+            box-shadow: none;
+        }
+
+        /* Version card */
+        .version-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-default);
+            padding: var(--space-md);
+            margin-bottom: var(--space-sm);
+            transition: all var(--transition-fast);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .version-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateX(4px);
+            box-shadow: -4px 0 0 var(--accent-primary);
+        }
+
+        .version-info h3 {
+            font-size: var(--text-base);
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .version-info p {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Status badges */
+        .status-badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .status-badge.stable {
+            background: #00cc00;
+            color: #000;
+        }
+
+        .status-badge.experimental {
+            background: rgba(255, 119, 0, 0.2);
+            border: 1px solid #ff7700;
+            color: #ff7700;
+        }
+
+        .status-badge.archived {
+            background: rgba(100, 100, 100, 0.2);
+            border: 1px solid #666;
+            color: #999;
+        }
+
+        /* Launch button */
+        .launch-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+            font-family: inherit;
+            font-size: var(--text-sm);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .launch-btn:hover {
+            background: var(--accent-primary);
+            color: #000;
+        }
+
+        /* Sub-versions */
+        .sub-versions {
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 1px dashed var(--border-default);
+        }
+
+        .sub-versions .version-card {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Section header */
+        .section-header {
+            font-size: var(--text-lg);
+            color: var(--accent-primary);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--border-default);
+        }
+
+        /* Back link */
+        .back-nav {
+            margin-bottom: var(--space-xl);
+        }
+
+        .back-nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .back-nav a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Legend */
+        .timeline-legend {
+            display: flex;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            padding: var(--space-md);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-default);
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+        }
+
+        .legend-dot.stable {
+            background: #00cc00;
+        }
+
+        .legend-dot.experimental {
+            background: #ff7700;
+        }
+
+        .legend-dot.archived {
+            background: #666;
         }
     </style>
 </head>
 
 <body>
-    <!-- Unified Sticky Header -->
     <header class="site-header">
         <div class="logo">
-            <a href="https://starlightdaemon.github.io/" aria-label="Back to StarlightDaemon Main Page">
+            <a href="https://starlightdaemon.github.io/" aria-label="Back to StarlightDaemon">
                 <img src="https://starlightdaemon.github.io/assets/thinker-logo.png" alt="StarlightDaemon Logo" />
             </a>
         </div>
-
         <div class="header-center">
-            <h1 class="header-title">Stargate Gallery</h1>
-            <p class="header-tagline">Version Archive & Experiments</p>
+            <h1 class="header-title">Stargate Timeline</h1>
+            <p class="header-tagline">Version Evolution & Experiments</p>
         </div>
     </header>
 
     <div class="page-wrapper">
         <main class="main-content">
+            <div class="timeline-container">
 
-            <!-- Back Link -->
-            <div style="margin-bottom: var(--space-lg);">
-                <a href="../index.html" class="project-link"
-                    style="display: inline-flex; align-items: center; gap: 8px;">
-                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M19 12H5M12 19l-7-7 7-7" />
-                    </svg>
-                    Back to Afterglows
-                </a>
+                <nav class="back-nav">
+                    <a href="../index.html">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
+                        </svg>
+                        Back to Afterglows
+                    </a>
+                </nav>
+
+                <div class="timeline-legend">
+                    <div class="legend-item"><span class="legend-dot stable"></span> Stable</div>
+                    <div class="legend-item"><span class="legend-dot experimental"></span> Experimental</div>
+                    <div class="legend-item"><span class="legend-dot archived"></span> Archived</div>
+                </div>
+
+                <div class="timeline">
+
+                    <!-- MARK 3 -->
+                    <div class="timeline-section">
+                        <div class="timeline-node stable"></div>
+                        <div class="section-header">> MARK 3</div>
+
+                        <div class="version-card">
+                            <div class="version-info">
+                                <h3>Mark 3 v1.0 <span class="status-badge stable">Stable</span></h3>
+                                <p>Side-panel layout with state machine engine and ring physics</p>
+                            </div>
+                            <a href="dialingsystem.html" class="launch-btn">> LAUNCH</a>
+                        </div>
+
+                        <div class="sub-versions">
+                            <div class="version-card">
+                                <div class="version-info">
+                                    <h3>Rotary UI (A2-2) <span class="status-badge experimental">Experimental</span>
+                                    </h3>
+                                    <p>Segmented rotary selector with signal analyzer</p>
+                                </div>
+                                <a href="mark3/index.html" class="launch-btn">> VIEW</a>
+                            </div>
+
+                            <div class="version-card">
+                                <div class="version-info">
+                                    <h3>Mark 3 Archive <span class="status-badge archived">Archive</span></h3>
+                                    <p>Pre-rotary backup for rollback</p>
+                                </div>
+                                <a href="mark3/index_backup_v1.html" class="launch-btn">> VIEW</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MARK 2 -->
+                    <div class="timeline-section">
+                        <div class="timeline-node archived"></div>
+                        <div class="section-header">> MARK 2</div>
+
+                        <div class="version-card">
+                            <div class="version-info">
+                                <h3>Mark 2 (v2.0) <span class="status-badge archived">Legacy</span></h3>
+                                <p>Centered LCD-style layout with retro terminal aesthetic</p>
+                            </div>
+                            <a href="index.html" class="launch-btn">> VIEW</a>
+                        </div>
+                    </div>
+
+                    <!-- MARK 1 -->
+                    <div class="timeline-section">
+                        <div class="timeline-node archived"></div>
+                        <div class="section-header">> MARK 1</div>
+
+                        <div class="version-card">
+                            <div class="version-info">
+                                <h3>LCD Retro v1 <span class="status-badge archived">Prototype</span></h3>
+                                <p>Early LCD variant with heavy CRT effects</p>
+                            </div>
+                            <a href="afterglow_lcd_retro_v1.html" class="launch-btn">> VIEW</a>
+                        </div>
+                    </div>
+
+                    <!-- DESIGN REFS -->
+                    <div class="timeline-section">
+                        <div class="timeline-node experimental"></div>
+                        <div class="section-header">> DESIGN REFS</div>
+
+                        <div class="version-card">
+                            <div class="version-info">
+                                <h3>Variations Gallery <span class="status-badge experimental">Reference</span></h3>
+                                <p>10 retro visual style variations</p>
+                            </div>
+                            <a href="stargate_variations.html" class="launch-btn">> VIEW</a>
+                        </div>
+
+                        <div class="version-card">
+                            <div class="version-info">
+                                <h3>Header Mockups <span class="status-badge experimental">Reference</span></h3>
+                                <p>UI/UX design explorations</p>
+                            </div>
+                            <a href="header_mockups.html" class="launch-btn">> VIEW</a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-
-            <!-- Current Mainline -->
-            <section class="projects" id="mainline">
-                <h2>✅ Current Mainline</h2>
-                <div class="projects-grid">
-                    <article class="project-card">
-                        <div class="project-header">
-                            <h3>Mark 3 v1.0</h3>
-                            <span class="project-status status-active">Stable</span>
-                        </div>
-                        <p class="project-description">
-                            Side-panel control layout with 75/25 split. Features state machine engine, ring rotation
-                            physics,
-                            and dynamic mode selection (7/8/9 chevron). Clean terminal aesthetic.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">State Machine</span>
-                            <span class="tech-tag">Ring Physics</span>
-                            <span class="tech-tag">Multi-Mode</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="dialingsystem.html" class="project-link">
-                                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                                    <polyline points="15 3 21 3 21 9" />
-                                    <line x1="10" y1="14" x2="21" y2="3" />
-                                </svg>
-                                Launch Demo
-                            </a>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <!-- Experimental Variants -->
-            <section class="projects" id="experimental">
-                <h2>🔬 Experimental Variants</h2>
-                <div class="projects-grid">
-                    <article class="project-card">
-                        <div class="project-header">
-                            <h3>Rotary UI (A2-2)</h3>
-                            <span class="project-status status-beta">Experimental</span>
-                        </div>
-                        <p class="project-description">
-                            Segmented control panel with digital rotary mode selector, signal strength analyzer, and
-                            compact vertical layout.
-                            Enhanced glows and frame-style engage button.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Rotary Selector</span>
-                            <span class="tech-tag">Signal Graph</span>
-                            <span class="tech-tag">Compact</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="mark3/index.html" class="project-link">
-                                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                                    <polyline points="15 3 21 3 21 9" />
-                                    <line x1="10" y1="14" x2="21" y2="3" />
-                                </svg>
-                                Launch Demo
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-header">
-                            <h3>Mark 3 Archive</h3>
-                            <span class="project-status status-archived">Archive</span>
-                        </div>
-                        <p class="project-description">
-                            Original Mark 3 implementation before rotary UI refactor. Preserved for historical reference
-                            and rollback capability.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Archive</span>
-                            <span class="tech-tag">Reference</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="mark3/index_backup_v1.html" class="project-link">
-                                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                                    <polyline points="15 3 21 3 21 9" />
-                                    <line x1="10" y1="14" x2="21" y2="3" />
-                                </svg>
-                                View Archive
-                            </a>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <!-- Legacy Versions -->
-            <section class="projects" id="legacy">
-                <h2>📦 Legacy Versions</h2>
-                <div class="projects-grid">
-                    <article class="project-card">
-                        <div class="project-header">
-                            <h3>Mark 2 (v2.0)</h3>
-                            <span class="project-status status-archived">Legacy</span>
-                        </div>
-                        <p class="project-description">
-                            Centered LCD-style layout with enhanced retro terminal aesthetic. Responsive stargate sizing
-                            with clean footer controls.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">LCD Style</span>
-                            <span class="tech-tag">Centered</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="index.html" class="project-link">
-                                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                                    <polyline points="15 3 21 3 21 9" />
-                                    <line x1="10" y1="14" x2="21" y2="3" />
-                                </svg>
-                                View Legacy
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-header">
-                            <h3>LCD Retro v1</h3>
-                            <span class="project-status status-archived">Legacy</span>
-                        </div>
-                        <p class="project-description">
-                            Early LCD-inspired variant with heavy CRT effects and monochrome green aesthetic.
-                            Experimental prototype.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">CRT Effects</span>
-                            <span class="tech-tag">Prototype</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="afterglow_lcd_retro_v1.html" class="project-link">
-                                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                                    <polyline points="15 3 21 3 21 9" />
-                                    <line x1="10" y1="14" x2="21" y2="3" />
-                                </svg>
-                                View Prototype
-                            </a>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <!-- Design Galleries -->
-            <section class="projects" id="galleries">
-                <h2>🎨 Design Galleries</h2>
-                <div class="projects-grid">
-                    <article class="project-card">
-                        <div class="project-header">
-                            <h3>Variations (10 Styles)</h3>
-                            <span class="project-status status-maintained">Reference</span>
-                        </div>
-                        <p class="project-description">
-                            Collection of 10 retro visual style variations: pixel art, CRT scanlines, amber terminal,
-                            wireframe, dithered, glitch effects.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">10 Styles</span>
-                            <span class="tech-tag">Visual Design</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="stargate_variations.html" class="project-link">
-                                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                                    <polyline points="15 3 21 3 21 9" />
-                                    <line x1="10" y1="14" x2="21" y2="3" />
-                                </svg>
-                                View Gallery
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-header">
-                            <h3>Header Mockups</h3>
-                            <span class="project-status status-maintained">Reference</span>
-                        </div>
-                        <p class="project-description">
-                            Design exploration of different header and control panel layouts. Research and iteration
-                            documentation for UI/UX.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">UI Research</span>
-                            <span class="tech-tag">Mockups</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="header_mockups.html" class="project-link">
-                                <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                                    <polyline points="15 3 21 3 21 9" />
-                                    <line x1="10" y1="14" x2="21" y2="3" />
-                                </svg>
-                                View Mockups
-                            </a>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
         </main>
     </div>
 </body>
