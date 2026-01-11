@@ -31,7 +31,7 @@ YourPrototype/
 
 ### Code Style
 
-This is a creative playground - there's no strict style guide. However:
+This is a creative laboratory - there's no strict style guide. However:
 - **Prefer vanilla CSS/JS** over frameworks when possible
 - **Comment complex logic** so others can learn from it
 - **Keep file sizes reasonable** (no large binary assets without good reason)

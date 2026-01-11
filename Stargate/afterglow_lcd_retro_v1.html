@@ -4,37 +4,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro LCD Stargate - Functional</title>
+    <title>Retro LCD Stargate - Modular Edition</title>
     <style>
+        /* ============================================
+           DESIGN TOKENS - Adjust these to customize
+           ============================================ */
         :root {
+            /* Colors */
             --lcd-green: #00ff41;
             --lcd-off: #003311;
             --bg-dark: #0a0a0a;
+            --bg-black: #000;
+
+            /* Responsive Sizing - Everything scales from this */
+            --stargate-size: min(600px, 80vw);
+            --stargate-radius: calc(var(--stargate-size) / 2);
+
+            /* Derived Sizes */
+            --terminal-padding: max(10px, 2vw);
+            --terminal-border: 4px;
+            --header-font-size: clamp(12px, 2vw, 16px);
+            --footer-font-size: clamp(10px, 1.5vw, 14px);
+        }
+
+        /* ============================================
+           LAYER 0: Page Foundation
+           ============================================ */
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            background: #000;
+            background: var(--bg-black);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            overflow: hidden;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
         }
 
-        /* The "Code Window" Container */
+        /* ============================================
+           LAYER 1: Terminal Container (Border Frame)
+           ============================================ */
         .terminal {
             background: var(--bg-dark);
-            border: 4px solid var(--lcd-green);
-            padding: 10px;
-            font-family: 'Courier New', monospace;
+            border: var(--terminal-border) solid var(--lcd-green);
+            padding: var(--terminal-padding);
             color: var(--lcd-green);
             box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-            width: 400px;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 80vh;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Screen Flicker & Scanlines */
+        /* Scanline \u0026 CRT Flicker Effect */
         .terminal::before {
             content: " ";
             display: block;
@@ -43,7 +71,8 @@
             left: 0;
             bottom: 0;
             right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             z-index: 20;
             background-size: 100% 2px, 3px 100%;
             pointer-events: none;
@@ -60,15 +89,18 @@
             }
         }
 
+        /* ============================================
+           LAYER 2: UI Header \u0026 Footer
+           ============================================ */
         .header {
             border-bottom: 2px dashed var(--lcd-green);
             padding-bottom: 10px;
             margin-bottom: 10px;
             text-shadow: 2px 0 rgba(255, 0, 0, 0.5), -2px 0 rgba(0, 0, 255, 0.5);
-            /* Chromatic Aberration */
             font-weight: bold;
             display: flex;
             justify-content: space-between;
+            font-size: var(--header-font-size);
         }
 
         .footer {
@@ -78,6 +110,7 @@
             text-align: center;
             text-shadow: 0 0 5px var(--lcd-green);
             cursor: pointer;
+            font-size: var(--footer-font-size);
         }
 
         .footer:hover {
@@ -85,21 +118,31 @@
             color: #fff;
         }
 
-        /* The Gate Geometry */
+        /* ============================================
+           LAYER 3: LCD Screen Area (Canvas)
+           ============================================ */
         .lcd-screen {
             position: relative;
-            height: 260px;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 400px;
+            padding: max(30px, 5vh) max(20px, 3vw);
         }
 
+        /* ============================================
+           LAYER 4: Stargate Container
+           ============================================ */
         .stargate {
-            width: 200px;
-            height: 200px;
+            width: var(--stargate-size);
+            height: var(--stargate-size);
             position: relative;
         }
 
+        /* ============================================
+           LAYER 5: Gate Rings
+           ============================================ */
         .ring {
             border-radius: 50%;
             position: absolute;
@@ -125,22 +168,22 @@
             transition: transform 0.5s cubic-bezier(0.5, 0, 0.5, 1);
         }
 
-        .spinning {
-            /* Used during spin phase */
-        }
-
-        /* Chevrons */
+        /* ============================================
+           LAYER 6: Chevrons (Address Locks)
+           ============================================ */
         .chevron {
             position: absolute;
-            width: 16px;
-            height: 10px;
+            /* Chevron size scales with stargate */
+            width: calc(var(--stargate-size) * 0.08);
+            height: calc(var(--stargate-size) * 0.05);
             background: var(--bg-dark);
             border: 2px solid var(--lcd-green);
-            top: -6px;
+            /* Position at top of outer ring */
+            top: calc(var(--stargate-size) * -0.03);
             left: 50%;
-            margin-left: -8px;
-            transform-origin: center 106px;
-            /* 100px radius + 6px offset */
+            margin-left: calc(var(--stargate-size) * -0.04);
+            /* Transform origin = center + radius + offset */
+            transform-origin: center calc(var(--stargate-radius) + (var(--stargate-size) * 0.03));
             transition: all 0.2s;
             z-index: 5;
         }
@@ -150,6 +193,7 @@
             box-shadow: 0 0 15px var(--lcd-green);
         }
 
+        /* Chevron Positions (9 total, evenly spaced) */
         .c1 {
             transform: rotate(0deg);
         }
@@ -186,7 +230,9 @@
             transform: rotate(320deg);
         }
 
-        /* The Event Horizon */
+        /* ============================================
+           LAYER 7: Event Horizon (Wormhole Portal)
+           ============================================ */
         .event-horizon {
             position: absolute;
             top: 15%;
@@ -244,15 +290,22 @@
 
 <body>
 
+    <!-- ============================================
+         DOM STRUCTURE - Layered Components
+         ============================================ -->
     <div class="terminal">
+        <!-- UI Layer -->
         <div class="header">
             <span>SG-1 TERMINAL</span>
             <span id="status">IDLE</span>
         </div>
 
+        <!-- Canvas Layer -->
         <div class="lcd-screen">
             <div class="stargate">
+                <!-- Ring Layer -->
                 <div class="ring outer-ring">
+                    <!-- Chevron Layer -->
                     <div class="chevron c1" id="c1"></div>
                     <div class="chevron c2" id="c2"></div>
                     <div class="chevron c3" id="c3"></div>
@@ -264,18 +317,23 @@
                     <div class="chevron c9" id="c9"></div>
                 </div>
                 <div class="ring inner-ring" id="innerRing"></div>
+                <!-- Event Horizon Layer -->
                 <div class="event-horizon" id="horizon"></div>
             </div>
         </div>
 
+        <!-- Footer UI -->
         <div class="footer" onclick="dialSequence()">[ INITIATE CONNECTION ]</div>
     </div>
 
     <script>
+        /* ============================================
+           STARGATE DIALING LOGIC
+           ============================================ */
         const innerRing = document.getElementById('innerRing');
         const horizon = document.getElementById('horizon');
         const statusText = document.getElementById('status');
-        const chevrons = [1, 2, 3, 4, 5, 6, 7].map(i => document.getElementById('c' + i)); // Use 7 chevrons for dialing
+        const chevrons = [1, 2, 3, 4, 5, 6, 7].map(i => document.getElementById('c' + i));
 
         let isDialing = false;
         let currentRotation = 0;
@@ -284,7 +342,7 @@
             if (isDialing) return;
             isDialing = true;
 
-            // Reset
+            // Reset state
             horizon.className = 'event-horizon';
             chevrons.forEach(c => c.classList.remove('locked'));
             statusText.innerText = "DIALING...";
@@ -293,9 +351,9 @@
 
             // Dial 7 Chevrons
             for (let i = 0; i < 7; i++) {
-                // Spin Ring
+                // Randomize spin amount for realism
                 let spinAmount = Math.floor(Math.random() * 100) + 50;
-                // Alternate direction
+                // Alternate spin direction
                 if (i % 2 === 0) currentRotation += spinAmount;
                 else currentRotation -= spinAmount;
 
@@ -304,17 +362,17 @@
 
                 statusText.innerText = `ENCODING CHEVRON ${i + 1}...`;
 
-                // Wait for spin
+                // Wait for ring spin
                 await new Promise(r => setTimeout(r, 1000));
 
-                // Lock Chevron
+                // Lock chevron
                 chevrons[i].classList.add('locked');
 
-                // Short pause
+                // Brief pause
                 await new Promise(r => setTimeout(r, 200));
             }
 
-            // Engage
+            // Engage wormhole
             statusText.innerText = "WORMHOLE ACTIVE";
             horizon.classList.add('kawoosh');
             await new Promise(r => setTimeout(r, 1000));
