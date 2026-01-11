@@ -14,9 +14,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
 
     <style>
-        /* Timeline Gallery Styles */
+        /* Timeline Gallery Styles - Refined Circuit Layout */
         .timeline-container {
             max-width: 900px;
             margin: 0 auto;
@@ -25,71 +28,130 @@
 
         .timeline {
             position: relative;
-            padding-left: 40px;
+            padding-left: 60px;
+            /* More space for branching arms */
         }
 
-        /* Main vertical line */
+        /* Main vertical trunk */
         .timeline::before {
             content: '';
             position: absolute;
-            left: 15px;
+            left: 19px;
+            /* Centered on the 4px border */
             top: 0;
             bottom: 0;
-            width: 2px;
-            background: var(--accent-primary);
-            box-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
+            width: 4px;
+            background: var(--bg-card);
+            border-left: 2px solid var(--accent-primary);
+            border-right: 2px solid var(--accent-primary);
+            box-shadow: 0 0 15px var(--accent-glow);
+            z-index: 0;
         }
 
         /* Timeline section */
         .timeline-section {
             position: relative;
             margin-bottom: var(--space-xl);
+            padding-left: 20px;
         }
 
-        /* Node dot */
+        /* Node dot on trunk */
         .timeline-node {
             position: absolute;
-            left: -33px;
-            top: 8px;
-            width: 12px;
-            height: 12px;
-            background: var(--accent-primary);
-            border: 2px solid var(--bg-primary);
-            box-shadow: 0 0 8px var(--accent-glow);
+            left: -48px;
+            /* Aligned with trunk center */
+            top: 28px;
+            /* Aligned with card center */
+            width: 16px;
+            height: 16px;
+            background: var(--bg-primary);
+            border: 2px solid var(--accent-primary);
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
         .timeline-node.stable {
             background: #00cc00;
-            box-shadow: 0 0 8px rgba(0, 204, 0, 0.5);
+            border-color: #00cc00;
+            box-shadow: 0 0 15px rgba(0, 204, 0, 0.8);
         }
 
         .timeline-node.experimental {
             background: #ff7700;
-            box-shadow: 0 0 8px rgba(255, 119, 0, 0.5);
+            border-color: #ff7700;
+            box-shadow: 0 0 15px rgba(255, 119, 0, 0.8);
         }
 
         .timeline-node.archived {
             background: #666;
+            border-color: #666;
             box-shadow: none;
         }
 
-        /* Version card */
+        /* Section Header */
+        .section-header {
+            font-size: var(--text-lg);
+            color: var(--accent-primary);
+            margin-bottom: var(--space-md);
+            margin-left: -20px;
+            /* Align with cards */
+            opacity: 0.8;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        /* Version card - Terminal Box Style */
         .version-card {
-            background: var(--bg-card);
+            background: rgba(10, 15, 10, 0.9);
             border: 1px solid var(--border-default);
             padding: var(--space-md);
-            margin-bottom: var(--space-sm);
+            margin-bottom: var(--space-md);
             transition: all var(--transition-fast);
             display: grid;
             grid-template-columns: 1fr auto;
             gap: var(--space-sm);
             align-items: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Connector Arm (Trunk to Card) */
+        .version-card::before {
+            content: '';
+            position: absolute;
+            left: -42px;
+            /* Reach back to node */
+            top: 50%;
+            width: 42px;
+            height: 2px;
+            background: var(--accent-primary);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        /* Corner for connector arm (optional tech detail) */
+        .version-card::after {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-primary);
+            transform: translate(0, -50%) rotate(45deg);
         }
 
         .version-card:hover {
             border-color: var(--accent-primary);
             transform: translateX(4px);
-            box-shadow: -4px 0 0 var(--accent-primary);
+            box-shadow: -4px 0 15px var(--accent-glow);
+            z-index: 5;
+        }
+
+        .version-card:hover::before {
+            opacity: 1;
+            box-shadow: 0 0 8px var(--accent-glow);
         }
 
         .version-info h3 {
@@ -106,6 +168,7 @@
             font-size: var(--text-sm);
             color: var(--text-muted);
             margin: 0;
+            font-family: 'Space Mono', monospace;
         }
 
         /* Status badges */
@@ -115,68 +178,78 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
+            border-radius: 2px;
         }
 
         .status-badge.stable {
-            background: #00cc00;
-            color: #000;
+            background: rgba(0, 204, 0, 0.1);
+            border: 1px solid #00cc00;
+            color: #00cc00;
         }
 
         .status-badge.experimental {
-            background: rgba(255, 119, 0, 0.2);
+            background: rgba(255, 119, 0, 0.1);
             border: 1px solid #ff7700;
             color: #ff7700;
         }
 
         .status-badge.archived {
-            background: rgba(100, 100, 100, 0.2);
+            background: rgba(100, 100, 100, 0.1);
             border: 1px solid #666;
-            color: #999;
+            color: #888;
         }
 
-        /* Launch button */
+        /* Launch button - Tech Style */
         .launch-btn {
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 8px 16px;
-            background: transparent;
+            padding: 6px 14px;
+            background: rgba(0, 255, 65, 0.05);
             border: 1px solid var(--accent-primary);
             color: var(--accent-primary);
-            font-family: inherit;
-            font-size: var(--text-sm);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
             cursor: pointer;
             text-decoration: none;
             transition: all var(--transition-fast);
             white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .launch-btn:hover {
             background: var(--accent-primary);
             color: #000;
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
-        /* Sub-versions */
+        /* Sub-versions (Experimental Branches) */
         .sub-versions {
-            margin-left: 20px;
-            padding-left: 20px;
-            border-left: 1px dashed var(--border-default);
+            margin-left: 0;
+            /* Align with parent cards vertically */
+            padding-left: 0;
+            border-left: none;
+            position: relative;
         }
 
+        /* Fork Line for sub-versions */
         .sub-versions .version-card {
-            background: rgba(0, 0, 0, 0.3);
+            margin-left: 40px;
+            /* Indent */
+            border-style: dashed;
         }
 
-        /* Section header */
-        .section-header {
-            font-size: var(--text-lg);
-            color: var(--accent-primary);
-            margin-bottom: var(--space-md);
-            padding-bottom: var(--space-sm);
-            border-bottom: 1px solid var(--border-default);
+        .sub-versions .version-card::before {
+            width: 82px;
+            /* Longer arm for indented cards */
+            left: -82px;
+            border-bottom: 2px dashed var(--accent-primary);
+            background: none;
+            /* Use border for dashed line */
         }
 
-        /* Back link */
+        /* Back link & Legend (Unchanged) */
         .back-nav {
             margin-bottom: var(--space-xl);
         }
@@ -194,7 +267,6 @@
             color: var(--accent-primary);
         }
 
-        /* Legend */
         .timeline-legend {
             display: flex;
             gap: var(--space-lg);
@@ -216,14 +288,17 @@
         .legend-dot {
             width: 10px;
             height: 10px;
+            border-radius: 50%;
         }
 
         .legend-dot.stable {
             background: #00cc00;
+            box-shadow: 0 0 5px #00cc00;
         }
 
         .legend-dot.experimental {
             background: #ff7700;
+            box-shadow: 0 0 5px #ff7700;
         }
 
         .legend-dot.archived {
@@ -267,7 +342,7 @@
 
                 <div class="timeline">
 
-                    <!-- MARK 3 -->
+                    <!-- MARK 3 - STATE MACHINE & DOM -->
                     <div class="timeline-section">
                         <div class="timeline-node stable"></div>
                         <div class="section-header">> MARK 3 [STATE ENGINE]</div>
