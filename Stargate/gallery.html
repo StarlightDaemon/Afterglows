@@ -249,22 +249,37 @@
             /* Use border for dashed line */
         }
 
-        /* Back link & Legend (Unchanged) */
-        .back-nav {
-            margin-bottom: var(--space-xl);
+
+        /* Fixed Footer Navigation */
+        .fixed-footer {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            background: rgba(10, 15, 12, 0.9);
+            border: 1px solid var(--accent-primary);
+            padding: 10px 20px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            transition: all var(--transition-fast);
         }
 
-        .back-nav a {
+        .fixed-footer a {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            color: var(--text-muted);
+            gap: 10px;
+            color: var(--accent-primary);
             text-decoration: none;
-            transition: color var(--transition-fast);
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .back-nav a:hover {
-            color: var(--accent-primary);
+        .fixed-footer:hover {
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-2px);
+            background: rgba(0, 30, 10, 0.95);
         }
 
         .timeline-legend {
@@ -324,15 +339,7 @@
         <main class="main-content">
             <div class="timeline-container">
 
-                <nav class="back-nav">
-                    <a href="../index.html">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7" />
-                        </svg>
-                        Back to Afterglows
-                    </a>
-                </nav>
+
 
                 <div class="timeline-legend">
                     <div class="legend-item"><span class="legend-dot stable"></span> Stable</div>
@@ -429,6 +436,14 @@
             </div>
         </main>
     </div>
+    <footer class="fixed-footer">
+        <a href="../index.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Back to Afterglows
+        </a>
+    </footer>
 </body>
 
 </html>
