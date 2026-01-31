@@ -31,7 +31,7 @@ The "Afterglows" root functionality is purely a **Launcher/Indexer**. It does no
 
 **Boundaries:**
 - The root `index.html`, `package.json`, `assets/`, and `docs/` constitute the **Tooling**.
-- All other directories (`Matrix Code/`, `Retro/`, `concepts/`) are **Content**.
+- All other directories (`matrix_code/`, `retro/`, `concepts/`) are **Content**.
 
 ---
 
@@ -39,8 +39,8 @@ The "Afterglows" root functionality is purely a **Launcher/Indexer**. It does no
 
 | Grave | Path | Category | Type | Stack | Status | Confidence | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Matrix Code** | `/Matrix Code` | Content | Lib / Demo | CSS, HTML | Stable | High | Standalone CSS library. |
-| **Retro** | `/Retro` | Content | Lib / Demo | CSS, HTML | Stable | High | CRT/Scanline effect library. |
+| **Matrix Code** | `/matrix_code` | Content | Lib / Demo | CSS, HTML | Stable | High | Standalone CSS library. |
+| **Retro** | `/retro` | Content | Lib / Demo | CSS, HTML | Stable | High | CRT/Scanline effect library. |
 | **Concepts** | `/concepts` | Content | Archive | CSS, HTML | Abandoned | High | "Graveyard" of 30+ header ideas. |
 | **Stargate** | *MISSING* | **LOST** | App | JS, Canvas | **MISSING** | High | **CRITICAL:** Folder not found. |
 | **_archive** | `/_archive` | Archive | Old Site | HTML | Legacy | High | Contains Beta index. |
@@ -50,7 +50,7 @@ The "Afterglows" root functionality is purely a **Launcher/Indexer**. It does no
 ## 4. Per-Grave Detail Sections
 
 ### 4.1. Matrix Code
-- **Path:** `/mnt/e/Afterglows/Matrix Code`
+- **Path:** `/mnt/e/Afterglows/matrix_code`
 - **Category:** (B) AFTERGLOWS CONTENT GRAVES
 - **Type:** Library / CSS
 - **Stack:** CSS (Variables), HTML
@@ -62,7 +62,7 @@ The "Afterglows" root functionality is purely a **Launcher/Indexer**. It does no
 - **Confidence:** High.
 
 ### 4.2. Retro
-- **Path:** `/mnt/e/Afterglows/Retro`
+- **Path:** `/mnt/e/Afterglows/retro`
 - **Category:** (B) AFTERGLOWS CONTENT GRAVES
 - **Type:** Library / CSS
 - **Stack:** CSS (Variables), HTML

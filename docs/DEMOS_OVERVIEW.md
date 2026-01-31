@@ -4,7 +4,7 @@ This directory contains a collection of web experiments, prototypes, and visual 
 
 ## 📂 Directories
 
-### 1. [Matrix Code](./Matrix%20Code/README.md)
+### 1. [Matrix Code](./matrix_code/README.md)
 *   **Description**: A standalone CSS library for Matrix digital rain and cyberpunk effects.
 *   **Key File**: `matrix_tools.css`
 
@@ -12,7 +12,7 @@ This directory contains a collection of web experiments, prototypes, and visual 
 *   **Description**: A gallery of 30+ header terminal concepts (Radar, DNA, Grid, etc.) that were explored before the final Stargate selection.
 *   **Key File**: `all_concepts_gallery.html`
 
-### 3. [Retro](./Retro/README.md)
+### 3. [Retro](./retro/README.md)
 *   **Description**: A toolkit for CRT monitor effects, including scanlines, phosphor glow, and screen curvature.
 *   **Key File**: `crt_tools.css`
 
