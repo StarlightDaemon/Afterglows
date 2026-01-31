@@ -1,17 +1,24 @@
 # Afterglows
 
-An archive of web experiments, prototypes, and visual effects libraries. This repository acts as a long-term home for artifacts that have ongoing value.
+> *Where old code goes to dream.*
 
-## About
+This repository is a permanent gallery for visual experiments, prototypes, and effects that have graduated from active research. These artifacts are preserved as static, standalone implementations—kept alive for reference, nostalgia, and inspiration.
 
-This repository serves as a permanent gallery for visual experiments that have graduated from active r&d but remain valuable references. These artifacts are maintained as static, standalone implementations using vanilla web technologies to ensure long-term preservation without dependency rot.
+---
 
-## Contents
+### **The Collection**
 
-- **Matrix Code**: A standalone CSS library for digital rain and cyberpunk text effects.
-- **Retro**: A toolkit for CRT monitor effects, including scanlines and phosphor glow.
-- **Concepts**: An archive of experimental header animations and UI concepts.
+#### 🟢 **Matrix Code**
+A standalone CSS & JS library for digital rain, cyberpunk typography, and terminal aesthetics.
 
-### Note on Stargate
+#### 📺 **Retro**
+A toolkit for high-fidelity CRT monitor simulation, including scanlines, phosphor persistence, and screen curvature.
 
-The **Stargate** project has been promoted to its own dedicated workspace. It is no longer maintained in this repository.
+#### 🧪 **Concepts**
+An archive of experimental UI motions, header animations, and interaction models that never made it to production.
+
+---
+
+> [!NOTE]
+> **Looking for Stargate?**
+> The Stargate project has ascended to its own dedicated workspace. It is no longer maintained here.
