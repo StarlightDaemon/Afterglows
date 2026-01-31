@@ -207,21 +207,53 @@
         /* 7. Constellation */
         .stars {
             position: relative;
-            width: 60px;
-            height: 60px;
+            width: 100px;
+            height: 100px;
         }
 
         .star-dot {
-            width: 3px;
-            height: 3px;
+            width: 4px;
+            height: 4px;
             background: var(--accent);
+            border-radius: 50%;
             position: absolute;
-            animation: blink 2s infinite;
+            box-shadow: 0 0 4px var(--accent);
+            animation: twinkle 2s ease-in-out infinite;
         }
 
-        @keyframes blink {
+        .star-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .star-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .star-dot:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        .star-dot:nth-child(5) {
+            animation-delay: 1.2s;
+        }
+
+        .star-dot:nth-child(6) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                box-shadow: 0 0 4px var(--accent);
+            }
+
             50% {
-                opacity: 0.3
+                opacity: 0.2;
+                transform: scale(0.6);
+                box-shadow: 0 0 2px var(--accent);
             }
         }
 
@@ -294,18 +326,80 @@
         /* 10. Heavy Matrix */
         .dense-m {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             width: 100%;
+            height: 100%;
             padding: 0 5px;
-            font-size: 8px;
-            line-height: 8px;
-            color: var(--accent);
-            writing-mode: vertical-rl;
-            text-orientation: upright;
+            overflow: hidden;
         }
 
         .dc {
-            animation: fall 1.5s infinite;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            font-size: 9px;
+            line-height: 1;
+            color: var(--accent);
+            animation: matrix-fall 2s linear infinite;
+            text-shadow: 0 0 5px var(--accent);
+            opacity: 0.9;
+            white-space: nowrap;
+            /* Ensure text doesn't wrap oddly */
+        }
+
+        .dc:nth-child(1) {
+            animation-duration: 1.5s;
+            animation-delay: 0s;
+        }
+
+        .dc:nth-child(2) {
+            animation-duration: 2.0s;
+            animation-delay: 0.2s;
+        }
+
+        .dc:nth-child(3) {
+            animation-duration: 1.3s;
+            animation-delay: 0.5s;
+        }
+
+        .dc:nth-child(4) {
+            animation-duration: 1.8s;
+            animation-delay: 0.1s;
+        }
+
+        .dc:nth-child(5) {
+            animation-duration: 1.4s;
+            animation-delay: 0.4s;
+        }
+
+        .dc:nth-child(6) {
+            animation-duration: 2.1s;
+            animation-delay: 0.3s;
+        }
+
+        .dc:nth-child(7) {
+            animation-duration: 1.6s;
+            animation-delay: 0.6s;
+        }
+
+        .dc:nth-child(8) {
+            animation-duration: 1.9s;
+            animation-delay: 0.15s;
+        }
+
+        @keyframes matrix-fall {
+            0% {
+                transform: translateY(-100%);
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: translateY(140%);
+                opacity: 0.2;
+            }
         }
 
         /* 11. DNA */
@@ -418,16 +512,60 @@
 
         /* 16. Audio Circle */
         .audio-c {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            box-shadow: 0 0 0 2px var(--accent);
-            animation: throb 0.5s infinite;
+            background: radial-gradient(circle, rgba(0, 204, 0, 0.3) 0%, transparent 70%);
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 10px var(--accent), inset 0 0 10px rgba(0, 204, 0, 0.2);
+            animation: audio-pulse 1s ease-in-out infinite;
+            position: relative;
         }
 
-        @keyframes throb {
+        .audio-c::before,
+        .audio-c::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            animation: audio-ring 1s ease-out infinite;
+        }
+
+        .audio-c::before {
+            width: 70px;
+            height: 70px;
+        }
+
+        .audio-c::after {
+            width: 90px;
+            height: 90px;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes audio-pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
             50% {
-                box-shadow: 0 0 0 10px rgba(0, 204, 0, 0)
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes audio-ring {
+            0% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.2);
             }
         }
 
@@ -500,31 +638,97 @@
         }
 
         /* 20. Circuit */
+        .circuit-wrap {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
         .circuit-path {
             position: absolute;
             background: var(--accent);
+            box-shadow: 0 0 3px var(--accent);
         }
 
         .cp1 {
-            width: 60px;
+            width: 80px;
             height: 2px;
-            top: 50%;
-            left: 10%;
-            animation: circ-flow 1s infinite;
+            top: 40%;
+            left: 20px;
         }
 
         .cp2 {
             width: 2px;
-            height: 40px;
-            top: 30%;
-            left: 50%;
-            animation: circ-flow 1.5s infinite;
+            height: 50px;
+            top: 40%;
+            left: 100px;
         }
 
-        @keyframes circ-flow {
-            50% {
-                opacity: 1;
-                box-shadow: 0 0 5px var(--accent)
+        .cp3 {
+            width: 30px;
+            height: 2px;
+            top: calc(40% + 50px);
+            left: 70px;
+        }
+
+        .circuit-node {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 6px var(--accent);
+        }
+
+        .cn1 {
+            top: calc(40% - 2px);
+            left: 18px;
+        }
+
+        .cn2 {
+            top: calc(40% - 2px);
+            left: 98px;
+        }
+
+        .cn3 {
+            top: calc(40% + 48px);
+            left: 98px;
+        }
+
+        .cn4 {
+            top: calc(40% + 48px);
+            left: 68px;
+        }
+
+        .circuit-flow {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+            animation: flow-path 2s linear infinite;
+        }
+
+        @keyframes flow-path {
+            0% {
+                top: calc(40% - 3px);
+                left: 18px;
+            }
+
+            30% {
+                top: calc(40% - 3px);
+                left: 98px;
+            }
+
+            60% {
+                top: calc(40% + 47px);
+                left: 98px;
+            }
+
+            100% {
+                top: calc(40% + 47px);
+                left: 68px;
             }
         }
 
@@ -659,65 +863,191 @@
 
         /* 25. ASCII */
         .ascii-cube {
-            font-size: 10px;
-            line-height: 8px;
+            font-size: 9px;
+            line-height: 10px;
             white-space: pre;
-            animation: wiggle 0.5s infinite;
+            color: var(--accent);
+            text-shadow: 0 0 3px var(--accent);
+            animation: ascii-wiggle 0.1s infinite;
+            font-family: 'Courier New', monospace;
         }
 
-        @keyframes wiggle {
-            0% {
-                transform: translate(1px, 1px)
+        @keyframes ascii-wiggle {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            25% {
+                transform: translate(1px, 0);
             }
 
             50% {
-                transform: translate(-1px, -1px)
+                transform: translate(0, 1px);
+            }
+
+            75% {
+                transform: translate(-1px, 0);
             }
         }
 
         /* 26. EKG */
-        .ekg-line {
-            width: 100%;
-            height: 2px;
-            background: #333;
+        .ekg-wrap {
+            width: 120px;
+            height: 60px;
             position: relative;
             overflow: hidden;
         }
 
-        .ekg-line::after {
-            content: '';
+        .ekg-line {
+            width: 100%;
+            height: 2px;
+            background: #333;
             position: absolute;
-            top: 0;
-            left: -50px;
-            width: 50px;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            animation: ekg-swipe 1.5s infinite ease-in-out;
+            top: 50%;
         }
 
-        @keyframes ekg-swipe {
+        .ekg-pulse {
+            position: absolute;
+            top: 50%;
+            left: -30px;
+            width: 30px;
+            height: 40px;
+            transform: translateY(-50%);
+            animation: ekg-move 1.5s linear infinite;
+        }
+
+        .ekg-pulse::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, transparent 0%, transparent 20%,
+                    var(--accent) 20%, var(--accent) 22%,
+                    transparent 22%, transparent 35%,
+                    var(--accent) 35%, var(--accent) 37%,
+                    transparent 37%, transparent 45%,
+                    var(--accent) 45%, var(--accent) 50%,
+                    transparent 50%, transparent 100%);
+            clip-path: polygon(0% 50%, 20% 50%, 25% 30%, 30% 70%, 35% 50%,
+                    45% 50%, 50% 10%, 55% 90%, 60% 50%,
+                    100% 50%, 100% 52%, 0% 52%);
+            filter: drop-shadow(0 0 3px var(--accent));
+        }
+
+        @keyframes ekg-move {
             0% {
-                left: -50%
+                left: -30px;
             }
 
             100% {
-                left: 150%
+                left: 130px;
             }
         }
 
         /* 27. Hourglass */
-        .sand-top {
-            width: 0;
-            height: 0;
-            border: 20px solid var(--accent);
-            border-bottom-color: transparent;
-            border-top-width: 30px;
-            animation: sand 2s infinite;
+        .hourglass {
+            position: relative;
+            width: 50px;
+            height: 70px;
         }
 
-        @keyframes sand {
+        .sand-top,
+        .sand-bottom {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+        }
+
+        .sand-top {
+            top: 5px;
+            border-top: 25px solid var(--accent);
+            animation: sand-drain 2s ease-in-out infinite;
+        }
+
+        .sand-bottom {
+            bottom: 5px;
+            border-bottom: 25px solid var(--accent);
+            animation: sand-fill 2s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        .hourglass::before,
+        .hourglass::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+        }
+
+        .hourglass::before {
+            top: 0;
+            border-top: 30px solid rgba(0, 204, 0, 0.3);
+        }
+
+        .hourglass::after {
+            bottom: 0;
+            border-bottom: 30px solid rgba(0, 204, 0, 0.3);
+        }
+
+        .sand-stream {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            width: 2px;
+            height: 10px;
+            background: var(--accent);
+            transform: translateX(-50%);
+            animation: stream-flow 2s ease-in-out infinite;
+        }
+
+        @keyframes sand-drain {
+            0% {
+                border-top-width: 25px;
+                opacity: 1;
+            }
+
             100% {
-                border-top-width: 0
+                border-top-width: 5px;
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes sand-fill {
+            0% {
+                border-bottom-width: 5px;
+                opacity: 0.3;
+            }
+
+            100% {
+                border-bottom-width: 25px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes stream-flow {
+
+            0%,
+            10% {
+                opacity: 0;
+            }
+
+            20%,
+            80% {
+                opacity: 1;
+            }
+
+            90%,
+            100% {
+                opacity: 0;
             }
         }
 
@@ -762,41 +1092,124 @@
         }
 
         /* 29. Compass */
-        .compass-arrow {
-            width: 0;
-            height: 0;
-            border: 10px solid transparent;
-            border-bottom: 40px solid var(--accent);
-            position: absolute;
-            animation: points 3s ease-in-out infinite;
+        .compass {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 204, 0, 0.3);
         }
 
-        @keyframes points {
+        .compass::before {
+            content: 'N';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent);
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .compass-arrow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 50px;
+            transform-origin: bottom center;
+            transform: translate(-50%, -100%);
+            animation: compass-spin 4s ease-in-out infinite;
+        }
+
+        .compass-arrow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 20px solid #ff3333;
+            filter: drop-shadow(0 0 3px #ff3333);
+        }
+
+        .compass-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 15px solid #fff;
+        }
+
+        @keyframes compass-spin {
             0% {
-                transform: rotate(0deg)
+                transform: translate(-50%, -100%) rotate(-20deg);
+            }
+
+            25% {
+                transform: translate(-50%, -100%) rotate(15deg);
             }
 
             50% {
-                transform: rotate(180deg)
+                transform: translate(-50%, -100%) rotate(-10deg);
+            }
+
+            75% {
+                transform: translate(-50%, -100%) rotate(5deg);
             }
 
             100% {
-                transform: rotate(360deg)
+                transform: translate(-50%, -100%) rotate(-20deg);
             }
         }
 
         /* 30. Portal */
         .portal {
-            width: 100px;
-            height: 100px;
-            background: conic-gradient(#00cc00, #003300, #00cc00);
+            width: 80px;
+            height: 80px;
+            background: conic-gradient(from 0deg, #00cc00, #003300, #00cc00, #003300, #00cc00);
             border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            animation: portal-spin 3s linear infinite;
+            animation: portal-spin 3s linear infinite, portal-morph 6s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(0, 204, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .portal::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #000 0%, transparent 70%);
+            border-radius: 50%;
         }
 
         @keyframes portal-spin {
             to {
-                rotate: 360deg
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes portal-morph {
+
+            0%,
+            100% {
+                border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            }
+
+            50% {
+                border-radius: 60% 40% 30% 70% / 50% 40% 50% 60%;
             }
         }
     </style>
@@ -804,7 +1217,7 @@
 
 <body>
 
-    <h1>Terminal Concepts Gallery (30)</h1>
+    <h1>Terminal Concepts Gallery (Working)</h1>
 
     <div class="gallery-grid">
 
@@ -816,7 +1229,7 @@
                     <div class="pulse-bar" style="animation-delay:0.4s"></div>
                 </div>
             </div>
-            <div class="concept-label">1. Pulse</div>
+            <div class="concept-label">Pulse</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
@@ -824,19 +1237,19 @@
                     <div class="sweep"></div>
                 </div>
             </div>
-            <div class="concept-label">2. Radar</div>
+            <div class="concept-label">Radar</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="eye"></div>
             </div>
-            <div class="concept-label">3. Eye</div>
+            <div class="concept-label">Eye</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="grid-globe"></div>
             </div>
-            <div class="concept-label">4. Grid</div>
+            <div class="concept-label">Grid</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
@@ -845,28 +1258,20 @@
                     <div class="m-col">1010</div>
                 </div>
             </div>
-            <div class="concept-label">5. Matrix</div>
+            <div class="concept-label">Matrix</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="hex"></div>
             </div>
-            <div class="concept-label">6. Hex</div>
+            <div class="concept-label">Hex</div>
         </div>
-        <div class="concept-card">
-            <div class="terminal-box">
-                <div class="stars">
-                    <div class="star-dot" style="top:20%;left:20%"></div>
-                    <div class="star-dot" style="top:70%;left:80%"></div>
-                </div>
-            </div>
-            <div class="concept-label">7. Constellation</div>
-        </div>
+
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="bio"></div>
             </div>
-            <div class="concept-label">8. Bio-Rhythm</div>
+            <div class="concept-label">Bio-Rhythm</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
@@ -875,18 +1280,9 @@
                     <div class="arm arm2"></div>
                 </div>
             </div>
-            <div class="concept-label">9. Galaxy</div>
+            <div class="concept-label">Galaxy</div>
         </div>
-        <div class="concept-card">
-            <div class="terminal-box">
-                <div class="dense-m">
-                    <div class="dc">101</div>
-                    <div class="dc">010</div>
-                    <div class="dc">111</div>
-                </div>
-            </div>
-            <div class="concept-label">10. Heavy Matrix</div>
-        </div>
+
 
         <div class="concept-card">
             <div class="terminal-box">
@@ -897,44 +1293,39 @@
                     <div class="dna-beat" style="animation-delay:0.6s"></div>
                 </div>
             </div>
-            <div class="concept-label">11. DNA Helix</div>
+            <div class="concept-label">DNA Helix</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="binary-count"></div>
             </div>
-            <div class="concept-label">12. Bin Counter</div>
+            <div class="concept-label">Bin Counter</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="noise"></div>
             </div>
-            <div class="concept-label">13. Digital Noise</div>
+            <div class="concept-label">Digital Noise</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="lock-ring lr1"></div>
                 <div class="lock-ring lr2"></div>
             </div>
-            <div class="concept-label">14. Target Lock</div>
+            <div class="concept-label">Target Lock</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="wormhole"></div>
             </div>
-            <div class="concept-label">15. Wormhole</div>
+            <div class="concept-label">Wormhole</div>
         </div>
-        <div class="concept-card">
-            <div class="terminal-box">
-                <div class="audio-c"></div>
-            </div>
-            <div class="concept-label">16. Audio Circle</div>
-        </div>
+
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="pac"></div>
             </div>
-            <div class="concept-label">17. Pacman</div>
+            <div class="concept-label">Pacman</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
@@ -942,7 +1333,7 @@
                     <div class="load-fill"></div>
                 </div>
             </div>
-            <div class="concept-label">18. Loading Bar</div>
+            <div class="concept-label">Loading Bar</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
@@ -961,15 +1352,9 @@
                     <div class="sl"></div>
                 </div>
             </div>
-            <div class="concept-label">19. Server Rack</div>
+            <div class="concept-label">Server Rack</div>
         </div>
-        <div class="concept-card">
-            <div class="terminal-box">
-                <div class="circuit-path cp1"></div>
-                <div class="circuit-path cp2"></div>
-            </div>
-            <div class="concept-label">20. Circuit</div>
-        </div>
+
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="atom-core"></div>
@@ -977,48 +1362,26 @@
                 <div class="orbit o2"></div>
                 <div class="orbit o3"></div>
             </div>
-            <div class="concept-label">21. Atom</div>
+            <div class="concept-label">Atom</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="glitch">SYSTEM</div>
             </div>
-            <div class="concept-label">22. Glitch Text</div>
+            <div class="concept-label">Glitch Text</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="sonar-ring"></div>
                 <div class="sonar-ring" style="animation-delay:1s"></div>
             </div>
-            <div class="concept-label">23. Sonar</div>
+            <div class="concept-label">Sonar</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="scan-line"></div>
             </div>
-            <div class="concept-label">24. Laser Scan</div>
-        </div>
-        <div class="concept-card">
-            <div class="terminal-box">
-                <div class="ascii-cube">+------+
-                    | |
-                    | OK |
-                    | |
-                    +------+</div>
-            </div>
-            <div class="concept-label">25. ASCII Box</div>
-        </div>
-        <div class="concept-card">
-            <div class="terminal-box">
-                <div class="ekg-line"></div>
-            </div>
-            <div class="concept-label">26. EKG</div>
-        </div>
-        <div class="concept-card">
-            <div class="terminal-box">
-                <div class="sand-top"></div>
-            </div>
-            <div class="concept-label">27. Hourglass</div>
+            <div class="concept-label">Laser Scan</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
@@ -1029,20 +1392,108 @@
                     <div class="sb"></div>
                 </div>
             </div>
-            <div class="concept-label">28. Signal</div>
+            <div class="concept-label">Signal</div>
+        </div>
+    </div>
+
+    <h2
+        style="margin: 60px 0 30px 0; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); border-bottom: 1px solid var(--accent); width: 100%; text-align: center; padding-bottom: 10px;">
+        Now Working ✓</h2>
+
+    <div class="gallery-grid">
+        <div class="concept-card">
+            <div class="terminal-box">
+                <div class="stars">
+                    <div class="star-dot" style="top:10%;left:15%"></div>
+                    <div class="star-dot" style="top:25%;left:70%"></div>
+                    <div class="star-dot" style="top:45%;left:40%"></div>
+                    <div class="star-dot" style="top:60%;left:85%"></div>
+                    <div class="star-dot" style="top:75%;left:25%"></div>
+                    <div class="star-dot" style="top:90%;left:60%"></div>
+                </div>
+            </div>
+            <div class="concept-label">Constellation</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
-                <div class="compass-arrow"></div>
+                <div class="dense-m">
+                    <div class="dc">1011010</div>
+                    <div class="dc">0101101</div>
+                    <div class="dc">1110011</div>
+                    <div class="dc">0010110</div>
+                    <div class="dc">1001110</div>
+                    <div class="dc">0110101</div>
+                    <div class="dc">1100010</div>
+                    <div class="dc">0011101</div>
+                </div>
             </div>
-            <div class="concept-label">29. Compass</div>
+            <div class="concept-label">Heavy Matrix</div>
+        </div>
+        <div class="concept-card">
+            <div class="terminal-box">
+                <div class="audio-c"></div>
+            </div>
+            <div class="concept-label">Audio Circle</div>
+        </div>
+        <div class="concept-card">
+            <div class="terminal-box">
+                <div class="circuit-wrap">
+                    <div class="circuit-path cp1"></div>
+                    <div class="circuit-path cp2"></div>
+                    <div class="circuit-path cp3"></div>
+                    <div class="circuit-node cn1"></div>
+                    <div class="circuit-node cn2"></div>
+                    <div class="circuit-node cn3"></div>
+                    <div class="circuit-node cn4"></div>
+                    <div class="circuit-flow"></div>
+                </div>
+            </div>
+            <div class="concept-label">Circuit</div>
+        </div>
+        <div class="concept-card">
+            <div class="terminal-box">
+                <div class="ascii-cube">+------+
+                    | |
+                    | OK |
+                    | |
+                    +------+</div>
+            </div>
+            <div class="concept-label">ASCII Box</div>
+        </div>
+        <div class="concept-card">
+            <div class="terminal-box">
+                <div class="ekg-wrap">
+                    <div class="ekg-line"></div>
+                    <div class="ekg-pulse"></div>
+                </div>
+            </div>
+            <div class="concept-label">EKG</div>
+        </div>
+        <div class="concept-card">
+            <div class="terminal-box">
+                <div class="hourglass">
+                    <div class="sand-top"></div>
+                    <div class="sand-bottom"></div>
+                    <div class="sand-stream"></div>
+                </div>
+            </div>
+            <div class="concept-label">Hourglass</div>
+        </div>
+        <div class="concept-card">
+            <div class="terminal-box">
+                <div class="compass">
+                    <div class="compass-arrow"></div>
+                </div>
+            </div>
+            <div class="concept-label">Compass</div>
         </div>
         <div class="concept-card">
             <div class="terminal-box">
                 <div class="portal"></div>
             </div>
-            <div class="concept-label">30. Portal</div>
+            <div class="concept-label">Portal</div>
         </div>
+    </div>
 
     </div>
 </body>
