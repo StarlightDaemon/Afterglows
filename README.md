@@ -2,6 +2,10 @@
 
 An archive of web experiments, prototypes, and visual effects libraries. This repository acts as a long-term home for artifacts that have ongoing value.
 
+## About
+
+This repository serves as a permanent gallery for visual experiments that have graduated from active r&d but remain valuable references. These artifacts are maintained as static, standalone implementations using vanilla web technologies to ensure long-term preservation without dependency rot.
+
 ## Contents
 
 - **Matrix Code**: A standalone CSS library for digital rain and cyberpunk text effects.
@@ -11,22 +15,3 @@ An archive of web experiments, prototypes, and visual effects libraries. This re
 ### Note on Stargate
 
 The **Stargate** project has been promoted to its own dedicated workspace. It is no longer maintained in this repository.
-
-## Local Development
-
-To run the archive locally:
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Start the server:
-   ```bash
-   npm start
-   ```
-3. Open `http://localhost:8080` (or the port shown in the terminal).
-
-## Maintenance
-
-- To add a new artifact, create a new directory and link it in `index.html`.
-- This repository is an archive; avoid complex build steps where possible.
