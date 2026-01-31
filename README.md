@@ -2,7 +2,9 @@
 
 > *Where old code goes to dream.*
 
-This repository is a permanent gallery for visual experiments, prototypes, and effects that have graduated from active research. These artifacts are preserved as static, standalone implementations—kept alive for reference, nostalgia, and inspiration.
+Afterglows is a workspace for visual experiments, snippets, and design ideas that no longer live in their original projects.
+
+Items here may be reused, moved, or retired over time, but are kept available while they still have practical or exploratory value.
 
 ---
 
