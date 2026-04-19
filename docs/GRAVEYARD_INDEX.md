@@ -1,5 +1,9 @@
 # Afterglows Graveyard Index
 
+> [!WARNING]
+> This document is a historical audit snapshot and is not the source of truth for deployment ownership.
+> The canonical source for the live site is this repository: **https://afterglows.starlightdaemon.dev/**.
+
 ## 1. Executive Summary
 
 This audit of the `/mnt/e/Afterglows` workspace reveals a **single-repo static site collection** serving as an experimental archive. The workspace relies on simple `npm` tooling (`http-server`) to serve a root launcher (`index.html`) that links to various sub-projects ("graves").

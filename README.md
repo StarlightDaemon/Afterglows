@@ -2,6 +2,10 @@
 
 > *Where old code goes to dream.*
 
+Afterglows is the canonical source for the live site at **https://afterglows.starlightdaemon.dev/**.
+
+This repository owns the Afterglows site, demos, documentation, and shared assets. Other repositories may link here, but they do not serve as the source of truth for the live Afterglows deployment.
+
 Afterglows is a workspace for visual experiments, snippets, and design ideas that no longer live in their original projects.
 
 Items here may be reused, moved, or retired over time, but are kept available while they still have practical or exploratory value.

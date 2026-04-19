@@ -1,6 +1,8 @@
 # Theme Files
 
-This directory contains the theme system pulled from the main StarlightDaemon portfolio site.
+This directory contains the shared theme system used by the canonical Afterglows site at **https://afterglows.starlightdaemon.dev/**.
+
+These files may have originated in earlier StarlightDaemon work, but the Afterglows versions in this repository are the maintained source for the live Afterglows site.
 
 ## Files
 

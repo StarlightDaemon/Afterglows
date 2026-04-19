@@ -1,47 +1,30 @@
-# 🚀 GitHub Pages Setup Guide for Afterglows
+# GitHub Pages and Domain Notes for Afterglows
 
-This guide will walk you through hosting your **Afterglows** project on GitHub Pages.
+This repository is the canonical source for **https://afterglows.starlightdaemon.dev/**.
 
-## ✅ Phase 1: Preparation (Already Done!)
-I have already:
-1.  Initialized the git repository.
-2.  Added all project files.
-3.  Created the initial commit.
+Use this document as a reference for the repository's deployment shape, not as a generic first-time setup guide.
 
-Your local project is ready to go.
+## Current Hosting Model
 
-## 🛠 Phase 2: Create Repository on GitHub
+- Repository: `StarlightDaemon/Afterglows`
+- Live domain: `afterglows.starlightdaemon.dev`
+- Publish target: root of the default branch
+- Custom domain source file: `CNAME`
+- Underscored directories: exposed via `.nojekyll`
 
-1.  Log in to **[GitHub.com](https://github.com)**.
-2.  Click the **+** (plus) icon in the top right and select **New repository**.
-3.  **Repository name**: `Afterglows` (or whatever you prefer).
-4.  **Description**: "Experimental Playground & Open Source Archive".
-5.  **Public/Private**: Choose **Public** (required for free GitHub Pages).
-6.  **Initialize this repository with**: Leave all these **unchecked** (we already have code).
-7.  Click **Create repository**.
+## GitHub Pages Settings
 
-## 🔗 Phase 3: Push Code
+The GitHub Pages configuration should remain aligned with this repository:
 
-Copy the commands GitHub shows you under **"…or push an existing repository from the command line"**, or run these:
+1. Go to the repository **Settings** tab.
+2. Open **Pages**.
+3. Under **Build and deployment**, use **Deploy from a branch**.
+4. Publish from the default branch and the repository root.
+5. Confirm the custom domain is set to `afterglows.starlightdaemon.dev`.
+6. Confirm **Enforce HTTPS** is enabled once the certificate is issued.
 
-```bash
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/Afterglows.git
-git push -u origin main
-```
-*(Replace `YOUR_USERNAME` with your actual GitHub username)*
+## Notes
 
-## 🌍 Phase 4: Enable GitHub Pages
-
-1.  Go to your repository **Settings** tab.
-2.  On the left sidebar, click **Pages**.
-3.  Under **Build and deployment** > **Source**, select **Deploy from a branch**.
-4.  Under **Branch**, select **main** and folder **/(root)**.
-5.  Click **Save**.
-
-## 🎉 Phase 5: Verification
-
-After a minute or two, refresh the Pages settings. You will see a banner:
-> **"Your site is live at https://your-username.github.io/Afterglows/"**
-
-Click that link to verify your new site!
+- Do not use `your-username.github.io/Afterglows/` placeholders in current Afterglows docs.
+- If another repository links to Afterglows, treat that as a consumer, not the deployment owner.
+- GitHub UI settings and DNS records are external to this repository and must be maintained separately.

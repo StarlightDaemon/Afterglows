@@ -2,6 +2,8 @@
 
 Thank you for your interest in contributing to **Afterglows**! This project is a living archive of creative web experiments, and we welcome new prototypes, bug fixes, and improvements.
 
+This repository is also the canonical source for the live site at **https://afterglows.starlightdaemon.dev/**. Changes to the root site, shared assets, or top-level documentation here affect the canonical Afterglows deployment.
+
 ## What Belongs Here?
 
 This repository welcomes:
@@ -18,6 +20,13 @@ This repository welcomes:
 2. **Add Your Files**: HTML, CSS, JS - keep it self-contained
 3. **Document It**: Create a `README.md` in your folder (see `_templates/README_TEMPLATE.md`)
 4. **Link It**: Update the main `index.html` to add a card linking to your demo
+
+### Editing Site Copy or Docs
+
+If you touch the root homepage, README, or Pages-related docs, keep the ownership wording accurate:
+- `Afterglows` is the source of truth for `https://afterglows.starlightdaemon.dev/`
+- Other repos may link to Afterglows, but they do not own or mirror the live site here
+- Avoid placeholder Pages examples unless the docs are explicitly marked as historical
 
 ### File Structure Convention
 
