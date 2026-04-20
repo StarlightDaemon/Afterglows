@@ -1,10 +1,10 @@
-# General Concepts Archive
+# Header Animation Concepts Archive
 
-This folder contains the complete exploration history of header terminal animations that were NOT Stargate-related.
+This folder contains the complete exploration history of header animation concepts that were explored before the final direction was selected.
 
 ## 📂 Contents
 
-*   **`all_concepts_gallery.html`**: A massive gallery containing 30 initial ideas for the header animations. Open this file in a browser to view them all.
+*   **`header-animation-concepts.html`**: The canonical gallery of 30 initial header animation ideas. Open this file in a browser to view them all.
 
 ## 🌌 Concepts Included
 
@@ -35,4 +35,4 @@ The gallery includes 30 distinct CSS-only animations, including:
 ...and more.
 
 ## Usage
-These are raw concept snippets. Copy the CSS/HTML from `all_concepts_gallery.html` to reuse any specific effect.
+These are raw concept snippets. Copy the CSS/HTML from `header-animation-concepts.html` to reuse any specific effect.
