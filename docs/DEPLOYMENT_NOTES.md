@@ -1,4 +1,4 @@
-# GitHub Pages and Domain Notes for Afterglows
+# Deployment Notes for Afterglows
 
 This repository is the canonical source for **https://afterglows.starlightdaemon.dev/**.
 
