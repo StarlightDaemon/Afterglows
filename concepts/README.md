@@ -4,11 +4,11 @@ This folder contains the complete exploration history of header animation concep
 
 ## 📂 Contents
 
-*   **`header-animation-concepts.html`**: The canonical gallery of 30 initial header animation ideas. Open this file in a browser to view them all.
+*   **`header-animation-concepts.html`**: The canonical gallery of archived header animation ideas. Open this file in a browser to view them all.
 
 ## 🌌 Concepts Included
 
-The gallery includes 30 distinct CSS-only animations, including:
+The gallery includes a range of CSS-only animations, including:
 
 1.  **Pulse**: Simple heartbeat bar.
 2.  **Radar**: Rotating sweep scan.
