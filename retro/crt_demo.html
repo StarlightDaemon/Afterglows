@@ -51,6 +51,58 @@
             font-size: 1.5rem;
             text-align: center;
         }
+
+        .curve-demo-screen {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background:
+                radial-gradient(circle at center, rgba(0, 255, 65, 0.18) 0%, rgba(0, 0, 0, 0.82) 68%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.2));
+            overflow: hidden;
+        }
+
+        .curve-demo-screen::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg,
+                    rgba(255, 255, 255, 0.04) 0 1px,
+                    transparent 1px 5px);
+            pointer-events: none;
+        }
+
+        .curve-demo-screen::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+        }
+
+        .curve-demo-grid {
+            position: absolute;
+            inset: 16px;
+            background-image:
+                linear-gradient(rgba(0, 255, 65, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.3) 1px, transparent 1px);
+            background-size: 18px 18px;
+            opacity: 0.7;
+        }
+
+        .curve-demo-label {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            font-family: 'VT323', monospace;
+            font-size: 1.35rem;
+            letter-spacing: 0.12em;
+            color: #9bffb5;
+            text-shadow: 0 0 8px rgba(155, 255, 181, 0.6);
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -95,7 +147,10 @@
             <div class="label">.screen-curve</div>
             <div class="terminal-box scanlines screen-curve box"
                 style="background: #222; border:none; box-shadow:none;">
-                <img src="https://via.placeholder.com/150" style="mix-blend-mode: luminosity;">
+                <div class="curve-demo-screen" aria-hidden="true">
+                    <div class="curve-demo-grid"></div>
+                    <div class="curve-demo-label">VIDEO FEED</div>
+                </div>
             </div>
         </div>
 
