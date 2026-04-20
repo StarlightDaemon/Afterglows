@@ -761,9 +761,18 @@ section h2::after {
 
 .project-links {
     display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
     gap: var(--space-md);
     padding-top: var(--space-sm);
     border-top: 1px dashed var(--border-muted);
+}
+
+.project-links-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    min-width: 0;
 }
 
 .project-link {
@@ -776,9 +785,23 @@ section h2::after {
     font-family: var(--font-mono);
 }
 
+.project-link-docs {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
 .project-link:hover {
     color: var(--accent-primary);
     text-decoration: underline;
+}
+
+.project-link-disabled {
+    cursor: default;
+}
+
+.project-link-disabled:hover {
+    color: var(--text-secondary);
+    text-decoration: none;
 }
 
 /* ===========================
