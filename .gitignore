@@ -41,3 +41,6 @@ Thumbs.db
 audit-reports/
 .raiden/state/AUDIT_LOG.md
 .raiden/state/last-audit.md
+
+# Local snapshots — not repo content
+backups/
