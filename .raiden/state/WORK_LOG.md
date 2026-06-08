@@ -1,5 +1,12 @@
 # Work Log
 
+## 2026-06-07 — WSL→macOS migration remediation
+
+- All `/mnt/e/` paths corrected to `/Users/dante/Citadel/` across AGENTS.md, two prompt files, and state files.
+- `commit-msg` hook execute bit set (`chmod +x`); RAIDEN Co-Authored-By enforcement now active.
+- `node_modules` deleted and reinstalled clean on ARM64 macOS; lockfile name verified.
+- Edict v0.6.1 confirmed clean; migration audit closed.
+
 ## 2026-05-15 — RAIDEN state population
 
 - State files populated from README and git history.
