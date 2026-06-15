@@ -65,8 +65,11 @@
 
     /* Transitions */
     --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
     --transition-base: 250ms ease;
     --transition-slow: 350ms ease;
+
+    --accent-primary-rgb: 0, 204, 0;
 
     /* Z-Index Layers */
     --z-background: -1;
@@ -816,8 +819,8 @@ section h2::after {
 
 /* Enforce 4 columns on desktop - Per user request */
 @media (min-width: 1200px) {
-    .project-grid {
-        grid-template-columns: repeat(4, 1fr) !important;
+    .projects-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 
     .skills-grid {
@@ -827,8 +830,8 @@ section h2::after {
 
 /* Tablet: 2 columns (600-1199px) */
 @media (min-width: 600px) and (max-width: 1199px) {
-    .project-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .skills-grid {
@@ -1117,7 +1120,7 @@ section h2::after {
         max-width: 280px;
     }
 
-    .project-grid {
+    .projects-grid {
         grid-template-columns: 1fr;
     }
 
@@ -1132,16 +1135,6 @@ section h2::after {
 
 /* 2K+ Displays (Effective width > 1700px to account for OS chrome) */
 @media (min-width: 1700px) {
-
-    /* Reduce scanline opacity for better readability */
-    body::before {
-        background: repeating-linear-gradient(0deg,
-                transparent 0px,
-                transparent 2px,
-                rgba(0, 0, 0, 0.20) 2px,
-                /* Reduced from 0.40 */
-                rgba(0, 0, 0, 0.20) 4px);
-    }
 
     /* Larger base font size for 2K */
     html {
@@ -1174,17 +1167,6 @@ section h2::after {
 /* 4K+ Displays (Effective width > 2300px to account for OS chrome) */
 @media (min-width: 2300px) {
 
-    /* Further reduce scanline intensity with wider spacing */
-    body::before {
-        background: repeating-linear-gradient(0deg,
-                transparent 0px,
-                transparent 3px,
-                /* Wider spacing */
-                rgba(0, 0, 0, 0.15) 3px,
-                /* Even lighter */
-                rgba(0, 0, 0, 0.15) 5px);
-    }
-
     /* Optimal font size for 4K */
     html {
         font-size: 20px;
@@ -1199,8 +1181,8 @@ section h2::after {
 
     /* Scale up project cards */
     /* Enforce 4 columns on 4K too */
-    .project-grid {
-        grid-template-columns: repeat(4, 1fr) !important;
+    .projects-grid {
+        grid-template-columns: repeat(4, 1fr);
         gap: var(--space-2xl);
     }
 

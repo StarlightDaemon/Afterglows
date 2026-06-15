@@ -22,19 +22,6 @@
         canvas {
             display: block;
         }
-
-        .info {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #00aa00;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            text-align: center;
-            z-index: 10;
-            text-shadow: 0 0 10px #00ff00;
-        }
     </style>
 </head>
 
@@ -46,13 +33,20 @@
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
+        // Fix 2 — Context null guard
+        if (!ctx) {
+            console.warn('Matrix canvas: 2d context is not available.');
+            throw new Error('Canvas 2d context unavailable');
+        }
+
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
         const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF';
         const fontSize = 16;
-        const columns = Math.floor(canvas.width / fontSize);
-        const drops = Array(columns).fill(1);
+
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = Array(columns).fill(1);
 
         let mouseX = 0;
         let mouseY = 0;
@@ -61,6 +55,15 @@
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
+
+        // Fix 6 — Named init function for column model
+        function init() {
+            columns = Math.floor(canvas.width / fontSize);
+            drops = Array(columns).fill(1);
+        }
+
+        // Fix 1 — RAF handle
+        let rafId = null;
 
         function draw() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
@@ -104,15 +107,46 @@
 
             ctx.shadowBlur = 0;
 
-            requestAnimationFrame(draw);
+            // Fix 1 — assign RAF return value inside draw
+            rafId = requestAnimationFrame(draw);
         }
 
-        draw();
+        // Fix 5 — Reduced-motion gate
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            // Render one static frame as a visual placeholder
+            draw();
+            cancelAnimationFrame(rafId);
+            rafId = null;
+        } else {
+            // Fix 1 — assign RAF return value at initial call
+            rafId = requestAnimationFrame(draw);
+        }
 
-        // Handle resize
+        // Fix 3 — Visibility pause/resume
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            } else {
+                rafId = requestAnimationFrame(draw);
+            }
+        });
+
+        // Fix 4 — Pagehide cleanup
+        window.addEventListener('pagehide', () => {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+        });
+
+        // Fix 6 — Debounced resize handler with column recompute
+        let resizeTimer = null;
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                init();
+            }, 150);
         });
     </script>
 </body>
