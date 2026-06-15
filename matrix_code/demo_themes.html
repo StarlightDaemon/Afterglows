@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
     <title>Matrix Rain | Color Themes</title>
+    <meta name="description" content="Themed Matrix digital rain with switchable color palettes — Matrix Green, Resurrections Blue, Virus Red, and Neon Gold — on an HTML5 Canvas, from Afterglows.">
+    <link rel="canonical" href="https://afterglows.starlightdaemon.dev/matrix_code/demo_themes.html">
+    <meta property="og:title" content="Matrix Rain | Color Themes">
+    <meta property="og:description" content="Themed Matrix digital rain with switchable color palettes — Matrix Green, Resurrections Blue, Virus Red, and Neon Gold — on an HTML5 Canvas, from Afterglows.">
+    <meta property="og:url" content="https://afterglows.starlightdaemon.dev/matrix_code/demo_themes.html">
+    <meta property="og:type" content="website">
     <style>
         * {
             margin: 0;
@@ -71,10 +78,18 @@
             background: currentColor;
             color: #000;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <main>
     <div class="controls">
         <button class="theme-btn green active" data-theme="green">Matrix</button>
         <button class="theme-btn blue" data-theme="blue">Resurrections</button>
@@ -82,7 +97,8 @@
         <button class="theme-btn gold" data-theme="gold">Neon Gold</button>
     </div>
 
-    <canvas id="matrix"></canvas>
+    <canvas id="matrix" aria-hidden="true">Decorative animated Matrix digital-rain effect with switchable color themes.</canvas>
+    </main>
 
     <script>
         const canvas = document.getElementById('matrix');

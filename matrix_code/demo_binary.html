@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
     <title>Matrix Rain | Binary</title>
+    <meta name="description" content="Minimal Matrix rain of pure 0s and 1s falling on an HTML5 Canvas — a clean, monochrome hacker aesthetic from the Afterglows visual-effects library.">
+    <link rel="canonical" href="https://afterglows.starlightdaemon.dev/matrix_code/demo_binary.html">
+    <meta property="og:title" content="Matrix Rain | Binary">
+    <meta property="og:description" content="Minimal Matrix rain of pure 0s and 1s falling on an HTML5 Canvas — a clean, monochrome hacker aesthetic from the Afterglows visual-effects library.">
+    <meta property="og:url" content="https://afterglows.starlightdaemon.dev/matrix_code/demo_binary.html">
+    <meta property="og:type" content="website">
     <style>
         * {
             margin: 0;
@@ -22,12 +29,20 @@
         canvas {
             display: block;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <canvas id="matrix"></canvas>
-
+    <main>
+    <canvas id="matrix" aria-hidden="true">Decorative animated binary rain effect with falling 0s and 1s.</canvas>
+    </main>
 
     <script>
         const canvas = document.getElementById('matrix');

@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
     <title>CRT & Scanline Effects Demo</title>
+    <meta name="description" content="Demo of the Afterglows CRT and retro effects library: phosphor glow, scanlines, flicker, and screen curvature applied to a video-feed panel using pure CSS.">
+    <link rel="canonical" href="https://afterglows.starlightdaemon.dev/retro/crt_demo.html">
+    <meta property="og:title" content="CRT &amp; Scanline Effects Demo">
+    <meta property="og:description" content="Demo of the Afterglows CRT and retro effects library: phosphor glow, scanlines, flicker, and screen curvature applied to a video-feed panel using pure CSS.">
+    <meta property="og:url" content="https://afterglows.starlightdaemon.dev/retro/crt_demo.html">
+    <meta property="og:type" content="website">
     <link rel="stylesheet" href="crt_tools.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
@@ -107,7 +114,7 @@
 </head>
 
 <body>
-
+    <main>
     <h1>CRT & Retro Effects Library</h1>
 
     <div class="grid">
@@ -161,9 +168,17 @@
         style="margin-top: 40px; color: #666; text-decoration: none; font-family: monospace; letter-spacing: 2px; transition: color 0.3s; margin-bottom: 40px;">
         &larr; BACK TO TERMINAL
     </a>
+    </main>
     <style>
         a:hover {
             color: #00ff41 !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
         }
     </style>
 

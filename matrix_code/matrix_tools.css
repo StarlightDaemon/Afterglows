@@ -212,3 +212,10 @@ body {
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
 }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
     <title>Matrix Rain | Classic Demo</title>
+    <meta name="description" content="Classic CSS-only Matrix digital rain of falling Japanese katakana columns, animated with pure CSS keyframes and no JavaScript, from the Afterglows library.">
+    <link rel="canonical" href="https://afterglows.starlightdaemon.dev/matrix_code/demo_classic.html">
+    <meta property="og:title" content="Matrix Rain | Classic Demo">
+    <meta property="og:description" content="Classic CSS-only Matrix digital rain of falling Japanese katakana columns, animated with pure CSS keyframes and no JavaScript, from the Afterglows library.">
+    <meta property="og:url" content="https://afterglows.starlightdaemon.dev/matrix_code/demo_classic.html">
+    <meta property="og:type" content="website">
     <link rel="stylesheet" href="matrix_tools.css">
     <style>
         * {
@@ -36,11 +43,20 @@
             text-shadow: 0 0 8px #00ff00, 0 0 20px #00ff00;
             animation-delay: calc(var(--i) * 0.1s);
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <main>
     <div class="matrix-rain" id="rainContainer"></div>
+    </main>
 
     <script>
         // Generate random matrix characters

@@ -1317,6 +1317,26 @@ section:nth-child(4) {
     animation: glow-pulse 2s ease-in-out infinite;
 }
 
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent-primary);
+    color: #000;
+    padding: 8px 16px;
+    z-index: 9999;
+    font-weight: 600;
+    transition: top 0.2s;
+}
+.skip-link:focus {
+    top: 0;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 3px;
+}
+
 /* Font Families via Data Attribute */
 [data-font="ibm"] {
     --font-display: 'IBM Plex Mono', monospace;
@@ -1346,3 +1366,10 @@ section:nth-child(4) {
 }
 
 /* V4 Restore: Sun Jan  4 06:27:13 MST 2026 */
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}

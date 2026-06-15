@@ -4,9 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Afterglows - Canonical source for afterglows.starlightdaemon.dev, featuring experimental archive demos and open source prototypes">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
+    <meta name="description" content="Open-source visual effects archive featuring Matrix digital rain, CRT phosphor and scanline effects, and animated header concept demos to preview and reuse.">
     <meta name="author" content="StarlightDaemon">
     <title>Afterglows | Experimental Archive</title>
+    <link rel="canonical" href="https://afterglows.starlightdaemon.dev/">
+    <meta property="og:title" content="Afterglows | Experimental Archive">
+    <meta property="og:description" content="Open-source visual effects archive featuring Matrix digital rain, CRT phosphor and scanline effects, and animated header concept demos to preview and reuse.">
+    <meta property="og:url" content="https://afterglows.starlightdaemon.dev/">
+    <meta property="og:type" content="website">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/theme-toggle.css">
 
@@ -20,12 +26,13 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <!-- Unified Sticky Header -->
     <header class="site-header">
         <!-- Logo -->
         <div class="logo">
             <a href="index.html" aria-label="Back to the Afterglows homepage">
-                <img src="assets/img/thinker-logo.png" alt="StarlightDaemon Logo" />
+                <img src="assets/img/thinker-logo.svg" alt="StarlightDaemon Logo" width="80" height="80" />
             </a>
         </div>
 
@@ -38,7 +45,7 @@
     </header>
 
     <div class="page-wrapper">
-        <main class="main-content">
+        <main class="main-content" id="main">
 
             <section class="projects" id="projects">
                 <h2>Demos & Prototypes</h2>
@@ -224,7 +231,7 @@
                         <li>Reusable CSS effect libraries</li>
                         <li>Functional interactive demos</li>
                         <li>Complete source code & docs</li>
-                        <li><a href="https://github.com/StarlightDaemon/Afterglows" target="_blank"
+                        <li><a href="https://github.com/StarlightDaemon/Afterglows" target="_blank" rel="noopener noreferrer"
                                 style="color:inherit; text-decoration:underline;">View on GitHub</a></li>
                         <li><a href="CONTRIBUTING.md" style="color:inherit; text-decoration:underline;">Contribution
                                 Guidelines</a></li>
@@ -277,8 +284,8 @@
             </div>
         </div>
     </div>
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/theme-toggle.js"></script>
+    <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/theme-toggle.js" defer></script>
 </body>
 
 </html>

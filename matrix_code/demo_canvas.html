@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
     <title>Matrix Rain | Canvas Interactive</title>
+    <meta name="description" content="Interactive HTML5 Canvas Matrix digital rain whose glyph columns react to the cursor with a mouse-driven brightness radius. From the Afterglows effects library.">
+    <link rel="canonical" href="https://afterglows.starlightdaemon.dev/matrix_code/demo_canvas.html">
+    <meta property="og:title" content="Matrix Rain | Canvas Interactive">
+    <meta property="og:description" content="Interactive HTML5 Canvas Matrix digital rain whose glyph columns react to the cursor with a mouse-driven brightness radius. From the Afterglows effects library.">
+    <meta property="og:url" content="https://afterglows.starlightdaemon.dev/matrix_code/demo_canvas.html">
+    <meta property="og:type" content="website">
     <style>
         * {
             margin: 0;
@@ -22,12 +29,20 @@
         canvas {
             display: block;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <canvas id="matrix"></canvas>
-
+    <main>
+    <canvas id="matrix" aria-hidden="true">Decorative animated Matrix digital-rain effect with mouse interaction.</canvas>
+    </main>
 
     <script>
         const canvas = document.getElementById('matrix');

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_archive/
+Disallow: /_templates/
+Sitemap: https://afterglows.starlightdaemon.dev/sitemap.xml

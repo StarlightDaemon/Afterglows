@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
     <title>Header Animation Concepts Archive</title>
+    <meta name="description" content="An archive of animated header concepts as reusable web components, spanning geometry, scanning, diagnostics, bio, spatial, and retro themes. From Afterglows.">
+    <link rel="canonical" href="https://afterglows.starlightdaemon.dev/concepts/">
+    <meta property="og:title" content="Header Animation Concepts Archive">
+    <meta property="og:description" content="An archive of animated header concepts as reusable web components, spanning geometry, scanning, diagnostics, bio, spatial, and retro themes. From Afterglows.">
+    <meta property="og:url" content="https://afterglows.starlightdaemon.dev/concepts/">
+    <meta property="og:type" content="website">
     <style>
         :root {
             --accent: #00cc00;
@@ -175,12 +182,19 @@
             border-color: rgba(170, 255, 170, 0.95);
             box-shadow: 0 0 6px rgba(170, 255, 170, 0.35);
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
     <script type="module" src="./gallery/index.js"></script>
 </head>
 
 <body>
-
+    <main>
     <h1>Header Animation Concepts Archive</h1>
     <div class="gallery-note">
         Tile status now tracks the refresh cycle directly on the page. Use <strong>Original v1</strong> for untouched archive concepts,
@@ -623,7 +637,7 @@
             </div>
         </div>
     </section>
-
+    </main>
 
     <script>
         document.querySelectorAll('.terminal-box.is-versioned').forEach((box) => {

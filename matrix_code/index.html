@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
     <title>Matrix Code | Live Demo Gallery</title>
+    <meta name="description" content="Live demo gallery for the Matrix Code digital-rain library: classic CSS katakana columns, interactive Canvas rain, pure binary, and switchable color themes.">
+    <link rel="canonical" href="https://afterglows.starlightdaemon.dev/matrix_code/">
+    <meta property="og:title" content="Matrix Code | Live Demo Gallery">
+    <meta property="og:description" content="Live demo gallery for the Matrix Code digital-rain library: classic CSS katakana columns, interactive Canvas rain, pure binary, and switchable color themes.">
+    <meta property="og:url" content="https://afterglows.starlightdaemon.dev/matrix_code/">
+    <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -320,10 +327,18 @@
                 margin-bottom: 0;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <a class="skip-link" href="#preview">Skip to content</a>
     <div class="gallery-layout">
         <aside class="sidebar">
             <div class="sidebar-header">
@@ -375,7 +390,7 @@
             </div>
         </aside>
 
-        <main class="preview-area">
+        <main class="preview-area" id="preview">
             <div class="preview-header">
                 <div class="preview-title">PREVIEW: <span id="currentDemo">Classic Rain</span></div>
                 <div class="preview-controls">
@@ -416,7 +431,7 @@
         function openFullscreen() {
             const activeCard = document.querySelector('.demo-card.active');
             if (activeCard) {
-                window.open(activeCard.dataset.src, '_blank');
+                window.open(activeCard.dataset.src, '_blank', 'noopener');
             }
         }
 
