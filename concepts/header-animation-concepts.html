@@ -278,6 +278,58 @@
             box-shadow: 0 0 6px rgba(170, 255, 170, 0.35);
         }
 
+        .concept-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 2px;
+        }
+
+        .concept-action {
+            padding: 3px 9px;
+            border: 1px solid rgba(130, 130, 130, 0.3);
+            border-radius: 4px;
+            background: transparent;
+            color: #7a7a7a;
+            font-family: monospace;
+            font-size: 0.62rem;
+            line-height: 1.4;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: border-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+        }
+
+        .concept-action:hover {
+            border-color: rgba(0, 204, 0, 0.55);
+            color: var(--accent);
+        }
+
+        .concept-action:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            color: var(--accent);
+        }
+
+        .concept-copy.is-copied {
+            border-color: rgba(0, 204, 0, 0.55);
+            color: var(--accent);
+            box-shadow: 0 0 6px rgba(0, 204, 0, 0.25);
+        }
+
+        .sr-status {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation: none !important;

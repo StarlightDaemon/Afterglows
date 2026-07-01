@@ -42,6 +42,23 @@ function esc(value) {
     .replace(/'/g, "&#39;");
 }
 
+// Reusable action row: "Copy" (embed snippet) + "Source" (view module file).
+// Rendered as the LAST child of every .concept-card, OUTSIDE the .terminal-box
+// so clicking these never triggers version cycling on versioned tiles.
+function renderActions(tag, label) {
+  const name = tag.replace(/^concept-/, "");
+  return (
+    `<div class="concept-actions">` +
+      `<button type="button" class="concept-action concept-copy" data-tag="${esc(tag)}"` +
+        ` aria-label="Copy ${esc(label)} embed code">Copy</button>` +
+      `<a class="concept-action concept-source"` +
+        ` href="gallery/concepts/${esc(name)}-concept.js"` +
+        ` aria-label="View ${esc(label)} source"` +
+        ` target="_blank" rel="noopener noreferrer">Source</a>` +
+    `</div>`
+  );
+}
+
 // Single-version (unversioned) card markup.
 function renderPlainCard(concept) {
   const { tag, label, badge, badgeCls } = concept;
@@ -52,6 +69,7 @@ function renderPlainCard(concept) {
       `<div class="concept-meta">` +
         `<span class="meta-badge ${esc(badgeCls)}">${esc(badge)}</span>` +
       `</div>` +
+      renderActions(tag, label) +
     `</div>`
   );
 }
@@ -97,6 +115,7 @@ function renderVersionedCard(concept) {
         `<span class="meta-badge ${esc(badgeCls)}">${esc(badge)}</span>` +
       `</div>` +
       `<div class="version-dots" role="group" aria-label="${esc(label)} versions">${dots}</div>` +
+      renderActions(tag, label) +
     `</div>`
   );
 }
@@ -360,12 +379,132 @@ function initToolbar() {
   });
 }
 
+// --- Copy usage ("Copy" action) ------------------------------------------
+// Absolute origin for the pasted embed snippet, so copied code works on any
+// site (the Source link stays relative for local preview — see renderActions).
+const EMBED_ORIGIN =
+  "https://afterglows.starlightdaemon.dev/concepts/gallery/concepts";
+
+// Single shared visually-hidden live region for all copy announcements.
+// Created once by ensureLiveRegion(); reused for every tile.
+let liveRegion = null;
+function ensureLiveRegion() {
+  if (liveRegion) return liveRegion;
+  liveRegion = document.createElement("div");
+  liveRegion.className = "sr-status";
+  liveRegion.setAttribute("role", "status");
+  liveRegion.setAttribute("aria-live", "polite");
+  (document.querySelector("main") || document.body).appendChild(liveRegion);
+  return liveRegion;
+}
+
+function announce(message, assertive = false) {
+  const region = ensureLiveRegion();
+  region.setAttribute("aria-live", assertive ? "assertive" : "polite");
+  region.textContent = message;
+}
+
+// Robust clipboard write: async Clipboard API in a secure context (localhost
+// counts), otherwise a temporary off-screen <textarea> + execCommand fallback.
+// Returns a Promise<boolean> of whether the copy succeeded.
+async function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (error) {
+      // Fall through to the legacy path below.
+    }
+  }
+  try {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.top = "-9999px";
+    textarea.style.left = "-9999px";
+    document.body.appendChild(textarea);
+    textarea.select();
+    const ok = document.execCommand("copy");
+    textarea.remove();
+    return ok;
+  } catch (error) {
+    return false;
+  }
+}
+
+// Build the two-line embed snippet for a card. The version (if any) is read
+// from the DOM at click time: the active frame's inner concept-* element.
+function buildSnippet(card, tag) {
+  const name = tag.replace(/^concept-/, "");
+  const scriptLine =
+    `<script type="module" src="${EMBED_ORIGIN}/${name}-concept.js"></` +
+    `script>`;
+
+  let version = "";
+  const activeFrame = card.querySelector(".concept-frame.is-active");
+  if (activeFrame) {
+    const el = activeFrame.querySelector(tag);
+    version = (el && el.getAttribute("version")) || "";
+  }
+
+  const tagLine = version
+    ? `<${tag} version="${version}"></${tag}>`
+    : `<${tag}></${tag}>`;
+
+  return `${scriptLine}\n${tagLine}`;
+}
+
+// Delegated click handler on the persistent #gallery-root (attached once).
+async function handleGalleryClick(event) {
+  const button = event.target.closest(".concept-copy");
+  if (!button) return;
+
+  const card = button.closest(".concept-card");
+  if (!card) return;
+
+  const tag = button.dataset.tag;
+  const label = card.querySelector(".concept-label")?.textContent.trim() || tag;
+  const snippet = buildSnippet(card, tag);
+  const ok = await copyText(snippet);
+
+  const original = button.dataset.copyLabel || button.textContent;
+  button.dataset.copyLabel = original;
+
+  if (ok) {
+    button.textContent = "Copied ✓";
+    button.classList.add("is-copied");
+    announce(`Copied ${label} embed code.`);
+  } else {
+    button.textContent = "Failed";
+    announce("Copy failed", true);
+  }
+
+  // Revert after a beat; guard against the button having been re-rendered
+  // (renderGallery replaces innerHTML on filter changes).
+  window.setTimeout(() => {
+    if (!button.isConnected) return;
+    button.textContent = button.dataset.copyLabel || "Copy";
+    button.classList.remove("is-copied");
+  }, 1500);
+}
+
+// Attach the delegated copy listener ONCE to the persistent #gallery-root.
+function wireCopyDelegation() {
+  const mount = document.getElementById("gallery-root");
+  if (!mount || mount.dataset.copyWired === "true") return;
+  mount.dataset.copyWired = "true";
+  mount.addEventListener("click", handleGalleryClick);
+}
+
 // --- Bootstrap ------------------------------------------------------------
 // Kick off module loading immediately (fire-and-forget), then build the
 // toolbar once, render the full gallery, and wire versioners once the DOM is
 // ready. #gallery-root may not exist yet at parse time.
 function init() {
   initToolbar();
+  ensureLiveRegion();
+  wireCopyDelegation();
   applyFilters();
 }
 
