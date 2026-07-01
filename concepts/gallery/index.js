@@ -107,16 +107,24 @@ function renderCard(concept) {
     : renderPlainCard(concept);
 }
 
-// Build #gallery-root: one section per category, containing all concept cards
-// for that category from CONCEPTS.
-function renderGallery() {
+// (Re)build ONLY #gallery-root from a given concept array, one section per
+// category. Categories with no visible concepts are skipped entirely so no
+// empty section headers appear. An empty list yields a single message.
+function renderGallery(concepts) {
   const mount = document.getElementById("gallery-root");
   if (!mount) return;
 
+  if (concepts.length === 0) {
+    mount.innerHTML =
+      `<p class="gallery-empty" role="status">No concepts match your filters.</p>`;
+    return;
+  }
+
   const sections = CATEGORIES.map((category) => {
-    const inCategory = CONCEPTS.filter(
+    const inCategory = concepts.filter(
       (concept) => concept.category === category.id
     );
+    if (inCategory.length === 0) return "";
 
     const cards = inCategory.map(renderCard).join("");
     return (
@@ -194,13 +202,171 @@ function wireVersioners() {
   });
 }
 
-// --- Bootstrap ------------------------------------------------------------
-// Kick off module loading immediately (fire-and-forget), then render the full
-// gallery and wire versioners once the DOM is ready. #gallery-root may not
-// exist yet at parse time.
-function init() {
-  renderGallery();
+// --- Filter toolbar -------------------------------------------------------
+// The toolbar is created once and inserted BEFORE #gallery-root (outside it),
+// so it survives re-renders and the search input keeps focus while typing.
+
+// Map a concept's badgeCls to a status id used for filtering.
+function statusOf(concept) {
+  if (/\bmeta-status-refined\b/.test(concept.badgeCls)) return "refined";
+  if (/\bmeta-status-new\b/.test(concept.badgeCls)) return "new";
+  return "original";
+}
+
+const STATUSES = [
+  { id: "original", title: "Original" },
+  { id: "refined", title: "Refined" },
+  { id: "new", title: "New" },
+];
+
+// Live filter state. Defaults show everything.
+const activeCategories = new Set(CATEGORIES.map((category) => category.id));
+const activeStatuses = new Set(STATUSES.map((status) => status.id));
+let searchTerm = "";
+
+// Cached toolbar element references, populated by initToolbar().
+let searchInput = null;
+let countReadout = null;
+
+// True when a concept passes all three filter dimensions.
+function isVisible(concept) {
+  if (!activeCategories.has(concept.category)) return false;
+  if (!activeStatuses.has(statusOf(concept))) return false;
+  if (searchTerm && !concept.label.toLowerCase().includes(searchTerm)) {
+    return false;
+  }
+  return true;
+}
+
+// Recompute the visible list, rebuild the gallery, re-wire versioners, and
+// refresh the count readout.
+function applyFilters() {
+  const visible = CONCEPTS.filter(isVisible);
+  renderGallery(visible);
   wireVersioners();
+  if (countReadout) {
+    countReadout.textContent = `Showing ${visible.length} of ${CONCEPTS.length}`;
+  }
+}
+
+function makeChip(filter, value, title) {
+  const chip = document.createElement("button");
+  chip.type = "button";
+  chip.className = "filter-chip";
+  chip.dataset.filter = filter;
+  chip.dataset.value = value;
+  chip.setAttribute("aria-pressed", "true");
+  chip.textContent = title;
+  return chip;
+}
+
+// Build the toolbar ONCE and insert it before #gallery-root.
+function initToolbar() {
+  const mount = document.getElementById("gallery-root");
+  if (!mount) return;
+
+  const toolbar = document.createElement("div");
+  toolbar.className = "gallery-toolbar";
+  toolbar.setAttribute("role", "search");
+  toolbar.setAttribute("aria-label", "Filter and search concepts");
+
+  // Search input.
+  searchInput = document.createElement("input");
+  searchInput.type = "search";
+  searchInput.className = "concept-search";
+  searchInput.placeholder = "Search concepts by name…";
+  searchInput.setAttribute("aria-label", "Search concepts by name");
+  toolbar.appendChild(searchInput);
+
+  // Category filter group.
+  const categoryGroup = document.createElement("div");
+  categoryGroup.className = "toolbar-group";
+  categoryGroup.setAttribute("role", "group");
+  categoryGroup.setAttribute("aria-label", "Filter by category");
+  const categoryLabel = document.createElement("span");
+  categoryLabel.className = "toolbar-group-label";
+  categoryLabel.textContent = "Category";
+  categoryGroup.appendChild(categoryLabel);
+  const categoryChips = CATEGORIES.map((category) =>
+    makeChip("category", category.id, category.title)
+  );
+  categoryChips.forEach((chip) => categoryGroup.appendChild(chip));
+  toolbar.appendChild(categoryGroup);
+
+  // Status filter group.
+  const statusGroup = document.createElement("div");
+  statusGroup.className = "toolbar-group";
+  statusGroup.setAttribute("role", "group");
+  statusGroup.setAttribute("aria-label", "Filter by status");
+  const statusLabel = document.createElement("span");
+  statusLabel.className = "toolbar-group-label";
+  statusLabel.textContent = "Status";
+  statusGroup.appendChild(statusLabel);
+  const statusChips = STATUSES.map((status) =>
+    makeChip("status", status.id, status.title)
+  );
+  statusChips.forEach((chip) => statusGroup.appendChild(chip));
+  toolbar.appendChild(statusGroup);
+
+  // Reset button.
+  const reset = document.createElement("button");
+  reset.type = "button";
+  reset.className = "filter-reset";
+  reset.textContent = "Reset";
+  toolbar.appendChild(reset);
+
+  // Count readout.
+  countReadout = document.createElement("span");
+  countReadout.className = "filter-count";
+  countReadout.setAttribute("role", "status");
+  toolbar.appendChild(countReadout);
+
+  mount.parentNode.insertBefore(toolbar, mount);
+
+  // --- Wiring ---
+  // Debounce the search input a touch so typing stays smooth.
+  let searchTimer = null;
+  searchInput.addEventListener("input", () => {
+    if (searchTimer) clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      searchTerm = searchInput.value.trim().toLowerCase();
+      applyFilters();
+    }, 120);
+  });
+
+  const allChips = categoryChips.concat(statusChips);
+  allChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const pressed = chip.getAttribute("aria-pressed") === "true";
+      const next = !pressed;
+      chip.setAttribute("aria-pressed", next ? "true" : "false");
+      const set =
+        chip.dataset.filter === "category" ? activeCategories : activeStatuses;
+      if (next) set.add(chip.dataset.value);
+      else set.delete(chip.dataset.value);
+      applyFilters();
+    });
+  });
+
+  reset.addEventListener("click", () => {
+    activeCategories.clear();
+    CATEGORIES.forEach((category) => activeCategories.add(category.id));
+    activeStatuses.clear();
+    STATUSES.forEach((status) => activeStatuses.add(status.id));
+    searchTerm = "";
+    searchInput.value = "";
+    allChips.forEach((chip) => chip.setAttribute("aria-pressed", "true"));
+    applyFilters();
+  });
+}
+
+// --- Bootstrap ------------------------------------------------------------
+// Kick off module loading immediately (fire-and-forget), then build the
+// toolbar once, render the full gallery, and wire versioners once the DOM is
+// ready. #gallery-root may not exist yet at parse time.
+function init() {
+  initToolbar();
+  applyFilters();
 }
 
 importConceptModules();
