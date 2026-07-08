@@ -1,6 +1,6 @@
 # Current State
 
-**Last updated:** 2026-06-07
+**Last updated:** 2026-07-08
 **Branch:** main
 **Deployment:** Live at https://afterglows.starlightdaemon.dev/ via GitHub Pages
 
@@ -30,7 +30,7 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 - Dead Stargate UI hooks and dead media/sound code removed.
 - `backups/` directory excluded from git (local `.gitignore` entry).
 - `node_modules/` present (npm project); excluded from git.
-- RAIDEN Instance installed at Edict v0.6.1. WSL→macOS migration remediation applied 2026-06-07.
+- RAIDEN Instance installed at Edict v1.0.0 (updated 2026-06-12, commit 5e45d4d). WSL→macOS migration remediation applied 2026-06-07.
 
 ## In Progress
 
