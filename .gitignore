@@ -44,3 +44,7 @@ audit-reports/
 
 # Local snapshots — not repo content
 backups/
+
+# Local tooling
+.claude/
+.serena/
