@@ -57,8 +57,8 @@ Still open:
    backups/ if that is intentionally untracked).
 4. Signal to the operator: Afterglows is ready for the RAIDEN central agent to
    run the v0.4.0 migration prompt from
-   /Users/dante/Citadel/Raiden/toolkit/prompts/audit-protocol-migration-v0.4.0-prompt.md
-   targeting --instance /Users/dante/Citadel/Afterglows. (v0.3.0 skipped; v0.4.0 applied directly.)
+   E:\Citadel/Raiden/toolkit/prompts/audit-protocol-migration-v0.4.0-prompt.md
+   targeting --instance E:\Citadel/Afterglows. (v0.3.0 skipped; v0.4.0 applied directly.)
 
 Do not:
 - reopen settled naming or architecture

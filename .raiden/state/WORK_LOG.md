@@ -13,7 +13,7 @@
 
 ## 2026-06-07 — WSL→macOS migration remediation
 
-- All `/mnt/e/` paths corrected to `/Users/dante/Citadel/` across AGENTS.md, two prompt files, and state files.
+- All `/mnt/e/` paths corrected to `E:\Citadel/` across AGENTS.md, two prompt files, and state files.
 - `commit-msg` hook execute bit set (`chmod +x`); RAIDEN Co-Authored-By enforcement now active.
 - `node_modules` deleted and reinstalled clean on ARM64 macOS; lockfile name verified.
 - Edict v0.6.1 confirmed clean; migration audit closed.
@@ -29,7 +29,7 @@
 
 ## Pre-RAIDEN notable events
 
-- Stargate removed from Afterglows; spun off to `/Users/dante/Citadel/Stargate` standalone repo.
+- Stargate removed from Afterglows; spun off to `E:\Citadel/Stargate` standalone repo.
 - Concepts gallery modularized and versioned; components restructured.
 - Dead Stargate UI hooks and dead media/sound code removed.
 - `backups/` directory added to `.gitignore`.
