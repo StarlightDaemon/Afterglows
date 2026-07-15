@@ -48,3 +48,6 @@ backups/
 # Local tooling
 .claude/
 .serena/
+
+# macOS
+._*
