@@ -11,8 +11,8 @@ The root `index.html` is the live site entry point, and the directories below ar
 *   **Key File**: `matrix_tools.css`
 
 ### 2. [Concepts](../concepts/README.md)
-*   **Description**: A gallery of 30+ header animation concepts (Radar, DNA, Grid, etc.) that were explored before the final Stargate selection.
-*   **Key File**: `header-animation-concepts.html`
+*   **Description**: An interactive, manifest-driven gallery of 48 header animation concepts (Radar, DNA, Grid, etc.) across 7 categories, explored before the final Stargate selection. Supports search, category/status filtering, version cycling, and per-tile copy/source actions.
+*   **Key Files**: `header-animation-concepts.html`, `gallery/manifest.js`, `gallery/index.js`
 
 ### 3. [Retro](../retro/README.md)
 *   **Description**: A toolkit for CRT monitor effects, including scanlines, phosphor glow, and screen curvature.
