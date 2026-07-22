@@ -6,27 +6,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
     <title>CRT & Scanline Effects Demo</title>
-    <meta name="description" content="Demo of the Afterglows CRT and retro effects library: phosphor glow, scanlines, flicker, and screen curvature applied to a video-feed panel using pure CSS.">
+    <meta name="description" content="Demo of the Afterglows CRT and retro effects library: phosphor glow, scanlines, flicker, glitch, screen curvature, and eight switchable phosphor color themes, in pure CSS.">
     <link rel="canonical" href="https://afterglows.starlightdaemon.dev/retro/crt_demo.html">
     <meta property="og:title" content="CRT &amp; Scanline Effects Demo">
-    <meta property="og:description" content="Demo of the Afterglows CRT and retro effects library: phosphor glow, scanlines, flicker, and screen curvature applied to a video-feed panel using pure CSS.">
+    <meta property="og:description" content="Demo of the Afterglows CRT and retro effects library: phosphor glow, scanlines, flicker, glitch, screen curvature, and eight switchable phosphor color themes, in pure CSS.">
     <meta property="og:url" content="https://afterglows.starlightdaemon.dev/retro/crt_demo.html">
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="crt_tools.css">
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: #111;
-            color: #eee;
-            font-family: sans-serif;
+            min-height: 100vh;
+            background:
+                radial-gradient(ellipse 90% 70% at 50% 0%,
+                    color-mix(in srgb, var(--crt-glow) 6%, transparent) 0%,
+                    transparent 60%),
+                var(--crt-bg);
+            color: var(--crt-green);
+            font-family: 'Fira Code', monospace;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px;
+            padding: 44px 40px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 26px;
         }
 
         h1 {
-            margin-bottom: 40px;
+            font-family: 'VT323', monospace;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            color: var(--crt-green);
+            text-shadow:
+                0 0 6px var(--crt-glow),
+                0 0 22px color-mix(in srgb, var(--crt-glow) 45%, transparent);
+        }
+
+        .subtitle {
+            margin-top: 4px;
+            font-size: 0.72rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--crt-dim);
+        }
+
+        /* Theme control row */
+        .phosphor-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            padding: 12px 16px;
+            border: 1px solid color-mix(in srgb, var(--crt-dim) 60%, transparent);
+            border-radius: 4px;
+            background: color-mix(in srgb, var(--crt-green) 3%, transparent);
+        }
+
+        .phosphor-btn {
+            padding: 6px 12px;
+            border: 1px solid var(--crt-dim);
+            background: transparent;
+            color: var(--crt-green);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s, color 0.2s;
+        }
+
+        .phosphor-btn:hover {
+            border-color: var(--crt-green);
+        }
+
+        .phosphor-btn.active {
+            background: var(--crt-green);
+            border-color: var(--crt-green);
+            color: var(--crt-bg);
+        }
+
+        .phosphor-note {
+            font-size: 0.66rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--crt-dim);
+            margin-bottom: 34px;
+            min-height: 1em;
         }
 
         .grid {
@@ -44,9 +120,9 @@
         }
 
         .label {
-            font-size: 0.9rem;
-            color: #888;
-            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--crt-dim);
+            font-family: 'Fira Code', monospace;
         }
 
         /* Custom sizing for demo boxes */
@@ -57,15 +133,59 @@
             justify-content: center;
             font-size: 1.5rem;
             text-align: center;
+            font-family: 'VT323', monospace;
+            letter-spacing: 0.05em;
         }
 
+        /* Terminal log panel */
+        .log-box {
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            font-size: 1.15rem;
+            text-align: left;
+            gap: 2px;
+            line-height: 1.5;
+        }
+
+        .log-box .dim {
+            color: var(--crt-dim);
+        }
+
+        /* Power-on demo */
+        .power-stage {
+            position: relative;
+        }
+
+        .power-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 30;
+            padding: 5px 10px;
+            border: 1px solid var(--crt-dim);
+            background: var(--crt-bg);
+            color: var(--crt-green);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+        }
+
+        .power-btn:hover {
+            border-color: var(--crt-green);
+        }
+
+        /* Mini CRT for the screen-curve panel — colors ride the theme */
         .curve-demo-screen {
             position: relative;
             width: 150px;
             height: 150px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             background:
-                radial-gradient(circle at center, rgba(0, 255, 65, 0.18) 0%, rgba(0, 0, 0, 0.82) 68%),
+                radial-gradient(circle at center,
+                    color-mix(in srgb, var(--crt-glow) 18%, transparent) 0%,
+                    rgba(0, 0, 0, 0.82) 68%),
                 linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.2));
             overflow: hidden;
         }
@@ -92,8 +212,8 @@
             position: absolute;
             inset: 16px;
             background-image:
-                linear-gradient(rgba(0, 255, 65, 0.3) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 65, 0.3) 1px, transparent 1px);
+                linear-gradient(color-mix(in srgb, var(--crt-green) 30%, transparent) 1px, transparent 1px),
+                linear-gradient(90deg, color-mix(in srgb, var(--crt-green) 30%, transparent) 1px, transparent 1px);
             background-size: 18px 18px;
             opacity: 0.7;
         }
@@ -106,72 +226,23 @@
             font-family: 'VT323', monospace;
             font-size: 1.35rem;
             letter-spacing: 0.12em;
-            color: #9bffb5;
-            text-shadow: 0 0 8px rgba(155, 255, 181, 0.6);
+            color: var(--crt-head);
+            text-shadow: 0 0 8px color-mix(in srgb, var(--crt-glow) 60%, transparent);
             white-space: nowrap;
         }
-    </style>
-</head>
 
-<body>
-    <main>
-    <h1>CRT & Retro Effects Library</h1>
+        .back {
+            margin-top: 46px;
+            color: var(--crt-dim);
+            text-decoration: none;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+        }
 
-    <div class="grid">
-
-        <!-- 1. Basic Scanlines -->
-        <div class="demo-item">
-            <div class="label">.terminal-box .scanlines .phosphor-glow</div>
-            <div class="terminal-box scanlines phosphor-glow box">
-                SYSTEM READY<br>
-                INITIALIZING...
-            </div>
-        </div>
-
-        <!-- 2. Flickering + Chromatic -->
-        <div class="demo-item">
-            <div class="label">.terminal-box .scanlines-flicker .chromatic-text</div>
-            <div class="terminal-box scanlines-flicker chromatic-text box"
-                style="--crt-green: #ffb000; border-color: #ffb000; color: #ffb000;">
-                WARNING:<br>
-                SIGNAL LOSS
-            </div>
-        </div>
-
-        <!-- 3. Glitch Text -->
-        <div class="demo-item">
-            <div class="label">.glitch-text (data-text)</div>
-            <div class="terminal-box scanlines box"
-                style="--crt-green: #ff3333; border-color: #ff3333; color: #ff3333;">
-                <div class="glitch-text" data-text="CORRUPTION DETECTED">
-                    CORRUPTION DETECTED
-                </div>
-            </div>
-        </div>
-
-        <!-- 4. Screen Curve/Vignette -->
-        <div class="demo-item">
-            <div class="label">.screen-curve</div>
-            <div class="terminal-box scanlines screen-curve box"
-                style="background: #222; border:none; box-shadow:none;">
-                <div class="curve-demo-screen" aria-hidden="true">
-                    <div class="curve-demo-grid"></div>
-                    <div class="curve-demo-label">VIDEO FEED</div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Back Navigation -->
-    <a href="../index.html"
-        style="margin-top: 40px; color: #666; text-decoration: none; font-family: monospace; letter-spacing: 2px; transition: color 0.3s; margin-bottom: 40px;">
-        &larr; BACK TO TERMINAL
-    </a>
-    </main>
-    <style>
-        a:hover {
-            color: #00ff41 !important;
+        .back:hover {
+            color: var(--crt-green);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -181,7 +252,184 @@
             }
         }
     </style>
+</head>
 
+<body>
+    <main>
+        <header>
+            <h1 class="scanlines">CRT &amp; RETRO EFFECTS</h1>
+            <p class="subtitle">phosphor &middot; scanline &middot; glitch &middot; pure css</p>
+        </header>
+
+        <div class="phosphor-controls" id="phosphorControls" role="group" aria-label="Phosphor color theme"></div>
+        <p class="phosphor-note" id="phosphorNote" aria-live="polite"></p>
+
+        <div class="grid">
+
+            <!-- 1. Basic Scanlines + Glow -->
+            <div class="demo-item">
+                <div class="label">.terminal-box .scanlines .phosphor-glow</div>
+                <div class="terminal-box scanlines phosphor-glow box">
+                    <span>SYSTEM READY<br>INITIALIZING<span class="crt-cursor" aria-hidden="true"></span></span>
+                </div>
+            </div>
+
+            <!-- 2. Flickering + Chromatic -->
+            <div class="demo-item">
+                <div class="label">.terminal-box .scanlines-flicker .chromatic-text</div>
+                <div class="terminal-box scanlines-flicker chromatic-text box">
+                    WARNING:<br>
+                    SIGNAL LOSS
+                </div>
+            </div>
+
+            <!-- 3. Glitch Text -->
+            <div class="demo-item">
+                <div class="label">.glitch-text (data-text)</div>
+                <div class="terminal-box scanlines box">
+                    <div class="glitch-text" data-text="CORRUPTION DETECTED">
+                        CORRUPTION DETECTED
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Screen Curve/Vignette -->
+            <div class="demo-item">
+                <div class="label">.screen-curve</div>
+                <div class="terminal-box scanlines screen-curve box"
+                    style="background: #16161a; border: none; box-shadow: none;">
+                    <div class="curve-demo-screen" aria-hidden="true">
+                        <div class="curve-demo-grid"></div>
+                        <div class="curve-demo-label">VIDEO FEED</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Power On -->
+            <div class="demo-item">
+                <div class="label">.anim-power-on</div>
+                <div class="power-stage">
+                    <div class="terminal-box scanlines phosphor-glow box anim-power-on" id="powerTarget">
+                        CHANNEL 3<br>NO SIGNAL
+                    </div>
+                    <button class="power-btn" id="powerReplay" type="button">&#9211; REPLAY</button>
+                </div>
+            </div>
+
+            <!-- 6. Refresh Sweep + terminal log -->
+            <div class="demo-item">
+                <div class="label">.refresh-sweep .scanlines .crt-cursor</div>
+                <div class="terminal-box scanlines refresh-sweep phosphor-glow box log-box">
+                    <span class="dim">&gt; boot --sequence</span>
+                    <span>MEM CHECK ... 64K OK</span>
+                    <span>DRIVE A: ... READY</span>
+                    <span>PHOSPHOR ... ACTIVE</span>
+                    <span class="dim">&gt; run afterglow.exe<span class="crt-cursor" aria-hidden="true"></span></span>
+                </div>
+            </div>
+
+            <!-- 7. Per-element override -->
+            <div class="demo-item">
+                <div class="label">inline var override (--crt-green: var(--crt-red))</div>
+                <div class="terminal-box scanlines phosphor-glow box"
+                    style="--crt-green: var(--crt-red); --crt-glow: var(--crt-red); --crt-head: #ffd9d9;">
+                    ALERT CHANNEL<br>OVERRIDDEN LOCALLY
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Back Navigation -->
+        <a class="back" href="../index.html">&larr; BACK TO TERMINAL</a>
+    </main>
+
+    <script>
+        // Phosphor theme switching — standalone copy of the Afterglows
+        // shim (this folder is a copy-out library; no cross-folder deps).
+        // Shares the same storage key as matrix_code so both stay in sync.
+        (function () {
+            'use strict';
+
+            var THEMES = [
+                { key: 'p1', name: 'Green', note: 'P1 — classic green screen' },
+                { key: 'p31', name: 'Fast Green', note: 'P31 — Amdek / DEC / Tektronix' },
+                { key: 'p3', name: 'Amber', note: 'P3 — DEC VT220 / Hercules' },
+                { key: 'p4', name: 'Paper White', note: 'P4 — TRS-80 / Commodore PET' },
+                { key: 'p7', name: 'Blue-White', note: 'P7 — radar / oscilloscope cascade' },
+                { key: 'p2', name: 'Stoplight', note: 'P2 — long-persistence oscillography' },
+                { key: 'p14', name: 'Violet', note: 'P14 — rare blue-violet' },
+                { key: 'neon', name: 'Neon Blue', note: 'modern cyberpunk — not a phosphor' }
+            ];
+            var STORAGE_KEY = 'afterglows-phosphor';
+            var root = document.documentElement;
+            var controls = document.getElementById('phosphorControls');
+            var note = document.getElementById('phosphorNote');
+
+            function isValid(key) {
+                return THEMES.some(function (t) { return t.key === key; });
+            }
+
+            function apply(key, persist) {
+                if (!isValid(key)) { return; }
+                if (key === 'p1') {
+                    root.removeAttribute('data-phosphor');
+                } else {
+                    root.setAttribute('data-phosphor', key);
+                }
+                if (persist) {
+                    try { localStorage.setItem(STORAGE_KEY, key); } catch (e) { /* ignore */ }
+                }
+                sync();
+            }
+
+            function sync() {
+                var active = root.getAttribute('data-phosphor') || 'p1';
+                controls.querySelectorAll('.phosphor-btn').forEach(function (btn) {
+                    btn.classList.toggle('active', btn.dataset.theme === active);
+                });
+                var t = THEMES.find(function (x) { return x.key === active; });
+                note.textContent = t ? t.note : '';
+            }
+
+            THEMES.forEach(function (t) {
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'phosphor-btn';
+                btn.dataset.theme = t.key;
+                btn.textContent = t.name;
+                btn.title = t.note;
+                btn.addEventListener('click', function () { apply(t.key, true); });
+                controls.appendChild(btn);
+            });
+
+            var fromQuery = new URLSearchParams(window.location.search).get('phosphor');
+            if (fromQuery && isValid(fromQuery)) {
+                apply(fromQuery, false);
+            } else {
+                var stored = null;
+                try { stored = localStorage.getItem(STORAGE_KEY); } catch (e) { /* ignore */ }
+                if (stored && isValid(stored)) { apply(stored, false); }
+            }
+
+            window.addEventListener('storage', function (e) {
+                if (e.key === STORAGE_KEY && e.newValue && isValid(e.newValue)) {
+                    apply(e.newValue, false);
+                }
+            });
+
+            sync();
+        }());
+
+        // Power-on replay: retrigger the animation class.
+        (function () {
+            var target = document.getElementById('powerTarget');
+            document.getElementById('powerReplay').addEventListener('click', function () {
+                target.classList.remove('anim-power-on');
+                void target.offsetWidth; // force reflow so the animation restarts
+                target.classList.add('anim-power-on');
+            });
+        }());
+    </script>
 </body>
 
 </html>

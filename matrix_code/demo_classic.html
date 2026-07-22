@@ -34,14 +34,62 @@
             height: 100%;
             display: flex;
             justify-content: space-around;
+            gap: 0;
             z-index: 0;
         }
 
         .m-col {
+            animation-delay: calc(var(--i) * 0.1s);
+        }
+
+        /* Depth layers — far columns are small, soft, and slow; near
+           columns are large, bright, and quick. Parallax without JS. */
+        .m-col.far {
+            font-size: 12px;
+            line-height: 15px;
+            opacity: 0.35;
+            filter: blur(0.6px);
+        }
+
+        .m-col.mid {
             font-size: 16px;
             line-height: 20px;
-            text-shadow: 0 0 8px #00ff00, 0 0 20px #00ff00;
-            animation-delay: calc(var(--i) * 0.1s);
+            opacity: 0.65;
+        }
+
+        .m-col.near {
+            font-size: 22px;
+            line-height: 27px;
+            opacity: 0.95;
+            text-shadow:
+                0 0 6px var(--matrix-glow),
+                0 0 18px color-mix(in srgb, var(--matrix-glow) 65%, transparent);
+        }
+
+        /* Ambient depth: soft phosphor haze in the middle distance,
+           heavy vignette at the edges — reads like a lit tube. */
+        .haze {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 90% 65% at 50% 42%,
+                    color-mix(in srgb, var(--matrix-glow) 7%, transparent) 0%,
+                    transparent 60%),
+                radial-gradient(ellipse 120% 100% at 50% 50%,
+                    transparent 55%,
+                    rgba(0, 0, 0, 0.55) 100%);
+        }
+
+        /* Faint scanlines over everything for texture. */
+        .haze::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg,
+                    rgba(0, 0, 0, 0.18) 0 1px,
+                    transparent 1px 4px);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -55,20 +103,30 @@
 
 <body>
     <main>
-    <div class="matrix-rain" id="rainContainer"></div>
+        <div class="matrix-rain" id="rainContainer"></div>
+        <div class="haze" aria-hidden="true"></div>
     </main>
 
+    <script src="phosphor_theme.js"></script>
     <script>
-        // Generate random matrix characters
+        // Generate random matrix character columns across three depth layers.
         const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
         const container = document.getElementById('rainContainer');
-        const numCols = Math.floor(window.innerWidth / 25);
+        const numCols = Math.floor(window.innerWidth / 22);
+
+        const speeds = ['fast', 'med', 'slow'];
+        const depths = ['far', 'far', 'mid', 'mid', 'mid', 'near']; // mid-weighted mix
 
         for (let i = 0; i < numCols; i++) {
             const col = document.createElement('div');
-            col.className = 'm-col ' + ['fast', 'med', 'slow'][Math.floor(Math.random() * 3)];
+            const depth = depths[Math.floor(Math.random() * depths.length)];
+            // Near columns skew fast, far columns skew slow — reinforces parallax.
+            const speedPool = depth === 'near' ? ['fast', 'fast', 'med']
+                : depth === 'far' ? ['med', 'slow', 'slow']
+                : speeds;
+            col.className = 'm-col ' + speedPool[Math.floor(Math.random() * speedPool.length)] + ' ' + depth;
             col.style.setProperty('--i', i);
-            col.style.animationDelay = (Math.random() * 3) + 's';
+            col.style.animationDelay = (Math.random() * 4.5) + 's';
 
             // Random string of characters
             let str = '';

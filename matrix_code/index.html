@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; frame-src 'self'">
     <title>Matrix Code | Live Demo Gallery</title>
-    <meta name="description" content="Live demo gallery for the Matrix Code digital-rain library: classic CSS katakana columns, interactive Canvas rain, pure binary, and switchable color themes.">
+    <meta name="description" content="Live demo gallery for the Matrix Code digital-rain library: classic CSS katakana columns, interactive Canvas rain, pure binary, and eight switchable phosphor color themes.">
     <link rel="canonical" href="https://afterglows.starlightdaemon.dev/matrix_code/">
     <meta property="og:title" content="Matrix Code | Live Demo Gallery">
-    <meta property="og:description" content="Live demo gallery for the Matrix Code digital-rain library: classic CSS katakana columns, interactive Canvas rain, pure binary, and switchable color themes.">
+    <meta property="og:description" content="Live demo gallery for the Matrix Code digital-rain library: classic CSS katakana columns, interactive Canvas rain, pure binary, and eight switchable phosphor color themes.">
     <meta property="og:url" content="https://afterglows.starlightdaemon.dev/matrix_code/">
     <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="matrix_tools.css">
     <style>
         * {
             margin: 0;
@@ -20,22 +21,27 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --matrix-green: #00ff00;
-            --matrix-dim: #00dd00;
-            --matrix-dark: #00aa00;
-            --bg-primary: #0a0f0a;
-            --bg-card: rgba(0, 40, 0, 0.4);
-            --text-bright: #44ff44;
-        }
-
         html,
         body {
             height: 100%;
-            background: var(--bg-primary);
-            color: var(--matrix-green);
+            background: var(--matrix-bg);
+            color: var(--matrix-color);
             font-family: 'JetBrains Mono', 'Courier New', monospace;
             overflow: hidden;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            background: var(--matrix-color);
+            color: var(--matrix-bg);
+            padding: 8px 14px;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            left: 0;
         }
 
         .gallery-layout {
@@ -46,24 +52,26 @@
 
         /* Sidebar */
         .sidebar {
-            background: var(--bg-primary);
-            border-right: 1px solid var(--matrix-dark);
+            background: linear-gradient(180deg,
+                    var(--matrix-bg) 0%,
+                    color-mix(in srgb, var(--matrix-color) 5%, var(--matrix-bg)) 100%);
+            border-right: 1px solid var(--matrix-dim);
             display: flex;
             flex-direction: column;
             overflow: hidden;
         }
 
         .sidebar-header {
-            padding: 30px 20px;
-            border-bottom: 1px solid var(--matrix-dark);
+            padding: 26px 20px;
+            border-bottom: 1px solid var(--matrix-dim);
             text-align: center;
         }
 
         .sidebar-header h1 {
             font-size: 20px;
             letter-spacing: 4px;
-            color: var(--matrix-green);
-            text-shadow: 0 0 10px var(--matrix-green);
+            color: var(--matrix-color);
+            text-shadow: 0 0 12px color-mix(in srgb, var(--matrix-glow) 70%, transparent);
             margin-bottom: 5px;
         }
 
@@ -73,150 +81,137 @@
             letter-spacing: 2px;
         }
 
-        .sidebar {
-            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(0, 30, 0, 0.95) 100%);
-        }
-
         .demo-list {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 18px;
         }
 
         .demo-card {
             background: transparent;
             border: none;
-            border-left: 2px solid var(--matrix-dark);
-            padding: 8px 15px;
-            margin-bottom: 2px;
+            border-left: 2px solid var(--matrix-dim);
+            padding: 10px 14px;
+            margin-bottom: 6px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .demo-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 3px;
-            height: 100%;
-            background: transparent;
-            transition: background 0.3s;
+            transition: border-color 0.2s, background 0.2s, transform 0.2s;
         }
 
         .demo-card:hover {
-            border-color: var(--matrix-dim);
-            transform: translateX(5px);
-        }
-
-        .demo-card:hover::before {
-            background: var(--matrix-dim);
+            border-left-color: var(--matrix-color);
+            transform: translateX(4px);
         }
 
         .demo-card.active {
-            border-left-color: var(--matrix-green);
-            background: rgba(0, 255, 0, 0.05);
-        }
-
-        .demo-card.active::before {
-            display: none;
+            border-left-color: var(--matrix-color);
+            background: color-mix(in srgb, var(--matrix-color) 7%, transparent);
         }
 
         .demo-card h3 {
             font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 1.5px;
             color: var(--matrix-dim);
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 400;
-            letter-spacing: 1px;
+            gap: 9px;
+            margin-bottom: 4px;
         }
 
         .demo-card.active h3 {
-            color: var(--matrix-green);
+            color: var(--matrix-color);
         }
 
         .demo-card h3 .indicator {
             width: 6px;
             height: 6px;
-            background: var(--matrix-dark);
+            background: var(--matrix-dim);
             border-radius: 50%;
-            transition: all 0.2s;
+            flex: none;
+            transition: background 0.2s, box-shadow 0.2s;
         }
 
         .demo-card.active h3 .indicator {
-            background: var(--matrix-green);
-            box-shadow: 0 0 8px var(--matrix-green);
-        }
-
-        .demo-card p,
-        .demo-card .tags {
-            display: none;
-        }
-
-        .demo-card h3 {
-            font-size: 14px;
-            color: var(--matrix-green);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .demo-card h3 .indicator {
-            width: 8px;
-            height: 8px;
-            background: var(--matrix-dark);
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-
-        .demo-card.active h3 .indicator {
-            background: var(--matrix-green);
-            box-shadow: 0 0 8px var(--matrix-green);
+            background: var(--matrix-color);
+            box-shadow: 0 0 8px var(--matrix-glow);
         }
 
         .demo-card p {
-            font-size: 11px;
-            color: var(--matrix-dim);
+            font-size: 10px;
             line-height: 1.5;
+            color: color-mix(in srgb, var(--matrix-dim) 75%, var(--matrix-color));
+            opacity: 0.75;
         }
 
-        .demo-card .tags {
-            margin-top: 10px;
-            display: flex;
-            gap: 8px;
+        /* Phosphor theme picker */
+        .phosphor-panel {
+            padding: 14px 18px 16px;
+            border-top: 1px solid var(--matrix-dim);
         }
 
-        .tag {
+        .phosphor-panel .panel-label {
             font-size: 9px;
-            padding: 3px 8px;
-            border: 1px solid var(--matrix-dark);
-            color: var(--matrix-dark);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .tag.css {
-            border-color: var(--matrix-dim);
+            letter-spacing: 3px;
             color: var(--matrix-dim);
+            margin-bottom: 10px;
         }
 
-        .tag.js {
-            border-color: var(--matrix-green);
-            color: var(--matrix-green);
+        .phosphor-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+
+        .phosphor-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 7px 2px 6px;
+            background: transparent;
+            border: 1px solid color-mix(in srgb, var(--matrix-dim) 55%, transparent);
+            cursor: pointer;
+            font-family: inherit;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .phosphor-btn:hover {
+            border-color: var(--matrix-color);
+        }
+
+        .phosphor-btn.active {
+            border-color: var(--matrix-color);
+            background: color-mix(in srgb, var(--matrix-color) 10%, transparent);
+        }
+
+        .phosphor-btn .chip {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--chip);
+            box-shadow: 0 0 7px color-mix(in srgb, var(--chip) 80%, transparent);
+        }
+
+        .phosphor-btn .chip-label {
+            font-size: 8px;
+            letter-spacing: 0.5px;
+            color: var(--matrix-dim);
+            text-transform: uppercase;
+        }
+
+        .phosphor-btn.active .chip-label {
+            color: var(--matrix-color);
         }
 
         /* Back Link */
         .back-link {
-            padding: 20px;
-            border-top: 1px solid var(--matrix-dark);
+            padding: 14px 20px;
+            border-top: 1px solid var(--matrix-dim);
             text-align: center;
         }
 
         .back-link a {
-            color: var(--matrix-dark);
+            color: var(--matrix-dim);
             text-decoration: none;
             font-size: 11px;
             letter-spacing: 2px;
@@ -224,7 +219,7 @@
         }
 
         .back-link a:hover {
-            color: var(--matrix-green);
+            color: var(--matrix-color);
         }
 
         /* Preview Area */
@@ -237,8 +232,8 @@
 
         .preview-header {
             padding: 15px 25px;
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--matrix-dark);
+            background: var(--matrix-bg);
+            border-bottom: 1px solid var(--matrix-dim);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -251,7 +246,7 @@
         }
 
         .preview-title span {
-            color: var(--matrix-green);
+            color: var(--matrix-color);
         }
 
         .preview-controls {
@@ -261,7 +256,7 @@
 
         .preview-btn {
             background: none;
-            border: 1px solid var(--matrix-dark);
+            border: 1px solid var(--matrix-dim);
             color: var(--matrix-dim);
             padding: 6px 12px;
             font-family: inherit;
@@ -269,12 +264,12 @@
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s;
+            transition: border-color 0.3s, color 0.3s;
         }
 
         .preview-btn:hover {
-            border-color: var(--matrix-green);
-            color: var(--matrix-green);
+            border-color: var(--matrix-color);
+            color: var(--matrix-color);
         }
 
         .preview-frame {
@@ -282,26 +277,6 @@
             border: none;
             width: 100%;
             height: 100%;
-        }
-
-        .preview-placeholder {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 20px;
-            color: var(--matrix-dark);
-        }
-
-        .preview-placeholder .icon {
-            font-size: 48px;
-            opacity: 0.5;
-        }
-
-        .preview-placeholder p {
-            font-size: 12px;
-            letter-spacing: 2px;
         }
 
         /* Responsive */
@@ -312,19 +287,23 @@
             }
 
             .sidebar {
-                max-height: 40vh;
+                max-height: 46vh;
             }
 
             .demo-list {
                 display: flex;
                 overflow-x: auto;
-                padding: 15px;
-                gap: 15px;
+                padding: 12px;
+                gap: 12px;
             }
 
             .demo-card {
-                min-width: 200px;
+                min-width: 190px;
                 margin-bottom: 0;
+            }
+
+            .phosphor-grid {
+                grid-template-columns: repeat(8, 1fr);
             }
         }
 
@@ -349,44 +328,32 @@
             <div class="demo-list">
                 <div class="demo-card active" data-src="demo_classic.html" data-title="Classic Rain">
                     <h3><span class="indicator"></span> CLASSIC RAIN</h3>
-                    <p>CSS-based falling matrix columns with Japanese katakana characters.</p>
-                    <div class="tags">
-                        <span class="tag css">CSS</span>
-                        <span class="tag js">JS</span>
-                    </div>
+                    <p>Pure-CSS katakana columns in three parallax depth layers.</p>
                 </div>
 
                 <div class="demo-card" data-src="demo_canvas.html" data-title="Canvas Interactive">
                     <h3><span class="indicator"></span> CANVAS INTERACTIVE</h3>
-                    <p>HTML5 Canvas rain with mouse interaction. Columns react to cursor.</p>
-                    <div class="tags">
-                        <span class="tag js">Canvas</span>
-                        <span class="tag js">JS</span>
-                    </div>
+                    <p>Canvas rain that reacts to the cursor. Click for a pulse wave.</p>
                 </div>
-
-
 
                 <div class="demo-card" data-src="demo_binary.html" data-title="Binary Rain">
                     <h3><span class="indicator"></span> BINARY RAIN</h3>
-                    <p>Pure 0s and 1s falling. Clean, minimal hacker aesthetic.</p>
-                    <div class="tags">
-                        <span class="tag js">Canvas</span>
-                    </div>
+                    <p>Pure 0s and 1s. Clean, minimal hacker aesthetic.</p>
                 </div>
 
-                <div class="demo-card" data-src="demo_themes.html" data-title="Color Themes">
-                    <h3><span class="indicator"></span> COLOR THEMES</h3>
-                    <p>Switchable palettes: Matrix Green, Resurrections Blue, Virus Red.</p>
-                    <div class="tags">
-                        <span class="tag js">Canvas</span>
-                        <span class="tag css">Themes</span>
-                    </div>
+                <div class="demo-card" data-src="demo_themes.html" data-title="Phosphor Themes">
+                    <h3><span class="indicator"></span> PHOSPHOR THEMES</h3>
+                    <p>All eight phosphor palettes side by side, plus film extras.</p>
                 </div>
             </div>
 
+            <div class="phosphor-panel">
+                <div class="panel-label">PHOSPHOR</div>
+                <div class="phosphor-grid" id="phosphorGrid" role="group" aria-label="Phosphor color theme"></div>
+            </div>
+
             <div class="back-link">
-                <a href="../index.html">← BACK TO AFTERGLOWS</a>
+                <a href="../index.html">&larr; BACK TO AFTERGLOWS</a>
             </div>
         </aside>
 
@@ -394,16 +361,17 @@
             <div class="preview-header">
                 <div class="preview-title">PREVIEW: <span id="currentDemo">Classic Rain</span></div>
                 <div class="preview-controls">
-                    <button class="preview-btn" onclick="reloadPreview()">↻ RELOAD</button>
-                    <button class="preview-btn halt" id="haltBtn" onclick="toggleHalt()">⏸ HALT</button>
-                    <button class="preview-btn" onclick="openFullscreen()">⛶ FULLSCREEN</button>
+                    <button class="preview-btn" onclick="reloadPreview()">&#8635; RELOAD</button>
+                    <button class="preview-btn halt" id="haltBtn" onclick="toggleHalt()">&#9208; HALT</button>
+                    <button class="preview-btn" onclick="openFullscreen()">&#9974; FULLSCREEN</button>
                 </div>
             </div>
 
-            <iframe id="previewFrame" class="preview-frame" src="demo_classic.html"></iframe>
+            <iframe id="previewFrame" class="preview-frame" src="demo_classic.html" title="Live demo preview"></iframe>
         </main>
     </div>
 
+    <script src="phosphor_theme.js"></script>
     <script>
         const cards = document.querySelectorAll('.demo-card');
         const previewFrame = document.getElementById('previewFrame');
@@ -411,16 +379,10 @@
 
         cards.forEach(card => {
             card.addEventListener('click', () => {
-                // Remove active from all
                 cards.forEach(c => c.classList.remove('active'));
-                // Add active to clicked
                 card.classList.add('active');
-
-                // Load demo
-                const src = card.dataset.src;
-                const title = card.dataset.title;
-                previewFrame.src = src;
-                currentDemoLabel.textContent = title;
+                previewFrame.src = card.dataset.src;
+                currentDemoLabel.textContent = card.dataset.title;
             });
         });
 
@@ -455,6 +417,57 @@
                 haltBtn.style.color = '';
             }
         }
+
+        // ---- Phosphor theme picker ----
+        // Swatch colors mirror the theme primaries in matrix_tools.css.
+        const SWATCHES = {
+            p1: '#00ff41', p31: '#7be8a4', p3: '#ffb000', p4: '#f2f7ff',
+            p7: '#a9d7ff', p2: '#00ffa2', p14: '#a37bff', neon: '#00c8ff'
+        };
+
+        const grid = document.getElementById('phosphorGrid');
+        AfterglowsPhosphor.THEMES.forEach((t) => {
+            const btn = document.createElement('button');
+            btn.className = 'phosphor-btn';
+            btn.dataset.theme = t.key;
+            btn.style.setProperty('--chip', SWATCHES[t.key] || '#888');
+            btn.title = t.note;
+            btn.setAttribute('aria-label', t.name + ' — ' + t.note);
+            btn.innerHTML = '<span class="chip" aria-hidden="true"></span>' +
+                '<span class="chip-label">' + t.name.split(' ')[0] + '</span>';
+            btn.addEventListener('click', () => AfterglowsPhosphor.set(t.key));
+            grid.appendChild(btn);
+        });
+
+        // Push the current theme into the iframe document (same-origin) so
+        // the preview recolors live without a reload.
+        function themeFrame() {
+            try {
+                const doc = previewFrame.contentDocument;
+                if (!doc || !doc.documentElement) { return; }
+                const key = AfterglowsPhosphor.get();
+                if (key === 'p1') {
+                    doc.documentElement.removeAttribute('data-phosphor');
+                } else {
+                    doc.documentElement.setAttribute('data-phosphor', key);
+                }
+            } catch (e) { /* cross-origin or not ready — standalone pages read localStorage anyway */ }
+        }
+
+        function syncPicker() {
+            const active = AfterglowsPhosphor.get();
+            grid.querySelectorAll('.phosphor-btn').forEach((btn) => {
+                btn.classList.toggle('active', btn.dataset.theme === active);
+            });
+        }
+
+        AfterglowsPhosphor.onChange(() => {
+            themeFrame();
+            syncPicker();
+        });
+        previewFrame.addEventListener('load', themeFrame);
+        syncPicker();
+        themeFrame();
     </script>
 </body>
 

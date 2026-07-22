@@ -12,6 +12,7 @@
     <meta property="og:description" content="Minimal Matrix rain of pure 0s and 1s falling on an HTML5 Canvas — a clean, monochrome hacker aesthetic from the Afterglows visual-effects library.">
     <meta property="og:url" content="https://afterglows.starlightdaemon.dev/matrix_code/demo_binary.html">
     <meta property="og:type" content="website">
+    <link rel="stylesheet" href="matrix_tools.css">
     <style>
         * {
             margin: 0;
@@ -23,11 +24,13 @@
         body {
             height: 100%;
             overflow: hidden;
-            background: #000;
+            background: var(--matrix-bg);
         }
 
         canvas {
             display: block;
+            width: 100%;
+            height: 100%;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -41,119 +44,156 @@
 
 <body>
     <main>
-    <canvas id="matrix" aria-hidden="true">Decorative animated binary rain effect with falling 0s and 1s.</canvas>
+        <canvas id="matrix" aria-hidden="true">Decorative animated binary rain effect with falling 0s and 1s.</canvas>
     </main>
 
+    <script src="phosphor_theme.js"></script>
     <script>
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
-        // Fix 2 — Context null guard
         if (!ctx) {
             console.warn('Matrix canvas: 2d context is not available.');
             throw new Error('Canvas 2d context unavailable');
         }
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const fontSize = 15;
+        const colGap = 18;
 
-        const chars = '01';
-        const fontSize = 14;
+        function readTheme() {
+            const cs = getComputedStyle(document.documentElement);
+            const v = (name, fallback) => (cs.getPropertyValue(name).trim() || fallback);
+            return {
+                color: v('--matrix-color', '#00ff41'),
+                dim: v('--matrix-dim', '#00992a'),
+                head: v('--matrix-head', '#d9ffd9'),
+                glow: v('--matrix-glow', '#00ff41'),
+                bg: v('--matrix-bg', '#030804')
+            };
+        }
+        let theme = readTheme();
+        new MutationObserver(() => { theme = readTheme(); })
+            .observe(document.documentElement, { attributes: true, attributeFilter: ['data-phosphor'] });
 
-        let columns = Math.floor(canvas.width / fontSize);
-        let drops = Array(columns).fill(1);
+        let width = 0, height = 0;
+        let drops = [];
 
-        // Fix 6 — Named init function for column model
-        function init() {
-            columns = Math.floor(canvas.width / fontSize);
-            drops = Array(columns).fill(1);
-            // Randomize initial positions
-            for (let i = 0; i < drops.length; i++) {
-                drops[i] = Math.floor(Math.random() * -50);
-            }
+        function sizeCanvas() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = Math.floor(width * dpr);
+            canvas.height = Math.floor(height * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         }
 
-        // Run init at startup to set initial randomized positions
+        function init() {
+            sizeCanvas();
+            const columns = Math.floor(width / colGap);
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops.push({
+                    y: Math.random() * -(height / fontSize) * 2,
+                    speed: 0.3 + Math.random() * 0.55,
+                    weight: Math.random()          // per-column brightness identity
+                });
+            }
+            ctx.fillStyle = theme.bg;
+            ctx.fillRect(0, 0, width, height);
+        }
         init();
 
-        // Fix 1 — RAF handle
         let rafId = null;
+        let frame = 0;
 
         function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            frame++;
 
-            ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
+            ctx.globalAlpha = 0.12;
+            ctx.fillStyle = theme.bg;
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalAlpha = 1;
+
+            ctx.font = "bold " + fontSize + "px 'Courier New', monospace";
+            ctx.textBaseline = 'top';
 
             for (let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                const x = i * fontSize;
-                const y = drops[i] * fontSize;
+                const d = drops[i];
+                const x = i * colGap;
+                const headY = d.y * fontSize;
+                const bit = Math.random() < 0.5 ? '0' : '1';
 
-                // Lead character is brightest
-                const isLead = Math.random() > 0.97;
+                // Repaint the previous head in body color: dim columns stay
+                // quiet, heavy columns run hot — a mixed-density skyline.
+                const prevY = (d.y - d.speed) * fontSize;
+                if (prevY > -fontSize && prevY < height) {
+                    ctx.fillStyle = d.weight > 0.72 ? theme.color : theme.dim;
+                    ctx.globalAlpha = 0.35 + d.weight * 0.55;
+                    ctx.fillText(bit, x, prevY);
+                    ctx.globalAlpha = 1;
+                }
 
-                if (isLead) {
-                    ctx.fillStyle = '#ffffff';
-                    ctx.shadowBlur = 15;
-                    ctx.shadowColor = '#00ff00';
-                } else {
-                    // Gradient from bright to dim
-                    const fade = Math.random();
-                    const green = Math.floor(80 + fade * 100);
-                    ctx.fillStyle = `rgb(0, ${green}, 0)`;
+                // Occasional stray bit-flip sparkle inside the trail.
+                if (Math.random() < 0.012) {
+                    const sparkY = headY - (2 + (Math.random() * 10 | 0)) * fontSize;
+                    if (sparkY > 0 && sparkY < height) {
+                        ctx.fillStyle = theme.color;
+                        ctx.globalAlpha = 0.9;
+                        ctx.fillText(Math.random() < 0.5 ? '0' : '1', x, sparkY);
+                        ctx.globalAlpha = 1;
+                    }
+                }
+
+                // Leading bit.
+                if (headY > -fontSize && headY < height + fontSize) {
+                    ctx.fillStyle = theme.head;
+                    ctx.shadowColor = theme.glow;
+                    ctx.shadowBlur = 6 + d.weight * 8;
+                    ctx.fillText(Math.random() < 0.5 ? '0' : '1', x, headY);
                     ctx.shadowBlur = 0;
                 }
 
-                ctx.fillText(text, x, y);
-
-                if (y > canvas.height && Math.random() > 0.98) {
-                    drops[i] = 0;
+                d.y += d.speed;
+                if (headY > height && Math.random() > 0.975) {
+                    d.y = Math.random() * -30;
+                    d.speed = 0.3 + Math.random() * 0.55;
+                    d.weight = Math.random();
                 }
-                drops[i]++;
             }
 
-            ctx.shadowBlur = 0;
-            // Fix 1 — assign RAF return value inside draw
             rafId = requestAnimationFrame(draw);
         }
 
-        // Fix 5 — Reduced-motion gate
+        // Reduced-motion gate: render one static frame only.
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            // Render one static frame as a visual placeholder
             draw();
             cancelAnimationFrame(rafId);
             rafId = null;
         } else {
-            // Fix 1 — assign RAF return value at initial call
             rafId = requestAnimationFrame(draw);
         }
 
-        // Fix 3 — Visibility pause/resume
+        // Visibility pause/resume
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 cancelAnimationFrame(rafId);
                 rafId = null;
-            } else {
+            } else if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 rafId = requestAnimationFrame(draw);
             }
         });
 
-        // Fix 4 — Pagehide cleanup
+        // Pagehide cleanup
         window.addEventListener('pagehide', () => {
             cancelAnimationFrame(rafId);
             rafId = null;
         });
 
-        // Fix 6 — Debounced resize handler with column recompute
+        // Debounced resize with full model rebuild
         let resizeTimer = null;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                init();
-            }, 150);
+            resizeTimer = setTimeout(init, 150);
         });
     </script>
 </body>
