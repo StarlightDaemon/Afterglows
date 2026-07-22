@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
-    <title>Header Animation Concepts Archive</title>
+    <title>Animation Concepts Archive</title>
     <meta name="description" content="An archive of animated header concepts as reusable web components, spanning geometry, scanning, diagnostics, bio, nature, spatial, and retro themes. From Afterglows.">
     <link rel="canonical" href="https://afterglows.starlightdaemon.dev/concepts/">
-    <meta property="og:title" content="Header Animation Concepts Archive">
+    <meta property="og:title" content="Animation Concepts Archive">
     <meta property="og:description" content="An archive of animated header concepts as reusable web components, spanning geometry, scanning, diagnostics, bio, nature, spatial, and retro themes. From Afterglows.">
     <meta property="og:url" content="https://afterglows.starlightdaemon.dev/concepts/">
     <meta property="og:type" content="website">
@@ -37,7 +37,7 @@
 
         .gallery-note {
             max-width: 900px;
-            margin: 0 0 32px;
+            margin: 32px 0 0;
             color: #8f8f8f;
             font-size: 0.82rem;
             line-height: 1.5;
@@ -342,7 +342,10 @@
 
 <body>
     <main>
-    <h1>Header Animation Concepts Archive</h1>
+    <h1>Animation Concepts Archive</h1>
+
+    <noscript><p style="color:#8f8f8f">This gallery renders animated web components with JavaScript, which appears to be disabled.</p></noscript>
+    <div id="gallery-root"></div>
     <div class="gallery-note">
         Tile status now tracks the refresh cycle directly on the page. Use <strong>Original v1</strong> for untouched archive concepts,
         <strong>Refined v2</strong> for rebuilt concepts, and <strong>New v1</strong> for concepts added during the current expansion.
@@ -353,9 +356,6 @@
             <span class="meta-badge meta-status-new">New v1</span>
         </div>
     </div>
-
-    <noscript><p style="color:#8f8f8f">This gallery renders animated web components with JavaScript, which appears to be disabled.</p></noscript>
-    <div id="gallery-root"></div>
     </main>
 
 </body>

@@ -1,4 +1,4 @@
-# Header Animation Concepts Archive
+# Animation Concepts Archive
 
 This folder contains the complete exploration history of header animation concepts that were explored before the final direction was selected, presented as an interactive, manifest-driven gallery.
 
