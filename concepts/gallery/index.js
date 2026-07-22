@@ -354,15 +354,42 @@ function initToolbar() {
   });
 
   const allChips = categoryChips.concat(statusChips);
-  allChips.forEach((chip) => {
+
+  // Category chips ISOLATE rather than toggle: clicking one narrows
+  // activeCategories down to just that category. Clicking the same chip
+  // again while it is the sole active category restores the all-on default.
+  // Clicking a different category chip switches the isolation to it.
+  categoryChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const value = chip.dataset.value;
+      const isSoleActive =
+        activeCategories.size === 1 && activeCategories.has(value);
+
+      activeCategories.clear();
+      if (isSoleActive) {
+        CATEGORIES.forEach((category) => activeCategories.add(category.id));
+      } else {
+        activeCategories.add(value);
+      }
+
+      categoryChips.forEach((categoryChip) => {
+        categoryChip.setAttribute(
+          "aria-pressed",
+          activeCategories.has(categoryChip.dataset.value) ? "true" : "false"
+        );
+      });
+      applyFilters();
+    });
+  });
+
+  // Status chips keep the original toggle (exclude) semantics.
+  statusChips.forEach((chip) => {
     chip.addEventListener("click", () => {
       const pressed = chip.getAttribute("aria-pressed") === "true";
       const next = !pressed;
       chip.setAttribute("aria-pressed", next ? "true" : "false");
-      const set =
-        chip.dataset.filter === "category" ? activeCategories : activeStatuses;
-      if (next) set.add(chip.dataset.value);
-      else set.delete(chip.dataset.value);
+      if (next) activeStatuses.add(chip.dataset.value);
+      else activeStatuses.delete(chip.dataset.value);
       applyFilters();
     });
   });
