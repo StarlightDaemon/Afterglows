@@ -11,14 +11,16 @@ This folder contains the complete exploration history of header animation concep
 
 ## 🌌 Concepts Included
 
-The gallery currently holds **99 concepts across 12 categories**:
+The gallery currently holds **211 concepts across 29 categories**, ranging from
+pure geometric/mathematical abstraction all the way to ordinary everyday
+subjects:
 
 | Category | Title | Concepts |
 | --- | --- | --- |
-| `geometry` | Geometry & Pattern | 7 |
+| `geometry` | Geometry & Pattern | 12 |
 | `scanning` | Scanning & Targeting | 7 |
 | `systems` | Systems & Diagnostics | 8 |
-| `bio` | Science & Bio | 7 |
+| `bio` | Science & Bio | 12 |
 | `nature` | Nature & Elements | 10 |
 | `space` | Space & Spatial | 11 |
 | `ufo` | UFOs & Encounters | 6 |
@@ -27,13 +29,40 @@ The gallery currently holds **99 concepts across 12 categories**:
 | `arcane` | Magic & Arcane | 7 |
 | `retro` | Retro & Symbolic | 12 |
 | `clockwork` | Clockwork & Mechanisms | 6 |
-| **Total** | | **99** |
+| `kitchen` | Kitchen & Appliance | 6 |
+| `ocean` | Ocean & Deep | 6 |
+| `street` | Street & Transit | 6 |
+| `music` | Music & Sound | 6 |
+| `workshop` | Workshop & Tools | 6 |
+| `play` | Games & Play | 6 |
+| `optics` | Light & Optics | 6 |
+| `weather` | Weather Station | 6 |
+| `garden` | Garden & Bloom | 6 |
+| `office` | Office & Desk | 6 |
+| `labwork` | Chemistry Lab | 6 |
+| `sport` | Sports & Motion | 6 |
+| `birds` | Birds & Aviary | 6 |
+| `textile` | Textiles & Craft | 6 |
+| `money` | Money & Commerce | 6 |
+| `toys` | Toys & Playthings | 6 |
+| `insects` | Insects & Crawlers | 6 |
+| **Total** | | **211** |
 
 Each concept carries a status badge:
 
-*   **Original v1** — untouched archive concepts.
-*   **Refined v2 / v3 / v4** — rebuilt concepts; some (Hex, Radar, Eye, Sonar, Laser Scan, Compass, Server Rack, Circuit, Pulse, Bio-Rhythm, DNA Helix, Galaxy, Constellation, Portal, Pacman, Hourglass) are **versioned tiles**: click the tile (or a version dot) to cycle through its older versions in place, with the badge updating to match.
-*   **New v1** — concepts added during the current expansion.
+*   **Original v1** — untouched archive concepts. As of this revision **none
+    remain**: every original concept has been rebuilt to the current bar.
+*   **Refined v2 / v3 / v4** — rebuilt concepts; many carry **versioned tiles**:
+    click the tile (or a version dot) to cycle through its older versions in
+    place, with the badge updating to match. The full set of 11 Original v1
+    concepts (Grid, Target Lock, Bin Counter, Digital Noise, Loading Bar,
+    Signal, Glitch Text, Atom, EKG, Wormhole, Audio Circle) were rebuilt to
+    Refined v2 with the original preserved on each tile's cycler, joining the
+    earlier refinements (Hex, Radar, Eye, Sonar, Laser Scan, Compass, Server
+    Rack, Circuit, Pulse, Bio-Rhythm, DNA Helix, Galaxy, Constellation,
+    Portal, Pacman, Hourglass).
+*   **New v1** — concepts added during the content expansion (categories
+    `kitchen` onward, plus extensions to `geometry` and `bio`).
 
 ## 🧰 The Toolbar
 
@@ -43,7 +72,7 @@ The gallery page includes a live filter/search toolbar above the grid:
 *   **Category chips** — **isolate** rather than toggle: clicking a category shows only that category's concepts; clicking the same (sole-active) chip again restores all categories. Clicking a different chip switches the isolation to it.
 *   **Status chips** (Original / Refined / New) — toggle on/off independently, so any combination of statuses can be shown at once.
 *   **Reset** — clears search and restores all categories and statuses.
-*   **Live count** — reads "Showing N of 99" and updates with every filter change.
+*   **Live count** — reads "Showing N of 211" and updates with every filter change.
 
 Every tile also carries two actions: **Copy**, which copies a ready-to-paste embed snippet for that concept to the clipboard, and **Source**, which opens the concept's module file directly.
 

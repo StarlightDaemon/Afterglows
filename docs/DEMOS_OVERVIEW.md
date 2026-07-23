@@ -11,7 +11,7 @@ The root `index.html` is the live site entry point, and the directories below ar
 *   **Key File**: `matrix_tools.css`
 
 ### 2. [Concepts](../concepts/README.md)
-*   **Description**: An interactive, manifest-driven gallery of 99 animation concepts (Radar, DNA, Grid, etc.) across 12 categories, explored before the final Stargate selection. Supports search, category/status filtering, version cycling, and per-tile copy/source actions.
+*   **Description**: An interactive, manifest-driven gallery of 211 animation concepts across 29 categories, spanning pure geometric/mathematical abstraction (Lissajous, Moiré, Fibonacci, Fractal Tree) through everyday subjects (kitchen appliances, office desk, workshop tools, toys, money, textiles) to the living world (ocean, birds, insects, garden). Supports search, category/status filtering, version cycling, and per-tile copy/source actions.
 *   **Key Files**: `header-animation-concepts.html`, `gallery/manifest.js`, `gallery/index.js`
 
 ### 3. [Retro](../retro/README.md)
