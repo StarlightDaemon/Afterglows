@@ -76,13 +76,14 @@ const sharpenerStyles = `
     background: radial-gradient(circle at 38% 32%, #d6ffe0, #2a8a3e 75%);
   }
 
-  /* The pencil: spins and creeps rightward into the sharpener,
-     retreating (fresh pencil) at the cycle's end. */
+  /* The pencil: spins and creeps rightward into the sharpener (tip
+     hidden inside the body while it grinds), then pulls back at the
+     cycle's end to show off the fresh point. */
   .sh-pencil {
     position: absolute;
-    left: 6px;
+    left: 18px;
     top: 33px;
-    width: 62px;
+    width: 68px;
     height: 12px;
     animation: sh-feed 5s ease-in-out infinite;
   }
@@ -93,7 +94,7 @@ const sharpenerStyles = `
     position: absolute;
     left: 0;
     top: 0;
-    width: 44px;
+    width: 50px;
     height: 12px;
     border-radius: 2px 0 0 2px;
     background:
@@ -123,7 +124,7 @@ const sharpenerStyles = `
   /* The sharpened wood cone + graphite tip. */
   .sh-tip {
     position: absolute;
-    left: 44px;
+    left: 50px;
     top: 0;
     width: 16px;
     height: 12px;
@@ -136,16 +137,17 @@ const sharpenerStyles = `
   @keyframes sh-tip {
     0%, 10% { width: 8px; }
     60% { width: 18px; }
-    82% { width: 18px; }
-    90%, 100% { width: 8px; }
+    92% { width: 18px; }
+    96%, 100% { width: 8px; }
   }
 
   @keyframes sh-feed {
     0%, 10% { transform: translateX(0); }
     60% { transform: translateX(8px); }
     82% { transform: translateX(8px); }
-    /* Pull out the finished pencil, drop a fresh one in. */
-    88% { transform: translateX(-6px); }
+    /* Withdraw to reveal the fresh point, then a new pencil goes in. */
+    88% { transform: translateX(-22px); }
+    94% { transform: translateX(-22px); }
     100% { transform: translateX(0); }
   }
 
@@ -206,15 +208,15 @@ class ConceptSharpener extends HTMLElement {
         <div class="sh-shaving v2"></div>
         <div class="sh-shaving v3"></div>
         <div class="sh-pile"></div>
-        <div class="sh-body"></div>
-        <div class="sh-crank">
-          <div class="sh-crank-arm"></div>
-          <div class="sh-crank-knob"></div>
-        </div>
         <div class="sh-pencil">
           <div class="sh-eraser"></div>
           <div class="sh-barrel"></div>
           <div class="sh-tip"></div>
+        </div>
+        <div class="sh-body"></div>
+        <div class="sh-crank">
+          <div class="sh-crank-arm"></div>
+          <div class="sh-crank-knob"></div>
         </div>
       </div>
     `;
