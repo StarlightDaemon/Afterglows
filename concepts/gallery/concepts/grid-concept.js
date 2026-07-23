@@ -23,129 +23,102 @@ const gridStyles = `
     to { background-position: 100% 100%; }
   }
 
-  /* --- v2: wireframe globe ---
-     Static latitude rings plus meridians that squash and re-inflate
-     out of phase, faking a spinning wire sphere. A polar scan band
-     sweeps the surface and the limb carries a soft glow. */
-  .gg2 {
+  /* --- v2: an actual grid ---
+     Graph-paper plane: minor lines every 8px, major lines every 24px.
+     A highlighted row and column hop from gridline to gridline on
+     independent periods, and a bright node rides their intersection,
+     like a cursor walking a coordinate grid. */
+  .gr2 {
     width: 96px;
     height: 96px;
     position: relative;
-    transform: rotate(12deg);
   }
 
-  .gg2-sphere {
+  .gr2-plane {
     position: absolute;
-    inset: 4px;
+    inset: 0;
+    border: 1px solid rgba(0, 204, 0, 0.6);
+    background:
+      linear-gradient(rgba(0, 204, 0, 0.45) 1px, transparent 1px) 0 0 / 24px 24px,
+      linear-gradient(90deg, rgba(0, 204, 0, 0.45) 1px, transparent 1px) 0 0 / 24px 24px,
+      linear-gradient(rgba(0, 204, 0, 0.16) 1px, transparent 1px) 0 0 / 8px 8px,
+      linear-gradient(90deg, rgba(0, 204, 0, 0.16) 1px, transparent 1px) 0 0 / 8px 8px;
+    animation: gr2-breathe 4s ease-in-out infinite;
+  }
+
+  @keyframes gr2-breathe {
+    0%, 100% { box-shadow: inset 0 0 12px rgba(0, 204, 0, 0.08); }
+    50% { box-shadow: inset 0 0 20px rgba(0, 204, 0, 0.2); }
+  }
+
+  /* Highlighted row and column. */
+  .gr2-row {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -1px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(140, 255, 170, 0.85), transparent);
+    animation: gr2-hop-y 7s ease-in-out infinite;
+  }
+
+  .gr2-col {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -1px;
+    width: 2px;
+    background: linear-gradient(180deg, transparent, rgba(140, 255, 170, 0.85), transparent);
+    animation: gr2-hop-x 5s ease-in-out infinite;
+  }
+
+  /* The cursor node at the row/column intersection: it shares the
+     exact keyframes of both lines, so it always sits where they cross. */
+  .gr2-node {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 6px;
+    height: 6px;
+    margin: -2px 0 0 -2px;
     border-radius: 50%;
-    border: 1px solid rgba(140, 255, 170, 0.85);
-    background: radial-gradient(circle at 36% 30%,
-      rgba(0, 204, 0, 0.16),
-      rgba(0, 40, 8, 0.25) 55%,
-      rgba(0, 10, 2, 0.5) 100%);
-    box-shadow: 0 0 12px rgba(0, 204, 0, 0.35), inset 0 0 14px rgba(0, 204, 0, 0.2);
+    background: #d6ffe0;
+    box-shadow: 0 0 8px rgba(0, 204, 0, 1), 0 0 16px rgba(0, 204, 0, 0.5);
+    animation: gr2-hop-y 7s ease-in-out infinite, gr2-hop-x 5s ease-in-out infinite;
   }
 
-  /* Latitudes: fixed squashed rings. */
-  .gg2-lat {
-    position: absolute;
-    left: 4px;
-    right: 4px;
-    top: 50%;
-    border: 1px solid rgba(0, 204, 0, 0.45);
-    border-radius: 50%;
+  /* Hop between major gridlines, holding on each. */
+  @keyframes gr2-hop-y {
+    0%, 8% { top: -1px; }
+    14%, 22% { top: 23px; }
+    28%, 36% { top: 47px; }
+    42%, 50% { top: 71px; }
+    56%, 64% { top: 95px; }
+    70%, 78% { top: 47px; }
+    84%, 92% { top: 23px; }
+    100% { top: -1px; }
   }
 
-  .gg2-lat.l1 { height: 30px; margin-top: -32px; left: 12px; right: 12px; }
-  .gg2-lat.l2 { height: 40px; margin-top: -20px; }
-  .gg2-lat.l3 { height: 40px; margin-top: -20px; transform: none; }
-  .gg2-lat.equator { height: 44px; margin-top: -22px; border-color: rgba(140, 255, 170, 0.75); }
-  .gg2-lat.l4 { height: 30px; margin-top: 2px; left: 12px; right: 12px; }
-
-  /* Meridians: vertical rings whose width breathes out of phase,
-     reading as rotation about the polar axis. */
-  .gg2-mer {
-    position: absolute;
-    top: 4px;
-    bottom: 4px;
-    left: 50%;
-    width: 88px;
-    margin-left: -44px;
-    border: 1px solid rgba(0, 204, 0, 0.55);
-    border-radius: 50%;
-    animation: gg2-spin 3.6s linear infinite;
+  @keyframes gr2-hop-x {
+    0%, 8% { left: -1px; }
+    14%, 22% { left: 23px; }
+    28%, 36% { left: 47px; }
+    42%, 50% { left: 71px; }
+    56%, 64% { left: 95px; }
+    70%, 78% { left: 47px; }
+    84%, 92% { left: 23px; }
+    100% { left: -1px; }
   }
-
-  .gg2-mer.m1 { animation-delay: 0s; }
-  .gg2-mer.m2 { animation-delay: -0.9s; }
-  .gg2-mer.m3 { animation-delay: -1.8s; }
-  .gg2-mer.m4 { animation-delay: -2.7s; }
-
-  @keyframes gg2-spin {
-    0% { transform: scaleX(1); opacity: 0.7; }
-    25% { transform: scaleX(0.45); opacity: 0.5; }
-    49.99% { transform: scaleX(0.04); opacity: 0.35; }
-    /* Back face: the ring keeps thinning through the pole and
-       re-inflates dimmer while "behind" the sphere. */
-    50% { transform: scaleX(0.04); opacity: 0.2; }
-    75% { transform: scaleX(0.45); opacity: 0.16; }
-    99.99% { transform: scaleX(1); opacity: 0.2; }
-    100% { transform: scaleX(1); opacity: 0.7; }
-  }
-
-  /* Polar scan band sweeping top to bottom and back. */
-  .gg2-scan {
-    position: absolute;
-    left: 8px;
-    right: 8px;
-    top: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: linear-gradient(180deg,
-      transparent,
-      rgba(140, 255, 170, 0.35) 45%,
-      rgba(190, 255, 205, 0.5) 55%,
-      transparent);
-    filter: blur(1px);
-    animation: gg2-scan 4.8s ease-in-out infinite;
-  }
-
-  @keyframes gg2-scan {
-    0%, 100% { top: 8px; left: 22px; right: 22px; opacity: 0.4; }
-    25% { left: 8px; right: 8px; opacity: 0.9; }
-    50% { top: 78px; left: 22px; right: 22px; opacity: 0.4; }
-    75% { left: 8px; right: 8px; opacity: 0.9; }
-  }
-
-  /* Axis stubs poking out of the poles. */
-  .gg2-axis {
-    position: absolute;
-    left: 50%;
-    width: 1px;
-    height: 8px;
-    margin-left: -0.5px;
-    background: rgba(140, 255, 170, 0.8);
-  }
-
-  .gg2-axis.top { top: -3px; }
-  .gg2-axis.bottom { bottom: -3px; }
 `;
 
 const gridMarkup = {
   v1: `<div class="grid-globe"></div>`,
   v2: `
-    <div class="gg2">
-      <div class="gg2-sphere"></div>
-      <div class="gg2-lat l1"></div>
-      <div class="gg2-lat equator"></div>
-      <div class="gg2-lat l4"></div>
-      <div class="gg2-mer m1"></div>
-      <div class="gg2-mer m2"></div>
-      <div class="gg2-mer m3"></div>
-      <div class="gg2-mer m4"></div>
-      <div class="gg2-scan"></div>
-      <div class="gg2-axis top"></div>
-      <div class="gg2-axis bottom"></div>
+    <div class="gr2">
+      <div class="gr2-plane"></div>
+      <div class="gr2-row"></div>
+      <div class="gr2-col"></div>
+      <div class="gr2-node"></div>
     </div>
   `,
 };

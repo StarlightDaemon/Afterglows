@@ -651,6 +651,16 @@ export const CONCEPTS = [
     versions: [],
   },
   {
+    tag: "concept-wireframe-globe",
+    label: "Wireframe Globe",
+    category: "space",
+    versioned: false,
+    badge: "New v1",
+    badgeCls: "meta-status-new",
+    default: null,
+    versions: [],
+  },
+  {
     tag: "concept-eclipse",
     label: "Eclipse",
     category: "space",
