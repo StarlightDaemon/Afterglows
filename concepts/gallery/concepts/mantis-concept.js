@@ -7,9 +7,10 @@ const mantisStyles = `
     height: 100%;
   }
 
-  /* A praying mantis in ambush: it sways gently side to side, raptorial
-     forelegs folded in the prayer pose, tracking a passing fly with a
-     swiveling head - then strikes in a blur and folds back to wait. */
+  /* A praying mantis in ambush, in profile facing left: segmented
+     abdomen raised behind, long neck-like thorax, triangular head
+     tracking a passing fly, raptorial forelegs folded in the prayer
+     pose - then a lightning strike snatches the fly out of the air. */
   .mt {
     width: 108px;
     height: 92px;
@@ -30,69 +31,86 @@ const mantisStyles = `
   /* Whole body sways (predatory stalking). */
   .mt-body {
     position: absolute;
-    left: 50%;
-    bottom: 14px;
-    width: 40px;
+    left: 34px;
+    bottom: 15px;
+    width: 66px;
     height: 60px;
-    margin-left: -20px;
     transform-origin: 50% 100%;
     animation: mt-sway 3s ease-in-out infinite;
   }
 
   @keyframes mt-sway {
-    0%, 100% { transform: rotate(-3deg); }
-    50% { transform: rotate(3deg); }
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
   }
 
-  /* Long slanted abdomen. */
+  /* Walking legs down to the twig. */
+  .mt-leg {
+    position: absolute;
+    width: 2px;
+    background: rgba(0, 150, 30, 0.75);
+    border-radius: 1px;
+    transform-origin: 50% 0%;
+  }
+
+  .mt-leg.f1 { left: 40px; top: 30px; height: 30px; transform: rotate(18deg); }
+  .mt-leg.f2 { left: 48px; top: 32px; height: 28px; transform: rotate(-22deg); }
+  .mt-leg.f3 { left: 44px; top: 32px; height: 28px; transform: rotate(-6deg); opacity: 0.6; }
+
+  /* Segmented abdomen, raised behind. */
   .mt-abdomen {
     position: absolute;
-    left: 10px;
-    bottom: 0;
-    width: 10px;
-    height: 44px;
-    border-radius: 6px 6px 8px 8px;
-    background: linear-gradient(180deg, rgba(190, 255, 205, 0.6), rgba(0, 140, 28, 0.8));
+    left: 28px;
+    top: 26px;
+    width: 34px;
+    height: 13px;
+    border-radius: 50% 60% 40% 50% / 60% 70% 50% 40%;
+    background:
+      linear-gradient(180deg, rgba(190, 255, 205, 0.35), transparent 55%),
+      repeating-linear-gradient(100deg,
+        rgba(190, 255, 205, 0.55) 0 3px,
+        rgba(0, 140, 28, 0.8) 3px 7px);
     border: 1px solid rgba(0, 204, 0, 0.5);
-    transform: rotate(10deg);
-    transform-origin: 50% 100%;
+    transform: rotate(-16deg);
+    transform-origin: 10% 60%;
   }
 
-  /* Folded wings over the abdomen. */
+  /* Folded wings lying over the abdomen. */
   .mt-wing {
     position: absolute;
-    left: 12px;
-    bottom: 8px;
-    width: 8px;
-    height: 34px;
-    border-radius: 4px 4px 6px 6px;
-    background: linear-gradient(180deg, rgba(140, 255, 170, 0.4), rgba(0, 110, 22, 0.5));
-    transform: rotate(10deg);
-    transform-origin: 50% 100%;
+    left: 31px;
+    top: 23px;
+    width: 30px;
+    height: 8px;
+    border-radius: 50% 70% 40% 40% / 60% 80% 40% 40%;
+    background: linear-gradient(100deg, rgba(140, 255, 170, 0.45), rgba(0, 110, 22, 0.5));
+    transform: rotate(-16deg);
+    transform-origin: 10% 60%;
   }
 
-  /* Thorax (the long "neck"). */
+  /* Thorax: the long "neck" rising to the head. */
   .mt-thorax {
     position: absolute;
     left: 16px;
-    bottom: 40px;
-    width: 4px;
-    height: 16px;
-    background: rgba(0, 150, 30, 0.85);
-    transform: rotate(-8deg);
-    transform-origin: 50% 100%;
+    top: 22px;
+    width: 16px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, rgba(0, 170, 34, 0.9), rgba(0, 140, 28, 0.85));
+    transform: rotate(32deg);
+    transform-origin: 100% 50%;
   }
 
   /* Triangular head, swivels to track prey. */
   .mt-head {
     position: absolute;
-    left: 12px;
-    top: 0;
-    width: 14px;
-    height: 12px;
-    clip-path: polygon(50% 0, 100% 60%, 75% 100%, 25% 100%, 0 60%);
-    background: radial-gradient(circle at 50% 40%, #f2ffdd, #2a8a3e 70%);
-    transform-origin: 50% 100%;
+    left: 6px;
+    top: 8px;
+    width: 15px;
+    height: 11px;
+    clip-path: polygon(0 60%, 30% 0, 100% 20%, 78% 100%, 18% 100%);
+    background: radial-gradient(circle at 55% 35%, #f2ffdd, #2a8a3e 75%);
+    transform-origin: 60% 90%;
     animation: mt-track 5s ease-in-out infinite;
   }
 
@@ -100,76 +118,95 @@ const mantisStyles = `
   .mt-head::before {
     content: '';
     position: absolute;
-    left: 1px;
+    left: 2px;
     top: 3px;
-    width: 3px;
-    height: 3px;
+    width: 3.5px;
+    height: 3.5px;
     border-radius: 50%;
     background: #041a0a;
-    box-shadow: 9px 0 0 #041a0a;
+    box-shadow: 8px 1px 0 #041a0a;
   }
+
+  /* Antennae. */
+  .mt-ant {
+    position: absolute;
+    width: 1px;
+    height: 13px;
+    background: linear-gradient(180deg, transparent, rgba(140, 255, 170, 0.7));
+    transform-origin: 50% 100%;
+  }
+
+  .mt-ant.a1 { left: 5px; top: -12px; transform: rotate(-26deg); }
+  .mt-ant.a2 { left: 9px; top: -13px; transform: rotate(6deg); }
 
   @keyframes mt-track {
-    0%, 20% { transform: rotate(-16deg); }
-    /* Follows the fly across. */
-    46% { transform: rotate(16deg); }
+    0%, 20% { transform: rotate(-10deg); }
+    /* Follows the fly in. */
+    46% { transform: rotate(8deg); }
     /* Locks and strikes. */
-    58%, 66% { transform: rotate(10deg); }
-    80%, 100% { transform: rotate(-16deg); }
+    54%, 62% { transform: rotate(12deg); }
+    80%, 100% { transform: rotate(-10deg); }
   }
 
-  /* Raptorial forelegs: folded prayer, snap out on the strike. */
+  /* Raptorial forelegs: femur + folded tibia in the prayer pose,
+     snapping open toward the fly on the strike. */
   .mt-arm {
     position: absolute;
-    left: 14px;
-    top: 8px;
-    width: 18px;
-    height: 12px;
-    transform-origin: 0% 100%;
+    left: 10px;
+    top: 20px;
+    width: 20px;
+    height: 16px;
+    transform-origin: 60% 20%;
     animation: mt-strike 5s ease-in-out infinite;
   }
 
-  .mt-coxa {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 12px;
-    height: 3px;
-    border-radius: 2px;
-    background: rgba(190, 255, 205, 0.85);
-    transform: rotate(-30deg);
-    transform-origin: 0% 50%;
+  .mt-arm.far {
+    opacity: 0.6;
+    left: 14px;
+    top: 22px;
   }
 
-  /* The snap-trap tibia (spined), folded then thrust. */
+  .mt-femur {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 14px;
+    height: 3.5px;
+    border-radius: 2px;
+    background: rgba(190, 255, 205, 0.85);
+    transform: rotate(35deg);
+    transform-origin: 100% 50%;
+  }
+
+  /* The snap-trap tibia (spined), folded back against the femur. */
   .mt-tibia {
     position: absolute;
-    left: 8px;
-    top: -2px;
+    left: -12px;
+    top: 0;
     width: 12px;
     height: 3px;
     border-radius: 2px;
     background: repeating-linear-gradient(90deg,
       rgba(214, 255, 224, 0.9) 0 2px,
       rgba(0, 130, 26, 0.8) 2px 3px);
-    transform-origin: 0% 50%;
+    transform-origin: 100% 50%;
     animation: mt-tibia 5s ease-in-out infinite;
   }
 
   @keyframes mt-strike {
-    0%, 54% { transform: rotate(0deg); }
-    /* Lightning strike outward. */
-    60% { transform: rotate(-10deg) translateX(6px); }
-    66% { transform: rotate(0deg); }
-    100% { transform: rotate(0deg); }
+    0%, 52% { transform: rotate(0deg) translate(0, 0); }
+    /* Lightning lunge toward the fly. */
+    57% { transform: rotate(16deg) translate(-7px, -3px); }
+    64% { transform: rotate(0deg) translate(0, 0); }
+    100% { transform: rotate(0deg) translate(0, 0); }
   }
 
   @keyframes mt-tibia {
-    0%, 54% { transform: rotate(-120deg); }
+    0%, 52% { transform: rotate(-140deg); }
     /* Snaps open to grab. */
-    60% { transform: rotate(-30deg); }
-    66% { transform: rotate(-120deg); }
-    100% { transform: rotate(-120deg); }
+    57% { transform: rotate(-25deg); }
+    64% { transform: rotate(-140deg); }
+    100% { transform: rotate(-140deg); }
   }
 
   /* The fly it's tracking. */
@@ -177,7 +214,7 @@ const mantisStyles = `
     position: absolute;
     top: 20px;
     left: 0;
-    width: 6px;
+    width: 5px;
     height: 4px;
     animation: mt-fly 5s ease-in-out infinite;
   }
@@ -187,7 +224,7 @@ const mantisStyles = `
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background: rgba(0, 70, 14, 0.95);
+    background: rgba(190, 255, 205, 0.85);
   }
 
   .mt-fly::after {
@@ -208,11 +245,13 @@ const mantisStyles = `
   }
 
   @keyframes mt-fly {
-    0% { transform: translate(6px, 14px); opacity: 1; }
-    46% { transform: translate(52px, 6px); opacity: 1; }
-    /* Snatched at the strike. */
-    60% { transform: translate(58px, 12px); opacity: 1; }
-    64% { transform: translate(58px, 12px); opacity: 0; }
+    0% { transform: translate(0, -8px); opacity: 1; }
+    40% { transform: translate(26px, 8px); opacity: 1; }
+    /* Hovers into range... */
+    54% { transform: translate(38px, 15px); opacity: 1; }
+    /* ...snatched at the strike. */
+    58% { transform: translate(38px, 15px); opacity: 1; }
+    61% { transform: translate(38px, 15px); opacity: 0; }
     100% { opacity: 0; }
   }
 `;
@@ -229,13 +268,21 @@ class ConceptMantis extends HTMLElement {
         <div class="mt-twig"></div>
         <div class="mt-fly"></div>
         <div class="mt-body">
+          <div class="mt-leg f1"></div>
+          <div class="mt-leg f2"></div>
+          <div class="mt-leg f3"></div>
           <div class="mt-wing"></div>
           <div class="mt-abdomen"></div>
           <div class="mt-thorax"></div>
-          <div class="mt-head"></div>
+          <div class="mt-arm far">
+            <div class="mt-femur"><div class="mt-tibia"></div></div>
+          </div>
           <div class="mt-arm">
-            <div class="mt-coxa"></div>
-            <div class="mt-tibia"></div>
+            <div class="mt-femur"><div class="mt-tibia"></div></div>
+          </div>
+          <div class="mt-head">
+            <div class="mt-ant a1"></div>
+            <div class="mt-ant a2"></div>
           </div>
         </div>
       </div>
