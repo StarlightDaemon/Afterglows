@@ -16,21 +16,21 @@ const wateringCanStyles = `
     position: relative;
   }
 
-  /* The can pivots about its base. */
+  /* The can pivots about its base, tipping toward the seedling. */
   .wc-can {
     position: absolute;
     left: 6px;
     top: 14px;
     width: 52px;
     height: 44px;
-    transform-origin: 30% 90%;
+    transform-origin: 60% 90%;
     animation: wc-tip 5s ease-in-out infinite;
   }
 
   @keyframes wc-tip {
     0%, 16% { transform: rotate(0deg); }
-    34% { transform: rotate(-32deg); }
-    64% { transform: rotate(-34deg); }
+    34% { transform: rotate(32deg); }
+    64% { transform: rotate(34deg); }
     82%, 100% { transform: rotate(0deg); }
   }
 
@@ -58,23 +58,23 @@ const wateringCanStyles = `
     border-radius: 12px 12px 0 0;
   }
 
-  /* Spout reaching up-left to the rose. */
+  /* Spout reaching up-right to the rose, toward the seedling. */
   .wc-spout {
     position: absolute;
-    left: 0;
+    left: 36px;
     bottom: 14px;
     width: 16px;
     height: 5px;
     background: rgba(0, 130, 26, 0.9);
     border: 1px solid rgba(0, 204, 0, 0.6);
     transform: rotate(-24deg);
-    transform-origin: 100% 50%;
+    transform-origin: 0% 50%;
   }
 
   /* Rose (sprinkler head) at the spout tip. */
   .wc-rose {
     position: absolute;
-    left: -6px;
+    left: 48px;
     bottom: 18px;
     width: 10px;
     height: 8px;
@@ -93,11 +93,11 @@ const wateringCanStyles = `
     animation: wc-drop 0.8s linear infinite, wc-gate 5s steps(1) infinite;
   }
 
-  .wc-drop.d1 { left: 20px; top: 34px; animation-delay: 0s, 0s; }
-  .wc-drop.d2 { left: 27px; top: 34px; animation-delay: -0.25s, 0s; }
-  .wc-drop.d3 { left: 34px; top: 34px; animation-delay: -0.5s, 0s; }
-  .wc-drop.d4 { left: 24px; top: 34px; animation-delay: -0.15s, 0s; }
-  .wc-drop.d5 { left: 31px; top: 34px; animation-delay: -0.4s, 0s; }
+  .wc-drop.d1 { left: 58px; top: 46px; animation-delay: 0s, 0s; }
+  .wc-drop.d2 { left: 65px; top: 46px; animation-delay: -0.25s, 0s; }
+  .wc-drop.d3 { left: 72px; top: 46px; animation-delay: -0.5s, 0s; }
+  .wc-drop.d4 { left: 62px; top: 46px; animation-delay: -0.15s, 0s; }
+  .wc-drop.d5 { left: 68px; top: 46px; animation-delay: -0.4s, 0s; }
 
   @keyframes wc-drop {
     0% { transform: translateY(0); opacity: 0; }
@@ -114,7 +114,7 @@ const wateringCanStyles = `
   /* Seedling that perks up under the shower. */
   .wc-plant {
     position: absolute;
-    right: 20px;
+    right: 26px;
     bottom: 10px;
     width: 4px;
     height: 22px;
@@ -134,10 +134,10 @@ const wateringCanStyles = `
 
   .wc-leaf {
     position: absolute;
-    width: 10px;
-    height: 6px;
-    border-radius: 0 100% 0 100%;
-    background: rgba(0, 190, 38, 0.8);
+    width: 12px;
+    height: 7px;
+    border-radius: 60% 60% 60% 60% / 90% 90% 40% 40%;
+    background: radial-gradient(ellipse at 40% 30%, rgba(140, 255, 170, 0.85), rgba(0, 150, 30, 0.8));
   }
 
   .wc-leaf.l1 { left: 2px; bottom: 14px; transform-origin: 0 50%; animation: wc-leaf-r 5s ease-in-out infinite; }
