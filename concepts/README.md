@@ -11,7 +11,7 @@ This folder contains the complete exploration history of header animation concep
 
 ## 🌌 Concepts Included
 
-The gallery currently holds **74 concepts across 11 categories**:
+The gallery currently holds **99 concepts across 12 categories**:
 
 | Category | Title | Concepts |
 | --- | --- | --- |
@@ -19,14 +19,15 @@ The gallery currently holds **74 concepts across 11 categories**:
 | `scanning` | Scanning & Targeting | 7 |
 | `systems` | Systems & Diagnostics | 8 |
 | `bio` | Science & Bio | 7 |
-| `nature` | Nature & Elements | 5 |
-| `space` | Space & Spatial | 7 |
+| `nature` | Nature & Elements | 10 |
+| `space` | Space & Spatial | 11 |
 | `ufo` | UFOs & Encounters | 6 |
 | `scifi` | High Sci-Fi | 7 |
-| `occult` | Supernatural & Occult | 6 |
+| `occult` | Supernatural & Occult | 11 |
 | `arcane` | Magic & Arcane | 7 |
-| `retro` | Retro & Symbolic | 7 |
-| **Total** | | **74** |
+| `retro` | Retro & Symbolic | 12 |
+| `clockwork` | Clockwork & Mechanisms | 6 |
+| **Total** | | **99** |
 
 Each concept carries a status badge:
 
@@ -42,7 +43,7 @@ The gallery page includes a live filter/search toolbar above the grid:
 *   **Category chips** — **isolate** rather than toggle: clicking a category shows only that category's concepts; clicking the same (sole-active) chip again restores all categories. Clicking a different chip switches the isolation to it.
 *   **Status chips** (Original / Refined / New) — toggle on/off independently, so any combination of statuses can be shown at once.
 *   **Reset** — clears search and restores all categories and statuses.
-*   **Live count** — reads "Showing N of 74" and updates with every filter change.
+*   **Live count** — reads "Showing N of 99" and updates with every filter change.
 
 Every tile also carries two actions: **Copy**, which copies a ready-to-paste embed snippet for that concept to the clipboard, and **Source**, which opens the concept's module file directly.
 
