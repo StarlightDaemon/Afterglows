@@ -40,12 +40,11 @@ const discoStyles = `
     background:
       linear-gradient(0deg, rgba(0, 0, 0, 0.35), transparent 40%),
       repeating-linear-gradient(90deg,
-        rgba(190, 255, 205, 0.9) 0 3px,
-        rgba(0, 110, 22, 0.8) 3px 8px),
+        rgba(190, 255, 205, 0.55) 0 3px,
+        rgba(0, 110, 22, 0.4) 3px 8px),
       repeating-linear-gradient(0deg,
-        rgba(214, 255, 224, 0.4) 0 3px,
-        rgba(0, 80, 16, 0.5) 3px 8px);
-    background-blend-mode: normal, normal, multiply;
+        rgba(214, 255, 224, 0.5) 0 3px,
+        rgba(0, 80, 16, 0.55) 3px 8px);
     border: 1px solid rgba(140, 255, 170, 0.7);
     box-shadow: 0 0 16px rgba(0, 204, 0, 0.55), inset -6px -4px 12px rgba(0, 0, 0, 0.5);
     animation: disco-turn 3s linear infinite;
