@@ -193,12 +193,12 @@ const piggybankStyles = `
     100% { transform: rotate(0deg); }
   }
 
-  /* Legs. */
+  /* Legs: extend past the body so the pig stands rather than floats. */
   .pg-leg {
     position: absolute;
-    bottom: 4px;
+    bottom: 0;
     width: 8px;
-    height: 8px;
+    height: 10px;
     border-radius: 0 0 2px 2px;
     background: rgba(0, 130, 26, 0.8);
   }
