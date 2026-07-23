@@ -13,6 +13,9 @@
     <meta property="og:url" content="https://afterglows.starlightdaemon.dev/matrix_code/demo_themes.html">
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="matrix_tools.css">
+    <link rel="stylesheet" href="/assets/css/afterglows-settings.css">
+    <!-- Unified theme + font controller (applies data-phosphor/data-font before paint) -->
+    <script src="/assets/js/afterglows-settings.js"></script>
     <style>
         * {
             margin: 0;
@@ -25,7 +28,7 @@
             height: 100%;
             overflow: hidden;
             background: var(--matrix-bg);
-            font-family: 'Courier New', monospace;
+            font-family: var(--ag-font, 'Courier New', monospace);
         }
 
         canvas {
@@ -133,10 +136,10 @@
 
 <body>
     <main>
-        <div class="controls" role="group" aria-label="Color theme selection">
-            <div class="control-row" id="phosphorRow">
-                <span class="row-label">PHOSPHOR</span>
-            </div>
+        <!-- Phosphor themes + fonts are selected from the shared gear control
+             (bottom-right). This page keeps the FILM extras as a page-local,
+             non-persistent showcase on top of the live rain. -->
+        <div class="controls" role="group" aria-label="Film color extras">
             <div class="control-row" id="filmRow">
                 <span class="row-label">FILM</span>
                 <button class="theme-btn" data-film="film-blue">Resurrections</button>
@@ -149,8 +152,10 @@
         <canvas id="matrix" aria-hidden="true">Decorative animated Matrix digital-rain effect with switchable color themes.</canvas>
     </main>
 
-    <script src="phosphor_theme.js"></script>
     <script>
+        // Phosphor theme + font come from the shared controller
+        // (/assets/js/afterglows-settings.js). This page adds only the
+        // page-local FILM extras and the live rain canvas.
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
@@ -246,27 +251,19 @@
 
         // ---- Theme controls ----
         const root = document.documentElement;
-        const phosphorRow = document.getElementById('phosphorRow');
         const themeNote = document.getElementById('themeNote');
         const FILM_NOTES = {
             'film-blue': 'Film — Resurrections blue (not a phosphor)',
             'film-red': 'Film — Virus red (not a phosphor)',
             'film-gold': 'Film — Neon Gold (not a phosphor)'
         };
-
-        // Build the phosphor button row from the shim's canonical list.
-        AfterglowsPhosphor.THEMES.forEach((t) => {
-            const btn = document.createElement('button');
-            btn.className = 'theme-btn';
-            btn.dataset.theme = t.key;
-            btn.textContent = t.name;
-            btn.addEventListener('click', () => AfterglowsPhosphor.set(t.key));
-            phosphorRow.appendChild(btn);
-        });
+        const PHOSPHOR_NOTES = (window.AfterglowsSettings ? window.AfterglowsSettings.THEMES : [])
+            .reduce((acc, t) => { acc[t.key] = t.note; return acc; }, {});
 
         document.querySelectorAll('[data-film]').forEach((btn) => {
             btn.addEventListener('click', () => {
-                // Page-local extras: applied directly, never persisted.
+                // Page-local extras: applied directly, never persisted. The
+                // shared gear will re-assert a real phosphor on its next use.
                 root.setAttribute('data-phosphor', btn.dataset.film);
             });
         });
@@ -274,11 +271,9 @@
         function syncControls() {
             const active = root.getAttribute('data-phosphor') || 'p1';
             document.querySelectorAll('.theme-btn').forEach((btn) => {
-                const key = btn.dataset.theme || btn.dataset.film;
-                btn.classList.toggle('active', key === active);
+                btn.classList.toggle('active', btn.dataset.film === active);
             });
-            const known = AfterglowsPhosphor.THEMES.find((t) => t.key === active);
-            themeNote.textContent = known ? known.note : (FILM_NOTES[active] || '');
+            themeNote.textContent = PHOSPHOR_NOTES[active] || FILM_NOTES[active] || '';
         }
 
         new MutationObserver(() => {

@@ -14,6 +14,9 @@
     <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="matrix_tools.css">
+    <link rel="stylesheet" href="/assets/css/afterglows-settings.css">
+    <!-- Unified theme + font controller (applies data-phosphor/data-font before paint) -->
+    <script src="/assets/js/afterglows-settings.js"></script>
     <style>
         * {
             margin: 0;
@@ -26,7 +29,7 @@
             height: 100%;
             background: var(--matrix-bg);
             color: var(--matrix-color);
-            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-family: var(--ag-font, 'JetBrains Mono', 'Courier New', monospace);
             overflow: hidden;
         }
 
@@ -143,66 +146,6 @@
             opacity: 0.75;
         }
 
-        /* Phosphor theme picker */
-        .phosphor-panel {
-            padding: 14px 18px 16px;
-            border-top: 1px solid var(--matrix-dim);
-        }
-
-        .phosphor-panel .panel-label {
-            font-size: 9px;
-            letter-spacing: 3px;
-            color: var(--matrix-dim);
-            margin-bottom: 10px;
-        }
-
-        .phosphor-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
-        }
-
-        .phosphor-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            padding: 7px 2px 6px;
-            background: transparent;
-            border: 1px solid color-mix(in srgb, var(--matrix-dim) 55%, transparent);
-            cursor: pointer;
-            font-family: inherit;
-            transition: border-color 0.2s, background 0.2s;
-        }
-
-        .phosphor-btn:hover {
-            border-color: var(--matrix-color);
-        }
-
-        .phosphor-btn.active {
-            border-color: var(--matrix-color);
-            background: color-mix(in srgb, var(--matrix-color) 10%, transparent);
-        }
-
-        .phosphor-btn .chip {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--chip);
-            box-shadow: 0 0 7px color-mix(in srgb, var(--chip) 80%, transparent);
-        }
-
-        .phosphor-btn .chip-label {
-            font-size: 8px;
-            letter-spacing: 0.5px;
-            color: var(--matrix-dim);
-            text-transform: uppercase;
-        }
-
-        .phosphor-btn.active .chip-label {
-            color: var(--matrix-color);
-        }
-
         /* Back Link */
         .back-link {
             padding: 14px 20px;
@@ -301,10 +244,6 @@
                 min-width: 190px;
                 margin-bottom: 0;
             }
-
-            .phosphor-grid {
-                grid-template-columns: repeat(8, 1fr);
-            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -347,11 +286,6 @@
                 </div>
             </div>
 
-            <div class="phosphor-panel">
-                <div class="panel-label">PHOSPHOR</div>
-                <div class="phosphor-grid" id="phosphorGrid" role="group" aria-label="Phosphor color theme"></div>
-            </div>
-
             <div class="back-link">
                 <a href="../index.html">&larr; BACK TO AFTERGLOWS</a>
             </div>
@@ -371,8 +305,12 @@
         </main>
     </div>
 
-    <script src="phosphor_theme.js"></script>
     <script>
+        // Phosphor theme + font are owned by the shared controller
+        // (/assets/js/afterglows-settings.js), which injects the gear panel
+        // and persists to the canonical 'afterglows-phosphor' key. This page
+        // only handles its own demo switcher and mirrors the active theme
+        // into the preview iframe.
         const cards = document.querySelectorAll('.demo-card');
         const previewFrame = document.getElementById('previewFrame');
         const currentDemoLabel = document.getElementById('currentDemo');
@@ -418,34 +356,16 @@
             }
         }
 
-        // ---- Phosphor theme picker ----
-        // Swatch colors mirror the theme primaries in matrix_tools.css.
-        const SWATCHES = {
-            p1: '#00ff41', p31: '#7be8a4', p3: '#ffb000', p4: '#f2f7ff',
-            p7: '#a9d7ff', p2: '#00ffa2', p14: '#a37bff', neon: '#00c8ff'
-        };
-
-        const grid = document.getElementById('phosphorGrid');
-        AfterglowsPhosphor.THEMES.forEach((t) => {
-            const btn = document.createElement('button');
-            btn.className = 'phosphor-btn';
-            btn.dataset.theme = t.key;
-            btn.style.setProperty('--chip', SWATCHES[t.key] || '#888');
-            btn.title = t.note;
-            btn.setAttribute('aria-label', t.name + ' — ' + t.note);
-            btn.innerHTML = '<span class="chip" aria-hidden="true"></span>' +
-                '<span class="chip-label">' + t.name.split(' ')[0] + '</span>';
-            btn.addEventListener('click', () => AfterglowsPhosphor.set(t.key));
-            grid.appendChild(btn);
-        });
-
-        // Push the current theme into the iframe document (same-origin) so
-        // the preview recolors live without a reload.
+        // Push the active theme into the (same-origin) preview iframe so it
+        // recolors live without a reload. The iframe demos also read the
+        // canonical key + storage events themselves, so this is belt-and-braces.
         function themeFrame() {
             try {
                 const doc = previewFrame.contentDocument;
                 if (!doc || !doc.documentElement) { return; }
-                const key = AfterglowsPhosphor.get();
+                const key = window.AfterglowsSettings
+                    ? window.AfterglowsSettings.getPhosphor()
+                    : (localStorage.getItem('afterglows-phosphor') || 'p1');
                 if (key === 'p1') {
                     doc.documentElement.removeAttribute('data-phosphor');
                 } else {
@@ -454,19 +374,10 @@
             } catch (e) { /* cross-origin or not ready — standalone pages read localStorage anyway */ }
         }
 
-        function syncPicker() {
-            const active = AfterglowsPhosphor.get();
-            grid.querySelectorAll('.phosphor-btn').forEach((btn) => {
-                btn.classList.toggle('active', btn.dataset.theme === active);
-            });
+        if (window.AfterglowsSettings) {
+            window.AfterglowsSettings.onPhosphorChange(themeFrame);
         }
-
-        AfterglowsPhosphor.onChange(() => {
-            themeFrame();
-            syncPicker();
-        });
         previewFrame.addEventListener('load', themeFrame);
-        syncPicker();
         themeFrame();
     </script>
 </body>

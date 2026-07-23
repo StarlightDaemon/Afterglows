@@ -87,102 +87,33 @@
 
 /* ===========================
    CRT Phosphor Color Schemes
-   Classic Terminal Themes
+   -----------------------------------------------------------------
+   The site-wide palette now comes from the unified controller. The 8
+   phosphor palettes are defined ONCE, as --ag-* tokens keyed off
+   html[data-phosphor], in /assets/css/afterglows-settings.css. Here
+   we simply map this page's richer design-system variables onto
+   those shared tokens, so every phosphor theme (p1 p31 p3 p4 p7 p2
+   p14 neon) drives the whole page from a single source of truth.
+   The mapping lives on `body` (which inherits --ag-* from <html>),
+   so it applies for the default p1 theme too — p1 carries no
+   data-phosphor attribute by design.
    =========================== */
+body {
+    --bg-primary: var(--ag-bg);
+    --bg-secondary: color-mix(in srgb, var(--ag-color) 4%, var(--ag-bg));
+    --bg-tertiary: color-mix(in srgb, var(--ag-color) 9%, var(--ag-bg));
+    --bg-card: var(--ag-bg);
 
-/* P1 Green Phosphor - Classic "Green Screen" (1960s-1980s) */
-body[data-theme="p1-green"] {
-    --bg-primary: #000000;
-    --bg-secondary: #0a0a0a;
-    --bg-tertiary: #1a1a1a;
-    --bg-card: #0d0d0d;
+    --text-primary: var(--ag-color);
+    --text-secondary: color-mix(in srgb, var(--ag-color) 78%, var(--ag-bg));
+    --text-muted: var(--ag-dim);
 
-    --text-primary: #33ff33;
-    --text-secondary: #00cc00;
-    --text-muted: #009900;
-
-    --accent-primary: #00ff00;
-    --accent-primary-rgb: 0, 255, 0;
-    --accent-secondary: #00ff00;
-    --accent-glow: rgba(0, 255, 0, 0.5);
-    --border-default: #3a3a3a;
-    --border-accent: #00ff41;
-}
-
-/* P1+ Matrix Green - Darker "Matrix" Green (Original Theme) */
-body[data-theme="p1-matrix"] {
-    --bg-primary: #000000;
-    --bg-secondary: #0a0a0a;
-    --bg-tertiary: #1a1a1a;
-    --bg-card: #0d0d0d;
-
-    --text-primary: #00ff41;
-    --text-secondary: #00cc33;
-    --text-muted: #009922;
-
-    --accent-primary: #00ff41;
-    --accent-primary-rgb: 0, 255, 65;
-    --accent-secondary: #00ff41;
-    --accent-glow: rgba(0, 255, 65, 0.5);
-    --border-default: #3a3a3a;
-    --border-accent: #00ff41;
-}
-
-/* P3 Amber Phosphor - Warm late-80s terminal (1987-1990) */
-body[data-theme="p3-amber"] {
-    --bg-primary: #000000;
-    --bg-secondary: #0a0600;
-    --bg-tertiary: #1a1200;
-    --bg-card: #0d0800;
-
-    --text-primary: #ffb000;
-    --text-secondary: #cc8800;
-    --text-muted: #996600;
-
-    --accent-primary: #ff9000;
-    --accent-primary-rgb: 255, 144, 0;
-    --accent-secondary: #ff9000;
-    --accent-glow: rgba(255, 144, 0, 0.5);
-    --border-default: #3a2a1a;
-    --border-accent: #ffb000;
-}
-
-/* P4 White Phosphor - "Page White" IBM/Apple (1970s-1980s) */
-body[data-theme="p4-white"] {
-    --bg-primary: #000000;
-    --bg-secondary: #0a0a0a;
-    --bg-tertiary: #1a1a1a;
-    --bg-card: #0d0d0d;
-
-    --text-primary: #f0f0f0;
-    --text-secondary: #c0c0c0;
-    --text-muted: #909090;
-
-    --accent-primary: #ffffff;
-    --accent-primary-rgb: 255, 255, 255;
-    --accent-secondary: #ffffff;
-    --accent-glow: rgba(255, 255, 255, 0.5);
-    --border-default: #3a3a3a;
-    --border-accent: #ffffff;
-}
-
-/* IBM Blue - Cyan on dark blue mainframe aesthetic (1980s) */
-body[data-theme="ibm-blue"] {
-    --bg-primary: #000033;
-    --bg-secondary: #001144;
-    --bg-tertiary: #002255;
-    --bg-card: #000a44;
-
-    --text-primary: #00d4ff;
-    --text-secondary: #00aacc;
-    --text-muted: #008099;
-
-    --accent-primary: #00aaff;
-    --accent-primary-rgb: 0, 170, 255;
-    --accent-secondary: #00aaff;
-    --accent-glow: rgba(0, 170, 255, 0.5);
-    --border-default: #003366;
-    --border-accent: #00d4ff;
+    --accent-primary: var(--ag-color);
+    --accent-primary-rgb: var(--ag-color-rgb);
+    --accent-secondary: var(--ag-color);
+    --accent-glow: color-mix(in srgb, var(--ag-glow) 50%, transparent);
+    --border-default: color-mix(in srgb, var(--ag-color) 22%, var(--ag-bg));
+    --border-accent: var(--ag-head);
 }
 
 /* ===========================

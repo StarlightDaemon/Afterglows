@@ -12,17 +12,23 @@
     <meta property="og:description" content="An archive of animated header concepts as reusable web components, spanning geometry, scanning, diagnostics, bio, nature, spatial, and retro themes. From Afterglows.">
     <meta property="og:url" content="https://afterglows.starlightdaemon.dev/concepts/">
     <meta property="og:type" content="website">
+    <link rel="stylesheet" href="/assets/css/afterglows-settings.css">
+    <!-- Unified theme + font controller (applies data-phosphor/data-font before paint) -->
+    <script src="/assets/js/afterglows-settings.js"></script>
     <style>
+        /* Page chrome tracks the active phosphor theme + font; the concept
+           tiles keep their own hard-coded palettes (self-contained web
+           components in shadow DOM), which is intentional. */
         :root {
-            --accent: #00cc00;
-            --bg: #0d0d0d;
+            --accent: var(--ag-color, #00cc00);
+            --bg: var(--ag-bg, #0d0d0d);
         }
 
         body {
             padding: 40px;
             background: var(--bg);
             color: #fff;
-            font-family: monospace;
+            font-family: var(--ag-font, monospace);
             display: flex;
             flex-direction: column;
             align-items: center;

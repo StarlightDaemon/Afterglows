@@ -13,6 +13,9 @@
     <meta property="og:url" content="https://afterglows.starlightdaemon.dev/retro/crt_demo.html">
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="crt_tools.css">
+    <link rel="stylesheet" href="/assets/css/afterglows-settings.css">
+    <!-- Unified theme + font controller (applies data-phosphor/data-font before paint) -->
+    <script src="/assets/js/afterglows-settings.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Fira+Code&display=swap" rel="stylesheet">
     <style>
         * {
@@ -29,7 +32,7 @@
                     transparent 60%),
                 var(--crt-bg);
             color: var(--crt-green);
-            font-family: 'Fira Code', monospace;
+            font-family: var(--ag-font, 'Fira Code', monospace);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -58,51 +61,6 @@
             letter-spacing: 0.35em;
             text-transform: uppercase;
             color: var(--crt-dim);
-        }
-
-        /* Theme control row */
-        .phosphor-controls {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            padding: 12px 16px;
-            border: 1px solid color-mix(in srgb, var(--crt-dim) 60%, transparent);
-            border-radius: 4px;
-            background: color-mix(in srgb, var(--crt-green) 3%, transparent);
-        }
-
-        .phosphor-btn {
-            padding: 6px 12px;
-            border: 1px solid var(--crt-dim);
-            background: transparent;
-            color: var(--crt-green);
-            font-family: 'Fira Code', monospace;
-            font-size: 0.68rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: border-color 0.2s, background 0.2s, color 0.2s;
-        }
-
-        .phosphor-btn:hover {
-            border-color: var(--crt-green);
-        }
-
-        .phosphor-btn.active {
-            background: var(--crt-green);
-            border-color: var(--crt-green);
-            color: var(--crt-bg);
-        }
-
-        .phosphor-note {
-            font-size: 0.66rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--crt-dim);
-            margin-bottom: 34px;
-            min-height: 1em;
         }
 
         .grid {
@@ -261,9 +219,6 @@
             <p class="subtitle">phosphor &middot; scanline &middot; glitch &middot; pure css</p>
         </header>
 
-        <div class="phosphor-controls" id="phosphorControls" role="group" aria-label="Phosphor color theme"></div>
-        <p class="phosphor-note" id="phosphorNote" aria-live="polite"></p>
-
         <div class="grid">
 
             <!-- 1. Basic Scanlines + Glow -->
@@ -344,81 +299,10 @@
     </main>
 
     <script>
-        // Phosphor theme switching — standalone copy of the Afterglows
-        // shim (this folder is a copy-out library; no cross-folder deps).
-        // Shares the same storage key as matrix_code so both stay in sync.
-        (function () {
-            'use strict';
-
-            var THEMES = [
-                { key: 'p1', name: 'Green', note: 'P1 — classic green screen' },
-                { key: 'p31', name: 'Fast Green', note: 'P31 — Amdek / DEC / Tektronix' },
-                { key: 'p3', name: 'Amber', note: 'P3 — DEC VT220 / Hercules' },
-                { key: 'p4', name: 'Paper White', note: 'P4 — TRS-80 / Commodore PET' },
-                { key: 'p7', name: 'Blue-White', note: 'P7 — radar / oscilloscope cascade' },
-                { key: 'p2', name: 'Stoplight', note: 'P2 — long-persistence oscillography' },
-                { key: 'p14', name: 'Violet', note: 'P14 — rare blue-violet' },
-                { key: 'neon', name: 'Neon Blue', note: 'modern cyberpunk — not a phosphor' }
-            ];
-            var STORAGE_KEY = 'afterglows-phosphor';
-            var root = document.documentElement;
-            var controls = document.getElementById('phosphorControls');
-            var note = document.getElementById('phosphorNote');
-
-            function isValid(key) {
-                return THEMES.some(function (t) { return t.key === key; });
-            }
-
-            function apply(key, persist) {
-                if (!isValid(key)) { return; }
-                if (key === 'p1') {
-                    root.removeAttribute('data-phosphor');
-                } else {
-                    root.setAttribute('data-phosphor', key);
-                }
-                if (persist) {
-                    try { localStorage.setItem(STORAGE_KEY, key); } catch (e) { /* ignore */ }
-                }
-                sync();
-            }
-
-            function sync() {
-                var active = root.getAttribute('data-phosphor') || 'p1';
-                controls.querySelectorAll('.phosphor-btn').forEach(function (btn) {
-                    btn.classList.toggle('active', btn.dataset.theme === active);
-                });
-                var t = THEMES.find(function (x) { return x.key === active; });
-                note.textContent = t ? t.note : '';
-            }
-
-            THEMES.forEach(function (t) {
-                var btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'phosphor-btn';
-                btn.dataset.theme = t.key;
-                btn.textContent = t.name;
-                btn.title = t.note;
-                btn.addEventListener('click', function () { apply(t.key, true); });
-                controls.appendChild(btn);
-            });
-
-            var fromQuery = new URLSearchParams(window.location.search).get('phosphor');
-            if (fromQuery && isValid(fromQuery)) {
-                apply(fromQuery, false);
-            } else {
-                var stored = null;
-                try { stored = localStorage.getItem(STORAGE_KEY); } catch (e) { /* ignore */ }
-                if (stored && isValid(stored)) { apply(stored, false); }
-            }
-
-            window.addEventListener('storage', function (e) {
-                if (e.key === STORAGE_KEY && e.newValue && isValid(e.newValue)) {
-                    apply(e.newValue, false);
-                }
-            });
-
-            sync();
-        }());
+        // Phosphor theme + font are owned by the shared site controller
+        // (/assets/js/afterglows-settings.js), which injects the gear panel
+        // and persists to the canonical 'afterglows-phosphor' key that
+        // crt_tools.css reads via html[data-phosphor]. No in-page picker here.
 
         // Power-on replay: retrigger the animation class.
         (function () {
