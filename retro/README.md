@@ -80,6 +80,17 @@ applied as `html[data-font]`, which changes `crt_demo.html`'s own page
 chrome typeface. This is separate from `crt_tools.css`'s color variables
 below and has no effect on them.
 
+## 🧭 Header + Back Navigation
+
+`crt_demo.html` no longer carries its own in-flow "BACK TO TERMINAL" link.
+Like every other page on the site, it loads the shared header controller
+(`/assets/js/afterglows-header.js` + `/assets/css/afterglows-header.css`),
+which injects the fixed "Afterglows" wordmark (top-left) and a floating Back
+control (bottom-left). As a subsite hub, `crt_demo.html`'s Back control goes
+to the Afterglows root (`/index.html`) — it declares no `data-ag-back`
+override, so it falls back to the root by default. See
+`../docs/NAV_README.md` for the full system.
+
 ## 🎨 Customization
 
 The effects use CSS variables. You can override them inline or in your own CSS:

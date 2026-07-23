@@ -112,6 +112,28 @@ variables directly (on `:root` or on any container):
 }
 ```
 
+## Header + Back Navigation
+
+Like every other page on the site, `index.html` and all four `demo_*.html`
+pages load the shared header controller
+(`/assets/js/afterglows-header.js` + `/assets/css/afterglows-header.css`),
+which injects the fixed "Afterglows" wordmark (top-left) and a floating Back
+control (bottom-left) — no in-flow "BACK TO AFTERGLOWS" link lives in this
+folder's markup anymore.
+
+- `index.html` is a subsite hub: its Back control goes to the Afterglows
+  root (`/index.html`), the default when a page declares no override.
+- Each `demo_classic.html`, `demo_binary.html`, `demo_canvas.html`, and
+  `demo_themes.html` is a leaf page whose Back control returns to this
+  folder's hub instead of the root, declared explicitly with
+  `<html data-ag-back="index.html">`.
+- `index.html` embeds the demo pages in a preview `<iframe>`; the header
+  script detects the frame (`window.self !== window.top`) and injects
+  nothing there, so the embedded preview stays clean. The same demo page
+  opened standalone gets its full wordmark + Back chrome.
+
+See `../docs/NAV_README.md` for the full system.
+
 `phosphor_theme.js` (optional) wraps this in `window.AfterglowsPhosphor`:
 `THEMES` (the theme list), `get()`, `set(key)`, and `onChange(fn)`. It
 persists the chosen theme to `localStorage` under `afterglows-phosphor`,

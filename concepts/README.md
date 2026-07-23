@@ -62,6 +62,16 @@ explainer text). The concept tiles themselves keep their own hard-coded
 palettes by design — each is a self-contained custom element with its own
 shadow DOM, so the site theme intentionally does not reach inside them.
 
+## 🧭 Header + Back Navigation
+
+The gallery page also loads the shared header controller
+(`/assets/js/afterglows-header.js` + `/assets/css/afterglows-header.css`),
+which injects the same fixed "Afterglows" wordmark (top-left) and floating
+Back control (bottom-left) used on every other Afterglows page. As a subsite
+hub, the gallery's Back control goes to the Afterglows root (`/index.html`) —
+it doesn't declare `data-ag-back`, so it falls back to the root by default.
+See `../docs/NAV_README.md` for the full system.
+
 ## Usage
 
 Concepts are reusable web components — each one is a self-contained custom element with its own shadow DOM and animation, no dependencies beyond the browser.

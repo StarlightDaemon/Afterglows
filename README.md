@@ -25,6 +25,15 @@ An archive of experimental UI motions, header animations, and interaction models
 
 ---
 
+### **Shared Site Chrome**
+
+Every page on the live site shares two canonical, root-absolute asset pairs — no per-page header, back-link, theme, or font markup:
+
+- **Theme + font** (`/assets/js/afterglows-settings.js` + `/assets/css/afterglows-settings.css`) — the gear button + panel in the bottom-right corner. See [`docs/THEME_README.md`](docs/THEME_README.md).
+- **Header + back navigation** (`/assets/js/afterglows-header.js` + `/assets/css/afterglows-header.css`) — the fixed "Afterglows" wordmark (top-left) and floating Back control (bottom-left). See [`docs/NAV_README.md`](docs/NAV_README.md).
+
+---
+
 > [!NOTE]
 > **Looking for Stargate?**
 > The Stargate project has ascended to its own dedicated workspace. It is no longer maintained here.
