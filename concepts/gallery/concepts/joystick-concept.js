@@ -46,8 +46,8 @@ const joystickStyles = `
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #ff4e4e;
-    box-shadow: 0 0 10px rgba(255, 78, 78, 0.5);
+    background: radial-gradient(circle at 35% 30%, #f2ffdd, #35a54a 60%, #0b5c1d);
+    box-shadow: 0 0 10px rgba(0, 204, 0, 0.55);
     transform: translateX(-50%);
   }
 
@@ -58,8 +58,8 @@ const joystickStyles = `
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #ff4e4e;
-    box-shadow: 0 0 8px rgba(255, 78, 78, 0.45);
+    background: radial-gradient(circle at 38% 32%, #d6ffe0, #2a8a3e 70%);
+    box-shadow: 0 0 8px rgba(0, 204, 0, 0.5);
     animation: button-flash 1.8s ease-in-out infinite;
   }
 
