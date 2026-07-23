@@ -15,8 +15,11 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="matrix_tools.css">
     <link rel="stylesheet" href="/assets/css/afterglows-settings.css">
+    <link rel="stylesheet" href="/assets/css/afterglows-header.css">
     <!-- Unified theme + font controller (applies data-phosphor/data-font before paint) -->
     <script src="/assets/js/afterglows-settings.js"></script>
+    <!-- Unified header + back navigation (injects site-wide chrome) -->
+    <script src="/assets/js/afterglows-header.js"></script>
     <style>
         * {
             margin: 0;
@@ -65,7 +68,9 @@
         }
 
         .sidebar-header {
-            padding: 26px 20px;
+            /* extra top room so the shared Afterglows wordmark (fixed,
+               top-left) clears the subsite title beneath it */
+            padding: 58px 20px 26px;
             border-bottom: 1px solid var(--matrix-dim);
             text-align: center;
         }
@@ -286,9 +291,6 @@
                 </div>
             </div>
 
-            <div class="back-link">
-                <a href="../index.html">&larr; BACK TO AFTERGLOWS</a>
-            </div>
         </aside>
 
         <main class="preview-area" id="preview">

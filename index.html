@@ -15,6 +15,7 @@
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="/assets/css/afterglows-settings.css">
+    <link rel="stylesheet" href="/assets/css/afterglows-header.css">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,26 +26,14 @@
 
     <!-- Unified theme + font controller (applies data-phosphor/data-font before paint) -->
     <script src="/assets/js/afterglows-settings.js"></script>
+    <!-- Unified header + back navigation (injects site-wide chrome) -->
+    <script src="/assets/js/afterglows-header.js"></script>
 </head>
 
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <!-- Unified Sticky Header -->
-    <header class="site-header">
-        <!-- Logo -->
-        <div class="logo">
-            <a href="index.html" aria-label="Back to the Afterglows homepage">
-                <img src="assets/img/thinker-logo.svg" alt="StarlightDaemon Logo" width="80" height="80" />
-            </a>
-        </div>
-
-        <!-- Center Title -->
-        <div class="header-center">
-            <h1 class="header-title">Afterglows</h1>
-            <p class="header-tagline">Experimental Archive & Open Source Demos</p>
-        </div>
-
-    </header>
+    <!-- Site chrome (Afterglows wordmark + back nav) is injected by
+         /assets/js/afterglows-header.js — no per-page header markup. -->
 
     <div class="page-wrapper">
         <main class="main-content" id="main">
