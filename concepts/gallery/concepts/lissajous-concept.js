@@ -1,3 +1,14 @@
+const LISSAJOUS_PATH =
+  'M 100 46 L 98.4 52.3 93.8 58.3 86.5 64 77 69.1 65.9 73.6 54 77.2 42.1 79.8 ' +
+  '31 81.5 21.5 82 14.2 81.5 9.6 79.8 8 77.2 9.6 73.6 14.2 69.1 21.5 64 31 58.3 ' +
+  '42.1 52.3 54 46 65.9 39.7 77 33.7 86.5 28 93.8 22.9 98.4 18.4 100 14.8 98.4 12.2 ' +
+  '93.8 10.5 86.5 10 77 10.5 65.9 12.2 54 14.8 42.1 18.4 31 22.9 21.5 28 14.2 33.7 ' +
+  '9.6 39.7 8 46 9.6 52.3 14.2 58.3 21.5 64 31 69.1 42.1 73.6 54 77.2 65.9 79.8 ' +
+  '77 81.5 86.5 82 93.8 81.5 98.4 79.8 100 77.2 98.4 73.6 93.8 69.1 86.5 64 77 58.3 ' +
+  '65.9 52.3 54 46 42.1 39.7 31 33.7 21.5 28 14.2 22.9 9.6 18.4 8 14.8 9.6 12.2 ' +
+  '14.2 10.5 21.5 10 31 10.5 42.1 12.2 54 14.8 65.9 18.4 77 22.9 86.5 28 93.8 33.7 ' +
+  '98.4 39.7 100 46 Z';
+
 const lissajousStyles = `
   :host {
     display: flex;
@@ -7,36 +18,41 @@ const lissajousStyles = `
     height: 100%;
   }
 
-  /* A 3:2 Lissajous figure traced live: the dot's X and Y are driven
-     by two independent oscillators (nested carriers), and four ghost
-     dots trail it at small phase lags to draw the curve's recent
-     past. Reads like an oscilloscope in XY mode. */
+  /* A true 3:2 Lissajous figure on an oscilloscope in XY mode:
+     x = cos(3t), y = sin(2t). The full curve glows faintly as
+     phosphor memory while a bright beam dot retraces it with a
+     short comet tail of ghost dots. */
   .lj {
     width: 108px;
     height: 92px;
     position: relative;
+    border: 1px solid rgba(0, 204, 0, 0.28);
+    border-radius: 4px;
+    box-shadow: inset 0 0 14px rgba(0, 204, 0, 0.08);
   }
 
-  /* Scope furniture: center axes and corner brackets. */
+  /* Graticule: dashed centre axes, scope-style. */
   .lj-axis {
     position: absolute;
-    background: rgba(0, 204, 0, 0.22);
   }
 
-  .lj-axis.h { left: 6px; right: 6px; top: 50%; height: 1px; }
-  .lj-axis.v { top: 6px; bottom: 6px; left: 50%; width: 1px; }
-
-  .lj-corner {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border: 1px solid rgba(0, 204, 0, 0.5);
+  .lj-axis.h {
+    left: 4px;
+    right: 4px;
+    top: 50%;
+    height: 1px;
+    background: repeating-linear-gradient(90deg,
+      rgba(0, 204, 0, 0.3) 0 2px, transparent 2px 7px);
   }
 
-  .lj-corner.c1 { top: 0; left: 0; border-right: none; border-bottom: none; }
-  .lj-corner.c2 { top: 0; right: 0; border-left: none; border-bottom: none; }
-  .lj-corner.c3 { bottom: 0; left: 0; border-right: none; border-top: none; }
-  .lj-corner.c4 { bottom: 0; right: 0; border-left: none; border-top: none; }
+  .lj-axis.v {
+    top: 4px;
+    bottom: 4px;
+    left: 50%;
+    width: 1px;
+    background: repeating-linear-gradient(180deg,
+      rgba(0, 204, 0, 0.3) 0 2px, transparent 2px 7px);
+  }
 
   .lj-label {
     position: absolute;
@@ -48,49 +64,44 @@ const lissajousStyles = `
     color: rgba(140, 255, 170, 0.7);
   }
 
-  /* X oscillator: 3 half-periods per figure; Y oscillator: 2. The
-     ease-in-out alternation approximates a sinusoid. */
-  .lj-x {
+  /* Phosphor memory: the whole figure held faint. */
+  .lj-trace {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    animation: lj-x 0.9s ease-in-out infinite alternate;
+    inset: 0;
   }
 
-  .lj-y {
-    animation: lj-y 1.35s ease-in-out infinite alternate;
+  .lj-trace path {
+    fill: none;
+    stroke: rgba(0, 204, 0, 0.3);
+    stroke-width: 1;
+    filter: drop-shadow(0 0 2px rgba(0, 204, 0, 0.35));
   }
 
-  @keyframes lj-x {
-    from { transform: translateX(-36px); }
-    to { transform: translateX(36px); }
-  }
-
-  @keyframes lj-y {
-    from { transform: translateY(-28px); }
-    to { transform: translateY(28px); }
-  }
-
+  /* The beam: head dot plus lagged ghosts riding the exact curve. */
   .lj-dot {
     position: absolute;
+    left: 0;
+    top: 0;
     width: 6px;
     height: 6px;
-    margin: -3px 0 0 -3px;
     border-radius: 50%;
     background: #d6ffe0;
     box-shadow: 0 0 9px rgba(0, 204, 0, 1), 0 0 18px rgba(0, 204, 0, 0.5);
+    offset-path: path('${LISSAJOUS_PATH}');
+    animation: lj-sweep 6s linear infinite;
   }
 
-  /* Ghost trail: same oscillator pair, lagged. Phosphor decay. */
-  .lj-x.g1, .lj-x.g1 .lj-y { animation-delay: -0.06s; }
-  .lj-x.g2, .lj-x.g2 .lj-y { animation-delay: -0.12s; }
-  .lj-x.g3, .lj-x.g3 .lj-y { animation-delay: -0.18s; }
-  .lj-x.g4, .lj-x.g4 .lj-y { animation-delay: -0.24s; }
+  @keyframes lj-sweep {
+    from { offset-distance: 0%; }
+    to { offset-distance: 100%; }
+  }
 
-  .lj-x.g1 .lj-dot { width: 5px; height: 5px; opacity: 0.65; box-shadow: 0 0 7px rgba(0, 204, 0, 0.7); }
-  .lj-x.g2 .lj-dot { width: 4px; height: 4px; opacity: 0.45; box-shadow: 0 0 5px rgba(0, 204, 0, 0.5); }
-  .lj-x.g3 .lj-dot { width: 3px; height: 3px; opacity: 0.3; box-shadow: 0 0 4px rgba(0, 204, 0, 0.35); }
-  .lj-x.g4 .lj-dot { width: 3px; height: 3px; opacity: 0.16; box-shadow: none; }
+  /* Ghost tail: phosphor decay behind the beam. */
+  .lj-dot.g1 { animation-delay: -5.91s; width: 5px; height: 5px; opacity: 0.6; box-shadow: 0 0 7px rgba(0, 204, 0, 0.7); }
+  .lj-dot.g2 { animation-delay: -5.82s; width: 4px; height: 4px; opacity: 0.42; box-shadow: 0 0 5px rgba(0, 204, 0, 0.5); }
+  .lj-dot.g3 { animation-delay: -5.73s; width: 3px; height: 3px; opacity: 0.28; box-shadow: 0 0 4px rgba(0, 204, 0, 0.35); }
+  .lj-dot.g4 { animation-delay: -5.64s; width: 3px; height: 3px; opacity: 0.18; box-shadow: none; }
+  .lj-dot.g5 { animation-delay: -5.55s; width: 2px; height: 2px; opacity: 0.1; box-shadow: none; }
 `;
 
 class ConceptLissajous extends HTMLElement {
@@ -104,15 +115,15 @@ class ConceptLissajous extends HTMLElement {
       <div class="lj">
         <div class="lj-axis h"></div>
         <div class="lj-axis v"></div>
-        <div class="lj-corner c1"></div>
-        <div class="lj-corner c2"></div>
-        <div class="lj-corner c3"></div>
-        <div class="lj-corner c4"></div>
-        <div class="lj-x g4"><div class="lj-y"><div class="lj-dot"></div></div></div>
-        <div class="lj-x g3"><div class="lj-y"><div class="lj-dot"></div></div></div>
-        <div class="lj-x g2"><div class="lj-y"><div class="lj-dot"></div></div></div>
-        <div class="lj-x g1"><div class="lj-y"><div class="lj-dot"></div></div></div>
-        <div class="lj-x"><div class="lj-y"><div class="lj-dot"></div></div></div>
+        <svg class="lj-trace" viewBox="0 0 108 92" aria-hidden="true">
+          <path d="${LISSAJOUS_PATH}"></path>
+        </svg>
+        <div class="lj-dot g5"></div>
+        <div class="lj-dot g4"></div>
+        <div class="lj-dot g3"></div>
+        <div class="lj-dot g2"></div>
+        <div class="lj-dot g1"></div>
+        <div class="lj-dot"></div>
         <div class="lj-label">3:2</div>
       </div>
     `;
