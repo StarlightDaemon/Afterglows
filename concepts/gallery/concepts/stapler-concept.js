@@ -16,13 +16,14 @@ const staplerStyles = `
     position: relative;
   }
 
-  /* Paper stack under the jaw. */
+  /* Paper stack: fed into the jaw from the right, lying flat under
+     the nose so the strike point sits on its left edge. */
   .st-paper {
     position: absolute;
-    left: 20px;
-    bottom: 18px;
-    width: 74px;
-    height: 26px;
+    left: 34px;
+    bottom: 12px;
+    width: 72px;
+    height: 20px;
     border: 1px solid rgba(140, 255, 170, 0.7);
     border-radius: 1px;
     background:
@@ -30,13 +31,13 @@ const staplerStyles = `
     box-shadow: 2px 2px 0 rgba(0, 90, 18, 0.4), 4px 4px 0 rgba(0, 60, 12, 0.3);
   }
 
-  /* Text ruling on the paper. */
+  /* Text ruling on the visible (right) part of the paper. */
   .st-paper::after {
     content: '';
     position: absolute;
-    left: 6px;
-    right: 26px;
-    top: 6px;
+    left: 34px;
+    right: 6px;
+    top: 4px;
     bottom: 4px;
     background: repeating-linear-gradient(180deg,
       rgba(140, 255, 170, 0.35) 0 1px,
@@ -86,16 +87,16 @@ const staplerStyles = `
     position: absolute;
     left: 60px;
     bottom: 17px;
-    width: 10px;
+    width: 14px;
     height: 2px;
     background: rgba(140, 255, 170, 0.6);
   }
 
-  /* Strike flash. */
+  /* Strike flash, right on the anvil. */
   .st-flash {
     position: absolute;
-    left: 62px;
-    bottom: 20px;
+    left: 64px;
+    bottom: 22px;
     width: 10px;
     height: 10px;
     margin-left: -3px;
@@ -111,10 +112,11 @@ const staplerStyles = `
     54%, 100% { opacity: 0; }
   }
 
-  /* Staples already set into the paper, plus the new one appearing. */
+  /* Staples already set, marching to the right as the sheet advances,
+     plus the new one appearing under the nose. */
   .st-staple {
     position: absolute;
-    bottom: 34px;
+    bottom: 24px;
     width: 8px;
     height: 4px;
     border: 1.5px solid rgba(214, 255, 224, 0.9);
@@ -122,13 +124,13 @@ const staplerStyles = `
     border-radius: 1px 1px 0 0;
   }
 
-  .st-staple.s1 { left: 30px; }
-  .st-staple.s2 { left: 44px; }
-  .st-staple.s3 { left: 58px; }
+  .st-staple.s1 { left: 78px; }
+  .st-staple.s2 { left: 90px; }
+  .st-staple.s3 { left: 102px; }
 
   /* The freshly-driven staple pops in at the strike. */
   .st-staple.fresh {
-    left: 62px;
+    left: 64px;
     opacity: 0;
     animation: st-fresh 3s steps(1) infinite;
   }
