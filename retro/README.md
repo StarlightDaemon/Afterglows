@@ -5,7 +5,7 @@ A standalone collection of CSS tools to add retro Monitor, Terminal, and CRT eff
 ## 📂 Contents
 
 *   **`crt_tools.css`** - The core library. Import this into any project.
-*   **`crt_demo.html`** - A visual gallery showing the effects in action, including the phosphor theme picker.
+*   **`crt_demo.html`** - A visual gallery showing the effects in action. Color theme and font are set via the shared site gear (see below), not an in-page picker.
 
 ## 🚀 How to Use
 
@@ -64,10 +64,21 @@ document.documentElement.setAttribute('data-phosphor', 'p3');
 document.documentElement.removeAttribute('data-phosphor');
 ```
 
-`crt_demo.html` includes its own small, self-contained copy of this
-switching logic inline (same `localStorage` key, `afterglows-phosphor`, as
-the `matrix_code` library) so this folder stays dependency-free — there's no
-separate JS file to copy here, unlike `matrix_code/phosphor_theme.js`.
+`crt_demo.html` no longer carries its own inline phosphor-switching copy.
+Like every other page on the site, it loads the shared site-wide controller
+by root-absolute path (`/assets/js/afterglows-settings.js` +
+`/assets/css/afterglows-settings.css`), which injects a gear button + panel
+(bottom-right) for picking the color theme. It persists to the same
+`localStorage` key, `afterglows-phosphor`, that the portable `crt_tools.css`
+(and `matrix_code`'s `matrix_tools.css`) read via `html[data-phosphor]`, so
+this folder still stays dependency-free if you only copy `crt_tools.css` out
+— you just won't get a picker UI unless you build or borrow one.
+
+The shared gear also adds a font picker not present in the old inline
+control: `localStorage['afterglows-font']` (IBM, VT323, Space, or Fira),
+applied as `html[data-font]`, which changes `crt_demo.html`'s own page
+chrome typeface. This is separate from `crt_tools.css`'s color variables
+below and has no effect on them.
 
 ## 🎨 Customization
 

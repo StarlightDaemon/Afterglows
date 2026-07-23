@@ -6,13 +6,27 @@ a set of standalone HTML demos. Drop `matrix_tools.css` into any project and
 link it; nothing else is required. `phosphor_theme.js` is optional and only
 needed if you want the same color-theme switching the demos use.
 
+On the live site, `index.html` and `demo_themes.html` don't use
+`phosphor_theme.js` for their own chrome — like every other page on the
+site, they load the shared site-wide controller
+(`/assets/js/afterglows-settings.js` + `/assets/css/afterglows-settings.css`),
+which injects a gear button + panel (bottom-right) for picking the color
+theme and font. `phosphor_theme.js` is still shipped and still used, but only
+as a lightweight boot-shim for the three standalone iframe demo pages
+(`demo_classic.html`, `demo_canvas.html`, `demo_binary.html`), which have no
+gear of their own and just need to pick up the persisted theme.
+
 ## Files
 
 - **`matrix_tools.css`** — the library. Copy this into your project.
 - **`phosphor_theme.js`** — optional helper for switching phosphor color
-  themes at runtime. Copy it alongside the CSS if you want theme switching.
-- **`index.html`** — a demo gallery hub with a sidebar (demo picker + live
-  phosphor-theme picker) and an iframe preview.
+  themes at runtime. Copy it alongside the CSS if you want theme switching in
+  a project that doesn't use the site-wide controller. On this site it's
+  used only as the boot-shim for `demo_classic.html`, `demo_canvas.html`,
+  and `demo_binary.html`.
+- **`index.html`** — a demo gallery hub with a sidebar (demo picker) and an
+  iframe preview; color theme and font are set via the shared site gear
+  injected in the corner, not an in-page picker.
 - **`demo_classic.html`** — pure-CSS katakana rain in three parallax depth
   layers (far/mid/near), no canvas.
 - **`demo_canvas.html`** — Canvas rain that reacts to the cursor (brightness
@@ -20,7 +34,8 @@ needed if you want the same color-theme switching the demos use.
 - **`demo_binary.html`** — Canvas rain of pure `0`/`1` glyphs with
   per-column brightness variation and occasional sparkle glyphs.
 - **`demo_themes.html`** — all eight phosphor palettes plus three page-local
-  film-inspired palettes, side by side on a Canvas rain.
+  film-inspired palettes, side by side on a Canvas rain; the eight canonical
+  palettes are switched via the shared site gear, same as `index.html`.
 
 ## Usage
 
@@ -101,12 +116,21 @@ variables directly (on `:root` or on any container):
 `THEMES` (the theme list), `get()`, `set(key)`, and `onChange(fn)`. It
 persists the chosen theme to `localStorage` under `afterglows-phosphor`,
 honors a `?phosphor=<key>` URL query for one-off previews (not persisted),
-and follows the theme across same-origin tabs via the `storage` event. The
-demo pages load it with `<script src="phosphor_theme.js"></script>`; the
-gallery hub (`index.html`) uses it to drive a phosphor picker in its
-sidebar that live-recolors the iframe preview, and the canvas demos re-read
-theme colors via `getComputedStyle` and a `MutationObserver` on
-`data-phosphor` so they recolor without a reload.
+and follows the theme across same-origin tabs via the `storage` event. It's
+the same `afterglows-phosphor` key the site-wide controller reads and
+writes, so a theme picked from the shared gear on `index.html` or
+`demo_themes.html` is already in effect the next time `demo_classic.html`,
+`demo_canvas.html`, or `demo_binary.html` (which load `phosphor_theme.js`
+directly as a boot-shim, with no gear of their own) is opened. The canvas
+demos re-read theme colors via `getComputedStyle` and a `MutationObserver`
+on `data-phosphor` so they recolor without a reload.
+
+On `index.html` and `demo_themes.html` themselves, theme switching goes
+through the shared gear injected by `/assets/js/afterglows-settings.js`
+(same control as the rest of the site), which also persists to
+`afterglows-phosphor` and additionally offers a font picker
+(`afterglows-font` — IBM, VT323, Space, Fira) that changes the page chrome's
+typeface.
 
 ## CSS Variables
 

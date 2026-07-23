@@ -46,6 +46,22 @@ The gallery page includes a live filter/search toolbar above the grid:
 
 Every tile also carries two actions: **Copy**, which copies a ready-to-paste embed snippet for that concept to the clipboard, and **Source**, which opens the concept's module file directly.
 
+## 🎛️ Theme + Font Control
+
+The gallery page loads the site-wide settings controller
+(`/assets/js/afterglows-settings.js` + `/assets/css/afterglows-settings.css`),
+which injects the same gear button + panel used on every other Afterglows
+page into the bottom-right corner. It lets you pick one of 8 phosphor color
+themes (p1 Green, p31 Fast Green, p3 Amber, p4 Paper White, p7 Blue-White, p2
+Stoplight, p14 Violet, neon Neon Blue) and one of 4 fonts (IBM, VT323, Space,
+Fira), persisted to `localStorage` under `afterglows-phosphor` and
+`afterglows-font` respectively and shared live across every page on the site.
+
+This control only affects the gallery's own page chrome (toolbar, headings,
+explainer text). The concept tiles themselves keep their own hard-coded
+palettes by design — each is a self-contained custom element with its own
+shadow DOM, so the site theme intentionally does not reach inside them.
+
 ## Usage
 
 Concepts are reusable web components — each one is a self-contained custom element with its own shadow DOM and animation, no dependencies beyond the browser.
