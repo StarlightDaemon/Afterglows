@@ -7,10 +7,14 @@ const fibonacciStyles = `
     height: 100%;
   }
 
-  /* The golden rectangle subdivision: squares 34-21-13-8-5-3 light up
+  /* The golden rectangle subdivision: squares 55-34-21-13-8-5 light up
      in sequence, each carrying its quarter-arc of the spiral, then
      the whole figure breathes once and the trace starts again.
-     Layout uses a 89x55 (F11 x F10) rectangle scaled to fit. */
+     Layout uses a 89x55 (F11 x F10) rectangle scaled by 1.2 to fit.
+     Each arc is centred on the corner its square shares with the next
+     square, so consecutive arcs join with a common tangent: the corner
+     cycle runs TL, TR, BR, BL, TL, TR and the chain is
+     (0,66)->(66,0)->(107,41)->(82,66)->(66,50)->(75,41)->(81,47). */
   .fib {
     width: 107px;
     height: 66px;
@@ -37,22 +41,22 @@ const fibonacciStyles = `
 
   /* 89x55 layout, scale 1.2: cells in px (x, y, size*1.2). */
   .fib-cell.f1 { left: 0;      top: 0;      width: 66px; height: 66px; --ph: 0s; }
-  .fib-cell.f1 .fib-arc { border-radius: 0 0 0 100%; border-left-color: var(--accent, #00cc00); border-bottom-color: var(--accent, #00cc00); transform: rotate(0.001deg); }
+  .fib-cell.f1 .fib-arc { border-radius: 100% 0 0 0; border-top-color: var(--accent, #00cc00); border-left-color: var(--accent, #00cc00); }
 
-  .fib-cell.f2 { left: 66px;   top: 0;      width: 41px; height: 41px; --ph: -0.9s; }
-  .fib-cell.f2 .fib-arc { border-radius: 100% 0 0 0; border-left-color: var(--accent, #00cc00); border-top-color: var(--accent, #00cc00); }
+  .fib-cell.f2 { left: 66px;   top: 0;      width: 41px; height: 41px; --ph: -5.1s; }
+  .fib-cell.f2 .fib-arc { border-radius: 0 100% 0 0; border-top-color: var(--accent, #00cc00); border-right-color: var(--accent, #00cc00); }
 
-  .fib-cell.f3 { left: 91px;   top: 41px;   width: 16px; height: 25px; --ph: -1.8s; width: 25px; }
-  .fib-cell.f3 .fib-arc { border-radius: 0 100% 0 0; border-top-color: var(--accent, #00cc00); border-right-color: var(--accent, #00cc00); }
+  .fib-cell.f3 { left: 82px;   top: 41px;   width: 25px; height: 25px; --ph: -4.2s; }
+  .fib-cell.f3 .fib-arc { border-radius: 0 0 100% 0; border-right-color: var(--accent, #00cc00); border-bottom-color: var(--accent, #00cc00); }
 
-  .fib-cell.f4 { left: 76px;   top: 51px;   width: 15px; height: 15px; --ph: -2.7s; }
-  .fib-cell.f4 .fib-arc { border-radius: 0 0 100% 0; border-right-color: var(--accent, #00cc00); border-bottom-color: var(--accent, #00cc00); }
+  .fib-cell.f4 { left: 66px;   top: 50px;   width: 16px; height: 16px; --ph: -3.3s; }
+  .fib-cell.f4 .fib-arc { border-radius: 0 0 0 100%; border-bottom-color: var(--accent, #00cc00); border-left-color: var(--accent, #00cc00); }
 
-  .fib-cell.f5 { left: 66px;   top: 41px;   width: 10px; height: 10px; --ph: -3.6s; }
-  .fib-cell.f5 .fib-arc { border-radius: 0 0 0 100%; border-left-color: var(--accent, #00cc00); border-bottom-color: var(--accent, #00cc00); }
+  .fib-cell.f5 { left: 66px;   top: 41px;   width: 9px;  height: 9px; --ph: -2.4s; }
+  .fib-cell.f5 .fib-arc { border-radius: 100% 0 0 0; border-top-color: var(--accent, #00cc00); border-left-color: var(--accent, #00cc00); }
 
-  .fib-cell.f6 { left: 66px;   top: 35px;   width: 6px;  height: 6px; --ph: -4.2s; }
-  .fib-cell.f6 .fib-arc { border-radius: 100% 0 0 0; border-left-color: var(--accent, #00cc00); border-top-color: var(--accent, #00cc00); }
+  .fib-cell.f6 { left: 75px;   top: 41px;   width: 6px;  height: 6px; --ph: -1.7s; }
+  .fib-cell.f6 .fib-arc { border-radius: 0 100% 0 0; border-top-color: var(--accent, #00cc00); border-right-color: var(--accent, #00cc00); }
 
   .fib-cell { animation-delay: var(--ph); }
   .fib-arc { animation-delay: var(--ph); }
@@ -95,8 +99,8 @@ const fibonacciStyles = `
   /* The seed dot at the spiral's eye. */
   .fib-eye {
     position: absolute;
-    left: 69px;
-    top: 38px;
+    left: 77px;
+    top: 47px;
     width: 3px;
     height: 3px;
     border-radius: 50%;
