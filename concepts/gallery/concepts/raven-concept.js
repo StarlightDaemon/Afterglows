@@ -49,15 +49,15 @@ const ravenStyles = `
     animation: raven-breathe 3.4s ease-in-out infinite, raven-ruffle 9s linear infinite;
   }
 
+  /* Long wedge tail - the raven giveaway. */
   .raven-tail {
     position: absolute;
-    bottom: -3px;
-    right: -12px;
-    width: 20px;
-    height: 8px;
-    border-radius: 0 4px 4px 0;
-    background: linear-gradient(90deg, #0c2c14, #071c0c);
-    border: 1px solid rgba(140, 255, 170, 0.3);
+    bottom: -4px;
+    right: -18px;
+    width: 26px;
+    height: 10px;
+    clip-path: polygon(0 0, 82% 12%, 100% 50%, 82% 88%, 0 100%);
+    background: linear-gradient(90deg, #0c2c14, rgba(60, 160, 90, 0.5) 96%, #071c0c);
     transform: rotate(14deg);
     transform-origin: left center;
     animation: raven-tail 9s linear infinite;
@@ -106,16 +106,28 @@ const ravenStyles = `
     border: 1px solid rgba(140, 255, 170, 0.4);
   }
 
+  /* Heavy, deep bill with a curved culmen - not a songbird's pin. */
   .raven-beak {
     position: absolute;
-    top: 7px;
-    left: -8px;
-    width: 10px;
-    height: 5px;
-    clip-path: polygon(0% 50%, 100% 0%, 100% 100%);
-    background: linear-gradient(90deg, #9be08a, #2a8a3e);
+    top: 6px;
+    left: -10px;
+    width: 12px;
+    height: 7px;
+    clip-path: polygon(0 55%, 30% 10%, 100% 0, 100% 90%, 35% 100%);
+    background: linear-gradient(180deg, rgba(140, 255, 170, 0.55), #16482a 35%, #0a2411);
     animation: raven-caw 9s linear infinite;
     transform-origin: right center;
+  }
+
+  /* Shaggy throat hackles under the bill. */
+  .raven-hackle {
+    position: absolute;
+    top: 13px;
+    left: 1px;
+    width: 12px;
+    height: 9px;
+    clip-path: polygon(0 0, 100% 0, 88% 45%, 68% 100%, 50% 40%, 32% 88%, 12% 35%);
+    background: linear-gradient(180deg, #123c1e, #0a2411);
   }
 
   .raven-eye {
@@ -229,6 +241,7 @@ class ConceptRaven extends HTMLElement {
           <div class="raven-head">
             <div class="raven-skull"></div>
             <div class="raven-beak"></div>
+            <div class="raven-hackle"></div>
             <div class="raven-eye"></div>
           </div>
         </div>
