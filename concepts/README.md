@@ -11,7 +11,7 @@ This folder contains the complete exploration history of header animation concep
 
 ## 🌌 Concepts Included
 
-The gallery currently holds **211 concepts across 29 categories**, ranging from
+The gallery currently holds **212 concepts across 29 categories**, ranging from
 pure geometric/mathematical abstraction all the way to ordinary everyday
 subjects:
 
@@ -22,7 +22,7 @@ subjects:
 | `systems` | Systems & Diagnostics | 8 |
 | `bio` | Science & Bio | 12 |
 | `nature` | Nature & Elements | 10 |
-| `space` | Space & Spatial | 11 |
+| `space` | Space & Spatial | 12 |
 | `ufo` | UFOs & Encounters | 6 |
 | `scifi` | High Sci-Fi | 7 |
 | `occult` | Supernatural & Occult | 11 |
@@ -46,7 +46,7 @@ subjects:
 | `money` | Money & Commerce | 6 |
 | `toys` | Toys & Playthings | 6 |
 | `insects` | Insects & Crawlers | 6 |
-| **Total** | | **211** |
+| **Total** | | **212** |
 
 Each concept carries a status badge:
 
@@ -72,7 +72,7 @@ The gallery page includes a live filter/search toolbar above the grid:
 *   **Category chips** — **isolate** rather than toggle: clicking a category shows only that category's concepts; clicking the same (sole-active) chip again restores all categories. Clicking a different chip switches the isolation to it.
 *   **Status chips** (Original / Refined / New) — toggle on/off independently, so any combination of statuses can be shown at once.
 *   **Reset** — clears search and restores all categories and statuses.
-*   **Live count** — reads "Showing N of 211" and updates with every filter change.
+*   **Live count** — reads "Showing N of 212" and updates with every filter change.
 
 Every tile also carries two actions: **Copy**, which copies a ready-to-paste embed snippet for that concept to the clipboard, and **Source**, which opens the concept's module file directly.
 
