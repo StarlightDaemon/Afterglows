@@ -1,0 +1,239 @@
+const spiritBoxStyles = `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .sb {
+    width: 104px;
+    height: 104px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Handheld unit. */
+  .sb-case {
+    position: relative;
+    width: 66px;
+    height: 88px;
+    border-radius: 8px;
+    background: linear-gradient(165deg, #0c2c14 0%, #071c0c 60%, #041106 100%);
+    border: 1px solid rgba(140, 255, 170, 0.5);
+    box-shadow: 0 0 10px rgba(0, 204, 0, 0.25);
+  }
+
+  .sb-antenna {
+    position: absolute;
+    top: -14px;
+    right: 10px;
+    width: 2px;
+    height: 16px;
+    border-radius: 1px;
+    background: linear-gradient(180deg, rgba(190, 255, 205, 0.9), rgba(90, 220, 130, 0.5));
+  }
+
+  .sb-antenna::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -1.5px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #d8ffbb;
+    animation: sb-antenna 1.1s ease-in-out infinite;
+  }
+
+  /* Frequency readout: sweeping numbers via a sliding tick strip. */
+  .sb-display {
+    position: absolute;
+    top: 8px;
+    left: 7px;
+    right: 7px;
+    height: 18px;
+    border-radius: 3px;
+    background: #010401;
+    border: 1px solid rgba(140, 255, 170, 0.45);
+    overflow: hidden;
+  }
+
+  .sb-strip {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    background: repeating-linear-gradient(90deg,
+      rgba(140, 255, 170, 0.55) 0 1px, transparent 1px 7px,
+      rgba(140, 255, 170, 0.8) 7px 8px, transparent 8px 14px);
+    animation: sb-sweep 3.4s linear infinite;
+  }
+
+  .sb-needle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: #eaffd9;
+    box-shadow: 0 0 5px rgba(234, 255, 217, 0.9);
+    z-index: 2;
+  }
+
+  .sb-freq {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-family: monospace;
+    font-size: 7px;
+    color: rgba(216, 255, 187, 0.9);
+    z-index: 2;
+    animation: sb-freq 3.4s steps(1, end) infinite;
+  }
+
+  .sb-freq::after {
+    content: '87.9';
+    animation: sb-freq-text 3.4s steps(1, end) infinite;
+  }
+
+  /* Speaker grille: bars jump when a voice breaks through. */
+  .sb-grille {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    right: 10px;
+    height: 26px;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+  }
+
+  .sb-bar {
+    flex: 1;
+    height: 12%;
+    border-radius: 1px;
+    background: rgba(140, 255, 170, 0.8);
+    animation: sb-static 3.4s ease-in-out infinite;
+  }
+
+  .sb-bar:nth-child(1) { animation-delay: 0s; }
+  .sb-bar:nth-child(2) { animation-delay: -0.13s; }
+  .sb-bar:nth-child(3) { animation-delay: -0.27s; }
+  .sb-bar:nth-child(4) { animation-delay: -0.41s; }
+  .sb-bar:nth-child(5) { animation-delay: -0.55s; }
+  .sb-bar:nth-child(6) { animation-delay: -0.69s; }
+  .sb-bar:nth-child(7) { animation-delay: -0.83s; }
+
+  /* The word that gets through, mid-sweep. */
+  .sb-word {
+    position: absolute;
+    top: 32px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: rgba(234, 255, 217, 0);
+    animation: sb-word 3.4s linear infinite;
+  }
+
+  /* Status LED. */
+  .sb-led {
+    position: absolute;
+    top: 32px;
+    left: 8px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(216, 255, 187, 0.4);
+    animation: sb-led 3.4s linear infinite;
+  }
+
+  @keyframes sb-sweep {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes sb-antenna {
+    0%, 100% { opacity: 0.3; box-shadow: none; }
+    50% { opacity: 1; box-shadow: 0 0 6px rgba(216, 255, 187, 0.8); }
+  }
+
+  /* Bars hiss low, then spike hard when the word arrives (55-75%). */
+  @keyframes sb-static {
+    0%, 46% { height: 14%; opacity: 0.55; }
+    50% { height: 22%; }
+    57% { height: 88%; opacity: 1; }
+    63% { height: 46%; }
+    68% { height: 92%; opacity: 1; }
+    74% { height: 30%; }
+    80%, 100% { height: 12%; opacity: 0.5; }
+  }
+
+  @keyframes sb-word {
+    0%, 52% { color: rgba(234, 255, 217, 0); text-shadow: none; }
+    57%, 71% { color: rgba(234, 255, 217, 0.95); text-shadow: 0 0 7px rgba(234, 255, 217, 0.7); }
+    76%, 100% { color: rgba(234, 255, 217, 0); }
+  }
+
+  @keyframes sb-led {
+    0%, 52% { background: rgba(216, 255, 187, 0.25); box-shadow: none; }
+    55%, 74% { background: #eaffd9; box-shadow: 0 0 6px rgba(234, 255, 217, 0.9); }
+    78%, 100% { background: rgba(216, 255, 187, 0.25); }
+  }
+
+  @keyframes sb-freq { 0%, 100% { opacity: 1; } }
+
+  @keyframes sb-freq-text {
+    0% { content: '87.9'; }
+    14% { content: '91.3'; }
+    28% { content: '94.7'; }
+    42% { content: '98.1'; }
+    56% { content: '101.5'; }
+    72% { content: '104.9'; }
+    86% { content: '106.3'; }
+  }
+`;
+
+class ConceptSpiritBox extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.shadowRoot.innerHTML = `
+      <style>${spiritBoxStyles}</style>
+      <div class="sb">
+        <div class="sb-case">
+          <div class="sb-antenna"></div>
+          <div class="sb-display">
+            <div class="sb-strip"></div>
+            <div class="sb-needle"></div>
+            <span class="sb-freq"></span>
+          </div>
+          <div class="sb-led"></div>
+          <div class="sb-word">H E L L O</div>
+          <div class="sb-grille">
+            <div class="sb-bar"></div>
+            <div class="sb-bar"></div>
+            <div class="sb-bar"></div>
+            <div class="sb-bar"></div>
+            <div class="sb-bar"></div>
+            <div class="sb-bar"></div>
+            <div class="sb-bar"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+if (!customElements.get('concept-spirit-box')) {
+  customElements.define('concept-spirit-box', ConceptSpiritBox);
+}
