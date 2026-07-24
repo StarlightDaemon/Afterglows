@@ -27,9 +27,45 @@ A standalone collection of CSS tools to add retro Monitor, Terminal, and CRT eff
 | `.terminal-box` | Preset container with border, glow, and background color. |
 | `.screen-curve` | Adds an inner shadow to simulate a curved tube TV. |
 | `.anim-power-on` | An animation class that makes an element "pop" in like an old TV turning on. |
+| `.crt-noise` | Animated RF "snow" overlay (weak-signal static). Strength rides the `--crt-noise` knob / active archetype. Uses `::after` — don't combine with `.refresh-sweep` on the same element; nest instead. |
 
 No class was renamed or removed from the previous version of this library —
-`.refresh-sweep` and `.crt-cursor` are new, additive utilities.
+`.refresh-sweep`, `.crt-cursor`, and now `.crt-noise` are additive utilities.
+
+## 🖥️ Hardware Archetypes
+
+The effect internals are parameterized by CSS custom-property **knobs**
+(scanline pitch and darkness, flicker gap/speed/depth, bloom, chromatic
+fringe, vignette, curvature radii, sweep strength/speed, noise strength).
+Every knob defaults to the library's previous literal value, so existing
+consumers render pixel-identically without setting anything.
+
+On top of the knobs, `crt_tools.css` ships six **hardware archetypes** as
+`[data-crt-archetype="..."]` preset blocks — parameter sets modelled on
+real classes of CRT hardware, not invented "styles":
+
+| Key | Name | Modelled on |
+| :-- | :--- | :---------- |
+| `default` | Stylized | The library's as-shipped look; deliberately not modelled on one device. Omitting the attribute is equivalent. |
+| `studio` | Studio | Professional broadcast/production reference monitor: 600+ TVL fine scanline pitch, superior convergence (minimal fringing), controlled low bloom, near-flat faceplate, stable frame. |
+| `consumer` | Consumer TV | Living-room slot-mask set fed composite video: ~300 TVL coarse line structure, chroma/luma-crosstalk color fringing, 50/60 Hz flicker, curved glass, corner falloff, a whisper of snow. |
+| `worn` | Worn Tube | End-of-life tube: fat beam spot (heavy bloom, soft focus), convergence drift (exaggerated fringing), power-supply ripple as a fast rolling hum bar, deep flicker, heavy edge darkening. |
+| `terminal` | Terminal | 70s/80s monochrome data terminal: ~350 non-interlaced non-overlapping lines (crisp "pixelly" scanlines), zero chromatic fringing (single beam, no mask), faceplate halation, faint mains-frequency flicker. |
+| `vector` | Vector | XY/oscilloscope display: no raster, so no scanlines at all; hard-driven phosphor halation, round-tube vignette, monochrome (no fringe). |
+
+Apply exactly like the phosphor themes — one attribute on `<html>`,
+`<body>`, or any container (the knobs inherit):
+
+```html
+<body data-crt-archetype="worn">
+```
+
+Archetype and color are **fully orthogonal**: every archetype renders in
+every `data-phosphor` palette (a worn tube can be amber, a vector scope
+violet, and so on). `crt_demo.html`'s TUBE row drives the archetype for
+the whole demo, persisted under retro's own
+`localStorage['afterglows-retro-crt-archetype']` key — like the color
+control, it never touches the global theme system.
 
 ## 🎨 Themes
 
@@ -133,6 +169,13 @@ The effects use CSS variables. You can override them inline or in your own CSS:
 - `--crt-bg` — screen background color.
 - `--crt-amber`, `--crt-blue`, `--crt-red` — static accent constants, not
   affected by the active theme.
+- Effect **knobs** (all optional; defaults equal the previous literal
+  values): `--crt-scanline-gap`, `--crt-scanline-dark`,
+  `--crt-flicker-gap`, `--crt-flicker-speed`, `--crt-flicker-depth`,
+  `--crt-bloom`, `--crt-fringe`, `--crt-vignette`, `--crt-curve-x`,
+  `--crt-curve-y`, `--crt-sweep`, `--crt-sweep-speed`, `--crt-noise` —
+  set them individually for fine control, or all at once via a
+  `data-crt-archetype` preset (see Hardware Archetypes above).
 
 Per-element overrides work too, as shown in `crt_demo.html`'s "inline var
 override" panel, which sets `--crt-green: var(--crt-red)` on a single box to

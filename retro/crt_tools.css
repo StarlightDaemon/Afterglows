@@ -15,10 +15,13 @@
      Vars    --crt-dim  --crt-head  --crt-glow
      Themes  html[data-phosphor="p1|p31|p3|p4|p7|p2|p14|neon"]
    New in the hardware-archetype revision (additive):
+     Classes .crt-noise
      Knobs   --crt-scanline-gap  --crt-scanline-dark  --crt-flicker-gap
              --crt-flicker-speed --crt-flicker-depth  --crt-bloom
              --crt-fringe --crt-vignette --crt-curve-x --crt-curve-y
-             --crt-sweep  --crt-sweep-speed
+             --crt-sweep  --crt-sweep-speed  --crt-noise
+     Archetypes [data-crt-archetype=
+             "default|studio|consumer|worn|terminal|vector"]
      Every knob defaults to the previous literal value — omit them all
      and the rendering is pixel-identical to the prior revision.
    ========================================= */
@@ -117,6 +120,115 @@
     --crt-bg: #061014;
 }
 
+/* -----------------------------------------
+   HARDWARE ARCHETYPES
+   Parameter presets over the effect knobs, modelled on real classes of
+   CRT hardware rather than invented "styles". Apply like the phosphor
+   themes — set data-crt-archetype on <html>, <body>, or any container;
+   the knobs are inherited custom properties, so the whole subtree
+   follows. Omit the attribute (or set "default") for the library's
+   as-shipped stylized look. Fully orthogonal to [data-phosphor]:
+   every archetype renders in every color.
+   ----------------------------------------- */
+
+/* Default — explicit alias of the as-shipped look (all knob defaults).
+   Deliberately not modelled on any one device. */
+[data-crt-archetype="default"] {
+}
+
+/* Studio — professional broadcast/production reference monitor.
+   High line count (600+ TVL): fine, tight scanline pitch. Superior
+   convergence: minimal chromatic fringing. Controlled beam current:
+   low bloom. Near-flat faceplate, faint vignette, stable frame. */
+[data-crt-archetype="studio"] {
+    --crt-scanline-gap: 2px;
+    --crt-scanline-dark: rgba(0, 0, 0, 0.18);
+    --crt-flicker-gap: 2px;
+    --crt-flicker-depth: 0.012;
+    --crt-bloom: 0.55;
+    --crt-fringe: 0.35;
+    --crt-vignette: 0.55;
+    --crt-curve-x: 4px;
+    --crt-curve-y: 5px;
+    --crt-sweep: 0.5;
+    --crt-noise: 0.25;
+}
+
+/* Consumer — living-room slot-mask TV fed composite video.
+   Low line count (~300 TVL): coarse, visible scanline structure.
+   Chroma/luma crosstalk in the composite signal: color fringing.
+   50/60 Hz interlaced frame: visible flicker/twitter. Curved safety
+   glass, noticeable corner falloff, a whisper of snow. */
+[data-crt-archetype="consumer"] {
+    --crt-scanline-gap: 5px;
+    --crt-scanline-dark: rgba(0, 0, 0, 0.32);
+    --crt-flicker-gap: 4px;
+    --crt-flicker-speed: 0.12s;
+    --crt-flicker-depth: 0.05;
+    --crt-bloom: 1.2;
+    --crt-fringe: 1.25;
+    --crt-vignette: 1.15;
+    --crt-curve-x: 16px;
+    --crt-curve-y: 20px;
+    --crt-noise: 0.8;
+}
+
+/* Worn — end-of-life tube: low emission, drifting adjustments.
+   Fat beam spot: heavy bloom and soft focus. Convergence drift:
+   exaggerated color fringing. Power-supply ripple: a fast rolling
+   hum bar (the sweep). Deep flicker, heavy edge darkening, snow. */
+[data-crt-archetype="worn"] {
+    --crt-scanline-gap: 5px;
+    --crt-scanline-dark: rgba(0, 0, 0, 0.28);
+    --crt-flicker-gap: 4px;
+    --crt-flicker-speed: 0.11s;
+    --crt-flicker-depth: 0.09;
+    --crt-bloom: 1.9;
+    --crt-fringe: 1.9;
+    --crt-vignette: 1.7;
+    --crt-curve-x: 16px;
+    --crt-curve-y: 20px;
+    --crt-sweep: 2.4;
+    --crt-sweep-speed: 2.4s;
+    --crt-noise: 1.3;
+}
+
+/* Terminal — 70s/80s monochrome text terminal. ~350 non-interlaced,
+   non-overlapping lines: crisp distinct scanlines ("pixelly" text).
+   Single beam, no mask: zero chromatic fringing, sharper than any
+   color tube. Bonded faceplate halation: visible glow around bright
+   text. Refresh at mains frequency: faint flicker. */
+[data-crt-archetype="terminal"] {
+    --crt-scanline-gap: 3px;
+    --crt-scanline-dark: rgba(0, 0, 0, 0.3);
+    --crt-flicker-gap: 3px;
+    --crt-flicker-depth: 0.03;
+    --crt-bloom: 1.3;
+    --crt-fringe: 0;
+    --crt-vignette: 1.2;
+    --crt-curve-x: 12px;
+    --crt-curve-y: 16px;
+    --crt-sweep: 0.7;
+    --crt-noise: 0.35;
+}
+
+/* Vector — XY/oscilloscope display. The beam draws strokes, not a
+   raster: there are NO scanlines at all (raster line knobs go
+   transparent). Hard-driven phosphor blooms wide (halation), and the
+   round tube face gives a strong vignette. Monochrome: no fringe. */
+[data-crt-archetype="vector"] {
+    --crt-scanline-dark: transparent;
+    --crt-flicker-depth: 0.02;
+    --crt-bloom: 1.8;
+    --crt-fringe: 0;
+    --crt-vignette: 1.5;
+    --crt-curve-x: 22px;
+    --crt-curve-y: 26px;
+    --crt-sweep: 0.4;
+    --crt-sweep-speed: 8s;
+    --crt-noise: 0.3;
+}
+
 /* --- 1. SCANLINES --- */
 
 /* Basic Scanline Overlay (Lightweight) */
@@ -155,7 +267,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, var(--crt-scanline-dark, rgba(0, 0, 0, 0.25)) 50%),
         linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
     z-index: 20;
     background-size: 100% var(--crt-flicker-gap, 2px), 3px 100%;
@@ -203,6 +315,39 @@
 
     100% {
         transform: translateY(433%);
+    }
+}
+
+/* RF Snow — weak-signal "snow" over the picture. A broadcast-path
+   artifact (antenna/composite noise), not a tube property; strength
+   rides the archetype knob --crt-noise. Additive overlay utility.
+   Uses ::after — don't combine with .refresh-sweep on the same element
+   (nest one inside the other instead), same caveat as
+   .scanlines-flicker. */
+.crt-noise {
+    position: relative;
+    overflow: hidden;
+}
+
+.crt-noise::after {
+    content: " ";
+    position: absolute;
+    inset: -50%;  /* oversized so the jitter never exposes an edge */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px 240px;
+    opacity: calc(0.16 * var(--crt-noise, 1));
+    z-index: 12;  /* above .scanlines (10), below .scanlines-flicker (20) */
+    pointer-events: none;
+    animation: crt-noise-jitter 0.45s steps(5) infinite;
+}
+
+@keyframes crt-noise-jitter {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(60px, 90px);
     }
 }
 

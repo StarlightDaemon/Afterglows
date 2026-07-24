@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
     <title>CRT & Scanline Effects Demo</title>
-    <meta name="description" content="Demo of the Afterglows CRT and retro effects library: phosphor glow, scanlines, flicker, glitch, screen curvature, and eight switchable phosphor color themes, in pure CSS.">
+    <meta name="description" content="Demo of the Afterglows CRT and retro effects library: phosphor glow, scanlines, flicker, glitch, screen curvature, RF snow, six hardware archetypes from broadcast reference to worn tube, and eight phosphor colors, in pure CSS.">
     <link rel="canonical" href="https://afterglows.starlightdaemon.dev/retro/crt_demo.html">
     <meta property="og:title" content="CRT &amp; Scanline Effects Demo">
-    <meta property="og:description" content="Demo of the Afterglows CRT and retro effects library: phosphor glow, scanlines, flicker, glitch, screen curvature, and eight switchable phosphor color themes, in pure CSS.">
+    <meta property="og:description" content="Demo of the Afterglows CRT and retro effects library: phosphor glow, scanlines, flicker, glitch, screen curvature, RF snow, six hardware archetypes from broadcast reference to worn tube, and eight phosphor colors, in pure CSS.">
     <meta property="og:url" content="https://afterglows.starlightdaemon.dev/retro/crt_demo.html">
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="crt_tools.css">
@@ -304,7 +304,11 @@
              both directions. Color buttons are generated from the shared
              palette list so names/values can't drift from the global
              system. -->
-        <div class="controls" id="crtControls" role="group" aria-label="CRT effect color">
+        <div class="controls" id="crtControls" role="group" aria-label="CRT hardware archetype and effect color">
+            <div class="control-row" id="archetypeRow" role="group"
+                aria-label="Hardware archetype — affects only this page's demo panels, not the site theme">
+                <span class="row-label" title="Tube/monitor class — combines freely with any color">TUBE</span>
+            </div>
             <div class="control-row" id="colorRow" role="group"
                 aria-label="Effect color — affects only this page's demo panels, not the site theme">
                 <span class="row-label" title="Demo panels only — the site theme gear does not affect these">COLOR</span>
@@ -376,7 +380,15 @@
                 </div>
             </div>
 
-            <!-- 7. Per-element override -->
+            <!-- 7. RF snow / weak signal -->
+            <div class="demo-item">
+                <div class="label">.crt-noise (strength rides the TUBE archetype)</div>
+                <div class="terminal-box scanlines crt-noise box">
+                    UHF 62<br>SEARCHING&hellip;
+                </div>
+            </div>
+
+            <!-- 8. Per-element override -->
             <div class="demo-item">
                 <div class="label">inline var override (--crt-green: var(--crt-red))</div>
                 <div class="terminal-box scanlines phosphor-glow box"
@@ -444,7 +456,6 @@
             return CRT_COLORS.some((c) => c.key === key);
         }
 
-        const crtControls = document.getElementById('crtControls');
         const themeNote = document.getElementById('themeNote');
         const colorRow = document.getElementById('colorRow');
 
@@ -488,6 +499,60 @@
             colorRow.appendChild(btn);
         });
 
+        // ---- Hardware archetype (local, orthogonal to color) ----
+        // Presets defined in crt_tools.css as [data-crt-archetype="..."]
+        // knob blocks; applied to <body> so every demo panel inherits.
+        // Persisted under retro's own key, never the global system's.
+        const CRT_ARCHETYPE_KEY = 'afterglows-retro-crt-archetype';
+        const DEFAULT_ARCHETYPE = 'default';
+        const ARCHETYPES = [
+            { key: 'default', name: 'Stylized', note: 'As-shipped library look — not modelled on one device' },
+            { key: 'studio', name: 'Studio', note: 'Broadcast reference monitor — fine pitch, low bloom, near-flat' },
+            { key: 'consumer', name: 'Consumer TV', note: 'Slot-mask set on composite — coarse lines, fringing, flicker' },
+            { key: 'worn', name: 'Worn Tube', note: 'End-of-life tube — heavy bloom, misconvergence, hum bar' },
+            { key: 'terminal', name: 'Terminal', note: 'Monochrome data terminal — crisp lines, halation, zero fringe' },
+            { key: 'vector', name: 'Vector', note: 'XY scope — no raster lines, hard halation, round vignette' }
+        ];
+        const archetypeRow = document.getElementById('archetypeRow');
+
+        function isArchetype(key) {
+            return ARCHETYPES.some((a) => a.key === key);
+        }
+
+        function setArchetype(key, persist) {
+            if (!isArchetype(key)) { return; }
+            if (key === DEFAULT_ARCHETYPE) {
+                document.body.removeAttribute('data-crt-archetype');
+            } else {
+                document.body.setAttribute('data-crt-archetype', key);
+            }
+            archetypeRow.querySelectorAll('[data-archetype]').forEach((btn) => {
+                const on = btn.dataset.archetype === key;
+                btn.classList.toggle('active', on);
+                btn.setAttribute('aria-pressed', String(on));
+            });
+            const meta = ARCHETYPES.find((a) => a.key === key);
+            themeNote.textContent = meta ? 'Tube — ' + meta.note : '';
+            if (persist) {
+                try { localStorage.setItem(CRT_ARCHETYPE_KEY, key); } catch (e) { /* private mode */ }
+            }
+        }
+
+        ARCHETYPES.forEach((a) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'theme-btn';
+            btn.dataset.archetype = a.key;
+            btn.textContent = a.name;
+            btn.title = a.note;
+            btn.addEventListener('click', () => setArchetype(a.key, true));
+            archetypeRow.appendChild(btn);
+        });
+
+        let storedArchetype = null;
+        try { storedArchetype = localStorage.getItem(CRT_ARCHETYPE_KEY); } catch (e) { /* ignore */ }
+        setArchetype(isArchetype(storedArchetype) ? storedArchetype : DEFAULT_ARCHETYPE, false);
+
         // One-time convenience: copy the CURRENT global theme into the
         // local selection. A snapshot, not a link — no live updating.
         if (window.AfterglowsSettings) {
@@ -503,10 +568,11 @@
         }
 
         // Standalone fallback: if the shared controller isn't present
-        // (folder copied out of the site), hide the empty control bar and
-        // let the page render from the plain crt_tools.css cascade.
+        // (folder copied out of the site), hide the empty color row and
+        // let colors come from the plain crt_tools.css cascade. The
+        // archetype row has no such dependency and stays.
         if (!CRT_COLORS.length) {
-            crtControls.hidden = true;
+            colorRow.hidden = true;
         } else {
             let storedColor = null;
             try { storedColor = localStorage.getItem(CRT_COLOR_KEY); } catch (e) { /* ignore */ }
