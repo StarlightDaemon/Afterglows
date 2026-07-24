@@ -264,6 +264,7 @@
         <div class="controls" role="group" aria-label="Rain mode and rain color">
             <div class="control-row" role="group" aria-label="Rain mode">
                 <span class="row-label">MODE</span>
+                <button class="theme-btn" data-mode="film" aria-pressed="false">Film</button>
                 <button class="theme-btn" data-mode="classic" aria-pressed="false">Classic</button>
                 <button class="theme-btn" data-mode="rain" aria-pressed="false">Rain</button>
                 <button class="theme-btn" data-mode="binary" aria-pressed="false">Binary</button>
@@ -596,17 +597,24 @@
             rafId = requestAnimationFrame(draw);
         }
 
+        // The canvas hosts two draw paths: the drop engine (RAIN/BINARY)
+        // and the film-accurate stationary-grid renderer (FILM). These
+        // pointers select the active pair; all lifecycle plumbing
+        // (start/stop, visibility, resize, reduced motion) is shared.
+        let activeInit = init;
+        let activeDraw = draw;
+
         function startEngine() {
             cancelAnimationFrame(rafId);
             rafId = null;
-            init();
+            activeInit();
             if (reducedMotion.matches) {
                 // Reduced-motion gate: render one static frame only.
-                draw();
+                activeDraw();
                 cancelAnimationFrame(rafId);
                 rafId = null;
             } else {
-                rafId = requestAnimationFrame(draw);
+                rafId = requestAnimationFrame(activeDraw);
             }
         }
 
@@ -614,6 +622,160 @@
             cancelAnimationFrame(rafId);
             cancelAnimationFrame(initRetryId);
             rafId = null;
+        }
+
+        // ================= FILM MODE =================
+        // The films' actual code effect, rebuilt from production interviews
+        // (Simon Whiteley / Animal Logic) and frame analyses rather than
+        // from the popular "falling glyphs" simplification:
+        //   - glyphs sit on a FIXED grid and never move; each "raindrop"
+        //     is a wave of illumination cascading down a column
+        //   - the cell under the wave's head lights near-white; passed
+        //     cells settle to code green and decay like phosphor, giving
+        //     the fluorescent trail (no hard cut)
+        //   - lit cells occasionally mutate their glyph in place
+        //   - the glyph set is half-width katakana with numerals and a few
+        //     Latin/punctuation marks, all MIRRORED — Whiteley flipped the
+        //     characters so the viewer reads the code "from inside"
+        // Vertical fall is itself the researched choice: the effect was
+        // designed horizontal first, then rotated to match Japanese
+        // vertical text convention.
+        const FILM_CHARS =
+            'ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ' + // half-width katakana
+            '012345789' +                            // numerals (the set famously lacks 6)
+            'Z:･."=*+-<>';                           // Latin/punctuation strays
+        const FILM = {
+            fontSize: 16,
+            fade: 0.045,       // phosphor decay per frame -> trail length
+            speedBase: 0.12,   // rows per frame
+            speedVar: 0.22,
+            mutate: 0.04       // per-column per-frame chance of an in-place glyph change
+        };
+        const FILM_FONT = FILM.fontSize +
+            "px 'MS Gothic', 'Hiragino Kaku Gothic ProN', 'Noto Sans CJK JP', monospace";
+        let filmDrops = [];
+        let filmCols = 0, filmRows = 0;
+
+        function filmGlyph() {
+            return FILM_CHARS[(Math.random() * FILM_CHARS.length) | 0];
+        }
+
+        // Every film glyph renders mirrored (flipped inside its own cell).
+        function drawMirrored(ch, x, y) {
+            ctx.save();
+            ctx.translate(x + FILM.fontSize, y);
+            ctx.scale(-1, 1);
+            ctx.fillText(ch, 0, 0);
+            ctx.restore();
+        }
+
+        function newFilmDrop() {
+            return {
+                head: -1 - ((Math.random() * filmRows * 0.7) | 0), // rows of delay above the top
+                acc: 0,
+                speed: FILM.speedBase + Math.random() * FILM.speedVar,
+                char: ''
+            };
+        }
+
+        function initFilm() {
+            sizeCanvas();
+            if (width === 0 || height === 0) {
+                cancelAnimationFrame(initRetryId);
+                initRetryId = requestAnimationFrame(initFilm);
+                return;
+            }
+            filmCols = Math.floor(width / FILM.fontSize);
+            filmRows = Math.ceil(height / FILM.fontSize);
+            filmDrops = [];
+            for (let i = 0; i < filmCols; i++) { filmDrops.push(newFilmDrop()); }
+            ctx.fillStyle = theme.bg;
+            ctx.fillRect(0, 0, width, height);
+            // Reduced motion shows a static field instead of a blank frame.
+            if (reducedMotion.matches) { staticFilmField(); }
+        }
+
+        function staticFilmField() {
+            const fs = FILM.fontSize;
+            ctx.font = FILM_FONT;
+            ctx.textBaseline = 'top';
+            for (let i = 0; i < filmCols; i++) {
+                const head = (Math.random() * filmRows) | 0;
+                const len = 6 + ((Math.random() * filmRows) / 2 | 0);
+                for (let k = 0; k <= len; k++) {
+                    const row = head - k;
+                    if (row < 0) { break; }
+                    ctx.fillStyle = k === 0 ? theme.head : theme.color;
+                    ctx.globalAlpha = k === 0 ? 1 : Math.max(0.08, 1 - k / len);
+                    drawMirrored(filmGlyph(), i * fs, row * fs);
+                }
+            }
+            ctx.globalAlpha = 1;
+        }
+
+        function drawFilm() {
+            const fs = FILM.fontSize;
+
+            // Phosphor decay: everything already painted fades toward bg.
+            ctx.globalAlpha = FILM.fade;
+            ctx.fillStyle = theme.bg;
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalAlpha = 1;
+
+            ctx.font = FILM_FONT;
+            ctx.textBaseline = 'top';
+
+            for (let i = 0; i < filmCols; i++) {
+                const d = filmDrops[i];
+                const x = i * fs;
+
+                d.acc += d.speed;
+                while (d.acc >= 1) {
+                    d.acc -= 1;
+                    // The wave leaves the old head cell behind: settle it to
+                    // full-strength code color, where the decay takes over.
+                    if (d.head >= 0 && d.head < filmRows) {
+                        ctx.fillStyle = theme.color;
+                        drawMirrored(d.char, x, d.head * fs);
+                    }
+                    d.head += 1;
+                    if (d.head >= 0 && d.head < filmRows) {
+                        d.char = filmGlyph();
+                    }
+                }
+
+                // Near-white head, repainted each frame so it doesn't decay.
+                if (d.head >= 0 && d.head < filmRows) {
+                    ctx.fillStyle = theme.head;
+                    drawMirrored(d.char, x, d.head * fs);
+                }
+
+                // In-place mutation of a still-lit trail cell: erase the
+                // cell, draw a new glyph at the brightness the trail has
+                // decayed to (occasionally a bright glitch flicker).
+                if (d.head > 0 && Math.random() < FILM.mutate) {
+                    const back = 1 + ((Math.random() * 14) | 0);
+                    const row = Math.min(d.head, filmRows) - back;
+                    if (row >= 0) {
+                        const decayed = Math.pow(1 - FILM.fade, back / d.speed);
+                        if (decayed > 0.06) {
+                            ctx.fillStyle = theme.bg;
+                            ctx.fillRect(x, row * fs, fs, fs + 2);
+                            ctx.fillStyle = Math.random() < 0.12 ? theme.head : theme.color;
+                            ctx.globalAlpha = Math.min(1, decayed);
+                            drawMirrored(filmGlyph(), x, row * fs);
+                            ctx.globalAlpha = 1;
+                        }
+                    }
+                }
+
+                // Respawn a fresh wave a while after this one runs out.
+                if (d.head - filmRows > 2 / d.speed) {
+                    filmDrops[i] = newFilmDrop();
+                }
+            }
+
+            rafId = requestAnimationFrame(drawFilm);
         }
 
         // ================= CLASSIC (CSS) MODE =================
@@ -654,7 +816,7 @@
 
         // ================= MODE SWITCHING =================
         const MODE_KEY = 'afterglows-matrix-mode';
-        const MODES = ['classic', 'rain', 'binary'];
+        const MODES = ['film', 'classic', 'rain', 'binary'];
         const hint = document.getElementById('hint');
         let mode = null;
 
@@ -671,9 +833,17 @@
             } else {
                 classicStage.hidden = true;
                 canvas.style.display = '';
-                style = STYLES[mode];
+                if (mode === 'film') {
+                    activeInit = initFilm;
+                    activeDraw = drawFilm;
+                } else {
+                    style = STYLES[mode];
+                    activeInit = init;
+                    activeDraw = draw;
+                }
                 startEngine();
-                hint.hidden = false;
+                // FILM is a faithful recreation, deliberately non-interactive.
+                hint.hidden = (mode === 'film');
             }
 
             document.querySelectorAll('[data-mode]').forEach((btn) => {
@@ -695,8 +865,8 @@
         });
 
         // Boot order: explicit #hash wins (deep links from the retired
-        // demo_* URLs), else the persisted choice, else interactive rain.
-        // '#canvas' is accepted as a legacy alias for '#rain'.
+        // demo_* URLs), else the persisted choice, else the film-accurate
+        // mode. '#canvas' is accepted as a legacy alias for '#rain'.
         function modeFromHash() {
             const h = location.hash.replace('#', '');
             if (h === 'canvas') { return 'rain'; }
@@ -704,7 +874,7 @@
         }
         let stored = null;
         try { stored = localStorage.getItem(MODE_KEY); } catch (e) { /* ignore */ }
-        setMode(modeFromHash() || (MODES.includes(stored) ? stored : 'rain'), false);
+        setMode(modeFromHash() || (MODES.includes(stored) ? stored : 'film'), false);
         window.addEventListener('hashchange', () => {
             const m = modeFromHash();
             if (m) { setMode(m, false); }
@@ -783,7 +953,8 @@
             if (mode && mode !== 'classic' && reducedMotion.matches) {
                 ctx.fillStyle = theme.bg;
                 ctx.fillRect(0, 0, width, height);
-                draw();
+                if (activeInit === initFilm) { staticFilmField(); }
+                activeDraw();
                 cancelAnimationFrame(rafId);
                 rafId = null;
             }
@@ -798,7 +969,7 @@
                 cancelAnimationFrame(rafId);
                 rafId = null;
             } else if (mode !== 'classic' && !reducedMotion.matches && rafId === null) {
-                rafId = requestAnimationFrame(draw);
+                rafId = requestAnimationFrame(activeDraw);
             }
         });
 
@@ -813,7 +984,7 @@
                 if (mode === 'classic') {
                     buildClassic();
                 } else {
-                    init();
+                    activeInit();
                 }
             }, 150);
         });

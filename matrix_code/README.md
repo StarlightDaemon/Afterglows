@@ -31,24 +31,33 @@ stubs so old links land on the matching mode.
 Switched from the MODE row (top-center); the choice persists to
 `localStorage['afterglows-matrix-mode']` and is deep-linkable by hash:
 
+- **FILM** (`#film`, default) — the films' actual code effect, rebuilt from
+  production interviews (Simon Whiteley / Animal Logic) and frame analyses:
+  glyphs sit on a fixed grid and never move; each "raindrop" is a wave of
+  illumination cascading down a column, lighting the cell under its head
+  near-white while passed cells settle to code color and decay like
+  phosphor. Lit cells occasionally mutate their glyph in place, and every
+  glyph renders **mirrored** (half-width katakana + numerals + a few
+  Latin/punctuation strays), matching the production's flipped characters.
+  Deliberately non-interactive — it's a faithful recreation, not a toy.
 - **CLASSIC** (`#classic`) — pure-CSS katakana rain in three parallax depth
   layers (far/mid/near) with haze + scanlines, driven entirely by
   `matrix_tools.css`'s public classes (`.matrix-rain`, `.m-col`,
   `.fast/.med/.slow`). Deliberately kept CSS-only: this mode is the live
   demonstration of the stylesheet API.
-- **RAIN** (`#rain`, default; `#canvas` accepted as a legacy alias) — Canvas
-  katakana rain. Interactive: a glyph halo lights the code around the cursor,
-  columns near it accelerate and brighten, and a click launches an expanding
-  pulse ring of lit glyphs.
+- **RAIN** (`#rain`; `#canvas` accepted as a legacy alias) — Canvas katakana
+  rain. Interactive: a glyph halo lights the code around the cursor, columns
+  near it accelerate and brighten, and a click launches an expanding pulse
+  ring of lit glyphs.
 - **BINARY** (`#binary`) — Canvas rain of pure `0`/`1` glyphs with per-column
   brightness variation and occasional sparkle bit-flips. Same engine as RAIN
   (a style config, not a second implementation), so it shares the cursor and
   click interactions.
 
-RAIN and BINARY are two style configurations of a single canvas engine —
-column model, DPR-aware sizing, trail/head rendering, interaction, and
-lifecycle (reduced-motion gate, visibility pause, debounced resize rebuild)
-are all shared.
+RAIN and BINARY are two style configurations of a single canvas drop engine —
+column model, trail/head rendering, and interaction are shared. FILM is a
+second draw path on the same canvas (stationary grid, illumination waves)
+that shares the sizing, reduced-motion, visibility, and resize plumbing.
 
 ## Usage
 
