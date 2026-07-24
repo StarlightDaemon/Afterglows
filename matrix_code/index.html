@@ -268,6 +268,8 @@
                 <button class="theme-btn" data-mode="classic" aria-pressed="false">Classic</button>
                 <button class="theme-btn" data-mode="rain" aria-pressed="false">Rain</button>
                 <button class="theme-btn" data-mode="binary" aria-pressed="false">Binary</button>
+                <button class="theme-btn" data-mode="draft" aria-pressed="false">Draft</button>
+                <button class="theme-btn" data-mode="trace" aria-pressed="false">Trace</button>
             </div>
             <!-- Rain-local color: independent of the site theme gear in both
                  directions. Buttons are generated from the shared palette
@@ -597,10 +599,12 @@
             rafId = requestAnimationFrame(draw);
         }
 
-        // The canvas hosts two draw paths: the drop engine (RAIN/BINARY)
-        // and the film-accurate stationary-grid renderer (FILM). These
-        // pointers select the active pair; all lifecycle plumbing
-        // (start/stop, visibility, resize, reduced motion) is shared.
+        // The canvas hosts several draw paths: the drop engine
+        // (RAIN/BINARY), the film-accurate stationary-grid renderer (FILM),
+        // its horizontal reconstruction (DRAFT), and the decode effect
+        // (TRACE). These pointers select the active pair; all lifecycle
+        // plumbing (start/stop, visibility, resize, reduced motion) is
+        // shared.
         let activeInit = init;
         let activeDraw = draw;
 
@@ -778,6 +782,272 @@
             rafId = requestAnimationFrame(drawFilm);
         }
 
+        // ================= DRAFT MODE =================
+        // The production's ORIGINAL design: before rotating the code
+        // vertical to match Japanese text convention, Whiteley had it
+        // streaming horizontally "like lines of programming". No footage
+        // of that prototype survives, so this is a reconstruction — the
+        // same stationary-grid illumination-wave mechanic as FILM,
+        // transposed to run along rows. Glyphs render unmirrored here:
+        // the "seen from inside" flip belongs to the finished vertical
+        // version.
+        const DRAFT = {
+            fontSize: 16,
+            fade: 0.045,
+            speedBase: 0.22,   // columns per frame — reading-speed, faster than the fall
+            speedVar: 0.4,
+            mutate: 0.03
+        };
+        const DRAFT_FONT = DRAFT.fontSize +
+            "px 'MS Gothic', 'Hiragino Kaku Gothic ProN', 'Noto Sans CJK JP', monospace";
+        let draftWaves = [];
+        let draftCols = 0, draftRows = 0;
+
+        function newDraftWave() {
+            return {
+                head: -1 - ((Math.random() * draftCols * 0.7) | 0), // columns of delay left of the edge
+                acc: 0,
+                speed: DRAFT.speedBase + Math.random() * DRAFT.speedVar,
+                char: ''
+            };
+        }
+
+        function initDraft() {
+            sizeCanvas();
+            if (width === 0 || height === 0) {
+                cancelAnimationFrame(initRetryId);
+                initRetryId = requestAnimationFrame(initDraft);
+                return;
+            }
+            draftCols = Math.ceil(width / DRAFT.fontSize);
+            draftRows = Math.floor(height / DRAFT.fontSize);
+            draftWaves = [];
+            for (let i = 0; i < draftRows; i++) { draftWaves.push(newDraftWave()); }
+            ctx.fillStyle = theme.bg;
+            ctx.fillRect(0, 0, width, height);
+            if (reducedMotion.matches) { staticDraftField(); }
+        }
+
+        function staticDraftField() {
+            const fs = DRAFT.fontSize;
+            ctx.font = DRAFT_FONT;
+            ctx.textBaseline = 'top';
+            for (let i = 0; i < draftRows; i++) {
+                const head = (Math.random() * draftCols) | 0;
+                const len = 6 + ((Math.random() * draftCols) / 2 | 0);
+                for (let k = 0; k <= len; k++) {
+                    const col = head - k;
+                    if (col < 0) { break; }
+                    ctx.fillStyle = k === 0 ? theme.head : theme.color;
+                    ctx.globalAlpha = k === 0 ? 1 : Math.max(0.08, 1 - k / len);
+                    ctx.fillText(filmGlyph(), col * fs, i * fs);
+                }
+            }
+            ctx.globalAlpha = 1;
+        }
+
+        function drawDraft() {
+            const fs = DRAFT.fontSize;
+
+            ctx.globalAlpha = DRAFT.fade;
+            ctx.fillStyle = theme.bg;
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalAlpha = 1;
+
+            ctx.font = DRAFT_FONT;
+            ctx.textBaseline = 'top';
+
+            for (let i = 0; i < draftRows; i++) {
+                const d = draftWaves[i];
+                const y = i * fs;
+
+                d.acc += d.speed;
+                while (d.acc >= 1) {
+                    d.acc -= 1;
+                    if (d.head >= 0 && d.head < draftCols) {
+                        ctx.fillStyle = theme.color;
+                        ctx.fillText(d.char, d.head * fs, y);
+                    }
+                    d.head += 1;
+                    if (d.head >= 0 && d.head < draftCols) {
+                        d.char = filmGlyph();
+                    }
+                }
+
+                if (d.head >= 0 && d.head < draftCols) {
+                    ctx.fillStyle = theme.head;
+                    ctx.fillText(d.char, d.head * fs, y);
+                }
+
+                if (d.head > 0 && Math.random() < DRAFT.mutate) {
+                    const back = 1 + ((Math.random() * 14) | 0);
+                    const col = Math.min(d.head, draftCols) - back;
+                    if (col >= 0) {
+                        const decayed = Math.pow(1 - DRAFT.fade, back / d.speed);
+                        if (decayed > 0.06) {
+                            ctx.fillStyle = theme.bg;
+                            ctx.fillRect(col * fs, y, fs, fs + 2);
+                            ctx.fillStyle = Math.random() < 0.12 ? theme.head : theme.color;
+                            ctx.globalAlpha = Math.min(1, decayed);
+                            ctx.fillText(filmGlyph(), col * fs, y);
+                            ctx.globalAlpha = 1;
+                        }
+                    }
+                }
+
+                if (d.head - draftCols > 2 / d.speed) {
+                    draftWaves[i] = newDraftWave();
+                }
+            }
+
+            rafId = requestAnimationFrame(drawDraft);
+        }
+
+        // ================= TRACE MODE =================
+        // Code that resolves into readable text. Precedent: the Sneakers
+        // (1992) end-credits decrypting text, the classic "no more
+        // secrets" recreation, and XScreenSaver's xmatrix -trace, which
+        // reproduces the film's own phone-trace terminal moment. The
+        // messages here are the film's opening terminal sequence.
+        const TRACE = {
+            fontSize: 18,
+            fade: 0.03,        // slow ambient decay of the background churn
+            churnPerFrame: 8,  // dim background glyphs respawned per frame
+            lockEvery: 5,      // frames between locking message characters
+            holdFrames: 300,   // fully revealed dwell
+            gapFrames: 80      // dark pause between messages
+        };
+        const TRACE_MESSAGES = [
+            'WAKE UP, NEO...',
+            'THE MATRIX HAS YOU',
+            'FOLLOW THE WHITE RABBIT',
+            'KNOCK, KNOCK.'
+        ];
+        let trace = null;
+
+        function buildTraceMessage(index) {
+            const fs = TRACE.fontSize;
+            const text = TRACE_MESSAGES[index % TRACE_MESSAGES.length];
+            const cols = Math.floor(width / fs);
+            const rows = Math.floor(height / fs);
+            const startCol = Math.max(0, ((cols - text.length) / 2) | 0);
+            const row = (rows / 2) | 0;
+            const cells = [];
+            for (let i = 0; i < text.length; i++) {
+                cells.push({ ch: text[i], col: startCol + i, row, locked: false });
+            }
+            // Characters lock in random order, nms-style.
+            const order = cells.map((c, i) => i);
+            for (let i = order.length - 1; i > 0; i--) {
+                const j = (Math.random() * (i + 1)) | 0;
+                const t = order[i]; order[i] = order[j]; order[j] = t;
+            }
+            return { index, cells, order, lockedCount: 0, phase: 'reveal', timer: 0 };
+        }
+
+        function initTrace() {
+            sizeCanvas();
+            if (width === 0 || height === 0) {
+                cancelAnimationFrame(initRetryId);
+                initRetryId = requestAnimationFrame(initTrace);
+                return;
+            }
+            trace = buildTraceMessage(0);
+            ctx.fillStyle = theme.bg;
+            ctx.fillRect(0, 0, width, height);
+            if (reducedMotion.matches) {
+                // Static: message fully revealed over a sprinkled field.
+                trace.cells.forEach((c) => { c.locked = true; });
+                trace.lockedCount = trace.cells.length;
+                trace.phase = 'hold';
+                const fs = TRACE.fontSize;
+                ctx.font = fs + "px 'Courier New', monospace";
+                ctx.textBaseline = 'top';
+                for (let k = 0; k < 400; k++) {
+                    ctx.fillStyle = theme.dim;
+                    ctx.globalAlpha = 0.1 + Math.random() * 0.3;
+                    ctx.fillText(filmGlyph(),
+                        ((Math.random() * width / fs) | 0) * fs,
+                        ((Math.random() * height / fs) | 0) * fs);
+                }
+                ctx.globalAlpha = 1;
+                drawTraceMessage(true);
+            }
+        }
+
+        function drawTraceMessage(staticFrame) {
+            const fs = TRACE.fontSize;
+            ctx.font = 'bold ' + fs + "px 'Courier New', monospace";
+            for (const c of trace.cells) {
+                const x = c.col * fs, y = c.row * fs;
+                ctx.fillStyle = theme.bg;
+                ctx.fillRect(x, y - 2, fs, fs + 4);
+                if (c.locked) {
+                    ctx.fillStyle = theme.head;
+                    ctx.shadowColor = theme.glow;
+                    ctx.shadowBlur = 10;
+                    ctx.fillText(c.ch, x, y);
+                    ctx.shadowBlur = 0;
+                } else if (!staticFrame && trace.phase === 'reveal') {
+                    // still encrypted: bright churn
+                    ctx.fillStyle = theme.color;
+                    ctx.globalAlpha = 0.85;
+                    ctx.fillText(c.ch === ' ' ? ' ' : filmGlyph(), x, y);
+                    ctx.globalAlpha = 1;
+                }
+            }
+        }
+
+        function drawTrace() {
+            const fs = TRACE.fontSize;
+
+            ctx.globalAlpha = TRACE.fade;
+            ctx.fillStyle = theme.bg;
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalAlpha = 1;
+
+            // Ambient churn: dim glyphs flicker across the whole grid.
+            ctx.font = fs + "px 'Courier New', monospace";
+            ctx.textBaseline = 'top';
+            ctx.fillStyle = theme.dim;
+            for (let k = 0; k < TRACE.churnPerFrame; k++) {
+                const col = (Math.random() * (width / fs)) | 0;
+                const row = (Math.random() * (height / fs)) | 0;
+                if (row === trace.cells[0].row) { continue; } // keep the message line clean
+                ctx.globalAlpha = 0.15 + Math.random() * 0.35;
+                ctx.fillText(filmGlyph(), col * fs, row * fs);
+            }
+            ctx.globalAlpha = 1;
+
+            trace.timer += 1;
+            if (trace.phase === 'reveal') {
+                if (trace.timer % TRACE.lockEvery === 0 && trace.lockedCount < trace.cells.length) {
+                    trace.cells[trace.order[trace.lockedCount]].locked = true;
+                    trace.lockedCount += 1;
+                }
+                if (trace.lockedCount === trace.cells.length) {
+                    trace.phase = 'hold';
+                    trace.timer = 0;
+                }
+            } else if (trace.phase === 'hold') {
+                if (trace.timer > TRACE.holdFrames) {
+                    trace.phase = 'gap';
+                    trace.timer = 0;
+                    // wipe the message line; the fade swallows the rest
+                    ctx.fillStyle = theme.bg;
+                    ctx.fillRect(0, trace.cells[0].row * fs - 2, width, fs + 4);
+                }
+            } else if (trace.phase === 'gap') {
+                if (trace.timer > TRACE.gapFrames) {
+                    trace = buildTraceMessage(trace.index + 1);
+                }
+            }
+
+            if (trace.phase !== 'gap') { drawTraceMessage(false); }
+
+            rafId = requestAnimationFrame(drawTrace);
+        }
+
         // ================= CLASSIC (CSS) MODE =================
         // Pure-CSS katakana columns in three parallax depth layers, driven
         // by matrix_tools.css's public classes (.matrix-rain, .m-col,
@@ -816,7 +1086,13 @@
 
         // ================= MODE SWITCHING =================
         const MODE_KEY = 'afterglows-matrix-mode';
-        const MODES = ['film', 'classic', 'rain', 'binary'];
+        const MODES = ['film', 'classic', 'rain', 'binary', 'draft', 'trace'];
+        // Canvas draw paths beyond the shared drop engine.
+        const CANVAS_PATHS = {
+            film: [initFilm, drawFilm],
+            draft: [initDraft, drawDraft],
+            trace: [initTrace, drawTrace]
+        };
         const hint = document.getElementById('hint');
         let mode = null;
 
@@ -833,17 +1109,18 @@
             } else {
                 classicStage.hidden = true;
                 canvas.style.display = '';
-                if (mode === 'film') {
-                    activeInit = initFilm;
-                    activeDraw = drawFilm;
+                if (CANVAS_PATHS[mode]) {
+                    activeInit = CANVAS_PATHS[mode][0];
+                    activeDraw = CANVAS_PATHS[mode][1];
                 } else {
                     style = STYLES[mode];
                     activeInit = init;
                     activeDraw = draw;
                 }
                 startEngine();
-                // FILM is a faithful recreation, deliberately non-interactive.
-                hint.hidden = (mode === 'film');
+                // Only the drop engine (RAIN/BINARY) is interactive; FILM,
+                // DRAFT and TRACE are faithful recreations.
+                hint.hidden = !(mode === 'rain' || mode === 'binary');
             }
 
             document.querySelectorAll('[data-mode]').forEach((btn) => {
@@ -949,14 +1226,9 @@
             }
 
             // Reduced-motion canvas modes show a single static frame —
-            // repaint it so the new palette is visible immediately.
+            // rebuild it so the new palette is visible immediately.
             if (mode && mode !== 'classic' && reducedMotion.matches) {
-                ctx.fillStyle = theme.bg;
-                ctx.fillRect(0, 0, width, height);
-                if (activeInit === initFilm) { staticFilmField(); }
-                activeDraw();
-                cancelAnimationFrame(rafId);
-                rafId = null;
+                startEngine();
             }
         }
 

@@ -53,11 +53,25 @@ Switched from the MODE row (top-center); the choice persists to
   brightness variation and occasional sparkle bit-flips. Same engine as RAIN
   (a style config, not a second implementation), so it shares the cursor and
   click interactions.
+- **DRAFT** (`#draft`) — a reconstruction of the production's *original*
+  horizontal design: before the code was rotated vertical to match Japanese
+  text convention, it streamed sideways "like lines of programming". Same
+  stationary-grid illumination-wave mechanic as FILM, transposed to rows,
+  with unmirrored glyphs (the "seen from inside" flip belongs to the
+  finished vertical version). No footage of the prototype survives; this is
+  an informed reconstruction, not a recreation.
+- **TRACE** (`#trace`) — code that resolves into readable text, in the
+  lineage of the Sneakers (1992) decrypting credits, the "no more secrets"
+  effect, and XScreenSaver's `xmatrix -trace` (which recreates the film's
+  own phone-trace terminal). A dim churning glyph field surrounds a message
+  line whose characters lock in one by one, in random order, then hold and
+  cycle to the next message (the film's opening terminal sequence).
 
 RAIN and BINARY are two style configurations of a single canvas drop engine —
-column model, trail/head rendering, and interaction are shared. FILM is a
-second draw path on the same canvas (stationary grid, illumination waves)
-that shares the sizing, reduced-motion, visibility, and resize plumbing.
+column model, trail/head rendering, and interaction are shared. FILM, DRAFT
+and TRACE are additional draw paths on the same canvas that share the
+sizing, reduced-motion, visibility, and resize plumbing. Only RAIN and
+BINARY are interactive; the other canvas modes are faithful recreations.
 
 ## Usage
 
