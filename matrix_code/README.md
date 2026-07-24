@@ -105,12 +105,17 @@ the attribute (or setting it to `p1`) falls back to the default green.
 The first seven are stylized takes on real historical CRT phosphor types;
 `neon` is a deliberate modern extra, not a phosphor reference.
 
-On the demo page these are selected from the shared settings gear
-(bottom-right), which persists to the canonical
-`localStorage['afterglows-phosphor']` key. The page adds a FILM row of three
-page-local, non-persistent extras (Resurrections blue, Virus red, Neon Gold)
-applied the same way — via `data-phosphor` values defined in the page, not in
-the library.
+On the demo page the shared settings gear (bottom-right, canonical
+`localStorage['afterglows-phosphor']` key) governs only the page chrome —
+header, back button, controls bar, font. The rain itself is themed by its own
+COLOR row in the top control bar, fully independent of the gear in **both**
+directions: the gear never recolors the rain, and picking a rain color never
+touches the global theme. The rain's choice persists separately under
+`localStorage['afterglows-matrix-rain-color']` and offers the same eight
+phosphors plus three film extras (Resurrections blue, Virus red, Neon Gold —
+defined as `[data-phosphor]` blocks in the page, not the library). A
+"⇐ Match Global" button copies the current global theme into the rain color
+as a one-time snapshot — not a live link.
 
 Apply a theme by setting `data-phosphor` on `<html>`:
 ```html
@@ -132,8 +137,10 @@ variables directly (on `:root` or on any container):
 }
 ```
 
-The demo's canvas engine re-reads theme colors via `getComputedStyle` and a
-`MutationObserver` on `data-phosphor`, so it recolors live without a reload.
+The demo's rain reads its palette *values* from these same CSS
+`[data-phosphor]` blocks through a hidden probe element (`paletteFor()` in
+`index.html`), so the local color options can never drift from the library's
+definitions — only the *active selection* is independent of the global theme.
 
 ## Header + Back Navigation
 

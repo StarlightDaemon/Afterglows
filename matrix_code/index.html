@@ -42,7 +42,11 @@
         }
 
         /* Film-inspired extras — page-local palettes, not phosphors.
-           (Folded in from the retired demo_themes.html.) */
+           (Folded in from the retired demo_themes.html.) These attribute
+           blocks are never applied to <html> anymore: together with the
+           [data-phosphor] blocks in matrix_tools.css they are the single
+           source of truth the rain's LOCAL color system reads through a
+           hidden probe element (see paletteFor() below). */
         [data-phosphor="film-blue"] {
             --matrix-color: #00aaff;
             --matrix-dim: #005e8c;
@@ -72,6 +76,10 @@
             position: fixed;
             inset: 0;
             z-index: 0;
+            /* The stage paints its own background from the rain-local
+               palette (inline --matrix-* vars set by setRainColor), so the
+               globally themed body background never shows through the rain. */
+            background: var(--matrix-bg);
         }
 
         .classic-stage[hidden] {
@@ -160,7 +168,7 @@
             background: color-mix(in srgb, var(--matrix-bg) 82%, black);
             border: 1px solid var(--matrix-dim);
             box-shadow: 0 0 18px color-mix(in srgb, var(--matrix-glow) 12%, transparent);
-            max-width: min(92vw, 760px);
+            max-width: min(92vw, 860px);
         }
 
         .control-row {
@@ -201,6 +209,21 @@
             text-shadow: none;
         }
 
+        /* Rain-local color options: each button carries a dot in its OWN
+           palette color (--swatch, set inline from the probed palette) so
+           the row reads as a color picker even though the button chrome
+           itself stays on the global theme like the rest of the bar. */
+        .color-btn::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+            background: var(--swatch);
+            box-shadow: 0 0 5px var(--swatch);
+        }
+
         .theme-note {
             font-size: 10px;
             letter-spacing: 2px;
@@ -238,18 +261,19 @@
 
 <body>
     <main>
-        <div class="controls" role="group" aria-label="Rain mode and film color extras">
+        <div class="controls" role="group" aria-label="Rain mode and rain color">
             <div class="control-row" role="group" aria-label="Rain mode">
                 <span class="row-label">MODE</span>
                 <button class="theme-btn" data-mode="classic" aria-pressed="false">Classic</button>
                 <button class="theme-btn" data-mode="rain" aria-pressed="false">Rain</button>
                 <button class="theme-btn" data-mode="binary" aria-pressed="false">Binary</button>
             </div>
-            <div class="control-row" role="group" aria-label="Film color extras">
-                <span class="row-label">FILM</span>
-                <button class="theme-btn" data-film="film-blue">Resurrections</button>
-                <button class="theme-btn" data-film="film-red">Virus</button>
-                <button class="theme-btn" data-film="film-gold">Neon Gold</button>
+            <!-- Rain-local color: independent of the site theme gear in both
+                 directions. Buttons are generated from the shared palette
+                 list so names/values can't drift from the global system. -->
+            <div class="control-row" id="colorRow" role="group"
+                aria-label="Rain color — affects only the rain, not the site theme">
+                <span class="row-label" title="Rain only — the site theme gear does not affect this">COLOR</span>
             </div>
             <div class="theme-note" id="themeNote" aria-live="polite"></div>
         </div>
@@ -264,15 +288,18 @@
     </main>
 
     <script>
-        // Phosphor theme + font are owned by the shared controller
-        // (/assets/js/afterglows-settings.js), which injects the gear panel
-        // and persists to the canonical 'afterglows-phosphor' key. This page
-        // owns only the rain itself: one canvas engine with two glyph styles
-        // (RAIN, BINARY), plus the pure-CSS CLASSIC mode driven by
-        // matrix_tools.css, and the page-local FILM palette extras.
+        // Page chrome (header, back button, controls bar, font) is owned by
+        // the shared controller (/assets/js/afterglows-settings.js), which
+        // persists to the canonical 'afterglows-phosphor' key. The RAIN
+        // ITSELF is deliberately independent of that system in both
+        // directions: it renders from its own locally persisted palette
+        // ('afterglows-matrix-rain-color'), and its color control never
+        // touches the global theme. Palette VALUES are still read from the
+        // same CSS [data-phosphor] definitions the global system uses (via
+        // a probe element), so the two systems can't drift apart — only
+        // the ACTIVE selection is separate.
         'use strict';
 
-        const root = document.documentElement;
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
@@ -283,20 +310,62 @@
 
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-        // Colors come from the live CSS variable cascade so the canvas
-        // follows the phosphor theme exactly like the CSS mode does.
-        function readTheme() {
-            const cs = getComputedStyle(root);
+        // ---- Rain-local palette source ----
+        // The option LIST comes from the shared controller's THEMES (same
+        // keys, names, notes as the gear panel) plus the page's film extras.
+        // The color VALUES for each key are read from the CSS
+        // [data-phosphor="..."] blocks themselves (matrix_tools.css for
+        // phosphors, this page's <style> for film extras) through a hidden
+        // probe element — never copied by hand, so they cannot drift from
+        // the global system's definitions. Only the ACTIVE selection is
+        // independent: it lives under RAIN_COLOR_KEY, not
+        // 'afterglows-phosphor', and nothing here reads or writes the
+        // root's data-phosphor attribute.
+        const RAIN_COLOR_KEY = 'afterglows-matrix-rain-color';
+        const DEFAULT_RAIN_COLOR = 'p1';
+        const FILM_EXTRAS = [
+            { key: 'film-blue', name: 'Resurrections', note: 'Film — Resurrections blue (not a phosphor)' },
+            { key: 'film-red', name: 'Virus', note: 'Film — Virus red (not a phosphor)' },
+            { key: 'film-gold', name: 'Neon Gold', note: 'Film — Neon Gold (not a phosphor)' }
+        ];
+        const RAIN_COLORS = (window.AfterglowsSettings ? window.AfterglowsSettings.THEMES : [])
+            .map((t) => ({ key: t.key, name: t.name, note: t.note }))
+            .concat(FILM_EXTRAS);
+
+        const FALLBACK_PALETTE = {
+            color: '#00ff41', dim: '#00992a', head: '#d9ffd9',
+            glow: '#00ff41', bg: '#030804'
+        };
+        const paletteCache = {};
+
+        function paletteFor(key) {
+            if (paletteCache[key]) { return paletteCache[key]; }
+            const probe = document.createElement('div');
+            probe.setAttribute('data-phosphor', key);
+            probe.style.display = 'none';
+            document.body.appendChild(probe);
+            const cs = getComputedStyle(probe);
             const v = (name, fallback) => (cs.getPropertyValue(name).trim() || fallback);
-            return {
-                color: v('--matrix-color', '#00ff41'),
-                dim: v('--matrix-dim', '#00992a'),
-                head: v('--matrix-head', '#d9ffd9'),
-                glow: v('--matrix-glow', '#00ff41'),
-                bg: v('--matrix-bg', '#030804')
+            const pal = {
+                color: v('--matrix-color', FALLBACK_PALETTE.color),
+                dim: v('--matrix-dim', FALLBACK_PALETTE.dim),
+                head: v('--matrix-head', FALLBACK_PALETTE.head),
+                glow: v('--matrix-glow', FALLBACK_PALETTE.glow),
+                bg: v('--matrix-bg', FALLBACK_PALETTE.bg)
             };
+            probe.remove();
+            paletteCache[key] = pal;
+            return pal;
         }
-        let theme = readTheme();
+
+        function isRainColor(key) {
+            return RAIN_COLORS.some((c) => c.key === key);
+        }
+
+        let storedRainColor = null;
+        try { storedRainColor = localStorage.getItem(RAIN_COLOR_KEY); } catch (e) { /* ignore */ }
+        let rainColor = isRainColor(storedRainColor) ? storedRainColor : DEFAULT_RAIN_COLOR;
+        let theme = paletteFor(rainColor);
 
         // ================= CANVAS ENGINE =================
         // One engine, two glyph styles. Everything geometric is derived
@@ -648,36 +717,79 @@
             hintTimer = setTimeout(() => hint.classList.add('faded'), 2500);
         }, { once: true });
 
-        // ================= FILM EXTRAS + THEME NOTE =================
+        // ================= RAIN-LOCAL COLOR CONTROL =================
+        // Fully two-way independent of the global theme: selecting a color
+        // here never touches the root's data-phosphor / the global storage
+        // key, and the global gear never reaches the rain's rendering
+        // (the canvas paints from `theme`, the classic stage from inline
+        // --matrix-* vars set here — both fed by paletteFor, not the root
+        // cascade).
         const themeNote = document.getElementById('themeNote');
-        const FILM_NOTES = {
-            'film-blue': 'Film — Resurrections blue (not a phosphor)',
-            'film-red': 'Film — Virus red (not a phosphor)',
-            'film-gold': 'Film — Neon Gold (not a phosphor)'
-        };
-        const PHOSPHOR_NOTES = (window.AfterglowsSettings ? window.AfterglowsSettings.THEMES : [])
-            .reduce((acc, t) => { acc[t.key] = t.note; return acc; }, {});
+        const colorRow = document.getElementById('colorRow');
 
-        document.querySelectorAll('[data-film]').forEach((btn) => {
-            btn.addEventListener('click', () => {
-                // Page-local extras: applied directly, never persisted. The
-                // shared gear will re-assert a real phosphor on its next use.
-                root.setAttribute('data-phosphor', btn.dataset.film);
-            });
+        RAIN_COLORS.forEach((c) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'theme-btn color-btn';
+            btn.dataset.rainColor = c.key;
+            btn.textContent = c.name;
+            btn.title = c.note;
+            btn.style.setProperty('--swatch', paletteFor(c.key).color);
+            btn.addEventListener('click', () => setRainColor(c.key, true));
+            colorRow.appendChild(btn);
         });
 
-        function syncTheme() {
-            theme = readTheme();
-            const active = root.getAttribute('data-phosphor') || 'p1';
-            document.querySelectorAll('[data-film]').forEach((btn) => {
-                btn.classList.toggle('active', btn.dataset.film === active);
+        // One-time convenience: copy the CURRENT global theme into the
+        // local selection. A snapshot, not a link — no live updating.
+        const matchBtn = document.createElement('button');
+        matchBtn.type = 'button';
+        matchBtn.className = 'theme-btn';
+        matchBtn.textContent = '⇐ Match Global';
+        matchBtn.title = 'Copy the current site theme into the rain color (one-time snapshot, not a link)';
+        matchBtn.addEventListener('click', () => {
+            if (window.AfterglowsSettings) {
+                setRainColor(window.AfterglowsSettings.getPhosphor(), true);
+            }
+        });
+        colorRow.appendChild(matchBtn);
+
+        function setRainColor(key, persist) {
+            if (!isRainColor(key)) { return; }
+            rainColor = key;
+            theme = paletteFor(key);
+
+            // Classic (CSS) stage: inline custom properties beat the root
+            // cascade for everything inside the stage, so the CSS rain
+            // renders from the local palette no matter what the global
+            // theme does.
+            ['color', 'dim', 'head', 'glow', 'bg'].forEach((k) => {
+                classicStage.style.setProperty('--matrix-' + k, theme[k]);
             });
-            themeNote.textContent = PHOSPHOR_NOTES[active] || FILM_NOTES[active] || '';
+
+            colorRow.querySelectorAll('[data-rain-color]').forEach((btn) => {
+                const on = btn.dataset.rainColor === key;
+                btn.classList.toggle('active', on);
+                btn.setAttribute('aria-pressed', String(on));
+            });
+            const meta = RAIN_COLORS.find((c) => c.key === key);
+            themeNote.textContent = meta ? 'Rain color — ' + meta.note : '';
+
+            if (persist) {
+                try { localStorage.setItem(RAIN_COLOR_KEY, key); } catch (e) { /* private mode */ }
+            }
+
+            // Reduced-motion canvas modes show a single static frame —
+            // repaint it so the new palette is visible immediately.
+            if (mode && mode !== 'classic' && reducedMotion.matches) {
+                ctx.fillStyle = theme.bg;
+                ctx.fillRect(0, 0, width, height);
+                draw();
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
         }
 
-        new MutationObserver(syncTheme)
-            .observe(root, { attributes: true, attributeFilter: ['data-phosphor'] });
-        syncTheme();
+        setRainColor(rainColor, false);
 
         // ================= LIFECYCLE =================
         // Visibility pause/resume (canvas modes; CSS animations pause free).
