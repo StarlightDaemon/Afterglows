@@ -12,6 +12,12 @@
 // Dependency-free, no build step, browser ESM only.
 
 import { CATEGORIES, CONCEPTS } from "./manifest.js";
+import { installReducedMotion } from "./reduced-motion.js";
+
+// Install before any concept module is imported: concept animations live in
+// shadow roots, which the page's document-scope reduced-motion rule cannot
+// reach. See reduced-motion.js.
+installReducedMotion();
 
 // --- Module loading -------------------------------------------------------
 // Path rule: tag "concept-foo-bar" -> "./concepts/foo-bar-concept.js"
