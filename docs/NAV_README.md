@@ -9,7 +9,7 @@ The site previously carried its own navigation chrome on every page: the root's 
 - **`/assets/js/afterglows-header.js`** — the single controller script. Injects a text-only "Afterglows" wordmark (fixed top-left) and, on any page that isn't the root home, a floating "Back" control (fixed bottom-left). Idempotent (`document.querySelector('.ag-header')` guard) and self-suppresses entirely inside iframes.
 - **`/assets/css/afterglows-header.css`** — the single stylesheet. Styles `.ag-header`/`.ag-brand`/`.ag-tagline` (wordmark) and `.ag-back`/`.ag-back-link` (back control), reading color/font from the shared `--ag-*` theme tokens with fallbacks to a page's local `--matrix-*` / `--crt-*` tokens when the theme stylesheet isn't loaded.
 
-Both files are linked by root-absolute path (`/assets/css/afterglows-header.css`, `/assets/js/afterglows-header.js`) from every page on the live site: the root `index.html`, the concepts gallery (`concepts/header-animation-concepts.html`), `matrix_code/index.html`, all four `matrix_code/demo_*.html` pages, and `retro/crt_demo.html`. No page carries its own header or back-link markup — the chrome is guaranteed identical everywhere it appears.
+Both files are linked by root-absolute path (`/assets/css/afterglows-header.css`, `/assets/js/afterglows-header.js`) from every page on the live site: the root `index.html`, the concepts gallery (`concepts/header-animation-concepts.html`), `matrix_code/index.html`, and `retro/crt_demo.html`. No page carries its own header or back-link markup — the chrome is guaranteed identical everywhere it appears.
 
 ## What It Injects
 
@@ -22,15 +22,15 @@ The back target is one level **up**, not always the root:
 
 - **Root home** (`/`, `/index.html`) — no back control. It IS home.
 - **A subsite hub** — `matrix_code/index.html`, `retro/crt_demo.html`, the concepts gallery (`concepts/header-animation-concepts.html`) — back goes to the Afterglows root (`/index.html`). This is the default: any page without an explicit override falls back to the root.
-- **A demo sub-page** — `matrix_code/demo_classic.html`, `demo_binary.html`, `demo_canvas.html`, `demo_themes.html` — back goes to its own hub, not the root. These pages declare the target explicitly on the `<html>` tag:
+- **A demo sub-page** — a leaf page that should return to its hub instead of the root declares the target explicitly on the `<html>` tag:
   ```html
   <html lang="en" data-ag-back="index.html">
   ```
-  so the target is explicit rather than guessed from the URL.
+  so the target is explicit rather than guessed from the URL. (The former `matrix_code/demo_*.html` pages used this; they have since been consolidated into `matrix_code/index.html` as switchable modes, so no live page currently declares an override.)
 
 ## iframe Behavior
 
-`matrix_code/index.html` embeds the demo pages in a preview `<iframe>`. Chrome belongs to the top-level page only, so `afterglows-header.js` checks `window.self !== window.top` and injects nothing when the document is framed. The embedded demo preview stays clean, but the exact same page opened standalone (its own tab/window) gets its full wordmark + back chrome.
+Chrome belongs to top-level pages only, so `afterglows-header.js` checks `window.self !== window.top` and injects nothing when the document is framed. Any page embedded in a preview `<iframe>` stays clean, while the same page opened standalone (its own tab/window) gets its full wordmark + back chrome. (This guard existed for `matrix_code/index.html`'s old iframe demo hub; the hub is now a single page with no iframes, but the guard remains for any future embedder.)
 
 ## Adding the System to a New Page
 

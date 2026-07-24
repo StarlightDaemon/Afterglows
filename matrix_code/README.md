@@ -2,40 +2,53 @@
 
 This folder is a portable, copy-out library for Matrix-style visual effects — a
 CSS file (`matrix_tools.css`), an optional JS helper (`phosphor_theme.js`), and
-a set of standalone HTML demos. Drop `matrix_tools.css` into any project and
-link it; nothing else is required. `phosphor_theme.js` is optional and only
-needed if you want the same color-theme switching the demos use.
+one full-screen demo page. Drop `matrix_tools.css` into any project and link
+it; nothing else is required. `phosphor_theme.js` is optional and only needed
+if you want the same color-theme switching the demo uses.
 
-On the live site, `index.html` and `demo_themes.html` don't use
-`phosphor_theme.js` for their own chrome — like every other page on the
-site, they load the shared site-wide controller
-(`/assets/js/afterglows-settings.js` + `/assets/css/afterglows-settings.css`),
-which injects a gear button + panel (bottom-right) for picking the color
-theme and font. `phosphor_theme.js` is still shipped and still used, but only
-as a lightweight boot-shim for the three standalone iframe demo pages
-(`demo_classic.html`, `demo_canvas.html`, `demo_binary.html`), which have no
-gear of their own and just need to pick up the persisted theme.
+On the live site, `index.html` is the whole experience: one page of digital
+rain with a MODE control (top-center) switching between three renderings, and
+the shared site-wide settings gear (bottom-right,
+`/assets/js/afterglows-settings.js` + `/assets/css/afterglows-settings.css`)
+for phosphor color theme and font. The former four separate demo pages
+(`demo_classic.html`, `demo_canvas.html`, `demo_binary.html`,
+`demo_themes.html`) are retired; the files remain only as `noindex` redirect
+stubs so old links land on the matching mode.
 
 ## Files
 
 - **`matrix_tools.css`** — the library. Copy this into your project.
 - **`phosphor_theme.js`** — optional helper for switching phosphor color
   themes at runtime. Copy it alongside the CSS if you want theme switching in
-  a project that doesn't use the site-wide controller. On this site it's
-  used only as the boot-shim for `demo_classic.html`, `demo_canvas.html`,
-  and `demo_binary.html`.
-- **`index.html`** — a demo gallery hub with a sidebar (demo picker) and an
-  iframe preview; color theme and font are set via the shared site gear
-  injected in the corner, not an in-page picker.
-- **`demo_classic.html`** — pure-CSS katakana rain in three parallax depth
-  layers (far/mid/near), no canvas.
-- **`demo_canvas.html`** — Canvas rain that reacts to the cursor (brightness
-  radius) and to clicks (an expanding pulse ring).
-- **`demo_binary.html`** — Canvas rain of pure `0`/`1` glyphs with
-  per-column brightness variation and occasional sparkle glyphs.
-- **`demo_themes.html`** — all eight phosphor palettes plus three page-local
-  film-inspired palettes, side by side on a Canvas rain; the eight canonical
-  palettes are switched via the shared site gear, same as `index.html`.
+  a project that doesn't use the site-wide controller. No live page on this
+  site loads it anymore — it's shipped purely as a portable helper.
+- **`index.html`** — the demo: one full-screen page with three modes.
+- **`demo_classic.html` / `demo_canvas.html` / `demo_binary.html` /
+  `demo_themes.html`** — redirect stubs for retired URLs; not demos.
+
+## Modes
+
+Switched from the MODE row (top-center); the choice persists to
+`localStorage['afterglows-matrix-mode']` and is deep-linkable by hash:
+
+- **CLASSIC** (`#classic`) — pure-CSS katakana rain in three parallax depth
+  layers (far/mid/near) with haze + scanlines, driven entirely by
+  `matrix_tools.css`'s public classes (`.matrix-rain`, `.m-col`,
+  `.fast/.med/.slow`). Deliberately kept CSS-only: this mode is the live
+  demonstration of the stylesheet API.
+- **RAIN** (`#rain`, default; `#canvas` accepted as a legacy alias) — Canvas
+  katakana rain. Interactive: a glyph halo lights the code around the cursor,
+  columns near it accelerate and brighten, and a click launches an expanding
+  pulse ring of lit glyphs.
+- **BINARY** (`#binary`) — Canvas rain of pure `0`/`1` glyphs with per-column
+  brightness variation and occasional sparkle bit-flips. Same engine as RAIN
+  (a style config, not a second implementation), so it shares the cursor and
+  click interactions.
+
+RAIN and BINARY are two style configurations of a single canvas engine —
+column model, DPR-aware sizing, trail/head rendering, interaction, and
+lifecycle (reduced-motion gate, visibility pause, debounced resize rebuild)
+are all shared.
 
 ## Usage
 
@@ -92,6 +105,13 @@ the attribute (or setting it to `p1`) falls back to the default green.
 The first seven are stylized takes on real historical CRT phosphor types;
 `neon` is a deliberate modern extra, not a phosphor reference.
 
+On the demo page these are selected from the shared settings gear
+(bottom-right), which persists to the canonical
+`localStorage['afterglows-phosphor']` key. The page adds a FILM row of three
+page-local, non-persistent extras (Resurrections blue, Virus red, Neon Gold)
+applied the same way — via `data-phosphor` values defined in the page, not in
+the library.
+
 Apply a theme by setting `data-phosphor` on `<html>`:
 ```html
 <html data-phosphor="p3">
@@ -112,47 +132,26 @@ variables directly (on `:root` or on any container):
 }
 ```
 
+The demo's canvas engine re-reads theme colors via `getComputedStyle` and a
+`MutationObserver` on `data-phosphor`, so it recolors live without a reload.
+
 ## Header + Back Navigation
 
-Like every other page on the site, `index.html` and all four `demo_*.html`
-pages load the shared header controller
-(`/assets/js/afterglows-header.js` + `/assets/css/afterglows-header.css`),
-which injects the fixed "Afterglows" wordmark (top-left) and a floating Back
-control (bottom-left) — no in-flow "BACK TO AFTERGLOWS" link lives in this
-folder's markup anymore.
+Like every other page on the site, `index.html` loads the shared header
+controller (`/assets/js/afterglows-header.js` +
+`/assets/css/afterglows-header.css`), which injects the fixed "Afterglows"
+wordmark (top-left) and a floating Back control (bottom-left). `index.html`
+is a subsite hub: its Back control goes to the Afterglows root
+(`/index.html`), the default when a page declares no override. See
+`../docs/NAV_README.md` for the full system.
 
-- `index.html` is a subsite hub: its Back control goes to the Afterglows
-  root (`/index.html`), the default when a page declares no override.
-- Each `demo_classic.html`, `demo_binary.html`, `demo_canvas.html`, and
-  `demo_themes.html` is a leaf page whose Back control returns to this
-  folder's hub instead of the root, declared explicitly with
-  `<html data-ag-back="index.html">`.
-- `index.html` embeds the demo pages in a preview `<iframe>`; the header
-  script detects the frame (`window.self !== window.top`) and injects
-  nothing there, so the embedded preview stays clean. The same demo page
-  opened standalone gets its full wordmark + Back chrome.
-
-See `../docs/NAV_README.md` for the full system.
-
-`phosphor_theme.js` (optional) wraps this in `window.AfterglowsPhosphor`:
-`THEMES` (the theme list), `get()`, `set(key)`, and `onChange(fn)`. It
-persists the chosen theme to `localStorage` under `afterglows-phosphor`,
-honors a `?phosphor=<key>` URL query for one-off previews (not persisted),
-and follows the theme across same-origin tabs via the `storage` event. It's
-the same `afterglows-phosphor` key the site-wide controller reads and
-writes, so a theme picked from the shared gear on `index.html` or
-`demo_themes.html` is already in effect the next time `demo_classic.html`,
-`demo_canvas.html`, or `demo_binary.html` (which load `phosphor_theme.js`
-directly as a boot-shim, with no gear of their own) is opened. The canvas
-demos re-read theme colors via `getComputedStyle` and a `MutationObserver`
-on `data-phosphor` so they recolor without a reload.
-
-On `index.html` and `demo_themes.html` themselves, theme switching goes
-through the shared gear injected by `/assets/js/afterglows-settings.js`
-(same control as the rest of the site), which also persists to
-`afterglows-phosphor` and additionally offers a font picker
-(`afterglows-font` — IBM, VT323, Space, Fira) that changes the page chrome's
-typeface.
+`phosphor_theme.js` (optional, for downstream copies) wraps theme switching
+in `window.AfterglowsPhosphor`: `THEMES` (the theme list), `get()`,
+`set(key)`, and `onChange(fn)`. It persists the chosen theme to
+`localStorage` under `afterglows-phosphor` — the same key the site-wide
+controller reads and writes — honors a `?phosphor=<key>` URL query for
+one-off previews (not persisted), and follows the theme across same-origin
+tabs via the `storage` event.
 
 ## CSS Variables
 
