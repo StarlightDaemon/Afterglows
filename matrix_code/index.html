@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; frame-src 'self'">
-    <title>Matrix Code | Live Demo Gallery</title>
-    <meta name="description" content="Live demo gallery for the Matrix Code digital-rain library: classic CSS katakana columns, interactive Canvas rain, pure binary, and eight switchable phosphor color themes.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
+    <title>Matrix Code | Digital Rain</title>
+    <meta name="description" content="One full-screen Matrix digital-rain experience with switchable modes — pure-CSS classic katakana columns, interactive Canvas rain that reacts to the cursor, and minimal binary — in eight phosphor color themes plus film extras.">
     <link rel="canonical" href="https://afterglows.starlightdaemon.dev/matrix_code/">
-    <meta property="og:title" content="Matrix Code | Live Demo Gallery">
-    <meta property="og:description" content="Live demo gallery for the Matrix Code digital-rain library: classic CSS katakana columns, interactive Canvas rain, pure binary, and eight switchable phosphor color themes.">
+    <meta property="og:title" content="Matrix Code | Digital Rain">
+    <meta property="og:description" content="One full-screen Matrix digital-rain experience with switchable modes — pure-CSS classic katakana columns, interactive Canvas rain that reacts to the cursor, and minimal binary — in eight phosphor color themes plus film extras.">
     <meta property="og:url" content="https://afterglows.starlightdaemon.dev/matrix_code/">
     <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -30,225 +30,201 @@
         html,
         body {
             height: 100%;
+            overflow: hidden;
             background: var(--matrix-bg);
-            color: var(--matrix-color);
             font-family: var(--ag-font, 'JetBrains Mono', 'Courier New', monospace);
-            overflow: hidden;
         }
 
-        .skip-link {
-            position: absolute;
-            left: -9999px;
-            top: 0;
-            background: var(--matrix-color);
-            color: var(--matrix-bg);
-            padding: 8px 14px;
-            z-index: 100;
-        }
-
-        .skip-link:focus {
-            left: 0;
-        }
-
-        .gallery-layout {
-            display: grid;
-            grid-template-columns: 320px 1fr;
-            height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background: linear-gradient(180deg,
-                    var(--matrix-bg) 0%,
-                    color-mix(in srgb, var(--matrix-color) 5%, var(--matrix-bg)) 100%);
-            border-right: 1px solid var(--matrix-dim);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .sidebar-header {
-            /* extra top room so the shared Afterglows wordmark (fixed,
-               top-left) clears the subsite title beneath it */
-            padding: 58px 20px 26px;
-            border-bottom: 1px solid var(--matrix-dim);
-            text-align: center;
-        }
-
-        .sidebar-header h1 {
-            font-size: 20px;
-            letter-spacing: 4px;
-            color: var(--matrix-color);
-            text-shadow: 0 0 12px color-mix(in srgb, var(--matrix-glow) 70%, transparent);
-            margin-bottom: 5px;
-        }
-
-        .sidebar-header p {
-            font-size: 10px;
-            color: var(--matrix-dim);
-            letter-spacing: 2px;
-        }
-
-        .demo-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 18px;
-        }
-
-        .demo-card {
-            background: transparent;
-            border: none;
-            border-left: 2px solid var(--matrix-dim);
-            padding: 10px 14px;
-            margin-bottom: 6px;
-            cursor: pointer;
-            transition: border-color 0.2s, background 0.2s, transform 0.2s;
-        }
-
-        .demo-card:hover {
-            border-left-color: var(--matrix-color);
-            transform: translateX(4px);
-        }
-
-        .demo-card.active {
-            border-left-color: var(--matrix-color);
-            background: color-mix(in srgb, var(--matrix-color) 7%, transparent);
-        }
-
-        .demo-card h3 {
-            font-size: 12px;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            color: var(--matrix-dim);
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            margin-bottom: 4px;
-        }
-
-        .demo-card.active h3 {
-            color: var(--matrix-color);
-        }
-
-        .demo-card h3 .indicator {
-            width: 6px;
-            height: 6px;
-            background: var(--matrix-dim);
-            border-radius: 50%;
-            flex: none;
-            transition: background 0.2s, box-shadow 0.2s;
-        }
-
-        .demo-card.active h3 .indicator {
-            background: var(--matrix-color);
-            box-shadow: 0 0 8px var(--matrix-glow);
-        }
-
-        .demo-card p {
-            font-size: 10px;
-            line-height: 1.5;
-            color: color-mix(in srgb, var(--matrix-dim) 75%, var(--matrix-color));
-            opacity: 0.75;
-        }
-
-        /* Back Link */
-        .back-link {
-            padding: 14px 20px;
-            border-top: 1px solid var(--matrix-dim);
-            text-align: center;
-        }
-
-        .back-link a {
-            color: var(--matrix-dim);
-            text-decoration: none;
-            font-size: 11px;
-            letter-spacing: 2px;
-            transition: color 0.3s;
-        }
-
-        .back-link a:hover {
-            color: var(--matrix-color);
-        }
-
-        /* Preview Area */
-        .preview-area {
-            position: relative;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .preview-header {
-            padding: 15px 25px;
-            background: var(--matrix-bg);
-            border-bottom: 1px solid var(--matrix-dim);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .preview-title {
-            font-size: 12px;
-            color: var(--matrix-dim);
-            letter-spacing: 2px;
-        }
-
-        .preview-title span {
-            color: var(--matrix-color);
-        }
-
-        .preview-controls {
-            display: flex;
-            gap: 15px;
-        }
-
-        .preview-btn {
-            background: none;
-            border: 1px solid var(--matrix-dim);
-            color: var(--matrix-dim);
-            padding: 6px 12px;
-            font-family: inherit;
-            font-size: 10px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: border-color 0.3s, color 0.3s;
-        }
-
-        .preview-btn:hover {
-            border-color: var(--matrix-color);
-            color: var(--matrix-color);
-        }
-
-        .preview-frame {
-            flex: 1;
-            border: none;
+        canvas {
+            display: block;
             width: 100%;
             height: 100%;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .gallery-layout {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr;
-            }
+        /* Film-inspired extras — page-local palettes, not phosphors.
+           (Folded in from the retired demo_themes.html.) */
+        [data-phosphor="film-blue"] {
+            --matrix-color: #00aaff;
+            --matrix-dim: #005e8c;
+            --matrix-head: #d6f1ff;
+            --matrix-glow: #00aaff;
+            --matrix-bg: #020810;
+        }
 
-            .sidebar {
-                max-height: 46vh;
-            }
+        [data-phosphor="film-red"] {
+            --matrix-color: #ff3333;
+            --matrix-dim: #8c1c1c;
+            --matrix-head: #ffd9d9;
+            --matrix-glow: #ff2222;
+            --matrix-bg: #0f0303;
+        }
 
-            .demo-list {
-                display: flex;
-                overflow-x: auto;
-                padding: 12px;
-                gap: 12px;
-            }
+        [data-phosphor="film-gold"] {
+            --matrix-color: #ffaa00;
+            --matrix-dim: #91600a;
+            --matrix-head: #ffedc8;
+            --matrix-glow: #ffaa00;
+            --matrix-bg: #0d0801;
+        }
 
-            .demo-card {
-                min-width: 190px;
-                margin-bottom: 0;
-            }
+        /* ---- CLASSIC mode (pure CSS, powered by matrix_tools.css) ---- */
+        .classic-stage {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .classic-stage[hidden] {
+            display: none;
+        }
+
+        .classic-stage .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            gap: 0;
+            z-index: 0;
+        }
+
+        .classic-stage .m-col {
+            animation-delay: calc(var(--i) * 0.1s);
+        }
+
+        /* Depth layers — far columns are small, soft, and slow; near
+           columns are large, bright, and quick. Parallax without JS. */
+        .classic-stage .m-col.far {
+            font-size: 12px;
+            line-height: 15px;
+            opacity: 0.35;
+            filter: blur(0.6px);
+        }
+
+        .classic-stage .m-col.mid {
+            font-size: 16px;
+            line-height: 20px;
+            opacity: 0.65;
+        }
+
+        .classic-stage .m-col.near {
+            font-size: 22px;
+            line-height: 27px;
+            opacity: 0.95;
+            text-shadow:
+                0 0 6px var(--matrix-glow),
+                0 0 18px color-mix(in srgb, var(--matrix-glow) 65%, transparent);
+        }
+
+        /* Ambient depth: soft phosphor haze in the middle distance,
+           heavy vignette at the edges — reads like a lit tube. */
+        .classic-stage .haze {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 90% 65% at 50% 42%,
+                    color-mix(in srgb, var(--matrix-glow) 7%, transparent) 0%,
+                    transparent 60%),
+                radial-gradient(ellipse 120% 100% at 50% 50%,
+                    transparent 55%,
+                    rgba(0, 0, 0, 0.55) 100%);
+        }
+
+        /* Faint scanlines over everything for texture. */
+        .classic-stage .haze::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg,
+                    rgba(0, 0, 0, 0.18) 0 1px,
+                    transparent 1px 4px);
+        }
+
+        /* ---- Mode + film controls (same control-bar language the theme
+                showcase used; phosphor/font stay on the shared gear) ---- */
+        .controls {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            padding: 14px 18px;
+            background: color-mix(in srgb, var(--matrix-bg) 82%, black);
+            border: 1px solid var(--matrix-dim);
+            box-shadow: 0 0 18px color-mix(in srgb, var(--matrix-glow) 12%, transparent);
+            max-width: min(92vw, 760px);
+        }
+
+        .control-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .row-label {
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: var(--matrix-dim);
+        }
+
+        .theme-btn {
+            padding: 7px 12px;
+            border: 1px solid var(--matrix-dim);
+            background: transparent;
+            color: var(--matrix-color);
+            font-family: inherit;
+            font-size: 11px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: border-color 0.2s, background 0.2s, color 0.2s;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--matrix-color);
+        }
+
+        .theme-btn.active {
+            background: var(--matrix-color);
+            border-color: var(--matrix-color);
+            color: var(--matrix-bg);
+            text-shadow: none;
+        }
+
+        .theme-note {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--matrix-dim);
+            text-transform: uppercase;
+            min-height: 1.2em;
+        }
+
+        .hint {
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--matrix-dim);
+            text-transform: uppercase;
+            pointer-events: none;
+            transition: opacity 0.6s;
+        }
+
+        .hint.faded,
+        .hint[hidden] {
+            opacity: 0;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -261,126 +237,474 @@
 </head>
 
 <body>
-    <a class="skip-link" href="#preview">Skip to content</a>
-    <div class="gallery-layout">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h1>MATRIX CODE</h1>
-                <p>Digital Rain FX Library</p>
+    <main>
+        <div class="controls" role="group" aria-label="Rain mode and film color extras">
+            <div class="control-row" role="group" aria-label="Rain mode">
+                <span class="row-label">MODE</span>
+                <button class="theme-btn" data-mode="classic" aria-pressed="false">Classic</button>
+                <button class="theme-btn" data-mode="rain" aria-pressed="false">Rain</button>
+                <button class="theme-btn" data-mode="binary" aria-pressed="false">Binary</button>
             </div>
-
-            <div class="demo-list">
-                <div class="demo-card active" data-src="demo_classic.html" data-title="Classic Rain">
-                    <h3><span class="indicator"></span> CLASSIC RAIN</h3>
-                    <p>Pure-CSS katakana columns in three parallax depth layers.</p>
-                </div>
-
-                <div class="demo-card" data-src="demo_canvas.html" data-title="Canvas Interactive">
-                    <h3><span class="indicator"></span> CANVAS INTERACTIVE</h3>
-                    <p>Canvas rain that reacts to the cursor. Click for a pulse wave.</p>
-                </div>
-
-                <div class="demo-card" data-src="demo_binary.html" data-title="Binary Rain">
-                    <h3><span class="indicator"></span> BINARY RAIN</h3>
-                    <p>Pure 0s and 1s. Clean, minimal hacker aesthetic.</p>
-                </div>
-
-                <div class="demo-card" data-src="demo_themes.html" data-title="Phosphor Themes">
-                    <h3><span class="indicator"></span> PHOSPHOR THEMES</h3>
-                    <p>All eight phosphor palettes side by side, plus film extras.</p>
-                </div>
+            <div class="control-row" role="group" aria-label="Film color extras">
+                <span class="row-label">FILM</span>
+                <button class="theme-btn" data-film="film-blue">Resurrections</button>
+                <button class="theme-btn" data-film="film-red">Virus</button>
+                <button class="theme-btn" data-film="film-gold">Neon Gold</button>
             </div>
+            <div class="theme-note" id="themeNote" aria-live="polite"></div>
+        </div>
 
-        </aside>
+        <div class="classic-stage" id="classicStage" hidden>
+            <div class="matrix-rain" id="rainContainer" aria-hidden="true"></div>
+            <div class="haze" aria-hidden="true"></div>
+        </div>
 
-        <main class="preview-area" id="preview">
-            <div class="preview-header">
-                <div class="preview-title">PREVIEW: <span id="currentDemo">Classic Rain</span></div>
-                <div class="preview-controls">
-                    <button class="preview-btn" onclick="reloadPreview()">&#8635; RELOAD</button>
-                    <button class="preview-btn halt" id="haltBtn" onclick="toggleHalt()">&#9208; HALT</button>
-                    <button class="preview-btn" onclick="openFullscreen()">&#9974; FULLSCREEN</button>
-                </div>
-            </div>
-
-            <iframe id="previewFrame" class="preview-frame" src="demo_classic.html" title="Live demo preview"></iframe>
-        </main>
-    </div>
+        <canvas id="matrix" aria-hidden="true">Decorative animated Matrix digital-rain effect with mouse interaction.</canvas>
+        <div class="hint" id="hint" aria-hidden="true">move the cursor &middot; click for a pulse</div>
+    </main>
 
     <script>
         // Phosphor theme + font are owned by the shared controller
         // (/assets/js/afterglows-settings.js), which injects the gear panel
         // and persists to the canonical 'afterglows-phosphor' key. This page
-        // only handles its own demo switcher and mirrors the active theme
-        // into the preview iframe.
-        const cards = document.querySelectorAll('.demo-card');
-        const previewFrame = document.getElementById('previewFrame');
-        const currentDemoLabel = document.getElementById('currentDemo');
+        // owns only the rain itself: one canvas engine with two glyph styles
+        // (RAIN, BINARY), plus the pure-CSS CLASSIC mode driven by
+        // matrix_tools.css, and the page-local FILM palette extras.
+        'use strict';
 
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                cards.forEach(c => c.classList.remove('active'));
-                card.classList.add('active');
-                previewFrame.src = card.dataset.src;
-                currentDemoLabel.textContent = card.dataset.title;
+        const root = document.documentElement;
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        if (!ctx) {
+            console.warn('Matrix canvas: 2d context is not available.');
+            throw new Error('Canvas 2d context unavailable');
+        }
+
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        // Colors come from the live CSS variable cascade so the canvas
+        // follows the phosphor theme exactly like the CSS mode does.
+        function readTheme() {
+            const cs = getComputedStyle(root);
+            const v = (name, fallback) => (cs.getPropertyValue(name).trim() || fallback);
+            return {
+                color: v('--matrix-color', '#00ff41'),
+                dim: v('--matrix-dim', '#00992a'),
+                head: v('--matrix-head', '#d9ffd9'),
+                glow: v('--matrix-glow', '#00ff41'),
+                bg: v('--matrix-bg', '#030804')
+            };
+        }
+        let theme = readTheme();
+
+        // ================= CANVAS ENGINE =================
+        // One engine, two glyph styles. Everything geometric is derived
+        // from the style config; interaction (cursor halo, click pulse,
+        // column boost) is engine-level and works in every canvas mode.
+        const STYLES = {
+            rain: {
+                chars: 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF',
+                fontSize: 17,
+                colGap: 17,
+                fontWeight: '',
+                fade: 0.16,
+                speedBase: 0.4, speedVar: 0.7,
+                weighted: false,       // per-column brightness identity (binary)
+                sparkle: 0             // stray bit-flip probability (binary)
+            },
+            binary: {
+                chars: '01',
+                fontSize: 15,
+                colGap: 18,
+                fontWeight: 'bold ',
+                fade: 0.12,
+                speedBase: 0.3, speedVar: 0.55,
+                weighted: true,
+                sparkle: 0.012
+            }
+        };
+
+        let style = STYLES.rain;
+        let width = 0, height = 0;
+        let drops = [];
+        let rafId = null;
+        let initRetryId = null;
+
+        function glyph() {
+            return style.chars[(Math.random() * style.chars.length) | 0];
+        }
+
+        function sizeCanvas() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = Math.floor(width * dpr);
+            canvas.height = Math.floor(height * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        function init() {
+            sizeCanvas();
+            // Guard: a zero-sized viewport (hidden tab / pre-layout load)
+            // would build an empty, permanently blank model. Retry until
+            // the viewport reports a real size.
+            if (width === 0 || height === 0) {
+                cancelAnimationFrame(initRetryId);
+                initRetryId = requestAnimationFrame(init);
+                return;
+            }
+            const columns = Math.floor(width / style.colGap);
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops.push({
+                    y: Math.random() * -(height / style.fontSize) * 2,  // staggered entry
+                    speed: style.speedBase + Math.random() * style.speedVar, // rows per frame
+                    weight: Math.random(),
+                    boost: 0
+                });
+            }
+            // Hard reset the surface so stale trails don't smear after resize.
+            ctx.fillStyle = theme.bg;
+            ctx.fillRect(0, 0, width, height);
+        }
+
+        // Re-read the backing scale if devicePixelRatio changes without a
+        // resize (zoom step, window dragged between monitors).
+        function watchDpr() {
+            matchMedia('(resolution: ' + (window.devicePixelRatio || 1) + 'dppx)')
+                .addEventListener('change', () => { init(); watchDpr(); }, { once: true });
+        }
+        watchDpr();
+
+        // ---- Interaction state (trusted input only sets coordinates;
+        //      all rendering happens in the draw loop) ----
+        let mouseX = -1e4, mouseY = -1e4;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        document.addEventListener('mouseleave', () => {
+            mouseX = -1e4;
+            mouseY = -1e4;
+        });
+
+        // Click pulse: an expanding ring that lights the glyph grid it
+        // sweeps through and briefly accelerates every column it crosses.
+        const pulses = [];
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.controls, .ag-settings, .ag-header, .ag-back')) { return; }
+            pulses.push({ x: e.clientX, y: e.clientY, r: 0 });
+        });
+
+        const HALO_RADIUS = 240;   // cursor influence radius, css px
+        const RING_WIDTH = 50;     // pulse ring half-thickness, css px
+
+        function draw() {
+            const fs = style.fontSize;
+
+            // Fade toward the theme background — this is what forms the trails.
+            ctx.globalAlpha = style.fade;
+            ctx.fillStyle = theme.bg;
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalAlpha = 1;
+
+            ctx.font = style.fontWeight + fs + "px 'Courier New', monospace";
+            ctx.textBaseline = 'top';
+
+            for (const p of pulses) { p.r += 14; }
+
+            for (let i = 0; i < drops.length; i++) {
+                const d = drops[i];
+                const x = i * style.colGap;
+                const headY = d.y * fs;
+
+                const dist = Math.hypot(x - mouseX, headY - mouseY);
+                const near = dist < HALO_RADIUS ? 1 - dist / HALO_RADIUS : 0;
+
+                let pulseHit = 0;
+                for (const p of pulses) {
+                    const pd = Math.abs(Math.hypot(x - p.x, headY - p.y) - p.r);
+                    if (pd < RING_WIDTH) { pulseHit = Math.max(pulseHit, 1 - pd / RING_WIDTH); }
+                }
+                const energy = Math.max(near, pulseHit);
+
+                // Trail: repaint every row the head crossed since last frame
+                // in body color. Boosted columns move more than one row per
+                // frame — stepping row by row keeps their trails solid
+                // instead of gappy (a gappy trail reads *darker*, which used
+                // to cancel the brightening out entirely).
+                const step = d.speed + d.boost;
+                for (let s = step; s > 0; s -= 1) {
+                    const ty = (d.y - s) * fs;
+                    if (ty <= -fs || ty >= height) { continue; }
+                    const hot = style.weighted ? d.weight > 0.72 : energy > 0.35;
+                    ctx.fillStyle = (hot || energy > 0.35) ? theme.color : theme.dim;
+                    ctx.globalAlpha = Math.min(1,
+                        (style.weighted ? 0.35 + d.weight * 0.55 : 0.55) + energy * 0.45);
+                    ctx.fillText(glyph(), x, ty);
+                    ctx.globalAlpha = 1;
+                }
+
+                // Occasional stray bit-flip sparkle inside the trail (binary).
+                if (style.sparkle && Math.random() < style.sparkle) {
+                    const sparkY = headY - (2 + (Math.random() * 10 | 0)) * fs;
+                    if (sparkY > 0 && sparkY < height) {
+                        ctx.fillStyle = theme.color;
+                        ctx.globalAlpha = 0.9;
+                        ctx.fillText(glyph(), x, sparkY);
+                        ctx.globalAlpha = 1;
+                    }
+                }
+
+                // Leading glyph: white-hot, glowing, hotter still near energy.
+                if (headY > -fs && headY < height + fs) {
+                    ctx.fillStyle = theme.head;
+                    ctx.shadowColor = theme.glow;
+                    ctx.shadowBlur = 8 + (style.weighted ? d.weight * 8 : 0) + energy * 18;
+                    ctx.fillText(glyph(), x, headY);
+                    ctx.shadowBlur = 0;
+                }
+
+                d.boost = Math.max(0, d.boost * 0.9);
+                if (energy > 0.5) { d.boost = Math.min(1.2, d.boost + energy * 0.25); }
+
+                d.y += d.speed + d.boost;
+                if (headY > height && Math.random() > 0.975) {
+                    d.y = Math.random() * -20;
+                    d.speed = style.speedBase + Math.random() * style.speedVar;
+                    d.weight = Math.random();
+                    d.boost = 0;
+                }
+
+                // Cursor halo: relight glyphs already lying inside the
+                // radius, snapped to this column's row grid. This is the
+                // visible "the code notices you" disc — head-only proximity
+                // effects are too transient to read as anything.
+                const dx = x - mouseX;
+                if (Math.abs(dx) < HALO_RADIUS && Math.random() < 0.7) {
+                    const maxDy = Math.sqrt(HALO_RADIUS * HALO_RADIUS - dx * dx);
+                    // Bias samples toward the center of the disc so the halo
+                    // is hottest at the cursor and feathers outward.
+                    const gy = Math.round((mouseY + (Math.random() * 2 - 1) * Math.random() * maxDy) / fs) * fs;
+                    const gDist = Math.hypot(dx, gy - mouseY);
+                    if (gy > -fs && gy < height && gDist < HALO_RADIUS) {
+                        const a = 1 - gDist / HALO_RADIUS;
+                        const hot = a > 0.7 && Math.random() < 0.5;
+                        ctx.fillStyle = hot ? theme.head : theme.color;
+                        if (hot) { ctx.shadowColor = theme.glow; ctx.shadowBlur = 12 * a; }
+                        ctx.globalAlpha = 0.3 + a * 0.7;
+                        ctx.fillText(glyph(), x, gy);
+                        ctx.globalAlpha = 1;
+                        ctx.shadowBlur = 0;
+                    }
+                }
+
+                // Pulse rings: light the two grid cells where the ring
+                // crosses this column, so the wavefront itself is visible.
+                for (const p of pulses) {
+                    const pdx = x - p.x;
+                    if (Math.abs(pdx) > p.r) { continue; }
+                    const dyv = Math.sqrt(p.r * p.r - pdx * pdx);
+                    for (const sign of [-1, 1]) {
+                        const gy = Math.round((p.y + sign * dyv) / fs) * fs;
+                        if (gy <= -fs || gy >= height) { continue; }
+                        const pd = Math.abs(Math.hypot(pdx, gy - p.y) - p.r);
+                        if (pd >= RING_WIDTH) { continue; }
+                        const a = 1 - pd / RING_WIDTH;
+                        ctx.fillStyle = a > 0.6 ? theme.head : theme.color;
+                        ctx.globalAlpha = 0.25 + a * 0.65;
+                        ctx.fillText(glyph(), x, gy);
+                        ctx.globalAlpha = 1;
+                    }
+                }
+            }
+
+            for (let p = pulses.length - 1; p >= 0; p--) {
+                if (pulses[p].r > Math.hypot(width, height)) { pulses.splice(p, 1); }
+            }
+
+            rafId = requestAnimationFrame(draw);
+        }
+
+        function startEngine() {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            init();
+            if (reducedMotion.matches) {
+                // Reduced-motion gate: render one static frame only.
+                draw();
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            } else {
+                rafId = requestAnimationFrame(draw);
+            }
+        }
+
+        function stopEngine() {
+            cancelAnimationFrame(rafId);
+            cancelAnimationFrame(initRetryId);
+            rafId = null;
+        }
+
+        // ================= CLASSIC (CSS) MODE =================
+        // Pure-CSS katakana columns in three parallax depth layers, driven
+        // by matrix_tools.css's public classes (.matrix-rain, .m-col,
+        // .fast/.med/.slow). Kept CSS-only on purpose: this mode *is* the
+        // live demo of the library's stylesheet API.
+        const classicStage = document.getElementById('classicStage');
+        const rainContainer = document.getElementById('rainContainer');
+        const CLASSIC_CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+
+        function buildClassic() {
+            rainContainer.textContent = '';
+            const numCols = Math.floor(window.innerWidth / 22);
+            const speeds = ['fast', 'med', 'slow'];
+            const depths = ['far', 'far', 'mid', 'mid', 'mid', 'near']; // mid-weighted mix
+
+            for (let i = 0; i < numCols; i++) {
+                const col = document.createElement('div');
+                const depth = depths[Math.floor(Math.random() * depths.length)];
+                // Near columns skew fast, far columns skew slow — reinforces parallax.
+                const speedPool = depth === 'near' ? ['fast', 'fast', 'med']
+                    : depth === 'far' ? ['med', 'slow', 'slow']
+                    : speeds;
+                col.className = 'm-col ' + speedPool[Math.floor(Math.random() * speedPool.length)] + ' ' + depth;
+                col.style.setProperty('--i', i);
+                col.style.animationDelay = (Math.random() * 4.5) + 's';
+
+                let str = '';
+                const len = 15 + Math.floor(Math.random() * 20);
+                for (let j = 0; j < len; j++) {
+                    str += CLASSIC_CHARS[Math.floor(Math.random() * CLASSIC_CHARS.length)];
+                }
+                col.textContent = str;
+                rainContainer.appendChild(col);
+            }
+        }
+
+        // ================= MODE SWITCHING =================
+        const MODE_KEY = 'afterglows-matrix-mode';
+        const MODES = ['classic', 'rain', 'binary'];
+        const hint = document.getElementById('hint');
+        let mode = null;
+
+        function setMode(next, persist) {
+            if (!MODES.includes(next) || next === mode) { return; }
+            mode = next;
+
+            if (mode === 'classic') {
+                stopEngine();
+                canvas.style.display = 'none';
+                classicStage.hidden = false;
+                if (!rainContainer.childElementCount) { buildClassic(); }
+                hint.hidden = true;
+            } else {
+                classicStage.hidden = true;
+                canvas.style.display = '';
+                style = STYLES[mode];
+                startEngine();
+                hint.hidden = false;
+            }
+
+            document.querySelectorAll('[data-mode]').forEach((btn) => {
+                const on = btn.dataset.mode === mode;
+                btn.classList.toggle('active', on);
+                btn.setAttribute('aria-pressed', String(on));
+            });
+
+            if (persist) {
+                try { localStorage.setItem(MODE_KEY, mode); } catch (e) { /* private mode */ }
+                if ('#' + mode !== location.hash) {
+                    history.replaceState(null, '', '#' + mode);
+                }
+            }
+        }
+
+        document.querySelectorAll('[data-mode]').forEach((btn) => {
+            btn.addEventListener('click', () => setMode(btn.dataset.mode, true));
+        });
+
+        // Boot order: explicit #hash wins (deep links from the retired
+        // demo_* URLs), else the persisted choice, else interactive rain.
+        // '#canvas' is accepted as a legacy alias for '#rain'.
+        function modeFromHash() {
+            const h = location.hash.replace('#', '');
+            if (h === 'canvas') { return 'rain'; }
+            return MODES.includes(h) ? h : null;
+        }
+        let stored = null;
+        try { stored = localStorage.getItem(MODE_KEY); } catch (e) { /* ignore */ }
+        setMode(modeFromHash() || (MODES.includes(stored) ? stored : 'rain'), false);
+        window.addEventListener('hashchange', () => {
+            const m = modeFromHash();
+            if (m) { setMode(m, false); }
+        });
+
+        // Fade the interaction hint out once the visitor has tried it.
+        let hintTimer = setTimeout(() => hint.classList.add('faded'), 7000);
+        document.addEventListener('mousemove', () => {
+            clearTimeout(hintTimer);
+            hintTimer = setTimeout(() => hint.classList.add('faded'), 2500);
+        }, { once: true });
+
+        // ================= FILM EXTRAS + THEME NOTE =================
+        const themeNote = document.getElementById('themeNote');
+        const FILM_NOTES = {
+            'film-blue': 'Film — Resurrections blue (not a phosphor)',
+            'film-red': 'Film — Virus red (not a phosphor)',
+            'film-gold': 'Film — Neon Gold (not a phosphor)'
+        };
+        const PHOSPHOR_NOTES = (window.AfterglowsSettings ? window.AfterglowsSettings.THEMES : [])
+            .reduce((acc, t) => { acc[t.key] = t.note; return acc; }, {});
+
+        document.querySelectorAll('[data-film]').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                // Page-local extras: applied directly, never persisted. The
+                // shared gear will re-assert a real phosphor on its next use.
+                root.setAttribute('data-phosphor', btn.dataset.film);
             });
         });
 
-        function reloadPreview() {
-            previewFrame.src = previewFrame.src;
+        function syncTheme() {
+            theme = readTheme();
+            const active = root.getAttribute('data-phosphor') || 'p1';
+            document.querySelectorAll('[data-film]').forEach((btn) => {
+                btn.classList.toggle('active', btn.dataset.film === active);
+            });
+            themeNote.textContent = PHOSPHOR_NOTES[active] || FILM_NOTES[active] || '';
         }
 
-        function openFullscreen() {
-            const activeCard = document.querySelector('.demo-card.active');
-            if (activeCard) {
-                window.open(activeCard.dataset.src, '_blank', 'noopener');
+        new MutationObserver(syncTheme)
+            .observe(root, { attributes: true, attributeFilter: ['data-phosphor'] });
+        syncTheme();
+
+        // ================= LIFECYCLE =================
+        // Visibility pause/resume (canvas modes; CSS animations pause free).
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            } else if (mode !== 'classic' && !reducedMotion.matches && rafId === null) {
+                rafId = requestAnimationFrame(draw);
             }
-        }
+        });
 
-        let isHalted = false;
-        function toggleHalt() {
-            const haltBtn = document.getElementById('haltBtn');
-            isHalted = !isHalted;
+        // Pagehide cleanup
+        window.addEventListener('pagehide', stopEngine);
 
-            if (isHalted) {
-                previewFrame.src = 'about:blank';
-                haltBtn.textContent = '▶ RESUME';
-                haltBtn.style.borderColor = '#ff6600';
-                haltBtn.style.color = '#ff6600';
-            } else {
-                const activeCard = document.querySelector('.demo-card.active');
-                if (activeCard) {
-                    previewFrame.src = activeCard.dataset.src;
-                }
-                haltBtn.textContent = '⏸ HALT';
-                haltBtn.style.borderColor = '';
-                haltBtn.style.color = '';
-            }
-        }
-
-        // Push the active theme into the (same-origin) preview iframe so it
-        // recolors live without a reload. The iframe demos also read the
-        // canonical key + storage events themselves, so this is belt-and-braces.
-        function themeFrame() {
-            try {
-                const doc = previewFrame.contentDocument;
-                if (!doc || !doc.documentElement) { return; }
-                const key = window.AfterglowsSettings
-                    ? window.AfterglowsSettings.getPhosphor()
-                    : (localStorage.getItem('afterglows-phosphor') || 'p1');
-                if (key === 'p1') {
-                    doc.documentElement.removeAttribute('data-phosphor');
+        // Debounced resize with full model rebuild (both stage types).
+        let resizeTimer = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (mode === 'classic') {
+                    buildClassic();
                 } else {
-                    doc.documentElement.setAttribute('data-phosphor', key);
+                    init();
                 }
-            } catch (e) { /* cross-origin or not ready — standalone pages read localStorage anyway */ }
-        }
-
-        if (window.AfterglowsSettings) {
-            window.AfterglowsSettings.onPhosphorChange(themeFrame);
-        }
-        previewFrame.addEventListener('load', themeFrame);
-        themeFrame();
+            }, 150);
+        });
     </script>
 </body>
 
