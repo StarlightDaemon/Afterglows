@@ -331,11 +331,14 @@ export const CONCEPTS = [
     tag: "concept-ascii",
     label: "ASCII Box",
     category: "systems",
-    versioned: false,
+    versioned: true,
     badge: "Refined v2",
     badgeCls: "meta-status-refined",
-    default: null,
-    versions: [],
+    default: "v2",
+    versions: [
+      { v: "v1", badge: "Original v1", badgeCls: "meta-status-original" },
+      { v: "v2", badge: "Refined v2", badgeCls: "meta-status-refined" },
+    ],
   },
   {
     tag: "concept-glitch",
