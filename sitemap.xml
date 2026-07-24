@@ -8,7 +8,7 @@
   </url>
   <url>
     <loc>https://afterglows.starlightdaemon.dev/matrix_code/</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -17,30 +17,6 @@
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://afterglows.starlightdaemon.dev/matrix_code/demo_canvas.html</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://afterglows.starlightdaemon.dev/matrix_code/demo_binary.html</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://afterglows.starlightdaemon.dev/matrix_code/demo_themes.html</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://afterglows.starlightdaemon.dev/matrix_code/demo_classic.html</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://afterglows.starlightdaemon.dev/retro/crt_demo.html</loc>
