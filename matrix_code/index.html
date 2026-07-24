@@ -439,6 +439,43 @@
             // Hard reset the surface so stale trails don't smear after resize.
             ctx.fillStyle = theme.bg;
             ctx.fillRect(0, 0, width, height);
+            // Reduced motion shows a static field instead of a blank frame:
+            // every drop is seeded ABOVE the top for staggered entry, so the
+            // single frame startEngine() renders would otherwise draw the
+            // whole model off-screen. Same treatment FILM/DRAFT/TRACE get.
+            if (reducedMotion.matches) { staticDropField(); }
+        }
+
+        // One frozen frame of the drop engine: each column gets a head at a
+        // random on-screen row with its trail fading upward, mirroring what
+        // draw() paints — head in theme.head with the glow, body in
+        // color/dim per the style's weighting.
+        function staticDropField() {
+            const fs = style.fontSize;
+            const rows = Math.ceil(height / fs);
+            ctx.font = style.fontWeight + fs + "px 'Courier New', monospace";
+            ctx.textBaseline = 'top';
+            for (let i = 0; i < drops.length; i++) {
+                const x = i * style.colGap;
+                const head = (Math.random() * rows) | 0;
+                const len = 6 + ((Math.random() * rows) / 2 | 0);
+                const weight = drops[i].weight;
+                const hot = style.weighted ? weight > 0.72 : false;
+                for (let k = 1; k <= len; k++) {
+                    const row = head - k;
+                    if (row < 0) { break; }
+                    ctx.fillStyle = hot ? theme.color : theme.dim;
+                    ctx.globalAlpha = Math.max(0.08,
+                        (style.weighted ? 0.35 + weight * 0.55 : 0.55) * (1 - k / len));
+                    ctx.fillText(glyph(), x, row * fs);
+                }
+                ctx.globalAlpha = 1;
+                ctx.fillStyle = theme.head;
+                ctx.shadowColor = theme.glow;
+                ctx.shadowBlur = 8 + (style.weighted ? weight * 8 : 0);
+                ctx.fillText(glyph(), x, head * fs);
+                ctx.shadowBlur = 0;
+            }
         }
 
         // Re-read the backing scale if devicePixelRatio changes without a
