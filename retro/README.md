@@ -5,7 +5,7 @@ A standalone collection of CSS tools to add retro Monitor, Terminal, and CRT eff
 ## 📂 Contents
 
 *   **`crt_tools.css`** - The core library. Import this into any project.
-*   **`crt_demo.html`** - A visual gallery showing the effects in action. Color theme and font are set via the shared site gear (see below), not an in-page picker.
+*   **`crt_demo.html`** - A visual gallery showing the effects in action. The demo panels have their own in-page color control, independent of the shared site gear (see below); the gear still governs the page chrome and font.
 
 ## 🚀 How to Use
 
@@ -64,21 +64,40 @@ document.documentElement.setAttribute('data-phosphor', 'p3');
 document.documentElement.removeAttribute('data-phosphor');
 ```
 
-`crt_demo.html` no longer carries its own inline phosphor-switching copy.
-Like every other page on the site, it loads the shared site-wide controller
-by root-absolute path (`/assets/js/afterglows-settings.js` +
-`/assets/css/afterglows-settings.css`), which injects a gear button + panel
-(bottom-right) for picking the color theme. It persists to the same
-`localStorage` key, `afterglows-phosphor`, that the portable `crt_tools.css`
-(and `matrix_code`'s `matrix_tools.css`) read via `html[data-phosphor]`, so
-this folder still stays dependency-free if you only copy `crt_tools.css` out
-— you just won't get a picker UI unless you build or borrow one.
+`crt_demo.html`'s demo panels are **two-way independent** of the site-wide
+theme system (the same pattern `matrix_code`'s rain uses). The page still
+loads the shared controller (`/assets/js/afterglows-settings.js` +
+`/assets/css/afterglows-settings.css`), but the gear it injects now governs
+only the shared page chrome (header, back button, gear panel, font) — it no
+longer changes the demo panels. The panels render from a locally persisted
+palette instead:
 
-The shared gear also adds a font picker not present in the old inline
-control: `localStorage['afterglows-font']` (IBM, VT323, Space, or Fira),
-applied as `html[data-font]`, which changes `crt_demo.html`'s own page
-chrome typeface. This is separate from `crt_tools.css`'s color variables
-below and has no effect on them.
+- **Control:** an in-page COLOR bar under the page title, offering the same
+  eight palettes as the gear (list sourced from the shared controller's
+  `THEMES`, so keys/names can't drift).
+- **Values:** probed at runtime from `crt_tools.css`'s own
+  `[data-phosphor="..."]` variable blocks through a hidden probe element —
+  never hand-copied, so the colors can't drift from the global palette's
+  actual values. Only the ACTIVE selection is independent.
+- **Persistence:** `localStorage['afterglows-retro-crt-color']` — retro's
+  own key, separate from the global `afterglows-phosphor` (and from
+  matrix_code's `afterglows-matrix-rain-color`). Neither system reads or
+  writes the other's key.
+- **Mechanism:** the chosen palette is applied as inline `--crt-*` custom
+  properties on `<body>`, which beat the `html[data-phosphor]` cascade for
+  everything on the page. The injected site chrome styles itself from the
+  `--ag-*` tokens instead, so it keeps following the global theme.
+- A **⇐ Match Global** button copies the current site theme into the local
+  selection as a one-time snapshot (not a live link).
+
+This changes nothing about `crt_tools.css` itself: the portable library
+still ships the same `[data-phosphor]` API, and a downstream project that
+sets `data-phosphor` on `<html>` gets exactly the documented behavior.
+
+The shared gear also carries the font picker: `localStorage['afterglows-font']`
+(IBM, VT323, Space, or Fira), applied as `html[data-font]`, which changes
+`crt_demo.html`'s own page chrome typeface. This is separate from
+`crt_tools.css`'s color variables below and has no effect on them.
 
 ## 🧭 Header + Back Navigation
 

@@ -206,6 +206,84 @@
             color: var(--crt-green);
         }
 
+        /* ---- Local effect controls (same control-bar language as
+                matrix_code; color here is CRT-local, not the site theme) ---- */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            padding: 14px 18px;
+            margin-bottom: 34px;
+            background: color-mix(in srgb, var(--crt-bg) 82%, black);
+            border: 1px solid var(--crt-dim);
+            box-shadow: 0 0 18px color-mix(in srgb, var(--crt-glow) 12%, transparent);
+            max-width: min(92vw, 1000px);
+        }
+
+        .control-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .row-label {
+            font-size: 10px;
+            letter-spacing: 3px;
+            color: var(--crt-dim);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .theme-btn {
+            padding: 7px 12px;
+            border: 1px solid var(--crt-dim);
+            background: transparent;
+            color: var(--crt-green);
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: border-color 0.2s, background 0.2s, color 0.2s;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--crt-green);
+        }
+
+        .theme-btn.active {
+            background: var(--crt-green);
+            border-color: var(--crt-green);
+            color: var(--crt-bg);
+            text-shadow: none;
+        }
+
+        /* Each color option carries a dot in its OWN palette color
+           (--swatch, set inline from the probed palette) so the row reads
+           as a color picker even though the button chrome rides the
+           page's local palette like the rest of the bar. */
+        .color-btn::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+            background: var(--swatch);
+            box-shadow: 0 0 5px var(--swatch);
+        }
+
+        .theme-note {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--crt-dim);
+            text-transform: uppercase;
+            min-height: 1.2em;
+            font-family: 'Fira Code', monospace;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation: none !important;
@@ -221,6 +299,18 @@
             <h1 class="scanlines">CRT &amp; RETRO EFFECTS</h1>
             <p class="subtitle">phosphor &middot; scanline &middot; glitch &middot; pure css</p>
         </header>
+
+        <!-- Local effect controls: independent of the site theme gear in
+             both directions. Color buttons are generated from the shared
+             palette list so names/values can't drift from the global
+             system. -->
+        <div class="controls" id="crtControls" role="group" aria-label="CRT effect color">
+            <div class="control-row" id="colorRow" role="group"
+                aria-label="Effect color — affects only this page's demo panels, not the site theme">
+                <span class="row-label" title="Demo panels only — the site theme gear does not affect these">COLOR</span>
+            </div>
+            <div class="theme-note" id="themeNote" aria-live="polite"></div>
+        </div>
 
         <div class="grid">
 
@@ -299,10 +389,129 @@
     </main>
 
     <script>
-        // Phosphor theme + font are owned by the shared site controller
-        // (/assets/js/afterglows-settings.js), which injects the gear panel
-        // and persists to the canonical 'afterglows-phosphor' key that
-        // crt_tools.css reads via html[data-phosphor]. No in-page picker here.
+        // Page chrome (header, back button, gear panel, font) is owned by
+        // the shared controller (/assets/js/afterglows-settings.js), which
+        // persists to the canonical 'afterglows-phosphor' key. The DEMO
+        // PANELS themselves are deliberately independent of that system in
+        // both directions (same pattern as matrix_code's rain): they render
+        // from a locally persisted palette ('afterglows-retro-crt-color'),
+        // and the local color control never touches the global theme.
+        // Palette VALUES are still read from the same [data-phosphor] CSS
+        // definitions in crt_tools.css that the global system drives (via a
+        // probe element), so the two systems can't drift apart — only the
+        // ACTIVE selection is separate.
+        'use strict';
+
+        // ---- CRT-local palette source ----
+        // The option LIST comes from the shared controller's THEMES (same
+        // keys, names, notes as the gear panel). The color VALUES for each
+        // key are probed from crt_tools.css's own [data-phosphor="..."]
+        // blocks — never copied by hand, so they cannot drift. Nothing here
+        // reads or writes the root's data-phosphor attribute or the global
+        // storage key.
+        const CRT_COLOR_KEY = 'afterglows-retro-crt-color';
+        const DEFAULT_CRT_COLOR = 'p1';
+        const CRT_COLORS = (window.AfterglowsSettings ? window.AfterglowsSettings.THEMES : [])
+            .map((t) => ({ key: t.key, name: t.name, note: t.note }));
+
+        const FALLBACK_PALETTE = {
+            green: '#00ff41', dim: '#00992a', head: '#d9ffd9',
+            glow: '#00ff41', bg: '#0a0a0a'
+        };
+        const paletteCache = {};
+
+        function paletteFor(key) {
+            if (paletteCache[key]) { return paletteCache[key]; }
+            const probe = document.createElement('div');
+            probe.setAttribute('data-phosphor', key);
+            probe.style.display = 'none';
+            document.body.appendChild(probe);
+            const cs = getComputedStyle(probe);
+            const v = (name, fallback) => (cs.getPropertyValue(name).trim() || fallback);
+            const pal = {
+                green: v('--crt-green', FALLBACK_PALETTE.green),
+                dim: v('--crt-dim', FALLBACK_PALETTE.dim),
+                head: v('--crt-head', FALLBACK_PALETTE.head),
+                glow: v('--crt-glow', FALLBACK_PALETTE.glow),
+                bg: v('--crt-bg', FALLBACK_PALETTE.bg)
+            };
+            probe.remove();
+            paletteCache[key] = pal;
+            return pal;
+        }
+
+        function isCrtColor(key) {
+            return CRT_COLORS.some((c) => c.key === key);
+        }
+
+        const crtControls = document.getElementById('crtControls');
+        const themeNote = document.getElementById('themeNote');
+        const colorRow = document.getElementById('colorRow');
+
+        // Inline custom properties on <body> beat the html[data-phosphor]
+        // cascade for everything on the page, so the demo renders from the
+        // local palette no matter what the global theme does. The injected
+        // site chrome (.ag-header/.ag-back/.ag-settings) styles itself from
+        // the --ag-* tokens in afterglows-settings.css and never reads
+        // these --crt-* values, so it stays governed by the global system.
+        function setCrtColor(key, persist) {
+            if (!isCrtColor(key)) { return; }
+            const pal = paletteFor(key);
+            document.body.style.setProperty('--crt-green', pal.green);
+            document.body.style.setProperty('--crt-dim', pal.dim);
+            document.body.style.setProperty('--crt-head', pal.head);
+            document.body.style.setProperty('--crt-glow', pal.glow);
+            document.body.style.setProperty('--crt-bg', pal.bg);
+
+            colorRow.querySelectorAll('[data-crt-color]').forEach((btn) => {
+                const on = btn.dataset.crtColor === key;
+                btn.classList.toggle('active', on);
+                btn.setAttribute('aria-pressed', String(on));
+            });
+            const meta = CRT_COLORS.find((c) => c.key === key);
+            themeNote.textContent = meta ? 'CRT color — ' + meta.note : '';
+
+            if (persist) {
+                try { localStorage.setItem(CRT_COLOR_KEY, key); } catch (e) { /* private mode */ }
+            }
+        }
+
+        CRT_COLORS.forEach((c) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'theme-btn color-btn';
+            btn.dataset.crtColor = c.key;
+            btn.textContent = c.name;
+            btn.title = c.note;
+            btn.style.setProperty('--swatch', paletteFor(c.key).green);
+            btn.addEventListener('click', () => setCrtColor(c.key, true));
+            colorRow.appendChild(btn);
+        });
+
+        // One-time convenience: copy the CURRENT global theme into the
+        // local selection. A snapshot, not a link — no live updating.
+        if (window.AfterglowsSettings) {
+            const matchBtn = document.createElement('button');
+            matchBtn.type = 'button';
+            matchBtn.className = 'theme-btn';
+            matchBtn.textContent = '⇐ Match Global';
+            matchBtn.title = 'Copy the current site theme into the CRT color (one-time snapshot, not a link)';
+            matchBtn.addEventListener('click', () => {
+                setCrtColor(window.AfterglowsSettings.getPhosphor(), true);
+            });
+            colorRow.appendChild(matchBtn);
+        }
+
+        // Standalone fallback: if the shared controller isn't present
+        // (folder copied out of the site), hide the empty control bar and
+        // let the page render from the plain crt_tools.css cascade.
+        if (!CRT_COLORS.length) {
+            crtControls.hidden = true;
+        } else {
+            let storedColor = null;
+            try { storedColor = localStorage.getItem(CRT_COLOR_KEY); } catch (e) { /* ignore */ }
+            setCrtColor(isCrtColor(storedColor) ? storedColor : DEFAULT_CRT_COLOR, false);
+        }
 
         // Power-on replay: retrigger the animation class.
         (function () {
