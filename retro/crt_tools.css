@@ -14,6 +14,13 @@
      Classes .refresh-sweep .crt-cursor
      Vars    --crt-dim  --crt-head  --crt-glow
      Themes  html[data-phosphor="p1|p31|p3|p4|p7|p2|p14|neon"]
+   New in the hardware-archetype revision (additive):
+     Knobs   --crt-scanline-gap  --crt-scanline-dark  --crt-flicker-gap
+             --crt-flicker-speed --crt-flicker-depth  --crt-bloom
+             --crt-fringe --crt-vignette --crt-curve-x --crt-curve-y
+             --crt-sweep  --crt-sweep-speed
+     Every knob defaults to the previous literal value — omit them all
+     and the rendering is pixel-identical to the prior revision.
    ========================================= */
 
 :root {
@@ -128,8 +135,8 @@
     right: 0;
     background: linear-gradient(to bottom,
             rgba(18, 16, 16, 0) 50%,
-            rgba(0, 0, 0, 0.25) 50%);
-    background-size: 100% 4px;
+            var(--crt-scanline-dark, rgba(0, 0, 0, 0.25)) 50%);
+    background-size: 100% var(--crt-scanline-gap, 4px);
     z-index: 10;
     pointer-events: none;
 }
@@ -151,14 +158,14 @@
     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
         linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
     z-index: 20;
-    background-size: 100% 2px, 3px 100%;
+    background-size: 100% var(--crt-flicker-gap, 2px), 3px 100%;
     pointer-events: none;
-    animation: flicker 0.15s infinite;
+    animation: flicker var(--crt-flicker-speed, 0.15s) infinite;
 }
 
 @keyframes flicker {
     0% {
-        opacity: 0.97;
+        opacity: calc(1 - var(--crt-flicker-depth, 0.03));
     }
 
     100% {
@@ -182,11 +189,11 @@
     height: 30%;
     background: linear-gradient(to bottom,
             transparent 0%,
-            color-mix(in srgb, var(--crt-glow) 9%, transparent) 55%,
-            color-mix(in srgb, var(--crt-glow) 16%, transparent) 100%);
+            color-mix(in srgb, var(--crt-glow) calc(9% * var(--crt-sweep, 1)), transparent) 55%,
+            color-mix(in srgb, var(--crt-glow) calc(16% * var(--crt-sweep, 1)), transparent) 100%);
     z-index: 15;
     pointer-events: none;
-    animation: refresh-sweep 5s linear infinite;
+    animation: refresh-sweep var(--crt-sweep-speed, 5s) linear infinite;
 }
 
 @keyframes refresh-sweep {
@@ -205,10 +212,10 @@
 .phosphor-glow {
     color: var(--crt-green);
     text-shadow:
-        0 0 2px var(--crt-head),
-        0 0 6px var(--crt-glow),
-        0 0 16px color-mix(in srgb, var(--crt-glow) 55%, transparent),
-        0 0 34px color-mix(in srgb, var(--crt-glow) 25%, transparent);
+        0 0 calc(2px * var(--crt-bloom, 1)) var(--crt-head),
+        0 0 calc(6px * var(--crt-bloom, 1)) var(--crt-glow),
+        0 0 calc(16px * var(--crt-bloom, 1)) color-mix(in srgb, var(--crt-glow) 55%, transparent),
+        0 0 calc(34px * var(--crt-bloom, 1)) color-mix(in srgb, var(--crt-glow) 25%, transparent);
     font-family: 'VT323', 'Courier New', monospace;
     font-size: 1.2rem;
     letter-spacing: 1px;
@@ -216,7 +223,9 @@
 
 /* Chromatic Aberration (RGB Split) */
 .chromatic-text {
-    text-shadow: 2px 0 rgba(255, 0, 0, 0.5), -2px 0 rgba(0, 0, 255, 0.5);
+    text-shadow:
+        calc(2px * var(--crt-fringe, 1)) 0 rgba(255, 0, 0, 0.5),
+        calc(-2px * var(--crt-fringe, 1)) 0 rgba(0, 0, 255, 0.5);
 }
 
 /* Blinking block cursor — append to a text element:
@@ -372,16 +381,16 @@
     border: 2px solid var(--crt-green);
     padding: 20px;
     box-shadow:
-        0 0 15px color-mix(in srgb, var(--crt-glow) 22%, transparent),
-        inset 0 0 22px color-mix(in srgb, var(--crt-glow) 7%, transparent);
+        0 0 calc(15px * var(--crt-bloom, 1)) color-mix(in srgb, var(--crt-glow) 22%, transparent),
+        inset 0 0 calc(22px * var(--crt-bloom, 1)) color-mix(in srgb, var(--crt-glow) 7%, transparent);
     border-radius: 4px;
 }
 
 /* Screen Curve (Vignette + tube highlight) */
 .screen-curve {
-    border-radius: 10px / 14px;
+    border-radius: var(--crt-curve-x, 10px) / var(--crt-curve-y, 14px);
     box-shadow:
-        inset 0 0 100px rgba(0, 0, 0, 0.9),
+        inset 0 0 calc(100px * var(--crt-vignette, 1)) rgba(0, 0, 0, 0.9),
         inset 0 2px 24px rgba(255, 255, 255, 0.05);
 }
 
