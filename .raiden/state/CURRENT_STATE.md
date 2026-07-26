@@ -25,7 +25,7 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 
 - Site deployed from repository root via GitHub Pages (CNAME configured).
 - Concepts gallery modularized and expanded; components versioned.
-- Stargate removed from Afterglows; it now lives in its own standalone repo (`E:\Citadel/Stargate`).
+- Stargate removed from Afterglows; it now lives in its own standalone repo (`E:\Citadel\Stargate`).
 - Dead Stargate UI hooks and dead media/sound code removed.
 - `backups/` directory excluded from git (local `.gitignore` entry).
 - `node_modules/` present (npm project); excluded from git.

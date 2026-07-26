@@ -29,7 +29,7 @@
 
 ## Pre-RAIDEN notable events
 
-- Stargate removed from Afterglows; spun off to `E:\Citadel/Stargate` standalone repo.
+- Stargate removed from Afterglows; spun off to `E:\Citadel\Stargate` standalone repo.
 - Concepts gallery modularized and versioned; components restructured.
 - Dead Stargate UI hooks and dead media/sound code removed.
 - `backups/` directory added to `.gitignore`.
