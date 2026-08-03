@@ -94,6 +94,35 @@ trail some of these entries reference.
   Vane, Windsock, Wind-up Robot, Woodpecker), and the already-versioned
   **Pacman** and **Circuit** append **Refined v3** with their prior v2
   restored on the cycler.
+- **Music Box** steps "New v1" → **Refined v2** (original preserved on the
+  cycler): the winding key moves to its own mount in the case's clear
+  end-cap instead of colliding with the comb teeth, the open lid re-skews
+  from a centered origin so it stays inside the tile, and the comb becomes
+  a graduated bass-to-treble bank mounted above the cylinder.
+- **Automated refinement pass over the 8 backlog concepts** (working list
+  in `.audits/concept-revision-tracker-2026-08-03.md`), each stepping
+  "New v1" → **Refined v2** with the original preserved on the cycler:
+  **Ferris Wheel** (the rim's marquee-bulb ring was entirely invisible —
+  its mask gradient sized farthest-corner put the ring outside the
+  element's clipped circle; also hub/leg-apex alignment and gondola ground
+  clearance), **Soldering Iron** (the iron's tip landed ~14px off the pad
+  and never touched the joint it was making; a cooled bead now sits on the
+  neighboring pad), **Claw Machine** (grab centered and fingers actually
+  wrap the prize; the slip now tumbles the prize back onto its starting
+  spot through a full backspin so the loop closes without a teleport),
+  **Traffic Light** (stop phase now hands directly to green instead of
+  0.64s of all-dark; the car genuinely queues on red; housing/hoods
+  re-centered), **Wrench & Bolt** (the nut now actually seats against a
+  flange on a new workpiece plate, descend steps sync to stroke ends, and
+  the loop resets behind a fade while the wrench visibly lifts back to the
+  top), **Wind Chimes** (tubes ride one 5.2s breeze as a traveling wave
+  instead of five unrelated periods that let neighbors cross; the striker
+  now reaches both tubes it rings), **Anglerfish** (illicium rooted on the
+  head instead of floating 20px above it, lower-jaw teeth point up, eye
+  brought inside the outline, prey motes all eaten by the jaw snap), and
+  **Hot Air Balloon** (burner frame added with the flame anchored to it
+  and flaring up into the envelope mouth, sandbag hung off the basket rim
+  on a cord, drift re-centered off the tile's clip edge).
 - **Constellation** returns to its natural celestial identity: reduced to
   v1/v2 (default v2); the chart versions moved to Star Chart.
 - **Microscope** is now versioned: v1 preserves the original

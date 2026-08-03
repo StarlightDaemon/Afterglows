@@ -1,4 +1,11 @@
-const balloonStyles = `
+// v1 below is the archived original; v2 mounts the burner where one lives
+// (a frame between the suspension lines, flame anchored at its base and
+// flaring UP into the envelope mouth instead of floating at the skirt and
+// growing from its middle), hangs the sandbag off the basket's outer rim
+// on a cord rather than overlapping the basket border, and re-centers the
+// drift so the basket never rides against the tile's clipped bottom edge.
+const balloonStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -158,16 +165,206 @@ const balloonStyles = `
     0% { left: 104px; }
     100% { left: -40px; }
   }
-`;
-
-class ConceptBalloon extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+`,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${balloonStyles}</style>
+
+  /* Drifting flight: the balloon sways on a slow figure, and each
+     burner blast shoots a flame up from the burner frame into the
+     envelope mouth, lighting it from below and nudging the rig
+     upward before it settles. Clouds slide past behind. */
+  .hab {
+    width: 104px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hab-rig {
+    position: absolute;
+    left: 50%;
+    top: 4px;
+    width: 0;
+    height: 0;
+    animation: hab-drift 7s ease-in-out infinite;
+  }
+
+  /* Vertical drift stays within +/-4px so the basket and bag never
+     ride against the tile's clipped bottom edge. */
+  @keyframes hab-drift {
+    0%, 100% { transform: translate(-6px, 4px) rotate(-2deg); }
+    /* Burner blast at 30% lifts the rig. */
+    36% { transform: translate(2px, -4px) rotate(1.5deg); }
+    60% { transform: translate(7px, 1px) rotate(1deg); }
+    80% { transform: translate(0px, 4px) rotate(-1deg); }
+  }
+
+  /* Envelope with gore stripes. */
+  .hab-envelope {
+    position: absolute;
+    left: -26px;
+    top: 0;
+    width: 52px;
+    height: 56px;
+    border-radius: 50% 50% 42% 42% / 58% 58% 40% 40%;
+    border: 2px solid var(--accent, #00cc00);
+    background:
+      linear-gradient(90deg,
+        rgba(0, 110, 22, 0.7) 0 14%,
+        rgba(0, 204, 0, 0.45) 14% 28%,
+        rgba(0, 110, 22, 0.7) 28% 42%,
+        rgba(0, 204, 0, 0.45) 42% 58%,
+        rgba(0, 110, 22, 0.7) 58% 72%,
+        rgba(0, 204, 0, 0.45) 72% 86%,
+        rgba(0, 110, 22, 0.7) 86% 100%);
+    box-shadow: inset 0 -8px 12px rgba(0, 204, 0, 0.25);
+    animation: hab-glow 7s ease-in-out infinite;
+  }
+
+  /* The blast lights the envelope from below. */
+  @keyframes hab-glow {
+    0%, 24%, 52%, 100% { box-shadow: inset 0 -8px 12px rgba(0, 204, 0, 0.25); }
+    30%, 40% { box-shadow: inset 0 -16px 20px rgba(140, 255, 170, 0.6), 0 0 14px rgba(0, 204, 0, 0.4); }
+  }
+
+  /* Skirt at the envelope mouth, catching the blast light. */
+  .hab-skirt {
+    position: absolute;
+    left: -10px;
+    top: 54px;
+    width: 20px;
+    height: 7px;
+    clip-path: polygon(12% 0, 88% 0, 100% 100%, 0 100%);
+    background: rgba(0, 90, 18, 0.8);
+    border: 1px solid rgba(0, 204, 0, 0.6);
+    animation: hab-mouth 7s ease-in-out infinite;
+  }
+
+  @keyframes hab-mouth {
+    0%, 24%, 52%, 100% { background: rgba(0, 90, 18, 0.8); }
+    30%, 40% { background: rgba(60, 170, 70, 0.9); }
+  }
+
+  /* Burner frame: a small bar carried between the suspension lines. */
+  .hab-burner {
+    position: absolute;
+    left: -4px;
+    top: 66px;
+    width: 8px;
+    height: 3px;
+    border-radius: 1px;
+    background: rgba(140, 255, 170, 0.85);
+  }
+
+  /* Burner flame: anchored at the burner, flaring upward through the
+     skirt into the envelope mouth during the blast. */
+  .hab-flame {
+    position: absolute;
+    left: -3px;
+    top: 58px;
+    width: 6px;
+    height: 8px;
+    border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+    background: radial-gradient(circle at 50% 80%, #f2ffdd, #9ade5a 60%, transparent);
+    opacity: 0.35;
+    transform-origin: 50% 100%;
+    animation: hab-flame 7s ease-in-out infinite;
+  }
+
+  @keyframes hab-flame {
+    0%, 24%, 52%, 100% { transform: scaleY(0.5); opacity: 0.3; }
+    28% { transform: scaleY(1.5) scaleX(1.15); opacity: 1; }
+    34% { transform: scaleY(2.2) scaleX(1.05); opacity: 1; }
+    40% { transform: scaleY(1.1); opacity: 0.85; }
+  }
+
+  /* Suspension lines. */
+  .hab-line {
+    position: absolute;
+    top: 56px;
+    width: 1px;
+    height: 16px;
+    background: rgba(140, 255, 170, 0.7);
+  }
+
+  .hab-line.n1 { left: -16px; transform: rotate(14deg); }
+  .hab-line.n2 { left: -5px; transform: rotate(4deg); }
+  .hab-line.n3 { left: 4px; transform: rotate(-4deg); }
+  .hab-line.n4 { left: 15px; transform: rotate(-14deg); }
+
+  /* Wicker basket. */
+  .hab-basket {
+    position: absolute;
+    left: -11px;
+    top: 71px;
+    width: 22px;
+    height: 13px;
+    border: 2px solid var(--accent, #00cc00);
+    border-radius: 3px 3px 6px 6px;
+    background:
+      repeating-linear-gradient(90deg, rgba(0, 204, 0, 0.35) 0 3px, transparent 3px 6px),
+      rgba(0, 45, 9, 0.7);
+  }
+
+  /* Sandbag hanging off the basket's outer rim on a short cord,
+     swinging with the drift. */
+  .hab-bag {
+    position: absolute;
+    left: -16px;
+    top: 81px;
+    width: 5px;
+    height: 7px;
+    border-radius: 2px 2px 3px 3px;
+    background: rgba(140, 255, 170, 0.7);
+    transform-origin: 50% -3px;
+    animation: hab-bag 3.4s ease-in-out infinite;
+  }
+
+  .hab-bag::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    width: 1px;
+    height: 3px;
+    margin-left: -0.5px;
+    background: rgba(140, 255, 170, 0.6);
+  }
+
+  @keyframes hab-bag {
+    0%, 100% { transform: rotate(-8deg); }
+    50% { transform: rotate(9deg); }
+  }
+
+  /* Clouds sliding past on parallax layers. */
+  .hab-cloud {
+    position: absolute;
+    height: 8px;
+    border-radius: 5px;
+    background: rgba(140, 255, 170, 0.22);
+    filter: blur(1px);
+    animation: hab-cloud linear infinite;
+  }
+
+  .hab-cloud.c1 { top: 18px; width: 30px; animation-duration: 9s; }
+  .hab-cloud.c2 { top: 52px; width: 22px; animation-duration: 12s; animation-delay: -5s; }
+  .hab-cloud.c3 { top: 82px; width: 34px; animation-duration: 10s; animation-delay: -8s; }
+
+  @keyframes hab-cloud {
+    0% { left: 104px; }
+    100% { left: -40px; }
+  }
+`,
+};
+
+const balloonMarkup = {
+  v1: `
       <div class="hab">
         <div class="hab-cloud c1"></div>
         <div class="hab-cloud c2"></div>
@@ -184,7 +381,43 @@ class ConceptBalloon extends HTMLElement {
           <div class="hab-bag"></div>
         </div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="hab">
+        <div class="hab-cloud c1"></div>
+        <div class="hab-cloud c2"></div>
+        <div class="hab-cloud c3"></div>
+        <div class="hab-rig">
+          <div class="hab-envelope"></div>
+          <div class="hab-skirt"></div>
+          <div class="hab-flame"></div>
+          <div class="hab-burner"></div>
+          <div class="hab-line n1"></div>
+          <div class="hab-line n2"></div>
+          <div class="hab-line n3"></div>
+          <div class="hab-line n4"></div>
+          <div class="hab-basket"></div>
+          <div class="hab-bag"></div>
+        </div>
+      </div>
+    `,
+};
+
+class ConceptBalloon extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${balloonStyles[version] || balloonStyles.v2}</style>${balloonMarkup[version] || balloonMarkup.v2}`;
   }
 }
 
