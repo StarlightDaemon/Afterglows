@@ -13,6 +13,94 @@ where it became canonical. Retroactive tags were assigned during a
 `.audits/Afterglows_AUDIT_2026-07-22.md` and its predecessors for the audit
 trail some of these entries reference.
 
+## [Unreleased]
+
+### Added
+- Three gallery concepts from the verified subset of an external concept
+  review (see `.audits/gemini-review-verification-2026-08-01.md`):
+  - **Star Chart** (`space`, versioned) — the technical HUD-style map
+    extracted from Constellation v3/v4.
+  - **Microbial Field** (`bio`) — Microscope's view-inset focus-blur
+    mechanic, given the full frame: reticle stays crisp while the specimen
+    field hunts focus; a flagellate crosses the field.
+  - **Virus** (`bio`) — spiked capsid in slow tumble, ten receptor spikes
+    reaching/retracting on independent clocks, squirming nucleocapsid.
+  - (A fourth concept from the same review, Knee Joint, was added and then
+    cut in the same cycle's library-trim pass below — never released, so
+    it isn't listed as a standalone addition.)
+- **Mothership** (`ufo`) — complete new build replacing the one cut in
+  the trim pass below (a replacement, not a refinement, so it restarts
+  at New v1): the Independence Day archetype — a hull wider than the
+  frame looming over a city skyline, low clouds sliding beneath the rim,
+  chasing rim lights, and the center aperture running its charge-up /
+  beam-drop / windows-flare cycle. Gallery lands at **200 concepts** net
+  of everything this cycle (across the 20 consolidated categories — see
+  Changed below).
+
+### Removed
+- **Tape Dispenser** (`office`), **Power Drill** (`workshop`) and
+  **Depth Gauge** (`ocean`) — cut from the gallery in curation review.
+- **Topographic Map** (`nature`) — added earlier in this cycle from the
+  external review, then cut before release: the contour mechanic doesn't
+  animate compellingly without drifting into radar territory.
+- **Weave Grid** (`geometry`) — cut in curation review. The original
+  never read as more than two sliding line-grids, and a rebuild attempt
+  pivoted it toward a fabric loom — the wrong identity for the geometry
+  category, so the concept was retired instead.
+- **Library-trim pass** (212 → **199 across 29 categories**): twelve
+  concepts cut on the judgment that none was likely to reach a solid
+  result without substantial rework, plus **Knee Joint** (`bio`, added
+  this same cycle, never released). Not a quality verdict on any one of
+  them — each remains a candidate to revisit from git history if a
+  different take on the subject comes up. **Jump Shot** and **Soccer
+  Goal** (`sport`) were mid-retrofit into versioned tiles in this same
+  cycle; **Laser Scan** (`scanning`) and **Portal** (`space`) were
+  versioned Original-v1/Refined-v2 tiles — Portal in particular is
+  earmarked to return in a future take; **Barometer** (`weather`),
+  **Hammer & Nail** and **Handsaw** (`workshop`), **Windshield Wipers**
+  (`street`), **Mothership** (`ufo`), **Lungs** (`bio`), **Skull**
+  (`occult`) and **Popcorn** (`kitchen`) round out the cut. Full
+  reasoning and per-concept notes in
+  `.audits/concept-revision-tracker-2026-08-03.md`.
+
+- Gallery **date sorting**: every manifest entry now carries `added`/
+  `updated` ISO-UTC timestamps (backfilled from git author dates; the 39
+  originals date to the 2026-04-20 modularization, their earliest tracked
+  form). A new Sort dropdown offers Curated / Newest first / Recently
+  updated; the date sorts render one flat newest-first grid with the date
+  on each card.
+- Gallery toolbar: the 29-chip category wall is now a compact
+  `Categories: All ▾` disclosure drawer whose toggle summarises the current
+  selection; isolate semantics unchanged.
+
+### Changed
+- **Category consolidation: 29 → 20.** Nine merges, no concept left
+  unhoused: scanning→`systems` (Systems & Scanning), optics+labwork→`lab`
+  (Lab & Optics), weather→`nature` (Nature & Weather), ufo→`scifi`
+  (Sci-Fi & Encounters), workshop+clockwork→`mech` (Mechanisms & Tools),
+  kitchen+office→`home` (Home & Office), street+money→`city` (City &
+  Commerce), play+sport→`games` (Games & Sport), insects→`garden`
+  (Garden & Insects). The remaining eleven categories carry over
+  unchanged. Average category size rises from ~7 to 10 (range 5–15).
+- **Revision pass over 34 concepts** (dictated review; working list in
+  `.audits/concept-revision-tracker-2026-08-03.md`). Every rebuild ships
+  as a new tile version with the prior render preserved on the version
+  cycler: 32 concepts step "New v1" → **Refined v2** (Jump Shot, Bowling
+  Strike, Bunsen Burner, Cash Register, Caterpillar, Cell Cluster, Coin
+  Flip, Desk Fan, Dice Roll, Venus Flytrap, Fractal Tree, Hummingbird,
+  Jack-in-the-Box, Joystick, Ladybug, Praying Mantis, Molecule Chain,
+  Piggy Bank, Planet Rings, Scissors, Pencil Sharpener, Slinky, Soccer
+  Goal, Spider, Stapler, Swan, Tape Reels, Typewriter, Wand Cast, Weather
+  Vane, Windsock, Wind-up Robot, Woodpecker), and the already-versioned
+  **Pacman** and **Circuit** append **Refined v3** with their prior v2
+  restored on the cycler.
+- **Constellation** returns to its natural celestial identity: reduced to
+  v1/v2 (default v2); the chart versions moved to Star Chart.
+- **Microscope** is now versioned: v1 preserves the original
+  two-subjects-at-once render; new v2 lets the instrument stand alone —
+  recentred, with the objective turret clicking between ×100/×400 and the
+  focus knob re-hunting after each swap.
+
 ## [1.8.1] - 2026-07-24
 
 ### Fixed

@@ -1,3 +1,8 @@
+// 2026-08-01 split: the view inset's cell field and focus-blur mechanic
+// moved to microbes-concept.js, where it gets the full frame. v1 preserves
+// the original two-subjects-at-once render; v2 lets the instrument stand
+// alone — recentred, with the objective turret clicking between powers and
+// the mag readout following.
 const microscopeStyles = `
   :host {
     display: flex;
@@ -7,9 +12,10 @@ const microscopeStyles = `
     height: 100%;
   }
 
-  /* At the bench: the mirror throws light up through the slide, the
-     focus knob hunts, and the view inset drifts from blur to a crisp
-     field of swimming cells - then someone nudges the stage. */
+  /* --- v1: the original bench scene with the view inset ---
+     The mirror throws light up through the slide, the focus knob hunts,
+     and the view inset drifts from blur to a crisp field of swimming
+     cells - then someone nudges the stage. */
   .mi {
     width: 116px;
     height: 96px;
@@ -238,37 +244,299 @@ const microscopeStyles = `
     letter-spacing: 1px;
     color: rgba(140, 255, 170, 0.75);
   }
+
+  /* --- v2: the instrument alone, recentred ---
+     One 9s bench story: focus hunts and settles at low power, the turret
+     clicks over to the high-power objective (readout follows), focus
+     re-hunts and settles again, then the turret clicks back just before
+     the loop closes. */
+  .mi2 {
+    width: 104px;
+    height: 96px;
+    position: relative;
+  }
+
+  .mi2-base {
+    position: absolute;
+    left: 22px;
+    bottom: 6px;
+    width: 54px;
+    height: 7px;
+    border-radius: 3px 6px 2px 2px;
+    background: linear-gradient(180deg, rgba(0, 130, 26, 0.85), rgba(0, 60, 12, 0.9));
+  }
+
+  .mi2-arm {
+    position: absolute;
+    left: 58px;
+    bottom: 10px;
+    width: 9px;
+    height: 56px;
+    border-radius: 6px 10px 2px 2px;
+    background: linear-gradient(90deg, rgba(0, 150, 30, 0.85), rgba(0, 80, 16, 0.9));
+    transform: rotate(-8deg);
+  }
+
+  .mi2-tube {
+    position: absolute;
+    left: 42px;
+    top: 6px;
+    width: 8px;
+    height: 26px;
+    border-radius: 4px 4px 2px 2px;
+    background: linear-gradient(180deg, rgba(190, 255, 205, 0.9), rgba(0, 120, 24, 0.9));
+    transform: rotate(24deg);
+  }
+
+  /* Turret: slides so the working objective sits over the slide. The
+     shift lands as a quick click, not a glide. */
+  .mi2-turret {
+    position: absolute;
+    left: 44px;
+    top: 32px;
+    width: 16px;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(140, 255, 170, 0.85);
+    animation: mi2-swap 9s infinite;
+  }
+
+  @keyframes mi2-swap {
+    0%, 44% { transform: translateX(0); }
+    46%, 94% { transform: translateX(-6px); }
+    96%, 100% { transform: translateX(0); }
+  }
+
+  .mi2-obj {
+    position: absolute;
+    top: 6px;
+    width: 4px;
+    background: rgba(190, 255, 205, 0.9);
+    border-radius: 0 0 2px 2px;
+  }
+
+  /* Low power first: o1 long and lit, o2 short and dim — swapping with
+     the turret click. */
+  .mi2-obj.o1 { left: 3px; height: 9px; animation: mi2-obj-a 9s infinite; }
+  .mi2-obj.o2 { left: 9px; height: 6px; animation: mi2-obj-b 9s infinite; }
+
+  @keyframes mi2-obj-a {
+    0%, 44% { opacity: 1; }
+    46%, 94% { opacity: 0.55; }
+    96%, 100% { opacity: 1; }
+  }
+
+  @keyframes mi2-obj-b {
+    0%, 44% { opacity: 0.55; }
+    46%, 94% { opacity: 1; }
+    96%, 100% { opacity: 0.55; }
+  }
+
+  .mi2-stage {
+    position: absolute;
+    left: 30px;
+    top: 52px;
+    width: 42px;
+    height: 4px;
+    background: rgba(0, 204, 0, 0.7);
+    border-radius: 2px;
+    animation: mi2-nudge 9s infinite;
+  }
+
+  .mi2-slide {
+    position: absolute;
+    left: 38px;
+    top: 49px;
+    width: 22px;
+    height: 3px;
+    background: rgba(190, 255, 205, 0.6);
+    border-radius: 1px;
+    animation: mi2-nudge 9s infinite;
+  }
+
+  @keyframes mi2-nudge {
+    0%, 66% { transform: translateX(0); }
+    68% { transform: translateX(3px); }
+    70% { transform: translateX(2px); }
+    100% { transform: translateX(2px); }
+  }
+
+  .mi2-mirror {
+    position: absolute;
+    left: 46px;
+    top: 62px;
+    width: 12px;
+    height: 5px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #d6ffe0, rgba(0, 140, 28, 0.9));
+    transform-origin: 50% 50%;
+    animation: mi2-mirror 9s ease-in-out infinite;
+  }
+
+  @keyframes mi2-mirror {
+    0%, 100% { transform: rotate(-14deg); }
+    30%, 60% { transform: rotate(-24deg); }
+  }
+
+  /* Light shaft: brightens whenever focus is settled. */
+  .mi2-shaft {
+    position: absolute;
+    left: 49px;
+    top: 52px;
+    width: 6px;
+    height: 12px;
+    clip-path: polygon(20% 100%, 80% 100%, 100% 0, 0 0);
+    background: linear-gradient(0deg, rgba(214, 255, 224, 0.6), rgba(140, 255, 170, 0.15));
+    animation: mi2-shaft 9s ease-in-out infinite;
+  }
+
+  @keyframes mi2-shaft {
+    0%, 100% { opacity: 0.5; }
+    38%, 44% { opacity: 1; }
+    48% { opacity: 0.55; }
+    68%, 92% { opacity: 1; }
+  }
+
+  /* Focus knob: hunts to a settle at low power, re-hunts after the swap. */
+  .mi2-knob {
+    position: absolute;
+    left: 70px;
+    top: 34px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid rgba(140, 255, 170, 0.85);
+    box-sizing: border-box;
+    animation: mi2-knob 9s infinite;
+  }
+
+  .mi2-knob::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1.5px;
+    height: 3px;
+    margin-left: -0.75px;
+    background: rgba(214, 255, 224, 0.95);
+  }
+
+  @keyframes mi2-knob {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(-70deg); }
+    22% { transform: rotate(40deg); }
+    32% { transform: rotate(-12deg); }
+    38%, 46% { transform: rotate(0deg); }
+    /* New objective, new hunt. */
+    54% { transform: rotate(-45deg); }
+    62% { transform: rotate(28deg); }
+    68%, 100% { transform: rotate(8deg); }
+  }
+
+  /* Mag readout: crossfades with the turret click. */
+  .mi2-mag {
+    position: absolute;
+    right: 4px;
+    bottom: 10px;
+    width: 26px;
+    height: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: rgba(140, 255, 170, 0.75);
+    text-align: right;
+  }
+
+  .mi2-mag span {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .mi2-mag .m100 { animation: mi2-mag-a 9s infinite; }
+  .mi2-mag .m400 { animation: mi2-mag-b 9s infinite; }
+
+  @keyframes mi2-mag-a {
+    0%, 44% { opacity: 1; }
+    46%, 94% { opacity: 0; }
+    96%, 100% { opacity: 1; }
+  }
+
+  @keyframes mi2-mag-b {
+    0%, 44% { opacity: 0; }
+    46%, 94% { opacity: 1; }
+    96%, 100% { opacity: 0; }
+  }
 `;
 
+const microscopeMarkup = {
+  v1: `
+    <div class="mi">
+      <div class="mi-arm"></div>
+      <div class="mi-tube"></div>
+      <div class="mi-turret">
+        <div class="mi-obj o1"></div>
+        <div class="mi-obj o2"></div>
+      </div>
+      <div class="mi-shaft"></div>
+      <div class="mi-stage"></div>
+      <div class="mi-slide"></div>
+      <div class="mi-mirror"></div>
+      <div class="mi-knob"></div>
+      <div class="mi-base"></div>
+      <div class="mi-view">
+        <div class="mi-cell x1"></div>
+        <div class="mi-cell x2"></div>
+        <div class="mi-cell x3"></div>
+      </div>
+      <div class="mi-mag">&#215;400</div>
+    </div>
+  `,
+  v2: `
+    <div class="mi2">
+      <div class="mi2-arm"></div>
+      <div class="mi2-tube"></div>
+      <div class="mi2-turret">
+        <div class="mi2-obj o1"></div>
+        <div class="mi2-obj o2"></div>
+      </div>
+      <div class="mi2-shaft"></div>
+      <div class="mi2-stage"></div>
+      <div class="mi2-slide"></div>
+      <div class="mi2-mirror"></div>
+      <div class="mi2-knob"></div>
+      <div class="mi2-base"></div>
+      <div class="mi2-mag">
+        <span class="m100">&#215;100</span>
+        <span class="m400">&#215;400</span>
+      </div>
+    </div>
+  `,
+};
+
 class ConceptMicroscope extends HTMLElement {
+  static get observedAttributes() {
+    return ['version'];
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
+
   connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${microscopeStyles}</style>
-      <div class="mi">
-        <div class="mi-arm"></div>
-        <div class="mi-tube"></div>
-        <div class="mi-turret">
-          <div class="mi-obj o1"></div>
-          <div class="mi-obj o2"></div>
-        </div>
-        <div class="mi-shaft"></div>
-        <div class="mi-stage"></div>
-        <div class="mi-slide"></div>
-        <div class="mi-mirror"></div>
-        <div class="mi-knob"></div>
-        <div class="mi-base"></div>
-        <div class="mi-view">
-          <div class="mi-cell x1"></div>
-          <div class="mi-cell x2"></div>
-          <div class="mi-cell x3"></div>
-        </div>
-        <div class="mi-mag">&#215;400</div>
-      </div>
-    `;
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    if (this.isConnected) {
+      this.render();
+    }
+  }
+
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${microscopeStyles}</style>${microscopeMarkup[version] || microscopeMarkup.v2}`;
   }
 }
 

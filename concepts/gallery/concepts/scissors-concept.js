@@ -1,4 +1,11 @@
-const scissorsStyles = `
+// Scissors, rebuilt (2026-08-02): the old composition was cramped into a
+// corner and the cut halves barely registered against the blades. Now the
+// paper fills the frame properly, the scissors are bigger and read as an
+// unmistakable pair of shears, and the two cut halves visibly separate and
+// curl as the blades pass.
+// v1 is the archived original; v2 (default) is the rebuild. Same markup.
+const scissorsStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -187,16 +194,198 @@ const scissorsStyles = `
     50% { opacity: 1; }
     60%, 100% { opacity: 0; }
   }
-`;
-
-class ConceptScissors extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+`,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${scissorsStyles}</style>
+
+  .sc {
+    width: 116px;
+    height: 92px;
+    position: relative;
+  }
+
+  /* Paper sheet, filling most of the frame. */
+  .sc-paper {
+    position: absolute;
+    left: 4px;
+    top: 26px;
+    width: 108px;
+    height: 44px;
+    border: 1px solid rgba(140, 255, 170, 0.6);
+    background: linear-gradient(180deg, rgba(0, 40, 8, 0.5), rgba(0, 25, 5, 0.6));
+  }
+
+  /* Cut-line guide (dashes), only visible ahead of the blades. */
+  .sc-line {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    top: 48px;
+    height: 1px;
+    background: repeating-linear-gradient(90deg,
+      rgba(140, 255, 170, 0.6) 0 4px,
+      transparent 4px 8px);
+  }
+
+  /* Cut halves: start as the paper's full height, split and curl apart
+     behind the advancing blades. */
+  .sc-half-top {
+    position: absolute;
+    right: 10px;
+    top: 26px;
+    width: 0;
+    height: 22px;
+    background: linear-gradient(180deg, rgba(0, 150, 30, 0.5), rgba(0, 90, 18, 0.55));
+    border: 1px solid rgba(140, 255, 170, 0.55);
+    border-bottom: none;
+    transform-origin: 100% 100%;
+    animation: sc-half-top 5s linear infinite;
+  }
+
+  @keyframes sc-half-top {
+    0% { width: 0; transform: rotate(0deg); }
+    85% { width: 96px; transform: rotate(-8deg); }
+    90% { width: 96px; }
+    92% { width: 0; transform: rotate(0deg); }
+    100% { width: 0; }
+  }
+
+  .sc-half-bot {
+    position: absolute;
+    right: 10px;
+    top: 48px;
+    width: 0;
+    height: 22px;
+    background: linear-gradient(180deg, rgba(0, 90, 18, 0.55), rgba(0, 150, 30, 0.5));
+    border: 1px solid rgba(140, 255, 170, 0.55);
+    border-top: none;
+    transform-origin: 100% 0%;
+    animation: sc-half-bot 5s linear infinite;
+  }
+
+  @keyframes sc-half-bot {
+    0% { width: 0; transform: rotate(0deg); }
+    85% { width: 96px; transform: rotate(8deg); }
+    90% { width: 96px; }
+    92% { width: 0; transform: rotate(0deg); }
+    100% { width: 0; }
+  }
+
+  /* The scissors: bigger, advancing leftward while snipping. */
+  .sc-tool {
+    position: absolute;
+    top: 22px;
+    right: 6px;
+    width: 62px;
+    height: 34px;
+    animation: sc-advance 5s linear infinite;
+  }
+
+  @keyframes sc-advance {
+    0% { transform: translateX(0); }
+    85% { transform: translateX(-96px); }
+    90% { transform: translateX(-96px); }
+    92% { transform: translateX(0); }
+    100% { transform: translateX(0); }
+  }
+
+  /* Pivot screw. */
+  .sc-pivot {
+    position: absolute;
+    right: 24px;
+    top: 15px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #d6ffe0;
+    box-shadow: 0 0 5px rgba(0, 204, 0, 0.7);
+    z-index: 3;
+  }
+
+  /* Blades: pivot at the screw, opening/closing, pointed left. */
+  .sc-blade {
+    position: absolute;
+    right: 27px;
+    top: 17px;
+    width: 40px;
+    height: 4px;
+    transform-origin: 100% 50%;
+  }
+
+  .sc-blade::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 2px 0 0 2px;
+    background: linear-gradient(90deg, rgba(214, 255, 224, 0.95), rgba(0, 150, 30, 0.85));
+    box-shadow: 0 0 3px rgba(0, 204, 0, 0.3);
+  }
+
+  .sc-blade.top { animation: sc-snip-top 0.5s ease-in-out infinite; }
+  .sc-blade.bot { animation: sc-snip-bot 0.5s ease-in-out infinite; }
+
+  @keyframes sc-snip-top {
+    0%, 100% { transform: rotate(-20deg); }
+    50% { transform: rotate(-2deg); }
+  }
+
+  @keyframes sc-snip-bot {
+    0%, 100% { transform: rotate(20deg); }
+    50% { transform: rotate(2deg); }
+  }
+
+  /* Finger-loop handles on the right. */
+  .sc-handle {
+    position: absolute;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    border: 2.5px solid rgba(140, 255, 170, 0.85);
+    border-radius: 50%;
+    transform-origin: 0% 50%;
+  }
+
+  .sc-handle.top { top: 2px; animation: sc-hand-top 0.5s ease-in-out infinite; }
+  .sc-handle.bot { top: 16px; animation: sc-hand-bot 0.5s ease-in-out infinite; }
+
+  @keyframes sc-hand-top {
+    0%, 100% { transform: rotate(16deg); }
+    50% { transform: rotate(2deg); }
+  }
+
+  @keyframes sc-hand-bot {
+    0%, 100% { transform: rotate(-16deg); }
+    50% { transform: rotate(-2deg); }
+  }
+
+  /* Snip spark at the blade tips. */
+  .sc-spark {
+    position: absolute;
+    left: -4px;
+    top: 15px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #f2ffdd, transparent 70%);
+    animation: sc-spark 0.5s steps(1) infinite;
+  }
+
+  @keyframes sc-spark {
+    0%, 40% { opacity: 0; }
+    50% { opacity: 1; }
+    60%, 100% { opacity: 0; }
+  }
+`,
+};
+
+/* Same markup in both versions; only the styles differ. */
+const scissorsMarkup = `
       <div class="sc">
         <div class="sc-paper"></div>
         <div class="sc-line"></div>
@@ -212,6 +401,22 @@ class ConceptScissors extends HTMLElement {
         </div>
       </div>
     `;
+
+class ConceptScissors extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${scissorsStyles[version] || scissorsStyles.v2}</style>${scissorsMarkup}`;
   }
 }
 

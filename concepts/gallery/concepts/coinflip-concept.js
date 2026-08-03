@@ -71,40 +71,76 @@ const coinflipStyles = `
     background: radial-gradient(circle at 40% 35%, rgba(214, 255, 224, 0.9), rgba(0, 160, 32, 0.8) 60%, rgba(0, 100, 20, 0.9));
     box-shadow: 0 0 8px rgba(0, 204, 0, 0.5);
     box-sizing: border-box;
-    animation: cn-flip 0.32s linear infinite, cn-settle 4s ease-out infinite;
+    animation: cn-flip 4s linear infinite;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* Face symbol swaps with the flip to fake heads/tails. */
-  .cn-face {
-    font-size: 12px;
-    font-weight: bold;
-    color: #041a0a;
-    animation: cn-face 0.64s steps(1) infinite;
+  /* v1 (archived original): constant strobe flip that never lands. */
+  .cn.v1 .cn-coin {
+    animation: cn-flip-v1 0.32s linear infinite;
   }
 
-  .cn-face::before {
-    content: 'H';
-    animation: cn-faceletter 0.64s steps(1) infinite;
+  .cn.v1 .cn-face::before {
+    animation: cn-faceletter-v1 0.64s steps(1) infinite;
   }
 
-  @keyframes cn-faceletter {
-    0% { content: 'H'; }
-    50% { content: 'T'; }
-  }
-
-  @keyframes cn-flip {
+  @keyframes cn-flip-v1 {
     0% { transform: scaleY(1); }
     50% { transform: scaleY(0.08); }
     100% { transform: scaleY(1); }
   }
 
-  /* Settle: flipping stops near the end, a couple of slow rocks. */
-  @keyframes cn-settle {
-    0%, 82% { animation-duration: 0.32s; }
-    /* (visual: after 82% the flip keyframes still run but land flat) */
+  @keyframes cn-faceletter-v1 {
+    0% { content: 'H'; }
+    50% { content: 'T'; }
+  }
+
+  /* Face letter swaps H/T once per tumble, ending on the called HEADS. */
+  .cn-face {
+    font-size: 12px;
+    font-weight: bold;
+    color: #041a0a;
+  }
+
+  .cn-face::before {
+    content: 'H';
+    animation: cn-faceletter 4s steps(1) infinite;
+  }
+
+  @keyframes cn-faceletter {
+    0%, 14% { content: 'H'; }
+    22% { content: 'T'; }
+    30% { content: 'H'; }
+    38% { content: 'T'; }
+    46% { content: 'H'; }
+    54% { content: 'T'; }
+    62% { content: 'H'; }
+    70%, 100% { content: 'H'; }
+  }
+
+  /* One timeline of discrete tumbles synced to the toss: seven squashes
+     through the edge during flight, then it lands and STAYS flat —
+     the old constant 0.32s flip strobed the coin invisible forever. */
+  @keyframes cn-flip {
+    0%, 8% { transform: scaleY(1); }
+    12% { transform: scaleY(0.1); }
+    16% { transform: scaleY(1); }
+    20% { transform: scaleY(0.1); }
+    24% { transform: scaleY(1); }
+    28% { transform: scaleY(0.1); }
+    32% { transform: scaleY(1); }
+    36% { transform: scaleY(0.1); }
+    40% { transform: scaleY(1); }
+    46% { transform: scaleY(0.1); }
+    52% { transform: scaleY(1); }
+    58% { transform: scaleY(0.1); }
+    64% { transform: scaleY(1); }
+    70% { transform: scaleY(0.14); }
+    /* Landed: face up, a settle bounce, then hold. */
+    76% { transform: scaleY(1.06); }
+    80%, 100% { transform: scaleY(1); }
   }
 
   /* Motion streaks beside the spinning coin. */
@@ -171,25 +207,38 @@ const coinflipStyles = `
   }
 `;
 
+/* Same scene in both versions; only the coin/face animations differ. */
+const coinflipScene = `
+  <div class="cn-streak s1"></div>
+  <div class="cn-streak s2"></div>
+  <div class="cn-toss">
+    <div class="cn-coin"><span class="cn-face"></span></div>
+  </div>
+  <div class="cn-hand"></div>
+  <div class="cn-puff"></div>
+  <div class="cn-call">HEADS</div>
+`;
+
+const coinflipMarkup = {
+  v1: `<div class="cn v1">${coinflipScene}</div>`,
+  v2: `<div class="cn">${coinflipScene}</div>`,
+};
+
 class ConceptCoinflip extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
   connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${coinflipStyles}</style>
-      <div class="cn">
-        <div class="cn-streak s1"></div>
-        <div class="cn-streak s2"></div>
-        <div class="cn-toss">
-          <div class="cn-coin"><span class="cn-face"></span></div>
-        </div>
-        <div class="cn-hand"></div>
-        <div class="cn-puff"></div>
-        <div class="cn-call">HEADS</div>
-      </div>
-    `;
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${coinflipStyles}</style>${coinflipMarkup[version] || coinflipMarkup.v2}`;
   }
 }
 

@@ -65,6 +65,20 @@ function renderActions(tag, label) {
   );
 }
 
+// When a date sort is active this holds "added" or "updated" and every card
+// shows the corresponding date next to its status badge; null in curated
+// (category-sectioned) mode.
+let activeDateField = null;
+
+function renderDateBadge(concept) {
+  if (!activeDateField || !concept[activeDateField]) return "";
+  return (
+    `<span class="meta-badge meta-date">` +
+      `${esc(activeDateField)} ${esc(concept[activeDateField].slice(0, 10))}` +
+    `</span>`
+  );
+}
+
 // Single-version (unversioned) card markup.
 function renderPlainCard(concept) {
   const { tag, label, badge, badgeCls } = concept;
@@ -74,6 +88,7 @@ function renderPlainCard(concept) {
       `<div class="concept-label">${esc(label)}</div>` +
       `<div class="concept-meta">` +
         `<span class="meta-badge ${esc(badgeCls)}">${esc(badge)}</span>` +
+        renderDateBadge(concept) +
       `</div>` +
       renderActions(tag, label) +
     `</div>`
@@ -119,6 +134,7 @@ function renderVersionedCard(concept) {
       `<div class="concept-label">${esc(label)}</div>` +
       `<div class="concept-meta">` +
         `<span class="meta-badge ${esc(badgeCls)}">${esc(badge)}</span>` +
+        renderDateBadge(concept) +
       `</div>` +
       `<div class="version-dots" role="group" aria-label="${esc(label)} versions">${dots}</div>` +
       renderActions(tag, label) +
@@ -135,6 +151,8 @@ function renderCard(concept) {
 // (Re)build ONLY #gallery-root from a given concept array, one section per
 // category. Categories with no visible concepts are skipped entirely so no
 // empty section headers appear. An empty list yields a single message.
+// Under a date sort the section structure would bury the timeline, so the
+// whole list renders as one flat section instead.
 function renderGallery(concepts) {
   const mount = document.getElementById("gallery-root");
   if (!mount) return;
@@ -142,6 +160,18 @@ function renderGallery(concepts) {
   if (concepts.length === 0) {
     mount.innerHTML =
       `<p class="gallery-empty" role="status">No concepts match your filters.</p>`;
+    return;
+  }
+
+  if (activeDateField) {
+    const title = activeDateField === "added"
+      ? "All concepts — newest first"
+      : "All concepts — recently updated";
+    mount.innerHTML =
+      `<section class="gallery-section">` +
+        `<h2 class="section-title">${esc(title)}</h2>` +
+        `<div class="gallery-grid">${concepts.map(renderCard).join("")}</div>` +
+      `</section>`;
     return;
   }
 
@@ -248,9 +278,12 @@ const STATUSES = [
 const activeCategories = new Set(CATEGORIES.map((category) => category.id));
 const activeStatuses = new Set(STATUSES.map((status) => status.id));
 let searchTerm = "";
+let sortMode = "curated"; // "curated" | "added" | "updated"
 
 // Cached toolbar element references, populated by initToolbar().
 let searchInput = null;
+let sortSelect = null;
+let catToggle = null;
 let countReadout = null;
 
 // True when a concept passes all three filter dimensions.
@@ -263,10 +296,17 @@ function isVisible(concept) {
   return true;
 }
 
-// Recompute the visible list, rebuild the gallery, re-wire versioners, and
-// refresh the count readout.
+// Recompute the visible list, apply the active sort, rebuild the gallery,
+// re-wire versioners, and refresh the count readout.
 function applyFilters() {
-  const visible = CONCEPTS.filter(isVisible);
+  let visible = CONCEPTS.filter(isVisible);
+  activeDateField = sortMode === "curated" ? null : sortMode;
+  if (activeDateField) {
+    // ISO-UTC strings sort lexicographically; newest first.
+    visible = visible.slice().sort((a, b) =>
+      (b[activeDateField] || "").localeCompare(a[activeDateField] || "")
+    );
+  }
   renderGallery(visible);
   wireVersioners();
   if (countReadout) {
@@ -303,20 +343,61 @@ function initToolbar() {
   searchInput.setAttribute("aria-label", "Search concepts by name");
   toolbar.appendChild(searchInput);
 
-  // Category filter group.
+  // Sort mode. Curated keeps the category sections; the two date sorts
+  // flatten the gallery into one newest-first grid (see renderGallery).
+  sortSelect = document.createElement("select");
+  sortSelect.className = "concept-sort";
+  sortSelect.setAttribute("aria-label", "Sort concepts");
+  [
+    ["curated", "Sort: Curated"],
+    ["added", "Sort: Newest first"],
+    ["updated", "Sort: Recently updated"],
+  ].forEach(([value, title]) => {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = title;
+    sortSelect.appendChild(option);
+  });
+  toolbar.appendChild(sortSelect);
+
+  // Category filter: a compact toggle that discloses the chip drawer.
+  // The toggle doubles as the current-selection summary.
   const categoryGroup = document.createElement("div");
   categoryGroup.className = "toolbar-group";
   categoryGroup.setAttribute("role", "group");
   categoryGroup.setAttribute("aria-label", "Filter by category");
-  const categoryLabel = document.createElement("span");
-  categoryLabel.className = "toolbar-group-label";
-  categoryLabel.textContent = "Category";
-  categoryGroup.appendChild(categoryLabel);
+  catToggle = document.createElement("button");
+  catToggle.type = "button";
+  catToggle.className = "filter-chip cat-toggle";
+  catToggle.setAttribute("aria-expanded", "false");
+  catToggle.setAttribute("aria-controls", "cat-drawer");
+  categoryGroup.appendChild(catToggle);
+  toolbar.appendChild(categoryGroup);
+
+  const catDrawer = document.createElement("div");
+  catDrawer.className = "cat-drawer";
+  catDrawer.id = "cat-drawer";
+  catDrawer.setAttribute("role", "group");
+  catDrawer.setAttribute("aria-label", "Category filters");
   const categoryChips = CATEGORIES.map((category) =>
     makeChip("category", category.id, category.title)
   );
-  categoryChips.forEach((chip) => categoryGroup.appendChild(chip));
-  toolbar.appendChild(categoryGroup);
+  categoryChips.forEach((chip) => catDrawer.appendChild(chip));
+
+  // The toggle summary reflects the sole isolated category, or "All".
+  const updateCatSummary = () => {
+    const sole =
+      activeCategories.size === 1
+        ? CATEGORIES.find((category) => activeCategories.has(category.id))
+        : null;
+    catToggle.textContent = `Categories: ${sole ? sole.title : "All"} ▾`;
+  };
+  updateCatSummary();
+
+  catToggle.addEventListener("click", () => {
+    const open = catDrawer.classList.toggle("is-open");
+    catToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
 
   // Status filter group.
   const statusGroup = document.createElement("div");
@@ -346,6 +427,9 @@ function initToolbar() {
   countReadout.setAttribute("role", "status");
   toolbar.appendChild(countReadout);
 
+  // The chip drawer renders as a full-width row under the controls.
+  toolbar.appendChild(catDrawer);
+
   mount.parentNode.insertBefore(toolbar, mount);
 
   // --- Wiring ---
@@ -357,6 +441,11 @@ function initToolbar() {
       searchTerm = searchInput.value.trim().toLowerCase();
       applyFilters();
     }, 120);
+  });
+
+  sortSelect.addEventListener("change", () => {
+    sortMode = sortSelect.value;
+    applyFilters();
   });
 
   const allChips = categoryChips.concat(statusChips);
@@ -384,6 +473,7 @@ function initToolbar() {
           activeCategories.has(categoryChip.dataset.value) ? "true" : "false"
         );
       });
+      updateCatSummary();
       applyFilters();
     });
   });
@@ -407,7 +497,10 @@ function initToolbar() {
     STATUSES.forEach((status) => activeStatuses.add(status.id));
     searchTerm = "";
     searchInput.value = "";
+    sortMode = "curated";
+    sortSelect.value = "curated";
     allChips.forEach((chip) => chip.setAttribute("aria-pressed", "true"));
+    updateCatSummary();
     applyFilters();
   });
 }
