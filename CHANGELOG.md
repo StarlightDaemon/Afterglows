@@ -130,6 +130,46 @@ trail some of these entries reference.
   recentred, with the objective turret clicking between ×100/×400 and the
   focus knob re-hunting after each swap.
 
+### Fixed
+- **Eye** steps "Refined v2" → **Refined v3** (prior v2 preserved on the
+  cycler): the lids' elliptical crease curve fell short of the almond
+  clip-path's pointed corners, leaving a triangular sliver of the eyeball
+  background exposed at both tips even at full blink closure — fixed with
+  flat, unrounded end-caps on each lid. The saccade also moved
+  asymmetrically (-17px left vs. +15px right), clipping the iris ring hard
+  against the corner when looking left while looking right never got
+  close; both directions now move a matched ±14px.
+- **Disco Ball** steps "New v1" → **Refined v2** (original preserved on
+  the cycler): the thrown light spots swept on a pivot only 30px below
+  the frame's top edge with radii up to 54px, so several of the five
+  carriers sliced against the tile's hard overflow edge every rotation —
+  half-moon ellipses popping in and out at the top-left corner and side
+  edges instead of full, clean dots. The rod is now longer, centring the
+  ball's — and the spots' pivot — at the frame's vertical middle with
+  equal clearance on every side, and the throw radii are trimmed from a
+  44-54px spread to 33-40px so the full swept circle, including the
+  spot's own footprint at its most-rotated orientation, stays inside the
+  frame.
+- **Disco Ball** steps **Refined v2** → **Refined v3** (both priors
+  preserved on the cycler): the ball itself read as a flat tiled disc —
+  a uniform facet grid with no sense of it being a lit sphere, and only
+  one glint standing in for a few hundred individual mirror tiles.
+  v3 adds a volumetric layer over the grid (same technique Crystal Ball
+  uses) that brightens toward an upper-left key light and darkens
+  toward the rim, so the facets read as wrapped over a sphere instead
+  of stamped onto a circle; two smaller glints now twinkle on their own
+  out-of-sync clocks alongside the original, so the surface catches
+  light at several points at once rather than exactly one.
+- **Disco Ball** steps **Refined v3** → **Refined v4** (all three
+  priors preserved on the cycler): every facet in a given row still
+  shared exactly the same two-tone brightness, which reads as a printed
+  pattern rather than individual mirror tiles — real disco balls, both
+  vintage broken-shard and modern uniform-glass alike, are made of many
+  small chips that each catch light at a slightly different angle. Two
+  tiled sparkle layers (one bright fleck per facet, one larger one per
+  2×2 block) now sit over the grid and scroll with the same rotation,
+  breaking the uniform stripes into a mosaic of individually-lit chips.
+
 ## [1.8.1] - 2026-07-24
 
 ### Fixed
