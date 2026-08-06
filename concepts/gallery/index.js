@@ -208,11 +208,30 @@ function wireVersioners() {
 
     if (currentIndex === -1) currentIndex = frames.length - 1;
 
+    // Hidden frames keep animating, so without this a newly shown version
+    // lands at an arbitrary mid-cycle phase — for concepts with long idle
+    // or dark stretches (Anglerfish, Wind Chimes), every version then looks
+    // identical when tabbing through. Rewinding the incoming frame's
+    // animations makes each version play its full cycle from the start.
+    // Shadow roots must be walked explicitly: getAnimations({subtree:true})
+    // from the light DOM does not cross the shadow boundary here.
+    const restartFrameAnimations = (frame) => {
+      const host = frame.firstElementChild;
+      if (!host || !host.shadowRoot) return;
+      [host, ...host.shadowRoot.querySelectorAll('*')].forEach((node) => {
+        node.getAnimations().forEach((animation) => {
+          animation.currentTime = 0;
+        });
+      });
+    };
+
     const render = (nextIndex) => {
+      const changed = nextIndex !== currentIndex;
       currentIndex = nextIndex;
       frames.forEach((frame, index) => {
         frame.classList.toggle('is-active', index === currentIndex);
       });
+      if (changed) restartFrameAnimations(frames[currentIndex]);
       dots.forEach((dot, index) => {
         dot.classList.toggle('is-active', index === currentIndex);
         dot.setAttribute('aria-pressed', index === currentIndex ? 'true' : 'false');

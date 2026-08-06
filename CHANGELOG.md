@@ -185,6 +185,16 @@ trail some of these entries reference.
   2×2 block) now sit over the grid and scroll with the same rotation,
   breaking the uniform stripes into a mosaic of individually-lit chips.
 
+### Fixed
+- **Version cycler: tabbing through a tile's iterations now replays each
+  version from the start of its cycle.** Hidden frames keep animating, so
+  a newly shown version used to land at an arbitrary mid-cycle phase — for
+  concepts with long idle or dark stretches (Anglerfish spends ~65% of its
+  cycle near-black; Wind Chimes v1–v3 share an identical resting rack) every
+  version looked the same when cycling, as if only the latest existed. The
+  cycler now rewinds the incoming frame's shadow-root animations to zero on
+  switch, so each iteration performs its full story deterministically.
+
 ## [1.8.1] - 2026-07-24
 
 ### Fixed
