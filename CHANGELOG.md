@@ -131,6 +131,13 @@ trail some of these entries reference.
   strike and eats the prey motes at contact, and the body picks up dorsal
   spines fitted to its curved outline, a flicking pectoral fin, and flank
   photophores that glimmer through the dark phase.
+- **Wind Chimes** steps again to **Refined v3** (v1 and v2 stay on the
+  cycler): a full rebuild that makes the wind the protagonist. A 7s cycle
+  stages calm micro-sway, then a visible gust front — staggered streaks
+  sweeping left-to-right — that heels the whole rig over on its hanger,
+  kicks the tubes in a left-to-right cascade (each ringing as the front
+  reaches it, with a second flicker on the buffet) and whips the striker
+  clattering through the rack, before an underdamped settle back to calm.
 - **Constellation** returns to its natural celestial identity: reduced to
   v1/v2 (default v2); the chart versions moved to Star Chart.
 - **Microscope** is now versioned: v1 preserves the original

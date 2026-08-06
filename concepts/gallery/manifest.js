@@ -1695,14 +1695,15 @@ export const CONCEPTS = [
     label: "Wind Chimes",
     category: "music",
     added: "2026-07-23T12:33:49Z",
-    updated: "2026-08-03T07:30:00Z",
+    updated: "2026-08-03T08:20:00Z",
     versioned: true,
-    badge: "Refined v2",
+    badge: "Refined v3",
     badgeCls: "meta-status-refined",
-    default: "v2",
+    default: "v3",
     versions: [
       { v: "v1", badge: "New v1", badgeCls: "meta-status-new" },
       { v: "v2", badge: "Refined v2", badgeCls: "meta-status-refined" },
+      { v: "v3", badge: "Refined v3", badgeCls: "meta-status-refined" },
     ],
   },
   {
