@@ -123,6 +123,14 @@ trail some of these entries reference.
   **Hot Air Balloon** (burner frame added with the flame anchored to it
   and flaring up into the envelope mouth, sandbag hung off the basket rim
   on a cord, drift re-centered off the tile's clip edge).
+- **Anglerfish** steps again to **Refined v3** (v1 and v2 stay on the
+  cycler): a full rebuild of the deep-sea ambush on top of v2's anatomy
+  fixes. The lure now casts a real light field that carries the reveal
+  (idle halo → bloom → snap flash → decay), the mouth gains an upper jaw
+  so the snap closes teeth-on-teeth, the whole fish lunges forward at the
+  strike and eats the prey motes at contact, and the body picks up dorsal
+  spines fitted to its curved outline, a flicking pectoral fin, and flank
+  photophores that glimmer through the dark phase.
 - **Constellation** returns to its natural celestial identity: reduced to
   v1/v2 (default v2); the chart versions moved to Star Chart.
 - **Microscope** is now versioned: v1 preserves the original
