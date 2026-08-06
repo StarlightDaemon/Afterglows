@@ -1563,14 +1563,15 @@ export const CONCEPTS = [
     label: "Traffic Light",
     category: "city",
     added: "2026-07-23T12:25:57Z",
-    updated: "2026-08-03T07:30:00Z",
+    updated: "2026-08-03T09:05:00Z",
     versioned: true,
-    badge: "Refined v2",
+    badge: "Refined v3",
     badgeCls: "meta-status-refined",
-    default: "v2",
+    default: "v3",
     versions: [
       { v: "v1", badge: "New v1", badgeCls: "meta-status-new" },
       { v: "v2", badge: "Refined v2", badgeCls: "meta-status-refined" },
+      { v: "v3", badge: "Refined v3", badgeCls: "meta-status-refined" },
     ],
   },
   {

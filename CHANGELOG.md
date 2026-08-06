@@ -138,6 +138,13 @@ trail some of these entries reference.
   kicks the tubes in a left-to-right cascade (each ringing as the front
   reaches it, with a second flicker on the buffet) and whips the striker
   clattering through the rack, before an underdamped settle back to calm.
+- **Traffic Light** steps again to **Refined v3** (v1 and v2 stay on the
+  cycler): the signal now governs actual flow. An explicit road with a
+  stop line and zebra crossing carries a three-car queue that drains as a
+  staggered chain on green — each car launching only after the one ahead
+  clears — empties through amber, rebuilds nose-to-tail through the red,
+  and a pedestrian crosses at the zebra while the cars are held. Same 8s
+  cycle and monochrome luminance lamp semantics as v2.
 - **Constellation** returns to its natural celestial identity: reduced to
   v1/v2 (default v2); the chart versions moved to Star Chart.
 - **Microscope** is now versioned: v1 preserves the original
