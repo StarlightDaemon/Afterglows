@@ -10,6 +10,12 @@
 // staggered chain on the green - each car launching only after the one
 // ahead clears - and a pedestrian crosses at the zebra while the cars
 // are held. Same 8s cycle and monochrome luminance lamp semantics.
+// v4 strips the scene back to the signal alone and, per operator request,
+// breaks the gallery's monochrome: the lamps run standard US colors -
+// red, yellow, green - each with a colored halo flare and ground spill,
+// while the housing keeps the gallery's green chrome so the tile still
+// belongs. Unlit lenses stay faintly tinted, the way real dark lenses
+// hold their color. Same 8s cycle and phase proportions.
 const trafficLightStyles = {
   v1: `
   :host {
@@ -585,6 +591,184 @@ const trafficLightStyles = {
     to { margin-top: -0.8px; }
   }
 `,
+  v4: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* The signal alone, in true color: red, yellow, green on the
+     standard US cycle - the one splash of color in a monochrome
+     gallery. Each lamp throws a colored halo flare and tints the
+     ground spill; unlit lenses stay faintly tinted the way real
+     dark lenses hold their color. The housing keeps the gallery's
+     green chrome so the tile still belongs. 8s cycle: a long go,
+     a short caution, a long stop handing straight back to go. */
+  .tlc {
+    width: 104px;
+    height: 100px;
+    position: relative;
+  }
+
+  /* Halo flares, one per lamp, behind the housing. */
+  .tlc-halo {
+    position: absolute;
+    left: 20px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  .tlc-halo.hr {
+    top: -9px;
+    background: radial-gradient(circle, rgba(255, 65, 54, 0.5), rgba(255, 65, 54, 0.15) 45%, transparent 70%);
+    animation: tlc-halo-r 8s steps(1) infinite;
+  }
+
+  .tlc-halo.hy {
+    top: 20px;
+    background: radial-gradient(circle, rgba(255, 183, 0, 0.45), rgba(255, 183, 0, 0.13) 45%, transparent 70%);
+    animation: tlc-halo-y 8s steps(1) infinite;
+  }
+
+  .tlc-halo.hg {
+    top: 49px;
+    background: radial-gradient(circle, rgba(46, 204, 64, 0.5), rgba(46, 204, 64, 0.15) 45%, transparent 70%);
+    animation: tlc-halo-g 8s steps(1) infinite;
+  }
+
+  @keyframes tlc-halo-g {
+    0% { opacity: 0.9; }
+    42% { opacity: 0; }
+  }
+
+  @keyframes tlc-halo-y {
+    0% { opacity: 0; }
+    42% { opacity: 0.85; }
+    54% { opacity: 0; }
+  }
+
+  @keyframes tlc-halo-r {
+    0%, 42% { opacity: 0; }
+    54%, 100% { opacity: 0.9; }
+  }
+
+  .tlc-pole {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 4px;
+    height: 6px;
+    margin-left: -2px;
+    background: linear-gradient(180deg, rgba(0, 204, 0, 0.7), rgba(0, 80, 16, 0.6));
+  }
+
+  .tlc-housing {
+    position: absolute;
+    left: 50%;
+    top: 2px;
+    width: 34px;
+    height: 90px;
+    margin-left: -19px;
+    border: 2px solid var(--accent, #00cc00);
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(0, 45, 9, 0.6), rgba(0, 20, 4, 0.85));
+    box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
+  }
+
+  /* Lens hoods, centered over their lamps. */
+  .tlc-hood {
+    position: absolute;
+    left: 5px;
+    width: 24px;
+    height: 5px;
+    border-radius: 3px 3px 0 0;
+    background: rgba(0, 204, 0, 0.5);
+  }
+
+  .tlc-hood.h1 { top: 3px; }
+  .tlc-hood.h2 { top: 32px; }
+  .tlc-hood.h3 { top: 61px; }
+
+  .tlc-lamp {
+    position: absolute;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    margin-left: -11px;
+    border-radius: 50%;
+  }
+
+  /* Standard US colors, top to bottom: red, yellow, green. */
+  .tlc-lamp.red {
+    top: 8px;
+    border: 1px solid rgba(255, 140, 130, 0.45);
+    background: rgba(255, 65, 54, 0.13);
+    animation: tlc-red 8s steps(1) infinite;
+  }
+
+  .tlc-lamp.yellow {
+    top: 37px;
+    border: 1px solid rgba(255, 210, 120, 0.45);
+    background: rgba(255, 183, 0, 0.13);
+    animation: tlc-yellow 8s steps(1) infinite;
+  }
+
+  .tlc-lamp.green {
+    top: 66px;
+    border: 1px solid rgba(140, 230, 150, 0.45);
+    background: rgba(46, 204, 64, 0.13);
+    animation: tlc-green 8s steps(1) infinite;
+  }
+
+  @keyframes tlc-green {
+    0% {
+      background: radial-gradient(circle at 38% 32%, #eaffea, #2ecc40 62%);
+      box-shadow: 0 0 16px rgba(46, 204, 64, 0.95), 0 0 32px rgba(46, 204, 64, 0.45);
+    }
+    42% { background: rgba(46, 204, 64, 0.13); box-shadow: none; }
+  }
+
+  @keyframes tlc-yellow {
+    0% { background: rgba(255, 183, 0, 0.13); box-shadow: none; }
+    42% {
+      background: radial-gradient(circle at 38% 32%, #fff8dc, #ffb700 62%);
+      box-shadow: 0 0 14px rgba(255, 183, 0, 0.95), 0 0 28px rgba(255, 183, 0, 0.4);
+    }
+    54% { background: rgba(255, 183, 0, 0.13); box-shadow: none; }
+  }
+
+  /* Red holds to the wrap so it hands directly to green. */
+  @keyframes tlc-red {
+    0%, 42% { background: rgba(255, 65, 54, 0.13); box-shadow: none; }
+    54%, 100% {
+      background: radial-gradient(circle at 38% 32%, #ffe9e6, #ff4136 62%);
+      box-shadow: 0 0 16px rgba(255, 65, 54, 0.95), 0 0 32px rgba(255, 65, 54, 0.45);
+    }
+  }
+
+  /* Ground spill tinted by whichever lamp is lit. */
+  .tlc-spill {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 64px;
+    height: 8px;
+    margin-left: -32px;
+    border-radius: 50%;
+    animation: tlc-spill 8s steps(1) infinite;
+  }
+
+  @keyframes tlc-spill {
+    0% { background: radial-gradient(ellipse, rgba(46, 204, 64, 0.5), transparent 70%); }
+    42% { background: radial-gradient(ellipse, rgba(255, 183, 0, 0.45), transparent 70%); }
+    54%, 100% { background: radial-gradient(ellipse, rgba(255, 65, 54, 0.5), transparent 70%); }
+  }
+`,
 };
 
 const trafficLightMarkup = {
@@ -641,6 +825,23 @@ const trafficLightMarkup = {
         </div>
       </div>
     `,
+  v4: `
+      <div class="tlc">
+        <div class="tlc-halo hr"></div>
+        <div class="tlc-halo hy"></div>
+        <div class="tlc-halo hg"></div>
+        <div class="tlc-spill"></div>
+        <div class="tlc-pole"></div>
+        <div class="tlc-housing">
+          <div class="tlc-hood h1"></div>
+          <div class="tlc-hood h2"></div>
+          <div class="tlc-hood h3"></div>
+          <div class="tlc-lamp red"></div>
+          <div class="tlc-lamp yellow"></div>
+          <div class="tlc-lamp green"></div>
+        </div>
+      </div>
+    `,
 };
 
 class ConceptTrafficLight extends HTMLElement {
@@ -656,8 +857,8 @@ class ConceptTrafficLight extends HTMLElement {
     if (this.isConnected) this.render();
   }
   render() {
-    const version = this.getAttribute('version') || 'v3';
-    this.shadowRoot.innerHTML = `<style>${trafficLightStyles[version] || trafficLightStyles.v3}</style>${trafficLightMarkup[version] || trafficLightMarkup.v3}`;
+    const version = this.getAttribute('version') || 'v4';
+    this.shadowRoot.innerHTML = `<style>${trafficLightStyles[version] || trafficLightStyles.v4}</style>${trafficLightMarkup[version] || trafficLightMarkup.v4}`;
   }
 }
 

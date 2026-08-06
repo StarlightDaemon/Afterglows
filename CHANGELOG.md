@@ -145,6 +145,13 @@ trail some of these entries reference.
   clears — empties through amber, rebuilds nose-to-tail through the red,
   and a pedestrian crosses at the zebra while the cars are held. Same 8s
   cycle and monochrome luminance lamp semantics as v2.
+- **Traffic Light** steps once more to **Refined v4** (v1–v3 stay on the
+  cycler): the signal alone, stripped of the v3 road scene — and the
+  gallery's first deliberate color break. The lamps run standard US
+  colors (red, yellow, green) on the same 8s cycle, each throwing a
+  colored halo flare and tinting the ground spill, with unlit lenses
+  faintly holding their color; the housing keeps the gallery's green
+  chrome so the tile belongs while the light pops.
 - **Constellation** returns to its natural celestial identity: reduced to
   v1/v2 (default v2); the chart versions moved to Star Chart.
 - **Microscope** is now versioned: v1 preserves the original
