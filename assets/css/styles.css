@@ -38,8 +38,8 @@
     --space-3xl: 4rem;
 
     /* Typography - Terminal/Monospace */
-    --font-mono: 'IBM Plex Mono';
-    --font-display: 'IBM Plex Mono';
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-display: 'IBM Plex Mono', monospace;
 
     --text-xs: 0.75rem;
     --text-sm: 0.875rem;
@@ -99,21 +99,25 @@
    data-phosphor attribute by design.
    =========================== */
 body {
-    --bg-primary: var(--ag-bg);
-    --bg-secondary: color-mix(in srgb, var(--ag-color) 4%, var(--ag-bg));
-    --bg-tertiary: color-mix(in srgb, var(--ag-color) 9%, var(--ag-bg));
-    --bg-card: var(--ag-bg);
+    /* Fallbacks matter: pages that link styles.css WITHOUT
+       afterglows-settings.css (e.g. _archive/main-site.html) have no
+       --ag-* tokens; without fallbacks every mapped property here
+       resolves invalid and the page renders black-on-white. */
+    --bg-primary: var(--ag-bg, #0d0d0d);
+    --bg-secondary: color-mix(in srgb, var(--ag-color, #00cc00) 4%, var(--ag-bg, #0d0d0d));
+    --bg-tertiary: color-mix(in srgb, var(--ag-color, #00cc00) 9%, var(--ag-bg, #0d0d0d));
+    --bg-card: var(--ag-bg, #161616);
 
-    --text-primary: var(--ag-color);
-    --text-secondary: color-mix(in srgb, var(--ag-color) 78%, var(--ag-bg));
-    --text-muted: var(--ag-dim);
+    --text-primary: var(--ag-color, #ffffff);
+    --text-secondary: color-mix(in srgb, var(--ag-color, #ffffff) 78%, var(--ag-bg, #0d0d0d));
+    --text-muted: var(--ag-dim, #b0b0b0);
 
-    --accent-primary: var(--ag-color);
-    --accent-primary-rgb: var(--ag-color-rgb);
-    --accent-secondary: var(--ag-color);
-    --accent-glow: color-mix(in srgb, var(--ag-glow) 50%, transparent);
-    --border-default: color-mix(in srgb, var(--ag-color) 22%, var(--ag-bg));
-    --border-accent: var(--ag-head);
+    --accent-primary: var(--ag-color, #00cc00);
+    --accent-primary-rgb: var(--ag-color-rgb, 0, 204, 0);
+    --accent-secondary: var(--ag-color, #00cc00);
+    --accent-glow: color-mix(in srgb, var(--ag-glow, #00ff41) 50%, transparent);
+    --border-default: color-mix(in srgb, var(--ag-color, #00cc00) 22%, var(--ag-bg, #0d0d0d));
+    --border-accent: var(--ag-head, #00ff41);
 }
 
 /* ===========================
@@ -156,7 +160,7 @@ html {
 
 body {
     font-family: var(--font-mono);
-    background: #1a1a1a;
+    background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
@@ -187,9 +191,6 @@ img {
     height: auto;
 }
 
-/* ===========================
-   Unified Sticky Header
-   =========================== */
 /* ===========================
    Unified Sticky Header
    =========================== */
@@ -372,18 +373,6 @@ img {
     margin-left: 2px;
 }
 
-@keyframes cursor-blink {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0;
-    }
-}
-
 /* ===========================
    Layout
    =========================== */
@@ -425,7 +414,6 @@ img {
     font-size: var(--text-sm);
 }
 
-/* ===========================
 /* ===========================
    Buttons
    =========================== */
@@ -550,14 +538,18 @@ section h2::after {
     padding: var(--space-lg);
     transition: all var(--transition-normal);
     aspect-ratio: 2/3;
-    /* Movie Poster Ratio (27x40) */
+    /* Movie Poster Ratio (27x40) — preferred, not a hard cap: with
+       min-height: max-content the card grows past the ratio when its
+       content is taller instead of clipping it. overflow must stay
+       visible or content-based sizing is disabled (that combination is
+       what used to cut off the bottom of long cards). */
+    min-height: max-content;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
     position: relative;
     z-index: 10;
-    overflow: hidden;
 }
 
 /* Reduce scanline visibility on cards */
@@ -836,6 +828,35 @@ section h2::after {
 
 .skill-list li:last-child {
     border-bottom: none;
+}
+
+/* ===========================
+   About This Archive (home page)
+   =========================== */
+.about-card {
+    aspect-ratio: auto;
+    height: auto;
+    min-height: auto;
+}
+
+.about-intro {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.about-list {
+    /* Up to 2 columns, but never narrower than 15rem each — collapses
+       to 1 column on small screens instead of forcing the page wide
+       (the list items are nowrap, so their width is irreducible). */
+    columns: 15rem 2;
+    column-gap: 2rem;
+}
+
+@media (max-width: 600px) {
+    .about-list li {
+        white-space: normal;
+    }
 }
 
 /* ===========================
@@ -1144,13 +1165,6 @@ section h2::after {
         width: 150px;
         height: 150px;
         font-size: 13px;
-    }
-
-    /* Scale up terminal output to match logo */
-    .terminal-output {
-        width: 150px;
-        height: 150px;
-        font-size: 13px;
         /* Slightly larger text inside */
     }
 
@@ -1250,17 +1264,20 @@ section:nth-child(4) {
 
 .skip-link {
     position: absolute;
-    top: -40px;
+    top: 0;
     left: 0;
+    /* Hide by the element's own height — a fixed offset can leave a
+       sliver of background visible when text metrics exceed it. */
+    transform: translateY(-101%);
     background: var(--accent-primary);
     color: #000;
     padding: 8px 16px;
-    z-index: 9999;
+    z-index: 2147483100; /* above the injected site bar and gear, so the focused link is never hidden */
     font-weight: 600;
-    transition: top 0.2s;
+    transition: transform 0.2s;
 }
 .skip-link:focus {
-    top: 0;
+    transform: translateY(0);
 }
 
 :focus-visible {
