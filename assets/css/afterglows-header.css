@@ -10,9 +10,16 @@
    identical everywhere. This mirrors the theme/font system
    (afterglows-settings.css / .js).
 
-   It provides two floating, always-visible controls:
-     1. .ag-header  — text-only Afterglows wordmark, fixed top-left.
-                      No logo image (retired). Purely branding.
+   It provides two always-visible pieces of chrome:
+     1. .ag-header  — full-width solid site bar fixed to the top of
+                      the viewport. Wordmark + tagline sit on the left
+                      (the wordmark links home); .ag-header-right is an
+                      empty slot for future controls. Solid fill + 2px
+                      accent bottom border (same language as the gear
+                      and back controls), so scrolling content never
+                      shows through. The companion JS adds
+                      html.ag-has-header on injection, which pads the
+                      page down so content starts below the bar.
      2. .ag-back    — a fixed-position WRAPPER holding a static
                       .ag-back-link control, fixed bottom-left. This is
                       the exact structure the settings gear uses
@@ -39,24 +46,69 @@
 }
 
 /* -----------------------------------------
-   1. WORDMARK — fixed top-left
+   1. SITE BAR — full-width, fixed top
+   One solid bar across the whole viewport: wordmark on the left,
+   .ag-header-right reserved (currently empty) on the right. The bar
+   height is --agh-bar-h; html.ag-has-header (added by the JS on
+   injection) pads the page by the same token so content always starts
+   below the bar instead of underneath it.
    ----------------------------------------- */
+/* All chrome sizing is in px, NOT rem: pages set different root
+   font-sizes (the home page scales html 14→20px by viewport; subsites
+   keep 16px), and rem-based chrome would grow and shrink with the page
+   it happens to sit on. The chrome must be the same physical size on
+   every page — it's the persistent layer, not page content. */
+.ag-header,
+.ag-back {
+    --agh-bar-h: 56px;
+}
+
 .ag-header {
+    box-sizing: border-box; /* pages differ on universal border-box; pin it so the bar is exactly --agh-bar-h everywhere */
     position: fixed;
-    top: 1rem;
-    left: 1.25rem;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--agh-bar-h);
     z-index: 2147482000; /* just below the settings gear (2147483000) */
     display: flex;
-    flex-direction: column;
-    gap: 1px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 20px;
+    background: color-mix(in srgb, var(--agh-bg) 88%, black);
+    border-bottom: 2px solid var(--agh-color);
     font-family: var(--agh-font);
-    pointer-events: none; /* only the wordmark link itself is clickable */
+    line-height: normal; /* don't inherit a page's body line-height — keeps the chrome pixel-identical on every page */
     user-select: none;
 }
 
+/* Page content starts below the fixed bar — applied only when the bar
+   was actually injected (embedded/iframe demos load this CSS but skip
+   injection, and must not inherit the padding). */
+html.ag-has-header body {
+    padding-top: 56px; /* keep in sync with --agh-bar-h */
+}
+
+html.ag-has-header {
+    scroll-padding-top: 64px; /* anchor jumps clear the bar */
+}
+
+.ag-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.ag-header-right {
+    /* Reserved slot for future controls; empty today. */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .ag-header .ag-brand {
-    pointer-events: auto;
-    font-size: 1.05rem;
+    font-size: 17px;
     font-weight: 700;
     letter-spacing: 0.26em;
     text-transform: uppercase;
@@ -76,7 +128,7 @@
 }
 
 .ag-header .ag-tagline {
-    font-size: 0.56rem;
+    font-size: 9px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--agh-dim);
@@ -88,13 +140,14 @@
    ----------------------------------------- */
 .ag-back {
     position: fixed;
-    bottom: 1.5rem;
-    left: 1.5rem;
+    bottom: 24px;
+    left: 24px;
     z-index: 2147483000; /* same layer as the settings gear */
     font-family: var(--agh-font);
 }
 
 .ag-back-link {
+    box-sizing: border-box; /* pages differ on universal border-box; pin it so the control is 48px everywhere */
     position: static; /* the WRAPPER floats; the control does not */
     display: inline-flex;
     align-items: center;
@@ -105,7 +158,7 @@
     border: 2px solid var(--agh-color);
     color: var(--agh-color);
     font-family: var(--agh-font);
-    font-size: 0.7rem;
+    font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     text-decoration: none;
@@ -114,7 +167,7 @@
 }
 
 .ag-back-link .ag-back-arrow {
-    font-size: 0.9rem;
+    font-size: 14px;
     line-height: 1;
 }
 
@@ -129,5 +182,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .ag-brand, .ag-back-link { transition: none !important; }
+    .ag-header, .ag-brand, .ag-back-link { transition: none !important; }
 }

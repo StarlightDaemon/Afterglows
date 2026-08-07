@@ -5,16 +5,20 @@
    ONE canonical script, linked by root-absolute path
    (/assets/js/afterglows-header.js) from every page, exactly like the
    theme/font controller (/assets/js/afterglows-settings.js). It injects
-   two floating controls so no page carries its own header/back markup:
+   the site chrome so no page carries its own header/back markup:
 
-     - .ag-header  : text-only "Afterglows" wordmark (no logo image),
-                     fixed top-left. Links to the site root.
+     - .ag-header  : full-width solid site bar, fixed to the top of the
+                     viewport. Wordmark + tagline on the left (links to
+                     the site root); .ag-header-right is an empty slot
+                     reserved for future controls. Injection also adds
+                     the ag-has-header class to <html>, which the CSS
+                     uses to pad the page down below the fixed bar.
      - .ag-back    : a fixed WRAPPER holding a static .ag-back-link,
                      fixed bottom-left. Same fixed-wrapper / static-child
                      structure the settings gear uses (.ag-settings +
                      .ag-gear), so both float and stay visible on scroll.
-                     Gear = bottom-right, back = bottom-left, wordmark =
-                     top-left; the three never overlap.
+                     Gear = bottom-right, back = bottom-left, site bar =
+                     top; the three never overlap.
 
    Back-navigation hierarchy (one level UP, not always the root):
      - Root home (/) ................... no back control (it IS home).
@@ -58,9 +62,17 @@
     function build() {
         if (document.querySelector('.ag-header')) { return; } // idempotent
 
-        /* ---- wordmark (top-left) ---- */
-        var header = document.createElement('div');
+        /* ---- site bar (full-width, fixed top) ----
+           Left: the Afterglows wordmark + tagline. Right: an empty
+           slot (.ag-header-right) reserved for future controls.
+           The html class lets the stylesheet pad the page below the
+           fixed bar ONLY when the bar actually exists — embedded
+           demos (iframes) load the CSS but skip injection. */
+        var header = document.createElement('header');
         header.className = 'ag-header';
+
+        var left = document.createElement('div');
+        left.className = 'ag-header-left';
 
         var brand = document.createElement('a');
         brand.className = 'ag-brand';
@@ -72,9 +84,16 @@
         tagline.className = 'ag-tagline';
         tagline.textContent = 'Experimental Archive';
 
-        header.appendChild(brand);
-        header.appendChild(tagline);
+        left.appendChild(brand);
+        left.appendChild(tagline);
+
+        var right = document.createElement('div');
+        right.className = 'ag-header-right';
+
+        header.appendChild(left);
+        header.appendChild(right);
         document.body.appendChild(header);
+        root.classList.add('ag-has-header');
 
         /* ---- back control (bottom-left) ---- */
         var target = backTarget();

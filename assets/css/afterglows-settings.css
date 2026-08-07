@@ -95,15 +95,19 @@ html[data-font="jetbrains"] { --ag-font: 'JetBrains Mono', monospace; }
    active font.
    ----------------------------------------- */
 .ag-settings {
+    /* px, not rem: pages set different root font-sizes, and the chrome
+       must be the same physical size on every page (matches the
+       px-pinned bar + back control in afterglows-header.css). */
     position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
+    bottom: 24px;
+    right: 24px;
     z-index: 2147483000; /* above every subsite's own stacking contexts */
     font-family: var(--ag-font);
     line-height: 1.4;
 }
 
 .ag-gear {
+    box-sizing: border-box; /* pin against per-page box-sizing resets — 48px everywhere */
     width: 48px;
     height: 48px;
     display: flex;
@@ -129,6 +133,7 @@ html[data-font="jetbrains"] { --ag-font: 'JetBrains Mono', monospace; }
 }
 
 .ag-panel {
+    box-sizing: border-box; /* pin against per-page box-sizing resets */
     position: absolute;
     bottom: 60px;
     right: 0;
@@ -137,8 +142,8 @@ html[data-font="jetbrains"] { --ag-font: 'JetBrains Mono', monospace; }
     overflow-y: auto;
     display: none;
     flex-direction: column;
-    gap: 1.25rem;
-    padding: 1rem;
+    gap: 20px;
+    padding: 16px;
     background: color-mix(in srgb, var(--ag-bg) 92%, black);
     border: 1px solid var(--ag-color);
     box-shadow: 0 0 22px rgba(0, 0, 0, 0.6);
@@ -149,9 +154,9 @@ html[data-font="jetbrains"] { --ag-font: 'JetBrains Mono', monospace; }
 }
 
 .ag-group-label {
-    margin: 0 0 0.6rem;
+    margin: 0 0 10px;
     color: var(--ag-color);
-    font-size: 0.72rem;
+    font-size: 12px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     font-family: var(--ag-font);
@@ -215,7 +220,7 @@ html[data-font="jetbrains"] { --ag-font: 'JetBrains Mono', monospace; }
     border: 1px solid color-mix(in srgb, var(--ag-dim) 60%, transparent);
     color: color-mix(in srgb, var(--ag-color) 82%, var(--ag-bg));
     cursor: pointer;
-    font-size: 0.72rem;
+    font-size: 12px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
@@ -232,7 +237,7 @@ html[data-font="jetbrains"] { --ag-font: 'JetBrains Mono', monospace; }
 
 /* Each font button previews its own typeface. */
 .ag-font-btn[data-font="ibm"]       { font-family: 'IBM Plex Mono', monospace; }
-.ag-font-btn[data-font="vt323"]     { font-family: 'VT323', monospace; font-size: 1.05rem; }
+.ag-font-btn[data-font="vt323"]     { font-family: 'VT323', monospace; font-size: 17px; }
 .ag-font-btn[data-font="space"]     { font-family: 'Space Mono', monospace; }
 .ag-font-btn[data-font="fira"]      { font-family: 'Fira Code', monospace; }
 
