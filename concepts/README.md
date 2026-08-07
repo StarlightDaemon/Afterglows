@@ -70,7 +70,8 @@ The gallery page includes a live filter/search toolbar above the grid:
 *   **Categories drawer** — a compact `Categories: All ▾` toggle that discloses the full chip row; the toggle doubles as a summary of the current selection. Chips **isolate** rather than toggle: clicking a category shows only that category's concepts; clicking the same (sole-active) chip again restores all categories. Clicking a different chip switches the isolation to it.
 *   **Status chips** (Original / Refined / New) — toggle on/off independently, so any combination of statuses can be shown at once.
 *   **Origin chips** (Claude / Gemini) — toggle on/off independently, filtering by which agent(s) built or revised each concept (see **Origin & Attribution** below). A concept touched by both agents matches either chip.
-*   **Reset** — clears search and restores all categories, statuses, origins, and the curated sort.
+*   **Model / Version chips** — toggle on/off independently, filtering by which model tier (e.g. Sonnet) and specific version (e.g. 5) made a contribution. Unlike the fixed Origin chips, these are generated from whatever values actually appear in `manifest.js` — a new model/version shows up as its own chip automatically, no code change needed. Concepts with no tracked model/version fall under an **Unspecified** chip in each group (currently most of the archive — see **Origin & Attribution** below).
+*   **Reset** — clears search and restores all categories, statuses, origins, models, versions, and the curated sort.
 *   **Live count** — reads "Showing N of 240" and updates with every filter change.
 
 Every tile also carries two actions: **Copy**, which copies a ready-to-paste embed snippet for that concept to the clipboard, and **Source**, which opens the concept's module file directly.
@@ -82,8 +83,10 @@ model, version }, ...] }`, ordered oldest contribution first. `agent` is drawn f
 `"claude"` / `"gemini"` (extend with a new string, e.g. `"codex"`, if another tool
 contributes); `model` is the model tier/family (e.g. `"sonnet"`, `"opus"`), `version`
 its specific version (e.g. `"5"`) — both `null` where not known. This is what the
-toolbar's **Origin** chips filter on (by `agent`; model/version aren't exposed as
-chips yet, but the data's there if that's wanted later).
+toolbar's **Origin**, **Model**, and **Version** chips filter on (by `agent`,
+`model`, and `version` respectively — a concept can match multiple chips within a
+group if it has more than one contribution, e.g. a Gemini-then-Claude concept
+matches both the Claude and Gemini Origin chips).
 
 As of 2026-08-07: the 200 concepts that predate that date were all built with some
 Claude model per repo history, backfilled as `{ contributions: [{ agent: "claude",

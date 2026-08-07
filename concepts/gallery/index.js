@@ -307,10 +307,48 @@ const ORIGINS = [
   { id: "gemini", title: "Gemini" },
 ];
 
+// Model/version aren't a fixed list like agents — new values show up as new
+// contributions get recorded, so their chip sets are derived from whatever's
+// actually present in CONCEPTS rather than hardcoded. A missing (null) value
+// gets its own "Unspecified" bucket rather than being dropped.
+function fieldOf(field) {
+  return (concept) =>
+    (concept.origin && Array.isArray(concept.origin.contributions))
+      ? concept.origin.contributions.map((contribution) => contribution[field])
+      : [];
+}
+const modelsOf = fieldOf("model");
+const versionsOf = fieldOf("version");
+
+const UNSPECIFIED = "unspecified";
+function idOf(value) {
+  return value === null ? UNSPECIFIED : value;
+}
+function titleCase(slug) {
+  return slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+function deriveChips(getValues, titleFor) {
+  const seen = new Set();
+  CONCEPTS.forEach((concept) => getValues(concept).forEach((value) => seen.add(value)));
+  const known = [...seen].filter((value) => value !== null).sort();
+  const chips = known.map((value) => ({ id: idOf(value), title: titleFor(value) }));
+  if (seen.has(null)) chips.push({ id: UNSPECIFIED, title: "Unspecified" });
+  return chips;
+}
+
+const MODELS = deriveChips(modelsOf, titleCase);
+const VERSIONS = deriveChips(versionsOf, (value) => value);
+
 // Live filter state. Defaults show everything.
 const activeCategories = new Set(CATEGORIES.map((category) => category.id));
 const activeStatuses = new Set(STATUSES.map((status) => status.id));
 const activeOrigins = new Set(ORIGINS.map((origin) => origin.id));
+const activeModels = new Set(MODELS.map((model) => model.id));
+const activeVersions = new Set(VERSIONS.map((version) => version.id));
 let searchTerm = "";
 let sortMode = "curated"; // "curated" | "added" | "updated"
 
@@ -325,6 +363,8 @@ function isVisible(concept) {
   if (!activeCategories.has(concept.category)) return false;
   if (!activeStatuses.has(statusOf(concept))) return false;
   if (!agentsOf(concept).some((agent) => activeOrigins.has(agent))) return false;
+  if (!modelsOf(concept).some((model) => activeModels.has(idOf(model)))) return false;
+  if (!versionsOf(concept).some((version) => activeVersions.has(idOf(version)))) return false;
   if (searchTerm && !concept.label.toLowerCase().includes(searchTerm)) {
     return false;
   }
@@ -464,6 +504,32 @@ function initToolbar() {
   originChips.forEach((chip) => originGroup.appendChild(chip));
   toolbar.appendChild(originGroup);
 
+  // Model filter group: which model tier/family made the contribution.
+  const modelGroup = document.createElement("div");
+  modelGroup.className = "toolbar-group";
+  modelGroup.setAttribute("role", "group");
+  modelGroup.setAttribute("aria-label", "Filter by model");
+  const modelLabel = document.createElement("span");
+  modelLabel.className = "toolbar-group-label";
+  modelLabel.textContent = "Model";
+  modelGroup.appendChild(modelLabel);
+  const modelChips = MODELS.map((model) => makeChip("model", model.id, model.title));
+  modelChips.forEach((chip) => modelGroup.appendChild(chip));
+  toolbar.appendChild(modelGroup);
+
+  // Version filter group: which specific model version made the contribution.
+  const versionGroup = document.createElement("div");
+  versionGroup.className = "toolbar-group";
+  versionGroup.setAttribute("role", "group");
+  versionGroup.setAttribute("aria-label", "Filter by model version");
+  const versionLabel = document.createElement("span");
+  versionLabel.className = "toolbar-group-label";
+  versionLabel.textContent = "Version";
+  versionGroup.appendChild(versionLabel);
+  const versionChips = VERSIONS.map((version) => makeChip("version", version.id, version.title));
+  versionChips.forEach((chip) => versionGroup.appendChild(chip));
+  toolbar.appendChild(versionGroup);
+
   // Reset button.
   const reset = document.createElement("button");
   reset.type = "button";
@@ -498,7 +564,7 @@ function initToolbar() {
     applyFilters();
   });
 
-  const allChips = categoryChips.concat(statusChips, originChips);
+  const allChips = categoryChips.concat(statusChips, originChips, modelChips, versionChips);
 
   // Category chips ISOLATE rather than toggle: clicking one narrows
   // activeCategories down to just that category. Clicking the same chip
@@ -552,6 +618,29 @@ function initToolbar() {
     });
   });
 
+  // Model / version chips: same independent toggle (exclude) semantics.
+  modelChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const pressed = chip.getAttribute("aria-pressed") === "true";
+      const next = !pressed;
+      chip.setAttribute("aria-pressed", next ? "true" : "false");
+      if (next) activeModels.add(chip.dataset.value);
+      else activeModels.delete(chip.dataset.value);
+      applyFilters();
+    });
+  });
+
+  versionChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const pressed = chip.getAttribute("aria-pressed") === "true";
+      const next = !pressed;
+      chip.setAttribute("aria-pressed", next ? "true" : "false");
+      if (next) activeVersions.add(chip.dataset.value);
+      else activeVersions.delete(chip.dataset.value);
+      applyFilters();
+    });
+  });
+
   reset.addEventListener("click", () => {
     activeCategories.clear();
     CATEGORIES.forEach((category) => activeCategories.add(category.id));
@@ -559,6 +648,10 @@ function initToolbar() {
     STATUSES.forEach((status) => activeStatuses.add(status.id));
     activeOrigins.clear();
     ORIGINS.forEach((origin) => activeOrigins.add(origin.id));
+    activeModels.clear();
+    MODELS.forEach((model) => activeModels.add(model.id));
+    activeVersions.clear();
+    VERSIONS.forEach((version) => activeVersions.add(version.id));
     searchTerm = "";
     searchInput.value = "";
     sortMode = "curated";
