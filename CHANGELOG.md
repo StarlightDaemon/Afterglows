@@ -111,8 +111,7 @@ trail some of these entries reference.
   wrap the prize; the slip now tumbles the prize back onto its starting
   spot through a full backspin so the loop closes without a teleport),
   **Traffic Light** (stop phase now hands directly to green instead of
-  0.64s of all-dark; the car genuinely queues on red; housing/hoods
-  re-centered), **Wrench & Bolt** (the nut now actually seats against a
+  0.64s of all-dark; housing/hoods re-centered), **Wrench & Bolt** (the nut now actually seats against a
   flange on a new workpiece plate, descend steps sync to stroke ends, and
   the loop resets behind a fade while the wrench visibly lifts back to the
   top), **Wind Chimes** (tubes ride one 5.2s breeze as a traveling wave
@@ -139,19 +138,21 @@ trail some of these entries reference.
   reaches it, with a second flicker on the buffet) and whips the striker
   clattering through the rack, before an underdamped settle back to calm.
 - **Traffic Light** steps again to **Refined v3** (v1 and v2 stay on the
-  cycler): the signal now governs actual flow. An explicit road with a
-  stop line and zebra crossing carries a three-car queue that drains as a
-  staggered chain on green — each car launching only after the one ahead
-  clears — empties through amber, rebuilds nose-to-tail through the red,
-  and a pedestrian crosses at the zebra while the cars are held. Same 8s
-  cycle and monochrome luminance lamp semantics as v2.
+  cycler): a tightened presentation of the signal — compact housing with
+  refit hoods and lamps, the pole planted to the tile's base, and the
+  ground spill tracking the active lamp. Same 8s cycle and monochrome
+  luminance lamp semantics as v2.
 - **Traffic Light** steps once more to **Refined v4** (v1–v3 stay on the
-  cycler): the signal alone, stripped of the v3 road scene — and the
-  gallery's first deliberate color break. The lamps run standard US
-  colors (red, yellow, green) on the same 8s cycle, each throwing a
-  colored halo flare and tinting the ground spill, with unlit lenses
-  faintly holding their color; the housing keeps the gallery's green
-  chrome so the tile belongs while the light pops.
+  cycler): the gallery's first deliberate color break. The lamps run
+  standard US colors (red, yellow, green) on the same 8s cycle, each
+  throwing a colored halo flare and tinting the ground spill, with unlit
+  lenses faintly holding their color; the housing keeps the gallery's
+  green chrome so the tile belongs while the light pops.
+- **Traffic Light** lands on **Refined v5** (v1–v4 stay on the cycler):
+  v4's colored signal on a slower, re-proportioned 12s cycle — green
+  holds longest (6s), red takes the middle share (4.5s), and yellow
+  stays a brief intermediate (1.5s), with red handing straight back to
+  green at the wrap.
 - **Constellation** returns to its natural celestial identity: reduced to
   v1/v2 (default v2); the chart versions moved to Star Chart.
 - **Microscope** is now versioned: v1 preserves the original

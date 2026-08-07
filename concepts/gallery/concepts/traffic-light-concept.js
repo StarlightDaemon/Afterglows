@@ -1,21 +1,18 @@
 // v1 below is the archived original; v2 closes the signal's dead gap (the
-// stop phase ended at 92%, leaving 0.64s of all-three-dark before green),
-// re-centers the housing and hoods on the pole (both sat 2px off), and
-// gives the car its promised queue behavior: it now rolls up during red,
-// waits at the line, and pulls away on green - a seamless loop instead of
-// one pass and 5.6s of empty road.
-// v3 is the full rebuild: the signal now governs actual flow. An explicit
-// road with a stop line and zebra crossing carries a three-car queue that
-// builds during the red (arrivals stack nose-to-tail), drains as a
-// staggered chain on the green - each car launching only after the one
-// ahead clears - and a pedestrian crosses at the zebra while the cars
-// are held. Same 8s cycle and monochrome luminance lamp semantics.
-// v4 strips the scene back to the signal alone and, per operator request,
-// breaks the gallery's monochrome: the lamps run standard US colors -
-// red, yellow, green - each with a colored halo flare and ground spill,
-// while the housing keeps the gallery's green chrome so the tile still
-// belongs. Unlit lenses stay faintly tinted, the way real dark lenses
-// hold their color. Same 8s cycle and phase proportions.
+// stop phase ended at 92%, leaving 0.64s of all-three-dark before green)
+// and re-centers the housing and hoods on the pole (both sat 2px off).
+// v3 tightens the presentation: a compact housing with refit hoods and
+// lamps, the pole planted to the tile's base, and the ground spill
+// tracking the active lamp. Same 8s cycle and monochrome luminance
+// semantics.
+// v4 breaks the gallery's monochrome per operator request: the lamps run
+// standard US colors - red, yellow, green - each with a colored halo
+// flare and ground spill, while the housing keeps the gallery's green
+// chrome so the tile still belongs. Unlit lenses stay faintly tinted,
+// the way real dark lenses hold their color. Same 8s cycle.
+// v5 slows the cycle to 12s and re-proportions it per operator request:
+// green holds longest (50%), red takes the middle share (37.5%), and
+// yellow stays a brief intermediate (12.5%). Visuals carried from v4.
 const trafficLightStyles = {
   v1: `
   :host {
@@ -134,38 +131,6 @@ const trafficLightStyles = {
     92% { opacity: 0.25; }
   }
 
-  /* A car glyph that pulls away on green and queues up on red. */
-  .tl-car {
-    position: absolute;
-    bottom: 2px;
-    left: -34px;
-    width: 22px;
-    height: 9px;
-    border-radius: 4px 6px 2px 2px;
-    background: rgba(140, 255, 170, 0.65);
-    animation: tl-car 8s infinite;
-  }
-
-  .tl-car::before,
-  .tl-car::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #0a1f0e;
-    border: 1px solid rgba(140, 255, 170, 0.8);
-  }
-
-  .tl-car::before { left: 2px; }
-  .tl-car::after { right: 2px; }
-
-  @keyframes tl-car {
-    0% { transform: translateX(0); }
-    18% { transform: translateX(70px); }
-    30%, 100% { transform: translateX(150px); }
-  }
 `,
   v2: `
   :host {
@@ -177,8 +142,7 @@ const trafficLightStyles = {
   }
 
   /* One 8s signal cycle with real proportions: a long go, a short
-     caution, a long stop that hands straight back to go. A car rolls
-     up during the red, waits at the line, and pulls away on green. */
+     caution, a long stop that hands straight back to go. */
   .tl {
     width: 104px;
     height: 100px;
@@ -284,45 +248,6 @@ const trafficLightStyles = {
     54%, 100% { opacity: 0.45; }
   }
 
-  /* The car: waits at the line through the red, pulls away when the
-     green wraps in at 0%, and the next one rolls up during the red.
-     Both offscreen teleports are hidden by a stepped segment. */
-  .tl-car {
-    position: absolute;
-    bottom: 2px;
-    left: -34px;
-    width: 22px;
-    height: 9px;
-    border-radius: 4px 6px 2px 2px;
-    background: rgba(140, 255, 170, 0.65);
-    animation: tl-car 8s infinite;
-  }
-
-  .tl-car::before,
-  .tl-car::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #0a1f0e;
-    border: 1px solid rgba(140, 255, 170, 0.8);
-  }
-
-  .tl-car::before { left: 2px; }
-  .tl-car::after { right: 2px; }
-
-  @keyframes tl-car {
-    /* Green: a beat of reaction time, then away. */
-    0%, 4% { transform: translateX(44px); animation-timing-function: ease-in; }
-    18% { transform: translateX(150px); animation-timing-function: steps(1, end); }
-    /* Hidden jump from offscreen-right to offscreen-left. */
-    56% { transform: translateX(150px); animation-timing-function: steps(1, end); }
-    58% { transform: translateX(0px); animation-timing-function: ease-out; }
-    /* Rolls up during the red and waits at the line. */
-    74%, 100% { transform: translateX(44px); }
-  }
 `,
   v3: `
   :host {
@@ -333,12 +258,10 @@ const trafficLightStyles = {
     height: 100%;
   }
 
-  /* A working intersection on one 8s signal cycle: green drains the
-     three-car queue as a staggered chain (each car launches only after
-     the one ahead clears), amber empties the road, and through the red
-     the queue rebuilds nose-to-tail while a pedestrian crosses at the
-     zebra. Lamps keep the monochrome luminance semantics: stop dim and
-     hollow, caution mid, go bright. */
+  /* The signal tightened up: a compact housing with refit hoods and
+     lamps on one 8s cycle - a long go, a short caution, a long stop
+     handing straight back to go. Lamps keep the monochrome luminance
+     semantics: stop dim and hollow, caution mid, go bright. */
   .tli {
     width: 104px;
     height: 100px;
@@ -348,9 +271,9 @@ const trafficLightStyles = {
   .tli-pole {
     position: absolute;
     left: 50%;
-    bottom: 11px;
+    bottom: 0;
     width: 4px;
-    height: 10px;
+    height: 21px;
     margin-left: -2px;
     background: linear-gradient(180deg, rgba(0, 204, 0, 0.7), rgba(0, 80, 16, 0.6));
   }
@@ -421,42 +344,7 @@ const trafficLightStyles = {
     }
   }
 
-  /* The road: a band along the bottom the whole scene stands on. */
-  .tli-road {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 1px;
-    height: 11px;
-    border-top: 1px solid rgba(0, 204, 0, 0.4);
-    border-bottom: 1px solid rgba(0, 204, 0, 0.25);
-    background: rgba(0, 22, 4, 0.5);
-  }
-
-  /* Stop line the queue holds at. */
-  .tli-stopline {
-    position: absolute;
-    left: 38px;
-    bottom: 2px;
-    width: 2px;
-    height: 9px;
-    background: rgba(190, 255, 205, 0.75);
-  }
-
-  /* Zebra crossing between the stop line and the signal. */
-  .tli-zebra {
-    position: absolute;
-    bottom: 3px;
-    width: 3px;
-    height: 7px;
-    background: rgba(140, 255, 170, 0.22);
-  }
-
-  .tli-zebra.z1 { left: 45px; }
-  .tli-zebra.z2 { left: 51px; }
-  .tli-zebra.z3 { left: 57px; }
-
-  /* Light spill on the road, tracking the active lamp. */
+  /* Light spill on the ground, tracking the active lamp. */
   .tli-spill {
     position: absolute;
     left: 50%;
@@ -475,121 +363,6 @@ const trafficLightStyles = {
     54%, 100% { opacity: 0.45; }
   }
 
-  /* Cars: 13px glyphs, wheels as pseudo-elements. Each waits nose to
-     the queue position, launches after the car ahead, exits right,
-     teleports back offscreen-left behind a stepped segment, and rolls
-     up again during the red. */
-  .tli-car {
-    position: absolute;
-    bottom: 4px;
-    left: -13px;
-    width: 13px;
-    height: 7px;
-    border-radius: 3px 4px 2px 2px;
-    background: rgba(140, 255, 170, 0.65);
-    animation-duration: 8s;
-    animation-iteration-count: infinite;
-  }
-
-  .tli-car::before,
-  .tli-car::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #0a1f0e;
-    border: 1px solid rgba(140, 255, 170, 0.8);
-  }
-
-  .tli-car::before { left: 1px; }
-  .tli-car::after { right: 1px; }
-
-  .tli-car.c1 { animation-name: tli-c1; }
-  .tli-car.c2 { animation-name: tli-c2; }
-  .tli-car.c3 { animation-name: tli-c3; }
-
-  /* Exits park at 140px: the terminal box shows ~17px of overflow past
-     the 104px tile on each side, so anything nearer leaves a glowing
-     sliver of "offscreen" car visible at the box edge during the hold. */
-
-  /* Front of the queue: first to react when the green wraps in. */
-  @keyframes tli-c1 {
-    0%, 4% { transform: translateX(36px); animation-timing-function: ease-in; }
-    20% { transform: translateX(140px); animation-timing-function: steps(1, end); }
-    56% { transform: translateX(140px); animation-timing-function: steps(1, end); }
-    58% { transform: translateX(0px); animation-timing-function: ease-out; }
-    70%, 100% { transform: translateX(36px); }
-  }
-
-  /* Second in line: launches once the leader clears. */
-  @keyframes tli-c2 {
-    0%, 8% { transform: translateX(21px); animation-timing-function: ease-in; }
-    24% { transform: translateX(140px); animation-timing-function: steps(1, end); }
-    66% { transform: translateX(140px); animation-timing-function: steps(1, end); }
-    68% { transform: translateX(0px); animation-timing-function: ease-out; }
-    80%, 100% { transform: translateX(21px); }
-  }
-
-  /* Tail of the queue: nose just peeking into frame while waiting. */
-  @keyframes tli-c3 {
-    0%, 12% { transform: translateX(6px); animation-timing-function: ease-in; }
-    28% { transform: translateX(140px); animation-timing-function: steps(1, end); }
-    76% { transform: translateX(140px); animation-timing-function: steps(1, end); }
-    78% { transform: translateX(0px); animation-timing-function: ease-out; }
-    90%, 100% { transform: translateX(6px); }
-  }
-
-  /* Pedestrian: crosses at the zebra while the cars are held, gone
-     well before the green wraps in. Head + body glyph with a small
-     walking bob. */
-  .tli-ped {
-    position: absolute;
-    left: 49px;
-    top: 74px;
-    width: 4px;
-    height: 9px;
-    opacity: 0;
-    animation: tli-ped 8s infinite, tli-ped-bob 0.4s ease-in-out infinite alternate;
-  }
-
-  .tli-ped::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 3px;
-    height: 3px;
-    margin-left: -1.5px;
-    border-radius: 50%;
-    background: #f2ffdd;
-    box-shadow: 0 0 4px rgba(214, 255, 224, 0.9);
-  }
-
-  .tli-ped::after {
-    content: '';
-    position: absolute;
-    top: 3.5px;
-    left: 50%;
-    width: 2px;
-    height: 5.5px;
-    margin-left: -1px;
-    border-radius: 1px 1px 0 0;
-    background: rgba(214, 255, 224, 0.95);
-  }
-
-  @keyframes tli-ped {
-    0%, 58% { transform: translateY(0); opacity: 0; }
-    62% { transform: translateY(3px); opacity: 1; }
-    84% { transform: translateY(14px); opacity: 1; }
-    88%, 100% { transform: translateY(16px); opacity: 0; }
-  }
-
-  @keyframes tli-ped-bob {
-    from { margin-top: 0; }
-    to { margin-top: -0.8px; }
-  }
 `,
   v4: `
   :host {
@@ -769,13 +542,187 @@ const trafficLightStyles = {
     54%, 100% { background: radial-gradient(ellipse, rgba(255, 65, 54, 0.5), transparent 70%); }
   }
 `,
+  v5: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v4's colored signal on a slower, re-proportioned 12s cycle: green
+     holds longest (50%, 6s), red takes the middle share (37.5%, 4.5s),
+     and yellow stays a brief intermediate (12.5%, 1.5s), handing red
+     straight back to green at the wrap. */
+  .tlc {
+    width: 104px;
+    height: 100px;
+    position: relative;
+  }
+
+  /* Halo flares, one per lamp, behind the housing. */
+  .tlc-halo {
+    position: absolute;
+    left: 20px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  .tlc-halo.hr {
+    top: -9px;
+    background: radial-gradient(circle, rgba(255, 65, 54, 0.5), rgba(255, 65, 54, 0.15) 45%, transparent 70%);
+    animation: tlc-halo-r 12s steps(1) infinite;
+  }
+
+  .tlc-halo.hy {
+    top: 20px;
+    background: radial-gradient(circle, rgba(255, 183, 0, 0.45), rgba(255, 183, 0, 0.13) 45%, transparent 70%);
+    animation: tlc-halo-y 12s steps(1) infinite;
+  }
+
+  .tlc-halo.hg {
+    top: 49px;
+    background: radial-gradient(circle, rgba(46, 204, 64, 0.5), rgba(46, 204, 64, 0.15) 45%, transparent 70%);
+    animation: tlc-halo-g 12s steps(1) infinite;
+  }
+
+  @keyframes tlc-halo-g {
+    0% { opacity: 0.9; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes tlc-halo-y {
+    0% { opacity: 0; }
+    50% { opacity: 0.85; }
+    62.5% { opacity: 0; }
+  }
+
+  @keyframes tlc-halo-r {
+    0%, 50% { opacity: 0; }
+    62.5%, 100% { opacity: 0.9; }
+  }
+
+  .tlc-pole {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 4px;
+    height: 6px;
+    margin-left: -2px;
+    background: linear-gradient(180deg, rgba(0, 204, 0, 0.7), rgba(0, 80, 16, 0.6));
+  }
+
+  .tlc-housing {
+    position: absolute;
+    left: 50%;
+    top: 2px;
+    width: 34px;
+    height: 90px;
+    margin-left: -19px;
+    border: 2px solid var(--accent, #00cc00);
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(0, 45, 9, 0.6), rgba(0, 20, 4, 0.85));
+    box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
+  }
+
+  /* Lens hoods, centered over their lamps. */
+  .tlc-hood {
+    position: absolute;
+    left: 5px;
+    width: 24px;
+    height: 5px;
+    border-radius: 3px 3px 0 0;
+    background: rgba(0, 204, 0, 0.5);
+  }
+
+  .tlc-hood.h1 { top: 3px; }
+  .tlc-hood.h2 { top: 32px; }
+  .tlc-hood.h3 { top: 61px; }
+
+  .tlc-lamp {
+    position: absolute;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    margin-left: -11px;
+    border-radius: 50%;
+  }
+
+  /* Standard US colors, top to bottom: red, yellow, green. */
+  .tlc-lamp.red {
+    top: 8px;
+    border: 1px solid rgba(255, 140, 130, 0.45);
+    background: rgba(255, 65, 54, 0.13);
+    animation: tlc-red 12s steps(1) infinite;
+  }
+
+  .tlc-lamp.yellow {
+    top: 37px;
+    border: 1px solid rgba(255, 210, 120, 0.45);
+    background: rgba(255, 183, 0, 0.13);
+    animation: tlc-yellow 12s steps(1) infinite;
+  }
+
+  .tlc-lamp.green {
+    top: 66px;
+    border: 1px solid rgba(140, 230, 150, 0.45);
+    background: rgba(46, 204, 64, 0.13);
+    animation: tlc-green 12s steps(1) infinite;
+  }
+
+  @keyframes tlc-green {
+    0% {
+      background: radial-gradient(circle at 38% 32%, #eaffea, #2ecc40 62%);
+      box-shadow: 0 0 16px rgba(46, 204, 64, 0.95), 0 0 32px rgba(46, 204, 64, 0.45);
+    }
+    50% { background: rgba(46, 204, 64, 0.13); box-shadow: none; }
+  }
+
+  @keyframes tlc-yellow {
+    0% { background: rgba(255, 183, 0, 0.13); box-shadow: none; }
+    50% {
+      background: radial-gradient(circle at 38% 32%, #fff8dc, #ffb700 62%);
+      box-shadow: 0 0 14px rgba(255, 183, 0, 0.95), 0 0 28px rgba(255, 183, 0, 0.4);
+    }
+    62.5% { background: rgba(255, 183, 0, 0.13); box-shadow: none; }
+  }
+
+  /* Red holds to the wrap so it hands directly to green. */
+  @keyframes tlc-red {
+    0%, 50% { background: rgba(255, 65, 54, 0.13); box-shadow: none; }
+    62.5%, 100% {
+      background: radial-gradient(circle at 38% 32%, #ffe9e6, #ff4136 62%);
+      box-shadow: 0 0 16px rgba(255, 65, 54, 0.95), 0 0 32px rgba(255, 65, 54, 0.45);
+    }
+  }
+
+  /* Ground spill tinted by whichever lamp is lit. */
+  .tlc-spill {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 64px;
+    height: 8px;
+    margin-left: -32px;
+    border-radius: 50%;
+    animation: tlc-spill 12s steps(1) infinite;
+  }
+
+  @keyframes tlc-spill {
+    0% { background: radial-gradient(ellipse, rgba(46, 204, 64, 0.5), transparent 70%); }
+    50% { background: radial-gradient(ellipse, rgba(255, 183, 0, 0.45), transparent 70%); }
+    62.5%, 100% { background: radial-gradient(ellipse, rgba(255, 65, 54, 0.5), transparent 70%); }
+  }
+`,
 };
 
 const trafficLightMarkup = {
   v1: `
       <div class="tl">
         <div class="tl-spill"></div>
-        <div class="tl-car"></div>
         <div class="tl-pole"></div>
         <div class="tl-housing">
           <div class="tl-hood h1"></div>
@@ -790,7 +737,6 @@ const trafficLightMarkup = {
   v2: `
       <div class="tl">
         <div class="tl-spill"></div>
-        <div class="tl-car"></div>
         <div class="tl-pole"></div>
         <div class="tl-housing">
           <div class="tl-hood h1"></div>
@@ -805,15 +751,6 @@ const trafficLightMarkup = {
   v3: `
       <div class="tli">
         <div class="tli-spill"></div>
-        <div class="tli-road"></div>
-        <div class="tli-stopline"></div>
-        <div class="tli-zebra z1"></div>
-        <div class="tli-zebra z2"></div>
-        <div class="tli-zebra z3"></div>
-        <div class="tli-car c1"></div>
-        <div class="tli-car c2"></div>
-        <div class="tli-car c3"></div>
-        <div class="tli-ped"></div>
         <div class="tli-pole"></div>
         <div class="tli-housing">
           <div class="tli-hood h1"></div>
@@ -826,6 +763,23 @@ const trafficLightMarkup = {
       </div>
     `,
   v4: `
+      <div class="tlc">
+        <div class="tlc-halo hr"></div>
+        <div class="tlc-halo hy"></div>
+        <div class="tlc-halo hg"></div>
+        <div class="tlc-spill"></div>
+        <div class="tlc-pole"></div>
+        <div class="tlc-housing">
+          <div class="tlc-hood h1"></div>
+          <div class="tlc-hood h2"></div>
+          <div class="tlc-hood h3"></div>
+          <div class="tlc-lamp red"></div>
+          <div class="tlc-lamp yellow"></div>
+          <div class="tlc-lamp green"></div>
+        </div>
+      </div>
+    `,
+  v5: `
       <div class="tlc">
         <div class="tlc-halo hr"></div>
         <div class="tlc-halo hy"></div>
@@ -857,8 +811,8 @@ class ConceptTrafficLight extends HTMLElement {
     if (this.isConnected) this.render();
   }
   render() {
-    const version = this.getAttribute('version') || 'v4';
-    this.shadowRoot.innerHTML = `<style>${trafficLightStyles[version] || trafficLightStyles.v4}</style>${trafficLightMarkup[version] || trafficLightMarkup.v4}`;
+    const version = this.getAttribute('version') || 'v5';
+    this.shadowRoot.innerHTML = `<style>${trafficLightStyles[version] || trafficLightStyles.v5}</style>${trafficLightMarkup[version] || trafficLightMarkup.v5}`;
   }
 }
 
