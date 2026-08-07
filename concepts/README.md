@@ -11,33 +11,33 @@ This folder contains the complete exploration history of header animation concep
 
 ## 🌌 Concepts Included
 
-The gallery currently holds **200 concepts across 20 categories**, ranging from
+The gallery currently holds **240 concepts across 20 categories**, ranging from
 pure geometric/mathematical abstraction all the way to ordinary everyday
 subjects (consolidated 2026-08-03 from the original 29 categories):
 
 | Category | Title | Concepts |
 | --- | --- | --- |
-| `geometry` | Geometry & Pattern | 11 |
+| `geometry` | Geometry & Pattern | 12 |
 | `systems` | Systems & Scanning | 14 |
 | `bio` | Science & Bio | 13 |
 | `lab` | Lab & Optics | 12 |
 | `nature` | Nature & Weather | 15 |
 | `space` | Space & Spatial | 12 |
 | `scifi` | Sci-Fi & Encounters | 13 |
-| `occult` | Supernatural & Occult | 10 |
-| `arcane` | Magic & Arcane | 7 |
+| `occult` | Supernatural & Occult | 11 |
+| `arcane` | Magic & Arcane | 11 |
 | `retro` | Retro & Symbolic | 12 |
-| `mech` | Mechanisms & Tools | 9 |
-| `home` | Home & Office | 10 |
-| `ocean` | Ocean & Deep | 5 |
-| `city` | City & Commerce | 11 |
-| `music` | Music & Sound | 6 |
-| `games` | Games & Sport | 10 |
+| `mech` | Mechanisms & Tools | 12 |
+| `home` | Home & Office | 11 |
+| `ocean` | Ocean & Deep | 11 |
+| `city` | City & Commerce | 12 |
+| `music` | Music & Sound | 12 |
+| `games` | Games & Sport | 11 |
 | `garden` | Garden & Insects | 12 |
-| `birds` | Birds & Aviary | 6 |
-| `textile` | Textiles & Craft | 6 |
-| `toys` | Toys & Playthings | 6 |
-| **Total** | | **200** |
+| `birds` | Birds & Aviary | 12 |
+| `textile` | Textiles & Craft | 11 |
+| `toys` | Toys & Playthings | 11 |
+| **Total** | | **240** |
 
 Each concept carries a status badge:
 
@@ -70,7 +70,7 @@ The gallery page includes a live filter/search toolbar above the grid:
 *   **Categories drawer** — a compact `Categories: All ▾` toggle that discloses the full chip row; the toggle doubles as a summary of the current selection. Chips **isolate** rather than toggle: clicking a category shows only that category's concepts; clicking the same (sole-active) chip again restores all categories. Clicking a different chip switches the isolation to it.
 *   **Status chips** (Original / Refined / New) — toggle on/off independently, so any combination of statuses can be shown at once.
 *   **Reset** — clears search and restores all categories, statuses, and the curated sort.
-*   **Live count** — reads "Showing N of 200" and updates with every filter change.
+*   **Live count** — reads "Showing N of 240" and updates with every filter change.
 
 Every tile also carries two actions: **Copy**, which copies a ready-to-paste embed snippet for that concept to the clipboard, and **Source**, which opens the concept's module file directly.
 
