@@ -293,9 +293,24 @@ const STATUSES = [
   { id: "new", title: "New" },
 ];
 
+// A concept's origin.contributions may list more than one contributor (e.g.
+// Gemini built it, Claude later patched or rebuilt it) — origin filtering is
+// an "any contribution's agent matches" test, not an exact-match like status.
+function agentsOf(concept) {
+  return (concept.origin && Array.isArray(concept.origin.contributions))
+    ? concept.origin.contributions.map((contribution) => contribution.agent)
+    : [];
+}
+
+const ORIGINS = [
+  { id: "claude", title: "Claude" },
+  { id: "gemini", title: "Gemini" },
+];
+
 // Live filter state. Defaults show everything.
 const activeCategories = new Set(CATEGORIES.map((category) => category.id));
 const activeStatuses = new Set(STATUSES.map((status) => status.id));
+const activeOrigins = new Set(ORIGINS.map((origin) => origin.id));
 let searchTerm = "";
 let sortMode = "curated"; // "curated" | "added" | "updated"
 
@@ -309,6 +324,7 @@ let countReadout = null;
 function isVisible(concept) {
   if (!activeCategories.has(concept.category)) return false;
   if (!activeStatuses.has(statusOf(concept))) return false;
+  if (!agentsOf(concept).some((agent) => activeOrigins.has(agent))) return false;
   if (searchTerm && !concept.label.toLowerCase().includes(searchTerm)) {
     return false;
   }
@@ -433,6 +449,21 @@ function initToolbar() {
   statusChips.forEach((chip) => statusGroup.appendChild(chip));
   toolbar.appendChild(statusGroup);
 
+  // Origin filter group: which agent(s) built or revised the concept.
+  const originGroup = document.createElement("div");
+  originGroup.className = "toolbar-group";
+  originGroup.setAttribute("role", "group");
+  originGroup.setAttribute("aria-label", "Filter by origin");
+  const originLabel = document.createElement("span");
+  originLabel.className = "toolbar-group-label";
+  originLabel.textContent = "Origin";
+  originGroup.appendChild(originLabel);
+  const originChips = ORIGINS.map((origin) =>
+    makeChip("origin", origin.id, origin.title)
+  );
+  originChips.forEach((chip) => originGroup.appendChild(chip));
+  toolbar.appendChild(originGroup);
+
   // Reset button.
   const reset = document.createElement("button");
   reset.type = "button";
@@ -467,7 +498,7 @@ function initToolbar() {
     applyFilters();
   });
 
-  const allChips = categoryChips.concat(statusChips);
+  const allChips = categoryChips.concat(statusChips, originChips);
 
   // Category chips ISOLATE rather than toggle: clicking one narrows
   // activeCategories down to just that category. Clicking the same chip
@@ -509,11 +540,25 @@ function initToolbar() {
     });
   });
 
+  // Origin chips: same independent toggle (exclude) semantics as status.
+  originChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const pressed = chip.getAttribute("aria-pressed") === "true";
+      const next = !pressed;
+      chip.setAttribute("aria-pressed", next ? "true" : "false");
+      if (next) activeOrigins.add(chip.dataset.value);
+      else activeOrigins.delete(chip.dataset.value);
+      applyFilters();
+    });
+  });
+
   reset.addEventListener("click", () => {
     activeCategories.clear();
     CATEGORIES.forEach((category) => activeCategories.add(category.id));
     activeStatuses.clear();
     STATUSES.forEach((status) => activeStatuses.add(status.id));
+    activeOrigins.clear();
+    ORIGINS.forEach((origin) => activeOrigins.add(origin.id));
     searchTerm = "";
     searchInput.value = "";
     sortMode = "curated";

@@ -69,10 +69,34 @@ The gallery page includes a live filter/search toolbar above the grid:
 *   **Sort** — a dropdown with three modes: **Curated** (the default manifest order, sectioned by category), **Newest first** (by `added` date), and **Recently updated** (by `updated` date). The two date sorts flatten the gallery into a single newest-first grid and add the relevant date to each card's badge row.
 *   **Categories drawer** — a compact `Categories: All ▾` toggle that discloses the full chip row; the toggle doubles as a summary of the current selection. Chips **isolate** rather than toggle: clicking a category shows only that category's concepts; clicking the same (sole-active) chip again restores all categories. Clicking a different chip switches the isolation to it.
 *   **Status chips** (Original / Refined / New) — toggle on/off independently, so any combination of statuses can be shown at once.
-*   **Reset** — clears search and restores all categories, statuses, and the curated sort.
+*   **Origin chips** (Claude / Gemini) — toggle on/off independently, filtering by which agent(s) built or revised each concept (see **Origin & Attribution** below). A concept touched by both agents matches either chip.
+*   **Reset** — clears search and restores all categories, statuses, origins, and the curated sort.
 *   **Live count** — reads "Showing N of 240" and updates with every filter change.
 
 Every tile also carries two actions: **Copy**, which copies a ready-to-paste embed snippet for that concept to the clipboard, and **Source**, which opens the concept's module file directly.
+
+## 🏷️ Origin & Attribution
+
+Every entry in `manifest.js` carries an `origin` field: `{ contributions: [{ agent,
+model, version }, ...] }`, ordered oldest contribution first. `agent` is drawn from
+`"claude"` / `"gemini"` (extend with a new string, e.g. `"codex"`, if another tool
+contributes); `model` is the model tier/family (e.g. `"sonnet"`, `"opus"`), `version`
+its specific version (e.g. `"5"`) — both `null` where not known. This is what the
+toolbar's **Origin** chips filter on (by `agent`; model/version aren't exposed as
+chips yet, but the data's there if that's wanted later).
+
+As of 2026-08-07: the 200 concepts that predate that date were all built with some
+Claude model per repo history, backfilled as `{ contributions: [{ agent: "claude",
+model: null, version: null }] }` since per-concept model detail wasn't tracked at
+the time. The 40 concepts added 2026-08-06/07 carry exact data on the Claude side —
+26 built solely by Gemini, 14 built by Gemini and then patched or rebuilt by Claude
+Sonnet 5 (`{ agent: "claude", model: "sonnet", version: "5" }`). Gemini's specific
+model/version was never confirmed, so those stay `null` too rather than guessed.
+
+**This is a standing requirement, not a one-time backfill.** Any agent — Claude,
+Gemini, or otherwise — adding a new concept or revising an existing one must
+add/update its `origin` field accordingly. Never fabricate a model you aren't
+certain of; use `null` instead.
 
 ## 🎛️ Theme + Font Control
 
