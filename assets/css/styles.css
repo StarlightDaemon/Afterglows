@@ -598,6 +598,11 @@ section h2::after {
     background: var(--bg-secondary);
 }
 
+/* Cards whose body click-through is wired up (script.js) */
+.project-card.card-clickable {
+    cursor: pointer;
+}
+
 /* Placeholder cards */
 .project-card.placeholder-card {
     opacity: 0.5;

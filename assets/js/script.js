@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dynamic year in footer
     updateCopyrightYear();
 
+    // Whole-card click-through to each project's primary link
+    initCardClickThrough();
 
 });
 
@@ -80,6 +82,39 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+/**
+ * Make each project card's body act as a click target for its primary
+ * link (Demo/Gallery). Cards without a live primary link (e.g. the
+ * promoted Stargate card) are left alone. Clicks on inner links keep
+ * their own behavior, and selecting card text never triggers navigation.
+ */
+function initCardClickThrough() {
+    document.querySelectorAll('.project-card').forEach(card => {
+        const primary = card.querySelector('.project-links-main a.project-link[href]');
+        if (!primary) { return; }
+
+        card.classList.add('card-clickable');
+
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('a')) { return; }
+            const selection = window.getSelection();
+            if (selection && selection.type === 'Range') { return; }
+
+            if (e.ctrlKey || e.metaKey) {
+                window.open(primary.href, '_blank', 'noopener');
+            } else {
+                window.location.href = primary.href;
+            }
+        });
+
+        // Middle-click opens the primary link in a new tab, like a real link
+        card.addEventListener('auxclick', (e) => {
+            if (e.button !== 1 || e.target.closest('a')) { return; }
+            window.open(primary.href, '_blank', 'noopener');
+        });
+    });
+}
 
 /**
  * Update copyright year dynamically
