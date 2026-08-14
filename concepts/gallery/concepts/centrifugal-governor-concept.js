@@ -1,4 +1,5 @@
-const centrifugalGovernorStyles = `
+const centrifugalGovernorStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -7,16 +8,12 @@ const centrifugalGovernorStyles = `
     height: 100%;
   }
 
-  /* A Watt centrifugal flyball steam governor: a vertical spindle accelerates,
-     swinging hinged brass counterweights outward under centrifugal force to lift
-     a sliding throttle collar in classic negative-feedback speed regulation. */
   .gov {
     width: 114px;
     height: 100px;
     position: relative;
   }
 
-  /* Vertical drive spindle */
   .gov-spindle {
     position: absolute;
     left: 55px;
@@ -29,7 +26,6 @@ const centrifugalGovernorStyles = `
     z-index: 2;
   }
 
-  /* Top mounting collar bracket */
   .gov-top-collar {
     position: absolute;
     left: 49px;
@@ -42,7 +38,6 @@ const centrifugalGovernorStyles = `
     z-index: 5;
   }
 
-  /* Sliding sleeve collar lifting vertically with speed */
   .gov-slide-sleeve {
     position: absolute;
     left: 49px;
@@ -62,7 +57,6 @@ const centrifugalGovernorStyles = `
     100% { transform: translateY(-16px); }
   }
 
-  /* Left hinged flyball arm swinging outward */
   .gov-arm-l {
     position: absolute;
     left: 20px;
@@ -102,7 +96,6 @@ const centrifugalGovernorStyles = `
     box-shadow: 0 0 8px rgba(140, 255, 170, 0.8);
   }
 
-  /* Right hinged flyball arm swinging outward */
   .gov-arm-r {
     position: absolute;
     right: 20px;
@@ -142,7 +135,6 @@ const centrifugalGovernorStyles = `
     box-shadow: 0 0 8px rgba(140, 255, 170, 0.8);
   }
 
-  /* Lower linkage struts connecting balls to sliding sleeve */
   .gov-link-l {
     position: absolute;
     left: 36px;
@@ -176,7 +168,6 @@ const centrifugalGovernorStyles = `
     100% { transform: rotate(10deg); }
   }
 
-  /* Base bevel gear drive */
   .gov-base {
     position: absolute;
     left: 38px;
@@ -188,16 +179,208 @@ const centrifugalGovernorStyles = `
     border: 1.5px solid var(--accent, #00cc00);
     box-shadow: 0 0 6px rgba(0, 204, 0, 0.3);
   }
-`;
-
-class ConceptCentrifugalGovernor extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${centrifugalGovernorStyles}</style>
+
+  /* v2: Watt centrifugal governor with polished brass flyballs, chrome spindle shaft,
+     sliding steel sleeve, and cast iron base */
+  .govc {
+    width: 114px;
+    height: 100px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Chrome steel vertical spindle */
+  .govc-spindle {
+    position: absolute;
+    left: 55px;
+    top: 8px;
+    width: 4px;
+    height: 80px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #ffffff 0%, #cbd5e1 50%, #64748b 100%);
+    border: 0.5px solid #ffffff;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+    z-index: 2;
+  }
+
+  /* Top brass mounting collar */
+  .govc-top-collar {
+    position: absolute;
+    left: 49px;
+    top: 14px;
+    width: 16px;
+    height: 8px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #fde047, #ca8a04);
+    border: 1px solid #facc15;
+    box-shadow: 0 0 4px #eab308;
+    z-index: 5;
+  }
+
+  /* Sliding steel sleeve */
+  .govc-slide-sleeve {
+    position: absolute;
+    left: 49px;
+    top: 52px;
+    width: 16px;
+    height: 10px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+    z-index: 5;
+    animation: govc-sleeve-lift 3.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes govc-sleeve-lift {
+    0% { transform: translateY(8px); }
+    100% { transform: translateY(-16px); }
+  }
+
+  /* Left hinged brass flyball arm */
+  .govc-arm-l {
+    position: absolute;
+    left: 20px;
+    top: 18px;
+    width: 36px;
+    height: 38px;
+    transform-origin: right top;
+    z-index: 3;
+    animation: govc-swing-l 3.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes govc-swing-l {
+    0% { transform: rotate(-18deg); }
+    100% { transform: rotate(-52deg); }
+  }
+
+  .govc-rod-l {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 32px;
+    height: 2.5px;
+    background: #facc15;
+    box-shadow: 0 0 3px #ca8a04;
+    transform-origin: right center;
+    transform: rotate(45deg);
+  }
+
+  .govc-ball-l {
+    position: absolute;
+    left: 2px;
+    bottom: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffffff 0%, #fde047 30%, #ca8a04 80%, #78350f 100%);
+    border: 1px solid #facc15;
+    box-shadow: 0 0 10px #facc15, 0 2px 6px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Right hinged brass flyball arm */
+  .govc-arm-r {
+    position: absolute;
+    right: 20px;
+    top: 18px;
+    width: 36px;
+    height: 38px;
+    transform-origin: left top;
+    z-index: 3;
+    animation: govc-swing-r 3.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes govc-swing-r {
+    0% { transform: rotate(18deg); }
+    100% { transform: rotate(52deg); }
+  }
+
+  .govc-rod-r {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 2.5px;
+    background: #facc15;
+    box-shadow: 0 0 3px #ca8a04;
+    transform-origin: left center;
+    transform: rotate(-45deg);
+  }
+
+  .govc-ball-r {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffffff 0%, #fde047 30%, #ca8a04 80%, #78350f 100%);
+    border: 1px solid #facc15;
+    box-shadow: 0 0 10px #facc15, 0 2px 6px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Linkage struts */
+  .govc-link-l {
+    position: absolute;
+    left: 36px;
+    top: 48px;
+    width: 20px;
+    height: 2px;
+    background: #e2e8f0;
+    transform-origin: right center;
+    animation: govc-link-angle-l 3.2s ease-in-out infinite alternate;
+    z-index: 3;
+  }
+
+  .govc-link-r {
+    position: absolute;
+    right: 36px;
+    top: 48px;
+    width: 20px;
+    height: 2px;
+    background: #e2e8f0;
+    transform-origin: left center;
+    animation: govc-link-angle-r 3.2s ease-in-out infinite alternate;
+    z-index: 3;
+  }
+
+  @keyframes govc-link-angle-l {
+    0% { transform: rotate(-35deg); }
+    100% { transform: rotate(-10deg); }
+  }
+  @keyframes govc-link-angle-r {
+    0% { transform: rotate(35deg); }
+    100% { transform: rotate(10deg); }
+  }
+
+  /* Cast-iron bevel gear drive base */
+  .govc-base {
+    position: absolute;
+    left: 38px;
+    bottom: 8px;
+    width: 38px;
+    height: 12px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #475569 0%, #1e293b 60%, #09090b 100%);
+    border: 1px solid #64748b;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  }
+  `,
+};
+
+const centrifugalGovernorMarkup = {
+  v1: `
       <div class="gov">
         <div class="gov-spindle"></div>
         <div class="gov-top-collar"></div>
@@ -214,7 +397,42 @@ class ConceptCentrifugalGovernor extends HTMLElement {
         <div class="gov-link-r"></div>
         <div class="gov-base"></div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="govc">
+        <div class="govc-spindle"></div>
+        <div class="govc-top-collar"></div>
+        <div class="govc-slide-sleeve"></div>
+        <div class="govc-arm-l">
+          <div class="govc-rod-l"></div>
+          <div class="govc-ball-l"></div>
+        </div>
+        <div class="govc-arm-r">
+          <div class="govc-rod-r"></div>
+          <div class="govc-ball-r"></div>
+        </div>
+        <div class="govc-link-l"></div>
+        <div class="govc-link-r"></div>
+        <div class="govc-base"></div>
+      </div>
+    `,
+};
+
+class ConceptCentrifugalGovernor extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${centrifugalGovernorStyles[version] || centrifugalGovernorStyles.v2}</style>${centrifugalGovernorMarkup[version] || centrifugalGovernorMarkup.v2}`;
   }
 }
 

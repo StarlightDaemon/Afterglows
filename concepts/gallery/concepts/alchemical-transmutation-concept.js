@@ -1,4 +1,5 @@
-const alchemicalTransmutationStyles = `
+const alchemicalTransmutationStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -7,18 +8,12 @@ const alchemicalTransmutationStyles = `
     height: 100%;
   }
 
-  /* A lead ingot resting inside a transmutation circle: geometric spoke
-     channels pulse with energy, the ingot heats and fades as a glowing
-     mass takes its place, that mass morphs from a molten sphere into a
-     faceted gold star, then the cycle resets to a fresh ingot. No flask,
-     no coil, no drip — this is a material state morph, not a distillery. */
   .alch {
     width: 116px;
     height: 98px;
     position: relative;
   }
 
-  /* Outer transmutation circle */
   .alch-circle-ring {
     position: absolute;
     left: 10px;
@@ -40,7 +35,6 @@ const alchemicalTransmutationStyles = `
     border: 1px dashed rgba(140, 255, 170, 0.5);
   }
 
-  /* Six geometric energy channels radiating from the ingot to the ring */
   .alch-channel {
     position: absolute;
     left: 58px;
@@ -66,8 +60,6 @@ const alchemicalTransmutationStyles = `
     58%, 100% { opacity: 0.2; }
   }
 
-  /* Solid lead ingot: dark, dull, heats and fades out as the glowing
-     mass beneath it takes over. */
   .alch-ingot {
     position: absolute;
     left: 44px;
@@ -88,10 +80,6 @@ const alchemicalTransmutationStyles = `
     100% { opacity: 1; filter: brightness(0.7); }
   }
 
-  /* The transmuting mass: molten sphere (clip-path near-circle) morphing
-     into a faceted gold 5-point star (same 10-vertex polygon, alternating
-     radius) — a real solid -> liquid -> crystal shape change, not a
-     boiling/dripping apparatus. */
   .alch-shape {
     position: absolute;
     left: 38px;
@@ -137,16 +125,152 @@ const alchemicalTransmutationStyles = `
     }
     100% { opacity: 0; transform: scale(0.75) rotate(18deg); }
   }
-`;
-
-class ConceptAlchemicalTransmutation extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${alchemicalTransmutationStyles}</style>
+
+  /* v2: Alchemical transmutation with purple arcane circle, glowing lead ingot,
+     and morphing golden star */
+  .alchc {
+    width: 116px;
+    height: 98px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Purple arcane transmutation circle */
+  .alchc-circle-ring {
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    width: 96px;
+    height: 82px;
+    border-radius: 50%;
+    border: 2px solid #a855f7;
+    box-shadow: inset 0 0 10px rgba(168, 85, 247, 0.4), 0 0 10px rgba(168, 85, 247, 0.5);
+  }
+
+  .alchc-circle-inner {
+    position: absolute;
+    left: 24px;
+    top: 20px;
+    width: 68px;
+    height: 58px;
+    border-radius: 50%;
+    border: 1px dashed #c084fc;
+    box-shadow: 0 0 6px rgba(192, 132, 252, 0.4);
+  }
+
+  /* Radiating purple energy channels */
+  .alchc-channel {
+    position: absolute;
+    left: 58px;
+    top: 49px;
+    width: 46px;
+    height: 2px;
+    background: linear-gradient(90deg, #c084fc, transparent);
+    box-shadow: 0 0 4px #a855f7;
+    transform-origin: left center;
+    animation: alchc-channel-pulse 6s ease-in-out infinite;
+  }
+
+  .alchc-channel.c1 { transform: rotate(0deg); }
+  .alchc-channel.c2 { transform: rotate(60deg); }
+  .alchc-channel.c3 { transform: rotate(120deg); }
+  .alchc-channel.c4 { transform: rotate(180deg); }
+  .alchc-channel.c5 { transform: rotate(240deg); }
+  .alchc-channel.c6 { transform: rotate(300deg); }
+
+  @keyframes alchc-channel-pulse {
+    0%, 10% { opacity: 0.2; }
+    16%, 22% { opacity: 1; }
+    44%, 50% { opacity: 1; }
+    58%, 100% { opacity: 0.2; }
+  }
+
+  /* Solid lead ingot heating up */
+  .alchc-ingot {
+    position: absolute;
+    left: 44px;
+    top: 39px;
+    width: 28px;
+    height: 20px;
+    border-radius: 2px;
+    background: linear-gradient(160deg, #64748b 0%, #334155 60%, #1e293b 100%);
+    border: 1.5px solid #94a3b8;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+    z-index: 3;
+    animation: alchc-ingot-heat 6s ease-in-out infinite;
+  }
+
+  @keyframes alchc-ingot-heat {
+    0%, 8% { opacity: 1; filter: brightness(0.8); }
+    16% { opacity: 1; filter: brightness(2) saturate(2); box-shadow: 0 0 16px #ea580c, 0 0 24px #facc15; }
+    24%, 92% { opacity: 0; }
+    100% { opacity: 1; filter: brightness(0.8); }
+  }
+
+  /* Molten mass morphing into faceted gold star */
+  .alchc-shape {
+    position: absolute;
+    left: 38px;
+    top: 25px;
+    width: 40px;
+    height: 40px;
+    clip-path: polygon(50% 12%, 72% 19%, 86% 38%, 86% 62%, 72% 81%, 50% 88%, 28% 81%, 14% 62%, 14% 38%, 28% 19%);
+    background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fde047 30%, #ea580c 70%, #991b1b 100%);
+    box-shadow: 0 0 16px #facc15, 0 0 24px #ec4899;
+    opacity: 0;
+    z-index: 4;
+    animation: alchc-shape-morph 6s ease-in-out infinite;
+  }
+
+  @keyframes alchc-shape-morph {
+    0%, 12% {
+      opacity: 0;
+      clip-path: polygon(50% 12%, 72% 19%, 86% 38%, 86% 62%, 72% 81%, 50% 88%, 28% 81%, 14% 62%, 14% 38%, 28% 19%);
+      background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fde047 30%, #ea580c 70%, #991b1b 100%);
+      transform: scale(0.75);
+    }
+    28% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    45% {
+      opacity: 1;
+      clip-path: polygon(50% 12%, 72% 19%, 86% 38%, 86% 62%, 72% 81%, 50% 88%, 28% 81%, 14% 62%, 14% 38%, 28% 19%);
+      background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fde047 30%, #ea580c 70%, #991b1b 100%);
+      transform: scale(1.05);
+    }
+    70% {
+      opacity: 1;
+      clip-path: polygon(50% 4%, 61% 35%, 94% 36%, 67% 56%, 77% 87%, 50% 68%, 23% 87%, 33% 56%, 6% 36%, 39% 35%);
+      background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fef08a 30%, #facc15 60%, #b45309 100%);
+      box-shadow: 0 0 20px #facc15, 0 0 30px #fde047;
+      transform: scale(1) rotate(18deg);
+    }
+    88% {
+      opacity: 1;
+      clip-path: polygon(50% 4%, 61% 35%, 94% 36%, 67% 56%, 77% 87%, 50% 68%, 23% 87%, 33% 56%, 6% 36%, 39% 35%);
+      background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fef08a 30%, #facc15 60%, #b45309 100%);
+      box-shadow: 0 0 24px #facc15;
+      transform: scale(1.15) rotate(18deg);
+    }
+    100% { opacity: 0; transform: scale(0.75) rotate(18deg); }
+  }
+  `,
+};
+
+const alchemicalTransmutationMarkup = {
+  v1: `
       <div class="alch">
         <div class="alch-circle-ring"></div>
         <div class="alch-circle-inner"></div>
@@ -159,7 +283,38 @@ class ConceptAlchemicalTransmutation extends HTMLElement {
         <div class="alch-ingot"></div>
         <div class="alch-shape"></div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="alchc">
+        <div class="alchc-circle-ring"></div>
+        <div class="alchc-circle-inner"></div>
+        <div class="alchc-channel c1"></div>
+        <div class="alchc-channel c2"></div>
+        <div class="alchc-channel c3"></div>
+        <div class="alchc-channel c4"></div>
+        <div class="alchc-channel c5"></div>
+        <div class="alchc-channel c6"></div>
+        <div class="alchc-ingot"></div>
+        <div class="alchc-shape"></div>
+      </div>
+    `,
+};
+
+class ConceptAlchemicalTransmutation extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${alchemicalTransmutationStyles[version] || alchemicalTransmutationStyles.v2}</style>${alchemicalTransmutationMarkup[version] || alchemicalTransmutationMarkup.v2}`;
   }
 }
 
