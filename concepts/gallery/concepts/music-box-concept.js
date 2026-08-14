@@ -1,8 +1,6 @@
-// v1 below is the archived original; v2 fixes two real layout bugs (the
-// winding key collided with the rightmost comb teeth, and the open lid's
-// skew pushed it past the tile's right edge) and reworks the comb into a
-// graduated bank mounted above the cylinder instead of a cramped stack
-// beside it, so the pins/comb/key read as distinct parts at a glance.
+// v1 below is the archived original; v2 fixes layout bugs and comb geometry.
+// v3 adds full heirloom color: rich mahogany cabinet, gold brass cylinder,
+// blued steel comb teeth, and floating golden musical notes.
 const musicBoxStyles = {
   v1: `
   :host {
@@ -171,7 +169,7 @@ const musicBoxStyles = {
     96% { transform: translateY(-16px) rotate(-10deg); opacity: 0; }
     100% { opacity: 0; }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -358,7 +356,190 @@ const musicBoxStyles = {
     96% { transform: translateY(-16px) rotate(10deg); opacity: 0; }
     100% { opacity: 0; }
   }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Full color antique Swiss music box with mahogany cabinet,
+     inlaid brass trim, crystal mirror lid, gold cylinder & spring steel comb */
+  .mbc {
+    width: 112px;
+    height: 92px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+  }
+
+  /* Mahogany & Rosewood Heirloom Case */
+  .mbc-case {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    bottom: 8px;
+    height: 40px;
+    border: 2px solid #ca8a04;
+    border-radius: 4px;
+    background: linear-gradient(180deg, #7c2d12 0%, #451a03 70%, #291002 100%);
+    box-shadow: inset 0 2px 4px rgba(250, 204, 21, 0.3), 0 2px 8px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Crystal Mirror Hinged Lid */
+  .mbc-lid {
+    position: absolute;
+    left: 16px;
+    bottom: 46px;
+    width: 80px;
+    height: 22px;
+    border: 2px solid #ca8a04;
+    border-radius: 4px 4px 0 0;
+    background: linear-gradient(135deg, rgba(69, 26, 3, 0.9), rgba(124, 45, 18, 0.9));
+    transform: skewX(-16deg);
+    transform-origin: bottom center;
+  }
+
+  /* Inner Mirror Silver Glint */
+  .mbc-lid::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.6) 45%, transparent 60%);
+    animation: mbc-glint 6s ease-in-out infinite;
+  }
+
+  @keyframes mbc-glint {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* Rotating 24k Brass Pinned Cylinder */
+  .mbc-cyl {
+    position: absolute;
+    left: 12px;
+    bottom: 16px;
+    width: 62px;
+    height: 14px;
+    border-radius: 7px;
+    border: 1px solid #fde047;
+    background:
+      radial-gradient(circle 1.5px, #ffffff 98%, transparent) 0 0 / 9px 5px,
+      linear-gradient(180deg, #fde047 0%, #eab308 50%, #ca8a04 100%);
+    background-repeat: repeat;
+    box-shadow: 0 0 6px rgba(250, 204, 21, 0.6);
+    animation: mbc-cyl 2.4s linear infinite;
+    overflow: hidden;
+  }
+
+  @keyframes mbc-cyl {
+    to { background-position: -36px 0, 0 0; }
+  }
+
+  /* Brass End Caps */
+  .mbc-cap {
+    position: absolute;
+    bottom: 16px;
+    width: 4px;
+    height: 14px;
+    border-radius: 2px;
+    background: #facc15;
+    border: 0.5px solid #ca8a04;
+  }
+
+  .mbc-cap.c1 { left: 9px; }
+  .mbc-cap.c2 { left: 71px; }
+
+  /* Graduated Blued Steel Comb Teeth with Gold Pluck Flash */
+  .mbc-tooth {
+    position: absolute;
+    top: 46px;
+    width: 3px;
+    background: linear-gradient(180deg, #f8fafc 0%, #94a3b8 60%, #475569 100%);
+    border-radius: 1px;
+    transform-origin: top center;
+    animation: mbc-pluck 2.4s infinite;
+  }
+
+  .mbc-tooth.t1 { left: 16px; height: 16px; animation-delay: -1.9s; }
+  .mbc-tooth.t2 { left: 30px; height: 14px; animation-delay: -0.4s; }
+  .mbc-tooth.t3 { left: 44px; height: 12px; animation-delay: -1.5s; }
+  .mbc-tooth.t4 { left: 58px; height: 10px; animation-delay: -0.9s; }
+  .mbc-tooth.t5 { left: 68px; height: 8px; animation-delay: 0s; }
+
+  @keyframes mbc-pluck {
+    0%, 78% { transform: rotate(0deg); box-shadow: none; }
+    82% { transform: rotate(9deg); box-shadow: 0 0 8px #fde047; background: #ffffff; }
+    86% { transform: rotate(-3deg); }
+    90% { transform: rotate(1.5deg); }
+    94%, 100% { transform: rotate(0deg); }
+  }
+
+  /* Brass Winding Key Mount */
+  .mbc-key-mount {
+    position: absolute;
+    left: 87px;
+    bottom: 14px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid #ca8a04;
+    background: radial-gradient(circle at 35% 30%, #451a03 0%, #1c0a02 100%);
+  }
+
+  .mbc-key {
+    position: absolute;
+    left: 93px;
+    bottom: 17px;
+    width: 12px;
+    height: 12px;
+    animation: mbc-key 4.8s ease-in-out infinite;
+  }
+
+  .mbc-key::before,
+  .mbc-key::after {
+    content: '';
+    position: absolute;
+    background: #facc15;
+    box-shadow: 0 0 3px #eab308;
+    border-radius: 2px;
+  }
+
+  .mbc-key::before { left: 5px; top: 0; width: 2px; height: 12px; }
+  .mbc-key::after { left: 0; top: 5px; width: 12px; height: 2px; }
+
+  @keyframes mbc-key {
+    0%, 12% { transform: rotate(0deg); }
+    38%, 62% { transform: rotate(180deg); }
+    88%, 100% { transform: rotate(360deg); }
+  }
+
+  /* Floating Golden Notes (♪ ♫ ♪) */
+  .mbc-note {
+    position: absolute;
+    bottom: 50px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #fde047;
+    text-shadow: 0 0 8px #facc15, 0 0 14px #f59e0b;
+    opacity: 0;
+    animation: mbc-note 2.4s infinite;
+  }
+
+  .mbc-note.n1 { left: 34px; animation-delay: -1.9s; }
+  .mbc-note.n2 { left: 48px; animation-delay: -0.9s; }
+  .mbc-note.n3 { left: 60px; animation-delay: 0s; }
+
+  @keyframes mbc-note {
+    0%, 78% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    82% { opacity: 1; }
+    96% { transform: translateY(-16px) rotate(10deg); opacity: 0; }
+    100% { opacity: 0; }
+  }
+  `,
 };
 
 const musicBoxMarkup = {
@@ -399,6 +580,25 @@ const musicBoxMarkup = {
         <div class="mb-note n3">&#9834;</div>
       </div>
     `,
+  v3: `
+      <div class="mbc">
+        <div class="mbc-lid"></div>
+        <div class="mbc-case"></div>
+        <div class="mbc-cyl"></div>
+        <div class="mbc-cap c1"></div>
+        <div class="mbc-cap c2"></div>
+        <div class="mbc-tooth t1"></div>
+        <div class="mbc-tooth t2"></div>
+        <div class="mbc-tooth t3"></div>
+        <div class="mbc-tooth t4"></div>
+        <div class="mbc-tooth t5"></div>
+        <div class="mbc-key-mount"></div>
+        <div class="mbc-key"></div>
+        <div class="mbc-note n1">&#9834;</div>
+        <div class="mbc-note n2">&#9833;</div>
+        <div class="mbc-note n3">&#9834;</div>
+      </div>
+    `,
 };
 
 class ConceptMusicBox extends HTMLElement {
@@ -414,8 +614,8 @@ class ConceptMusicBox extends HTMLElement {
     if (this.isConnected) this.render();
   }
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${musicBoxStyles[version] || musicBoxStyles.v2}</style>${musicBoxMarkup[version] || musicBoxMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${musicBoxStyles[version] || musicBoxStyles.v3}</style>${musicBoxMarkup[version] || musicBoxMarkup.v3}`;
   }
 }
 

@@ -1,9 +1,7 @@
-// Woodpecker, rebuilt (2026-08-02): the old grid-slab tree read as a
-// building. Now a proper rounded trunk with bark dashes fills the left
-// third, and the bird clings in profile — tail braced, crest up — and
-// hammers in bursts: rapid strikes drive the beak into the bark, chips
-// fly, the hole darkens, then it cocks its head to listen and drums
-// again. v1 preserves the original grid-slab scene as an archive.
+// Woodpecker: profile clinging to trunk and hammering in bursts.
+// v1 and v2 are preserved.
+// v3 adds full plumage color: scarlet crest, obsidian black body, white wing stripes,
+// rich brown oak bark with moss, and flying golden wood chips.
 const woodpeckerStyles = {
   v1: `
   :host {
@@ -216,7 +214,7 @@ const woodpeckerStyles = {
     58%, 88% { visibility: visible; }
     89%, 100% { visibility: hidden; }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -446,7 +444,246 @@ const woodpeckerStyles = {
     14% { opacity: 1; transform: translate(-9px, 9px) rotate(80deg); }
     20%, 100% { opacity: 0; transform: translate(-12px, 16px) rotate(120deg); }
   }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Full plumage pileated woodpecker with fiery scarlet crest,
+     jet black body, white wing bars, mossy brown oak trunk, and golden wood chips */
+  .wpc {
+    width: 104px;
+    height: 96px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Textured Oak Trunk with Moss Highlights */
+  .wpc-trunk {
+    position: absolute;
+    left: 16px;
+    top: -4px;
+    bottom: -4px;
+    width: 26px;
+    border-radius: 12px;
+    background:
+      repeating-linear-gradient(175deg,
+        #78350f 0 5px,
+        #451a03 5px 9px),
+      linear-gradient(90deg, #15803d 0%, #78350f 40%, #451a03 100%);
+    border-left: 2px solid #16a34a;
+    border-right: 2px solid #451a03;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Branch Stub */
+  .wpc-stub {
+    position: absolute;
+    left: 36px;
+    top: 12px;
+    width: 14px;
+    height: 6px;
+    border-radius: 0 4px 4px 0;
+    background: #451a03;
+    border: 0.5px solid #78350f;
+    transform: rotate(-18deg);
+  }
+
+  /* Drilled Hole */
+  .wpc-hole {
+    position: absolute;
+    left: 38px;
+    top: 46px;
+    width: 5px;
+    height: 7px;
+    border-radius: 50%;
+    background: #020617;
+    box-shadow: inset 0 0 4px #000000;
+    animation: wpc-hole 5s steps(1) infinite;
+  }
+
+  @keyframes wpc-hole {
+    0% { opacity: 0.25; transform: scale(0.7); }
+    30% { opacity: 0.6; transform: scale(0.85); }
+    60% { opacity: 1; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  /* Bird Assembly */
+  .wpc-bird {
+    position: absolute;
+    left: 42px;
+    top: 30px;
+    width: 52px;
+    height: 46px;
+  }
+
+  /* Stiff Tail Plumage */
+  .wpc-tail {
+    position: absolute;
+    left: 2px;
+    top: 30px;
+    width: 7px;
+    height: 18px;
+    clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 85%);
+    background: linear-gradient(180deg, #1e293b 0%, #020617 100%);
+    border: 0.5px solid #475569;
+    transform: rotate(14deg);
+  }
+
+  /* Body: Jet Black with White Underbelly Accents */
+  .wpc-body {
+    position: absolute;
+    left: 4px;
+    top: 12px;
+    width: 26px;
+    height: 24px;
+    border-radius: 40% 60% 55% 45%;
+    background: radial-gradient(circle at 42% 36%, #334155 0%, #0f172a 68%, #020617 100%);
+    border: 1px solid #475569;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    transform: rotate(-14deg);
+  }
+
+  /* Crisp White Barred Wing */
+  .wpc-body::after {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 8px;
+    width: 14px;
+    height: 12px;
+    border-radius: 40% 60% 70% 40%;
+    background: repeating-linear-gradient(120deg,
+      #ffffff 0 2.5px,
+      #0f172a 2.5px 5.5px);
+  }
+
+  /* Gripping Claws */
+  .wpc-foot {
+    position: absolute;
+    left: 2px;
+    top: 32px;
+    width: 6px;
+    height: 2px;
+    border-radius: 1px;
+    background: #facc15;
+    box-shadow: 0 0 2px #ca8a04;
+  }
+
+  /* Headset Rig */
+  .wpc-headset {
+    position: absolute;
+    left: -6px;
+    top: -6px;
+    width: 34px;
+    height: 22px;
+    transform-origin: 26px 16px;
+    animation: wpc-hammer 5s infinite;
+  }
+
+  @keyframes wpc-hammer {
+    0%, 2% { transform: rotate(0deg); }
+    4% { transform: rotate(-16deg); }
+    6% { transform: rotate(2deg); }
+    8% { transform: rotate(-16deg); }
+    10% { transform: rotate(2deg); }
+    12% { transform: rotate(-16deg); }
+    14%, 20% { transform: rotate(0deg); }
+    22% { transform: rotate(-16deg); }
+    24% { transform: rotate(2deg); }
+    26% { transform: rotate(-16deg); }
+    28% { transform: rotate(2deg); }
+    30% { transform: rotate(-16deg); }
+    32%, 40% { transform: rotate(0deg); }
+    42% { transform: rotate(-16deg); }
+    44% { transform: rotate(2deg); }
+    46% { transform: rotate(-16deg); }
+    48% { transform: rotate(2deg); }
+    50% { transform: rotate(-16deg); }
+    56%, 88% { transform: rotate(11deg); }
+    94%, 100% { transform: rotate(0deg); }
+  }
+
+  /* Head: Obsidian with White Cheek Stripe */
+  .wpc-head {
+    position: absolute;
+    left: 8px;
+    top: 2px;
+    width: 16px;
+    height: 14px;
+    border-radius: 55% 45% 50% 50%;
+    background: radial-gradient(circle at 45% 40%, #ffffff 0%, #1e293b 45%, #020617 80%);
+    border: 1px solid #475569;
+  }
+
+  /* Fiery Scarlet Red Crest */
+  .wpc-crest {
+    position: absolute;
+    left: 12px;
+    top: -4px;
+    width: 12px;
+    height: 8px;
+    clip-path: polygon(0 100%, 35% 20%, 55% 70%, 80% 0, 100% 90%);
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 60%, #b91c1c 100%);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+  }
+
+  /* Amber Eye */
+  .wpc-eye {
+    position: absolute;
+    left: 12px;
+    top: 6px;
+    width: 2.5px;
+    height: 2.5px;
+    border-radius: 50%;
+    background: #facc15;
+    box-shadow: 0 0 2px #ca8a04;
+  }
+
+  /* Slate Chisel Beak */
+  .wpc-beak {
+    position: absolute;
+    left: -6px;
+    top: 7px;
+    width: 15px;
+    height: 4px;
+    clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    background: linear-gradient(90deg, #cbd5e1, #64748b);
+  }
+
+  /* Flying Golden Oak Wood Chips */
+  .wpc-chip {
+    position: absolute;
+    left: 40px;
+    top: 44px;
+    width: 3px;
+    height: 3px;
+    border-radius: 1px;
+    background: #fde047;
+    box-shadow: 0 0 4px #facc15;
+    opacity: 0;
+    animation: wpc-chip 5s infinite;
+  }
+
+  .wpc-chip.c2 { animation-delay: 0.2s; }
+  .wpc-chip.c3 { animation-delay: 1s; }
+  .wpc-chip.c4 { animation-delay: 2.1s; }
+
+  @keyframes wpc-chip {
+    0%, 4% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+    6% { opacity: 1; }
+    14% { opacity: 1; transform: translate(-9px, 9px) rotate(80deg); }
+    20%, 100% { opacity: 0; transform: translate(-12px, 16px) rotate(120deg); }
+  }
+  `,
 };
 
 const woodpeckerMarkup = {
@@ -491,6 +728,28 @@ const woodpeckerMarkup = {
         </div>
       </div>
     `,
+  v3: `
+      <div class="wpc">
+        <div class="wpc-trunk"></div>
+        <div class="wpc-stub"></div>
+        <div class="wpc-hole"></div>
+        <div class="wpc-chip c1"></div>
+        <div class="wpc-chip c2"></div>
+        <div class="wpc-chip c3"></div>
+        <div class="wpc-chip c4"></div>
+        <div class="wpc-bird">
+          <div class="wpc-tail"></div>
+          <div class="wpc-foot"></div>
+          <div class="wpc-body"></div>
+          <div class="wpc-headset">
+            <div class="wpc-crest"></div>
+            <div class="wpc-head"></div>
+            <div class="wpc-eye"></div>
+            <div class="wpc-beak"></div>
+          </div>
+        </div>
+      </div>
+    `,
 };
 
 class ConceptWoodpecker extends HTMLElement {
@@ -499,9 +758,9 @@ class ConceptWoodpecker extends HTMLElement {
   connectedCallback() { this.render(); }
   attributeChangedCallback() { if (this.isConnected) this.render(); }
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    const styles = woodpeckerStyles[version] || woodpeckerStyles.v2;
-    const markup = woodpeckerMarkup[version] || woodpeckerMarkup.v2;
+    const version = this.getAttribute('version') || 'v3';
+    const styles = woodpeckerStyles[version] || woodpeckerStyles.v3;
+    const markup = woodpeckerMarkup[version] || woodpeckerMarkup.v3;
     this.shadowRoot.innerHTML = `<style>${styles}</style>${markup}`;
   }
 }

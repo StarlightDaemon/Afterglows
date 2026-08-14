@@ -1,9 +1,7 @@
-// A praying mantis rebuilt for silhouette (2026-08-01): profile facing
-// left on a branch — upswept striped abdomen, long raised prothorax,
-// triangular head with a big compound eye and antennae, and the raptorial
-// forelegs folded in the prayer pose. It rocks in ambush, a fly drifts in,
-// and the arms snap out and back in a lightning strike.
-// v1 below is the archived original, preserved verbatim.
+// Praying mantis in profile facing left on branch with raptorial strike.
+// v1 and v2 are preserved.
+// v3 adds full color: hardwood branch, emerald & lime green body,
+// amber compound eye, razor spined raptorial arms, and iridescent cyan fly.
 const mantisStyles = {
   v1: `
   :host {
@@ -261,7 +259,7 @@ const mantisStyles = {
     61% { transform: translate(38px, 15px); opacity: 0; }
     100% { opacity: 0; }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -523,7 +521,276 @@ const mantisStyles = {
     /* Snatched. */
     47%, 100% { opacity: 0; transform: translate(19px, 0); }
   }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Full color praying mantis with rich hardwood branch,
+     vibrant emerald & lime body, amber compound eyes, spined raptorial arms,
+     and iridescent cyan bottle fly */
+  .mtc {
+    width: 112px;
+    height: 96px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Hardwood Garden Branch */
+  .mtc-branch {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    bottom: 14px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #78350f 0%, #451a03 60%, #291002 100%);
+    border-top: 0.5px solid #a16207;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  .mtc-branch::after {
+    content: '';
+    position: absolute;
+    left: 18%;
+    top: -3px;
+    width: 10px;
+    height: 3px;
+    border-radius: 2px;
+    background: #451a03;
+    transform: rotate(-30deg);
+  }
+
+  /* Ambush Rock & Strike Motion */
+  .mtc-bug {
+    position: absolute;
+    left: 30px;
+    bottom: 17px;
+    width: 0;
+    height: 0;
+    animation: mtc-rock 7s ease-in-out infinite;
+    transform-origin: 14px 0;
+  }
+
+  @keyframes mtc-rock {
+    0%, 38%, 100% { transform: rotate(0deg) translateX(0); }
+    12%, 30% { transform: rotate(2deg) translateX(1px); }
+    46% { transform: rotate(-4deg) translateX(-4px); }
+    50% { transform: rotate(0deg) translateX(0); }
+  }
+
+  /* Slender Green Walking Struts */
+  .mtc-leg {
+    position: absolute;
+    bottom: 0;
+    width: 2px;
+    border-radius: 1px;
+    background: #4ade80;
+    box-shadow: 0 0 2px #22c55e;
+    transform-origin: 50% 0;
+  }
+
+  .mtc-leg.k1 { left: 8px; height: 16px; transform: rotate(24deg); }
+  .mtc-leg.k2 { left: 16px; height: 18px; transform: rotate(-18deg); top: -16px; bottom: auto; }
+  .mtc-leg.k2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 2px;
+    height: 8px;
+    background: inherit;
+    transform: rotate(40deg);
+    transform-origin: 50% 0;
+  }
+  .mtc-leg.k3 { left: 26px; height: 15px; transform: rotate(30deg); }
+
+  /* Upswept Emerald & Lime Striped Abdomen */
+  .mtc-abdomen {
+    position: absolute;
+    left: 6px;
+    top: -26px;
+    width: 44px;
+    height: 13px;
+    border-radius: 40% 60% 60% 30%;
+    background:
+      repeating-linear-gradient(100deg,
+        #22c55e 0 5px,
+        #15803d 5px 10px);
+    border: 1px solid #4ade80;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
+    transform: rotate(-18deg);
+    transform-origin: 8% 60%;
+    animation: mtc-breathe 7s ease-in-out infinite;
+  }
+
+  @keyframes mtc-breathe {
+    0%, 100% { transform: rotate(-18deg); }
+    50% { transform: rotate(-15deg); }
+  }
+
+  /* Elongated Prothorax Neck */
+  .mtc-thorax {
+    position: absolute;
+    left: 2px;
+    top: -24px;
+    width: 30px;
+    height: 5px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #86efac 0%, #22c55e 60%, #16a34a 100%);
+    border: 0.5px solid #4ade80;
+    transform: rotate(-38deg);
+    transform-origin: 100% 50%;
+  }
+
+  /* Triangular Swiveling Head */
+  .mtc-head {
+    position: absolute;
+    left: -26px;
+    top: -44px;
+    width: 15px;
+    height: 12px;
+    clip-path: polygon(0 78%, 62% 0, 100% 55%, 55% 100%);
+    background: linear-gradient(120deg, #bbf7d0 0%, #22c55e 60%, #15803d 100%);
+    border: 0.5px solid #86efac;
+    animation: mtc-head 7s ease-in-out infinite;
+    transform-origin: 80% 60%;
+  }
+
+  @keyframes mtc-head {
+    0%, 30%, 100% { transform: rotate(0deg); }
+    36%, 44% { transform: rotate(-10deg); }
+    52%, 60% { transform: rotate(6deg); }
+  }
+
+  /* Glistening Amber Compound Eye */
+  .mtc-eye {
+    position: absolute;
+    left: -19px;
+    top: -41px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #f59e0b;
+    box-shadow: 0 0 4px #fbbf24;
+    z-index: 2;
+  }
+
+  /* Sensory Lime Antennae */
+  .mtc-antenna {
+    position: absolute;
+    left: -22px;
+    top: -55px;
+    width: 16px;
+    height: 12px;
+    border-left: 1.5px solid #a3e635;
+    border-top: 1.5px solid transparent;
+    border-radius: 60% 0 0 0 / 100% 0 0 0;
+    transform: rotate(-14deg);
+    transform-origin: 0 100%;
+    animation: mtc-antenna 2.6s ease-in-out infinite;
+  }
+
+  .mtc-antenna.a2 {
+    transform: rotate(6deg);
+    animation-delay: -1.3s;
+  }
+
+  @keyframes mtc-antenna {
+    0%, 100% { transform: rotate(var(--wig, -14deg)); }
+    50% { transform: rotate(calc(var(--wig, -14deg) + 8deg)); }
+  }
+
+  .mtc-antenna.a1 { --wig: -14deg; }
+  .mtc-antenna.a2 { --wig: 6deg; }
+
+  /* Razor-Spined Raptorial Forelegs */
+  .mtc-arm {
+    position: absolute;
+    left: -24px;
+    top: -34px;
+    width: 14px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #fde047 0%, #22c55e 100%);
+    border: 0.5px solid #facc15;
+    transform-origin: 100% 50%;
+    animation: mtc-femur 7s infinite;
+    z-index: 1;
+  }
+
+  .mtc-forearm {
+    position: absolute;
+    right: 100%;
+    top: 0;
+    width: 12px;
+    height: 2.5px;
+    border-radius: 2px;
+    background: repeating-linear-gradient(90deg,
+      #fde047 0 2px,
+      #15803d 2px 4px);
+    border: 0.5px solid #facc15;
+    transform-origin: 100% 50%;
+    animation: mtc-tibia 7s infinite;
+  }
+
+  .mtc-arm.b2 { top: -33px; opacity: 0.8; animation-delay: 0.04s; }
+  .mtc-arm.b2 .mtc-forearm { animation-delay: 0.04s; }
+
+  @keyframes mtc-femur {
+    0%, 42%, 100% { transform: rotate(-108deg); }
+    45%, 47% { transform: rotate(-15deg); }
+    54% { transform: rotate(-108deg); }
+  }
+
+  @keyframes mtc-tibia {
+    0%, 42%, 100% { transform: rotate(-142deg); }
+    45%, 47% { transform: rotate(-15deg); }
+    54% { transform: rotate(-142deg); }
+  }
+
+  /* Iridescent Metallic Cyan Bottle Fly */
+  .mtc-fly {
+    position: absolute;
+    left: 6px;
+    top: 26px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #00f0ff;
+    box-shadow: 0 0 6px #38bdf8;
+    opacity: 0;
+    animation: mtc-fly 7s infinite;
+  }
+
+  .mtc-fly::after {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: -3px;
+    width: 6px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    filter: blur(0.5px);
+  }
+
+  @keyframes mtc-fly {
+    0%, 18% { opacity: 0; transform: translate(0, 0); }
+    24% { opacity: 1; transform: translate(6px, -4px); }
+    30% { transform: translate(12px, 2px); }
+    36% { transform: translate(16px, -3px); }
+    42%, 45% { opacity: 1; transform: translate(19px, 0); }
+    47%, 100% { opacity: 0; transform: translate(19px, 0); }
+  }
+  `,
 };
 
 const mantisMarkup = {
@@ -570,6 +837,25 @@ const mantisMarkup = {
         </div>
       </div>
     `,
+  v3: `
+      <div class="mtc">
+        <div class="mtc-branch"></div>
+        <div class="mtc-fly"></div>
+        <div class="mtc-bug">
+          <div class="mtc-leg k1"></div>
+          <div class="mtc-leg k2"></div>
+          <div class="mtc-leg k3"></div>
+          <div class="mtc-abdomen"></div>
+          <div class="mtc-thorax"></div>
+          <div class="mtc-antenna a1"></div>
+          <div class="mtc-antenna a2"></div>
+          <div class="mtc-head"></div>
+          <div class="mtc-eye"></div>
+          <div class="mtc-arm b1"><div class="mt-forearm"></div></div>
+          <div class="mtc-arm b2"><div class="mt-forearm"></div></div>
+        </div>
+      </div>
+    `,
 };
 
 class ConceptMantis extends HTMLElement {
@@ -585,8 +871,8 @@ class ConceptMantis extends HTMLElement {
     if (this.isConnected) this.render();
   }
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${mantisStyles[version] || mantisStyles.v2}</style>${mantisMarkup[version] || mantisMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${mantisStyles[version] || mantisStyles.v3}</style>${mantisMarkup[version] || mantisMarkup.v3}`;
   }
 }
 

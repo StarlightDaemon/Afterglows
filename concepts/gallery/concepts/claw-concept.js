@@ -1,11 +1,6 @@
-// v1 below is the archived original; v2 fixes the grab and the loop: the
-// claw's centerline hung 5px right of the prize and its fingertips
-// stopped 1px above it (the left finger also landed inside the prize
-// rather than around it), so the "grip" never visually connected - the
-// prize now sits on the claw's line, the drop reaches low enough for
-// wider-set fingers to wrap its upper half, and the slip tumbles the
-// prize back onto its starting spot through a full -360 so the loop is
-// seamless instead of teleporting it 30px across the floor at the wrap.
+// v1 below is the archived original; v2 fixes the grab and the loop.
+// v3 adds full arcade colorization: neon purple cabinet, chrome gantry and claw,
+// vibrant multi-colored plush prizes, and flashing neon "TRY AGAIN" marquee.
 const clawStyles = {
   v1: `
   :host {
@@ -221,7 +216,7 @@ const clawStyles = {
     89%, 93% { opacity: 1; }
     95%, 100% { opacity: 0; }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -446,7 +441,249 @@ const clawStyles = {
     89%, 93% { opacity: 1; }
     95%, 100% { opacity: 0; }
   }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Arcade Claw Machine with neon magenta cabinet, chrome trolley,
+     stainless steel claws, multi-colored plushies, and glowing amber taunt */
+  .clc {
+    width: 104px;
+    height: 100px;
+    position: relative;
+    border: 2px solid #ec4899;
+    border-radius: 6px;
+    background: radial-gradient(circle at 50% 30%, #312e81 0%, #1e1b4b 55%, #09090b 100%);
+    box-shadow: inset 0 0 12px rgba(236, 72, 153, 0.4), 0 0 10px rgba(236, 72, 153, 0.3);
+    overflow: hidden;
+  }
+
+  /* Steel Gantry Rail */
+  .clc-rail {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    top: 8px;
+    height: 3px;
+    background: linear-gradient(90deg, #64748b, #cbd5e1, #64748b);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Chrome Motorized Trolley */
+  .clc-trolley {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 14px;
+    height: 9px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #ffffff 0%, #94a3b8 60%, #475569 100%);
+    border: 0.5px solid #cbd5e1;
+    box-shadow: 0 0 6px #38bdf8;
+    animation: clc-trolley 9s ease-in-out infinite;
+  }
+
+  @keyframes clc-trolley {
+    0%, 8% { transform: translateX(16px); }
+    20%, 58% { transform: translateX(64px); }
+    74%, 82% { transform: translateX(34px); }
+    94%, 100% { transform: translateX(16px); }
+  }
+
+  /* Steel Drop Cable */
+  .clc-cable {
+    position: absolute;
+    left: 50%;
+    top: 9px;
+    width: 1.5px;
+    height: 12px;
+    margin-left: -0.75px;
+    background: #e2e8f0;
+    box-shadow: 0 0 3px #ffffff;
+    transform-origin: top center;
+    animation: clc-cable 9s ease-in-out infinite;
+  }
+
+  @keyframes clc-cable {
+    0%, 20% { transform: scaleY(1); }
+    32%, 44% { transform: scaleY(4.83); }
+    56%, 84% { transform: scaleY(1.4); }
+    94%, 100% { transform: scaleY(1); }
+  }
+
+  /* Chrome Claw Assembly */
+  .clc-claw {
+    position: absolute;
+    left: 50%;
+    top: 9px;
+    width: 0;
+    height: 0;
+    animation: clc-claw 9s ease-in-out infinite;
+  }
+
+  @keyframes clc-claw {
+    0%, 20% { transform: translateY(12px); }
+    32%, 44% { transform: translateY(58px); }
+    56%, 84% { transform: translateY(17px); }
+    94%, 100% { transform: translateY(12px); }
+  }
+
+  .clc-hub {
+    position: absolute;
+    left: -8px;
+    top: 0;
+    width: 16px;
+    height: 6px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #f1f5f9, #64748b);
+    border: 0.5px solid #cbd5e1;
+  }
+
+  .clc-finger {
+    position: absolute;
+    top: 4px;
+    width: 3px;
+    height: 13px;
+    border-radius: 0 0 2px 2px;
+    background: linear-gradient(180deg, #ffffff, #94a3b8);
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+    transform-origin: top center;
+  }
+
+  .clc-finger.fl { left: -9px; animation: clc-fl 9s ease-in-out infinite; }
+  .clc-finger.fr { left: 6px; animation: clc-fr 9s ease-in-out infinite; }
+
+  @keyframes clc-fl {
+    0%, 24% { transform: rotate(24deg); }
+    34%, 40% { transform: rotate(30deg); }
+    46%, 66% { transform: rotate(-4deg); }
+    70% { transform: rotate(18deg); }
+    76%, 100% { transform: rotate(24deg); }
+  }
+
+  @keyframes clc-fr {
+    0%, 24% { transform: rotate(-24deg); }
+    34%, 40% { transform: rotate(-30deg); }
+    46%, 66% { transform: rotate(4deg); }
+    70% { transform: rotate(-18deg); }
+    76%, 100% { transform: rotate(-24deg); }
+  }
+
+  /* Multi-colored Plush Toy Pile */
+  .clc-pile {
+    position: absolute;
+    bottom: 10px;
+    border-radius: 45% 50% 40% 50%;
+  }
+
+  .clc-pile.a {
+    left: 12px;
+    width: 18px;
+    height: 13px;
+    background: radial-gradient(circle at 38% 30%, #34d399, #059669);
+    border: 1px solid #10b981;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .clc-pile.b {
+    left: 32px;
+    width: 15px;
+    height: 11px;
+    background: radial-gradient(circle at 38% 30%, #fde047, #d97706);
+    border: 1px solid #facc15;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .clc-pile.c {
+    left: 78px;
+    width: 16px;
+    height: 12px;
+    background: radial-gradient(circle at 38% 30%, #c084fc, #7e22ce);
+    border: 1px solid #a855f7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Target Prize: Coral Pink Plushie */
+  .clc-prize {
+    position: absolute;
+    left: 63px;
+    bottom: 10px;
+    width: 16px;
+    height: 13px;
+    border-radius: 45% 50% 42% 50%;
+    background: radial-gradient(circle at 38% 30%, #fda4af, #f43f5e 60%, #be123c 100%);
+    border: 1px solid #fb7185;
+    box-shadow: 0 0 8px rgba(244, 63, 94, 0.6);
+    animation: clc-prize 9s infinite;
+  }
+
+  @keyframes clc-prize {
+    0%, 44% { transform: translate(0, 0) rotate(0deg); animation-timing-function: ease-in-out; }
+    56% { transform: translate(0, -40px) rotate(3deg); animation-timing-function: ease-in-out; }
+    62% { transform: translate(-8px, -39px) rotate(-4deg); }
+    68% { transform: translate(-18px, -36px) rotate(-20deg); animation-timing-function: ease-in; }
+    74% { transform: translate(-14px, 0) rotate(-120deg); animation-timing-function: ease-out; }
+    79% { transform: translate(-7px, -9px) rotate(-230deg); animation-timing-function: ease-in; }
+    84% { transform: translate(-1px, 0) rotate(-320deg); animation-timing-function: ease-out; }
+    88% { transform: translate(0, -2px) rotate(-348deg); animation-timing-function: ease-in; }
+    92%, 100% { transform: translate(0, 0) rotate(-360deg); }
+  }
+
+  /* Cyan Prize Chute Receptacle */
+  .clc-chute {
+    position: absolute;
+    left: 4px;
+    bottom: 4px;
+    width: 20px;
+    height: 6px;
+    border: 1px solid #38bdf8;
+    border-radius: 2px;
+    background: #020617;
+    box-shadow: inset 0 0 4px #00f0ff;
+  }
+
+  /* Floor line */
+  .clc-floor {
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    bottom: 8px;
+    height: 2px;
+    background: linear-gradient(90deg, #ec4899, #8b5cf6, #38bdf8);
+    box-shadow: 0 0 6px #ec4899;
+  }
+
+  /* Flashing Amber "TRY AGAIN" Arcade Display */
+  .clc-taunt {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 26px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: 8.5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #fde047;
+    text-shadow: 0 0 8px #f59e0b, 0 0 14px #ea580c;
+    opacity: 0;
+    animation: clc-taunt 9s steps(1) infinite;
+  }
+
+  @keyframes clc-taunt {
+    0%, 79% { opacity: 0; }
+    81%, 85% { opacity: 1; }
+    86%, 88% { opacity: 0.25; }
+    89%, 93% { opacity: 1; }
+    95%, 100% { opacity: 0; }
+  }
+  `,
 };
 
 const clawMarkup = {
@@ -490,6 +727,26 @@ const clawMarkup = {
         <div class="cl-taunt">TRY AGAIN</div>
       </div>
     `,
+  v3: `
+      <div class="clc">
+        <div class="clc-rail"></div>
+        <div class="clc-trolley">
+          <div class="clc-cable"></div>
+          <div class="clc-claw">
+            <div class="clc-hub"></div>
+            <div class="clc-finger fl"></div>
+            <div class="clc-finger fr"></div>
+          </div>
+        </div>
+        <div class="clc-pile a"></div>
+        <div class="clc-pile b"></div>
+        <div class="clc-pile c"></div>
+        <div class="clc-prize"></div>
+        <div class="clc-chute"></div>
+        <div class="clc-floor"></div>
+        <div class="clc-taunt">TRY AGAIN</div>
+      </div>
+    `,
 };
 
 class ConceptClaw extends HTMLElement {
@@ -505,8 +762,8 @@ class ConceptClaw extends HTMLElement {
     if (this.isConnected) this.render();
   }
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${clawStyles[version] || clawStyles.v2}</style>${clawMarkup[version] || clawMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${clawStyles[version] || clawStyles.v3}</style>${clawMarkup[version] || clawMarkup.v3}`;
   }
 }
 

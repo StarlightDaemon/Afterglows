@@ -1,9 +1,7 @@
-// Weather vane, rebuilt (2026-08-02): the old rooster read as a scribble
-// and the motion made no sense. Now a clean rooftop instrument: a ridge
-// line and post, the N/E/S/W cross with letters, and above it an arrow
-// with a proper tail fin that HUNTS — gusts arrive as streaks, the arrow
-// swings past the new heading, overshoots, and settles, twice per loop.
-// v1 is the archived original from before the rebuild, preserved verbatim.
+// Weather vane: rooftop instrument with cardinal cross and hunting arrow.
+// v1 and v2 are preserved.
+// v3 adds full color: terracotta roof, forged iron post with golden letters,
+// oxidized verdigris & copper rooster arrow, and cyan wind streaks.
 const weathervaneStyles = {
   v1: `
   :host {
@@ -189,7 +187,7 @@ const weathervaneStyles = {
     56% { content: 'W'; }
     88% { content: 'N'; }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -353,7 +351,181 @@ const weathervaneStyles = {
   }
 
   .wv-gust.g3, .wv-gust.g4 { --sx: -1; }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Full color copper & verdigris rooftop weather vane with
+     terracotta roof, forged iron post, gold letters, and oxidized arrow */
+  .wvc {
+    width: 108px;
+    height: 96px;
+    position: relative;
+    font-family: 'Courier New', monospace;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Terracotta Red Clay Rooftop Ridge */
+  .wvc-roof {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 10px;
+    height: 18px;
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+    background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 70%, #450a0a 100%);
+    border-bottom: 2px solid #334155;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Forged Iron Spindle Post */
+  .wvc-post {
+    position: absolute;
+    left: 50%;
+    bottom: 26px;
+    width: 3px;
+    height: 34px;
+    margin-left: -1.5px;
+    background: linear-gradient(180deg, #94a3b8 0%, #475569 50%, #1e293b 100%);
+  }
+
+  /* Brass Pivot Finial Ball */
+  .wvc-post::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -4px;
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
+    border-radius: 50%;
+    background: #fde047;
+    box-shadow: 0 0 6px #facc15;
+  }
+
+  /* Forged Iron Cardinal Cross */
+  .wvc-cross {
+    position: absolute;
+    left: 50%;
+    bottom: 44px;
+    width: 0;
+    height: 0;
+  }
+
+  .wvc-cross-bar {
+    position: absolute;
+    background: #64748b;
+  }
+
+  .wvc-cross-bar.ew { left: -22px; top: -1px; width: 44px; height: 1.5px; }
+  .wvc-cross-bar.ns { left: -1px; top: -8px; width: 1.5px; height: 16px; opacity: 0.6; }
+
+  /* Golden Compass Direction Letters */
+  .wvc-letter {
+    position: absolute;
+    font-size: 8.5px;
+    font-weight: bold;
+    letter-spacing: 0;
+    color: #fde047;
+    text-shadow: 0 0 4px #eab308;
+  }
+
+  .wvc-letter.n { left: -3px; top: -20px; }
+  .wvc-letter.s { left: -3px; top: 10px; opacity: 0.7; }
+  .wvc-letter.w { left: -32px; top: -5px; }
+  .wvc-letter.e { left: 26px; top: -5px; }
+
+  /* Arrow Assembly: Hunting the Wind */
+  .wvc-arrow {
+    position: absolute;
+    left: 50%;
+    bottom: 60px;
+    width: 0;
+    height: 0;
+    animation: wvc-hunt 8s ease-in-out infinite;
+  }
+
+  @keyframes wvc-hunt {
+    0%, 12% { transform: rotate(14deg); }
+    20% { transform: rotate(-52deg); }
+    26% { transform: rotate(-34deg); }
+    31% { transform: rotate(-44deg); }
+    36%, 52% { transform: rotate(-40deg); }
+    62% { transform: rotate(38deg); }
+    68% { transform: rotate(18deg); }
+    74% { transform: rotate(28deg); }
+    80%, 94% { transform: rotate(24deg); }
+    100% { transform: rotate(14deg); }
+  }
+
+  /* Copper Arrow Shaft */
+  .wvc-shaft {
+    position: absolute;
+    left: -26px;
+    top: -1px;
+    width: 52px;
+    height: 2px;
+    background: linear-gradient(90deg, #d97706, #fbbf24, #d97706);
+    box-shadow: 0 0 4px rgba(250, 204, 21, 0.4);
+  }
+
+  /* Polished Copper Arrowhead */
+  .wvc-head {
+    position: absolute;
+    left: 24px;
+    top: -5px;
+    width: 10px;
+    height: 10px;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    background: #f59e0b;
+    box-shadow: 0 0 6px #fbbf24;
+  }
+
+  /* Oxidized Turquoise Verdigris Tail Fin */
+  .wvc-fin {
+    position: absolute;
+    left: -36px;
+    top: -8px;
+    width: 14px;
+    height: 16px;
+    clip-path: polygon(100% 42%, 100% 58%, 22% 100%, 0 82%, 30% 50%, 0 18%, 22% 0);
+    background: linear-gradient(90deg, #14b8a6 0%, #0d9488 50%, #b45309 100%);
+    border: 0.5px solid #2dd4bf;
+    box-shadow: 0 0 6px rgba(20, 184, 166, 0.5);
+  }
+
+  /* Sky-Cyan Wind Gust Streaks */
+  .wvc-gust {
+    position: absolute;
+    height: 1.5px;
+    border-radius: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.8), transparent);
+    opacity: 0;
+    animation: wvc-gust 8s ease-in infinite;
+  }
+
+  .wvc-gust.g1 { top: 16px; left: 6px; width: 34px; }
+  .wvc-gust.g2 { top: 26px; left: 2px; width: 26px; animation-delay: 0.15s; }
+  .wvc-gust.g3 { top: 20px; right: 4px; width: 30px; animation-delay: 4.2s; transform: scaleX(-1); }
+  .wvc-gust.g4 { top: 30px; right: 8px; width: 24px; animation-delay: 4.35s; transform: scaleX(-1); }
+
+  @keyframes wvc-gust {
+    0%, 10% { transform: translateX(0) scaleX(var(--sx, 1)); opacity: 0; }
+    16% { opacity: 0.9; }
+    26% { transform: translateX(46px) scaleX(var(--sx, 1)); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .wvc-gust.g3, .wvc-gust.g4 { --sx: -1; }
+  `,
 };
 
 const weathervaneMarkup = {
@@ -400,6 +572,29 @@ const weathervaneMarkup = {
         </div>
       </div>
     `,
+  v3: `
+      <div class="wvc">
+        <div class="wvc-gust g1"></div>
+        <div class="wvc-gust g2"></div>
+        <div class="wvc-gust g3"></div>
+        <div class="wvc-gust g4"></div>
+        <div class="wvc-roof"></div>
+        <div class="wvc-post"></div>
+        <div class="wvc-cross">
+          <div class="wvc-cross-bar ew"></div>
+          <div class="wvc-cross-bar ns"></div>
+          <span class="wvc-letter n">N</span>
+          <span class="wvc-letter s">S</span>
+          <span class="wvc-letter w">W</span>
+          <span class="wvc-letter e">E</span>
+        </div>
+        <div class="wvc-arrow">
+          <div class="wvc-shaft"></div>
+          <div class="wvc-head"></div>
+          <div class="wvc-fin"></div>
+        </div>
+      </div>
+    `,
 };
 
 class ConceptWeathervane extends HTMLElement {
@@ -423,8 +618,8 @@ class ConceptWeathervane extends HTMLElement {
   }
 
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${weathervaneStyles[version] || weathervaneStyles.v2}</style>${weathervaneMarkup[version] || weathervaneMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${weathervaneStyles[version] || weathervaneStyles.v3}</style>${weathervaneMarkup[version] || weathervaneMarkup.v3}`;
   }
 }
 

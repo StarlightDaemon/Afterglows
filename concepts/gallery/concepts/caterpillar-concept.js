@@ -1,5 +1,7 @@
-// v1 is the archived original (eye/feelers ran their own crawl copy and
-// drifted off the head); v2 nests them inside the head segment.
+// Caterpillar inching along a leaf edge with travelling wave of compression.
+// v1 and v2 are preserved.
+// v3 adds full color: emerald milkweed leaf with lime midrib, monarch yellow/black/white
+// striped segments, inquisitive feelers, and munched leaf crumbs.
 const caterpillarStyles = {
   v1: `
   :host {
@@ -158,7 +160,7 @@ const caterpillarStyles = {
     92% { transform: translate(-4px, 8px); opacity: 0; }
     100% { opacity: 0; }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -314,7 +316,179 @@ const caterpillarStyles = {
     92% { transform: translate(-4px, 8px); opacity: 0; }
     100% { opacity: 0; }
   }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Monarch caterpillar on milkweed leaf with vivid yellow, black,
+     and white stripes, lime leaf vein, feelers, and crumbs */
+  .ctc {
+    width: 116px;
+    height: 76px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Fresh Milkweed Leaf */
+  .ctc-leaf {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    bottom: 16px;
+    height: 20px;
+    border-radius: 0 60% 30% 100% / 0 100% 40% 100%;
+    background: linear-gradient(135deg, #22c55e 0%, #15803d 70%, #14532d 100%);
+    border: 1px solid #4ade80;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Pale Lime Central Leaf Vein */
+  .ctc-leaf::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 10px;
+    right: 10px;
+    height: 1.5px;
+    background: #a3e635;
+    box-shadow: 0 0 3px #bef264;
+    transform: rotate(-4deg);
+    transform-origin: 0 50%;
+  }
+
+  /* Munched Notch at Leaf Tip */
+  .ctc-notch {
+    position: absolute;
+    right: 10px;
+    bottom: 30px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #020617;
+    box-shadow: inset 0 0 3px #000000;
+    opacity: 0;
+    animation: ctc-notch 6s steps(1) infinite;
+  }
+
+  @keyframes ctc-notch {
+    0%, 78% { opacity: 0; }
+    84%, 96% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  /* Caterpillar Inching Assembly */
+  .ctc-worm {
+    position: absolute;
+    left: 0;
+    bottom: 22px;
+    width: 56px;
+    height: 16px;
+    animation: ctc-crawl 6s ease-in-out infinite;
+  }
+
+  @keyframes ctc-crawl {
+    0% { transform: translateX(6px); }
+    80% { transform: translateX(56px); }
+    92% { transform: translateX(56px); }
+    100% { transform: translateX(6px); }
+  }
+
+  /* Monarch Ring-Banded Segments: Yellow, Black, White */
+  .ctc-seg {
+    position: absolute;
+    bottom: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: repeating-linear-gradient(90deg,
+      #0f172a 0 2px,
+      #fde047 2px 4px,
+      #ffffff 4px 6px);
+    border: 1px solid #facc15;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    animation: ctc-hump 0.9s ease-in-out infinite;
+  }
+
+  .ctc-seg.s1 { left: 0;  animation-delay: 0s; z-index: 1; }
+  .ctc-seg.s2 { left: 7px; animation-delay: -0.15s; z-index: 2; }
+  .ctc-seg.s3 { left: 14px; animation-delay: -0.3s; z-index: 3; }
+  .ctc-seg.s4 { left: 21px; animation-delay: -0.45s; z-index: 4; }
+  .ctc-seg.s5 { left: 28px; animation-delay: -0.6s; z-index: 5; }
+  .ctc-seg.head {
+    left: 36px;
+    width: 13px;
+    height: 13px;
+    animation-delay: -0.75s;
+    background: radial-gradient(circle at 40% 35%, #fde047 0%, #ca8a04 70%, #0f172a 100%);
+    border: 1px solid #fde047;
+    z-index: 6;
+  }
+
+  @keyframes ctc-hump {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-5px) scale(1.05, 0.95); }
+  }
+
+  /* Head Eyes */
+  .ctc-eye {
+    position: absolute;
+    right: 2.5px;
+    top: 4px;
+    width: 2.5px;
+    height: 2.5px;
+    border-radius: 50%;
+    background: #020617;
+  }
+
+  /* Sensory Black Antennae/Feelers */
+  .ctc-feeler {
+    position: absolute;
+    right: -2px;
+    top: -4px;
+    width: 4px;
+    height: 4px;
+    border-top: 1.5px solid #0f172a;
+    border-right: 1.5px solid #0f172a;
+    transform-origin: 0 100%;
+    animation: ctc-feeler 0.5s ease-in-out infinite;
+  }
+
+  @keyframes ctc-feeler {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+  }
+
+  /* Bright Green Munched Leaf Crumbs */
+  .ctc-crumb {
+    position: absolute;
+    right: 8px;
+    bottom: 26px;
+    width: 2.5px;
+    height: 2.5px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 2px #22c55e;
+    opacity: 0;
+    animation: ctc-crumb 6s infinite;
+  }
+
+  .ctc-crumb.c2 { right: 14px; animation-delay: 0.15s; }
+
+  @keyframes ctc-crumb {
+    0%, 80% { transform: translate(0, 0); opacity: 0; }
+    84% { opacity: 1; }
+    92% { transform: translate(-4px, 8px); opacity: 0; }
+    100% { opacity: 0; }
+  }
+  `,
 };
 
 const caterpillarMarkup = {
@@ -355,6 +529,25 @@ const caterpillarMarkup = {
         </div>
       </div>
     `,
+  v3: `
+      <div class="ctc">
+        <div class="ctc-leaf"></div>
+        <div class="ctc-notch"></div>
+        <div class="ctc-crumb"></div>
+        <div class="ctc-crumb c2"></div>
+        <div class="ctc-worm">
+          <div class="ctc-seg s1"></div>
+          <div class="ctc-seg s2"></div>
+          <div class="ctc-seg s3"></div>
+          <div class="ctc-seg s4"></div>
+          <div class="ctc-seg s5"></div>
+          <div class="ctc-seg head">
+            <div class="ctc-eye"></div>
+            <div class="ctc-feeler"></div>
+          </div>
+        </div>
+      </div>
+    `,
 };
 
 class ConceptCaterpillar extends HTMLElement {
@@ -378,9 +571,9 @@ class ConceptCaterpillar extends HTMLElement {
   }
 
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    const styles = caterpillarStyles[version] || caterpillarStyles.v2;
-    const markup = caterpillarMarkup[version] || caterpillarMarkup.v2;
+    const version = this.getAttribute('version') || 'v3';
+    const styles = caterpillarStyles[version] || caterpillarStyles.v3;
+    const markup = caterpillarMarkup[version] || caterpillarMarkup.v3;
     this.shadowRoot.innerHTML = `<style>${styles}</style>${markup}`;
   }
 }

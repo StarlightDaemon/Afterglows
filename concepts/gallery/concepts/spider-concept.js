@@ -1,9 +1,7 @@
-// A spider hanging on its dragline, rebuilt for legibility (2026-08-01):
-// the eight legs are proper two-segment limbs arched up-and-out from the
-// body in mirrored pairs, stepping in a staggered ripple. The spider drops
-// a little, dangles with a slow pendulum sway, and reels back up — the
-// thread rides with it so the line never detaches.
-// v1 is the archived original; v2 (default) is the rebuild.
+// Spider hanging on its dragline with two-segment articulated legs.
+// v1 and v2 are preserved.
+// v3 adds full color: golden silk dragline, gold & amber banded abdomen with crimson accents,
+// banded legs, pearl eyes, and glowing spinneret.
 const spiderStyles = {
   v1: `
   :host {
@@ -154,7 +152,7 @@ const spiderStyles = {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-2px) rotate(6deg); }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -332,7 +330,189 @@ const spiderStyles = {
     box-shadow: 0 0 4px rgba(216, 255, 187, 0.8);
     z-index: 3;
   }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Golden silk garden orb-weaver spider with gold & amber banded abdomen,
+     velvet black cephalothorax, pearl eyes, and banded jointed legs */
+  .spc {
+    width: 96px;
+    height: 96px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Pendulum sway about the anchor point */
+  .spc-sway {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% -40px;
+    animation: spc-sway 5s ease-in-out infinite;
+  }
+
+  @keyframes spc-sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  /* Drop and Reel */
+  .spc-drop {
+    position: absolute;
+    inset: 0;
+    animation: spc-drop 5s ease-in-out infinite;
+  }
+
+  @keyframes spc-drop {
+    0%, 100% { transform: translateY(-10px); }
+    35%, 65% { transform: translateY(8px); }
+  }
+
+  /* Golden Spun-Silk Dragline */
+  .spc-thread {
+    position: absolute;
+    left: 50%;
+    bottom: 62px;
+    width: 1.5px;
+    height: 140px;
+    margin-left: -0.75px;
+    background: linear-gradient(180deg, rgba(253, 224, 71, 0.2), #fde047 70%, #ffffff 100%);
+    box-shadow: 0 0 4px rgba(250, 204, 21, 0.8);
+  }
+
+  /* Spider Body Group */
+  .spc-body {
+    position: absolute;
+    left: 50%;
+    top: 44px;
+    width: 0;
+    height: 0;
+  }
+
+  /* Velvet Black Cephalothorax */
+  .spc-ceph {
+    position: absolute;
+    left: -8px;
+    top: -10px;
+    width: 16px;
+    height: 13px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 42% 35%, #475569 0%, #0f172a 75%, #020617 100%);
+    border: 1px solid #ca8a04;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+    z-index: 2;
+  }
+
+  /* Golden & Amber Banded Abdomen with Ruby Accents */
+  .spc-abdomen {
+    position: absolute;
+    left: -12px;
+    top: 0;
+    width: 24px;
+    height: 20px;
+    border-radius: 50% 50% 46% 54%;
+    background:
+      radial-gradient(circle at 50% 30%, #ef4444 0 3px, transparent 4px),
+      repeating-radial-gradient(circle at 50% 40%, #fde047 0 3px, #ea580c 4px 6px, #0f172a 7px 9px);
+    border: 1px solid #facc15;
+    box-shadow: 0 0 8px rgba(250, 204, 21, 0.5), 0 2px 6px rgba(0, 0, 0, 0.8);
+    z-index: 1;
+  }
+
+  /* Twin Pearl Eyes */
+  .spc-eye {
+    position: absolute;
+    top: -6px;
+    width: 2.5px;
+    height: 2.5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 4px #38bdf8;
+    z-index: 3;
+  }
+
+  .spc-eye.e1 { left: -4.5px; }
+  .spc-eye.e2 { left: 2px; }
+
+  /* Banded Jointed Legs (Femur + Tibia) */
+  .spc-leg {
+    position: absolute;
+    left: 0;
+    top: -4px;
+    width: 15px;
+    height: 2px;
+    border-radius: 1px;
+    background: linear-gradient(90deg, #0f172a, #f59e0b, #0f172a);
+    transform-origin: 0 50%;
+    animation: spc-step 1.6s ease-in-out infinite;
+  }
+
+  .spc-shin {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 13px;
+    height: 2px;
+    border-radius: 1px;
+    background: linear-gradient(90deg, #f59e0b, #0f172a);
+    transform-origin: 0 50%;
+  }
+
+  /* Right side legs */
+  .spc-leg.r1 { transform: rotate(-64deg); }
+  .spc-leg.r2 { transform: rotate(-38deg); }
+  .spc-leg.r3 { transform: rotate(-12deg); }
+  .spc-leg.r4 { transform: rotate(16deg); width: 13px; }
+  .spc-leg.r1 .spc-shin { transform: rotate(78deg); }
+  .spc-leg.r2 .spc-shin { transform: rotate(64deg); }
+  .spc-leg.r3 .spc-shin { transform: rotate(52deg); }
+  .spc-leg.r4 .spc-shin { transform: rotate(40deg); }
+
+  /* Left side legs */
+  .spc-leg.l1 { transform: rotate(-116deg); }
+  .spc-leg.l2 { transform: rotate(-142deg); }
+  .spc-leg.l3 { transform: rotate(-168deg); }
+  .spc-leg.l4 { transform: rotate(-196deg); width: 13px; }
+  .spc-leg.l1 .spc-shin { transform: rotate(-78deg); }
+  .spc-leg.l2 .spc-shin { transform: rotate(-64deg); }
+  .spc-leg.l3 .spc-shin { transform: rotate(-52deg); }
+  .spc-leg.l4 .spc-shin { transform: rotate(-40deg); }
+
+  .spc-leg.r1 { --base: -64deg; animation-delay: 0s; }
+  .spc-leg.r2 { --base: -38deg; animation-delay: -0.4s; }
+  .spc-leg.r3 { --base: -12deg; animation-delay: -0.8s; }
+  .spc-leg.r4 { --base: 16deg;  animation-delay: -1.2s; }
+  .spc-leg.l1 { --base: -116deg; animation-delay: -0.8s; }
+  .spc-leg.l2 { --base: -142deg; animation-delay: -1.2s; }
+  .spc-leg.l3 { --base: -168deg; animation-delay: 0s; }
+  .spc-leg.l4 { --base: -196deg; animation-delay: -0.4s; }
+
+  @keyframes spc-step {
+    0%, 100% { transform: rotate(var(--base)); }
+    50% { transform: rotate(calc(var(--base) + 5deg)); }
+  }
+
+  /* Glowing Golden Spinneret Gland */
+  .spc-spinneret {
+    position: absolute;
+    left: -1.5px;
+    top: -2px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #fde047;
+    box-shadow: 0 0 6px #facc15;
+    z-index: 3;
+  }
+  `,
 };
 
 const spiderMarkup = {
@@ -374,6 +554,30 @@ const spiderMarkup = {
         </div>
       </div>
     `,
+  v3: `
+      <div class="spc">
+        <div class="spc-sway">
+          <div class="spc-drop">
+            <div class="spc-thread"></div>
+            <div class="spc-body">
+              <div class="spc-leg r1"><div class="spc-shin"></div></div>
+              <div class="spc-leg r2"><div class="spc-shin"></div></div>
+              <div class="spc-leg r3"><div class="spc-shin"></div></div>
+              <div class="spc-leg r4"><div class="spc-shin"></div></div>
+              <div class="spc-leg l1"><div class="spc-shin"></div></div>
+              <div class="spc-leg l2"><div class="spc-shin"></div></div>
+              <div class="spc-leg l3"><div class="spc-shin"></div></div>
+              <div class="spc-leg l4"><div class="spc-shin"></div></div>
+              <div class="spc-abdomen"></div>
+              <div class="spc-ceph"></div>
+              <div class="spc-spinneret"></div>
+              <div class="spc-eye e1"></div>
+              <div class="spc-eye e2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `,
 };
 
 class ConceptSpider extends HTMLElement {
@@ -389,8 +593,8 @@ class ConceptSpider extends HTMLElement {
     if (this.isConnected) this.render();
   }
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${spiderStyles[version] || spiderStyles.v2}</style>${spiderMarkup[version] || spiderMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${spiderStyles[version] || spiderStyles.v3}</style>${spiderMarkup[version] || spiderMarkup.v3}`;
   }
 }
 
