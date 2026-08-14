@@ -282,6 +282,7 @@ function wireVersioners() {
 
 // Map a concept's badgeCls to a status id used for filtering.
 function statusOf(concept) {
+  if (/\bmeta-status-color\b/.test(concept.badgeCls)) return "color";
   if (/\bmeta-status-refined\b/.test(concept.badgeCls)) return "refined";
   if (/\bmeta-status-new\b/.test(concept.badgeCls)) return "new";
   return "original";
@@ -291,6 +292,7 @@ const STATUSES = [
   { id: "original", title: "Original" },
   { id: "refined", title: "Refined" },
   { id: "new", title: "New" },
+  { id: "color", title: "With Color" },
 ];
 
 // A concept's origin.contributions may list more than one contributor (e.g.
