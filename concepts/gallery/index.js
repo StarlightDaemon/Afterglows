@@ -242,11 +242,20 @@ function resumeBox(terminalBox) {
 // (Re)install the IntersectionObserver after every renderGallery call.
 // All boxes start paused; the observer immediately fires for any that are
 // already in the (expanded) viewport and resumes them.
+//
+// Timing note: concept modules are imported fire-and-forget, so custom
+// elements may upgrade (and begin animating) after the observer first fires
+// for their terminal-box. We track each box's last-known intersection state
+// in a Map, then run a deferred sweep ~1.5 s later to catch any elements
+// that upgraded while their box was already off-screen.
+let intersectionState = new Map(); // box -> boolean (true=intersecting)
+
 function installLazyObserver() {
   if (lazyObserver) {
     lazyObserver.disconnect();
     lazyObserver = null;
   }
+  intersectionState = new Map();
 
   const boxes = document.querySelectorAll("#gallery-root .terminal-box");
   if (!boxes.length) return;
@@ -254,6 +263,7 @@ function installLazyObserver() {
   lazyObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
+        intersectionState.set(entry.target, entry.isIntersecting);
         if (entry.isIntersecting) {
           resumeBox(entry.target);
         } else {
@@ -265,15 +275,21 @@ function installLazyObserver() {
   );
 
   boxes.forEach((box) => {
-    // Pause upfront; the observer will immediately resume visible ones.
-    // We pause after a short rAF to let the custom elements' connectedCallback
-    // finish starting their animations before we pause them.
-    requestAnimationFrame(() => {
-      pauseBox(box);
-      lazyObserver.observe(box);
-    });
+    lazyObserver.observe(box);
   });
+
+  // Deferred sweep: concept modules resolve at various times. Run a second
+  // pause pass ~1.5 s and ~3 s after render to catch elements that upgraded
+  // while their box was already outside the observer's intersection zone.
+  const sweep = () => {
+    intersectionState.forEach((isIntersecting, box) => {
+      if (!isIntersecting) pauseBox(box);
+    });
+  };
+  setTimeout(sweep, 1500);
+  setTimeout(sweep, 3000);
 }
+
 
 // --- Version cyclers ------------------------------------------------------
 // Ported verbatim from the trailing inline <script> in
