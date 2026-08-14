@@ -323,6 +323,15 @@ const circuitStyles = {
     box-shadow: 0 0 4px rgba(245, 158, 11, 0.6);
   }
 
+  .cp1 { width: 46px; height: 2px; top: 32px; left: 14px; }
+  .cp2 { width: 2px; height: 48px; top: 32px; left: 60px; }
+  .cp3 { width: 46px; height: 2px; top: 80px; left: 60px; }
+  .cp4 { width: 2px; height: 58px; top: 22px; left: 106px; }
+  .cp5 { width: 20px; height: 2px; top: 22px; left: 106px; }
+  .cp6 { width: 2px; height: 24px; top: 56px; left: 34px; }
+  .cp7 { width: 26px; height: 2px; top: 80px; left: 34px; }
+  .cp8 { width: 22px; height: 2px; top: 56px; left: 84px; }
+
   .ckc-chip {
     position: absolute;
     top: 44px;

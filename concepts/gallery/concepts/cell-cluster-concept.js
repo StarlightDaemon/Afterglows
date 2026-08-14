@@ -303,6 +303,43 @@ const cellClusterStyles = {
 
   .cellc-daughter.left { left: 2px; animation: daughter-left 9s ease-in-out infinite; }
   .cellc-daughter.right { left: 18px; animation: daughter-right 9s ease-in-out infinite; }
+
+  @keyframes cell-float {
+    0%, 100% { transform: translate(0, 0) scale(0.96); }
+    50% { transform: translate(2px, -3px) scale(1.02); }
+  }
+
+  @keyframes mitosis-shape {
+    0%, 22% {
+      border-radius: 48% 52% 50% 50%;
+      clip-path: inset(0);
+    }
+    50% {
+      border-radius: 50%;
+      clip-path: polygon(0 0, 100% 0, 100% 42%, 66% 50%, 100% 58%, 100% 100%, 0 100%, 0 58%, 34% 50%, 0 42%);
+    }
+    64%, 100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes mitosis-nucleus {
+    0%, 18% { transform: scaleX(1) translateY(30%); opacity: 1; }
+    40% { transform: scaleX(1.9) translateY(30%); opacity: 1; }
+    58%, 100% { opacity: 0; }
+  }
+
+  @keyframes daughter-left {
+    0%, 60% { opacity: 0; transform: translate(0, 0); }
+    64% { opacity: 1; transform: translate(0, 0); }
+    92%, 100% { opacity: 1; transform: translate(-9px, 4px); }
+  }
+
+  @keyframes daughter-right {
+    0%, 60% { opacity: 0; transform: translate(0, 0); }
+    64% { opacity: 1; transform: translate(0, 0); }
+    92%, 100% { opacity: 1; transform: translate(9px, 4px); }
+  }
 `,
 };
 

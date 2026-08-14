@@ -657,6 +657,66 @@ const microscopeStyles = {
 
   .mic-mag .m100 { animation: mi2-mag-a 9s infinite; }
   .mic-mag .m400 { animation: mi2-mag-b 9s infinite; }
+
+  @keyframes mi2-swap {
+    0%, 44% { transform: translateX(0); }
+    46%, 94% { transform: translateX(-6px); }
+    96%, 100% { transform: translateX(0); }
+  }
+
+  @keyframes mi2-obj-a {
+    0%, 44% { opacity: 1; }
+    46%, 94% { opacity: 0.55; }
+    96%, 100% { opacity: 1; }
+  }
+
+  @keyframes mi2-obj-b {
+    0%, 44% { opacity: 0.55; }
+    46%, 94% { opacity: 1; }
+    96%, 100% { opacity: 0.55; }
+  }
+
+  @keyframes mi2-nudge {
+    0%, 66% { transform: translateX(0); }
+    68% { transform: translateX(3px); }
+    70% { transform: translateX(2px); }
+    100% { transform: translateX(2px); }
+  }
+
+  @keyframes mi2-mirror {
+    0%, 100% { transform: rotate(-14deg); }
+    30%, 60% { transform: rotate(-24deg); }
+  }
+
+  @keyframes mi2-shaft {
+    0%, 100% { opacity: 0.5; }
+    38%, 44% { opacity: 1; }
+    48% { opacity: 0.55; }
+    68%, 92% { opacity: 1; }
+  }
+
+  @keyframes mi2-knob {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(-70deg); }
+    22% { transform: rotate(40deg); }
+    32% { transform: rotate(-12deg); }
+    38%, 46% { transform: rotate(0deg); }
+    54% { transform: rotate(-45deg); }
+    62% { transform: rotate(28deg); }
+    68%, 100% { transform: rotate(8deg); }
+  }
+
+  @keyframes mi2-mag-a {
+    0%, 44% { opacity: 1; }
+    46%, 94% { opacity: 0; }
+    96%, 100% { opacity: 1; }
+  }
+
+  @keyframes mi2-mag-b {
+    0%, 44% { opacity: 0; }
+    46%, 94% { opacity: 1; }
+    96%, 100% { opacity: 0; }
+  }
 `,
 };
 
