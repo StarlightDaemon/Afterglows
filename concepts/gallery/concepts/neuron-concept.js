@@ -7,16 +7,13 @@ const neuronStyles = `
     height: 100%;
   }
 
-  /* One firing per 3.8s: dendrites charge the soma, an action
-     potential races down the axon node by node, and the terminal
-     flashes as transmitter dots jump the synaptic gap. */
+  /* --- v1: Single-color phosphor neuron --- */
   .nr {
     width: 116px;
     height: 88px;
     position: relative;
   }
 
-  /* Soma. */
   .nr-soma {
     position: absolute;
     left: 16px;
@@ -35,8 +32,6 @@ const neuronStyles = `
     40%, 100% { box-shadow: 0 0 4px rgba(0, 204, 0, 0.3); }
   }
 
-  /* Dendrites: thin branches around the soma that glimmer as inputs
-     arrive during the charge-up. */
   .nr-dend {
     position: absolute;
     width: 16px;
@@ -59,7 +54,6 @@ const neuronStyles = `
     16%, 100% { opacity: 0.4; box-shadow: none; }
   }
 
-  /* Axon: myelinated segments with node gaps. */
   .nr-axon {
     position: absolute;
     left: 38px;
@@ -72,7 +66,6 @@ const neuronStyles = `
     border-radius: 2px;
   }
 
-  /* The action potential: a bright bulge racing left to right. */
   .nr-spike {
     position: absolute;
     left: 34px;
@@ -89,7 +82,6 @@ const neuronStyles = `
   @keyframes nr-spike {
     0%, 24% { transform: translateX(0); opacity: 0; }
     28% { opacity: 1; }
-    /* Saltatory hops: pauses at nodes. */
     32% { transform: translateX(14px); }
     34% { transform: translateX(15px); }
     38% { transform: translateX(29px); }
@@ -100,7 +92,6 @@ const neuronStyles = `
     54%, 100% { transform: translateX(56px); opacity: 0; }
   }
 
-  /* Terminal boutons. */
   .nr-term {
     position: absolute;
     left: 92px;
@@ -128,7 +119,6 @@ const neuronStyles = `
     66%, 100% { box-shadow: none; }
   }
 
-  /* Transmitter dots crossing the cleft. */
   .nr-vesicle {
     position: absolute;
     left: 102px;
@@ -151,7 +141,6 @@ const neuronStyles = `
     70%, 100% { transform: translateX(10px); opacity: 0; }
   }
 
-  /* Receiving dendrite stub on the far side of the cleft. */
   .nr-target {
     position: absolute;
     right: 0;
@@ -170,7 +159,6 @@ const neuronStyles = `
     84%, 100% { box-shadow: none; }
   }
 
-  /* Membrane potential trace along the bottom. */
   .nr-trace {
     position: absolute;
     left: 8px;
@@ -198,37 +186,237 @@ const neuronStyles = `
     52% { transform: translateX(84px); opacity: 1; }
     56%, 100% { transform: translateX(92px); opacity: 0; }
   }
+
+  /* --- v2: Neurophysiological action potential signaling ---
+     Violet-magenta soma and dendrites, golden myelinated axon sheaths,
+     electric cyan saltatory action potential pulse, and glowing neurotransmitter vesicles. */
+  .nrc {
+    width: 116px;
+    height: 88px;
+    position: relative;
+  }
+
+  .nrc-soma {
+    position: absolute;
+    left: 16px;
+    top: 34px;
+    width: 22px;
+    height: 20px;
+    border-radius: 46% 54% 52% 48%;
+    background: radial-gradient(circle at 40% 35%, #c084fc, #7e22ce 60%, #4c1d95);
+    border: 1.5px solid #d8b4fe;
+    animation: nrc-soma 3.8s infinite;
+  }
+
+  @keyframes nrc-soma {
+    0%, 18% { box-shadow: 0 0 6px rgba(168, 85, 247, 0.4); }
+    24%, 30% { box-shadow: 0 0 18px #c084fc, 0 0 24px #a855f7; }
+    40%, 100% { box-shadow: 0 0 6px rgba(168, 85, 247, 0.4); }
+  }
+
+  .nrc-dend {
+    position: absolute;
+    width: 16px;
+    height: 1.5px;
+    border-radius: 1px;
+    background: #a855f7;
+    transform-origin: 100% 50%;
+    animation: nrc-dend 3.8s infinite;
+  }
+
+  .nrc-dend.d1 { left: 2px; top: 30px; transform: rotate(30deg); animation-delay: 0s; }
+  .nrc-dend.d2 { left: 0; top: 42px; transform: rotate(0deg); animation-delay: 0.12s; }
+  .nrc-dend.d3 { left: 2px; top: 54px; transform: rotate(-28deg); animation-delay: 0.24s; }
+  .nrc-dend.d4 { left: 10px; top: 22px; transform: rotate(58deg); animation-delay: 0.06s; }
+  .nrc-dend.d5 { left: 10px; top: 62px; transform: rotate(-54deg); animation-delay: 0.18s; }
+
+  @keyframes nrc-dend {
+    0% { opacity: 0.4; box-shadow: none; }
+    8% { opacity: 1; box-shadow: 0 0 6px #c084fc; background: #e9d5ff; }
+    16%, 100% { opacity: 0.4; box-shadow: none; background: #a855f7; }
+  }
+
+  .nrc-axon {
+    position: absolute;
+    left: 38px;
+    top: 43px;
+    width: 56px;
+    height: 3px;
+    background: repeating-linear-gradient(90deg,
+      #f59e0b 0 10px,
+      #38bdf8 10px 12px);
+    border-radius: 2px;
+    box-shadow: 0 0 4px rgba(245, 158, 11, 0.4);
+  }
+
+  .nrc-spike {
+    position: absolute;
+    left: 34px;
+    top: 40px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff, #00f0ff 60%);
+    box-shadow: 0 0 12px #00f0ff, 0 0 20px #0284c7;
+    opacity: 0;
+    animation: nr-spike 3.8s infinite;
+  }
+
+  .nrc-term {
+    position: absolute;
+    left: 92px;
+    top: 36px;
+    width: 12px;
+    height: 17px;
+  }
+
+  .nrc-bouton {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #c084fc, #6b21a8);
+    border: 1px solid #d8b4fe;
+    animation: nrc-bouton 3.8s infinite;
+  }
+
+  .nrc-bouton.b1 { left: 0; top: 0; }
+  .nrc-bouton.b2 { left: 4px; top: 6px; }
+  .nrc-bouton.b3 { left: 0; top: 12px; }
+
+  @keyframes nrc-bouton {
+    0%, 48% { box-shadow: none; }
+    52%, 58% { box-shadow: 0 0 12px #00f0ff; background: #38bdf8; }
+    66%, 100% { box-shadow: none; }
+  }
+
+  .nrc-vesicle {
+    position: absolute;
+    left: 102px;
+    top: 42px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #38bdf8;
+    box-shadow: 0 0 4px #00f0ff;
+    opacity: 0;
+    animation: nr-vesicle 3.8s infinite;
+  }
+
+  .nrc-vesicle.v2 { top: 38px; animation-delay: 0.1s; }
+  .nrc-vesicle.v3 { top: 48px; animation-delay: 0.18s; }
+
+  .nrc-target {
+    position: absolute;
+    right: 0;
+    top: 32px;
+    width: 6px;
+    height: 24px;
+    border-radius: 4px 0 0 4px;
+    background: #ec4899;
+    border: 1px solid #f472b6;
+    animation: nrc-target 3.8s infinite;
+  }
+
+  @keyframes nrc-target {
+    0%, 62% { box-shadow: none; opacity: 0.7; }
+    68%, 76% { box-shadow: 0 0 12px #ec4899; opacity: 1; }
+    84%, 100% { box-shadow: none; opacity: 0.7; }
+  }
+
+  .nrc-trace {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 4px;
+    height: 14px;
+    border-bottom: 1px solid #334155;
+  }
+
+  .nrc-blip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 8px;
+    height: 12px;
+    clip-path: polygon(0 100%, 30% 100%, 50% 0, 70% 100%, 100% 100%);
+    background: #00f0ff;
+    box-shadow: 0 0 6px #00f0ff;
+    opacity: 0;
+    animation: nr-blip 3.8s linear infinite;
+  }
 `;
 
+const neuronMarkup = {
+  v1: `
+    <div class="nr">
+      <div class="nr-dend d1"></div>
+      <div class="nr-dend d2"></div>
+      <div class="nr-dend d3"></div>
+      <div class="nr-dend d4"></div>
+      <div class="nr-dend d5"></div>
+      <div class="nr-soma"></div>
+      <div class="nr-axon"></div>
+      <div class="nr-spike"></div>
+      <div class="nr-term">
+        <div class="nr-bouton b1"></div>
+        <div class="nr-bouton b2"></div>
+        <div class="nr-bouton b3"></div>
+      </div>
+      <div class="nr-vesicle"></div>
+      <div class="nr-vesicle v2"></div>
+      <div class="nr-vesicle v3"></div>
+      <div class="nr-target"></div>
+      <div class="nr-trace"><div class="nr-blip"></div></div>
+    </div>
+  `,
+  v2: `
+    <div class="nrc">
+      <div class="nrc-dend d1"></div>
+      <div class="nrc-dend d2"></div>
+      <div class="nrc-dend d3"></div>
+      <div class="nrc-dend d4"></div>
+      <div class="nrc-dend d5"></div>
+      <div class="nrc-soma"></div>
+      <div class="nrc-axon"></div>
+      <div class="nrc-spike"></div>
+      <div class="nrc-term">
+        <div class="nrc-bouton b1"></div>
+        <div class="nrc-bouton b2"></div>
+        <div class="nrc-bouton b3"></div>
+      </div>
+      <div class="nrc-vesicle"></div>
+      <div class="nrc-vesicle v2"></div>
+      <div class="nrc-vesicle v3"></div>
+      <div class="nrc-target"></div>
+      <div class="nrc-trace"><div class="nrc-blip"></div></div>
+    </div>
+  `,
+};
+
 class ConceptNeuron extends HTMLElement {
+  static get observedAttributes() {
+    return ['version'];
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
+
   connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${neuronStyles}</style>
-      <div class="nr">
-        <div class="nr-dend d1"></div>
-        <div class="nr-dend d2"></div>
-        <div class="nr-dend d3"></div>
-        <div class="nr-dend d4"></div>
-        <div class="nr-dend d5"></div>
-        <div class="nr-soma"></div>
-        <div class="nr-axon"></div>
-        <div class="nr-spike"></div>
-        <div class="nr-term">
-          <div class="nr-bouton b1"></div>
-          <div class="nr-bouton b2"></div>
-          <div class="nr-bouton b3"></div>
-        </div>
-        <div class="nr-vesicle"></div>
-        <div class="nr-vesicle v2"></div>
-        <div class="nr-vesicle v3"></div>
-        <div class="nr-target"></div>
-        <div class="nr-trace"><div class="nr-blip"></div></div>
-      </div>
-    `;
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    if (this.isConnected) {
+      this.render();
+    }
+  }
+
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${neuronStyles}</style>${neuronMarkup[version] || neuronMarkup.v2}`;
   }
 }
 

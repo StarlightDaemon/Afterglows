@@ -5,6 +5,9 @@
 // visible internal organelles so the cluster reads as living tissue
 // rather than soap bubbles.
 // v1 is the archived original render, kept verbatim for the gallery.
+// v3 adds histological fluorescent cytological staining:
+// Azure/teal lipid bilayer cytoplasm with golden mitochondrial granules,
+// and hematoxylin violet chromatin dividing during mitotic anaphase/telophase.
 const cellClusterStyles = {
   v1: `
   :host {
@@ -65,7 +68,6 @@ const cellClusterStyles = {
     position: relative;
   }
 
-  /* Static neighbor cells: membrane, organelle flecks, a nucleus. */
   .cell-orb {
     position: absolute;
     border-radius: 46% 54% 52% 48%;
@@ -86,7 +88,6 @@ const cellClusterStyles = {
     background: radial-gradient(circle at 40% 35%, rgba(200, 255, 215, 0.6), rgba(0, 150, 30, 0.4));
   }
 
-  /* Organelle flecks scattered in the cytoplasm. */
   .cell-orb::after {
     content: '';
     position: absolute;
@@ -106,7 +107,6 @@ const cellClusterStyles = {
     50% { transform: translate(2px, -3px) scale(1.02); }
   }
 
-  /* The dividing cell: everything rides one 9s mitosis cycle. */
   .cell-mitotic {
     position: absolute;
     top: 4px;
@@ -115,9 +115,6 @@ const cellClusterStyles = {
     height: 46px;
   }
 
-  /* Shared membrane: round, then pinches into a dumbbell, then two
-     separate circles drifting apart. Built from clip-path morphs so
-     the "pinch" reads as a real waist, not just a squash. */
   .cell-membrane {
     position: absolute;
     inset: 0;
@@ -128,24 +125,19 @@ const cellClusterStyles = {
   }
 
   @keyframes mitosis-shape {
-    /* clip-path: inset(0) is the interpolatable "no clip" starting
-       point - clip-path: none cannot animate smoothly to a polygon(). */
     0%, 22% {
       border-radius: 48% 52% 50% 50%;
       clip-path: inset(0);
     }
-    /* The waist pinches in from both sides. */
     50% {
       border-radius: 50%;
       clip-path: polygon(0 0, 100% 0, 100% 42%, 66% 50%, 100% 58%, 100% 100%, 0 100%, 0 58%, 34% 50%, 0 42%);
     }
-    /* Fully separated: membrane fades, daughter cells (below) take over. */
     64%, 100% {
       opacity: 0;
     }
   }
 
-  /* Nucleus: stretches into two poles as the cell prepares to split. */
   .cell-nucleus {
     position: absolute;
     top: 32%;
@@ -164,8 +156,6 @@ const cellClusterStyles = {
     58%, 100% { opacity: 0; }
   }
 
-  /* Two daughter cells: hidden at first, fade in already split, then
-     drift apart to their resting spots. */
   .cell-daughter {
     position: absolute;
     top: 6px;
@@ -204,28 +194,150 @@ const cellClusterStyles = {
     92%, 100% { opacity: 1; transform: translate(9px, 4px); }
   }
 `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cellc-cluster {
+    width: 104px;
+    height: 96px;
+    position: relative;
+  }
+
+  /* Azure/teal cytoplasm with violet nucleus */
+  .cellc-orb {
+    position: absolute;
+    border-radius: 46% 54% 52% 48%;
+    border: 1.5px solid #22d3ee;
+    background: radial-gradient(circle at 38% 32%, rgba(56, 189, 248, 0.35), rgba(14, 116, 144, 0.2) 70%);
+    box-shadow: inset 0 0 10px rgba(6, 182, 212, 0.25), 0 0 10px rgba(6, 182, 212, 0.3);
+    animation: cell-float 3.8s ease-in-out infinite;
+  }
+
+  .cellc-orb::before {
+    content: '';
+    position: absolute;
+    top: 32%;
+    left: 32%;
+    width: 34%;
+    height: 34%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #c084fc, #6b21a8);
+    box-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
+  }
+
+  /* Mitochondria and cytoplasmic granules */
+  .cellc-orb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at 72% 28%, #fbbf24 0 2px, transparent 3px),
+      radial-gradient(circle at 22% 68%, #f43f5e 0 1.5px, transparent 2.5px),
+      radial-gradient(circle at 68% 74%, #fbbf24 0 1.5px, transparent 2.5px);
+  }
+
+  .co1 { width: 32px; height: 32px; top: 8px; left: 6px; }
+  .co3 { width: 38px; height: 38px; top: 46px; left: 40px; animation-delay: -1.9s; }
+
+  .cellc-mitotic {
+    position: absolute;
+    top: 4px;
+    left: 46px;
+    width: 46px;
+    height: 46px;
+  }
+
+  .cellc-membrane {
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid #38bdf8;
+    background: radial-gradient(circle at 38% 32%, rgba(56, 189, 248, 0.4), rgba(3, 105, 161, 0.25) 70%);
+    box-shadow: inset 0 0 12px rgba(14, 165, 233, 0.3), 0 0 12px rgba(14, 165, 233, 0.35);
+    animation: mitosis-shape 9s ease-in-out infinite;
+  }
+
+  /* Dividing purple chromatin */
+  .cellc-nucleus {
+    position: absolute;
+    top: 32%;
+    left: 50%;
+    width: 40%;
+    height: 22%;
+    margin-left: -20%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #d8b4fe, #7e22ce);
+    box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
+    animation: mitosis-nucleus 9s ease-in-out infinite;
+  }
+
+  .cellc-daughter {
+    position: absolute;
+    top: 6px;
+    width: 26px;
+    height: 26px;
+    border-radius: 48% 52% 50% 50%;
+    border: 1.5px solid #22d3ee;
+    background: radial-gradient(circle at 38% 32%, rgba(56, 189, 248, 0.4), rgba(14, 116, 144, 0.25) 70%);
+    box-shadow: inset 0 0 8px rgba(6, 182, 212, 0.3), 0 0 8px rgba(6, 182, 212, 0.3);
+    opacity: 0;
+  }
+
+  .cellc-daughter::after {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 34%;
+    height: 34%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #c084fc, #6b21a8);
+    box-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
+  }
+
+  .cellc-daughter.left { left: 2px; animation: daughter-left 9s ease-in-out infinite; }
+  .cellc-daughter.right { left: 18px; animation: daughter-right 9s ease-in-out infinite; }
+`,
 };
 
 const cellClusterMarkup = {
   v1: `
-      <div class="cell-cluster">
-        <div class="cell-orb co1"></div>
-        <div class="cell-orb co2"></div>
-        <div class="cell-orb co3"></div>
-      </div>
-    `,
+    <div class="cell-cluster">
+      <div class="cell-orb co1"></div>
+      <div class="cell-orb co2"></div>
+      <div class="cell-orb co3"></div>
+    </div>
+  `,
   v2: `
-      <div class="cell-cluster">
-        <div class="cell-orb co1"></div>
-        <div class="cell-orb co3"></div>
-        <div class="cell-mitotic">
-          <div class="cell-daughter left"></div>
-          <div class="cell-daughter right"></div>
-          <div class="cell-membrane"></div>
-          <div class="cell-nucleus"></div>
-        </div>
+    <div class="cell-cluster">
+      <div class="cell-orb co1"></div>
+      <div class="cell-orb co3"></div>
+      <div class="cell-mitotic">
+        <div class="cell-daughter left"></div>
+        <div class="cell-daughter right"></div>
+        <div class="cell-membrane"></div>
+        <div class="cell-nucleus"></div>
       </div>
-    `,
+    </div>
+  `,
+  v3: `
+    <div class="cellc-cluster">
+      <div class="cellc-orb co1"></div>
+      <div class="cellc-orb co3"></div>
+      <div class="cellc-mitotic">
+        <div class="cellc-daughter left"></div>
+        <div class="cellc-daughter right"></div>
+        <div class="cellc-membrane"></div>
+        <div class="cellc-nucleus"></div>
+      </div>
+    </div>
+  `,
 };
 
 class ConceptCellCluster extends HTMLElement {
@@ -249,9 +361,9 @@ class ConceptCellCluster extends HTMLElement {
   }
 
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    const styles = cellClusterStyles[version] || cellClusterStyles.v2;
-    const markup = cellClusterMarkup[version] || cellClusterMarkup.v2;
+    const version = this.getAttribute('version') || 'v3';
+    const styles = cellClusterStyles[version] || cellClusterStyles.v3;
+    const markup = cellClusterMarkup[version] || cellClusterMarkup.v3;
     this.shadowRoot.innerHTML = `<style>${styles}</style>${markup}`;
   }
 }

@@ -7,6 +7,28 @@ const dnaStyles = `
     height: 100%;
   }
 
+  /* --- v1: Original basic bar animation --- */
+  .dna-basic-wrap {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    height: 80px;
+  }
+
+  .dna-basic-bar {
+    width: 4px;
+    height: 40px;
+    background: var(--accent, #00cc00);
+    animation: dna-basic 1.5s ease-in-out infinite;
+    border-radius: 2px;
+  }
+
+  @keyframes dna-basic {
+    0%, 100% { height: 20px; opacity: 0.3; }
+    50% { height: 60px; opacity: 1; }
+  }
+
+  /* --- v2: Phosphor double helix --- */
   .dna-wrap {
     width: 92px;
     height: 98px;
@@ -85,25 +107,81 @@ const dnaStyles = `
     50% { left: 24px; right: 24px; opacity: 0.95; }
   }
 
-  .dna-basic-wrap {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    height: 80px;
+  /* --- v3: Watson-Crick base-pair nitrogenous color convention ---
+     Adenine (Red) pairs with Thymine (Cyan);
+     Guanine (Amber) pairs with Cytosine (Emerald);
+     Sugar-phosphate hydrogen rungs with glowing central junction. */
+  .dnac-wrap {
+    width: 92px;
+    height: 98px;
+    position: relative;
   }
 
-  .dna-basic-bar {
-    width: 4px;
-    height: 40px;
-    background: var(--accent, #00cc00);
-    animation: dna-basic 1.5s ease-in-out infinite;
-    border-radius: 2px;
+  .dnac-step {
+    position: absolute;
+    left: 50%;
+    width: 74px;
+    height: 12px;
+    transform: translateX(-50%);
   }
 
-  @keyframes dna-basic {
-    0%, 100% { height: 20px; opacity: 0.3 }
-    50% { height: 60px; opacity: 1 }
+  .dnac-step.s1 { top: 6px; }
+  .dnac-step.s2 { top: 22px; }
+  .dnac-step.s3 { top: 38px; }
+  .dnac-step.s4 { top: 54px; }
+  .dnac-step.s5 { top: 70px; }
+  .dnac-step.s6 { top: 86px; }
+
+  .dnac-node {
+    position: absolute;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 8px var(--base-glow);
   }
+
+  .dnac-node.left {
+    left: 8px;
+    background: var(--base-col);
+    animation: dna-left 2.8s ease-in-out infinite;
+  }
+
+  .dnac-node.right {
+    right: 8px;
+    background: var(--pair-col);
+    box-shadow: 0 0 8px var(--pair-glow);
+    animation: dna-right 2.8s ease-in-out infinite;
+  }
+
+  /* Base-pair bindings */
+  .dnac-step.s1 { --base-col: #ef4444; --base-glow: rgba(239, 68, 68, 0.7); --pair-col: #06b6d4; --pair-glow: rgba(6, 182, 212, 0.7); } /* A - T */
+  .dnac-step.s2 { --base-col: #f59e0b; --base-glow: rgba(245, 158, 11, 0.7); --pair-col: #10b981; --pair-glow: rgba(16, 185, 129, 0.7); } /* G - C */
+  .dnac-step.s3 { --base-col: #06b6d4; --base-glow: rgba(6, 182, 212, 0.7); --pair-col: #ef4444; --pair-glow: rgba(239, 68, 68, 0.7); } /* T - A */
+  .dnac-step.s4 { --base-col: #10b981; --base-glow: rgba(16, 185, 129, 0.7); --pair-col: #f59e0b; --pair-glow: rgba(245, 158, 11, 0.7); } /* C - G */
+  .dnac-step.s5 { --base-col: #ef4444; --base-glow: rgba(239, 68, 68, 0.7); --pair-col: #06b6d4; --pair-glow: rgba(6, 182, 212, 0.7); } /* A - T */
+  .dnac-step.s6 { --base-col: #f59e0b; --base-glow: rgba(245, 158, 11, 0.7); --pair-col: #10b981; --pair-glow: rgba(16, 185, 129, 0.7); } /* G - C */
+
+  .dnac-rung {
+    position: absolute;
+    top: 50%;
+    left: 18px;
+    right: 18px;
+    height: 2px;
+    transform: translateY(-50%);
+    transform-origin: center center;
+    background: linear-gradient(90deg, var(--base-col), #ffffff 50%, var(--pair-col));
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+    animation: dna-rung 2.8s ease-in-out infinite;
+  }
+
+  .dnac-step:nth-child(1) .dnac-node, .dnac-step:nth-child(1) .dnac-rung { animation-delay: 0s; }
+  .dnac-step:nth-child(2) .dnac-node, .dnac-step:nth-child(2) .dnac-rung { animation-delay: -0.47s; }
+  .dnac-step:nth-child(3) .dnac-node, .dnac-step:nth-child(3) .dnac-rung { animation-delay: -0.94s; }
+  .dnac-step:nth-child(4) .dnac-node, .dnac-step:nth-child(4) .dnac-rung { animation-delay: -1.41s; }
+  .dnac-step:nth-child(5) .dnac-node, .dnac-step:nth-child(5) .dnac-rung { animation-delay: -1.88s; }
+  .dnac-step:nth-child(6) .dnac-node, .dnac-step:nth-child(6) .dnac-rung { animation-delay: -2.35s; }
 `;
 
 const dnaMarkup = {
@@ -125,6 +203,16 @@ const dnaMarkup = {
       <div class="dna-step s6"><div class="dna-node left"></div><div class="dna-rung"></div><div class="dna-node right"></div></div>
     </div>
   `,
+  v3: `
+    <div class="dnac-wrap">
+      <div class="dnac-step s1"><div class="dnac-node left"></div><div class="dnac-rung"></div><div class="dnac-node right"></div></div>
+      <div class="dnac-step s2"><div class="dnac-node left"></div><div class="dnac-rung"></div><div class="dnac-node right"></div></div>
+      <div class="dnac-step s3"><div class="dnac-node left"></div><div class="dnac-rung"></div><div class="dnac-node right"></div></div>
+      <div class="dnac-step s4"><div class="dnac-node left"></div><div class="dnac-rung"></div><div class="dnac-node right"></div></div>
+      <div class="dnac-step s5"><div class="dnac-node left"></div><div class="dnac-rung"></div><div class="dnac-node right"></div></div>
+      <div class="dnac-step s6"><div class="dnac-node left"></div><div class="dnac-rung"></div><div class="dnac-node right"></div></div>
+    </div>
+  `,
 };
 
 class ConceptDNAHelix extends HTMLElement {
@@ -133,8 +221,8 @@ class ConceptDNAHelix extends HTMLElement {
   connectedCallback() { this.render(); }
   attributeChangedCallback() { if (this.isConnected) this.render(); }
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${dnaStyles}</style>${dnaMarkup[version] || dnaMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${dnaStyles}</style>${dnaMarkup[version] || dnaMarkup.v3}`;
   }
 }
 

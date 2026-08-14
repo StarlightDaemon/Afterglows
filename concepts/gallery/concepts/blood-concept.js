@@ -7,10 +7,7 @@ const bloodStyles = `
     height: 100%;
   }
 
-  /* Inside a vessel: red cells stream through with every systolic
-     surge - the walls bulge as the pulse passes, cells hurry, then
-     the flow relaxes. A white cell tumbles through slower, and
-     platelets ride the fast lanes. */
+  /* --- v1: Single-color phosphor blood flow --- */
   .bl {
     width: 116px;
     height: 84px;
@@ -18,7 +15,6 @@ const bloodStyles = `
     overflow: hidden;
   }
 
-  /* Vessel walls: top and bottom, flexing with the pulse wave. */
   .bl-wall {
     position: absolute;
     left: -6px;
@@ -43,7 +39,6 @@ const bloodStyles = `
     40% { transform: translateY(0); }
   }
 
-  /* Plasma glow inside the lumen. */
   .bl-plasma {
     position: absolute;
     left: 0;
@@ -62,8 +57,6 @@ const bloodStyles = `
     22% { opacity: 1; }
   }
 
-  /* Red cells: biconcave discs (ring look via inner shadow), each
-     surging with the pulse (fast early, drifting late). */
   .bl-rbc {
     position: absolute;
     width: 16px;
@@ -83,7 +76,6 @@ const bloodStyles = `
   .bl-rbc.r3 { top: 55px; animation-delay: -1.8s; }
   .bl-rbc.r4 { top: 32px; animation-delay: -2.2s; width: 13px; height: 9px; }
 
-  /* Surge profile: whoosh forward on systole, coast on diastole. */
   @keyframes bl-flow {
     0% { left: -18px; transform: rotate(-6deg); }
     22% { left: 34px; transform: rotate(4deg); }
@@ -91,7 +83,6 @@ const bloodStyles = `
     100% { left: 122px; transform: rotate(5deg); }
   }
 
-  /* The white cell: bigger, slower, hugging the wall. */
   .bl-wbc {
     position: absolute;
     top: 18px;
@@ -106,7 +97,6 @@ const bloodStyles = `
     animation: bl-wbc 8.4s linear infinite;
   }
 
-  /* Lobed nucleus. */
   .bl-wbc::after {
     content: '';
     position: absolute;
@@ -123,7 +113,6 @@ const bloodStyles = `
     100% { left: 122px; transform: rotate(300deg); }
   }
 
-  /* Platelets: small fast slivers. */
   .bl-plt {
     position: absolute;
     width: 5px;
@@ -136,7 +125,6 @@ const bloodStyles = `
   .bl-plt.p1 { top: 28px; animation-delay: -0.4s; }
   .bl-plt.p2 { top: 50px; animation-delay: -1.3s; }
 
-  /* Pulse wave: a bright pressure front sweeping the lumen. */
   .bl-wave {
     position: absolute;
     top: 14px;
@@ -157,7 +145,6 @@ const bloodStyles = `
     36%, 100% { transform: translateX(150px); opacity: 0; }
   }
 
-  /* BPM tick readout. */
   .bl-bpm {
     position: absolute;
     right: 4px;
@@ -172,31 +159,188 @@ const bloodStyles = `
     0%, 8% { opacity: 1; }
     12%, 100% { opacity: 0.45; }
   }
+
+  /* --- v2: Histological vascular hemadynamics ---
+     Crimson biconcave erythrocytes, purple-nucleated leukocyte,
+     golden platelets, and translucent endothelium vessel walls. */
+  .blc {
+    width: 116px;
+    height: 84px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .blc-wall {
+    position: absolute;
+    left: -6px;
+    right: -6px;
+    height: 8px;
+    background: linear-gradient(180deg, #e11d48, #9f1239);
+    border: 1px solid #fda4af;
+    box-shadow: 0 0 6px rgba(225, 29, 72, 0.3);
+  }
+
+  .blc-wall.top { top: 6px; border-radius: 0 0 8px 8px; animation: bl-wall-top 2.8s ease-in-out infinite; }
+  .blc-wall.bottom { bottom: 6px; border-radius: 8px 8px 0 0; animation: bl-wall-bot 2.8s ease-in-out infinite; }
+
+  .blc-plasma {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 15px;
+    bottom: 15px;
+    background: linear-gradient(180deg,
+      rgba(254, 240, 138, 0.08),
+      rgba(253, 230, 138, 0.18) 50%,
+      rgba(254, 240, 138, 0.08));
+    animation: bl-plasma 2.8s ease-in-out infinite;
+  }
+
+  /* Red blood cells: Crimson biconcave discs */
+  .blc-rbc {
+    position: absolute;
+    width: 16px;
+    height: 11px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 50% 50%,
+      #7f1d1d 0 28%,
+      #dc2626 55%,
+      #991b1b);
+    border: 1px solid #f87171;
+    box-shadow: inset 0 0 4px #450a0a, 0 0 4px rgba(220, 38, 38, 0.4);
+    animation: bl-flow 2.8s infinite;
+  }
+
+  .blc-rbc.r1 { top: 22px; animation-delay: 0s; }
+  .blc-rbc.r2 { top: 40px; animation-delay: -0.9s; width: 14px; height: 10px; }
+  .blc-rbc.r3 { top: 55px; animation-delay: -1.8s; }
+  .blc-rbc.r4 { top: 32px; animation-delay: -2.2s; width: 13px; height: 9px; }
+
+  /* White blood cell: Ivory neutrophil with lobed purple nucleus */
+  .blc-wbc {
+    position: absolute;
+    top: 18px;
+    width: 19px;
+    height: 17px;
+    border-radius: 48% 52% 50% 50%;
+    background: radial-gradient(circle at 42% 36%,
+      #ffffff,
+      #e2e8f0 60%,
+      #cbd5e1);
+    border: 1px solid #94a3b8;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+    animation: bl-wbc 8.4s linear infinite;
+  }
+
+  .blc-wbc::after {
+    content: '';
+    position: absolute;
+    left: 22%;
+    top: 26%;
+    width: 55%;
+    height: 48%;
+    border-radius: 60% 40% 55% 45%;
+    background: radial-gradient(circle, #7c3aed, #4c1d95);
+  }
+
+  /* Platelets: Golden fragments */
+  .blc-plt {
+    position: absolute;
+    width: 5px;
+    height: 3px;
+    border-radius: 50%;
+    background: #fbbf24;
+    box-shadow: 0 0 3px #f59e0b;
+    animation: bl-flow 2.1s linear infinite;
+  }
+
+  .blc-plt.p1 { top: 28px; animation-delay: -0.4s; }
+  .blc-plt.p2 { top: 50px; animation-delay: -1.3s; }
+
+  .blc-wave {
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: -20px;
+    width: 16px;
+    background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.25),
+      transparent);
+    animation: bl-wave 2.8s ease-out infinite;
+  }
+
+  .blc-bpm {
+    position: absolute;
+    right: 4px;
+    top: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    font-weight: bold;
+    color: #ef4444;
+    text-shadow: 0 0 5px rgba(239, 68, 68, 0.8);
+    animation: bl-bpm 2.8s steps(1) infinite;
+  }
 `;
 
+const bloodMarkup = {
+  v1: `
+    <div class="bl">
+      <div class="bl-plasma"></div>
+      <div class="bl-wave"></div>
+      <div class="bl-rbc r1"></div>
+      <div class="bl-rbc r2"></div>
+      <div class="bl-rbc r3"></div>
+      <div class="bl-rbc r4"></div>
+      <div class="bl-wbc"></div>
+      <div class="bl-plt p1"></div>
+      <div class="bl-plt p2"></div>
+      <div class="bl-wall top"></div>
+      <div class="bl-wall bottom"></div>
+      <div class="bl-bpm">&#9829; 72</div>
+    </div>
+  `,
+  v2: `
+    <div class="blc">
+      <div class="blc-plasma"></div>
+      <div class="blc-wave"></div>
+      <div class="blc-rbc r1"></div>
+      <div class="blc-rbc r2"></div>
+      <div class="blc-rbc r3"></div>
+      <div class="blc-rbc r4"></div>
+      <div class="blc-wbc"></div>
+      <div class="blc-plt p1"></div>
+      <div class="blc-plt p2"></div>
+      <div class="blc-wall top"></div>
+      <div class="blc-wall bottom"></div>
+      <div class="blc-bpm">&#9829; 72</div>
+    </div>
+  `,
+};
+
 class ConceptBlood extends HTMLElement {
+  static get observedAttributes() {
+    return ['version'];
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
+
   connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${bloodStyles}</style>
-      <div class="bl">
-        <div class="bl-plasma"></div>
-        <div class="bl-wave"></div>
-        <div class="bl-rbc r1"></div>
-        <div class="bl-rbc r2"></div>
-        <div class="bl-rbc r3"></div>
-        <div class="bl-rbc r4"></div>
-        <div class="bl-wbc"></div>
-        <div class="bl-plt p1"></div>
-        <div class="bl-plt p2"></div>
-        <div class="bl-wall top"></div>
-        <div class="bl-wall bottom"></div>
-        <div class="bl-bpm">&#9829; 72</div>
-      </div>
-    `;
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    if (this.isConnected) {
+      this.render();
+    }
+  }
+
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${bloodStyles}</style>${bloodMarkup[version] || bloodMarkup.v2}`;
   }
 }
 

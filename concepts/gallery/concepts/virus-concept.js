@@ -1,8 +1,3 @@
-// A pathogen in slow tumble: ten spike proteins ride the capsid rim, each
-// reaching and retracting on its own clock so the receptor fringe undulates;
-// the nucleocapsid squirms inside the membrane while a faint corona pulses.
-// (Distinct from Cell Cluster's smooth orbs and Petri Dish's colonies —
-// this is one spiked particle, not a culture.)
 const virusStyles = `
   :host {
     display: flex;
@@ -12,6 +7,7 @@ const virusStyles = `
     height: 100%;
   }
 
+  /* --- v1: Single-color phosphor virus particle --- */
   .vx {
     width: 104px;
     height: 96px;
@@ -25,8 +21,6 @@ const virusStyles = `
     65% { transform: translate(-2px, 2px); }
   }
 
-  /* The whole particle tumbles slowly; spikes are laid out on spokes so
-     they rotate with it. */
   .vx-rot {
     position: absolute;
     inset: 0;
@@ -37,7 +31,6 @@ const virusStyles = `
     to { transform: rotate(360deg); }
   }
 
-  /* Membrane envelope. */
   .vx-body {
     position: absolute;
     top: 50%;
@@ -51,7 +44,6 @@ const virusStyles = `
     box-shadow: 0 0 12px rgba(0, 204, 0, 0.4), inset 0 0 8px rgba(0, 204, 0, 0.25);
   }
 
-  /* Nucleocapsid: an inner blob that never stops squirming. */
   .vx-core {
     position: absolute;
     top: 50%;
@@ -70,8 +62,6 @@ const virusStyles = `
     66% { border-radius: 48% 52% 56% 44%; transform: rotate(-8deg) scale(0.94); }
   }
 
-  /* Spike proteins: a stem with a knobbed receptor tip, planted on the
-     membrane, reaching outward from it. */
   .vx-spoke {
     position: absolute;
     inset: 0;
@@ -103,8 +93,6 @@ const virusStyles = `
     box-shadow: 0 0 5px rgba(190, 255, 205, 0.6);
   }
 
-  /* Receptors undulate: each spike stretches and eases back on its own
-     duration and phase, never in unison. */
   @keyframes vx-reach {
     0%, 100% { transform: scaleY(0.82); }
     50% { transform: scaleY(1.12); }
@@ -121,7 +109,6 @@ const virusStyles = `
   .vx-spoke.s8 { --rot: 288deg; } .vx-spoke.s8 .vx-spike { --dur: 2.35s; --ph: -1.4s; }
   .vx-spoke.s9 { --rot: 324deg; } .vx-spoke.s9 .vx-spike { --dur: 2.75s; --ph: -2.5s; }
 
-  /* Corona: a soft halo breathing just past the receptor tips. */
   .vx-halo {
     position: absolute;
     top: 50%;
@@ -138,34 +125,170 @@ const virusStyles = `
     0%, 100% { transform: scale(0.96); opacity: 0.4; }
     50% { transform: scale(1.03); opacity: 0.85; }
   }
+
+  /* --- v2: Structural virology palette ---
+     Deep violet/indigo viral membrane envelope, scarlet glycoprotein spikes,
+     glowing electric-cyan nucleocapsid RNA core, and soft UV corona. */
+  .vxc {
+    width: 104px;
+    height: 96px;
+    position: relative;
+    animation: vx-float 9s ease-in-out infinite;
+  }
+
+  .vxc-rot {
+    position: absolute;
+    inset: 0;
+    animation: vx-tumble 26s linear infinite;
+  }
+
+  .vxc-body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border-radius: 50%;
+    border: 1.5px solid #a855f7;
+    background: radial-gradient(circle at 40% 35%, #7e22ce, #3b0764 72%);
+    box-shadow: 0 0 14px rgba(168, 85, 247, 0.5), inset 0 0 8px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Glowing cyan viral RNA/DNA nucleocapsid */
+  .vxc-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 16px;
+    margin: -8px 0 0 -9px;
+    border-radius: 46% 54% 52% 48%;
+    background: radial-gradient(circle at 42% 38%, #67e8f9, #0891b2 70%);
+    box-shadow: 0 0 8px #06b6d4;
+    animation: vx-core 5s ease-in-out infinite;
+  }
+
+  .vxc-spoke {
+    position: absolute;
+    inset: 0;
+    transform: rotate(var(--rot));
+  }
+
+  /* Scarlet glycoprotein spikes (hemagglutinin) */
+  .vxc-spike {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    width: 2px;
+    height: 13px;
+    margin-left: -1px;
+    background: linear-gradient(0deg, #dc2626, #ef4444);
+    transform-origin: 50% 100%;
+    animation: vx-reach var(--dur, 2.6s) ease-in-out infinite var(--ph, 0s);
+  }
+
+  .vxc-spike::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #fca5a5, #b91c1c 90%);
+    box-shadow: 0 0 6px #ef4444;
+  }
+
+  .vxc-spoke.s0 { --rot: 0deg; }   .vxc-spoke.s0 .vxc-spike { --dur: 2.3s; --ph: -0.4s; }
+  .vxc-spoke.s1 { --rot: 36deg; }  .vxc-spoke.s1 .vxc-spike { --dur: 2.9s; --ph: -1.6s; }
+  .vxc-spoke.s2 { --rot: 72deg; }  .vxc-spoke.s2 .vxc-spike { --dur: 2.5s; --ph: -0.9s; }
+  .vxc-spoke.s3 { --rot: 108deg; } .vxc-spoke.s3 .vxc-spike { --dur: 3.1s; --ph: -2.2s; }
+  .vxc-spoke.s4 { --rot: 144deg; } .vxc-spoke.s4 .vxc-spike { --dur: 2.4s; --ph: -1.2s; }
+  .vxc-spoke.s5 { --rot: 180deg; } .vxc-spoke.s5 .vxc-spike { --dur: 2.8s; --ph: -0.2s; }
+  .vxc-spoke.s6 { --rot: 216deg; } .vxc-spoke.s6 .vxc-spike { --dur: 2.6s; --ph: -1.9s; }
+  .vxc-spoke.s7 { --rot: 252deg; } .vxc-spoke.s7 .vxc-spike { --dur: 3s;   --ph: -0.7s; }
+  .vxc-spoke.s8 { --rot: 288deg; } .vxc-spoke.s8 .vxc-spike { --dur: 2.35s; --ph: -1.4s; }
+  .vxc-spoke.s9 { --rot: 324deg; } .vxc-spoke.s9 .vxc-spike { --dur: 2.75s; --ph: -2.5s; }
+
+  .vxc-halo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 74px;
+    height: 74px;
+    margin: -37px 0 0 -37px;
+    border: 1px dashed rgba(239, 68, 68, 0.35);
+    border-radius: 50%;
+    animation: vx-halo 4.5s ease-in-out infinite;
+  }
 `;
 
+const virusMarkup = {
+  v1: `
+    <div class="vx">
+      <div class="vx-halo"></div>
+      <div class="vx-rot">
+        <div class="vx-spoke s0"><div class="vx-spike"></div></div>
+        <div class="vx-spoke s1"><div class="vx-spike"></div></div>
+        <div class="vx-spoke s2"><div class="vx-spike"></div></div>
+        <div class="vx-spoke s3"><div class="vx-spike"></div></div>
+        <div class="vx-spoke s4"><div class="vx-spike"></div></div>
+        <div class="vx-spoke s5"><div class="vx-spike"></div></div>
+        <div class="vx-spoke s6"><div class="vx-spike"></div></div>
+        <div class="vx-spoke s7"><div class="vx-spike"></div></div>
+        <div class="vx-spoke s8"><div class="vx-spike"></div></div>
+        <div class="vx-spoke s9"><div class="vx-spike"></div></div>
+        <div class="vx-body"></div>
+        <div class="vx-core"></div>
+      </div>
+    </div>
+  `,
+  v2: `
+    <div class="vxc">
+      <div class="vxc-halo"></div>
+      <div class="vxc-rot">
+        <div class="vxc-spoke s0"><div class="vxc-spike"></div></div>
+        <div class="vxc-spoke s1"><div class="vxc-spike"></div></div>
+        <div class="vxc-spoke s2"><div class="vxc-spike"></div></div>
+        <div class="vxc-spoke s3"><div class="vxc-spike"></div></div>
+        <div class="vxc-spoke s4"><div class="vxc-spike"></div></div>
+        <div class="vxc-spoke s5"><div class="vxc-spike"></div></div>
+        <div class="vxc-spoke s6"><div class="vxc-spike"></div></div>
+        <div class="vxc-spoke s7"><div class="vxc-spike"></div></div>
+        <div class="vxc-spoke s8"><div class="vxc-spike"></div></div>
+        <div class="vxc-spoke s9"><div class="vxc-spike"></div></div>
+        <div class="vxc-body"></div>
+        <div class="vxc-core"></div>
+      </div>
+    </div>
+  `,
+};
+
 class ConceptVirus extends HTMLElement {
+  static get observedAttributes() {
+    return ['version'];
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
+
   connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${virusStyles}</style>
-      <div class="vx">
-        <div class="vx-halo"></div>
-        <div class="vx-rot">
-          <div class="vx-spoke s0"><div class="vx-spike"></div></div>
-          <div class="vx-spoke s1"><div class="vx-spike"></div></div>
-          <div class="vx-spoke s2"><div class="vx-spike"></div></div>
-          <div class="vx-spoke s3"><div class="vx-spike"></div></div>
-          <div class="vx-spoke s4"><div class="vx-spike"></div></div>
-          <div class="vx-spoke s5"><div class="vx-spike"></div></div>
-          <div class="vx-spoke s6"><div class="vx-spike"></div></div>
-          <div class="vx-spoke s7"><div class="vx-spike"></div></div>
-          <div class="vx-spoke s8"><div class="vx-spike"></div></div>
-          <div class="vx-spoke s9"><div class="vx-spike"></div></div>
-          <div class="vx-body"></div>
-          <div class="vx-core"></div>
-        </div>
-      </div>
-    `;
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    if (this.isConnected) {
+      this.render();
+    }
+  }
+
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${virusStyles}</style>${virusMarkup[version] || virusMarkup.v2}`;
   }
 }
 
