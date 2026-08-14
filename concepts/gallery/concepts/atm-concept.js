@@ -1,4 +1,5 @@
-const atmStyles = `
+const atmStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -7,9 +8,6 @@ const atmStyles = `
     height: 100%;
   }
 
-  /* A cash machine withdrawal: a card slides into the reader, the
-     screen cycles PIN -> AMOUNT -> DISPENSING, and a fan of bills
-     eases out of the cash slot before the card pops back. */
   .at {
     width: 104px;
     height: 96px;
@@ -17,7 +15,6 @@ const atmStyles = `
     font-family: 'Courier New', monospace;
   }
 
-  /* Machine face. */
   .at-face {
     position: absolute;
     left: 8px;
@@ -29,7 +26,6 @@ const atmStyles = `
     border: 2px solid var(--accent, #00cc00);
   }
 
-  /* Screen. */
   .at-screen {
     position: absolute;
     left: 16px;
@@ -68,7 +64,6 @@ const atmStyles = `
     92% { content: 'THANK YOU'; }
   }
 
-  /* Screen scanline shimmer. */
   .at-screen::after {
     content: '';
     position: absolute;
@@ -77,7 +72,6 @@ const atmStyles = `
     pointer-events: none;
   }
 
-  /* Side buttons. */
   .at-sidebtn {
     position: absolute;
     right: 12px;
@@ -91,7 +85,6 @@ const atmStyles = `
   .at-sidebtn.k2 { top: 22px; }
   .at-sidebtn.k3 { top: 30px; }
 
-  /* Keypad. */
   .at-keypad {
     position: absolute;
     left: 16px;
@@ -102,7 +95,6 @@ const atmStyles = `
       radial-gradient(circle 2px, rgba(140, 255, 170, 0.7) 90%, transparent) 0 0 / 10px 6px;
   }
 
-  /* Card reader slot with the card sliding in. */
   .at-reader {
     position: absolute;
     right: 14px;
@@ -126,7 +118,6 @@ const atmStyles = `
     animation: at-card 7s ease-in-out infinite;
   }
 
-  /* Magnetic stripe. */
   .at-card::after {
     content: '';
     position: absolute;
@@ -140,15 +131,12 @@ const atmStyles = `
   @keyframes at-card {
     0% { transform: translate(24px, 0); opacity: 0; }
     4% { opacity: 1; }
-    /* Inserted. */
     12% { transform: translate(0, 6px); }
     16%, 82% { transform: translate(2px, 8px) scale(0.9); opacity: 0.6; }
-    /* Returned. */
     90% { transform: translate(24px, 0); opacity: 1; }
     100% { transform: translate(24px, 0); opacity: 0; }
   }
 
-  /* Cash slot + bill fan. */
   .at-cashslot {
     position: absolute;
     left: 16px;
@@ -182,22 +170,216 @@ const atmStyles = `
   @keyframes at-bill {
     0%, 58% { transform: translateY(6px) rotate(0deg); opacity: 0; }
     64% { transform: translateY(0) rotate(-4deg); opacity: 1; }
-    /* Fan out. */
     74% { transform: translateY(-4px) rotate(-10deg); opacity: 1; }
     84% { transform: translateY(-4px) rotate(-10deg); opacity: 1; }
     90% { transform: translateY(-8px) rotate(-14deg); opacity: 0; }
     100% { opacity: 0; }
   }
-`;
-
-class ConceptAtm extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${atmStyles}</style>
+
+  /* v2: Modern banking ATM machine with deep navy chassis, cyan LCD interface screen,
+     illuminated card slot with gold chip card, and emerald green banknotes dispensing */
+  .atc {
+    width: 104px;
+    height: 96px;
+    position: relative;
+    font-family: 'Courier New', monospace;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Banking ATM brushed steel & navy housing */
+  .atc-face {
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    right: 8px;
+    bottom: 10px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 50%, #020617 100%);
+    border: 2px solid #3b82f6;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), inset 0 1px 2px #60a5fa;
+  }
+
+  /* Cyan LCD display interface */
+  .atc-screen {
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    width: 52px;
+    height: 30px;
+    border-radius: 3px;
+    background: #020617;
+    border: 2px solid #38bdf8;
+    box-shadow: inset 0 0 8px rgba(56, 189, 248, 0.4);
+    overflow: hidden;
+  }
+
+  .atc-msg {
+    position: absolute;
+    left: 5px;
+    top: 11px;
+    font-size: 8px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #38bdf8;
+    text-shadow: 0 0 5px #00f0ff;
+  }
+
+  .atc-msg::before {
+    content: 'INSERT CARD';
+    animation: atc-msg 7s steps(1) infinite;
+  }
+
+  @keyframes atc-msg {
+    0% { content: 'INSERT CARD'; color: #38bdf8; text-shadow: 0 0 5px #00f0ff; }
+    16% { content: 'ENTER PIN'; color: #facc15; text-shadow: 0 0 5px #fde047; }
+    24% { content: '\\2022\\2022\\2022\\2022'; color: #facc15; text-shadow: 0 0 5px #fde047; }
+    36% { content: 'AMOUNT?'; color: #38bdf8; text-shadow: 0 0 5px #00f0ff; }
+    46% { content: '$ 80.00'; color: #4ade80; text-shadow: 0 0 5px #22c55e; }
+    58% { content: 'DISPENSING'; color: #f43f5e; text-shadow: 0 0 5px #ef4444; }
+    82% { content: 'TAKE CASH'; color: #4ade80; text-shadow: 0 0 5px #22c55e; }
+    92% { content: 'THANK YOU'; color: #38bdf8; text-shadow: 0 0 5px #00f0ff; }
+  }
+
+  .atc-screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0 1px, transparent 1px 3px);
+    pointer-events: none;
+  }
+
+  /* Side action softkeys */
+  .atc-sidebtn {
+    position: absolute;
+    right: 12px;
+    width: 8px;
+    height: 4px;
+    border-radius: 1px;
+    background: #64748b;
+    border: 1px solid #94a3b8;
+  }
+
+  .atc-sidebtn.k1 { top: 14px; }
+  .atc-sidebtn.k2 { top: 22px; }
+  .atc-sidebtn.k3 { top: 30px; }
+
+  /* Tactile metal pinpad */
+  .atc-keypad {
+    position: absolute;
+    left: 16px;
+    bottom: 26px;
+    width: 30px;
+    height: 18px;
+    background:
+      radial-gradient(circle 2px, #94a3b8 90%, transparent) 0 0 / 10px 6px;
+  }
+
+  /* Illuminated cyan card reader slot */
+  .atc-reader {
+    position: absolute;
+    right: 14px;
+    bottom: 30px;
+    width: 24px;
+    height: 4px;
+    border-radius: 2px;
+    background: #020617;
+    border: 1px solid #38bdf8;
+    box-shadow: 0 0 6px #00f0ff;
+  }
+
+  /* Credit card with gold EMV chip */
+  .atc-card {
+    position: absolute;
+    right: 14px;
+    bottom: 30px;
+    width: 20px;
+    height: 12px;
+    border-radius: 2px;
+    background: linear-gradient(120deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%);
+    border: 1px solid #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    animation: atc-card 7s ease-in-out infinite;
+  }
+
+  .atc-card::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 4px;
+    height: 3px;
+    border-radius: 1px;
+    background: #facc15;
+    box-shadow: 0 0 2px #ca8a04;
+  }
+
+  @keyframes atc-card {
+    0% { transform: translate(24px, 0); opacity: 0; }
+    4% { opacity: 1; }
+    12% { transform: translate(0, 6px); }
+    16%, 82% { transform: translate(2px, 8px) scale(0.9); opacity: 0.6; }
+    90% { transform: translate(24px, 0); opacity: 1; }
+    100% { transform: translate(24px, 0); opacity: 0; }
+  }
+
+  /* Cash dispenser slot */
+  .atc-cashslot {
+    position: absolute;
+    left: 16px;
+    bottom: 14px;
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background: #09090b;
+    border: 1.5px solid #22c55e;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+  }
+
+  /* Emerald green banknotes */
+  .atc-bill {
+    position: absolute;
+    left: 20px;
+    bottom: 14px;
+    width: 30px;
+    height: 12px;
+    border-radius: 2px;
+    background:
+      linear-gradient(90deg, #86efac 0%, #22c55e 50%, #15803d 100%),
+      radial-gradient(circle 4px at 50% 50%, #166534 90%, transparent);
+    border: 1px solid #ffffff;
+    box-shadow: 0 0 4px #22c55e;
+    transform-origin: 0% 100%;
+    opacity: 0;
+    animation: atc-bill 7s ease-out infinite;
+  }
+
+  .atc-bill.b2 { animation-delay: 0.15s; }
+  .atc-bill.b3 { animation-delay: 0.3s; }
+
+  @keyframes atc-bill {
+    0%, 58% { transform: translateY(6px) rotate(0deg); opacity: 0; }
+    64% { transform: translateY(0) rotate(-4deg); opacity: 1; }
+    74% { transform: translateY(-4px) rotate(-10deg); opacity: 1; }
+    84% { transform: translateY(-4px) rotate(-10deg); opacity: 1; }
+    90% { transform: translateY(-8px) rotate(-14deg); opacity: 0; }
+    100% { opacity: 0; }
+  }
+  `,
+};
+
+const atmMarkup = {
+  v1: `
       <div class="at">
         <div class="at-face"></div>
         <div class="at-screen"><span class="at-msg"></span></div>
@@ -212,7 +394,40 @@ class ConceptAtm extends HTMLElement {
         <div class="at-bill b2"></div>
         <div class="at-bill b1"></div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="atc">
+        <div class="atc-face"></div>
+        <div class="atc-screen"><span class="atc-msg"></span></div>
+        <div class="atc-sidebtn k1"></div>
+        <div class="atc-sidebtn k2"></div>
+        <div class="atc-sidebtn k3"></div>
+        <div class="atc-keypad"></div>
+        <div class="atc-reader"></div>
+        <div class="atc-card"></div>
+        <div class="atc-cashslot"></div>
+        <div class="atc-bill b3"></div>
+        <div class="atc-bill b2"></div>
+        <div class="atc-bill b1"></div>
+      </div>
+    `,
+};
+
+class ConceptAtm extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${atmStyles[version] || atmStyles.v2}</style>${atmMarkup[version] || atmMarkup.v2}`;
   }
 }
 

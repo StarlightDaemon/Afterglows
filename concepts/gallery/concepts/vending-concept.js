@@ -1,4 +1,5 @@
-const vendingStyles = `
+const vendingStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -7,16 +8,12 @@ const vendingStyles = `
     height: 100%;
   }
 
-  /* A vending machine dispensing: a coin drops through the slot, the
-     selected snack's coil spirals forward, the item topples and falls
-     into the tray - a flap swings as it lands. */
   .vn {
     width: 84px;
     height: 100px;
     position: relative;
   }
 
-  /* Cabinet. */
   .vn-cabinet {
     position: absolute;
     inset: 2px;
@@ -25,7 +22,6 @@ const vendingStyles = `
     border: 2px solid var(--accent, #00cc00);
   }
 
-  /* Glass window with shelves of snacks. */
   .vn-window {
     position: absolute;
     left: 8px;
@@ -38,7 +34,6 @@ const vendingStyles = `
     overflow: hidden;
   }
 
-  /* Shelves. */
   .vn-shelf {
     position: absolute;
     left: 2px;
@@ -50,7 +45,6 @@ const vendingStyles = `
   .vn-shelf.s1 { top: 20px; }
   .vn-shelf.s2 { top: 40px; }
 
-  /* Snack rows on the shelves. */
   .vn-snack {
     position: absolute;
     width: 8px;
@@ -67,7 +61,6 @@ const vendingStyles = `
   .vn-snack.e { left: 16px; top: 26px; }
   .vn-snack.f { left: 28px; top: 26px; }
 
-  /* The dispensing coil (row 2, item e) that spirals the snack out. */
   .vn-coil {
     position: absolute;
     left: 16px;
@@ -88,7 +81,6 @@ const vendingStyles = `
     54%, 100% { background-position: -12px 0; }
   }
 
-  /* The vended item: pushed off the coil, topples and drops. */
   .vn-item {
     position: absolute;
     left: 30px;
@@ -103,15 +95,12 @@ const vendingStyles = `
 
   @keyframes vn-item {
     0%, 42% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-    /* Topple off the coil. */
     50% { transform: translate(4px, 2px) rotate(40deg); }
-    /* Fall down inside the window and to the tray. */
     62% { transform: translate(-8px, 22px) rotate(120deg); opacity: 1; }
     68% { transform: translate(-14px, 32px) rotate(160deg); opacity: 0; }
     100% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
   }
 
-  /* Control panel: buttons + coin slot + selection glow. */
   .vn-panel {
     position: absolute;
     right: 6px;
@@ -138,7 +127,6 @@ const vendingStyles = `
     64%, 100% { box-shadow: none; opacity: 0.5; }
   }
 
-  /* Coin slot + falling coin. */
   .vn-slot {
     position: absolute;
     right: 8px;
@@ -164,13 +152,11 @@ const vendingStyles = `
   @keyframes vn-coin {
     0% { transform: translateY(0); opacity: 0; }
     4% { opacity: 1; }
-    /* Drops into the slot. */
     14% { transform: translateY(12px); opacity: 1; }
     18% { transform: translateY(14px); opacity: 0; }
     100% { opacity: 0; }
   }
 
-  /* Delivery tray with a swinging flap. */
   .vn-tray {
     position: absolute;
     left: 8px;
@@ -201,16 +187,226 @@ const vendingStyles = `
     82% { transform: rotate(4deg); }
     88%, 100% { transform: rotate(0deg); }
   }
-`;
-
-class ConceptVending extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${vendingStyles}</style>
+
+  /* v2: Illuminated Japanese beverage vending machine with cobalt & white cabinet,
+     multi-color drink cans, rotating coil, gold coin, and dropped drink delivery flap */
+  .vnc {
+    width: 84px;
+    height: 100px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Cobalt blue & crisp white machine cabinet */
+  .vnc-cabinet {
+    position: absolute;
+    inset: 2px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 40%, #1e293b 100%);
+    border: 2px solid #3b82f6;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+  }
+
+  /* Illuminated refrigerated display window */
+  .vnc-window {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 46px;
+    height: 62px;
+    border: 1.5px solid #93c5fd;
+    border-radius: 3px;
+    background: #0f172a;
+    box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.4);
+    overflow: hidden;
+  }
+
+  /* Shelves */
+  .vnc-shelf {
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    height: 1px;
+    background: #60a5fa;
+  }
+
+  .vnc-shelf.s1 { top: 20px; }
+  .vnc-shelf.s2 { top: 40px; }
+
+  /* Colorful canned beverages */
+  .vnc-snack {
+    position: absolute;
+    width: 8px;
+    height: 12px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Row 1: Emerald green tea, Ruby cola, Golden iced coffee */
+  .vnc-snack.a { left: 4px; top: 6px; background: linear-gradient(180deg, #4ade80, #15803d); border: 1px solid #22c55e; }
+  .vnc-snack.b { left: 16px; top: 6px; background: linear-gradient(180deg, #f87171, #dc2626); border: 1px solid #ef4444; }
+  .vnc-snack.c { left: 28px; top: 6px; background: linear-gradient(180deg, #fde047, #ca8a04); border: 1px solid #eab308; }
+
+  /* Row 2: Sapphire sports drink, Emerald melon soda */
+  .vnc-snack.d { left: 4px; top: 26px; background: linear-gradient(180deg, #38bdf8, #0284c7); border: 1px solid #0ea5e9; }
+  .vnc-snack.f { left: 28px; top: 26px; background: linear-gradient(180deg, #a7f3d0, #059669); border: 1px solid #10b981; }
+
+  /* Dispenser coil */
+  .vnc-coil {
+    position: absolute;
+    left: 16px;
+    top: 44px;
+    width: 12px;
+    height: 12px;
+    background: repeating-linear-gradient(90deg,
+      #cbd5e1 0 2px,
+      transparent 2px 4px);
+    animation: vnc-coil 5s steps(1) infinite;
+  }
+
+  @keyframes vnc-coil {
+    0%, 30% { background-position: 0 0; }
+    36% { background-position: -4px 0; }
+    42% { background-position: -8px 0; }
+    48% { background-position: -12px 0; }
+    54%, 100% { background-position: -12px 0; }
+  }
+
+  /* Selected orange citrus drink dropping */
+  .vnc-item {
+    position: absolute;
+    left: 30px;
+    top: 44px;
+    width: 8px;
+    height: 12px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #fdba74, #ea580c);
+    border: 1px solid #f97316;
+    box-shadow: 0 0 6px #ea580c;
+    animation: vnc-item 5s ease-in infinite;
+  }
+
+  @keyframes vnc-item {
+    0%, 42% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    50% { transform: translate(4px, 2px) rotate(40deg); }
+    62% { transform: translate(-8px, 22px) rotate(120deg); opacity: 1; }
+    68% { transform: translate(-14px, 32px) rotate(160deg); opacity: 0; }
+    100% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  }
+
+  /* Selection buttons panel */
+  .vnc-panel {
+    position: absolute;
+    right: 6px;
+    top: 10px;
+    width: 18px;
+    height: 58px;
+  }
+
+  .vnc-btn {
+    position: absolute;
+    width: 12px;
+    height: 5px;
+    border-radius: 2px;
+    background: #334155;
+    border: 1px solid #64748b;
+  }
+
+  .vnc-btn.b1 { top: 4px; }
+  .vnc-btn.b2 { top: 12px; }
+  .vnc-btn.b3 {
+    top: 20px;
+    background: #38bdf8;
+    box-shadow: 0 0 8px #00f0ff;
+    animation: vnc-select 5s steps(1) infinite;
+  }
+
+  @keyframes vnc-select {
+    0%, 24% { box-shadow: none; opacity: 0.5; }
+    28%, 60% { box-shadow: 0 0 10px #00f0ff, 0 0 16px #38bdf8; opacity: 1; }
+    64%, 100% { box-shadow: none; opacity: 0.5; }
+  }
+
+  /* Coin insert slot */
+  .vnc-slot {
+    position: absolute;
+    right: 8px;
+    top: 40px;
+    width: 8px;
+    height: 3px;
+    border-radius: 2px;
+    background: #09090b;
+    border: 1px solid #cbd5e1;
+  }
+
+  /* Gold coin dropping */
+  .vnc-coin {
+    position: absolute;
+    right: 10px;
+    top: 30px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 32%, #fef08a, #ca8a04 70%);
+    box-shadow: 0 0 4px #facc15;
+    animation: vnc-coin 5s ease-in infinite;
+  }
+
+  @keyframes vnc-coin {
+    0% { transform: translateY(0); opacity: 0; }
+    4% { opacity: 1; }
+    14% { transform: translateY(12px); opacity: 1; }
+    18% { transform: translateY(14px); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* Bottom collection tray & swinging flap */
+  .vnc-tray {
+    position: absolute;
+    left: 8px;
+    bottom: 6px;
+    width: 40px;
+    height: 12px;
+    border-radius: 2px;
+    background: #09090b;
+    border: 1.5px solid #475569;
+  }
+
+  .vnc-flap {
+    position: absolute;
+    left: 10px;
+    bottom: 12px;
+    width: 22px;
+    height: 8px;
+    border-radius: 2px 2px 0 0;
+    background: linear-gradient(180deg, #64748b, #334155);
+    border: 1px solid #94a3b8;
+    transform-origin: 50% 100%;
+    animation: vnc-flap 5s ease-out infinite;
+  }
+
+  @keyframes vnc-flap {
+    0%, 64% { transform: rotate(0deg); }
+    70% { transform: rotate(-38deg); }
+    82% { transform: rotate(4deg); }
+    88%, 100% { transform: rotate(0deg); }
+  }
+  `,
+};
+
+const vendingMarkup = {
+  v1: `
       <div class="vn">
         <div class="vn-cabinet"></div>
         <div class="vn-window">
@@ -234,7 +430,49 @@ class ConceptVending extends HTMLElement {
         <div class="vn-tray"></div>
         <div class="vn-flap"></div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="vnc">
+        <div class="vnc-cabinet"></div>
+        <div class="vnc-window">
+          <div class="vnc-shelf s1"></div>
+          <div class="vnc-shelf s2"></div>
+          <div class="vnc-snack a"></div>
+          <div class="vnc-snack b"></div>
+          <div class="vnc-snack c"></div>
+          <div class="vnc-snack d"></div>
+          <div class="vnc-snack f"></div>
+          <div class="vnc-coil"></div>
+          <div class="vnc-item"></div>
+        </div>
+        <div class="vnc-panel">
+          <div class="vnc-btn b1"></div>
+          <div class="vnc-btn b2"></div>
+          <div class="vnc-btn b3"></div>
+        </div>
+        <div class="vnc-slot"></div>
+        <div class="vnc-coin"></div>
+        <div class="vnc-tray"></div>
+        <div class="vnc-flap"></div>
+      </div>
+    `,
+};
+
+class ConceptVending extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${vendingStyles[version] || vendingStyles.v2}</style>${vendingMarkup[version] || vendingMarkup.v2}`;
   }
 }
 

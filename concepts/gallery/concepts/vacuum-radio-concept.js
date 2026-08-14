@@ -1,4 +1,5 @@
-const vacuumRadioStyles = `
+const vacuumRadioStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -7,16 +8,12 @@ const vacuumRadioStyles = `
     height: 100%;
   }
 
-  /* A 1930s cathedral vacuum tube radio in live broadcast: warm triode tubes
-     glow behind the grille, a tuning dial sweeps across shortwave frequencies,
-     and a green magic-eye tube narrows its beam at resonance. */
   .vrad {
     width: 114px;
     height: 100px;
     position: relative;
   }
 
-  /* Cathedral arched wooden radio cabinet */
   .vrad-cabinet {
     position: absolute;
     left: 12px;
@@ -30,7 +27,6 @@ const vacuumRadioStyles = `
     overflow: hidden;
   }
 
-  /* Vacuum tubes glowing in top arch */
   .vrad-tubes {
     position: absolute;
     left: 20px;
@@ -61,7 +57,6 @@ const vacuumRadioStyles = `
     100% { filter: brightness(1.3); box-shadow: 0 0 10px rgba(190, 255, 205, 1); }
   }
 
-  /* Magic-eye tuning indicator tube (6E5 cathode-ray target) */
   .vrad-eye {
     position: absolute;
     left: 36px;
@@ -75,7 +70,6 @@ const vacuumRadioStyles = `
     overflow: hidden;
   }
 
-  /* Magic-eye green phosphor aperture shadow angle converging */
   .vrad-eye-beam {
     position: absolute;
     inset: 0;
@@ -89,7 +83,6 @@ const vacuumRadioStyles = `
     50% { transform: scaleX(0.2); }
   }
 
-  /* Frequency tuning dial glass window */
   .vrad-dial {
     position: absolute;
     left: 16px;
@@ -102,14 +95,12 @@ const vacuumRadioStyles = `
     overflow: hidden;
   }
 
-  /* Dial frequency tick marks */
   .vrad-ticks {
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(90deg, rgba(140, 255, 170, 0.6) 0 1px, transparent 1px 6px);
   }
 
-  /* Tuning needle pointer sweeping frequencies */
   .vrad-needle {
     position: absolute;
     top: 0;
@@ -125,7 +116,6 @@ const vacuumRadioStyles = `
     100% { left: 52px; }
   }
 
-  /* Rotary control knobs */
   .vrad-knob {
     position: absolute;
     bottom: 4px;
@@ -138,16 +128,156 @@ const vacuumRadioStyles = `
 
   .vrad-knob.kl { left: 18px; }
   .vrad-knob.kr { right: 18px; }
-`;
-
-class ConceptVacuumRadio extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${vacuumRadioStyles}</style>
+
+  /* v2: Antique 1930s cathedral vacuum tube radio with burled walnut wood cabinet,
+     glowing orange/amber triode filaments, emerald green 6E5 magic-eye indicator, and brass tuning dials */
+  .vradc {
+    width: 114px;
+    height: 100px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Rich polished walnut arch cathedral radio cabinet */
+  .vradc-cabinet {
+    position: absolute;
+    left: 12px;
+    bottom: 6px;
+    width: 90px;
+    height: 88px;
+    border-radius: 45px 45px 4px 4px;
+    background: radial-gradient(circle at 50% 30%, #9a3412 0%, #78350f 50%, #451a03 100%);
+    border: 2px solid #ca8a04;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.9), inset 0 2px 4px rgba(254, 240, 138, 0.4);
+    overflow: hidden;
+  }
+
+  /* Vacuum tube chassis gallery */
+  .vradc-tubes {
+    position: absolute;
+    left: 20px;
+    top: 14px;
+    width: 50px;
+    height: 22px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+
+  /* Glowing orange-hot thermionic cathode vacuum tubes */
+  .vradc-tube {
+    width: 10px;
+    height: 18px;
+    border-radius: 5px 5px 2px 2px;
+    background: radial-gradient(circle at 50% 40%, #ffffff 0%, #fde047 30%, #ea580c 70%, rgba(30, 20, 10, 0.8) 100%);
+    border: 1px solid #fed7aa;
+    box-shadow: 0 0 10px #ea580c, 0 0 16px #facc15;
+    animation: vradc-tube-glow 2.5s ease-in-out infinite alternate;
+  }
+
+  .vradc-tube.t1 { animation-delay: 0s; }
+  .vradc-tube.t2 { height: 22px; animation-delay: -0.8s; }
+  .vradc-tube.t3 { animation-delay: -1.6s; }
+
+  @keyframes vradc-tube-glow {
+    0% { filter: brightness(0.85); box-shadow: 0 0 6px #ea580c; }
+    100% { filter: brightness(1.3); box-shadow: 0 0 14px #ea580c, 0 0 22px #fde047; }
+  }
+
+  /* Magic-eye 6E5 phosphor green tuning cathode target */
+  .vradc-eye {
+    position: absolute;
+    left: 36px;
+    top: 38px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #86efac 0%, #22c55e 50%, #14532d 100%);
+    border: 1.5px solid #facc15;
+    box-shadow: 0 0 10px #22c55e, inset 0 0 4px #4ade80;
+    overflow: hidden;
+  }
+
+  /* Shadow beam narrowing as signal peaks */
+  .vradc-eye-beam {
+    position: absolute;
+    inset: 0;
+    clip-path: polygon(50% 50%, 0 0, 100% 0);
+    background: #052e16;
+    animation: vradc-eye-tune 4.2s ease-in-out infinite;
+  }
+
+  @keyframes vradc-eye-tune {
+    0%, 100% { transform: scaleX(1.4); }
+    50% { transform: scaleX(0.2); }
+  }
+
+  /* Amber illuminated shortwave tuning glass dial */
+  .vradc-dial {
+    position: absolute;
+    left: 16px;
+    top: 60px;
+    width: 58px;
+    height: 10px;
+    border-radius: 2px;
+    background: #451a03;
+    border: 1px solid #facc15;
+    box-shadow: inset 0 0 4px #f59e0b;
+    overflow: hidden;
+  }
+
+  .vradc-ticks {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, #fde68a 0 1px, transparent 1px 6px);
+  }
+
+  /* Glowing scarlet tuning needle */
+  .vradc-needle {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: #ef4444;
+    box-shadow: 0 0 4px #dc2626;
+    animation: vradc-dial-sweep 4.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes vradc-dial-sweep {
+    0% { left: 4px; }
+    100% { left: 52px; }
+  }
+
+  /* Polished brass control knobs */
+  .vradc-knob {
+    position: absolute;
+    bottom: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, #fef08a 0%, #facc15 50%, #ca8a04 100%);
+    border: 1px solid #78350f;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  .vradc-knob.kl { left: 18px; }
+  .vradc-knob.kr { right: 18px; }
+  `,
+};
+
+const vacuumRadioMarkup = {
+  v1: `
       <div class="vrad">
         <div class="vrad-cabinet">
           <div class="vrad-tubes">
@@ -166,7 +296,44 @@ class ConceptVacuumRadio extends HTMLElement {
           <div class="vrad-knob kr"></div>
         </div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="vradc">
+        <div class="vradc-cabinet">
+          <div class="vradc-tubes">
+            <div class="vradc-tube t1"></div>
+            <div class="vradc-tube t2"></div>
+            <div class="vradc-tube t3"></div>
+          </div>
+          <div class="vradc-eye">
+            <div class="vradc-eye-beam"></div>
+          </div>
+          <div class="vradc-dial">
+            <div class="vradc-ticks"></div>
+            <div class="vradc-needle"></div>
+          </div>
+          <div class="vradc-knob kl"></div>
+          <div class="vradc-knob kr"></div>
+        </div>
+      </div>
+    `,
+};
+
+class ConceptVacuumRadio extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${vacuumRadioStyles[version] || vacuumRadioStyles.v2}</style>${vacuumRadioMarkup[version] || vacuumRadioMarkup.v2}`;
   }
 }
 
