@@ -1,12 +1,5 @@
-// Mothership, complete new build (the original was cut in the 2026-08-03
-// library trim; this replaces it rather than refining it). The subject is
-// the Independence Day archetype: a hull so wide the frame can't contain
-// it, looming over a city skyline. Low clouds slide beneath the rim for
-// scale, hull rings and a chasing rim-light strip give the underside
-// detail, and the center aperture runs the signature cycle — a slow
-// charge-up, then the beam column drops onto the city and the windows
-// flare before it all goes quiet again.
-const mothershipStyles = `
+const mothershipStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -25,8 +18,6 @@ const mothershipStyles = `
     background: linear-gradient(180deg, #010b04, #04180a 70%, #062310);
   }
 
-  /* The hull: wider than the frame on purpose — only the underside bulge
-     is visible, which is what sells the scale. */
   .ms-ship {
     position: absolute;
     top: -18px;
@@ -46,7 +37,6 @@ const mothershipStyles = `
     50% { transform: translateY(1.5px); }
   }
 
-  /* Concentric hull rings on the underside. */
   .ms-ring {
     position: absolute;
     left: 50%;
@@ -68,7 +58,6 @@ const mothershipStyles = `
     bottom: -7px;
   }
 
-  /* Rim lights chasing along the lower hull. */
   .ms-rim {
     position: absolute;
     bottom: 6px;
@@ -90,8 +79,6 @@ const mothershipStyles = `
     50% { opacity: 1; }
   }
 
-  /* The center aperture: charges through the cycle, peaks as the beam
-     fires. */
   .ms-core {
     position: absolute;
     left: 50%;
@@ -113,8 +100,6 @@ const mothershipStyles = `
     100% { opacity: 0.35; }
   }
 
-  /* The beam column: drops from the aperture onto the skyline, flickers
-     while it burns, retracts. */
   .ms-beam {
     position: absolute;
     left: 50%;
@@ -140,7 +125,6 @@ const mothershipStyles = `
     84%, 100% { transform: scaleY(0); opacity: 0; }
   }
 
-  /* Rooftop bloom where the beam lands. */
   .ms-impact {
     position: absolute;
     left: 50%;
@@ -163,8 +147,6 @@ const mothershipStyles = `
     84%, 100% { opacity: 0; transform: scale(1.3); }
   }
 
-  /* City skyline: silhouettes with faint window rows; the windows flare
-     while the beam is down. */
   .ms-city {
     position: absolute;
     left: 0;
@@ -200,7 +182,6 @@ const mothershipStyles = `
     85%, 100% { filter: brightness(1); }
   }
 
-  /* Low clouds sliding under the rim — in front of the hull for depth. */
   .ms-cloud {
     position: absolute;
     height: 4px;
@@ -230,16 +211,242 @@ const mothershipStyles = `
     90% { opacity: 0.8; }
     100% { transform: translateX(122px); opacity: 0; }
   }
-`;
-
-class ConceptMothership extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${mothershipStyles}</style>
+
+  /* v2: Star dreadnought mothership with gunmetal hull, cyan running lights,
+     devastating blue-white plasma superlaser beam, and glowing city skyline */
+  .msc {
+    width: 104px;
+    height: 96px;
+    position: relative;
+    overflow: hidden;
+    border: 1.5px solid #38bdf8;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Colossal gunmetal dreadnought hull */
+  .msc-ship {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    width: 150px;
+    height: 52px;
+    margin-left: -75px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(180deg, #09090b 20%, #1e293b 50%, #334155 80%, #94a3b8 100%);
+    border: 1px solid #475569;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.9);
+    animation: msc-loom 9s ease-in-out infinite;
+  }
+
+  @keyframes msc-loom {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(1.5px); }
+  }
+
+  /* Hull armor rings */
+  .msc-ring {
+    position: absolute;
+    left: 50%;
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    border-radius: 50%;
+  }
+
+  .msc-ring.r1 {
+    width: 112px;
+    height: 34px;
+    margin-left: -56px;
+    bottom: -12px;
+  }
+
+  .msc-ring.r2 {
+    width: 72px;
+    height: 22px;
+    margin-left: -36px;
+    bottom: -7px;
+  }
+
+  /* Cyan perimeter running beacons */
+  .msc-rim {
+    position: absolute;
+    bottom: 6px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #38bdf8;
+    box-shadow: 0 0 6px #00f0ff;
+    animation: msc-rimlight 1.5s linear infinite;
+  }
+
+  .msc-rim.l1 { left: 15%; animation-delay: 0s; }
+  .msc-rim.l2 { left: 32%; bottom: 3px; animation-delay: -0.3s; }
+  .msc-rim.l3 { left: 49%; bottom: 2px; animation-delay: -0.6s; }
+  .msc-rim.l4 { left: 66%; bottom: 3px; animation-delay: -0.9s; }
+  .msc-rim.l5 { left: 83%; animation-delay: -1.2s; }
+
+  @keyframes msc-rimlight {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  /* Superlaser charging aperture (orange to blazing blue-white) */
+  .msc-core {
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 14px;
+    height: 12px;
+    margin-left: -7px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 60%, #ffffff 0%, #38bdf8 40%, #ea580c 80%, transparent 100%);
+    box-shadow: 0 0 12px #facc15;
+    animation: msc-charge 8s linear infinite;
+  }
+
+  @keyframes msc-charge {
+    0% { opacity: 0.35; }
+    30% { opacity: 0.5; }
+    55% { opacity: 0.8; }
+    62%, 80% { opacity: 1; }
+    88% { opacity: 0.4; }
+    100% { opacity: 0.35; }
+  }
+
+  /* Incandescent plasma superlaser beam */
+  .msc-beam {
+    position: absolute;
+    left: 50%;
+    top: 32px;
+    width: 10px;
+    height: 50px;
+    margin-left: -5px;
+    background: linear-gradient(180deg, #ffffff 0%, #38bdf8 60%, rgba(56, 189, 248, 0.2) 100%);
+    box-shadow: 0 0 14px #00f0ff;
+    transform-origin: top center;
+    transform: scaleY(0);
+    opacity: 0;
+    z-index: 1;
+    animation: msc-beam 8s linear infinite;
+  }
+
+  @keyframes msc-beam {
+    0%, 62% { transform: scaleY(0); opacity: 0; }
+    64% { transform: scaleY(1); opacity: 1; }
+    68% { transform: scaleY(1); opacity: 0.75; }
+    72% { transform: scaleY(1); opacity: 1; }
+    76% { transform: scaleY(1); opacity: 0.8; }
+    80% { transform: scaleY(1); opacity: 1; }
+    84%, 100% { transform: scaleY(0); opacity: 0; }
+  }
+
+  /* Superlaser impact explosion bloom */
+  .msc-impact {
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    width: 34px;
+    height: 8px;
+    margin-left: -17px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, #ffffff 0%, #38bdf8 60%, transparent 90%);
+    box-shadow: 0 0 16px #00f0ff, 0 0 24px #ea580c;
+    opacity: 0;
+    z-index: 3;
+    animation: msc-impact 8s linear infinite;
+  }
+
+  @keyframes msc-impact {
+    0%, 62% { opacity: 0; transform: scale(0.5); }
+    66% { opacity: 0.95; transform: scale(1); }
+    74% { opacity: 0.65; }
+    80% { opacity: 0.95; }
+    84%, 100% { opacity: 0; transform: scale(1.3); }
+  }
+
+  /* Metropolis skyline */
+  .msc-city {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 18px;
+    z-index: 2;
+    animation: msc-cityflash 8s linear infinite;
+  }
+
+  .msc-city span {
+    position: absolute;
+    bottom: 0;
+    background:
+      repeating-linear-gradient(0deg, rgba(250, 204, 21, 0.6) 0 1px, transparent 1px 4px),
+      #09090b;
+    border: 1px solid #18181b;
+  }
+
+  .msc-city .b1 { left: 2px; width: 12px; height: 13px; }
+  .msc-city .b2 { left: 17px; width: 9px; height: 9px; }
+  .msc-city .b3 { left: 29px; width: 14px; height: 16px; }
+  .msc-city .b4 { left: 47px; width: 10px; height: 8px; }
+  .msc-city .b5 { left: 60px; width: 13px; height: 12px; }
+  .msc-city .b6 { left: 77px; width: 11px; height: 15px; }
+  .msc-city .b7 { left: 91px; width: 9px; height: 10px; }
+
+  @keyframes msc-cityflash {
+    0%, 63% { filter: brightness(1); }
+    66% { filter: brightness(2.2); }
+    70% { filter: brightness(1.4); }
+    74% { filter: brightness(2.4); }
+    80% { filter: brightness(1.7); }
+    85%, 100% { filter: brightness(1); }
+  }
+
+  /* Drifting low clouds */
+  .msc-cloud {
+    position: absolute;
+    height: 4px;
+    border-radius: 3px;
+    background: rgba(226, 232, 240, 0.3);
+    z-index: 4;
+    opacity: 0;
+  }
+
+  .msc-cloud.c1 {
+    top: 36px;
+    width: 30px;
+    animation: msc-cloud 14s linear infinite;
+  }
+
+  .msc-cloud.c2 {
+    top: 43px;
+    width: 20px;
+    height: 3px;
+    animation: msc-cloud 19s linear infinite;
+    animation-delay: -7s;
+  }
+
+  @keyframes msc-cloud {
+    0% { transform: translateX(-32px); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translateX(122px); opacity: 0; }
+  }
+  `,
+};
+
+const mothershipMarkup = {
+  v1: `
       <div class="ms">
         <div class="ms-ship">
           <div class="ms-ring r1"></div>
@@ -265,7 +472,51 @@ class ConceptMothership extends HTMLElement {
         <div class="ms-cloud c1"></div>
         <div class="ms-cloud c2"></div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="msc">
+        <div class="msc-ship">
+          <div class="msc-ring r1"></div>
+          <div class="msc-ring r2"></div>
+          <span class="msc-rim l1"></span>
+          <span class="msc-rim l2"></span>
+          <span class="msc-rim l3"></span>
+          <span class="msc-rim l4"></span>
+          <span class="msc-rim l5"></span>
+          <div class="msc-core"></div>
+        </div>
+        <div class="msc-beam"></div>
+        <div class="msc-impact"></div>
+        <div class="msc-city">
+          <span class="b1"></span>
+          <span class="b2"></span>
+          <span class="b3"></span>
+          <span class="b4"></span>
+          <span class="b5"></span>
+          <span class="b6"></span>
+          <span class="b7"></span>
+        </div>
+        <div class="msc-cloud c1"></div>
+        <div class="msc-cloud c2"></div>
+      </div>
+    `,
+};
+
+class ConceptMothership extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${mothershipStyles[version] || mothershipStyles.v2}</style>${mothershipMarkup[version] || mothershipMarkup.v2}`;
   }
 }
 

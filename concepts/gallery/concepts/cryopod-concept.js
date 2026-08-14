@@ -1,4 +1,5 @@
-const cryopodStyles = `
+const cryopodStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -37,7 +38,6 @@ const cryopodStyles = `
     box-sizing: border-box;
   }
 
-  /* Frost creeping over the glass. */
   .cryo-window::before {
     content: '';
     position: absolute;
@@ -50,7 +50,6 @@ const cryopodStyles = `
     animation: cryo-frost 6.8s ease-in-out infinite;
   }
 
-  /* The sleeper: a dim silhouette that swells gently with slow breath. */
   .cryo-sleeper {
     position: absolute;
     bottom: 4px;
@@ -90,7 +89,6 @@ const cryopodStyles = `
   .cryo-sparkle.k2 { top: 36px; left: 44px; animation-delay: -1.1s; }
   .cryo-sparkle.k3 { top: 52px; left: 18px; animation-delay: -2.2s; }
 
-  /* Vitals strip along the pod base. */
   .cryo-vitals {
     position: absolute;
     bottom: 10px;
@@ -124,7 +122,6 @@ const cryopodStyles = `
     animation: cryo-led 4.8s ease-in-out infinite;
   }
 
-  /* Escaping coolant vapor. */
   .cryo-vent {
     position: absolute;
     top: 30px;
@@ -169,16 +166,198 @@ const cryopodStyles = `
 
   .cryo-vent.left { --vent-x: -8px; }
   .cryo-vent.right { --vent-x: 8px; }
-`;
-
-class ConceptCryopod extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${cryopodStyles}</style>
+
+  /* v2: Sci-fi cryogenic stasis hibernation pod with brushed titanium chassis,
+     frosted quartz window with crystalline condensation, cyan biometric telemetry, and nitrogen vapor */
+  .cryoc {
+    position: relative;
+    width: 60px;
+    height: 104px;
+    border-radius: 28px 28px 10px 10px;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Titanium outer chassis */
+  .cryoc-pod {
+    position: absolute;
+    inset: 0;
+    border-radius: 28px 28px 10px 10px;
+    border: 2px solid #64748b;
+    background: linear-gradient(180deg, #334155 0%, #1e293b 50%, #0f172a 100%);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9), 0 0 10px rgba(56, 189, 248, 0.3);
+    box-sizing: border-box;
+  }
+
+  /* Frosted quartz window */
+  .cryoc-window {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 40px;
+    height: 58px;
+    margin-left: -20px;
+    border-radius: 20px 20px 8px 8px;
+    border: 1.5px solid #38bdf8;
+    background: linear-gradient(180deg, rgba(14, 165, 233, 0.35), rgba(2, 132, 199, 0.5));
+    box-shadow: inset 0 0 12px #00f0ff;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Frost ice crystals creeping */
+  .cryoc-window::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.6) 0 22%, transparent 44%),
+      radial-gradient(circle at 90% 22%, rgba(224, 242, 254, 0.5) 0 18%, transparent 40%),
+      radial-gradient(circle at 16% 90%, rgba(255, 255, 255, 0.55) 0 24%, transparent 46%),
+      radial-gradient(circle at 88% 84%, rgba(224, 242, 254, 0.5) 0 20%, transparent 42%);
+    animation: cryoc-frost 6.8s ease-in-out infinite;
+  }
+
+  /* Hibernating sleeper silhouette */
+  .cryoc-sleeper {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 18px;
+    height: 40px;
+    margin-left: -9px;
+    border-radius: 9px 9px 5px 5px;
+    background: linear-gradient(180deg, rgba(148, 163, 184, 0.6) 0%, rgba(71, 85, 105, 0.6) 100%);
+    filter: blur(1px);
+    animation: cryoc-breathe 6.8s ease-in-out infinite;
+  }
+
+  .cryoc-sleeper::before {
+    content: '';
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    width: 11px;
+    height: 11px;
+    margin-left: -5.5px;
+    border-radius: 50%;
+    background: rgba(148, 163, 184, 0.6);
+  }
+
+  /* Ice sparkle glints */
+  .cryoc-sparkle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00f0ff;
+    opacity: 0;
+    animation: cryoc-sparkle 3.4s linear infinite;
+  }
+
+  .cryoc-sparkle.k1 { top: 22px; left: 10px; animation-delay: 0s; }
+  .cryoc-sparkle.k2 { top: 36px; left: 44px; animation-delay: -1.1s; }
+  .cryoc-sparkle.k3 { top: 52px; left: 18px; animation-delay: -2.2s; }
+
+  /* Vitals status monitor */
+  .cryoc-vitals {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 40px;
+    height: 18px;
+    margin-left: -20px;
+    border-top: 1.5px solid #38bdf8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: #020617;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .cryoc-led {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #38bdf8;
+    box-shadow: 0 0 6px #00f0ff;
+    animation: cryoc-led 2.4s ease-in-out infinite;
+  }
+
+  .cryoc-led.l2 { background: #22c55e; box-shadow: 0 0 6px #22c55e; animation-delay: -0.8s; }
+  .cryoc-led.l3 { background: #facc15; box-shadow: 0 0 6px #facc15; animation-delay: -1.6s; }
+
+  .cryoc-temp {
+    color: #38bdf8;
+    font-family: 'Courier New', monospace;
+    font-size: 7px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 4px #00f0ff;
+    animation: cryoc-led 4.8s ease-in-out infinite;
+  }
+
+  /* Liquid nitrogen coolant vapor vents */
+  .cryoc-vent {
+    position: absolute;
+    top: 30px;
+    width: 8px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(224, 242, 254, 0.6);
+    filter: blur(1.5px);
+    opacity: 0;
+    animation: cryoc-vent 6.8s ease-out infinite;
+  }
+
+  .cryoc-vent.left { left: -9px; }
+  .cryoc-vent.right { right: -9px; animation-delay: -3.4s; }
+
+  @keyframes cryoc-breathe {
+    0%, 100% { transform: scaleX(1) scaleY(1); opacity: 0.85; }
+    50% { transform: scaleX(1.12) scaleY(1.03); opacity: 1; }
+  }
+
+  @keyframes cryoc-frost {
+    0%, 100% { opacity: 0.75; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes cryoc-sparkle {
+    0%, 82%, 100% { opacity: 0; }
+    88% { opacity: 1; }
+    94% { opacity: 0.25; }
+  }
+
+  @keyframes cryoc-led {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes cryoc-vent {
+    0%, 62% { opacity: 0; transform: translate(0, 0) scale(1); }
+    68% { opacity: 0.85; }
+    86%, 100% { opacity: 0; transform: translate(var(--vent-x, -8px), -10px) scale(1.8); }
+  }
+
+  .cryoc-vent.left { --vent-x: -8px; }
+  .cryoc-vent.right { --vent-x: 8px; }
+  `,
+};
+
+const cryopodMarkup = {
+  v1: `
       <div class="cryo">
         <div class="cryo-pod"></div>
         <div class="cryo-vent left"></div>
@@ -196,7 +375,43 @@ class ConceptCryopod extends HTMLElement {
           <span class="cryo-temp">-196°</span>
         </div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="cryoc">
+        <div class="cryoc-pod"></div>
+        <div class="cryoc-vent left"></div>
+        <div class="cryoc-vent right"></div>
+        <div class="cryoc-window">
+          <div class="cryoc-sleeper"></div>
+          <div class="cryoc-sparkle k1"></div>
+          <div class="cryoc-sparkle k2"></div>
+          <div class="cryoc-sparkle k3"></div>
+        </div>
+        <div class="cryoc-vitals">
+          <span class="cryoc-led l1"></span>
+          <span class="cryoc-led l2"></span>
+          <span class="cryoc-led l3"></span>
+          <span class="cryoc-temp">-196°</span>
+        </div>
+      </div>
+    `,
+};
+
+class ConceptCryopod extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${cryopodStyles[version] || cryopodStyles.v2}</style>${cryopodMarkup[version] || cryopodMarkup.v2}`;
   }
 }
 
