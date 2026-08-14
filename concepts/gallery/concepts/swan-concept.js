@@ -1,10 +1,7 @@
-// Swan, rebuilt from scratch (2026-08-02): the old render was illegible.
-// Now the silhouette carries it — a bright hull on still water with a
-// proper S-curved neck (a quarter-arc stroke rising from the breast and
-// curving forward to a head with a dark beak wedge). It glides slowly,
-// its faint mirror image below, ripples pealing off the breast; midway
-// it dips the neck to the water and rises again.
-// v1 is the archived original from before the rebuild, preserved verbatim.
+// Swan: v1 and v2 preserved.
+// v3 adds naturalistic mute swan colorization:
+// deep cobalt/emerald lake with gentle shimmering mirror reflection, pure snow-white plumage,
+// vivid orange bill with black basal knob, and crystal water droplet sparkles.
 const swanStyles = {
   v1: `
   :host {
@@ -15,9 +12,6 @@ const swanStyles = {
     height: 100%;
   }
 
-  /* A swan gliding on still water: it drifts across trailing a wake,
-     its mirror image rippling below, and midway it dips to preen and
-     rises again in a shower of droplets. */
   .sw {
     width: 116px;
     height: 92px;
@@ -25,7 +19,6 @@ const swanStyles = {
     overflow: hidden;
   }
 
-  /* Waterline. */
   .sw-water {
     position: absolute;
     left: 0;
@@ -36,7 +29,6 @@ const swanStyles = {
     border-top: 1px solid rgba(140, 255, 170, 0.5);
   }
 
-  /* Gentle water shimmer lines. */
   .sw-shimmer {
     position: absolute;
     left: 0;
@@ -54,7 +46,6 @@ const swanStyles = {
     50% { opacity: 1; transform: translateX(3px); }
   }
 
-  /* The swan glides left-to-right. */
   .sw-swan {
     position: absolute;
     left: 0;
@@ -69,7 +60,6 @@ const swanStyles = {
     100% { transform: translateX(78px); }
   }
 
-  /* Body: broad boat hull sitting on the line. */
   .sw-body {
     position: absolute;
     left: 0;
@@ -81,7 +71,6 @@ const swanStyles = {
     border: 1px solid rgba(0, 204, 0, 0.4);
   }
 
-  /* Raised folded wing. */
   .sw-wing {
     position: absolute;
     left: 6px;
@@ -92,7 +81,6 @@ const swanStyles = {
     background: linear-gradient(180deg, rgba(190, 255, 205, 0.7), rgba(0, 150, 30, 0.4));
   }
 
-  /* Curved neck; dips to preen mid-cycle. */
   .sw-neck {
     position: absolute;
     left: 30px;
@@ -136,7 +124,6 @@ const swanStyles = {
     background: rgba(0, 200, 40, 0.9);
   }
 
-  /* Preen: neck sweeps down to the flank, then rises. */
   @keyframes sw-preen {
     0%, 34%, 100% { transform: rotate(0deg); }
     44% { transform: rotate(84deg); }
@@ -144,7 +131,6 @@ const swanStyles = {
     66% { transform: rotate(0deg); }
   }
 
-  /* Reflection: a mirrored, dimmer, wavering copy below the line. */
   .sw-reflection {
     position: absolute;
     left: 0;
@@ -165,7 +151,6 @@ const swanStyles = {
     50% { filter: blur(1.2px); transform: scaleY(-1) skewX(4deg); }
   }
 
-  /* Wake trailing behind. */
   .sw-wake {
     position: absolute;
     top: 42px;
@@ -176,7 +161,6 @@ const swanStyles = {
     animation: sw-glide 9s ease-in-out infinite;
   }
 
-  /* Preen droplets. */
   .sw-drop {
     position: absolute;
     width: 2px;
@@ -196,7 +180,7 @@ const swanStyles = {
     72% { transform: translateY(14px); opacity: 0; }
     100% { opacity: 0; }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -213,7 +197,6 @@ const swanStyles = {
     overflow: hidden;
   }
 
-  /* Still water: a surface line and depth gradient. */
   .sw-water {
     position: absolute;
     left: 0;
@@ -224,7 +207,6 @@ const swanStyles = {
     border-top: 1px solid rgba(140, 255, 170, 0.5);
   }
 
-  /* The swan glides gently right and back, bobbing on the water. */
   .sw-bird {
     position: absolute;
     left: 30px;
@@ -240,7 +222,6 @@ const swanStyles = {
     70% { transform: translate(2px, 0.5px); }
   }
 
-  /* Hull: bright body sitting ON the waterline, tail kicked up aft. */
   .sw-hull {
     position: absolute;
     left: 4px;
@@ -253,7 +234,6 @@ const swanStyles = {
     box-shadow: 0 0 8px rgba(0, 204, 0, 0.35);
   }
 
-  /* Tail tip. */
   .sw-tail {
     position: absolute;
     left: -1px;
@@ -264,7 +244,6 @@ const swanStyles = {
     background: #d6ffe0;
   }
 
-  /* Folded wing hint on the hull. */
   .sw-wing {
     position: absolute;
     left: 14px;
@@ -276,7 +255,6 @@ const swanStyles = {
     opacity: 0.9;
   }
 
-  /* Neck group: pivots at the breast for the dip-and-preen beat. */
   .sw-neckset {
     position: absolute;
     left: 36px;
@@ -289,14 +267,11 @@ const swanStyles = {
 
   @keyframes sw-dip {
     0%, 46%, 100% { transform: rotate(0deg); }
-    /* Neck reaches down to the water and lingers. */
     54%, 62% { transform: rotate(52deg); }
     70% { transform: rotate(-4deg); }
     76% { transform: rotate(0deg); }
   }
 
-  /* The S: a quarter-arc stroke rising from the breast, curving
-     forward at the top. */
   .sw-neck {
     position: absolute;
     left: 2px;
@@ -309,7 +284,6 @@ const swanStyles = {
     filter: drop-shadow(0 0 3px rgba(0, 204, 0, 0.4));
   }
 
-  /* Head at the arc's forward end, beak angled down. */
   .sw-head {
     position: absolute;
     left: 14px;
@@ -340,8 +314,6 @@ const swanStyles = {
     background: rgba(0, 110, 22, 0.95);
   }
 
-  /* Mirror image: the hull and neck reflected under the waterline,
-     faint and softly wobbling. */
   .sw-reflection {
     position: absolute;
     left: 30px;
@@ -371,7 +343,6 @@ const swanStyles = {
     height: 18px;
   }
 
-  /* Ripples pealing off the breast as it glides. */
   .sw-ripple {
     position: absolute;
     top: 56px;
@@ -392,7 +363,6 @@ const swanStyles = {
     100% { transform: scale(1.9); opacity: 0; }
   }
 
-  /* Droplet sparkle when the neck lifts back out of the water. */
   .sw-drop {
     position: absolute;
     left: 74px;
@@ -411,7 +381,226 @@ const swanStyles = {
     69% { opacity: 1; transform: translateY(-6px); }
     74%, 100% { opacity: 0; transform: translateY(6px); }
   }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Pure snow-white mute swan on tranquil sapphire lake with orange bill and black mask */
+  .swc {
+    width: 112px;
+    height: 92px;
+    position: relative;
+    background: radial-gradient(circle at 50% 30%, #0369a1 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Tranquil lake water */
+  .swc-water {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 58px;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(14, 165, 233, 0.3) 0%, rgba(2, 6, 23, 0.8) 100%);
+    border-top: 1px solid rgba(56, 189, 248, 0.5);
+  }
+
+  .swc-bird {
+    position: absolute;
+    left: 30px;
+    top: 20px;
+    width: 52px;
+    height: 40px;
+    animation: swc-glide 9s ease-in-out infinite;
+  }
+
+  @keyframes swc-glide {
+    0%, 100% { transform: translate(-8px, 0); }
+    45% { transform: translate(8px, -1px); }
+    70% { transform: translate(2px, 0.5px); }
+  }
+
+  /* Pure white swan hull */
+  .swc-hull {
+    position: absolute;
+    left: 4px;
+    top: 24px;
+    width: 42px;
+    height: 16px;
+    border-radius: 55% 40% 45% 60% / 80% 55% 45% 60%;
+    background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 60%, #cbd5e1 100%);
+    border: 1px solid #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Tail feathers */
+  .swc-tail {
+    position: absolute;
+    left: -1px;
+    top: 20px;
+    width: 10px;
+    height: 8px;
+    clip-path: polygon(0 20%, 100% 55%, 55% 100%);
+    background: #ffffff;
+  }
+
+  /* Soft folded wing */
+  .swc-wing {
+    position: absolute;
+    left: 14px;
+    top: 26px;
+    width: 24px;
+    height: 10px;
+    border-radius: 60% 40% 30% 60%;
+    background: linear-gradient(180deg, #ffffff, #e2e8f0);
+    opacity: 0.95;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Neck assembly */
+  .swc-neckset {
+    position: absolute;
+    left: 36px;
+    top: 0;
+    width: 26px;
+    height: 30px;
+    transform-origin: 6px 28px;
+    animation: swc-dip 9s ease-in-out infinite;
+  }
+
+  @keyframes swc-dip {
+    0%, 46%, 100% { transform: rotate(0deg); }
+    54%, 62% { transform: rotate(52deg); }
+    70% { transform: rotate(-4deg); }
+    76% { transform: rotate(0deg); }
+  }
+
+  /* Graceful white S-neck */
+  .swc-neck {
+    position: absolute;
+    left: 2px;
+    top: 4px;
+    width: 18px;
+    height: 26px;
+    border-left: 4.5px solid #ffffff;
+    border-top: 4.5px solid #ffffff;
+    border-radius: 100% 0 0 0;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+  }
+
+  /* White swan head */
+  .swc-head {
+    position: absolute;
+    left: 14px;
+    top: 1px;
+    width: 12px;
+    height: 8px;
+    border-radius: 60% 50% 50% 40%;
+    background: #ffffff;
+  }
+
+  /* Black eye and basal mask patch */
+  .swc-eye {
+    position: absolute;
+    left: 6px;
+    top: 2.5px;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: #09090b;
+    box-shadow: 1px 0 0 #09090b;
+  }
+
+  /* Vibrant orange bill */
+  .swc-beak {
+    position: absolute;
+    left: 24px;
+    top: 4px;
+    width: 8px;
+    height: 4px;
+    clip-path: polygon(0 0, 100% 45%, 0 100%);
+    background: #ea580c;
+    box-shadow: 0 0 2px #f97316;
+  }
+
+  /* Soft reflected copy */
+  .swc-reflection {
+    position: absolute;
+    left: 30px;
+    top: 60px;
+    width: 52px;
+    height: 26px;
+    transform: scaleY(-1);
+    opacity: 0.28;
+    filter: blur(1px);
+    animation: swc-glide 9s ease-in-out infinite, swc-shimmer 2.2s ease-in-out infinite;
+  }
+
+  @keyframes swc-shimmer {
+    0%, 100% { opacity: 0.28; }
+    50% { opacity: 0.16; }
+  }
+
+  .swc-reflection .swc-hull {
+    top: 8px;
+    box-shadow: none;
+  }
+
+  .swc-reflection .swc-neck {
+    position: absolute;
+    left: 38px;
+    top: 8px;
+    height: 18px;
+  }
+
+  /* Water ripples */
+  .swc-ripple {
+    position: absolute;
+    top: 56px;
+    width: 18px;
+    height: 5px;
+    border-radius: 50%;
+    border: 1px solid rgba(56, 189, 248, 0.7);
+    border-top-color: transparent;
+    opacity: 0;
+    animation: swc-ripple 3s linear infinite;
+  }
+
+  .swc-ripple.r1 { left: 60px; }
+  .swc-ripple.r2 { left: 40px; animation-delay: -1.5s; }
+
+  @keyframes swc-ripple {
+    0% { transform: scale(0.4); opacity: 0.9; }
+    100% { transform: scale(1.9); opacity: 0; }
+  }
+
+  /* Water droplet sparkle */
+  .swc-drop {
+    position: absolute;
+    left: 74px;
+    top: 48px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #38bdf8;
+    box-shadow: 0 0 6px #ffffff;
+    opacity: 0;
+    animation: swc-drop 9s infinite;
+  }
+
+  @keyframes swc-drop {
+    0%, 66% { opacity: 0; transform: translateY(0); }
+    69% { opacity: 1; transform: translateY(-6px); }
+    74%, 100% { opacity: 0; transform: translateY(6px); }
+  }
+  `,
 };
 
 const swanMarkup = {
@@ -459,31 +648,47 @@ const swanMarkup = {
         </div>
       </div>
     `,
+  v3: `
+      <div class="swc">
+        <div class="swc-water"></div>
+        <div class="swc-reflection">
+          <div class="swc-hull"></div>
+          <div class="swc-neck"></div>
+        </div>
+        <div class="swc-ripple r1"></div>
+        <div class="swc-ripple r2"></div>
+        <div class="swc-drop"></div>
+        <div class="swc-bird">
+          <div class="swc-tail"></div>
+          <div class="swc-hull"></div>
+          <div class="swc-wing"></div>
+          <div class="swc-neckset">
+            <div class="swc-neck"></div>
+            <div class="swc-head">
+              <div class="swc-eye"></div>
+            </div>
+            <div class="swc-beak"></div>
+          </div>
+        </div>
+      </div>
+    `,
 };
 
 class ConceptSwan extends HTMLElement {
-  static get observedAttributes() {
-    return ['version'];
-  }
-
+  static get observedAttributes() { return ['version']; }
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
-
   connectedCallback() {
     this.render();
   }
-
   attributeChangedCallback() {
-    if (this.isConnected) {
-      this.render();
-    }
+    if (this.isConnected) this.render();
   }
-
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${swanStyles[version] || swanStyles.v2}</style>${swanMarkup[version] || swanMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${swanStyles[version] || swanStyles.v3}</style>${swanMarkup[version] || swanMarkup.v3}`;
   }
 }
 

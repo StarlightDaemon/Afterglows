@@ -1,9 +1,7 @@
-// v1 below is the archived original; v2 fixes the invisible marquee ring
-// (the mask's radial gradient defaulted to farthest-corner, ~56px, which
-// put the whole visible ring outside the element's clipped 40px circle -
-// closest-side brings it back onto the rim), aligns the hub and leg apex
-// to the wheel's true center (both sat 2px low), and lifts the gondola
-// pivots 1px so cabins clear the ground line at six o'clock.
+// Ferris Wheel: v1 and v2 preserved.
+// v3 adds carnival night illumination:
+// midnight sky, golden wheel truss framework, six chromatic passenger gondolas
+// (magenta, amber, cyan, lime, cobalt, violet), chasing carnival marquee bulbs, and illuminated hub.
 const ferrisStyles = {
   v1: `
   :host {
@@ -14,9 +12,6 @@ const ferrisStyles = {
     height: 100%;
   }
 
-  /* The wheel turns at fairground pace; every gondola rides its spoke
-     tip while counter-rotating to hang level. Hub bulbs chase and the
-     A-frame anchors the whole thing to the ground line. */
   .fw {
     width: 104px;
     height: 100px;
@@ -32,7 +27,6 @@ const ferrisStyles = {
     background: linear-gradient(90deg, transparent, rgba(0, 204, 0, 0.55), transparent);
   }
 
-  /* Support legs. */
   .fw-leg {
     position: absolute;
     bottom: 8px;
@@ -46,7 +40,6 @@ const ferrisStyles = {
   .fw-leg.g1 { transform: translateX(-1.5px) rotate(24deg); }
   .fw-leg.g2 { transform: translateX(-1.5px) rotate(-24deg); }
 
-  /* The rotating wheel: rim + spokes as one element. */
   .fw-wheel {
     position: absolute;
     left: 50%;
@@ -66,8 +59,6 @@ const ferrisStyles = {
     to { transform: rotate(360deg); }
   }
 
-  /* Gondola carriers: same rotation as the wheel, each pre-rotated to
-     its seat angle; the car inside counter-rotates to stay level. */
   .fw-seat {
     position: absolute;
     left: 50%;
@@ -84,9 +75,6 @@ const ferrisStyles = {
     transform: rotate(var(--seat));
   }
 
-  /* Pivot point at the spoke tip: carries only the counter-rotation
-     animation. The cab inside carries the static negative seat angle,
-     so the two transforms compose and every cabin hangs level. */
   .fw-car {
     position: absolute;
     top: -5px;
@@ -110,7 +98,6 @@ const ferrisStyles = {
     transform-origin: 50% 2px;
   }
 
-  /* The visible cabin hangs below its pivot. */
   .fw-cab::after {
     content: '';
     position: absolute;
@@ -141,7 +128,6 @@ const ferrisStyles = {
   .fw-arm.s5 { --seat: 240deg; }
   .fw-arm.s6 { --seat: 300deg; }
 
-  /* Hub with chasing bulbs. */
   .fw-hub {
     position: absolute;
     left: 50%;
@@ -160,8 +146,6 @@ const ferrisStyles = {
     50% { box-shadow: 0 0 12px rgba(0, 204, 0, 1); }
   }
 
-  /* Rim marquee bulbs: a dashed ring pulsing out of phase with the
-     wheel to feel like chasing lights. */
   .fw-bulbs {
     position: absolute;
     left: 50%;
@@ -180,7 +164,7 @@ const ferrisStyles = {
   @keyframes fw-bulbs {
     to { transform: rotate(360deg); }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -190,10 +174,6 @@ const ferrisStyles = {
     height: 100%;
   }
 
-  /* The wheel turns at fairground pace; every gondola rides its spoke
-     tip while counter-rotating to hang level. Marquee bulbs chase
-     around the rim, and the A-frame apex meets the hub dead on the
-     wheel's center. */
   .fw {
     width: 104px;
     height: 100px;
@@ -209,7 +189,6 @@ const ferrisStyles = {
     background: linear-gradient(90deg, transparent, rgba(0, 204, 0, 0.55), transparent);
   }
 
-  /* Support legs: tops meet at the wheel center (y44). */
   .fw-leg {
     position: absolute;
     bottom: 8px;
@@ -223,7 +202,6 @@ const ferrisStyles = {
   .fw-leg.g1 { transform: translateX(-1.5px) rotate(24deg); }
   .fw-leg.g2 { transform: translateX(-1.5px) rotate(-24deg); }
 
-  /* The rotating wheel: rim + spokes as one element. */
   .fw-wheel {
     position: absolute;
     left: 50%;
@@ -243,8 +221,6 @@ const ferrisStyles = {
     to { transform: rotate(360deg); }
   }
 
-  /* Gondola carriers: same rotation as the wheel, each pre-rotated to
-     its seat angle; the car inside counter-rotates to stay level. */
   .fw-seat {
     position: absolute;
     left: 50%;
@@ -261,10 +237,6 @@ const ferrisStyles = {
     transform: rotate(var(--seat));
   }
 
-  /* Pivot point at the spoke tip: carries only the counter-rotation
-     animation. The cab inside carries the static negative seat angle,
-     so the two transforms compose and every cabin hangs level. Pivot
-     sits 2px above the rim so cabins clear the ground at bottom. */
   .fw-car {
     position: absolute;
     top: -4px;
@@ -288,7 +260,6 @@ const ferrisStyles = {
     transform-origin: 50% 2px;
   }
 
-  /* The visible cabin hangs below its pivot. */
   .fw-cab::after {
     content: '';
     position: absolute;
@@ -319,7 +290,6 @@ const ferrisStyles = {
   .fw-arm.s5 { --seat: 240deg; }
   .fw-arm.s6 { --seat: 300deg; }
 
-  /* Hub, centered on the wheel's true center. */
   .fw-hub {
     position: absolute;
     left: 50%;
@@ -338,10 +308,6 @@ const ferrisStyles = {
     50% { box-shadow: 0 0 12px rgba(0, 204, 0, 1); }
   }
 
-  /* Rim marquee bulbs: a dashed ring chasing counter to the wheel.
-     The mask's gradient is sized closest-side so the visible ring
-     (88-96% of 40px = 35-38px) actually lands on the rim instead of
-     outside the element's clipped circle. */
   .fw-bulbs {
     position: absolute;
     left: 50%;
@@ -360,7 +326,194 @@ const ferrisStyles = {
   @keyframes fw-bulbs {
     to { transform: rotate(360deg); }
   }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Carnival night Ferris Wheel with midnight sky, golden truss framework,
+     illuminated multicolor passenger gondolas (magenta, amber, cyan, emerald, cobalt, violet),
+     chasing marquee lights, and glowing central hub. */
+  .fwc {
+    width: 104px;
+    height: 100px;
+    position: relative;
+    background: radial-gradient(circle at 50% 40%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .fwc-ground {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #fbbf24 50%, transparent);
+    box-shadow: 0 0 6px #f59e0b;
+  }
+
+  /* Structural A-frame steel support legs */
+  .fwc-leg {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    width: 3px;
+    height: 48px;
+    background: linear-gradient(180deg, #facc15, #b45309);
+    box-shadow: 0 0 4px rgba(250, 204, 21, 0.4);
+    transform-origin: top center;
+  }
+
+  .fwc-leg.g1 { transform: translateX(-1.5px) rotate(24deg); }
+  .fwc-leg.g2 { transform: translateX(-1.5px) rotate(-24deg); }
+
+  /* Rotating golden wheel truss */
+  .fwc-wheel {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 72px;
+    height: 72px;
+    margin-left: -36px;
+    border: 2px solid #facc15;
+    border-radius: 50%;
+    background:
+      repeating-conic-gradient(#fde047 0 1.6deg, transparent 1.6deg 60deg);
+    box-shadow: 0 0 12px rgba(250, 204, 21, 0.4);
+    animation: fwc-turn 14s linear infinite;
+  }
+
+  @keyframes fwc-turn {
+    to { transform: rotate(360deg); }
+  }
+
+  .fwc-seat {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 72px;
+    height: 72px;
+    margin-left: -36px;
+    animation: fwc-turn 14s linear infinite;
+  }
+
+  .fwc-arm {
+    position: absolute;
+    inset: 0;
+    transform: rotate(var(--seat));
+  }
+
+  .fwc-car {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 12px;
+    height: 10px;
+    margin-left: -6px;
+    transform-origin: 50% 2px;
+    animation: fwc-counter 14s linear infinite;
+  }
+
+  @keyframes fwc-counter {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+  }
+
+  .fwc-cab {
+    position: absolute;
+    inset: 0;
+    transform: rotate(calc(-1 * var(--seat)));
+    transform-origin: 50% 2px;
+  }
+
+  /* Chrome hanger pin */
+  .fwc-cab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 4px;
+    margin-left: -0.5px;
+    background: #ffffff;
+  }
+
+  /* Chromatic passenger gondolas */
+  .fwc-cab::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 1px;
+    width: 10px;
+    height: 7px;
+    border-radius: 2px 2px 5px 5px;
+    box-shadow: 0 0 6px currentColor;
+  }
+
+  /* 6 distinct neon colors for the 6 gondolas */
+  .fwc-arm.s1 { --seat: 0deg; }
+  .fwc-arm.s1 .fwc-cab::after { background: linear-gradient(180deg, #fecdd3, #f43f5e); color: #f43f5e; }
+
+  .fwc-arm.s2 { --seat: 60deg; }
+  .fwc-arm.s2 .fwc-cab::after { background: linear-gradient(180deg, #fef08a, #facc15); color: #facc15; }
+
+  .fwc-arm.s3 { --seat: 120deg; }
+  .fwc-arm.s3 .fwc-cab::after { background: linear-gradient(180deg, #e0f2fe, #00f0ff); color: #00f0ff; }
+
+  .fwc-arm.s4 { --seat: 180deg; }
+  .fwc-arm.s4 .fwc-cab::after { background: linear-gradient(180deg, #dcfce7, #10b981); color: #10b981; }
+
+  .fwc-arm.s5 { --seat: 240deg; }
+  .fwc-arm.s5 .fwc-cab::after { background: linear-gradient(180deg, #dbeafe, #3b82f6); color: #3b82f6; }
+
+  .fwc-arm.s6 { --seat: 300deg; }
+  .fwc-arm.s6 .fwc-cab::after { background: linear-gradient(180deg, #f3e8ff, #a855f7); color: #a855f7; }
+
+  /* Illuminated central axle hub */
+  .fwc-hub {
+    position: absolute;
+    left: 50%;
+    top: 38px;
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 32%, #ffffff, #facc15 65%, #b45309 100%);
+    box-shadow: 0 0 10px #fde047;
+    animation: fwc-hub 1.4s ease-in-out infinite;
+  }
+
+  @keyframes fwc-hub {
+    0%, 100% { box-shadow: 0 0 6px #facc15; filter: brightness(1); }
+    50% { box-shadow: 0 0 14px #ffffff, 0 0 22px #fde047; filter: brightness(1.4); }
+  }
+
+  /* Chasing carnival marquee rim bulbs */
+  .fwc-bulbs {
+    position: absolute;
+    left: 50%;
+    top: 4px;
+    width: 80px;
+    height: 80px;
+    margin-left: -40px;
+    border-radius: 50%;
+    background: repeating-conic-gradient(#ffffff 0 3deg, #fde047 3deg 6deg, transparent 6deg 30deg);
+    -webkit-mask-image: radial-gradient(circle closest-side, transparent 0 86%, black 88% 96%, transparent 98%);
+    mask-image: radial-gradient(circle closest-side, transparent 0 86%, black 88% 96%, transparent 98%);
+    animation: fwc-bulbs 6s linear infinite reverse;
+    opacity: 0.9;
+  }
+
+  @keyframes fwc-bulbs {
+    to { transform: rotate(360deg); }
+  }
+  `,
 };
 
 const ferrisMarkup = {
@@ -400,6 +553,24 @@ const ferrisMarkup = {
         <div class="fw-ground"></div>
       </div>
     `,
+  v3: `
+      <div class="fwc">
+        <div class="fwc-bulbs"></div>
+        <div class="fwc-wheel"></div>
+        <div class="fwc-seat">
+          <div class="fwc-arm s1"><div class="fwc-car"><div class="fwc-cab"></div></div></div>
+          <div class="fwc-arm s2"><div class="fwc-car"><div class="fwc-cab"></div></div></div>
+          <div class="fwc-arm s3"><div class="fwc-car"><div class="fwc-cab"></div></div></div>
+          <div class="fwc-arm s4"><div class="fwc-car"><div class="fwc-cab"></div></div></div>
+          <div class="fwc-arm s5"><div class="fwc-car"><div class="fwc-cab"></div></div></div>
+          <div class="fwc-arm s6"><div class="fwc-car"><div class="fwc-cab"></div></div></div>
+        </div>
+        <div class="fwc-leg g1"></div>
+        <div class="fwc-leg g2"></div>
+        <div class="fwc-hub"></div>
+        <div class="fwc-ground"></div>
+      </div>
+    `,
 };
 
 class ConceptFerris extends HTMLElement {
@@ -415,8 +586,8 @@ class ConceptFerris extends HTMLElement {
     if (this.isConnected) this.render();
   }
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${ferrisStyles[version] || ferrisStyles.v2}</style>${ferrisMarkup[version] || ferrisMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${ferrisStyles[version] || ferrisStyles.v3}</style>${ferrisMarkup[version] || ferrisMarkup.v3}`;
   }
 }
 
