@@ -1,4 +1,5 @@
-const astralProjectionStyles = `
+const astralProjectionStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -7,9 +8,6 @@ const astralProjectionStyles = `
     height: 100%;
   }
 
-  /* An adept performing astral projection: a meditating physical silhouette
-     remains grounded while a translucent ethereal double levitates upward,
-     anchored by an undulating silver phosphor umbilical cord. */
   .ast {
     width: 114px;
     height: 100px;
@@ -17,7 +15,6 @@ const astralProjectionStyles = `
     overflow: hidden;
   }
 
-  /* Grounding meditation circle */
   .ast-circle {
     position: absolute;
     left: 22px;
@@ -29,7 +26,6 @@ const astralProjectionStyles = `
     background: radial-gradient(ellipse at center, rgba(0, 100, 20, 0.5), transparent 70%);
   }
 
-  /* Grounded physical body (seated in lotus posture) */
   .ast-body-phys {
     position: absolute;
     left: 42px;
@@ -72,7 +68,6 @@ const astralProjectionStyles = `
     border: 1px solid var(--accent, #00cc00);
   }
 
-  /* Levitation astral form drifting upward into aether */
   .ast-form-drift {
     position: absolute;
     left: 42px;
@@ -122,7 +117,6 @@ const astralProjectionStyles = `
     box-shadow: 0 0 6px rgba(0, 204, 0, 0.6);
   }
 
-  /* Undulating silver umbilical cord linking physical and astral solar plexus */
   .ast-cord {
     position: absolute;
     left: 56px;
@@ -140,7 +134,6 @@ const astralProjectionStyles = `
     100% { transform: scaleX(1.4) skewX(12deg); opacity: 1; }
   }
 
-  /* Ethereal aura ripples in the aether */
   .ast-aura {
     position: absolute;
     left: 32px;
@@ -158,16 +151,175 @@ const astralProjectionStyles = `
     50% { opacity: 0.8; }
     100% { transform: scale(1.6); opacity: 0; }
   }
-`;
-
-class ConceptAstralProjection extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${astralProjectionStyles}</style>
+
+  /* v2: Cosmic astral projection with grounded terracotta meditating physical body,
+     luminous electric cyan/magenta ethereal double, silver umbilical cord, and expanding auras */
+  .astc {
+    width: 114px;
+    height: 100px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Grounding sacred circle */
+  .astc-circle {
+    position: absolute;
+    left: 22px;
+    bottom: 8px;
+    width: 70px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1.5px dashed #facc15;
+    background: radial-gradient(ellipse at center, rgba(234, 88, 12, 0.4), transparent 70%);
+  }
+
+  /* Physical grounded body (earth/terracotta tones) */
+  .astc-body-phys {
+    position: absolute;
+    left: 42px;
+    bottom: 12px;
+    width: 30px;
+    height: 36px;
+    z-index: 3;
+  }
+
+  .astc-head-phys {
+    position: absolute;
+    left: 9px;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ea580c;
+    border: 1.5px solid #facc15;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .astc-torso-phys {
+    position: absolute;
+    left: 6px;
+    top: 10px;
+    width: 18px;
+    height: 16px;
+    border-radius: 6px;
+    background: #c2410c;
+    border: 1px solid #facc15;
+  }
+
+  .astc-legs-phys {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30px;
+    height: 10px;
+    border-radius: 8px;
+    background: #9a3412;
+    border: 1px solid #ea580c;
+  }
+
+  /* Ethereal drifting astral double (electric cyan/magenta) */
+  .astc-form-drift {
+    position: absolute;
+    left: 42px;
+    top: 10px;
+    width: 30px;
+    height: 36px;
+    z-index: 5;
+    animation: astc-levitate 4.5s ease-in-out infinite;
+  }
+
+  @keyframes astc-levitate {
+    0%, 100% { transform: translateY(24px) scale(0.9); opacity: 0.3; }
+    50% { transform: translateY(-4px) scale(1.1); opacity: 0.95; }
+  }
+
+  .astc-head-astral {
+    position: absolute;
+    left: 9px;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 14px #00f0ff, 0 0 22px #a855f7;
+  }
+
+  .astc-torso-astral {
+    position: absolute;
+    left: 6px;
+    top: 10px;
+    width: 18px;
+    height: 16px;
+    border-radius: 6px;
+    background: radial-gradient(circle, #38bdf8 0%, #a855f7 70%, #ec4899 100%);
+    border: 1px solid #ffffff;
+    box-shadow: 0 0 12px #38bdf8;
+  }
+
+  .astc-legs-astral {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30px;
+    height: 10px;
+    border-radius: 8px;
+    background: #c084fc;
+    box-shadow: 0 0 8px #a855f7;
+  }
+
+  /* Silver-cyan umbilical cord */
+  .astc-cord {
+    position: absolute;
+    left: 56px;
+    top: 26px;
+    width: 2px;
+    height: 48px;
+    background: repeating-linear-gradient(180deg, #ffffff 0 4px, #38bdf8 4px 8px);
+    box-shadow: 0 0 8px #00f0ff;
+    animation: astc-cord-wave 2.2s ease-in-out infinite alternate;
+    z-index: 4;
+  }
+
+  @keyframes astc-cord-wave {
+    0% { transform: scaleX(0.8) skewX(-12deg); opacity: 0.7; }
+    100% { transform: scaleX(1.4) skewX(12deg); opacity: 1; }
+  }
+
+  /* Cosmic energy aura ripples */
+  .astc-aura {
+    position: absolute;
+    left: 32px;
+    top: 8px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1.5px solid #a855f7;
+    box-shadow: 0 0 10px #c084fc;
+    animation: astc-aura-bloom 4.5s ease-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes astc-aura-bloom {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { opacity: 0.9; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+  `,
+};
+
+const astralProjectionMarkup = {
+  v1: `
       <div class="ast">
         <div class="ast-circle"></div>
         <div class="ast-aura"></div>
@@ -183,7 +335,41 @@ class ConceptAstralProjection extends HTMLElement {
           <div class="ast-legs-astral"></div>
         </div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="astc">
+        <div class="astc-circle"></div>
+        <div class="astc-aura"></div>
+        <div class="astc-cord"></div>
+        <div class="astc-body-phys">
+          <div class="astc-head-phys"></div>
+          <div class="astc-torso-phys"></div>
+          <div class="astc-legs-phys"></div>
+        </div>
+        <div class="astc-form-drift">
+          <div class="astc-head-astral"></div>
+          <div class="astc-torso-astral"></div>
+          <div class="astc-legs-astral"></div>
+        </div>
+      </div>
+    `,
+};
+
+class ConceptAstralProjection extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${astralProjectionStyles[version] || astralProjectionStyles.v2}</style>${astralProjectionMarkup[version] || astralProjectionMarkup.v2}`;
   }
 }
 
