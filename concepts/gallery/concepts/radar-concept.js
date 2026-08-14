@@ -31,20 +31,9 @@ const radarStyles = `
     transform: translate(-50%, -50%);
   }
 
-  .radar-ring.r1 {
-    width: 28px;
-    height: 28px;
-  }
-
-  .radar-ring.r2 {
-    width: 56px;
-    height: 56px;
-  }
-
-  .radar-ring.r3 {
-    width: 84px;
-    height: 84px;
-  }
+  .radar-ring.r1 { width: 28px; height: 28px; }
+  .radar-ring.r2 { width: 56px; height: 56px; }
+  .radar-ring.r3 { width: 84px; height: 84px; }
 
   .radar-axis {
     position: absolute;
@@ -94,23 +83,9 @@ const radarStyles = `
     opacity: 0.16;
   }
 
-  .radar-blip.b1 {
-    top: 23px;
-    left: 60px;
-    animation-delay: -3.08s;
-  }
-
-  .radar-blip.b2 {
-    top: 56px;
-    left: 24px;
-    animation-delay: -1.11s;
-  }
-
-  .radar-blip.b3 {
-    top: 36px;
-    left: 34px;
-    animation-delay: -0.48s;
-  }
+  .radar-blip.b1 { top: 23px; left: 60px; animation-delay: -3.08s; }
+  .radar-blip.b2 { top: 56px; left: 24px; animation-delay: -1.11s; }
+  .radar-blip.b3 { top: 36px; left: 34px; animation-delay: -0.48s; }
 
   .radar-center {
     position: absolute;
@@ -173,6 +148,124 @@ const radarStyles = `
       box-shadow: 0 0 3px rgba(167, 255, 154, 0.14);
     }
   }
+
+  /* --- v3: Tactical Air/Maritime PPI Radar ---
+     Electric cyan bearing rings, luminous emerald sweep,
+     and classified IFF target contacts: Friendly Green, Civilian Amber, Hostile Red. */
+  .rdc {
+    --radar-cycle: 3.4s;
+    width: 96px;
+    height: 96px;
+    border: 1.5px solid #0284c7;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at center, rgba(6, 182, 212, 0.15) 0 10%, transparent 11%),
+      radial-gradient(circle at center, rgba(14, 165, 233, 0.08) 0 68%, transparent 69%),
+      linear-gradient(180deg, #020617 0%, #030712 100%);
+    box-shadow: inset 0 0 18px rgba(6, 182, 212, 0.25), 0 0 14px rgba(2, 132, 199, 0.4);
+  }
+
+  .rdc-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .rdc-ring.r1 { width: 28px; height: 28px; }
+  .rdc-ring.r2 { width: 56px; height: 56px; }
+  .rdc-ring.r3 { width: 84px; height: 84px; }
+
+  .rdc-axis {
+    position: absolute;
+    background: rgba(56, 189, 248, 0.3);
+  }
+
+  .rdc-axis.x {
+    top: 50%;
+    left: 8px;
+    width: calc(100% - 16px);
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  .rdc-axis.y {
+    top: 8px;
+    left: 50%;
+    width: 1px;
+    height: calc(100% - 16px);
+    transform: translateX(-50%);
+  }
+
+  .rdc-beam {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+      conic-gradient(from 0deg,
+        transparent 0deg,
+        transparent 290deg,
+        rgba(34, 197, 94, 0.08) 320deg,
+        rgba(0, 240, 255, 0.55) 350deg,
+        rgba(34, 197, 94, 0.25) 360deg);
+    animation: spin var(--radar-cycle) linear infinite;
+  }
+
+  /* Multi-target IFF classifications */
+  .rdc-blip {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: radar-contact var(--radar-cycle) linear infinite;
+    opacity: 0.16;
+  }
+
+  /* Friendly (Green) */
+  .rdc-blip.b1 {
+    top: 23px;
+    left: 60px;
+    background: #22c55e;
+    box-shadow: 0 0 6px #4ade80;
+    animation-delay: -3.08s;
+  }
+
+  /* Hostile (Red) */
+  .rdc-blip.b2 {
+    top: 56px;
+    left: 24px;
+    background: #ef4444;
+    box-shadow: 0 0 8px #f87171;
+    animation-delay: -1.11s;
+  }
+
+  /* Unknown/Civilian (Amber) */
+  .rdc-blip.b3 {
+    top: 36px;
+    left: 34px;
+    background: #f59e0b;
+    box-shadow: 0 0 6px #fbbf24;
+    animation-delay: -0.48s;
+  }
+
+  .rdc-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border: 1px solid #38bdf8;
+    border-radius: 50%;
+    background: #020617;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px #00f0ff;
+  }
 `;
 
 const radarMarkup = {
@@ -193,6 +286,20 @@ const radarMarkup = {
       <div class="radar-blip b2"></div>
       <div class="radar-blip b3"></div>
       <div class="radar-center"></div>
+    </div>
+  `,
+  v3: `
+    <div class="rdc">
+      <div class="rdc-ring r1"></div>
+      <div class="rdc-ring r2"></div>
+      <div class="rdc-ring r3"></div>
+      <div class="rdc-axis x"></div>
+      <div class="rdc-axis y"></div>
+      <div class="rdc-beam"></div>
+      <div class="rdc-blip b1"></div>
+      <div class="rdc-blip b2"></div>
+      <div class="rdc-blip b3"></div>
+      <div class="rdc-center"></div>
     </div>
   `,
 };
@@ -218,8 +325,8 @@ class ConceptRadar extends HTMLElement {
   }
 
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${radarStyles}</style>${radarMarkup[version] || radarMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${radarStyles}</style>${radarMarkup[version] || radarMarkup.v3}`;
   }
 }
 

@@ -62,7 +62,6 @@ const serverLightsStyles = `
     box-sizing: border-box;
   }
 
-  /* Vent slits on the right side of each unit. */
   .rack-unit::after {
     content: '';
     position: absolute;
@@ -94,7 +93,6 @@ const serverLightsStyles = `
   .u3 .rack-led.warn { animation-delay: -2.4s; }
   .u4 .rack-led.warn { animation-delay: -0.6s; }
 
-  /* Per-unit activity meter. */
   .rack-meter {
     position: relative;
     height: 4px;
@@ -119,7 +117,6 @@ const serverLightsStyles = `
   .u3 .rack-meter::before { animation-delay: -2.1s; }
   .u4 .rack-meter::before { animation-delay: -0.6s; }
 
-  /* Data blip skating down the rack side rail. */
   .rack-rail {
     position: absolute;
     left: -6px;
@@ -141,42 +138,144 @@ const serverLightsStyles = `
     animation: rack-blip 2.4s ease-in-out infinite;
   }
 
-  @keyframes rack-ok {
-    0%, 100% { opacity: 0.35; }
-    50% { opacity: 1; }
+  @keyframes rack-ok { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+  @keyframes rack-busy { 0% { opacity: 1; } 100% { opacity: 0.15; } }
+  @keyframes rack-warn { 0%, 86%, 100% { opacity: 0.2; } 90%, 94% { opacity: 1; box-shadow: 0 0 5px rgba(200, 255, 210, 0.8); } }
+  @keyframes rack-load { 0%, 100% { transform: scaleX(0.25); } 34% { transform: scaleX(0.85); } 58% { transform: scaleX(0.45); } 78% { transform: scaleX(0.95); } }
+  @keyframes rack-blip { 0% { top: 6px; opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { top: 84px; opacity: 0; } }
+
+  /* --- v3: Enterprise Blade Server Rack Unit ---
+     Dark brushed steel chassis, green power link LEDs, flashing amber drive activity,
+     red fault status, dynamic load meter, and electric cyan fiber-optic data bus pulse. */
+  .srk {
+    position: relative;
+    width: 76px;
+    height: 96px;
+    border: 1.5px solid #334155;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 
-  @keyframes rack-busy {
-    0% { opacity: 1; }
-    100% { opacity: 0.15; }
+  .srk-unit {
+    position: relative;
+    flex: 1;
+    border: 1px solid #334155;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #1e293b, #0f172a);
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    gap: 3px;
+    box-sizing: border-box;
   }
 
-  @keyframes rack-warn {
+  .srk-unit::after {
+    content: '';
+    position: absolute;
+    right: 4px;
+    top: 25%;
+    bottom: 25%;
+    width: 14px;
+    background: repeating-linear-gradient(90deg, #475569 0 1px, transparent 1px 4px);
+  }
+
+  .srk-led {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+  }
+
+  .srk-led.ok {
+    background: #22c55e;
+    box-shadow: 0 0 4px #4ade80;
+    animation: rack-ok 2.2s ease-in-out infinite;
+  }
+
+  .srk-led.busy {
+    background: #f59e0b;
+    box-shadow: 0 0 4px #fbbf24;
+    animation: rack-busy 0.45s steps(2, jump-none) infinite;
+  }
+
+  .srk-led.warn {
+    background: #ef4444;
+    box-shadow: 0 0 4px #f87171;
+    animation: srk-warn 3.6s ease-in-out infinite;
+  }
+
+  @keyframes srk-warn {
     0%, 86%, 100% { opacity: 0.2; }
-    90%, 94% { opacity: 1; box-shadow: 0 0 5px rgba(200, 255, 210, 0.8); }
+    90%, 94% { opacity: 1; box-shadow: 0 0 8px #ef4444; }
   }
 
-  @keyframes rack-load {
-    0%, 100% { transform: scaleX(0.25); }
-    34% { transform: scaleX(0.85); }
-    58% { transform: scaleX(0.45); }
-    78% { transform: scaleX(0.95); }
+  .srk-meter {
+    position: relative;
+    height: 4px;
+    width: 22px;
+    border: 1px solid #475569;
+    border-radius: 1px;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: #020617;
   }
 
-  @keyframes rack-blip {
-    0% { top: 6px; opacity: 0; }
-    12% { opacity: 1; }
-    88% { opacity: 1; }
-    100% { top: 84px; opacity: 0; }
+  .srk-meter::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #22c55e, #facc15 60%, #ef4444);
+    transform-origin: left center;
+    animation: rack-load 3.1s ease-in-out infinite;
+  }
+
+  .u1 .srk-meter::before { animation-delay: 0s; }
+  .u2 .srk-meter::before { animation-delay: -1.2s; }
+  .u3 .srk-meter::before { animation-delay: -2.1s; }
+  .u4 .srk-meter::before { animation-delay: -0.6s; }
+
+  .srk-rail {
+    position: absolute;
+    left: -6px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: #1e293b;
+  }
+
+  .srk-blip {
+    position: absolute;
+    left: -7.5px;
+    top: 8px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #00f0ff;
+    box-shadow: 0 0 8px #00f0ff, 0 0 12px #38bdf8;
+    animation: rack-blip 2.4s ease-in-out infinite;
   }
 `;
 
-const rackUnit = (cls) => `
+const rackUnitV2 = (cls) => `
   <div class="rack-unit ${cls}">
     <span class="rack-led ok"></span>
     <span class="rack-led busy"></span>
     <span class="rack-led warn"></span>
     <span class="rack-meter"></span>
+  </div>
+`;
+
+const rackUnitV3 = (cls) => `
+  <div class="srk-unit ${cls}">
+    <span class="srk-led ok"></span>
+    <span class="srk-led busy"></span>
+    <span class="srk-led warn"></span>
+    <span class="srk-meter"></span>
   </div>
 `;
 
@@ -191,10 +290,20 @@ const serverLightsMarkup = {
     <div class="rack">
       <div class="rack-rail"></div>
       <div class="rack-blip"></div>
-      ${rackUnit('u1')}
-      ${rackUnit('u2')}
-      ${rackUnit('u3')}
-      ${rackUnit('u4')}
+      ${rackUnitV2('u1')}
+      ${rackUnitV2('u2')}
+      ${rackUnitV2('u3')}
+      ${rackUnitV2('u4')}
+    </div>
+  `,
+  v3: `
+    <div class="srk">
+      <div class="srk-rail"></div>
+      <div class="srk-blip"></div>
+      ${rackUnitV3('u1')}
+      ${rackUnitV3('u2')}
+      ${rackUnitV3('u3')}
+      ${rackUnitV3('u4')}
     </div>
   `,
 };
@@ -220,8 +329,8 @@ class ConceptServerLights extends HTMLElement {
   }
 
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${serverLightsStyles}</style>${serverLightsMarkup[version] || serverLightsMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${serverLightsStyles}</style>${serverLightsMarkup[version] || serverLightsMarkup.v3}`;
   }
 }
 

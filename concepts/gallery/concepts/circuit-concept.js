@@ -1,5 +1,4 @@
 const circuitStyles = {
-  /* Shared by v1 and v2: the pre-refinement sheet, preserved verbatim. */
   legacy: `
   :host {
     display: flex;
@@ -275,10 +274,6 @@ const circuitStyles = {
     animation: chip-flicker 1.6s ease-in-out infinite;
   }
 
-  /* Follows cp1 -> cp2 -> cp3 -> cp4 -> cp5 exactly, node to node. The
-     original jumped straight from cn4 (77,103) to cn6 (19,123) - a
-     diagonal cut across empty space with no trace under it, since it
-     skipped the cn5 corner where cp4 turns into cp5. */
   @keyframes circuit-main {
     0% { top: 29px; left: 12px; }
     22% { top: 29px; left: 57px; }
@@ -299,52 +294,126 @@ const circuitStyles = {
     0%, 100% { opacity: 0.25; transform: scaleX(0.85); }
     50% { opacity: 1; transform: scaleX(1); }
   }
-
-  .circuit-basic-wrap {
+`,
+  v4: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
     position: relative;
   }
 
-  .circuit-basic-path {
-    position: absolute;
-    background: var(--accent, #00cc00);
-    box-shadow: 0 0 3px var(--accent, #00cc00);
+  /* --- v4: High-density FR-4 Printed Circuit Board ---
+     Deep green soldermask, gleaming copper traces, silver via solder pads,
+     matte IC chip, and blazing cyan logic bus data pulse. */
+  .ckc-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.12), transparent 60%),
+      linear-gradient(180deg, #022c22 0%, #064e3b 100%);
   }
 
-  .circuit-basic-path.p1 { width: 80px; height: 2px; top: 40%; left: 20px; }
-  .circuit-basic-path.p2 { width: 2px; height: 50px; top: 40%; left: 100px; }
-  .circuit-basic-path.p3 { width: 30px; height: 2px; top: calc(40% + 50px); left: 70px; }
+  .ckc-path {
+    position: absolute;
+    background: #f59e0b;
+    box-shadow: 0 0 4px rgba(245, 158, 11, 0.6);
+  }
 
-  .circuit-basic-node {
+  .ckc-chip {
+    position: absolute;
+    top: 44px;
+    left: 52px;
+    width: 32px;
+    height: 24px;
+    border: 1px solid #64748b;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6);
+  }
+
+  .ckc-chip::before,
+  .ckc-chip::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    width: 4px;
+    height: 18px;
+    background: repeating-linear-gradient(180deg, #cbd5e1 0 2px, transparent 2px 4px);
+  }
+
+  .ckc-chip::before { left: -5px; }
+  .ckc-chip::after { right: -5px; }
+
+  .ckc-node {
     width: 6px;
     height: 6px;
-    background: var(--accent, #00cc00);
+    background: #f8fafc;
+    border: 1px solid #d97706;
     border-radius: 50%;
     position: absolute;
-    box-shadow: 0 0 6px var(--accent, #00cc00);
+    box-shadow: 0 0 5px rgba(245, 158, 11, 0.8);
   }
 
-  .circuit-basic-node.n1 { top: calc(40% - 2px); left: 18px; }
-  .circuit-basic-node.n2 { top: calc(40% - 2px); left: 98px; }
-  .circuit-basic-node.n3 { top: calc(40% + 48px); left: 98px; }
-  .circuit-basic-node.n4 { top: calc(40% + 48px); left: 68px; }
+  .cn1 { top: 29px; left: 12px; }
+  .cn2 { top: 29px; left: 57px; }
+  .cn3 { top: 77px; left: 57px; }
+  .cn4 { top: 77px; left: 103px; }
+  .cn5 { top: 19px; left: 103px; }
+  .cn6 { top: 19px; left: 123px; }
+  .cn7 { top: 53px; left: 31px; }
+  .cn8 { top: 77px; left: 31px; }
 
-  .circuit-basic-flow {
+  .ckc-pulse {
     position: absolute;
     width: 8px;
     height: 8px;
-    background: #fff;
+    background: #ffffff;
     border-radius: 50%;
-    box-shadow: 0 0 10px var(--accent, #00cc00), 0 0 20px var(--accent, #00cc00);
-    animation: flow-path-basic 2s linear infinite;
+    box-shadow: 0 0 8px #00f0ff, 0 0 16px #0284c7;
   }
 
-  @keyframes flow-path-basic {
-    0% { top: calc(40% - 3px); left: 18px; }
-    30% { top: calc(40% - 3px); left: 98px; }
-    60% { top: calc(40% + 47px); left: 98px; }
-    100% { top: calc(40% + 47px); left: 68px; }
+  .ckc-pulse.main { animation: circuit-main 2.6s linear infinite; }
+  .ckc-pulse.branch {
+    width: 6px;
+    height: 6px;
+    background: #ffffff;
+    box-shadow: 0 0 6px #38bdf8;
+    animation: circuit-branch 1.9s linear infinite;
+  }
+
+  .ckc-core {
+    position: absolute;
+    top: 52px;
+    left: 60px;
+    width: 16px;
+    height: 8px;
+    background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+    animation: chip-flicker 1.6s ease-in-out infinite;
+  }
+
+  @keyframes circuit-main {
+    0% { top: 29px; left: 12px; }
+    22% { top: 29px; left: 57px; }
+    40% { top: 77px; left: 57px; }
+    58% { top: 77px; left: 103px; }
+    80% { top: 19px; left: 103px; }
+    100% { top: 19px; left: 123px; }
+  }
+
+  @keyframes circuit-branch {
+    0% { top: 53px; left: 31px; opacity: 0; }
+    18% { opacity: 1; }
+    52% { top: 77px; left: 31px; opacity: 1; }
+    100% { top: 77px; left: 57px; opacity: 0.15; }
+  }
+
+  @keyframes chip-flicker {
+    0%, 100% { opacity: 0.25; transform: scaleX(0.85); }
+    50% { opacity: 1; transform: scaleX(1); }
   }
 `,
 };
@@ -386,10 +455,55 @@ const circuitMarkup = {
       <div class="circuit-pulse branch"></div>
     </div>
   `,
+  v3: `
+    <div class="circuit-wrap">
+      <div class="circuit-chip"></div>
+      <div class="circuit-path cp1"></div>
+      <div class="circuit-path cp2"></div>
+      <div class="circuit-path cp3"></div>
+      <div class="circuit-path cp4"></div>
+      <div class="circuit-path cp5"></div>
+      <div class="circuit-path cp6"></div>
+      <div class="circuit-path cp7"></div>
+      <div class="circuit-path cp8"></div>
+      <div class="circuit-node cn1"></div>
+      <div class="circuit-node cn2"></div>
+      <div class="circuit-node cn3"></div>
+      <div class="circuit-node cn4"></div>
+      <div class="circuit-node cn5"></div>
+      <div class="circuit-node cn6"></div>
+      <div class="circuit-node cn7"></div>
+      <div class="circuit-node cn8"></div>
+      <div class="circuit-core"></div>
+      <div class="circuit-pulse main"></div>
+      <div class="circuit-pulse branch"></div>
+    </div>
+  `,
+  v4: `
+    <div class="ckc-wrap">
+      <div class="ckc-chip"></div>
+      <div class="ckc-path cp1"></div>
+      <div class="ckc-path cp2"></div>
+      <div class="ckc-path cp3"></div>
+      <div class="ckc-path cp4"></div>
+      <div class="ckc-path cp5"></div>
+      <div class="ckc-path cp6"></div>
+      <div class="ckc-path cp7"></div>
+      <div class="ckc-path cp8"></div>
+      <div class="ckc-node cn1"></div>
+      <div class="ckc-node cn2"></div>
+      <div class="ckc-node cn3"></div>
+      <div class="ckc-node cn4"></div>
+      <div class="ckc-node cn5"></div>
+      <div class="ckc-node cn6"></div>
+      <div class="ckc-node cn7"></div>
+      <div class="ckc-node cn8"></div>
+      <div class="ckc-core"></div>
+      <div class="ckc-pulse main"></div>
+      <div class="ckc-pulse branch"></div>
+    </div>
+  `,
 };
-
-/* v3 reuses the v2 board markup; only the pulse choreography changed. */
-circuitMarkup.v3 = circuitMarkup.v2;
 
 class ConceptCircuit extends HTMLElement {
   static get observedAttributes() { return ['version']; }
@@ -397,10 +511,10 @@ class ConceptCircuit extends HTMLElement {
   connectedCallback() { this.render(); }
   attributeChangedCallback() { if (this.isConnected) this.render(); }
   render() {
-    const version = this.getAttribute('version') || 'v3';
+    const version = this.getAttribute('version') || 'v4';
     const legacy = version === 'v1' || version === 'v2';
-    const styles = legacy ? circuitStyles.legacy : circuitStyles.v3;
-    const markup = circuitMarkup[version] || circuitMarkup.v3;
+    const styles = legacy ? circuitStyles.legacy : (circuitStyles[version] || circuitStyles.v4);
+    const markup = circuitMarkup[version] || circuitMarkup.v4;
     this.shadowRoot.innerHTML = `<style>${styles}</style>${markup}`;
   }
 }

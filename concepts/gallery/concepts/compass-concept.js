@@ -200,6 +200,108 @@ const compassStyles = `
     75% { transform: translate(-50%, -100%) rotate(25deg); }
     100% { transform: translate(-50%, -100%) rotate(-20deg); }
   }
+
+  /* --- v3: Maritime Antiquated Brass Mariner's Compass ---
+     Turned brass casing, parchment dial, crimson North & cobalt South magnetic pointers. */
+  .cmc-casing {
+    width: 88px;
+    height: 88px;
+    border: 2.5px solid #d97706;
+    border-radius: 50%;
+    position: relative;
+    background:
+      radial-gradient(circle at center, rgba(254, 243, 199, 0.95) 0 65%, #fde68a 70%, #d97706 100%);
+    box-shadow: inset 0 0 8px rgba(180, 83, 9, 0.4), 0 0 12px rgba(217, 119, 6, 0.35);
+  }
+
+  .cmc-casing::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    width: 1px;
+    height: calc(100% - 16px);
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, transparent, rgba(180, 83, 9, 0.4), transparent);
+  }
+
+  .cmc-casing::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    width: calc(100% - 16px);
+    height: 1px;
+    transform: translateY(-50%);
+    background: linear-gradient(90deg, transparent, rgba(180, 83, 9, 0.4), transparent);
+  }
+
+  .cmc-label {
+    position: absolute;
+    color: #78350f;
+    font-family: 'Times New Roman', serif;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .cmc-label.north { top: 5px; left: 50%; transform: translateX(-50%); color: #dc2626; font-size: 11px; }
+  .cmc-label.east { top: 50%; right: 7px; transform: translateY(-50%); }
+  .cmc-label.south { bottom: 5px; left: 50%; transform: translateX(-50%); }
+  .cmc-label.west { top: 50%; left: 7px; transform: translateY(-50%); }
+
+  .cmc-needle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 3px;
+    height: 54px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #dc2626 0 50%, #2563eb 50% 100%);
+    transform: translate(-50%, -50%) rotate(-18deg);
+    transform-origin: center center;
+    animation: compass-spin 5s ease-in-out infinite;
+  }
+
+  .cmc-needle::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -8px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 16px solid #dc2626;
+    filter: drop-shadow(0 0 3px rgba(220, 38, 38, 0.6));
+  }
+
+  .cmc-needle::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 13px solid #2563eb;
+    filter: drop-shadow(0 0 3px rgba(37, 99, 235, 0.5));
+  }
+
+  .cmc-hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid #d97706;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fbbf24, #b45309);
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 4px rgba(245, 158, 11, 0.8);
+  }
 `;
 
 const compassMarkup = {
@@ -216,6 +318,16 @@ const compassMarkup = {
       <span class="compass-label west">W</span>
       <div class="compass-needle"></div>
       <div class="compass-hub"></div>
+    </div>
+  `,
+  v3: `
+    <div class="cmc-casing">
+      <span class="cmc-label north">N</span>
+      <span class="cmc-label east">E</span>
+      <span class="cmc-label south">S</span>
+      <span class="cmc-label west">W</span>
+      <div class="cmc-needle"></div>
+      <div class="cmc-hub"></div>
     </div>
   `,
 };
@@ -241,8 +353,8 @@ class ConceptCompass extends HTMLElement {
   }
 
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${compassStyles}</style>${compassMarkup[version] || compassMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${compassStyles}</style>${compassMarkup[version] || compassMarkup.v3}`;
   }
 }
 

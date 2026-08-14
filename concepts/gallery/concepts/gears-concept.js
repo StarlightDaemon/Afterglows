@@ -7,14 +7,13 @@ const gearsStyles = `
     height: 100%;
   }
 
+  /* --- v1: Single-color phosphor gears --- */
   .gears {
     width: 104px;
     height: 104px;
     position: relative;
   }
 
-  /* A gear is a spinning wrapper holding four tooth bars (an 8-point star)
-     under a circular body, so only the bar tips show as teeth. */
   .gear {
     position: absolute;
     animation: gear-spin linear infinite;
@@ -45,7 +44,6 @@ const gearsStyles = `
     box-shadow: 0 0 8px rgba(0, 204, 0, 0.25);
   }
 
-  /* Axle hole + spoke cutouts on the body. */
   .gear-hub {
     position: absolute;
     top: 50%;
@@ -99,7 +97,6 @@ const gearsStyles = `
   .gear.small .gear-tooth { height: 5px; margin-top: -2.5px; left: -3px; right: -3px; }
   .gear.small .gear-body { border-width: 1px; }
 
-  /* Faint mounting plate behind everything. */
   .gears-plate {
     position: absolute;
     inset: 8px;
@@ -107,7 +104,6 @@ const gearsStyles = `
     border: 1px dashed rgba(0, 204, 0, 0.18);
   }
 
-  /* Rivet glints wandering the plate corners (main-thread shimmer). */
   .gears-rivet {
     position: absolute;
     width: 3px;
@@ -131,9 +127,72 @@ const gearsStyles = `
     0%, 100% { opacity: 0.25; box-shadow: 0 0 0 rgba(190, 255, 205, 0); }
     50% { opacity: 1; box-shadow: 0 0 5px rgba(190, 255, 205, 0.6); }
   }
+
+  /* --- v2: Horological Differential Metal Clockwork ---
+     Large Brass Main Drive Gear, Mid Tempered Blued Steel Gear, Small Polished Bronze/Copper Pinion,
+     and Titanium Baseplate with Brass Rivets. */
+  .grc {
+    width: 104px;
+    height: 104px;
+    position: relative;
+  }
+
+  .grc-plate {
+    position: absolute;
+    inset: 8px;
+    border-radius: 10px;
+    border: 1px solid #475569;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8));
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .grc-rivet {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #f59e0b;
+    box-shadow: 0 0 4px #fbbf24;
+    animation: gear-rivet 3.4s ease-in-out infinite;
+  }
+
+  .grc-rivet.r1 { top: 12px; left: 12px; }
+  .grc-rivet.r2 { top: 12px; right: 12px; animation-delay: -0.9s; }
+  .grc-rivet.r3 { bottom: 12px; right: 12px; animation-delay: -1.7s; }
+  .grc-rivet.r4 { bottom: 12px; left: 12px; animation-delay: -2.5s; }
+
+  /* Big Gear: Polished Brass */
+  .gear.big.brass .gear-tooth { background: #b45309; }
+  .gear.big.brass .gear-body {
+    background: radial-gradient(circle at 38% 32%, #fde047 0%, #f59e0b 60%, #b45309 100%);
+    border: 2px solid #fef08a;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+  }
+  .gear.big.brass .gear-spoke { background: rgba(180, 83, 9, 0.5); }
+  .gear.big.brass .gear-hub { border: 1px solid #fde047; background: #451a03; }
+
+  /* Mid Gear: Blued Tempered Horology Steel */
+  .gear.mid.steel .gear-tooth { background: #1e3a8a; }
+  .gear.mid.steel .gear-body {
+    background: radial-gradient(circle at 38% 32%, #60a5fa 0%, #2563eb 60%, #1e3a8a 100%);
+    border: 2px solid #93c5fd;
+    box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+  }
+  .gear.mid.steel .gear-spoke { background: rgba(30, 58, 138, 0.5); }
+  .gear.mid.steel .gear-hub { border: 1px solid #93c5fd; background: #0f172a; }
+
+  /* Small Gear: Polished Bronze / Copper */
+  .gear.small.copper .gear-tooth { background: #9a3412; }
+  .gear.small.copper .gear-body {
+    background: radial-gradient(circle at 38% 32%, #fdba74 0%, #ea580c 60%, #9a3412 100%);
+    border: 1px solid #fed7aa;
+    box-shadow: 0 0 8px rgba(234, 88, 12, 0.4);
+  }
+  .gear.small.copper .gear-spoke { background: rgba(154, 52, 18, 0.5); }
+  .gear.small.copper .gear-hub { border: 1px solid #fed7aa; background: #431407; }
 `;
 
-function gearMarkup(sizeClass) {
+function gearMarkupV1(sizeClass) {
   return `
     <div class="gear ${sizeClass}">
       <div class="gear-tooth"></div>
@@ -148,25 +207,71 @@ function gearMarkup(sizeClass) {
   `;
 }
 
+function gearMarkupV2(sizeClass, metalClass) {
+  return `
+    <div class="gear ${sizeClass} ${metalClass}">
+      <div class="gear-tooth"></div>
+      <div class="gear-tooth t2"></div>
+      <div class="gear-tooth t3"></div>
+      <div class="gear-tooth t4"></div>
+      <div class="gear-body"></div>
+      <div class="gear-spoke"></div>
+      <div class="gear-spoke s2"></div>
+      <div class="gear-hub"></div>
+    </div>
+  `;
+}
+
+const gearsMarkup = {
+  v1: `
+    <div class="gears">
+      <div class="gears-plate"></div>
+      <div class="gears-rivet r1"></div>
+      <div class="gears-rivet r2"></div>
+      <div class="gears-rivet r3"></div>
+      <div class="gears-rivet r4"></div>
+      ${gearMarkupV1('big')}
+      ${gearMarkupV1('mid')}
+      ${gearMarkupV1('small')}
+    </div>
+  `,
+  v2: `
+    <div class="grc">
+      <div class="grc-plate"></div>
+      <div class="grc-rivet r1"></div>
+      <div class="grc-rivet r2"></div>
+      <div class="grc-rivet r3"></div>
+      <div class="grc-rivet r4"></div>
+      ${gearMarkupV2('big', 'brass')}
+      ${gearMarkupV2('mid', 'steel')}
+      ${gearMarkupV2('small', 'copper')}
+    </div>
+  `,
+};
+
 class ConceptGears extends HTMLElement {
+  static get observedAttributes() {
+    return ['version'];
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
+
   connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${gearsStyles}</style>
-      <div class="gears">
-        <div class="gears-plate"></div>
-        <div class="gears-rivet r1"></div>
-        <div class="gears-rivet r2"></div>
-        <div class="gears-rivet r3"></div>
-        <div class="gears-rivet r4"></div>
-        ${gearMarkup('big')}
-        ${gearMarkup('mid')}
-        ${gearMarkup('small')}
-      </div>
-    `;
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    if (this.isConnected) {
+      this.render();
+    }
+  }
+
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${gearsStyles}</style>${gearsMarkup[version] || gearsMarkup.v2}`;
   }
 }
 
