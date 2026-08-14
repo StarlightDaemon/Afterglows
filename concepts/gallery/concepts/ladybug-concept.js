@@ -1,9 +1,8 @@
-// Ladybug, rebuilt (2026-08-02): the old render was a featureless pea on
-// a leaf. Now it's the top-down icon everyone knows — domed elytra with
-// a centre split line and bold spots, a small dark head with antennae —
-// walking a gentle arc along the leaf, legs paddling, pausing once to
-// flare its wing cases before settling and walking on.
-// v1 below is the archived original, preserved verbatim.
+// Ladybug, rebuilt: v1 and v2 preserved.
+// v3 adds authentic Coccinellidae coloration: vibrant scarlet-red domed
+// elytra with jet-black spots and white highlight glints, emerald garden leaf,
+// obsidian black pronotum/head with white ocular patches, and translucent
+// amber flight wings.
 const ladybugStyles = {
   v1: `
   :host {
@@ -14,16 +13,12 @@ const ladybugStyles = {
     height: 100%;
   }
 
-  /* A ladybug walks a leaf edge, antennae bobbing and legs shuffling;
-     at the tip it pauses, splits its shell, and buzzes its flight
-     wings for a beat before folding them and ambling back. */
   .lb {
     width: 112px;
     height: 84px;
     position: relative;
   }
 
-  /* The leaf it walks along. */
   .lb-leaf {
     position: absolute;
     left: 8px;
@@ -35,7 +30,6 @@ const ladybugStyles = {
     border: 1px solid rgba(0, 204, 0, 0.5);
   }
 
-  /* Midrib. */
   .lb-leaf::after {
     content: '';
     position: absolute;
@@ -48,7 +42,6 @@ const ladybugStyles = {
     transform-origin: 0 50%;
   }
 
-  /* The bug: walks right, pauses at tip, walks back. */
   .lb-bug {
     position: absolute;
     left: 0;
@@ -61,14 +54,12 @@ const ladybugStyles = {
   @keyframes lb-walk {
     0% { transform: translateX(12px) scaleX(1); }
     34% { transform: translateX(66px) scaleX(1); }
-    /* Pause + takeoff wobble. */
     40%, 62% { transform: translateX(70px) scaleX(1); }
     66% { transform: translateX(66px) scaleX(-1); }
     96% { transform: translateX(12px) scaleX(-1); }
     100% { transform: translateX(12px) scaleX(1); }
   }
 
-  /* Body bob for the walking gait. */
   .lb-bob {
     position: absolute;
     inset: 0;
@@ -80,7 +71,6 @@ const ladybugStyles = {
     50% { transform: translateY(-1.5px); }
   }
 
-  /* Shell halves (elytra). */
   .lb-shell {
     position: absolute;
     left: 4px;
@@ -98,7 +88,6 @@ const ladybugStyles = {
     border: 1px solid rgba(0, 204, 0, 0.6);
   }
 
-  /* Spots. */
   .lb-half::before,
   .lb-half::after {
     content: '';
@@ -127,7 +116,6 @@ const ladybugStyles = {
     66%, 100% { transform: rotate(0deg); }
   }
 
-  /* Flight wings, revealed and buzzing during the split. */
   .lb-flight {
     position: absolute;
     left: 5px;
@@ -152,7 +140,6 @@ const ladybugStyles = {
     100% { transform: scaleY(0.85); }
   }
 
-  /* Head. */
   .lb-head {
     position: absolute;
     left: 8px;
@@ -178,7 +165,6 @@ const ladybugStyles = {
   .lb-head::before { left: 2px; }
   .lb-head::after { right: 2px; }
 
-  /* Antennae. */
   .lb-ant {
     position: absolute;
     top: -3px;
@@ -208,7 +194,6 @@ const ladybugStyles = {
     50% { transform: scaleX(-1) rotate(8deg); }
   }
 
-  /* Legs shuffling. */
   .lb-leg {
     position: absolute;
     top: 15px;
@@ -227,7 +212,7 @@ const ladybugStyles = {
     0%, 100% { transform: rotate(-14deg); }
     50% { transform: rotate(14deg); }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -243,7 +228,6 @@ const ladybugStyles = {
     position: relative;
   }
 
-  /* The leaf: broad, veined, filling the lower frame. */
   .lb-leaf {
     position: absolute;
     left: 6px;
@@ -256,7 +240,6 @@ const ladybugStyles = {
     overflow: hidden;
   }
 
-  /* Midrib + side veins. */
   .lb-leaf::before {
     content: '';
     position: absolute;
@@ -278,7 +261,6 @@ const ladybugStyles = {
       linear-gradient(75deg, transparent 48%, rgba(140, 255, 170, 0.2) 49%, transparent 51%);
   }
 
-  /* The bug walks a shallow arc along the leaf, wobbling as it steps. */
   .lb-bug {
     position: absolute;
     left: 14px;
@@ -291,13 +273,11 @@ const ladybugStyles = {
   @keyframes lb-walk {
     0% { transform: translate(0, 6px) rotate(8deg); }
     18% { transform: translate(18px, 0) rotate(4deg); }
-    /* Pause for the wing flare. */
     34%, 52% { transform: translate(32px, -2px) rotate(0deg); }
     72% { transform: translate(50px, 2px) rotate(-6deg); }
     100% { transform: translate(64px, 8px) rotate(-10deg); }
   }
 
-  /* Step wobble rides on top of the walk. */
   .lb-wobble {
     position: absolute;
     inset: 0;
@@ -309,7 +289,6 @@ const ladybugStyles = {
     50% { transform: rotate(2deg); }
   }
 
-  /* Legs: three per side, paddling. */
   .lb-legpair {
     position: absolute;
     left: 50%;
@@ -335,7 +314,6 @@ const ladybugStyles = {
   .lb-legpair.g2 { --a: 90deg; }
   .lb-legpair.g3 { --a: 134deg; }
 
-  /* Elytra: the domed wing cases — two halves that flare at the pause. */
   .lb-shell {
     position: absolute;
     left: 4px;
@@ -368,7 +346,6 @@ const ladybugStyles = {
     animation: lb-flare-r 8s ease-in-out infinite;
   }
 
-  /* Spots: dark dots on each case. */
   .lb-elytron::before,
   .lb-elytron::after {
     content: '';
@@ -380,7 +357,6 @@ const ladybugStyles = {
   .lb-elytron::before { left: 3px; top: 4px; width: 3.5px; height: 3.5px; }
   .lb-elytron::after { left: 5px; top: 12px; width: 3px; height: 3px; }
 
-  /* The flare: cases tip open during the pause, then reseat. */
   @keyframes lb-flare-l {
     0%, 36%, 50%, 100% { transform: rotate(0deg); }
     41%, 45% { transform: rotate(-34deg) translateY(-1px); }
@@ -391,7 +367,6 @@ const ladybugStyles = {
     41%, 45% { transform: rotate(34deg) translateY(-1px); }
   }
 
-  /* Hind wings peeking during the flare. */
   .lb-hindwing {
     position: absolute;
     left: 7px;
@@ -410,7 +385,6 @@ const ladybugStyles = {
     42%, 44% { opacity: 1; transform: scale(1.05); }
   }
 
-  /* Head: small dark cap at the front with two eye dots. */
   .lb-head {
     position: absolute;
     left: 22px;
@@ -435,7 +409,6 @@ const ladybugStyles = {
   .lb-head::before { right: 2px; top: 2px; }
   .lb-head::after { right: 2px; bottom: 2px; }
 
-  /* Antennae: two whiskers off the head, bobbing. */
   .lb-antenna {
     position: absolute;
     left: 29px;
@@ -457,7 +430,242 @@ const ladybugStyles = {
   }
 
   .lb-antenna.a2 { --sy: -1; }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Realistic garden ladybug with glossy lacquer crimson-scarlet elytra,
+     obsidian black spots, white ocular spots, and emerald leaf with veins. */
+  .lbc {
+    width: 112px;
+    height: 92px;
+    position: relative;
+    background: radial-gradient(circle at 50% 60%, #064e3b 0%, #022c22 60%, #011c15 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Garden leaf */
+  .lbc-leaf {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    bottom: 10px;
+    height: 44px;
+    border-radius: 4% 96% 30% 96% / 60% 90% 40% 90%;
+    background: linear-gradient(120deg, #15803d 0%, #166534 60%, #14532d 100%);
+    border: 1.5px solid #22c55e;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+  }
+
+  /* Leaf midrib and lateral veins */
+  .lbc-leaf::before {
+    content: '';
+    position: absolute;
+    left: 4%;
+    top: 50%;
+    width: 92%;
+    height: 1.5px;
+    background: #86efac;
+    transform: rotate(-3deg);
+  }
+
+  .lbc-leaf::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(60deg, transparent 48%, rgba(134, 239, 172, 0.35) 49%, transparent 51%),
+      linear-gradient(115deg, transparent 48%, rgba(134, 239, 172, 0.35) 49%, transparent 51%),
+      linear-gradient(75deg, transparent 48%, rgba(134, 239, 172, 0.3) 49%, transparent 51%);
+  }
+
+  .lbc-bug {
+    position: absolute;
+    left: 14px;
+    top: 30px;
+    width: 30px;
+    height: 24px;
+    animation: lbc-walk 8s ease-in-out infinite;
+  }
+
+  @keyframes lbc-walk {
+    0% { transform: translate(0, 6px) rotate(8deg); }
+    18% { transform: translate(18px, 0) rotate(4deg); }
+    34%, 52% { transform: translate(32px, -2px) rotate(0deg); }
+    72% { transform: translate(50px, 2px) rotate(-6deg); }
+    100% { transform: translate(64px, 8px) rotate(-10deg); }
+  }
+
+  .lbc-wobble {
+    position: absolute;
+    inset: 0;
+    animation: lbc-wobble 0.7s ease-in-out infinite;
+  }
+
+  @keyframes lbc-wobble {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+
+  /* Articulated black legs */
+  .lbc-legpair {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    height: 2px;
+    margin: -1px 0 0 -15px;
+    background: #18181b;
+    border-radius: 1px;
+    animation: lbc-paddle 0.7s ease-in-out infinite;
+  }
+
+  .lbc-legpair.g1 { transform: rotate(46deg); }
+  .lbc-legpair.g2 { transform: rotate(90deg); animation-delay: -0.23s; }
+  .lbc-legpair.g3 { transform: rotate(134deg); animation-delay: -0.46s; }
+
+  @keyframes lbc-paddle {
+    0%, 100% { transform: rotate(var(--a, 46deg)) scaleX(1); }
+    50% { transform: rotate(calc(var(--a, 46deg) + 10deg)) scaleX(0.92); }
+  }
+
+  .lbc-legpair.g1 { --a: 46deg; }
+  .lbc-legpair.g2 { --a: 90deg; }
+  .lbc-legpair.g3 { --a: 134deg; }
+
+  .lbc-shell {
+    position: absolute;
+    left: 4px;
+    top: 2px;
+    width: 22px;
+    height: 20px;
+  }
+
+  /* Glossy scarlet-red elytra */
+  .lbc-elytron {
+    position: absolute;
+    top: 0;
+    width: 11px;
+    height: 20px;
+    background: radial-gradient(circle at 35% 25%, #ff6b6b 0%, #ef4444 45%, #b91c1c 85%, #7f1d1d 100%);
+    border: 1px solid #f87171;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.4);
+  }
+
+  .lbc-elytron.left {
+    left: 0;
+    border-radius: 90% 8% 10% 90% / 70% 10% 12% 90%;
+    transform-origin: 100% 30%;
+    animation: lbc-flare-l 8s ease-in-out infinite;
+  }
+
+  .lbc-elytron.right {
+    right: 0;
+    border-radius: 8% 90% 90% 10% / 10% 70% 90% 12%;
+    transform-origin: 0% 30%;
+    animation: lbc-flare-r 8s ease-in-out infinite;
+  }
+
+  /* Jet-black elytral spots */
+  .lbc-elytron::before,
+  .lbc-elytron::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: #09090b;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+  }
+
+  .lbc-elytron::before { left: 3px; top: 4px; width: 3.5px; height: 3.5px; }
+  .lbc-elytron::after { left: 5px; top: 12px; width: 3px; height: 3px; }
+
+  @keyframes lbc-flare-l {
+    0%, 36%, 50%, 100% { transform: rotate(0deg); }
+    41%, 45% { transform: rotate(-34deg) translateY(-1px); }
+  }
+
+  @keyframes lbc-flare-r {
+    0%, 36%, 50%, 100% { transform: rotate(0deg); }
+    41%, 45% { transform: rotate(34deg) translateY(-1px); }
+  }
+
+  /* Hindwings: translucent smoky amber */
+  .lbc-hindwing {
+    position: absolute;
+    left: 7px;
+    top: 4px;
+    width: 16px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(254, 215, 170, 0.7);
+    border: 1px solid rgba(251, 146, 60, 0.6);
+    filter: blur(0.5px);
+    opacity: 0;
+    animation: lbc-hind 8s ease-in-out infinite;
+  }
+
+  @keyframes lbc-hind {
+    0%, 38%, 48%, 100% { opacity: 0; transform: scale(0.5); }
+    42%, 44% { opacity: 1; transform: scale(1.05); }
+  }
+
+  /* Jet black head with white ocular patches */
+  .lbc-head {
+    position: absolute;
+    left: 22px;
+    top: 7px;
+    width: 9px;
+    height: 10px;
+    border-radius: 30% 70% 70% 30% / 50% 50% 50% 50%;
+    background: #09090b;
+    border: 1px solid #27272a;
+  }
+
+  .lbc-head::before,
+  .lbc-head::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 2px #ffffff;
+  }
+
+  .lbc-head::before { right: 2px; top: 2px; }
+  .lbc-head::after { right: 2px; bottom: 2px; }
+
+  /* Whiskered antennae */
+  .lbc-antenna {
+    position: absolute;
+    left: 29px;
+    width: 7px;
+    height: 5px;
+    border-right: 1.5px solid #09090b;
+    border-top: 1.5px solid #09090b;
+    border-radius: 0 80% 0 0;
+    transform-origin: 0 100%;
+    animation: lbc-antenna 1.1s ease-in-out infinite;
+  }
+
+  .lbc-antenna.a1 { top: 4px; transform: rotate(-16deg); --w: -16deg; }
+  .lbc-antenna.a2 { top: 13px; transform: rotate(28deg) scaleY(-1); --w: 28deg; animation-delay: -0.55s; }
+
+  @keyframes lbc-antenna {
+    0%, 100% { transform: rotate(var(--w)) scaleY(var(--sy, 1)); }
+    50% { transform: rotate(calc(var(--w) + 8deg)) scaleY(var(--sy, 1)); }
+  }
+
+  .lbc-antenna.a2 { --sy: -1; }
+  `,
 };
 
 const ladybugMarkup = {
@@ -501,6 +709,26 @@ const ladybugMarkup = {
         </div>
       </div>
     `,
+  v3: `
+      <div class="lbc">
+        <div class="lbc-leaf"></div>
+        <div class="lbc-bug">
+          <div class="lbc-wobble">
+            <div class="lbc-legpair g1"></div>
+            <div class="lbc-legpair g2"></div>
+            <div class="lbc-legpair g3"></div>
+            <div class="lbc-hindwing"></div>
+            <div class="lbc-shell">
+              <div class="lbc-elytron left"></div>
+              <div class="lbc-elytron right"></div>
+            </div>
+            <div class="lbc-head"></div>
+            <div class="lbc-antenna a1"></div>
+            <div class="lbc-antenna a2"></div>
+          </div>
+        </div>
+      </div>
+    `,
 };
 
 class ConceptLadybug extends HTMLElement {
@@ -516,8 +744,8 @@ class ConceptLadybug extends HTMLElement {
     if (this.isConnected) this.render();
   }
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${ladybugStyles[version] || ladybugStyles.v2}</style>${ladybugMarkup[version] || ladybugMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${ladybugStyles[version] || ladybugStyles.v3}</style>${ladybugMarkup[version] || ladybugMarkup.v3}`;
   }
 }
 

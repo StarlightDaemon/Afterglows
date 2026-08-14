@@ -1,4 +1,5 @@
-const flowerStyles = `
+const flowerStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -86,8 +87,6 @@ const flowerStyles = `
   .fl-petal.p7 { transform: rotate(270deg); animation-delay: -0.6s; }
   .fl-petal.p8 { transform: rotate(315deg); animation-delay: -0.7s; }
 
-  /* Each petal keeps its rotation (set inline via nth) while the
-     scale opens and closes. We fold by scaling toward the hub. */
   .fl-petal { animation-name: fl-unfurl; }
 
   @keyframes fl-unfurl {
@@ -149,16 +148,166 @@ const flowerStyles = `
     border-radius: 2px;
     background: linear-gradient(90deg, transparent, rgba(0, 110, 22, 0.7), transparent);
   }
-`;
-
-class ConceptFlower extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${flowerStyles}</style>
+
+  /* v2: Blooming garden daisy with pure white ray petals, radiant golden yellow
+     disc floret, emerald green stem/foliage, rich brown soil, and floating pollen. */
+  .flc {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #064e3b 0%, #022c22 60%, #01140e 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Stem */
+  .flc-stem {
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    width: 3px;
+    height: 44px;
+    margin-left: -1.5px;
+    background: linear-gradient(180deg, #4ade80, #15803d);
+    border-radius: 1.5px;
+    transform-origin: 50% 100%;
+    animation: flc-sway 6s ease-in-out infinite;
+  }
+
+  /* Leaf */
+  .flc-leaf {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    width: 18px;
+    height: 10px;
+    margin-left: 1px;
+    border-radius: 0 100% 0 100%;
+    background: linear-gradient(135deg, #86efac 0%, #22c55e 60%, #15803d 100%);
+    border: 0.5px solid #bbf7d0;
+    transform-origin: 0% 50%;
+    animation: flc-leaf 6s ease-in-out infinite;
+  }
+
+  @keyframes flc-leaf {
+    0%, 100% { transform: rotate(6deg) scale(0.9); }
+    45% { transform: rotate(-4deg) scale(1); }
+  }
+
+  /* Bloom head */
+  .flc-head {
+    position: absolute;
+    left: 50%;
+    bottom: 48px;
+    width: 0;
+    height: 0;
+    animation: flc-sway 6s ease-in-out infinite;
+  }
+
+  @keyframes flc-sway {
+    0%, 100% { transform: rotate(-7deg); }
+    45% { transform: rotate(8deg); }
+  }
+
+  /* Pure white ray petals */
+  .flc-petal {
+    position: absolute;
+    left: -5px;
+    top: -22px;
+    width: 10px;
+    height: 22px;
+    border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 60%, #e2e8f0 100%);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    transform-origin: 50% 100%;
+    animation: flc-unfurl 6s ease-in-out infinite;
+  }
+
+  .flc-petal.p1 { transform: rotate(0deg); }
+  .flc-petal.p2 { transform: rotate(45deg); animation-delay: -0.1s; }
+  .flc-petal.p3 { transform: rotate(90deg); animation-delay: -0.2s; }
+  .flc-petal.p4 { transform: rotate(135deg); animation-delay: -0.3s; }
+  .flc-petal.p5 { transform: rotate(180deg); animation-delay: -0.4s; }
+  .flc-petal.p6 { transform: rotate(225deg); animation-delay: -0.5s; }
+  .flc-petal.p7 { transform: rotate(270deg); animation-delay: -0.6s; }
+  .flc-petal.p8 { transform: rotate(315deg); animation-delay: -0.7s; }
+
+  @keyframes flc-unfurl {
+    0%, 100% { scale: 0.15 0.3; opacity: 0.5; }
+    16% { scale: 1 1; opacity: 1; }
+    70% { scale: 1 1; opacity: 1; }
+    90% { scale: 0.15 0.3; opacity: 0.5; }
+  }
+
+  /* Golden yellow disc floret center */
+  .flc-core {
+    position: absolute;
+    left: -8px;
+    top: -8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fde047 40%, #eab308 75%, #ca8a04 100%);
+    box-shadow: 0 0 12px rgba(250, 204, 21, 0.9);
+    animation: flc-core 6s ease-in-out infinite;
+    z-index: 2;
+  }
+
+  @keyframes flc-core {
+    0%, 100% { transform: scale(0.6); box-shadow: 0 0 4px rgba(250, 204, 21, 0.4); }
+    30%, 70% { transform: scale(1); box-shadow: 0 0 14px rgba(250, 204, 21, 0.95); }
+  }
+
+  /* Golden pollen motes */
+  .flc-pollen {
+    position: absolute;
+    left: 48px;
+    top: 30px;
+    width: 2.5px;
+    height: 2.5px;
+    border-radius: 50%;
+    background: #fde047;
+    box-shadow: 0 0 4px #facc15;
+    opacity: 0;
+    animation: flc-pollen 6s infinite;
+  }
+
+  .flc-pollen.m2 { animation-delay: 0.6s; left: 54px; }
+  .flc-pollen.m3 { animation-delay: 1.2s; left: 44px; }
+
+  @keyframes flc-pollen {
+    0%, 34% { transform: translate(0, 0); opacity: 0; }
+    42% { opacity: 1; }
+    64% { transform: translate(12px, -14px); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* Rich dark brown loam soil */
+  .flc-soil {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 6px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, #78350f 30%, #451a03 50%, #78350f 70%, transparent);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  `,
+};
+
+const flowerMarkup = {
+  v1: `
       <div class="fl">
         <div class="fl-pollen"></div>
         <div class="fl-pollen m2"></div>
@@ -178,7 +327,45 @@ class ConceptFlower extends HTMLElement {
           <div class="fl-core"></div>
         </div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="flc">
+        <div class="flc-pollen"></div>
+        <div class="flc-pollen m2"></div>
+        <div class="flc-pollen m3"></div>
+        <div class="flc-soil"></div>
+        <div class="flc-stem"></div>
+        <div class="flc-leaf"></div>
+        <div class="flc-head">
+          <div class="flc-petal p1"></div>
+          <div class="flc-petal p2"></div>
+          <div class="flc-petal p3"></div>
+          <div class="flc-petal p4"></div>
+          <div class="flc-petal p5"></div>
+          <div class="flc-petal p6"></div>
+          <div class="flc-petal p7"></div>
+          <div class="flc-petal p8"></div>
+          <div class="flc-core"></div>
+        </div>
+      </div>
+    `,
+};
+
+class ConceptFlower extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${flowerStyles[version] || flowerStyles.v2}</style>${flowerMarkup[version] || flowerMarkup.v2}`;
   }
 }
 
