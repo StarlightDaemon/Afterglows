@@ -7,6 +7,7 @@ const moonPhaseStyles = `
     height: 100%;
   }
 
+  /* --- v1: Single-color phosphor moon phase --- */
   .moon-phase {
     width: 96px;
     height: 96px;
@@ -88,29 +89,137 @@ const moonPhaseStyles = `
       box-shadow: 0 0 6px rgba(170, 255, 170, 0.55);
     }
   }
+
+  /* --- v2: Astronomical lunar regolith & maria realism ---
+     Silver-pearl highlands regolith, charcoal-slate lunar basalt seas (maria),
+     deep space shadow, and electric cyan lunar cycle track ticks. */
+  .mpc {
+    width: 96px;
+    height: 96px;
+    position: relative;
+  }
+
+  .mpc-moon {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 34%, #ffffff, #e2e8f0 55%, #94a3b8);
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
+    overflow: hidden;
+  }
+
+  .mpc-craters {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 26%, rgba(71, 85, 105, 0.75) 0 5px, transparent 6px),
+      radial-gradient(circle at 66% 44%, rgba(51, 65, 85, 0.7) 0 7px, transparent 8px),
+      radial-gradient(circle at 42% 68%, rgba(71, 85, 105, 0.7) 0 4px, transparent 5px),
+      radial-gradient(circle at 74% 74%, rgba(51, 65, 85, 0.6) 0 3px, transparent 4px),
+      radial-gradient(circle at 22% 52%, rgba(71, 85, 105, 0.65) 0 3px, transparent 4px);
+    opacity: 0.85;
+  }
+
+  .mpc-shadow {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: #030712;
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.9);
+    animation: moon-cycle 9s ease-in-out infinite;
+  }
+
+  .mpc-track {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    display: flex;
+    gap: 7px;
+    transform: translateX(-50%);
+  }
+
+  .mpc-tick {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    border: 1px solid rgba(56, 189, 248, 0.5);
+    background: transparent;
+    animation: mpc-tick 9s linear infinite;
+  }
+
+  .mpc-tick.t2 { animation-delay: -6.75s; }
+  .mpc-tick.t3 { animation-delay: -4.5s; }
+  .mpc-tick.t4 { animation-delay: -2.25s; }
+
+  @keyframes mpc-tick {
+    0%, 78%, 100% { background: transparent; box-shadow: none; }
+    80%, 98% {
+      background: #38bdf8;
+      box-shadow: 0 0 6px #00f0ff;
+    }
+  }
 `;
 
+const moonPhaseMarkup = {
+  v1: `
+    <div class="moon-phase">
+      <div class="moon">
+        <div class="moon-craters"></div>
+        <div class="moon-shadow"></div>
+      </div>
+      <div class="moon-phase-track">
+        <span class="moon-phase-tick t1"></span>
+        <span class="moon-phase-tick t2"></span>
+        <span class="moon-phase-tick t3"></span>
+        <span class="moon-phase-tick t4"></span>
+      </div>
+    </div>
+  `,
+  v2: `
+    <div class="mpc">
+      <div class="mpc-moon">
+        <div class="mpc-craters"></div>
+        <div class="mpc-shadow"></div>
+      </div>
+      <div class="mpc-track">
+        <span class="mpc-tick t1"></span>
+        <span class="mpc-tick t2"></span>
+        <span class="mpc-tick t3"></span>
+        <span class="mpc-tick t4"></span>
+      </div>
+    </div>
+  `,
+};
+
 class ConceptMoonPhase extends HTMLElement {
+  static get observedAttributes() {
+    return ['version'];
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
+
   connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${moonPhaseStyles}</style>
-      <div class="moon-phase">
-        <div class="moon">
-          <div class="moon-craters"></div>
-          <div class="moon-shadow"></div>
-        </div>
-        <div class="moon-phase-track">
-          <span class="moon-phase-tick t1"></span>
-          <span class="moon-phase-tick t2"></span>
-          <span class="moon-phase-tick t3"></span>
-          <span class="moon-phase-tick t4"></span>
-        </div>
-      </div>
-    `;
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    if (this.isConnected) {
+      this.render();
+    }
+  }
+
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${moonPhaseStyles}</style>${moonPhaseMarkup[version] || moonPhaseMarkup.v2}`;
   }
 }
 

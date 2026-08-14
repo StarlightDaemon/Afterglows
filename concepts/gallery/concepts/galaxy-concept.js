@@ -328,6 +328,105 @@ const galaxyStyles = `
     0%, 100% { opacity: 0.24; }
     50% { opacity: 0.72; }
   }
+
+  /* --- v4: Astrophysical multi-wavelength spiral galaxy ---
+     Golden galactic bulge, electric azure/cyan spiral arms,
+     magenta/pink H-II starburst regions, and dark dust rifts. */
+  .galc {
+    position: relative;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at center, rgba(254, 240, 138, 0.2) 0 8%, rgba(56, 189, 248, 0.15) 9% 22%, rgba(15, 23, 42, 0.96) 23% 54%, #020617 80%),
+      radial-gradient(ellipse at center, rgba(244, 63, 94, 0.1) 0 42%, transparent 72%);
+    box-shadow: inset 0 0 24px rgba(56, 189, 248, 0.2), 0 0 16px rgba(0, 0, 0, 0.8);
+  }
+
+  .galc::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 14% 18%, #ffffff 0 1px, transparent 1.6px),
+      radial-gradient(circle at 24% 72%, #ffffff 0 1px, transparent 1.6px),
+      radial-gradient(circle at 82% 22%, #fbcfe8 0 1px, transparent 1.6px),
+      radial-gradient(circle at 72% 84%, #bae6fd 0 1px, transparent 1.6px),
+      radial-gradient(circle at 88% 58%, #ffffff 0 1px, transparent 1.6px);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .galc-disc {
+    position: absolute;
+    inset: 3px;
+    animation: gal-spin 22s linear infinite;
+    transform-origin: center;
+  }
+
+  .galc-path.main {
+    stroke: #38bdf8;
+    stroke-width: 2.7;
+    filter: drop-shadow(0 0 6px #00f0ff);
+  }
+
+  .galc-path.sub {
+    stroke: #818cf8;
+    stroke-width: 1.4;
+    stroke-dasharray: 1.1 4.6;
+    animation-duration: 4.8s;
+  }
+
+  .galc-path.fine {
+    stroke: #f472b6;
+    stroke-width: 1;
+    stroke-dasharray: 1 5.2;
+    animation-duration: 6.2s;
+  }
+
+  /* Young blue supergiant stars */
+  .galc-stars circle {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 3px #38bdf8);
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: galaxy-star 2.8s ease-in-out infinite;
+  }
+
+  /* Pink/magenta H-II emission nebulae */
+  .galc-dust circle {
+    fill: #f43f5e;
+    filter: drop-shadow(0 0 3px #fb7185);
+    animation: galaxy-dust 5.2s ease-in-out infinite;
+  }
+
+  /* Golden stellar galactic nucleus */
+  .galc-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, #ffffff 0 16%, #fef08a 22%, #f59e0b 46%, #d97706 64%, transparent 68%);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.9), 0 0 32px rgba(245, 158, 11, 0.6);
+    animation: galaxy-core 3.4s ease-in-out infinite;
+  }
+
+  .galc-core::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 46px;
+    height: 18px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(254, 240, 138, 0.45) 0 28%, rgba(245, 158, 11, 0.2) 30% 60%, transparent 72%);
+    filter: blur(0.5px);
+  }
 `;
 
 const galaxyMarkup = {
@@ -406,6 +505,48 @@ const galaxyMarkup = {
       <div class="galaxy-core"></div>
     </div>
   `,
+  v4: `
+    <div class="galc">
+      <div class="galc-disc">
+        <svg class="galaxy-svg" viewBox="0 0 100 100" aria-hidden="true">
+          <g>
+            <path class="galaxy-path galc-path main p1" d="M50 50 C58 44 69 44 78 50 C87 56 87 68 77 75 C65 84 47 82 35 71 C24 61 22 48 31 39"></path>
+            <path class="galaxy-path galc-path main p2" d="M50 50 C43 56 38 65 41 73 C45 83 57 87 69 83 C81 79 87 67 84 56 C82 47 74 40 65 37"></path>
+            <path class="galaxy-path galc-path main p3" d="M50 50 C42 46 32 45 24 50 C15 56 14 68 24 76 C35 85 53 84 66 75 C77 67 80 57 75 48"></path>
+            <path class="galaxy-path galc-path main p4" d="M50 50 C56 42 58 32 53 24 C47 15 35 13 24 20 C13 28 11 42 19 54 C25 63 35 67 44 65"></path>
+            <path class="galaxy-path galc-path sub p5" d="M50 50 C59 46 68 48 74 54 C79 59 78 67 71 72 C63 78 51 77 43 70 C36 64 35 55 40 49"></path>
+            <path class="galaxy-path galc-path sub p6" d="M50 50 C44 54 41 61 44 67 C48 74 57 77 66 74 C74 71 78 63 75 56 C72 50 66 46 59 45"></path>
+            <path class="galaxy-path galc-path fine p2" d="M50 50 C61 45 72 49 78 57 C83 64 81 74 73 79 C64 85 49 84 40 76"></path>
+            <path class="galaxy-path galc-path fine p3" d="M50 50 C42 42 30 39 21 45 C13 51 12 62 19 71 C27 80 41 83 53 79"></path>
+            <path class="galaxy-path galc-path fine p4" d="M50 50 C55 40 54 29 46 21 C38 13 26 13 18 21 C12 28 11 38 16 47"></path>
+          </g>
+          <g class="galaxy-stars galc-stars">
+            <circle class="s1" cx="77" cy="52" r="1.35"></circle>
+            <circle class="s2" cx="68" cy="76" r="1.2"></circle>
+            <circle class="s3" cx="32" cy="74" r="1.15"></circle>
+            <circle class="s4" cx="23" cy="46" r="1.1"></circle>
+            <circle class="s5" cx="35" cy="24" r="1.15"></circle>
+            <circle class="s6" cx="60" cy="21" r="1.15"></circle>
+            <circle class="s7" cx="83" cy="62" r="1"></circle>
+            <circle class="s8" cx="49" cy="84" r="1"></circle>
+          </g>
+          <g class="galaxy-dust galc-dust">
+            <circle class="d1" cx="58" cy="46" r="0.9"></circle>
+            <circle class="d2" cx="63" cy="49" r="0.75"></circle>
+            <circle class="d3" cx="67" cy="55" r="0.8"></circle>
+            <circle class="d4" cx="61" cy="62" r="0.7"></circle>
+            <circle class="d5" cx="47" cy="65" r="0.7"></circle>
+            <circle class="d6" cx="40" cy="57" r="0.8"></circle>
+            <circle class="d7" cx="42" cy="42" r="0.75"></circle>
+            <circle class="d8" cx="51" cy="36" r="0.7"></circle>
+            <circle class="d9" cx="72" cy="63" r="0.75"></circle>
+            <circle class="d10" cx="30" cy="63" r="0.72"></circle>
+          </g>
+        </svg>
+      </div>
+      <div class="galc-core"></div>
+    </div>
+  `,
 };
 
 class ConceptGalaxy extends HTMLElement {
@@ -429,8 +570,8 @@ class ConceptGalaxy extends HTMLElement {
   }
 
   render() {
-    const version = this.getAttribute('version') || 'v3';
-    this.shadowRoot.innerHTML = `<style>${galaxyStyles}</style>${galaxyMarkup[version] || galaxyMarkup.v3}`;
+    const version = this.getAttribute('version') || 'v4';
+    this.shadowRoot.innerHTML = `<style>${galaxyStyles}</style>${galaxyMarkup[version] || galaxyMarkup.v4}`;
   }
 }
 

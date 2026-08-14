@@ -7,6 +7,7 @@ const volcanoStyles = `
     height: 100%;
   }
 
+  /* --- v1: Single-color phosphor volcano --- */
   .volcano {
     width: 104px;
     height: 104px;
@@ -14,7 +15,6 @@ const volcanoStyles = `
     overflow: hidden;
   }
 
-  /* The cone, with a notched crater rim. */
   .volcano-cone {
     position: absolute;
     bottom: 10px;
@@ -37,7 +37,6 @@ const volcanoStyles = `
     background: rgba(0, 204, 0, 0.4);
   }
 
-  /* Crater glow that surges just before each eruption. */
   .volcano-glow {
     position: absolute;
     bottom: 58px;
@@ -51,7 +50,6 @@ const volcanoStyles = `
     animation: volcano-glow 4.8s ease-in-out infinite;
   }
 
-  /* Lava bombs: launch up and out on an arc, timed to the surge. */
   .volcano-bomb {
     position: absolute;
     bottom: 60px;
@@ -71,7 +69,6 @@ const volcanoStyles = `
   .volcano-bomb.v3 { --arc-x: -9px;  --arc-peak: -46px; animation-delay: 0.22s; width: 3px; height: 3px; }
   .volcano-bomb.v4 { --arc-x: 13px;  --arc-peak: -30px; animation-delay: 0.3s;  width: 3px; height: 3px; }
 
-  /* Lava tongue creeping down the slope after the blast. */
   .volcano-lava {
     position: absolute;
     bottom: 26px;
@@ -87,7 +84,6 @@ const volcanoStyles = `
     animation: volcano-lava 4.8s ease-out infinite;
   }
 
-  /* Ash puff drifting up from the crater between eruptions. */
   .volcano-ash {
     position: absolute;
     bottom: 64px;
@@ -110,8 +106,6 @@ const volcanoStyles = `
     background: linear-gradient(90deg, transparent, rgba(0, 204, 0, 0.45), transparent);
   }
 
-  /* One shared 4.8s cycle: 0-12% building glow, 12-40% eruption,
-     35-75% lava run, 55-95% ash drift. */
   @keyframes volcano-glow {
     0%, 4% { opacity: 0.25; transform: scale(0.8); }
     10% { opacity: 1; transform: scale(1.25); }
@@ -141,28 +135,166 @@ const volcanoStyles = `
     60% { opacity: 0.85; }
     92%, 100% { opacity: 0; transform: translateY(-34px) scale(1.7); }
   }
+
+  /* --- v2: Igneous volcanology & basalt eruption physics ---
+     Dark obsidian/basalt stratocone mountain, incandescent golden/orange magma glow,
+     blazing molten lava bombs, and billowing volcanic ash plume. */
+  .voc {
+    width: 104px;
+    height: 104px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .voc-cone {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 76px;
+    height: 52px;
+    margin-left: -38px;
+    clip-path: polygon(50% 0%, 62% 4%, 100% 100%, 0% 100%, 38% 4%);
+    background: linear-gradient(180deg, #44403c 0%, #292524 55%, #1c1917 100%);
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.7);
+  }
+
+  .voc-cone::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: #57534e;
+  }
+
+  /* Incandescent magma caldera glow */
+  .voc-glow {
+    position: absolute;
+    bottom: 58px;
+    left: 50%;
+    width: 26px;
+    height: 10px;
+    margin-left: -13px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, #ffffff 0%, #fef08a 25%, #f59e0b 60%, #ea580c 85%, transparent);
+    filter: blur(1.5px);
+    box-shadow: 0 0 16px #f97316, 0 0 24px #ef4444;
+    animation: volcano-glow 4.8s ease-in-out infinite;
+  }
+
+  /* Molten incandescent pyroclastic bombs */
+  .voc-bomb {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: #fef08a;
+    box-shadow: 0 0 8px #f97316, 0 0 12px #ef4444;
+    opacity: 0;
+    animation: volcano-bomb 4.8s cubic-bezier(0.25, 0.6, 0.6, 1) infinite;
+  }
+
+  .voc-bomb.v1 { --arc-x: -26px; --arc-peak: -34px; }
+  .voc-bomb.v2 { --arc-x: 22px;  --arc-peak: -40px; animation-delay: 0.12s; }
+  .voc-bomb.v3 { --arc-x: -9px;  --arc-peak: -46px; animation-delay: 0.22s; width: 3px; height: 3px; }
+  .voc-bomb.v4 { --arc-x: 13px;  --arc-peak: -30px; animation-delay: 0.3s;  width: 3px; height: 3px; }
+
+  /* Molten lava river */
+  .voc-lava {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    width: 4px;
+    height: 34px;
+    margin-left: -6px;
+    border-radius: 0 0 3px 3px;
+    background: linear-gradient(180deg, #fef08a, #f59e0b 45%, #dc2626);
+    box-shadow: 0 0 8px #ea580c;
+    transform-origin: top center;
+    transform: rotate(14deg);
+    animation: volcano-lava 4.8s ease-out infinite;
+  }
+
+  /* Volcanic ash and tephra plume */
+  .voc-ash {
+    position: absolute;
+    bottom: 64px;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin-left: -8px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168, 162, 158, 0.6), rgba(87, 83, 78, 0.4) 60%, transparent 75%);
+    filter: blur(1.5px);
+    animation: volcano-ash 4.8s ease-out infinite;
+  }
+
+  .voc-ground {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #44403c, transparent);
+  }
 `;
 
+const volcanoMarkup = {
+  v1: `
+    <div class="volcano">
+      <div class="volcano-ash"></div>
+      <div class="volcano-bomb v1"></div>
+      <div class="volcano-bomb v2"></div>
+      <div class="volcano-bomb v3"></div>
+      <div class="volcano-bomb v4"></div>
+      <div class="volcano-lava"></div>
+      <div class="volcano-cone"></div>
+      <div class="volcano-glow"></div>
+      <div class="volcano-ground"></div>
+    </div>
+  `,
+  v2: `
+    <div class="voc">
+      <div class="voc-ash"></div>
+      <div class="voc-bomb v1"></div>
+      <div class="voc-bomb v2"></div>
+      <div class="voc-bomb v3"></div>
+      <div class="voc-bomb v4"></div>
+      <div class="voc-lava"></div>
+      <div class="voc-cone"></div>
+      <div class="voc-glow"></div>
+      <div class="voc-ground"></div>
+    </div>
+  `,
+};
+
 class ConceptVolcano extends HTMLElement {
+  static get observedAttributes() {
+    return ['version'];
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
+
   connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${volcanoStyles}</style>
-      <div class="volcano">
-        <div class="volcano-ash"></div>
-        <div class="volcano-bomb v1"></div>
-        <div class="volcano-bomb v2"></div>
-        <div class="volcano-bomb v3"></div>
-        <div class="volcano-bomb v4"></div>
-        <div class="volcano-lava"></div>
-        <div class="volcano-cone"></div>
-        <div class="volcano-glow"></div>
-        <div class="volcano-ground"></div>
-      </div>
-    `;
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    if (this.isConnected) {
+      this.render();
+    }
+  }
+
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${volcanoStyles}</style>${volcanoMarkup[version] || volcanoMarkup.v2}`;
   }
 }
 

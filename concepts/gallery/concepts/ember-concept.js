@@ -7,6 +7,7 @@ const emberStyles = `
     height: 100%;
   }
 
+  /* --- v1: Single-color phosphor ember --- */
   .ember {
     width: 84px;
     height: 100px;
@@ -25,7 +26,6 @@ const emberStyles = `
     animation: ember-glow 1.6s ease-in-out infinite;
   }
 
-  /* Teardrop flame: sharp corner rotated to point upward. */
   .ember-flame {
     position: absolute;
     bottom: 14px;
@@ -94,26 +94,133 @@ const emberStyles = `
     12% { opacity: 1; }
     100% { opacity: 0; transform: translate(calc(-50% + var(--spark-drift, 6px)), -34px) scale(0.4); }
   }
+
+  /* --- v2: Thermal combustion flame physics ---
+     Charcoal ember base glow, smoky ruby mantle, brilliant flame-orange body,
+     white-hot luminous core, and rising golden sparks. */
+  .emc {
+    width: 84px;
+    height: 100px;
+    position: relative;
+  }
+
+  .emc-base {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    width: 44px;
+    height: 10px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(239, 68, 68, 0.7), rgba(185, 28, 28, 0.4) 50%, transparent 75%);
+    box-shadow: 0 0 12px rgba(220, 38, 38, 0.6);
+    animation: ember-glow 1.6s ease-in-out infinite;
+  }
+
+  .emc-flame {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    border-radius: 50% 4% 50% 50%;
+    transform-origin: center 70%;
+  }
+
+  .emc-flame.outer {
+    width: 42px;
+    height: 42px;
+    margin-left: -21px;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.4), rgba(234, 88, 12, 0.75));
+    filter: blur(1.5px);
+    box-shadow: 0 0 14px rgba(234, 88, 12, 0.5);
+    animation: ember-flicker 0.52s ease-in-out infinite alternate;
+  }
+
+  .emc-flame.mid {
+    width: 28px;
+    height: 28px;
+    margin-left: -14px;
+    bottom: 16px;
+    background: linear-gradient(135deg, #ea580c, #f59e0b 60%, #fef08a);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.8);
+    animation: ember-flicker 0.38s ease-in-out infinite alternate-reverse;
+  }
+
+  .emc-flame.core {
+    width: 15px;
+    height: 15px;
+    margin-left: -7px;
+    bottom: 18px;
+    background: #ffffff;
+    box-shadow: 0 0 14px #ffffff, 0 0 22px #fde047;
+    animation: ember-flicker 0.3s ease-in-out infinite alternate;
+  }
+
+  .emc-spark {
+    position: absolute;
+    bottom: 58px;
+    left: 50%;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #fef08a;
+    box-shadow: 0 0 6px #f59e0b;
+    opacity: 0;
+    animation: ember-spark-rise 2.1s ease-out infinite;
+  }
+
+  .emc-spark.s1 { --spark-drift: -10px; animation-delay: -0.3s; }
+  .emc-spark.s2 { --spark-drift: 7px; animation-delay: -1s; }
+  .emc-spark.s3 { --spark-drift: -3px; animation-delay: -1.6s; }
 `;
 
+const emberMarkup = {
+  v1: `
+    <div class="ember">
+      <div class="ember-base"></div>
+      <div class="ember-flame outer"></div>
+      <div class="ember-flame mid"></div>
+      <div class="ember-flame core"></div>
+      <div class="ember-spark s1"></div>
+      <div class="ember-spark s2"></div>
+      <div class="ember-spark s3"></div>
+    </div>
+  `,
+  v2: `
+    <div class="emc">
+      <div class="emc-base"></div>
+      <div class="emc-flame outer"></div>
+      <div class="emc-flame mid"></div>
+      <div class="emc-flame core"></div>
+      <div class="emc-spark s1"></div>
+      <div class="emc-spark s2"></div>
+      <div class="emc-spark s3"></div>
+    </div>
+  `,
+};
+
 class ConceptEmber extends HTMLElement {
+  static get observedAttributes() {
+    return ['version'];
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
+
   connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${emberStyles}</style>
-      <div class="ember">
-        <div class="ember-base"></div>
-        <div class="ember-flame outer"></div>
-        <div class="ember-flame mid"></div>
-        <div class="ember-flame core"></div>
-        <div class="ember-spark s1"></div>
-        <div class="ember-spark s2"></div>
-        <div class="ember-spark s3"></div>
-      </div>
-    `;
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    if (this.isConnected) {
+      this.render();
+    }
+  }
+
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${emberStyles}</style>${emberMarkup[version] || emberMarkup.v2}`;
   }
 }
 
