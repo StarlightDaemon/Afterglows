@@ -1,4 +1,5 @@
-const rotaryDialStyles = `
+const rotaryDialStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -16,7 +17,6 @@ const rotaryDialStyles = `
     justify-content: center;
   }
 
-  /* Face plate. */
   .rotary-plate {
     position: relative;
     width: 88px;
@@ -28,8 +28,6 @@ const rotaryDialStyles = `
     box-shadow: 0 0 12px rgba(0, 204, 0, 0.25);
   }
 
-  /* Rotating dial disc with finger holes. Winds to a stop, springs
-     back with overshoot, three digits per loop. */
   .rotary-dial {
     position: absolute;
     inset: 6px;
@@ -48,7 +46,6 @@ const rotaryDialStyles = `
     border-radius: 50%;
     background: #010401;
     border: 1px solid rgba(160, 255, 185, 0.65);
-    /* Holes sit on a ring of radius 28px, placed by per-hole rotation. */
     transform: rotate(var(--hole-angle)) translateY(-28px);
   }
 
@@ -63,7 +60,6 @@ const rotaryDialStyles = `
   .rotary-hole.h9 { --hole-angle: 264deg; }
   .rotary-hole.h0 { --hole-angle: 297deg; }
 
-  /* Finger stop: fixed wedge at ~4 o'clock. */
   .rotary-stop {
     position: absolute;
     bottom: 12px;
@@ -77,7 +73,6 @@ const rotaryDialStyles = `
     z-index: 3;
   }
 
-  /* Center cap with the dialed digit flashing on each return. */
   .rotary-cap {
     position: absolute;
     top: 50%;
@@ -106,7 +101,6 @@ const rotaryDialStyles = `
   .rotary-digit.d2 { animation-delay: 2.5s; }
   .rotary-digit.d3 { animation-delay: 5s; }
 
-  /* Cord stub at the bottom. */
   .rotary-cord {
     position: absolute;
     bottom: 2px;
@@ -117,8 +111,6 @@ const rotaryDialStyles = `
     border-bottom: 2px dotted rgba(0, 204, 0, 0.45);
   }
 
-  /* Three dials per 7.5s loop. Each: wind (ease-in-out), hold at the
-     finger stop, spring back fast with a wobble past zero. */
   @keyframes rotary-dial {
     0%, 3% { transform: rotate(0deg); }
     12% { transform: rotate(118deg); }
@@ -135,25 +127,163 @@ const rotaryDialStyles = `
     85%, 100% { transform: rotate(0deg); }
   }
 
-  /* Each digit lights as its dial returns home. */
   @keyframes rotary-digit {
     0%, 20% { opacity: 0; }
     24%, 30% { opacity: 1; text-shadow: 0 0 6px rgba(200, 255, 210, 0.8); }
     33%, 100% { opacity: 0; }
   }
-`;
-
-class ConceptRotaryDial extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    const holes = ['h1','h2','h3','h4','h5','h6','h7','h8','h9','h0']
-      .map((h) => `<div class="rotary-hole ${h}"></div>`)
-      .join('');
-    this.shadowRoot.innerHTML = `
-      <style>${rotaryDialStyles}</style>
+
+  /* v2: Vintage black bakelite rotary dial phone with brass stop hook,
+     ivory numerals, and glowing green center readout */
+  .rotaryc {
+    width: 104px;
+    height: 104px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+  }
+
+  /* Black bakelite casing */
+  .rotaryc-plate {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 42% 34%, #334155 0%, #1e293b 50%, #09090b 100%);
+    border: 2.5px solid #64748b;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.9), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Rotating dial wheel */
+  .rotaryc-dial {
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: rotaryc-dial 7.5s ease-in-out infinite;
+  }
+
+  /* Finger hole apertures */
+  .rotaryc-hole {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 11px;
+    height: 11px;
+    margin: -5.5px 0 0 -5.5px;
+    border-radius: 50%;
+    background: #020617;
+    border: 1.5px solid #ffffff;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 3px rgba(255, 255, 255, 0.6);
+    transform: rotate(var(--hole-angle)) translateY(-28px);
+  }
+
+  .rotaryc-hole.h1 { --hole-angle: 0deg; }
+  .rotaryc-hole.h2 { --hole-angle: 33deg; }
+  .rotaryc-hole.h3 { --hole-angle: 66deg; }
+  .rotaryc-hole.h4 { --hole-angle: 99deg; }
+  .rotaryc-hole.h5 { --hole-angle: 132deg; }
+  .rotaryc-hole.h6 { --hole-angle: 165deg; }
+  .rotaryc-hole.h7 { --hole-angle: 198deg; }
+  .rotaryc-hole.h8 { --hole-angle: 231deg; }
+  .rotaryc-hole.h9 { --hole-angle: 264deg; }
+  .rotaryc-hole.h0 { --hole-angle: 297deg; }
+
+  /* Polished brass finger stop hook */
+  .rotaryc-stop {
+    position: absolute;
+    bottom: 12px;
+    right: 10px;
+    width: 5px;
+    height: 14px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #fef08a, #ca8a04);
+    box-shadow: 0 0 6px #eab308;
+    transform: rotate(-38deg);
+    z-index: 3;
+  }
+
+  /* Center medallion */
+  .rotaryc-cap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 26px;
+    height: 26px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #09090b;
+    border: 2px solid #ca8a04;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: bold;
+    color: #4ade80;
+    z-index: 2;
+  }
+
+  .rotaryc-digit {
+    position: absolute;
+    opacity: 0;
+    animation: rotaryc-digit 7.5s linear infinite;
+  }
+
+  .rotaryc-digit.d2 { animation-delay: 2.5s; }
+  .rotaryc-digit.d3 { animation-delay: 5s; }
+
+  /* Cord stub */
+  .rotaryc-cord {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    width: 30px;
+    height: 8px;
+    margin-left: -15px;
+    border-bottom: 2px dotted #38bdf8;
+  }
+
+  @keyframes rotaryc-dial {
+    0%, 3% { transform: rotate(0deg); }
+    12% { transform: rotate(118deg); }
+    14% { transform: rotate(118deg); }
+    20% { transform: rotate(-7deg); }
+    23%, 33% { transform: rotate(0deg); }
+    43% { transform: rotate(196deg); }
+    45% { transform: rotate(196deg); }
+    53% { transform: rotate(-8deg); }
+    56%, 66% { transform: rotate(0deg); }
+    75% { transform: rotate(83deg); }
+    77% { transform: rotate(83deg); }
+    82% { transform: rotate(-5deg); }
+    85%, 100% { transform: rotate(0deg); }
+  }
+
+  @keyframes rotaryc-digit {
+    0%, 20% { opacity: 0; }
+    24%, 30% { opacity: 1; text-shadow: 0 0 8px #22c55e; }
+    33%, 100% { opacity: 0; }
+  }
+  `,
+};
+
+const rotaryDialMarkup = {
+  v1: (holes) => `
       <div class="rotary">
         <div class="rotary-plate">
           <div class="rotary-dial">${holes}</div>
@@ -166,7 +296,42 @@ class ConceptRotaryDial extends HTMLElement {
           <div class="rotary-cord"></div>
         </div>
       </div>
-    `;
+    `,
+  v2: (holes) => `
+      <div class="rotaryc">
+        <div class="rotaryc-plate">
+          <div class="rotaryc-dial">${holes}</div>
+          <div class="rotaryc-stop"></div>
+          <div class="rotaryc-cap">
+            <span class="rotaryc-digit">3</span>
+            <span class="rotaryc-digit d2">5</span>
+            <span class="rotaryc-digit d3">2</span>
+          </div>
+          <div class="rotaryc-cord"></div>
+        </div>
+      </div>
+    `,
+};
+
+class ConceptRotaryDial extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    const holeCls = version === 'v2' ? 'rotaryc-hole' : 'rotary-hole';
+    const holes = ['h1','h2','h3','h4','h5','h6','h7','h8','h9','h0']
+      .map((h) => `<div class="${holeCls} ${h}"></div>`)
+      .join('');
+    this.shadowRoot.innerHTML = `<style>${rotaryDialStyles[version] || rotaryDialStyles.v2}</style>${(rotaryDialMarkup[version] || rotaryDialMarkup.v2)(holes)}`;
   }
 }
 

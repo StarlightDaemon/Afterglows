@@ -1,4 +1,5 @@
-const tuningForkStyles = `
+const tuningForkStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -7,16 +8,12 @@ const tuningForkStyles = `
     height: 100%;
   }
 
-  /* A 5s strike cycle: the mallet swings in and taps, the prongs
-     shiver with decaying amplitude, and wave arcs peel off while the
-     ring dies away to stillness. */
   .tf {
     width: 104px;
     height: 96px;
     position: relative;
   }
 
-  /* Fork: two prongs, a crown, a stem and a grip. */
   .tf-fork {
     position: absolute;
     left: 34px;
@@ -38,8 +35,6 @@ const tuningForkStyles = `
   .tf-prong.left { left: 4px; animation: tf-shiver-l 5s infinite; }
   .tf-prong.right { right: 4px; animation: tf-shiver-r 5s infinite; }
 
-  /* Decaying vibration: violent right after the 12% strike, calm by
-     70%. Alternating offsets at 2% steps read as a blur of motion. */
   @keyframes tf-shiver-l {
     0%, 11% { transform: translateX(0); filter: blur(0); }
     12% { transform: translateX(-3px); filter: blur(1px); }
@@ -72,7 +67,6 @@ const tuningForkStyles = `
     72%, 100% { transform: translateX(0); }
   }
 
-  /* Crown joining the prongs. */
   .tf-crown {
     position: absolute;
     top: 40px;
@@ -107,7 +101,6 @@ const tuningForkStyles = `
     border: 1px solid rgba(0, 204, 0, 0.6);
   }
 
-  /* Mallet: swings in from the right, taps the prong at 12%. */
   .tf-mallet {
     position: absolute;
     right: 2px;
@@ -140,7 +133,6 @@ const tuningForkStyles = `
     40%, 100% { transform: rotate(-38deg); opacity: 0; }
   }
 
-  /* Strike spark. */
   .tf-spark {
     position: absolute;
     left: 62px;
@@ -160,7 +152,6 @@ const tuningForkStyles = `
     100% { opacity: 0; }
   }
 
-  /* Sound arcs radiating from the prong tips, decaying with the ring. */
   .tf-wave {
     position: absolute;
     left: 52px;
@@ -201,16 +192,225 @@ const tuningForkStyles = `
     12%, 70% { opacity: 1; }
     72%, 100% { opacity: 0.35; }
   }
-`;
-
-class ConceptTuningFork extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${tuningForkStyles}</style>
+
+  /* v2: Polished stainless acoustic tuning fork with walnut mallet,
+     expanding electric cyan acoustic wavefronts, and 440 Hz pitch ticker */
+  .tfc {
+    width: 104px;
+    height: 96px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .tfc-fork {
+    position: absolute;
+    left: 34px;
+    top: 8px;
+    width: 36px;
+    height: 80px;
+  }
+
+  /* Polished steel vibrating prongs */
+  .tfc-prong {
+    position: absolute;
+    top: 0;
+    width: 5px;
+    height: 42px;
+    border-radius: 3px 3px 0 0;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 50%, #64748b 100%);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+  }
+
+  .tfc-prong.left { left: 4px; animation: tfc-shiver-l 5s infinite; }
+  .tfc-prong.right { right: 4px; animation: tfc-shiver-r 5s infinite; }
+
+  @keyframes tfc-shiver-l {
+    0%, 11% { transform: translateX(0); filter: blur(0); }
+    12% { transform: translateX(-3px); filter: blur(1px); }
+    14% { transform: translateX(2.5px); }
+    16% { transform: translateX(-2.5px); }
+    18% { transform: translateX(2px); }
+    20% { transform: translateX(-2px); }
+    24% { transform: translateX(1.6px); }
+    28% { transform: translateX(-1.4px); filter: blur(0.6px); }
+    34% { transform: translateX(1px); }
+    42% { transform: translateX(-0.7px); filter: blur(0.3px); }
+    52% { transform: translateX(0.4px); }
+    64% { transform: translateX(-0.2px); filter: blur(0); }
+    72%, 100% { transform: translateX(0); }
+  }
+
+  @keyframes tfc-shiver-r {
+    0%, 11% { transform: translateX(0); filter: blur(0); }
+    12% { transform: translateX(3px); filter: blur(1px); }
+    14% { transform: translateX(-2.5px); }
+    16% { transform: translateX(2.5px); }
+    18% { transform: translateX(-2px); }
+    20% { transform: translateX(2px); }
+    24% { transform: translateX(-1.6px); }
+    28% { transform: translateX(1.4px); filter: blur(0.6px); }
+    34% { transform: translateX(-1px); }
+    42% { transform: translateX(0.7px); filter: blur(0.3px); }
+    52% { transform: translateX(-0.4px); }
+    64% { transform: translateX(0.2px); filter: blur(0); }
+    72%, 100% { transform: translateX(0); }
+  }
+
+  /* Steel fork crown arch */
+  .tfc-crown {
+    position: absolute;
+    top: 40px;
+    left: 4px;
+    right: 4px;
+    height: 10px;
+    border: 5px solid #94a3b8;
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    box-sizing: border-box;
+  }
+
+  /* Stem */
+  .tfc-stem {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    width: 4px;
+    height: 18px;
+    margin-left: -2px;
+    background: #94a3b8;
+  }
+
+  /* Knurled steel grip handle */
+  .tfc-grip {
+    position: absolute;
+    top: 66px;
+    left: 50%;
+    width: 8px;
+    height: 14px;
+    margin-left: -4px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #64748b 0%, #334155 100%);
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Walnut wood mallet with rubber head */
+  .tfc-mallet {
+    position: absolute;
+    right: 2px;
+    top: 30px;
+    width: 26px;
+    height: 4px;
+    border-radius: 2px;
+    background: #b45309;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    transform-origin: 100% 50%;
+    animation: tfc-mallet 5s infinite;
+  }
+
+  .tfc-mallet::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: -3px;
+    width: 9px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 32%, #fde047, #ca8a04 90%);
+    box-shadow: 0 0 4px #eab308;
+  }
+
+  @keyframes tfc-mallet {
+    0% { transform: rotate(-38deg); opacity: 0; }
+    6% { transform: rotate(-12deg); opacity: 1; }
+    12% { transform: rotate(4deg); }
+    18% { transform: rotate(-20deg); }
+    30% { transform: rotate(-38deg); opacity: 1; }
+    40%, 100% { transform: rotate(-38deg); opacity: 0; }
+  }
+
+  /* Gold strike impact spark */
+  .tfc-spark {
+    position: absolute;
+    left: 62px;
+    top: 26px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #fde047;
+    opacity: 0;
+    animation: tfc-spark 5s infinite;
+  }
+
+  @keyframes tfc-spark {
+    0%, 11% { transform: scale(0.3); opacity: 0; }
+    13% { transform: scale(1.4); opacity: 1; }
+    18% { transform: scale(0.4); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* Expanding electric cyan acoustic resonance waves */
+  .tfc-wave {
+    position: absolute;
+    left: 52px;
+    top: 18px;
+    border: 1.5px solid #38bdf8;
+    box-shadow: 0 0 6px #00f0ff;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    margin: -6px;
+    opacity: 0;
+    animation: tfc-wave 5s ease-out infinite;
+  }
+
+  .tfc-wave.v2 { animation-delay: 0.5s; }
+  .tfc-wave.v3 { animation-delay: 1s; }
+  .tfc-wave.v4 { animation-delay: 1.6s; }
+
+  @keyframes tfc-wave {
+    0%, 12% { transform: scale(0.4); opacity: 0; }
+    16% { opacity: 0.95; }
+    46% { transform: scale(3.4); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* Frequency label */
+  .tfc-hz {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #38bdf8;
+    text-shadow: 0 0 5px #00f0ff;
+    animation: tfc-hz 5s steps(1) infinite;
+  }
+
+  @keyframes tfc-hz {
+    0%, 11% { opacity: 0.35; }
+    12%, 70% { opacity: 1; }
+    72%, 100% { opacity: 0.35; }
+  }
+  `,
+};
+
+const tuningForkMarkup = {
+  v1: `
       <div class="tf">
         <div class="tf-wave"></div>
         <div class="tf-wave v2"></div>
@@ -227,7 +427,42 @@ class ConceptTuningFork extends HTMLElement {
         <div class="tf-spark"></div>
         <div class="tf-hz">A = 440 Hz</div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="tfc">
+        <div class="tfc-wave"></div>
+        <div class="tfc-wave v2"></div>
+        <div class="tfc-wave v3"></div>
+        <div class="tfc-wave v4"></div>
+        <div class="tfc-fork">
+          <div class="tfc-prong left"></div>
+          <div class="tfc-prong right"></div>
+          <div class="tfc-crown"></div>
+          <div class="tfc-stem"></div>
+          <div class="tfc-grip"></div>
+        </div>
+        <div class="tfc-mallet"></div>
+        <div class="tfc-spark"></div>
+        <div class="tfc-hz">A = 440 Hz</div>
+      </div>
+    `,
+};
+
+class ConceptTuningFork extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${tuningForkStyles[version] || tuningForkStyles.v2}</style>${tuningForkMarkup[version] || tuningForkMarkup.v2}`;
   }
 }
 

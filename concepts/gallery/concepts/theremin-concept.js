@@ -1,4 +1,5 @@
-const thereminStyles = `
+const thereminStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -7,16 +8,12 @@ const thereminStyles = `
     height: 100%;
   }
 
-  /* A vintage theremin played through non-contact electromagnetic proximity:
-     a hovering hand draws near the vertical pitch rod, compressing concentric
-     capacitive field rings and driving the cabinet's oscilloscope waveform trace. */
   .thm {
     width: 116px;
     height: 98px;
     position: relative;
   }
 
-  /* Wooden instrument cabinet */
   .thm-cabinet {
     position: absolute;
     left: 28px;
@@ -30,7 +27,6 @@ const thereminStyles = `
     z-index: 3;
   }
 
-  /* Oscilloscope screen on cabinet face */
   .thm-scope {
     position: absolute;
     left: 8px;
@@ -43,7 +39,6 @@ const thereminStyles = `
     overflow: hidden;
   }
 
-  /* Oscilloscope live sine waveform trace */
   .thm-trace {
     position: absolute;
     left: 0;
@@ -66,7 +61,6 @@ const thereminStyles = `
     }
   }
 
-  /* Right vertical pitch antenna rod */
   .thm-rod {
     position: absolute;
     right: 32px;
@@ -79,7 +73,6 @@ const thereminStyles = `
     z-index: 4;
   }
 
-  /* Left volume loop antenna */
   .thm-loop {
     position: absolute;
     left: 12px;
@@ -91,7 +84,6 @@ const thereminStyles = `
     border-radius: 0 0 10px 10px;
   }
 
-  /* Concentric capacitive electromagnetic field rings */
   .thm-field {
     position: absolute;
     right: 23px;
@@ -125,7 +117,6 @@ const thereminStyles = `
     50% { transform: scale(0.75); opacity: 0.9; border-color: rgba(190, 255, 205, 0.95); }
   }
 
-  /* Hovering hand floating closer to pitch rod */
   .thm-hand {
     position: absolute;
     right: 6px;
@@ -144,16 +135,164 @@ const thereminStyles = `
     0%, 100% { transform: translate(14px, -6px) rotate(8deg); }
     50% { transform: translate(-2px, 4px) rotate(-10deg); }
   }
-`;
-
-class ConceptTheremin extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${thereminStyles}</style>
+
+  /* v2: Vintage mahogany theremin with nickel antennas, green CRT oscilloscope waveform,
+     capacitive electric cyan field rings, and hovering player's hand */
+  .thmc {
+    width: 116px;
+    height: 98px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Burled mahogany instrument cabinet */
+  .thmc-cabinet {
+    position: absolute;
+    left: 28px;
+    bottom: 10px;
+    width: 60px;
+    height: 38px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, #b45309 0%, #78350f 50%, #451a03 100%);
+    border: 1.5px solid #d97706;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9), inset 0 1px 2px #fde047;
+    z-index: 3;
+  }
+
+  /* Green CRT oscilloscope display */
+  .thmc-scope {
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    width: 44px;
+    height: 24px;
+    border-radius: 2px;
+    background: #022c22;
+    border: 1px solid #22c55e;
+    box-shadow: inset 0 0 8px rgba(34, 197, 94, 0.4);
+    overflow: hidden;
+  }
+
+  /* Live green sine waveform trace */
+  .thmc-trace {
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 88px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #86efac 0 4px, transparent 4px 8px);
+    box-shadow: 0 0 6px #22c55e;
+    animation: thmc-waveform 1.8s ease-in-out infinite;
+  }
+
+  @keyframes thmc-waveform {
+    0%, 100% {
+      transform: scaleY(1) translateX(0);
+      filter: brightness(1);
+    }
+    50% {
+      transform: scaleY(3.5) translateX(-20px);
+      filter: brightness(1.6);
+    }
+  }
+
+  /* Nickel pitch antenna rod */
+  .thmc-rod {
+    position: absolute;
+    right: 32px;
+    top: 14px;
+    width: 3px;
+    height: 38px;
+    border-radius: 2px 2px 0 0;
+    background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 50%, #64748b 100%);
+    box-shadow: 0 0 8px #00f0ff;
+    z-index: 4;
+  }
+
+  /* Nickel volume loop antenna */
+  .thmc-loop {
+    position: absolute;
+    left: 12px;
+    bottom: 30px;
+    width: 18px;
+    height: 12px;
+    border: 2px solid #cbd5e1;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 6px rgba(203, 213, 225, 0.6);
+  }
+
+  /* Capacitive electromagnetic flux field rings */
+  .thmc-field {
+    position: absolute;
+    right: 23px;
+    top: 10px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px dashed #38bdf8;
+    pointer-events: none;
+    animation: thmc-field-flux 3.6s ease-in-out infinite;
+  }
+
+  .thmc-field.f2 {
+    right: 14px;
+    top: 1px;
+    width: 40px;
+    height: 40px;
+    animation-delay: -0.4s;
+    border-color: #a855f7;
+  }
+
+  .thmc-field.f3 {
+    right: 5px;
+    top: -8px;
+    width: 58px;
+    height: 58px;
+    animation-delay: -0.8s;
+    border-color: #ec4899;
+  }
+
+  @keyframes thmc-field-flux {
+    0%, 100% { transform: scale(1); opacity: 0.35; }
+    50% { transform: scale(0.75); opacity: 0.95; box-shadow: 0 0 8px #00f0ff; }
+  }
+
+  /* Hovering hand floating closer to pitch rod */
+  .thmc-hand {
+    position: absolute;
+    right: 6px;
+    top: 18px;
+    width: 18px;
+    height: 14px;
+    border-radius: 6px 12px 12px 6px;
+    background: linear-gradient(135deg, #fed7aa 0%, #f97316 60%, #c2410c 100%);
+    border: 1px solid #ffffff;
+    box-shadow: 0 0 8px rgba(249, 115, 22, 0.6);
+    z-index: 5;
+    animation: thmc-hand-drift 3.6s ease-in-out infinite;
+  }
+
+  @keyframes thmc-hand-drift {
+    0%, 100% { transform: translate(14px, -6px) rotate(8deg); }
+    50% { transform: translate(-2px, 4px) rotate(-10deg); }
+  }
+  `,
+};
+
+const thereminMarkup = {
+  v1: `
       <div class="thm">
         <div class="thm-loop"></div>
         <div class="thm-cabinet">
@@ -167,7 +306,39 @@ class ConceptTheremin extends HTMLElement {
         <div class="thm-field f3"></div>
         <div class="thm-hand"></div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="thmc">
+        <div class="thmc-loop"></div>
+        <div class="thmc-cabinet">
+          <div class="thmc-scope">
+            <div class="thmc-trace"></div>
+          </div>
+        </div>
+        <div class="thmc-rod"></div>
+        <div class="thmc-field f1"></div>
+        <div class="thmc-field f2"></div>
+        <div class="thmc-field f3"></div>
+        <div class="thmc-hand"></div>
+      </div>
+    `,
+};
+
+class ConceptTheremin extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${thereminStyles[version] || thereminStyles.v2}</style>${thereminMarkup[version] || thereminMarkup.v2}`;
   }
 }
 
