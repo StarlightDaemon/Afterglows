@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
+    <title>Physics & Movement Concepts | Afterglows</title>
+    <meta name="description" content="An interactive gallery of standalone physics simulations and movement concepts as reusable web components, spanning classical kinematics, orbital gravity, wave mechanics, fluid dynamics, and electromagnetic fields.">
+    <link rel="canonical" href="https://afterglows.starlightdaemon.dev/physics/">
+    <meta property="og:title" content="Physics & Movement Concepts | Afterglows">
+    <meta property="og:description" content="Standalone gallery of animated physics, kinematic mechanics, wave interference, orbital trajectories, and fluid dynamics as zero-dependency web components.">
+    <meta property="og:url" content="https://afterglows.starlightdaemon.dev/physics/">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="/assets/css/afterglows-settings.css">
+    <link rel="stylesheet" href="/assets/css/afterglows-header.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
+
+    <!-- Unified theme + font controller -->
+    <script src="/assets/js/afterglows-settings.js"></script>
+    <!-- Unified header + back navigation -->
+    <script src="/assets/js/afterglows-header.js"></script>
+
+    <style>
+        :root {
+            --accent: var(--ag-color, #00cc00);
+            --bg: var(--ag-bg, #0a0a0c);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px 80px;
+            background: var(--bg);
+            color: #e0e0e0;
+            font-family: var(--ag-font, 'IBM Plex Mono', monospace);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        main {
+            width: 100%;
+            max-width: 1360px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-size: 1.6rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.3);
+        }
+
+        .subtitle {
+            margin: 0;
+            color: #888;
+            font-size: 0.88rem;
+            letter-spacing: 0.8px;
+        }
+
+        /* Toolbar */
+        .gallery-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px 16px;
+            width: 100%;
+            margin: 0 0 36px;
+            padding: 16px 20px;
+            background: rgba(18, 18, 22, 0.7);
+            border: 1px solid #222;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+        }
+
+        .concept-search {
+            min-width: 240px;
+            padding: 8px 14px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background: #000;
+            color: #d8d8d8;
+            font-family: inherit;
+            font-size: 0.82rem;
+            caret-color: var(--accent);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .concept-search::placeholder {
+            color: #666;
+        }
+
+        .concept-search:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 8px rgba(0, 204, 0, 0.35);
+        }
+
+        .cat-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cat-chip,
+        .filter-reset {
+            padding: 6px 12px;
+            border: 1px solid rgba(130, 130, 130, 0.35);
+            border-radius: 999px;
+            background: transparent;
+            color: #9a9a9a;
+            font-family: inherit;
+            font-size: 0.7rem;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: border-color 120ms ease, color 120ms ease, box-shadow 120ms ease, background 120ms ease;
+        }
+
+        .cat-chip:hover,
+        .filter-reset:hover {
+            border-color: rgba(200, 200, 200, 0.6);
+            color: #fff;
+        }
+
+        .cat-chip[aria-pressed="true"] {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(0, 204, 0, 0.08);
+            box-shadow: 0 0 8px rgba(0, 204, 0, 0.25);
+        }
+
+        .filter-reset {
+            border-style: dashed;
+            border-color: rgba(130, 130, 130, 0.3);
+            color: #7a7a7a;
+        }
+
+        .filter-count {
+            color: #7a7a7a;
+            font-size: 0.75rem;
+            letter-spacing: 0.6px;
+            font-weight: 500;
+        }
+
+        /* Sections & Grid */
+        .gallery-section {
+            width: 100%;
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            margin: 0 0 20px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 204, 0, 0.25);
+            color: var(--accent);
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: "►";
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 28px 24px;
+            width: 100%;
+        }
+
+        .concept-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 15, 18, 0.4);
+            padding: 12px;
+            border: 1px solid #1a1a20;
+            border-radius: 6px;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+
+        .concept-card:hover {
+            border-color: #333;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .terminal-box {
+            width: 140px;
+            height: 140px;
+            border: 1px solid #282830;
+            border-radius: 4px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .concept-label {
+            color: #bbb;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .concept-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .meta-badge {
+            padding: 2px 8px;
+            border: 1px solid #2d2d2d;
+            border-radius: 999px;
+            font-size: 0.6rem;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: #a0a0a0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .meta-status-new {
+            border-color: rgba(0, 204, 0, 0.4);
+            color: #8de08d;
+        }
+
+        .concept-actions {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .concept-action {
+            padding: 3px 8px;
+            border: 1px solid rgba(130, 130, 130, 0.3);
+            border-radius: 4px;
+            background: transparent;
+            color: #7a7a7a;
+            font-family: inherit;
+            font-size: 0.62rem;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: border-color 120ms ease, color 120ms ease;
+        }
+
+        .concept-action:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .concept-copy.is-copied {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 6px rgba(0, 204, 0, 0.3);
+        }
+
+        .gallery-empty {
+            width: 100%;
+            margin: 40px 0;
+            color: #8f8f8f;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .gallery-note {
+            max-width: 900px;
+            margin: 40px 0 0;
+            color: #777;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            text-align: center;
+            border-top: 1px dashed #222;
+            padding-top: 24px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 24px 12px 60px;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 16px;
+            }
+        }
+    </style>
+    <script type="module" src="./gallery/index.js"></script>
+</head>
+
+<body>
+    <main>
+        <div class="gallery-header">
+            <h1>Physics & Movement Archive</h1>
+            <p class="subtitle">Autonomous simulations, kinematic linkages, wave fields, and orbital dynamics as self-contained web components.</p>
+        </div>
+
+        <div class="gallery-toolbar">
+            <input type="text" id="concept-search" class="concept-search" placeholder="Search physics concepts..." aria-label="Search physics concepts">
+            
+            <div class="cat-chips">
+                <button type="button" class="cat-chip" data-category="mechanics" aria-pressed="false">Mechanics</button>
+                <button type="button" class="cat-chip" data-category="orbital" aria-pressed="false">Orbital & Gravity</button>
+                <button type="button" class="cat-chip" data-category="waves" aria-pressed="false">Waves & Optics</button>
+                <button type="button" class="cat-chip" data-category="fluids" aria-pressed="false">Fluid Dynamics</button>
+                <button type="button" class="cat-chip" data-category="fields" aria-pressed="false">Fields & Linkages</button>
+            </div>
+
+            <button type="button" id="filter-reset" class="filter-reset">Reset</button>
+            <span id="filter-count" class="filter-count">Loading concepts...</span>
+        </div>
+
+        <div id="gallery-root"></div>
+
+        <div class="gallery-note">
+            <p>Every concept is an autonomous custom element rendering inside its own Shadow DOM without external runtime dependencies. Click <strong>Copy</strong> to generate the standalone web component embed tag or <strong>Source</strong> to view the implementation.</p>
+        </div>
+    </main>
+</body>
+
+</html>
