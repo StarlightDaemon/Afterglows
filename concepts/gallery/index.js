@@ -8,6 +8,10 @@
 //   3. Renders sections and cards into #gallery-root using the exact class /
 //      attribute contract the page CSS depends on.
 //   4. Wires the version cyclers for tiles that carry version history.
+//   5. Lazily pauses/resumes concept animations based on viewport visibility
+//      via IntersectionObserver (Wave 1), so only viewport-adjacent concepts
+//      animate at any given time regardless of total gallery size.
+//   6. Defaults to a "Newest Additions" landing view on first load (Wave 2).
 //
 // Dependency-free, no build step, browser ESM only.
 
@@ -164,9 +168,11 @@ function renderGallery(concepts) {
   }
 
   if (activeDateField) {
-    const title = activeDateField === "added"
-      ? "All concepts — newest first"
-      : "All concepts — recently updated";
+    const title = sortMode === "newest"
+      ? "Newest additions"
+      : activeDateField === "added"
+        ? "All concepts — newest first"
+        : "All concepts — recently updated";
     mount.innerHTML =
       `<section class="gallery-section">` +
         `<h2 class="section-title">${esc(title)}</h2>` +
@@ -191,6 +197,82 @@ function renderGallery(concepts) {
   });
 
   mount.innerHTML = sections.join("");
+}
+
+// --- Wave 1: Viewport-based lazy animation pause/resume -------------------
+//
+// Concept custom elements remain mounted in the DOM at all times (preserving
+// all existing event wiring, version state, and reduced-motion adoptedSheets).
+// When a .terminal-box scrolls well outside the viewport we pause its
+// animations via the Web Animations API; when it re-enters we resume them.
+// The rootMargin of 300px gives a generous buffer so animations are running
+// before the card is visible, avoiding a "starts cold" stutter.
+//
+// Shadow roots must be walked explicitly: getAnimations({subtree:true}) from
+// light DOM does not cross shadow boundaries.
+
+let lazyObserver = null;
+
+// Walk all shadow-root-bearing descendants of a terminal-box and collect
+// every active animation. The terminal-box itself may contain concept
+// elements directly (plain card) or wrapped in .concept-frame divs
+// (versioned card).
+function shadowAnimationsOf(terminalBox) {
+  const anims = [];
+  terminalBox.querySelectorAll("*").forEach((el) => {
+    if (!el.shadowRoot) return;
+    [el, ...el.shadowRoot.querySelectorAll("*")].forEach((node) => {
+      node.getAnimations().forEach((a) => anims.push(a));
+    });
+  });
+  return anims;
+}
+
+function pauseBox(terminalBox) {
+  shadowAnimationsOf(terminalBox).forEach((a) => a.pause());
+}
+
+function resumeBox(terminalBox) {
+  shadowAnimationsOf(terminalBox).forEach((a) => {
+    // Only play animations that are paused — don't disturb finished ones.
+    if (a.playState === "paused") a.play();
+  });
+}
+
+// (Re)install the IntersectionObserver after every renderGallery call.
+// All boxes start paused; the observer immediately fires for any that are
+// already in the (expanded) viewport and resumes them.
+function installLazyObserver() {
+  if (lazyObserver) {
+    lazyObserver.disconnect();
+    lazyObserver = null;
+  }
+
+  const boxes = document.querySelectorAll("#gallery-root .terminal-box");
+  if (!boxes.length) return;
+
+  lazyObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          resumeBox(entry.target);
+        } else {
+          pauseBox(entry.target);
+        }
+      });
+    },
+    { rootMargin: "300px 0px", threshold: 0 }
+  );
+
+  boxes.forEach((box) => {
+    // Pause upfront; the observer will immediately resume visible ones.
+    // We pause after a short rAF to let the custom elements' connectedCallback
+    // finish starting their animations before we pause them.
+    requestAnimationFrame(() => {
+      pauseBox(box);
+      lazyObserver.observe(box);
+    });
+  });
 }
 
 // --- Version cyclers ------------------------------------------------------
@@ -221,6 +303,9 @@ function wireVersioners() {
       [host, ...host.shadowRoot.querySelectorAll('*')].forEach((node) => {
         node.getAnimations().forEach((animation) => {
           animation.currentTime = 0;
+          // Ensure the animation is playing even if the lazy observer had
+          // previously paused this box while it was off-screen.
+          if (animation.playState === 'paused') animation.play();
         });
       });
     };
@@ -288,6 +373,16 @@ function statusOf(concept) {
   return "original";
 }
 
+// --- Wave 2: Newest additions --------------------------------------------
+// The most recently added batch date in the manifest. Concepts with this
+// added date form the "Newest Additions" landing view.
+// All 240 concepts confirmed to have valid ISO-8601 added fields.
+const NEWEST_DATE = "2026-08-06";
+
+function isNewest(concept) {
+  return Boolean(concept.added && concept.added.startsWith(NEWEST_DATE));
+}
+
 const STATUSES = [
   { id: "original", title: "Original" },
   { id: "refined", title: "Refined" },
@@ -345,14 +440,14 @@ function deriveChips(getValues, titleFor) {
 const MODELS = deriveChips(modelsOf, titleCase);
 const VERSIONS = deriveChips(versionsOf, (value) => value);
 
-// Live filter state. Defaults show everything.
+// Live filter state. Defaults show the newest-additions landing view.
 const activeCategories = new Set(CATEGORIES.map((category) => category.id));
 const activeStatuses = new Set(STATUSES.map((status) => status.id));
 const activeOrigins = new Set(ORIGINS.map((origin) => origin.id));
 const activeModels = new Set(MODELS.map((model) => model.id));
 const activeVersions = new Set(VERSIONS.map((version) => version.id));
 let searchTerm = "";
-let sortMode = "curated"; // "curated" | "added" | "updated"
+let sortMode = "newest"; // "newest" | "curated" | "added" | "updated"
 
 // Cached toolbar element references, populated by initToolbar().
 let searchInput = null;
@@ -374,18 +469,31 @@ function isVisible(concept) {
 }
 
 // Recompute the visible list, apply the active sort, rebuild the gallery,
-// re-wire versioners, and refresh the count readout.
+// re-wire versioners, install the lazy observer, and refresh the count readout.
 function applyFilters() {
   let visible = CONCEPTS.filter(isVisible);
-  activeDateField = sortMode === "curated" ? null : sortMode;
-  if (activeDateField) {
-    // ISO-UTC strings sort lexicographically; newest first.
+
+  if (sortMode === "newest") {
+    // Newest additions: only the latest batch, sorted by added desc.
+    // Concepts without a matching added date are excluded gracefully.
+    visible = visible.filter(isNewest)
+      .sort((a, b) => b.added.localeCompare(a.added));
+    activeDateField = "added";
+  } else if (sortMode === "curated") {
+    activeDateField = null;
+  } else {
+    // "added" or "updated" date sort
+    activeDateField = sortMode;
     visible = visible.slice().sort((a, b) =>
       (b[activeDateField] || "").localeCompare(a[activeDateField] || "")
     );
   }
+
   renderGallery(visible);
   wireVersioners();
+  installLazyObserver();
+  updateBannerVisibility();
+
   if (countReadout) {
     countReadout.textContent = `Showing ${visible.length} of ${CONCEPTS.length}`;
   }
@@ -400,6 +508,41 @@ function makeChip(filter, value, title) {
   chip.setAttribute("aria-pressed", "true");
   chip.textContent = title;
   return chip;
+}
+
+// --- Newest-additions banner (Wave 2) ------------------------------------
+// A dismissable banner shown at the top of the gallery when in "newest" mode.
+// Clicking "Browse all" switches to curated mode (full gallery).
+let newestBanner = null;
+
+const NEWEST_COUNT = CONCEPTS.filter(isNewest).length;
+
+function ensureNewestBanner() {
+  if (newestBanner) return newestBanner;
+  newestBanner = document.createElement("div");
+  newestBanner.className = "newest-banner";
+  newestBanner.setAttribute("role", "status");
+  newestBanner.innerHTML =
+    `<span class="newest-banner-text">` +
+      `<span class="newest-banner-icon">&#10022;</span> ` +
+      `<strong>${NEWEST_COUNT} newest additions</strong> &middot; added ${NEWEST_DATE}` +
+    `</span>` +
+    `<button type="button" class="newest-browse-all" id="newest-browse-all">` +
+      `Browse all concepts &rarr;` +
+    `</button>`;
+
+  newestBanner.querySelector(".newest-browse-all").addEventListener("click", () => {
+    sortMode = "curated";
+    if (sortSelect) sortSelect.value = "curated";
+    applyFilters();
+  });
+
+  return newestBanner;
+}
+
+function updateBannerVisibility() {
+  if (!newestBanner) return;
+  newestBanner.style.display = sortMode === "newest" ? "" : "none";
 }
 
 // Build the toolbar ONCE and insert it before #gallery-root.
@@ -420,12 +563,13 @@ function initToolbar() {
   searchInput.setAttribute("aria-label", "Search concepts by name");
   toolbar.appendChild(searchInput);
 
-  // Sort mode. Curated keeps the category sections; the two date sorts
-  // flatten the gallery into one newest-first grid (see renderGallery).
+  // Sort mode. "newest" is the default landing view; curated keeps the
+  // category sections; the two date sorts flatten the gallery.
   sortSelect = document.createElement("select");
   sortSelect.className = "concept-sort";
   sortSelect.setAttribute("aria-label", "Sort concepts");
   [
+    ["newest", "Sort: Newest additions"],
     ["curated", "Sort: Curated"],
     ["added", "Sort: Newest first"],
     ["updated", "Sort: Recently updated"],
@@ -435,6 +579,7 @@ function initToolbar() {
     option.textContent = title;
     sortSelect.appendChild(option);
   });
+  sortSelect.value = "newest"; // Match initial sortMode
   toolbar.appendChild(sortSelect);
 
   // Category filter: a compact toggle that discloses the chip drawer.
@@ -784,12 +929,20 @@ function wireCopyDelegation() {
 
 // --- Bootstrap ------------------------------------------------------------
 // Kick off module loading immediately (fire-and-forget), then build the
-// toolbar once, render the full gallery, and wire versioners once the DOM is
-// ready. #gallery-root may not exist yet at parse time.
+// toolbar once, render the initial newest-additions view, wire versioners,
+// and install the lazy observer once the DOM is ready.
+// #gallery-root may not exist yet at parse time.
 function init() {
   initToolbar();
+  ensureNewestBanner();
   ensureLiveRegion();
   wireCopyDelegation();
+  // Insert the banner before the toolbar (toolbar is now in the DOM).
+  const mount = document.getElementById("gallery-root");
+  const toolbar = document.querySelector(".gallery-toolbar");
+  if (newestBanner && mount && mount.parentNode) {
+    mount.parentNode.insertBefore(newestBanner, toolbar || mount);
+  }
   applyFilters();
 }
 
