@@ -268,12 +268,14 @@ const comboLockStyles = {
     background: #facc15;
   }
 
-  /* Click text */
+  /* Click text — bottom-centered so it stays inside the card's
+     overflow:hidden bounds (104px wide; the v1 side position clips here). */
   .comboc-click {
     position: absolute;
-    top: 44px;
-    left: 50%;
-    margin-left: 26px;
+    left: 0;
+    right: 0;
+    bottom: 3px;
+    text-align: center;
     font-family: monospace;
     font-size: 9px;
     font-weight: bold;
