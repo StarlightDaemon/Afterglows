@@ -270,6 +270,54 @@ const pacmanStyles = {
   @keyframes pac-eat-2 { 0%, 26% { opacity: 1; } 27%, 100% { opacity: 0; } }
   @keyframes pac-eat-3 { 0%, 51% { opacity: 1; } 52%, 100% { opacity: 0; } }
   @keyframes pac-eat-4 { 0%, 75% { opacity: 1; } 76%, 100% { opacity: 0; } }
+
+  /* Blinky gives chase a fixed distance behind Pac-Man. */
+  .pacc-ghost {
+    position: absolute;
+    top: 50%;
+    margin-top: -13px;
+    width: 26px;
+    height: 26px;
+    background: #ef4444;
+    border-radius: 13px 13px 3px 3px;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.55);
+    animation: ghost-chase 2.4s linear infinite;
+  }
+
+  /* Eyes with pupils fixed on Pac-Man ahead; pupil gradients painted
+     first so they sit on top of the white eyeballs. */
+  .pacc-ghost::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 2px;
+    width: 22px;
+    height: 10px;
+    background:
+      radial-gradient(circle at 8px 5px, #1e3a8a 0 1.8px, transparent 2.3px),
+      radial-gradient(circle at 18px 5px, #1e3a8a 0 1.8px, transparent 2.3px),
+      radial-gradient(circle at 6.5px 5px, #ffffff 0 3.6px, transparent 4.2px),
+      radial-gradient(circle at 16.5px 5px, #ffffff 0 3.6px, transparent 4.2px);
+  }
+
+  /* Scalloped skirt hem. */
+  .pacc-ghost::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 6px;
+    background:
+      radial-gradient(circle at 4.5px 0, #ef4444 0 4px, transparent 4.6px),
+      radial-gradient(circle at 13px 0, #ef4444 0 4px, transparent 4.6px),
+      radial-gradient(circle at 21.5px 0, #ef4444 0 4px, transparent 4.6px);
+  }
+
+  @keyframes ghost-chase {
+    0% { left: -32px; }
+    100% { left: 34px; }
+  }
 `,
 };
 
@@ -309,6 +357,7 @@ const pacmanMarkup = {
         <div class="pacc-dot d3"></div>
         <div class="pacc-dot d4"></div>
       </div>
+      <div class="pacc-ghost"></div>
       <div class="pacc"></div>
     </div>
   `,
