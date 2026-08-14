@@ -82,7 +82,7 @@ const inclineStyles = `
 
   .block-container {
     position: absolute;
-    top: -14px;
+    top: 16px; /* block bottom flush with the track's bottom edge (the ramp surface) */
     left: 80px;
     width: 22px;
     height: 14px;

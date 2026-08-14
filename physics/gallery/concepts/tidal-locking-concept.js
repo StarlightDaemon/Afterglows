@@ -159,7 +159,7 @@ class PhysicsTidalLocking extends HTMLElement {
         </div>
 
         <div class="hud">
-          <span>1:1 SPIN-ORBIT RESONANCE</span>
+          <span>1:1 TIDAL LOCK</span>
           <span>T_rot = T_orb</span>
         </div>
       </div>

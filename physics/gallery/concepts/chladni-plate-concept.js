@@ -69,6 +69,32 @@ const chladniStyles = `
     opacity: 0.6;
   }
 
+  /* Two resonance modes alternate — the sand pattern reorganizes when the
+     drive frequency steps, which is the phenomenon a Chladni plate shows. */
+  .mode-a {
+    animation: mode-a-fade 7s ease-in-out infinite;
+  }
+
+  .mode-b {
+    animation: mode-b-fade 7s ease-in-out infinite;
+  }
+
+  .freq-readout {
+    position: relative;
+  }
+
+  .freq-a {
+    animation: mode-a-fade 7s ease-in-out infinite;
+  }
+
+  .freq-b {
+    position: absolute;
+    top: 0;
+    right: 0;
+    white-space: nowrap;
+    animation: mode-b-fade 7s ease-in-out infinite;
+  }
+
   .hud {
     position: absolute;
     bottom: 4px;
@@ -97,6 +123,18 @@ const chladniStyles = `
       opacity: 1;
     }
   }
+
+  @keyframes mode-a-fade {
+    0%, 38% { opacity: 1; }
+    48%, 88% { opacity: 0; }
+    98%, 100% { opacity: 1; }
+  }
+
+  @keyframes mode-b-fade {
+    0%, 38% { opacity: 0; }
+    48%, 88% { opacity: 1; }
+    98%, 100% { opacity: 0; }
+  }
 `;
 
 class PhysicsChladniPlate extends HTMLElement {
@@ -111,17 +149,25 @@ class PhysicsChladniPlate extends HTMLElement {
       <div class="plate-box">
         <div class="metal-plate">
           <svg class="chladni-svg" viewBox="0 0 90 90">
-            <!-- Nodal figure curves: m=3, n=3 mode lines -->
-            <ellipse class="nodal-curve" cx="45" cy="45" rx="30" ry="30" />
-            <path class="nodal-curve" d="M 0 45 Q 45 45 45 0 M 90 45 Q 45 45 45 0 M 0 45 Q 45 45 45 90 M 90 45 Q 45 45 45 90" />
-            <circle class="nodal-mode-2" cx="45" cy="45" r="18" />
+            <!-- Mode A: (3,3)-style ring + cross lobes -->
+            <g class="mode-a">
+              <ellipse class="nodal-curve" cx="45" cy="45" rx="30" ry="30" />
+              <path class="nodal-curve" d="M 0 45 Q 45 45 45 0 M 90 45 Q 45 45 45 0 M 0 45 Q 45 45 45 90 M 90 45 Q 45 45 45 90" />
+              <circle class="nodal-mode-2" cx="45" cy="45" r="18" />
+            </g>
+            <!-- Mode B: (2,2)-style diagonals + diamond -->
+            <g class="mode-b">
+              <path class="nodal-curve" d="M 4 4 L 86 86 M 86 4 L 4 86" />
+              <path class="nodal-curve" d="M 45 14 L 76 45 L 45 76 L 14 45 Z" />
+              <circle class="nodal-mode-2" cx="45" cy="45" r="26" />
+            </g>
           </svg>
           <div class="center-driver"></div>
         </div>
 
         <div class="hud">
-          <span>CHLADNI NODAL PATTERN</span>
-          <span>f = 2.48 kHz</span>
+          <span>CHLADNI PATTERN</span>
+          <span class="freq-readout"><span class="freq-a">f = 2.48 kHz</span><span class="freq-b">f = 1.62 kHz</span></span>
         </div>
       </div>
     `;

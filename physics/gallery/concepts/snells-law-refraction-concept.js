@@ -67,11 +67,16 @@ const snellStyles = `
     stroke-dasharray: 3 3;
   }
 
-  /* Photon pulse animating along rays */
+  /* Photon pulse animating along rays. Anchored at the box origin (the flex
+     centering would otherwise offset the static position) so the translate
+     keyframes land exactly on the ray coordinates. */
   .photon-pulse {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 6px;
     height: 6px;
+    margin: -3px 0 0 -3px;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 8px #ffffff;

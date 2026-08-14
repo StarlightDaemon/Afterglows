@@ -76,18 +76,6 @@ const blackHoleStyles = `
     z-index: 6;
   }
 
-  .rs-marker {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 16px;
-    height: 1px;
-    background: #ff5500;
-    transform: rotate(45deg);
-    transform-origin: left center;
-    z-index: 7;
-  }
-
   .hud {
     position: absolute;
     bottom: 4px;
@@ -137,7 +125,6 @@ class PhysicsBlackHoleLensing extends HTMLElement {
         <div class="accretion-disk-tilt"></div>
         <div class="photon-sphere"></div>
         <div class="event-horizon"></div>
-        <div class="rs-marker"></div>
 
         <div class="hud">
           <span>EVENT HORIZON</span>

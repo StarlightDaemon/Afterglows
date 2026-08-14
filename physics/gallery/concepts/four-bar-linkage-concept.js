@@ -58,7 +58,11 @@ const fourBarStyles = `
     stroke-dasharray: 2 2;
   }
 
-  /* Crank Link (Continuous 360 rotation around Pivot A: 32, 98) */
+  /* Crank Link (Continuous 360 rotation around Pivot A: 33, 98).
+     Crank a=22, coupler b=56, rocker c=38, ground g=66 — Grashof
+     crank-rocker (a+g < b+c). Rocker and coupler keyframes below are the
+     solved loop closure at 15° crank steps, so all four joints stay
+     kinematically consistent. */
   .crank-arm {
     position: absolute;
     bottom: 32px;
@@ -83,7 +87,36 @@ const fourBarStyles = `
     box-shadow: 0 0 6px #ffaa00;
   }
 
-  /* Rocker Link (Oscillating around Pivot D: 98, 98) */
+  /* Coupler Link — anchored on the crank pin; its rotation keyframes are
+     solved relative to the crank frame so its far end lands on the rocker
+     pin. */
+  .coupler-link {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 56px;
+    height: 2px;
+    margin-top: -1px;
+    background: linear-gradient(90deg, #ffaa00, #00e5ff);
+    box-shadow: 0 0 4px rgba(0, 229, 255, 0.4);
+    transform-origin: left center;
+    animation: swing-coupler 2.8s linear infinite;
+    z-index: 5;
+  }
+
+  .coupler-mid {
+    position: absolute;
+    top: 50%;
+    left: 28px;
+    width: 4px;
+    height: 4px;
+    margin: -2px 0 0 -2px;
+    border-radius: 50%;
+    background: #00e5ff;
+    box-shadow: 0 0 5px #00e5ff;
+  }
+
+  /* Rocker Link (Oscillating around Pivot D: 99, 98) */
   .rocker-arm {
     position: absolute;
     bottom: 32px;
@@ -92,7 +125,7 @@ const fourBarStyles = `
     height: 38px;
     background: #00e5ff;
     transform-origin: bottom center;
-    animation: rock-arm 2.8s ease-in-out infinite;
+    animation: rock-arm 2.8s linear infinite;
     z-index: 6;
   }
 
@@ -127,8 +160,59 @@ const fourBarStyles = `
   }
 
   @keyframes rock-arm {
-    0%, 100% { transform: rotate(-32deg); }
-    50% { transform: rotate(38deg); }
+    0% { transform: rotate(-18.1deg); }
+    4.17% { transform: rotate(-10.1deg); }
+    8.33% { transform: rotate(-3.4deg); }
+    12.5% { transform: rotate(1.3deg); }
+    16.67% { transform: rotate(3.2deg); }
+    20.83% { transform: rotate(1.5deg); }
+    25% { transform: rotate(-4.2deg); }
+    29.17% { transform: rotate(-13deg); }
+    33.33% { transform: rotate(-23.1deg); }
+    37.5% { transform: rotate(-33deg); }
+    41.67% { transform: rotate(-41.7deg); }
+    45.83% { transform: rotate(-49deg); }
+    50% { transform: rotate(-55deg); }
+    54.17% { transform: rotate(-59.8deg); }
+    58.33% { transform: rotate(-63.6deg); }
+    62.5% { transform: rotate(-66.3deg); }
+    66.67% { transform: rotate(-67.7deg); }
+    70.83% { transform: rotate(-67.4deg); }
+    75% { transform: rotate(-64.8deg); }
+    79.17% { transform: rotate(-59.9deg); }
+    83.33% { transform: rotate(-53deg); }
+    87.5% { transform: rotate(-44.7deg); }
+    91.67% { transform: rotate(-35.8deg); }
+    95.83% { transform: rotate(-26.8deg); }
+    100% { transform: rotate(-18.1deg); }
+  }
+
+  @keyframes swing-coupler {
+    0% { transform: rotate(-14.6deg); }
+    4.17% { transform: rotate(-31.8deg); }
+    8.33% { transform: rotate(-49.7deg); }
+    12.5% { transform: rotate(-68.6deg); }
+    16.67% { transform: rotate(-88.8deg); }
+    20.83% { transform: rotate(-110.2deg); }
+    25% { transform: rotate(-132.6deg); }
+    29.17% { transform: rotate(-154.7deg); }
+    33.33% { transform: rotate(-175.1deg); }
+    37.5% { transform: rotate(-192.9deg); }
+    41.67% { transform: rotate(-207.9deg); }
+    45.83% { transform: rotate(-220.6deg); }
+    50% { transform: rotate(-231.5deg); }
+    54.17% { transform: rotate(-241.1deg); }
+    58.33% { transform: rotate(-249.9deg); }
+    62.5% { transform: rotate(-258.4deg); }
+    66.67% { transform: rotate(-267deg); }
+    70.83% { transform: rotate(-276.3deg); }
+    75% { transform: rotate(-286.8deg); }
+    79.17% { transform: rotate(-298.8deg); }
+    83.33% { transform: rotate(-312.3deg); }
+    87.5% { transform: rotate(-326.8deg); }
+    91.67% { transform: rotate(-342.1deg); }
+    95.83% { transform: rotate(-358.1deg); }
+    100% { transform: rotate(-374.6deg); }
   }
 `;
 
@@ -143,8 +227,8 @@ class PhysicsFourBarLinkage extends HTMLElement {
       <style>${fourBarStyles}</style>
       <div class="linkage-box">
         <svg class="linkage-svg" viewBox="0 0 130 130">
-          <!-- Coupler curve trajectory path -->
-          <path class="coupler-curve" d="M 45 45 C 55 25, 80 20, 95 38 C 105 52, 90 70, 70 72 C 50 74, 38 60, 45 45 Z" />
+          <!-- Coupler midpoint locus (solved from the same loop closure) -->
+          <path class="coupler-curve" d="M 60.1 68.9 L 65.5 68.7 L 70.4 69.5 L 74.2 71.2 L 76.6 73.5 L 77.1 76.2 L 75.6 79.1 L 72.4 82.3 L 68.1 86 L 63.4 89.8 L 58.9 93.3 L 54.5 96.1 L 50.4 98.1 L 46.7 99.1 L 43.5 99.1 L 40.8 98.1 L 38.9 96.3 L 37.8 93.5 L 37.8 89.9 L 38.9 85.6 L 41.3 81.1 L 44.9 76.7 L 49.4 73.1 L 54.6 70.4 L 60.1 68.9 Z" />
         </svg>
 
         <div class="ground-bar"></div>
@@ -153,6 +237,9 @@ class PhysicsFourBarLinkage extends HTMLElement {
 
         <div class="crank-arm">
           <div class="crank-pin"></div>
+          <div class="coupler-link">
+            <div class="coupler-mid"></div>
+          </div>
         </div>
 
         <div class="rocker-arm">
@@ -160,7 +247,7 @@ class PhysicsFourBarLinkage extends HTMLElement {
         </div>
 
         <div class="hud">
-          <span>GRASHOF 4-BAR LINKAGE</span>
+          <span>GRASHOF 4-BAR</span>
           <span>CRANK-ROCKER</span>
         </div>
       </div>

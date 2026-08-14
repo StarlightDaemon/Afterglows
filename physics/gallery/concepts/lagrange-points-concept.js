@@ -72,7 +72,9 @@ const lagrangeStyles = `
     z-index: 6;
   }
 
-  /* Lagrange points markers */
+  /* Lagrange points markers. Counter-rotate each marker about its dot at the
+     same rate as the frame so the text labels stay horizontal and legible
+     while the dots ride the rotating frame. */
   .l-point {
     position: absolute;
     font-size: 6px;
@@ -82,6 +84,8 @@ const lagrangeStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
+    transform-origin: 2px 50%;
+    animation: rotate-frame 6s linear infinite reverse;
   }
 
   .l-cross {
@@ -188,7 +192,7 @@ class PhysicsLagrangePoints extends HTMLElement {
 
         <div class="hud">
           <span>RESTRICTED 3-BODY</span>
-          <span>L1-L5 EQUILIBRIUM</span>
+          <span>L1-L5</span>
         </div>
       </div>
     `;

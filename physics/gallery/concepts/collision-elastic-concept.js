@@ -180,17 +180,19 @@ const collisionStyles = `
     letter-spacing: 0.5px;
   }
 
+  /* At 40% the bumper tips just meet at x≈63 (left tip 39+24, right tip
+     83-20) — carts touch at contact instead of interpenetrating. */
   @keyframes move-left-glider {
     0% { transform: translateX(0px); }
-    40% { transform: translateX(38px); }
-    42% { transform: translateX(38px); }
+    40% { transform: translateX(24px); }
+    42% { transform: translateX(24px); }
     85%, 100% { transform: translateX(-4px); }
   }
 
   @keyframes move-right-glider {
     0% { transform: translateX(0px); }
-    40% { transform: translateX(-36px); }
-    42% { transform: translateX(-36px); }
+    40% { transform: translateX(-20px); }
+    42% { transform: translateX(-20px); }
     85%, 100% { transform: translateX(8px); }
   }
 

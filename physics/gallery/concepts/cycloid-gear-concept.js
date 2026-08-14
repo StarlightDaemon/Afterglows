@@ -36,12 +36,15 @@ const cycloidGearStyles = `
     animation: rotate-carrier 6s linear infinite;
   }
 
-  /* 3 Planetary Gears */
+  /* 3 Planetary Gears — pitch radii r_sun=16, r_planet=16, r_ring=48, so
+     sun + 2·planet = ring and everything meshes; planet centers sit on the
+     carrier circle of radius 32 (= r_sun + r_planet), 120° apart. With the
+     ring fixed this gives the HUD's 4:1 sun-to-carrier ratio (1 + R/S). */
   .planet-gear {
     position: absolute;
-    width: 24px;
-    height: 24px;
-    margin: -12px 0 0 -12px;
+    width: 32px;
+    height: 32px;
+    margin: -16px 0 0 -16px;
     border-radius: 50%;
     border: 2px dashed #00ffaa;
     background: rgba(0, 255, 170, 0.1);
@@ -49,15 +52,15 @@ const cycloidGearStyles = `
     animation: rotate-planet 2s linear infinite reverse;
   }
 
-  .planet-1 { top: 22px; left: 48px; }
-  .planet-2 { top: 68px; left: 24px; }
-  .planet-3 { top: 68px; left: 72px; }
+  .planet-1 { top: 16px; left: 48px; }
+  .planet-2 { top: 64px; left: 20.3px; }
+  .planet-3 { top: 64px; left: 75.7px; }
 
-  /* Central Sun Gear (Rotating fast CCW) */
+  /* Central Sun Gear (rotating 4x the carrier rate, same direction) */
   .sun-gear {
     position: absolute;
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     border: 2px dashed #ffcc00;
     background: radial-gradient(circle at 35% 35%, #ffffff, #ffaa00 60%, #664400 100%);
@@ -100,7 +103,7 @@ const cycloidGearStyles = `
 
   @keyframes rotate-sun {
     from { transform: rotate(0deg); }
-    to { transform: rotate(-360deg); }
+    to { transform: rotate(360deg); }
   }
 `;
 
