@@ -50,11 +50,18 @@ const lorentzStyles = `
     stroke-dasharray: 2 3;
   }
 
-  /* Charged particle in cyclotron orbit */
+  /* Charged particle in cyclotron orbit. The runner is a 0x0 point so the
+     path coordinates line up with the box; a full-size runner would put its
+     center on the path and displace the particle by a rotating corner
+     offset. */
   .cyclotron-runner {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
     offset-path: path("M 65 65 m -38, 0 a 38,38 0 1,0 76,0 a 38,38 0 1,0 -76,0");
+    offset-rotate: 0deg;
     animation: cyclotron-orbit 2.4s linear infinite;
   }
 
@@ -68,7 +75,10 @@ const lorentzStyles = `
     box-shadow: 0 0 10px #00ffcc, 0 0 18px rgba(0, 255, 204, 0.7);
   }
 
-  /* Inward Lorentz Force vector */
+  /* Inward Lorentz Force vector — the orbit is uniform (linear timing), so a
+     matched linear rotation keeps it centripetal all the way around. The
+     path runs visually counter-clockwise from the 9 o'clock point, so inward
+     starts at 0deg (pointing +x) and sweeps -360deg. */
   .vec-fl {
     position: absolute;
     top: 50%;
@@ -78,7 +88,7 @@ const lorentzStyles = `
     background: #ff007f;
     box-shadow: 0 0 4px #ff007f;
     transform-origin: left center;
-    transform: rotate(180deg);
+    animation: fl-inward 2.4s linear infinite;
   }
 
   .vec-fl::after {
@@ -92,8 +102,8 @@ const lorentzStyles = `
 
   .fl-label {
     position: absolute;
-    top: -9px;
-    left: 4px;
+    top: -12px;
+    left: 11px;
     font-size: 6px;
     font-family: monospace;
     color: #ff007f;
@@ -126,6 +136,11 @@ const lorentzStyles = `
     0% { offset-distance: 0%; }
     100% { offset-distance: 100%; }
   }
+
+  @keyframes fl-inward {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+  }
 `;
 
 class PhysicsLorentzForce extends HTMLElement {
@@ -153,9 +168,8 @@ class PhysicsLorentzForce extends HTMLElement {
 
         <div class="cyclotron-runner">
           <div class="particle-node">
-            <div class="vec-fl">
-              <span class="fl-label">F_L</span>
-            </div>
+            <div class="vec-fl"></div>
+            <span class="fl-label">F_L</span>
           </div>
         </div>
 

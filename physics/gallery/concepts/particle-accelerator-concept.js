@@ -58,10 +58,16 @@ const acceleratorStyles = `
   .rf-1 { top: 32px; right: 32px; }
   .rf-2 { bottom: 32px; left: 32px; }
 
-  /* Relativistic Particle Bunch Flight */
+  /* Relativistic Particle Bunch Flight. The runner is a 0x0 point so the
+     path coordinates line up with the box; a full-size runner would put its
+     center on the path and displace the bunch by a rotating corner offset.
+     Default offset-rotate keeps the radiation cone tangential. */
   .beam-runner {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
     offset-path: path("M 65 65 m -43, 0 a 43,43 0 1,0 86,0 a 43,43 0 1,0 -86,0");
     animation: orbit-beam 1.2s linear infinite;
   }
@@ -76,7 +82,7 @@ const acceleratorStyles = `
     box-shadow: 0 0 10px #ffffff, 0 0 16px #00ffff;
   }
 
-  /* Synchrotron radiation emission cone */
+  /* Synchrotron radiation emission cone — tangential, beamed forward */
   .synchrotron-light {
     position: absolute;
     top: 2px;
@@ -84,7 +90,6 @@ const acceleratorStyles = `
     width: 14px;
     height: 4px;
     background: linear-gradient(90deg, #ffff00, transparent);
-    transform: rotate(-35deg);
   }
 
   .hud {

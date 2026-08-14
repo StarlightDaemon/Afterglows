@@ -34,11 +34,18 @@ const figure8Styles = `
     filter: drop-shadow(0 0 4px rgba(140, 160, 255, 0.4));
   }
 
-  /* 3 Bodies with phase offsets along figure-8 path */
+  /* 3 Bodies with phase offsets along figure-8 path. Each runner is a 0x0
+     point so the path coordinates line up with the box; a full-size runner
+     would put its center on the path and displace the mass dot by a rotating
+     corner offset. */
   .body-runner {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
     offset-path: path("M 65 65 C 85 30, 115 30, 115 65 C 115 100, 85 100, 65 65 C 45 30, 15 30, 15 65 C 15 100, 45 100, 65 65");
+    offset-rotate: 0deg;
     animation: loop-figure8 4.2s linear infinite;
   }
 

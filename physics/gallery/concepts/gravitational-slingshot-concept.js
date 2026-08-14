@@ -88,10 +88,16 @@ const slingshotStyles = `
     stroke-dasharray: 4 3;
   }
 
-  /* Spacecraft probe */
+  /* Spacecraft probe. The flyer is a 0x0 point so the path coordinates line
+     up with the box; a full-size flyer would put its center on the path and
+     displace the probe by a rotating corner offset. Default offset-rotate
+     keeps the exhaust tail trailing the flight direction. */
   .probe-flyer {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
     offset-path: path("M 10 115 C 30 100, 60 85, 76 65 C 85 50, 78 30, 60 20 C 45 15, 25 10, -5 8");
     animation: probe-flight 3.5s cubic-bezier(0.2, 0.1, 0.8, 1) infinite;
   }

@@ -43,7 +43,7 @@ const keplerStyles = `
   .central-star {
     position: absolute;
     top: 50%;
-    left: 42px;
+    left: 33px;
     width: 16px;
     height: 16px;
     margin: -8px 0 0 -8px;
@@ -57,7 +57,7 @@ const keplerStyles = `
   .focus-f2 {
     position: absolute;
     top: 50%;
-    left: 88px;
+    left: 97px;
     width: 4px;
     height: 4px;
     margin: -2px 0 0 -2px;
@@ -65,12 +65,19 @@ const keplerStyles = `
     background: rgba(0, 229, 255, 0.4);
   }
 
-  /* Planet in orbit with Kepler 2nd law speed variation (CSS offset-path) */
+  /* Planet in orbit with Kepler 2nd law speed variation (CSS offset-path).
+     The rotor is a 0x0 point so the path coordinates line up with the box;
+     a full-size rotor would put its center on the path and displace the
+     planet by a rotating corner offset. */
   .planet-rotor {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
     offset-path: path("M 20 65 A 45 32 0 1 0 110 65 A 45 32 0 1 0 20 65");
-    animation: kepler-orbit 4s cubic-bezier(0.6, 0.05, 0.4, 0.95) infinite;
+    offset-rotate: 0deg;
+    animation: kepler-orbit 4s cubic-bezier(0.3, 0.7, 0.7, 0.3) infinite;
   }
 
   .planet-body {
@@ -130,10 +137,10 @@ class PhysicsKeplerOrbit extends HTMLElement {
       <style>${keplerStyles}</style>
       <div class="orbital-box">
         <svg class="orbit-svg" viewBox="0 0 130 130">
-          <!-- Elliptical track: cx=65, cy=65, rx=45, ry=32, foci at x=42 and x=88 -->
+          <!-- Elliptical track: cx=65, cy=65, rx=45, ry=32, foci at x≈33 and x≈97 -->
           <ellipse class="ellipse-track" cx="65" cy="65" rx="45" ry="32" />
-          <polygon class="swept-area" points="42,65 20,65 24,42" />
-          <polygon class="swept-area" points="42,65 106,45 110,65" />
+          <polygon class="swept-area" points="33,65 20,65 26,49" />
+          <polygon class="swept-area" points="33,65 110,65 107,54" />
         </svg>
 
         <span class="perihelion-label">v_max</span>
