@@ -1,4 +1,5 @@
-const gramophoneStyles = `
+const gramophoneStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -7,16 +8,12 @@ const gramophoneStyles = `
     height: 100%;
   }
 
-  /* A vintage gramophone horn in full voice: acoustic wave arcs emanate from
-     the flared brass bell, the soundbox needle traces the rotating record groove,
-     and the horn assembly vibrates in sympathetic acoustic resonance. */
   .gram {
     width: 116px;
     height: 96px;
     position: relative;
   }
 
-  /* Wooden turntable base cabinet */
   .gram-base {
     position: absolute;
     left: 8px;
@@ -29,7 +26,6 @@ const gramophoneStyles = `
     box-shadow: 0 0 6px rgba(0, 204, 0, 0.25);
   }
 
-  /* Rotating vinyl record disc */
   .gram-platter {
     position: absolute;
     left: 12px;
@@ -42,9 +38,6 @@ const gramophoneStyles = `
     animation: gram-spin 2.4s linear infinite;
   }
 
-  /* Off-center label mark orbiting the platter's rim: the record is drawn
-     edge-on as a flat ellipse, so the readable "it's spinning" cue is this
-     mark sweeping around it, not the ellipse shape itself rotating. */
   .gram-platter::after {
     content: '';
     position: absolute;
@@ -70,7 +63,6 @@ const gramophoneStyles = `
     100% { filter: drop-shadow(0 0 1px rgba(0, 204, 0, 0.4)); }
   }
 
-  /* Center record spindle */
   .gram-spindle {
     position: absolute;
     left: 33px;
@@ -81,7 +73,6 @@ const gramophoneStyles = `
     background: rgba(190, 255, 205, 0.9);
   }
 
-  /* Tonearm & needle soundbox tracking the record */
   .gram-arm {
     position: absolute;
     left: 48px;
@@ -100,7 +91,6 @@ const gramophoneStyles = `
     100% { transform: rotate(1deg) translateY(-0.5px); }
   }
 
-  /* Flared brass horn assembly with acoustic resonance shudder */
   .gram-horn-rig {
     position: absolute;
     left: 42px;
@@ -115,7 +105,6 @@ const gramophoneStyles = `
     100% { transform: translate(0.5px, -0.5px) rotate(0.6deg); }
   }
 
-  /* Curved horn neck / conduit */
   .gram-neck {
     position: absolute;
     left: 0;
@@ -128,7 +117,6 @@ const gramophoneStyles = `
     background: transparent;
   }
 
-  /* Exponential flared bell horn */
   .gram-bell {
     position: absolute;
     right: 4px;
@@ -141,7 +129,6 @@ const gramophoneStyles = `
     box-shadow: 0 0 8px rgba(0, 204, 0, 0.4);
   }
 
-  /* Concentric acoustic sound waves radiating from the horn throat */
   .gram-wave {
     position: absolute;
     right: -4px;
@@ -171,16 +158,186 @@ const gramophoneStyles = `
       transform: translate(22px, 0) scale(1.6);
     }
   }
-`;
-
-class ConceptGramophone extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${gramophoneStyles}</style>
+
+  /* v2: Vintage oak gramophone with polished morning-glory brass horn,
+     spinning black shellac disc with red label, brass tonearm, and acoustic golden sound waves */
+  .gramc {
+    width: 116px;
+    height: 96px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Polished oak turntable base cabinet */
+  .gramc-base {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    width: 54px;
+    height: 16px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #9a3412 0%, #451a03 100%);
+    border: 1.5px solid #ca8a04;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  }
+
+  /* Black shellac record disc */
+  .gramc-platter {
+    position: absolute;
+    left: 12px;
+    bottom: 22px;
+    width: 46px;
+    height: 8px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, #ef4444 0 25%, #18181b 25% 100%);
+    border: 1px solid #3f3f46;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    animation: gramc-spin 2.4s linear infinite;
+  }
+
+  /* Revolving record label dot */
+  .gramc-platter::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #fde047;
+    box-shadow: 0 0 4px #facc15;
+    animation: gramc-label-orbit 2.4s linear infinite;
+  }
+
+  @keyframes gramc-label-orbit {
+    0%   { left: 38px; top: 2px; }
+    25%  { left: 25px; top: -1px; }
+    50%  { left: 5px;  top: 2px; }
+    75%  { left: 25px; top: 5px; }
+    100% { left: 38px; top: 2px; }
+  }
+
+  @keyframes gramc-spin {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.2); }
+    100% { filter: brightness(1); }
+  }
+
+  /* Center gold spindle */
+  .gramc-spindle {
+    position: absolute;
+    left: 33px;
+    bottom: 25px;
+    width: 4px;
+    height: 5px;
+    border-radius: 2px 2px 0 0;
+    background: #facc15;
+  }
+
+  /* Brass tonearm & soundbox needle */
+  .gramc-arm {
+    position: absolute;
+    left: 48px;
+    bottom: 22px;
+    width: 18px;
+    height: 12px;
+    border-top: 2px solid #facc15;
+    border-left: 2px solid #facc15;
+    border-radius: 4px 0 0 0;
+    transform-origin: right bottom;
+    animation: gramc-needle-jitter 0.15s ease-in-out infinite alternate;
+  }
+
+  @keyframes gramc-needle-jitter {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(1deg) translateY(-0.5px); }
+  }
+
+  /* Brass horn assembly with acoustic shudder */
+  .gramc-horn-rig {
+    position: absolute;
+    left: 42px;
+    top: 10px;
+    width: 68px;
+    height: 58px;
+    animation: gramc-horn-vibe 0.3s ease-in-out infinite alternate;
+  }
+
+  @keyframes gramc-horn-vibe {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(0.5px, -0.5px) rotate(0.6deg); }
+  }
+
+  /* Curved brass conduit neck */
+  .gramc-neck {
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+    width: 24px;
+    height: 32px;
+    border-bottom: 3.5px solid #facc15;
+    border-left: 3.5px solid #facc15;
+    border-radius: 0 0 0 16px;
+    background: transparent;
+  }
+
+  /* Morning-glory flared brass bell */
+  .gramc-bell {
+    position: absolute;
+    right: 4px;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    clip-path: polygon(0 60%, 15% 45%, 50% 15%, 100% 0%, 100% 100%, 50% 85%, 15% 55%);
+    background: radial-gradient(circle at 100% 50%, #ffffff 0%, #fde047 35%, #eab308 65%, #854d0e 100%);
+    box-shadow: 0 0 14px rgba(250, 204, 21, 0.7);
+  }
+
+  /* Acoustic golden sound waves */
+  .gramc-wave {
+    position: absolute;
+    right: -4px;
+    top: 6px;
+    width: 14px;
+    height: 36px;
+    border-right: 2px solid #fde047;
+    border-radius: 0 18px 18px 0;
+    box-shadow: 2px 0 6px rgba(250, 204, 21, 0.6);
+    animation: gramc-wave-radiate 1.8s cubic-bezier(0.2, 0.7, 0.4, 1) infinite;
+    pointer-events: none;
+  }
+
+  .gramc-wave.w1 { animation-delay: 0s; }
+  .gramc-wave.w2 { animation-delay: -0.6s; }
+  .gramc-wave.w3 { animation-delay: -1.2s; }
+
+  @keyframes gramc-wave-radiate {
+    0% {
+      opacity: 0.95;
+      transform: translate(-10px, 0) scale(0.5);
+    }
+    60% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(22px, 0) scale(1.6);
+    }
+  }
+  `,
+};
+
+const gramophoneMarkup = {
+  v1: `
       <div class="gram">
         <div class="gram-base"></div>
         <div class="gram-platter"></div>
@@ -194,7 +351,39 @@ class ConceptGramophone extends HTMLElement {
           <div class="gram-wave w3"></div>
         </div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="gramc">
+        <div class="gramc-base"></div>
+        <div class="gramc-platter"></div>
+        <div class="gramc-spindle"></div>
+        <div class="gramc-arm"></div>
+        <div class="gramc-horn-rig">
+          <div class="gramc-neck"></div>
+          <div class="gramc-bell"></div>
+          <div class="gramc-wave w1"></div>
+          <div class="gramc-wave w2"></div>
+          <div class="gramc-wave w3"></div>
+        </div>
+      </div>
+    `,
+};
+
+class ConceptGramophone extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${gramophoneStyles[version] || gramophoneStyles.v2}</style>${gramophoneMarkup[version] || gramophoneMarkup.v2}`;
   }
 }
 

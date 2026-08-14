@@ -1,4 +1,5 @@
-const octopusStyles = `
+const octopusStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -7,16 +8,12 @@ const octopusStyles = `
     height: 100%;
   }
 
-  /* An octopus perched on seabed rock: chromatophore patches shift and crossfade
-     across its mantle to match the substrate, while eight arms flex and curl
-     with independent, asynchronous reach and grip cycles. */
   .oct {
     width: 114px;
     height: 96px;
     position: relative;
   }
 
-  /* Seabed rock perch */
   .oct-rock {
     position: absolute;
     left: 12px;
@@ -28,7 +25,6 @@ const octopusStyles = `
     border-top: 1.5px solid var(--accent, #00cc00);
   }
 
-  /* Mantle head with chromatophore color-shifting texture */
   .oct-mantle {
     position: absolute;
     left: 42px;
@@ -43,10 +39,6 @@ const octopusStyles = `
     z-index: 4;
   }
 
-  /* Chromatophore patches: each patch cycles opacity/size on its own
-     independent timeline, not as one layer moving together — real skin
-     doesn't flash uniformly, individual chromatophore clusters expand and
-     contract out of phase with each other. */
   .oct-chroma-patch {
     position: absolute;
     border-radius: 50%;
@@ -78,7 +70,6 @@ const octopusStyles = `
     50% { opacity: 0.95; transform: scale(1.25); }
   }
 
-  /* Large intelligent eye */
   .oct-eye {
     position: absolute;
     left: 49px;
@@ -102,7 +93,6 @@ const octopusStyles = `
     border-radius: 1px;
   }
 
-  /* Arms cluster radiating from mantle base */
   .oct-arms {
     position: absolute;
     left: 10px;
@@ -119,7 +109,6 @@ const octopusStyles = `
     background: linear-gradient(180deg, rgba(0, 130, 26, 0.8), rgba(0, 50, 10, 0.9));
   }
 
-  /* 8 distinct arms with individual curl targets and timings */
   .oct-arm.a1 {
     left: 40px; top: 8px; width: 8px; height: 32px;
     transform-origin: top center;
@@ -197,16 +186,213 @@ const octopusStyles = `
     0%, 100% { transform: rotate(-10deg); }
     50% { transform: rotate(14deg); }
   }
-`;
-
-class ConceptOctopus extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${octopusStyles}</style>
+
+  /* v2: Oceanic reef octopus with shifting terracotta-coral & violet chromatophore skin,
+     golden intelligent eye, and 8 undulating muscular tentacles */
+  .octc {
+    width: 114px;
+    height: 96px;
+    position: relative;
+    background: radial-gradient(circle at 50% 30%, #0369a1 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Seabed coral reef substrate */
+  .octc-rock {
+    position: absolute;
+    left: 12px;
+    bottom: 6px;
+    width: 90px;
+    height: 22px;
+    border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%;
+    background: linear-gradient(180deg, #334155 0%, #0f172a 100%);
+    border-top: 1.5px solid #64748b;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Mantle head with shifting chromatophores */
+  .octc-mantle {
+    position: absolute;
+    left: 42px;
+    top: 12px;
+    width: 30px;
+    height: 38px;
+    border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+    border: 1.5px solid #fdba74;
+    background: radial-gradient(circle at 40% 35%, #ea580c 0%, #c2410c 60%, #7c2d12 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    z-index: 4;
+  }
+
+  /* Shifting chromatophore patches */
+  .octc-chroma-patch {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .octc-chroma-patch.p1 {
+    left: 3px; top: 4px; width: 9px; height: 9px;
+    background: radial-gradient(circle, #fde047 45%, transparent 65%);
+    animation: octc-chroma-cycle 4.6s ease-in-out infinite;
+  }
+
+  .octc-chroma-patch.p2 {
+    left: 13px; top: 15px; width: 13px; height: 13px;
+    background: radial-gradient(circle, #a855f7 40%, transparent 60%);
+    animation: octc-chroma-cycle 5.8s ease-in-out infinite;
+    animation-delay: -2.1s;
+  }
+
+  .octc-chroma-patch.p3 {
+    left: 5px; top: 24px; width: 10px; height: 10px;
+    background: radial-gradient(circle, #38bdf8 40%, transparent 60%);
+    animation: octc-chroma-cycle 3.9s ease-in-out infinite;
+    animation-delay: -0.8s;
+  }
+
+  @keyframes octc-chroma-cycle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 0.95; transform: scale(1.3); }
+  }
+
+  /* Intelligent golden cephalopod eye */
+  .octc-eye {
+    position: absolute;
+    left: 49px;
+    top: 36px;
+    width: 8px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fde047;
+    box-shadow: 0 0 6px #facc15;
+    z-index: 5;
+  }
+
+  /* Horizontal bar pupil */
+  .octc-eye::after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 4px;
+    height: 2px;
+    background: #09090b;
+    border-radius: 1px;
+  }
+
+  /* Arms cluster */
+  .octc-arms {
+    position: absolute;
+    left: 10px;
+    top: 36px;
+    width: 94px;
+    height: 50px;
+    z-index: 3;
+  }
+
+  /* Terracotta tentacles with suckers */
+  .octc-arm {
+    position: absolute;
+    border: 1.5px solid #fdba74;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #ea580c 0%, #9a3412 100%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  }
+
+  .octc-arm.a1 {
+    left: 40px; top: 8px; width: 8px; height: 32px;
+    transform-origin: top center;
+    animation: octc-curl-1 3.8s ease-in-out infinite;
+  }
+  .octc-arm.a2 {
+    left: 50px; top: 10px; width: 8px; height: 34px;
+    transform-origin: top center;
+    animation: octc-curl-2 4.4s ease-in-out infinite;
+  }
+  .octc-arm.a3 {
+    left: 30px; top: 8px; width: 22px; height: 8px;
+    border-radius: 8px 0 0 8px;
+    transform-origin: right center;
+    animation: octc-curl-3 3.4s ease-in-out infinite;
+  }
+  .octc-arm.a4 {
+    left: 60px; top: 8px; width: 24px; height: 8px;
+    border-radius: 0 8px 8px 0;
+    transform-origin: left center;
+    animation: octc-curl-4 4.0s ease-in-out infinite;
+  }
+  .octc-arm.a5 {
+    left: 14px; top: 12px; width: 26px; height: 7px;
+    border-radius: 10px 0 0 10px;
+    transform-origin: right bottom;
+    animation: octc-curl-5 4.8s ease-in-out infinite;
+  }
+  .octc-arm.a6 {
+    left: 68px; top: 12px; width: 24px; height: 7px;
+    border-radius: 0 10px 10px 0;
+    transform-origin: left bottom;
+    animation: octc-curl-6 3.6s ease-in-out infinite;
+  }
+  .octc-arm.a7 {
+    left: 36px; top: 16px; width: 10px; height: 26px;
+    transform-origin: top left;
+    animation: octc-curl-7 4.2s ease-in-out infinite;
+  }
+  .octc-arm.a8 {
+    left: 54px; top: 16px; width: 10px; height: 26px;
+    transform-origin: top right;
+    animation: octc-curl-8 4.6s ease-in-out infinite;
+  }
+
+  @keyframes octc-curl-1 {
+    0%, 100% { transform: rotate(-10deg) skewX(4deg); }
+    50% { transform: rotate(14deg) skewX(-6deg); }
+  }
+  @keyframes octc-curl-2 {
+    0%, 100% { transform: rotate(12deg) skewX(-4deg); }
+    50% { transform: rotate(-16deg) skewX(8deg); }
+  }
+  @keyframes octc-curl-3 {
+    0%, 100% { transform: rotate(-8deg) scaleX(0.9); }
+    50% { transform: rotate(12deg) scaleX(1.15); }
+  }
+  @keyframes octc-curl-4 {
+    0%, 100% { transform: rotate(10deg) scaleX(1.1); }
+    50% { transform: rotate(-14deg) scaleX(0.85); }
+  }
+  @keyframes octc-curl-5 {
+    0%, 100% { transform: rotate(-15deg); }
+    50% { transform: rotate(10deg) scaleY(1.2); }
+  }
+  @keyframes octc-curl-6 {
+    0%, 100% { transform: rotate(18deg); }
+    50% { transform: rotate(-8deg) scaleY(1.2); }
+  }
+  @keyframes octc-curl-7 {
+    0%, 100% { transform: rotate(8deg); }
+    50% { transform: rotate(-12deg); }
+  }
+  @keyframes octc-curl-8 {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(14deg); }
+  }
+  `,
+};
+
+const octopusMarkup = {
+  v1: `
       <div class="oct">
         <div class="oct-rock"></div>
         <div class="oct-arms">
@@ -226,7 +412,45 @@ class ConceptOctopus extends HTMLElement {
         </div>
         <div class="oct-eye"></div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="octc">
+        <div class="octc-rock"></div>
+        <div class="octc-arms">
+          <div class="octc-arm a1"></div>
+          <div class="octc-arm a2"></div>
+          <div class="octc-arm a3"></div>
+          <div class="octc-arm a4"></div>
+          <div class="octc-arm a5"></div>
+          <div class="octc-arm a6"></div>
+          <div class="octc-arm a7"></div>
+          <div class="octc-arm a8"></div>
+        </div>
+        <div class="octc-mantle">
+          <div class="octc-chroma-patch p1"></div>
+          <div class="octc-chroma-patch p2"></div>
+          <div class="octc-chroma-patch p3"></div>
+        </div>
+        <div class="octc-eye"></div>
+      </div>
+    `,
+};
+
+class ConceptOctopus extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${octopusStyles[version] || octopusStyles.v2}</style>${octopusMarkup[version] || octopusMarkup.v2}`;
   }
 }
 
