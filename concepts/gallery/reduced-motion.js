@@ -43,19 +43,31 @@ function reducedMotionSheet() {
 // Patch attachShadow rather than walking the DOM after the fact: concept
 // modules are imported fire-and-forget and their elements upgrade whenever
 // each import resolves, so there is no single moment at which every shadow
-// root is known to exist. Scoped to <concept-*> hosts so no other component
-// on the page is affected.
-export function installReducedMotion() {
+// root is known to exist. Scoped to the given host tag prefixes so no other
+// component on the page is affected.
+//
+// Shared by both galleries: concepts/gallery uses the default CONCEPT-
+// prefix; physics/gallery imports this module and passes ["PHYSICS-"].
+const activePrefixes = new Set();
+
+export function installReducedMotion(prefixes = ["CONCEPT-"]) {
   if (typeof CSSStyleSheet === "undefined" || !("replaceSync" in CSSStyleSheet.prototype)) {
     return; // No constructable stylesheets; nothing safe to do here.
   }
 
+  for (const prefix of prefixes) activePrefixes.add(prefix);
+
   const native = Element.prototype.attachShadow;
-  if (native.__agReducedMotion) return; // Idempotent.
+  if (native.__agReducedMotion) return; // Idempotent; new prefixes registered above.
 
   function attachShadow(init) {
     const root = native.call(this, init);
-    if (this.tagName.startsWith("CONCEPT-")) {
+    const tag = this.tagName;
+    let matches = false;
+    for (const prefix of activePrefixes) {
+      if (tag.startsWith(prefix)) { matches = true; break; }
+    }
+    if (matches) {
       try {
         root.adoptedStyleSheets = [...root.adoptedStyleSheets, reducedMotionSheet()];
       } catch (error) {

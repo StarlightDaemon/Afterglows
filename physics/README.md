@@ -7,7 +7,7 @@ A standalone, manifest-driven interactive gallery of small, independent animated
 - **`index.html`**: Host gallery page featuring theme controller integration, responsive grid, real-time search, category filtering, and embed copy actions.
 - **`gallery/manifest.js`**: Manifest single source of truth containing category definitions, metadata, and attribution records.
 - **`gallery/index.js`**: Data-driven gallery renderer, module importer, and filtering logic.
-- **`gallery/reduced-motion.js`**: Universal constructable stylesheet injecting `prefers-reduced-motion` suppression into each web component's shadow root.
+- Reduced-motion support is shared with the concepts gallery: `concepts/gallery/reduced-motion.js` injects `prefers-reduced-motion` suppression into each web component's shadow root (this gallery passes its `PHYSICS-` tag prefix).
 - **`gallery/concepts/*.js`**: Standalone, dependency-free custom element modules (e.g. `<physics-projectile-arc>`, `<physics-double-pendulum>`).
 
 ## 🌌 Categories

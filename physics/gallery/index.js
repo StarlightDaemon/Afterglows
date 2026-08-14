@@ -6,9 +6,9 @@
 // 4. Renders responsive grid sections with Copy and Source buttons.
 
 import { CATEGORIES, CONCEPTS } from "./manifest.js";
-import { installReducedMotion } from "./reduced-motion.js";
+import { installReducedMotion } from "../../concepts/gallery/reduced-motion.js";
 
-installReducedMotion();
+installReducedMotion(["PHYSICS-"]);
 
 // Tag format: "physics-foo-bar" -> "./concepts/foo-bar-concept.js"
 function modulePathForTag(tag) {
