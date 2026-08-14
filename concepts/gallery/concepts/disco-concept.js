@@ -1,5 +1,8 @@
+// Disco Ball: v1 to v4 preserved.
+// v5 adds full spectrum nightclub colorization:
+// chrome mirrored ball, rainbow rotating pinspots (magenta, cyan, gold, emerald, violet),
+// chromatic dance floor tiles pulsing on the beat, and multi-facet sparkles.
 const discoStyles = {
-  /* --- v1: the original render, preserved verbatim --- */
   v1: `
   :host {
     display: flex;
@@ -9,9 +12,6 @@ const discoStyles = {
     height: 100%;
   }
 
-  /* Mirror ball night: the facet grid crawls across the turning
-     ball, thrown spots wheel around the room, and the floor pulses
-     on the beat. */
   .disco {
     width: 104px;
     height: 100px;
@@ -19,7 +19,6 @@ const discoStyles = {
     overflow: hidden;
   }
 
-  /* Hanging rod. */
   .disco-rod {
     position: absolute;
     left: 50%;
@@ -30,7 +29,6 @@ const discoStyles = {
     background: rgba(140, 255, 170, 0.7);
   }
 
-  /* The ball: facet grid scrolling sideways reads as rotation. */
   .disco-ball {
     position: absolute;
     left: 50%;
@@ -56,7 +54,6 @@ const discoStyles = {
     to { background-position: 16px 0, 16px 0, 0 0; }
   }
 
-  /* Hot glint racing the facets. */
   .disco-glint {
     position: absolute;
     left: 50%;
@@ -76,8 +73,6 @@ const discoStyles = {
     100% { transform: translateX(-6px); opacity: 0.3; }
   }
 
-  /* Thrown spots: dots riding rotating carriers centred on the ball,
-     each at a different radius/speed, flickering as they sweep. */
   .disco-arm {
     position: absolute;
     left: 50%;
@@ -117,7 +112,6 @@ const discoStyles = {
     50% { opacity: 1; }
   }
 
-  /* Dance floor: checker tiles pulsing on the beat. */
   .disco-floor {
     position: absolute;
     left: 0;
@@ -142,8 +136,6 @@ const discoStyles = {
   }
   `,
 
-  /* --- v2: spots recentred with headroom so the sweep clears the
-     frame instead of slicing against the top/side edges --- */
   v2: `
   :host {
     display: flex;
@@ -160,8 +152,6 @@ const discoStyles = {
     overflow: hidden;
   }
 
-  /* Hanging rod: longer, so the ball sits at the frame's vertical
-     centre and the thrown spots get equal clearance above and below. */
   .disco-rod {
     position: absolute;
     left: 50%;
@@ -216,11 +206,6 @@ const discoStyles = {
     100% { transform: translateX(-6px); opacity: 0.3; }
   }
 
-  /* Pivot moved to the ball's new centre (frame-centred, 50px of
-     clearance on every side); radii trimmed from a 44-54px spread
-     to 33-40px so the full swept circle — including the spot's own
-     footprint at the widest, most-rotated point — stays inside the
-     frame instead of being sliced by it. */
   .disco-arm {
     position: absolute;
     left: 50%;
@@ -284,11 +269,6 @@ const discoStyles = {
   }
   `,
 
-  /* --- v3: the ball reads as a lit sphere instead of a flat tiled
-     disc — a volumetric highlight/rim layer sits over the facet grid,
-     and two smaller glints twinkle out of sync with the main one so
-     the surface catches light at several points at once, the way a
-     few hundred individual mirror tiles actually would. --- */
   v3: `
   :host {
     display: flex;
@@ -315,10 +295,6 @@ const discoStyles = {
     background: rgba(140, 255, 170, 0.7);
   }
 
-  /* Volumetric layer sits on top of the facet grid: it brightens
-     toward an upper-left "key light" and darkens toward the rim,
-     so the grid reads as tiles wrapped over a sphere rather than a
-     flat pattern punched into a circle. */
   .disco-ball {
     position: absolute;
     left: 50%;
@@ -349,7 +325,6 @@ const discoStyles = {
     to { background-position: 0 0, 0 0, 16px 0, 0 0; }
   }
 
-  /* Main hot glint racing the facets. */
   .disco-glint {
     position: absolute;
     left: 50%;
@@ -369,9 +344,6 @@ const discoStyles = {
     100% { transform: translateX(-6px); opacity: 0.3; }
   }
 
-  /* Two smaller, dimmer glints on their own out-of-sync clocks —
-     secondary facets catching the light at moments the main glint
-     isn't, instead of the ball having exactly one bright point. */
   .disco-glint-2 {
     position: absolute;
     left: 50%;
@@ -472,13 +444,6 @@ const discoStyles = {
   }
   `,
 
-  /* --- v4: individual facets, not a uniform stripe pattern — every
-     real mirror ball, broken-shard vintage or uniform modern glass
-     alike, is made of many small tiles that each catch light at a
-     slightly different angle. The old grid gave every tile in a row
-     the same brightness; two tiled sparkle layers (one per facet, one
-     per 2x2 block) break that uniformity so the surface reads as a
-     mosaic of individually-lit chips. --- */
   v4: `
   :host {
     display: flex;
@@ -656,6 +621,230 @@ const discoStyles = {
     75% { filter: brightness(0.9); }
   }
   `,
+
+  v5: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v5: Full-spectrum chromatic nightclub mirror ball with rainbow pinspots,
+     illuminated dance floor tiles, and silver mirror facet reflections. */
+  .discoc {
+    width: 104px;
+    height: 100px;
+    position: relative;
+    background: radial-gradient(circle at 50% 40%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .discoc-rod {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 2px;
+    height: 30px;
+    margin-left: -1px;
+    background: linear-gradient(180deg, #94a3b8, #e2e8f0);
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+  }
+
+  /* Chrome mirror ball */
+  .discoc-ball {
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    width: 40px;
+    height: 40px;
+    margin-left: -20px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 34% 28%,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(224, 242, 254, 0.35) 22%,
+        transparent 45%,
+        rgba(2, 6, 23, 0.85) 95%),
+      radial-gradient(circle at 64% 68%, rgba(255, 255, 255, 0.75) 0 7%, transparent 24%),
+      radial-gradient(circle at 21% 30%, rgba(255, 255, 255, 0.6) 0 9%, transparent 30%),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.4), transparent 40%),
+      repeating-linear-gradient(90deg,
+        rgba(255, 255, 255, 0.7) 0 3px,
+        rgba(71, 85, 105, 0.6) 3px 8px),
+      repeating-linear-gradient(0deg,
+        rgba(241, 245, 249, 0.65) 0 3px,
+        rgba(30, 41, 59, 0.7) 3px 8px);
+    background-size: auto, 16px 16px, 8px 8px, auto, auto, auto;
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 0 35px rgba(236, 72, 153, 0.3), inset -6px -4px 12px rgba(0, 0, 0, 0.7);
+    animation: discoc-turn 3s linear infinite;
+  }
+
+  @keyframes discoc-turn {
+    to { background-position: 0 0, 16px 0, 16px 0, 0 0, 16px 0, 0 0; }
+  }
+
+  /* Hot specular glints */
+  .discoc-glint {
+    position: absolute;
+    left: 50%;
+    top: 34px;
+    width: 8px;
+    height: 8px;
+    margin-left: -14px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.8) 40%, transparent 70%);
+    box-shadow: 0 0 10px #ffffff;
+    animation: discoc-glint 3s linear infinite;
+  }
+
+  @keyframes discoc-glint {
+    0% { transform: translateX(-6px); opacity: 0.3; }
+    30% { transform: translateX(10px); opacity: 1; }
+    60% { transform: translateX(22px); opacity: 0.35; }
+    100% { transform: translateX(-6px); opacity: 0.3; }
+  }
+
+  .discoc-glint-2 {
+    position: absolute;
+    left: 50%;
+    top: 46px;
+    width: 4px;
+    height: 4px;
+    margin-left: 4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #38bdf8, transparent 70%);
+    box-shadow: 0 0 6px #38bdf8;
+    animation: discoc-glint-2 3.6s ease-in-out infinite;
+    animation-delay: -1.2s;
+  }
+
+  @keyframes discoc-glint-2 {
+    0%, 100% { transform: translateX(-4px) scale(0.6); opacity: 0.2; }
+    45% { transform: translateX(6px) scale(1.1); opacity: 1; }
+    70% { transform: translateX(14px) scale(0.7); opacity: 0.3; }
+  }
+
+  .discoc-glint-3 {
+    position: absolute;
+    left: 50%;
+    top: 40px;
+    width: 3px;
+    height: 3px;
+    margin-left: -9px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #f43f5e, transparent 70%);
+    box-shadow: 0 0 6px #f43f5e;
+    animation: discoc-glint-3 2.4s ease-in-out infinite;
+    animation-delay: -0.6s;
+  }
+
+  @keyframes discoc-glint-3 {
+    0%, 100% { opacity: 0.15; transform: scale(0.5); }
+    50% { opacity: 0.95; transform: scale(1.1); }
+  }
+
+  /* Orbiting chromatic light spotlights */
+  .discoc-arm {
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    width: 0;
+    height: 0;
+    animation: discoc-arm linear infinite;
+  }
+
+  .discoc-arm.a1 { animation-duration: 3s; }
+  .discoc-arm.a2 { animation-duration: 3s; animation-delay: -1s; }
+  .discoc-arm.a3 { animation-duration: 3s; animation-delay: -2s; }
+  .discoc-arm.a4 { animation-duration: 4.5s; animation-delay: -0.6s; }
+  .discoc-arm.a5 { animation-duration: 4.5s; animation-delay: -2.8s; }
+
+  @keyframes discoc-arm {
+    to { transform: rotate(360deg); }
+  }
+
+  .discoc-spot {
+    position: absolute;
+    width: 7px;
+    height: 5px;
+    border-radius: 50%;
+    animation: discoc-spot 1.5s ease-in-out infinite;
+  }
+
+  /* Hot Magenta spot */
+  .discoc-arm.a1 .discoc-spot {
+    transform: translateX(33px);
+    background: radial-gradient(ellipse, #f43f5e 0%, rgba(244, 63, 94, 0.4) 60%, transparent 80%);
+    box-shadow: 0 0 10px #f43f5e;
+  }
+
+  /* Electric Cyan spot */
+  .discoc-arm.a2 .discoc-spot {
+    transform: translateX(37px);
+    animation-delay: -0.4s;
+    background: radial-gradient(ellipse, #00f0ff 0%, rgba(0, 240, 255, 0.4) 60%, transparent 80%);
+    box-shadow: 0 0 10px #00f0ff;
+  }
+
+  /* Solar Gold spot */
+  .discoc-arm.a3 .discoc-spot {
+    transform: translateX(30px);
+    animation-delay: -0.9s;
+    background: radial-gradient(ellipse, #facc15 0%, rgba(250, 204, 21, 0.4) 60%, transparent 80%);
+    box-shadow: 0 0 10px #facc15;
+  }
+
+  /* Lime Emerald spot */
+  .discoc-arm.a4 .discoc-spot {
+    transform: translateX(40px);
+    animation-delay: -0.2s;
+    width: 9px;
+    background: radial-gradient(ellipse, #10b981 0%, rgba(16, 185, 129, 0.4) 60%, transparent 80%);
+    box-shadow: 0 0 10px #10b981;
+  }
+
+  /* Purple Violet spot */
+  .discoc-arm.a5 .discoc-spot {
+    transform: translateX(35px);
+    animation-delay: -1.1s;
+    background: radial-gradient(ellipse, #a855f7 0%, rgba(168, 85, 247, 0.4) 60%, transparent 80%);
+    box-shadow: 0 0 10px #a855f7;
+  }
+
+  @keyframes discoc-spot {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; filter: brightness(1.4); }
+  }
+
+  /* Illuminated dance floor tiles */
+  .discoc-floor {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 22px;
+    background:
+      repeating-linear-gradient(90deg,
+        rgba(236, 72, 153, 0.6) 0 13px,
+        rgba(6, 182, 212, 0.6) 13px 26px);
+    border-top: 1px solid #e0f2fe;
+    transform: perspective(40px) rotateX(30deg);
+    transform-origin: bottom center;
+    box-shadow: 0 0 14px rgba(236, 72, 153, 0.5);
+    animation: discoc-floor 1.5s steps(1) infinite;
+  }
+
+  @keyframes discoc-floor {
+    0% { background: repeating-linear-gradient(90deg, rgba(236, 72, 153, 0.7) 0 13px, rgba(6, 182, 212, 0.7) 13px 26px); filter: brightness(1.4); }
+    25% { filter: brightness(0.85); }
+    50% { background: repeating-linear-gradient(90deg, rgba(234, 179, 8, 0.7) 0 13px, rgba(168, 85, 247, 0.7) 13px 26px); filter: brightness(1.4); }
+    75% { filter: brightness(0.85); }
+  }
+  `,
 };
 
 const discoMarkup = {
@@ -715,6 +904,21 @@ const discoMarkup = {
       <div class="disco-glint-3"></div>
     </div>
   `,
+  v5: `
+    <div class="discoc">
+      <div class="discoc-rod"></div>
+      <div class="discoc-arm a1"><div class="discoc-spot"></div></div>
+      <div class="discoc-arm a2"><div class="discoc-spot"></div></div>
+      <div class="discoc-arm a3"><div class="discoc-spot"></div></div>
+      <div class="discoc-arm a4"><div class="discoc-spot"></div></div>
+      <div class="discoc-arm a5"><div class="discoc-spot"></div></div>
+      <div class="discoc-floor"></div>
+      <div class="discoc-ball"></div>
+      <div class="discoc-glint"></div>
+      <div class="discoc-glint-2"></div>
+      <div class="discoc-glint-3"></div>
+    </div>
+  `,
 };
 
 class ConceptDisco extends HTMLElement {
@@ -738,9 +942,9 @@ class ConceptDisco extends HTMLElement {
   }
 
   render() {
-    const version = this.getAttribute('version') || 'v4';
-    const styles = discoStyles[version] || discoStyles.v4;
-    const markup = discoMarkup[version] || discoMarkup.v4;
+    const version = this.getAttribute('version') || 'v5';
+    const styles = discoStyles[version] || discoStyles.v5;
+    const markup = discoMarkup[version] || discoMarkup.v5;
     this.shadowRoot.innerHTML = `<style>${styles}</style>${markup}`;
   }
 }

@@ -1,9 +1,8 @@
-// Dice Roll, rebuilt (2026-08-02): a single die read ambiguously as "a
-// die" rather than "rolling dice." Now two dice tumble in together from
-// opposite sides on independent bounce/spin timings, settle a beat
-// apart, and the combined total reads out - the unmistakable two-dice
-// throw the concept name promises.
-// v1 is the archived original single-die throw from git history.
+// Dice Roll: v1 (single die) and v2 (two dice monochrome) preserved.
+// v3 adds authentic casino colorization:
+// lush baize green felt table, one translucent cherry-red casino die with white pips,
+// one ivory-white bone die with black & red pips, realistic drop shadows,
+// bounce puffs, and golden winning payout score ticker.
 const diceStyles = {
   v1: `
   :host {
@@ -14,9 +13,6 @@ const diceStyles = {
     height: 100%;
   }
 
-  /* A 5s throw: the die tumbles in from the left, bouncing lower
-     each time while its face flickers through values, then settles
-     on a six with a settle flash. */
   .dice {
     width: 112px;
     height: 88px;
@@ -32,7 +28,6 @@ const diceStyles = {
     background: linear-gradient(90deg, transparent, rgba(0, 204, 0, 0.5), transparent);
   }
 
-  /* Tumble carrier: horizontal travel. */
   .dice-x {
     position: absolute;
     left: 2px;
@@ -46,7 +41,6 @@ const diceStyles = {
     100% { transform: translateX(64px); }
   }
 
-  /* Bounce carrier: decaying hops. */
   .dice-y {
     animation: dice-y 5s infinite;
   }
@@ -62,7 +56,6 @@ const diceStyles = {
     63%, 100% { transform: translateY(0); }
   }
 
-  /* The cube: rotates while tumbling, squares up on rest. */
   .dice-cube {
     position: relative;
     width: 26px;
@@ -85,8 +78,6 @@ const diceStyles = {
     70% { box-shadow: 0 0 4px rgba(0, 204, 0, 0.3); }
   }
 
-  /* Pip layouts: three faces that flicker while tumbling; the six
-     holds from the settle. */
   .dice-face {
     position: absolute;
     inset: 0;
@@ -102,19 +93,16 @@ const diceStyles = {
     box-shadow: 0 0 3px rgba(0, 204, 0, 0.8);
   }
 
-  /* Face 3 (diagonal). */
   .dice-face.f3 .dice-pip.a { left: 3px; top: 3px; }
   .dice-face.f3 .dice-pip.b { left: 50%; top: 50%; margin: -2.5px 0 0 -2.5px; }
   .dice-face.f3 .dice-pip.c { right: 3px; bottom: 3px; }
 
-  /* Face 5. */
   .dice-face.f5 .dice-pip.a { left: 3px; top: 3px; }
   .dice-face.f5 .dice-pip.b { right: 3px; top: 3px; }
   .dice-face.f5 .dice-pip.c { left: 50%; top: 50%; margin: -2.5px 0 0 -2.5px; }
   .dice-face.f5 .dice-pip.d { left: 3px; bottom: 3px; }
   .dice-face.f5 .dice-pip.e { right: 3px; bottom: 3px; }
 
-  /* Face 6. */
   .dice-face.f6 .dice-pip.a { left: 3px; top: 2px; }
   .dice-face.f6 .dice-pip.b { left: 3px; top: 50%; margin-top: -2.5px; }
   .dice-face.f6 .dice-pip.c { left: 3px; bottom: 2px; }
@@ -146,7 +134,6 @@ const diceStyles = {
     52% { opacity: 1; }
   }
 
-  /* Impact puffs at the first two bounces. */
   .dice-puff {
     position: absolute;
     bottom: 12px;
@@ -168,7 +155,6 @@ const diceStyles = {
     100% { opacity: 0; }
   }
 
-  /* Score callout after the settle. */
   .dice-score {
     position: absolute;
     right: 6px;
@@ -187,7 +173,7 @@ const diceStyles = {
     66%, 92% { opacity: 1; }
     96%, 100% { opacity: 0; }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -212,16 +198,11 @@ const diceStyles = {
     background: linear-gradient(90deg, transparent, rgba(0, 204, 0, 0.5), transparent);
   }
 
-  /* Each die gets its own horizontal travel, bounce and spin carrier so
-     the two rolls are visibly independent, not mirrored copies. */
   .die-x {
     position: absolute;
     bottom: 14px;
   }
 
-  /* Die 1 enters from the left and settles at x:34-58. Die 2 enters
-     from the right and settles at x:64-88 - side by side, a small gap
-     apart, each cube 24px wide in a 116px frame. */
   .die-x.d1 { left: -4px; animation: d1-x 5s infinite; }
   .die-x.d2 { left: 4px; animation: d2-x 5s infinite; }
 
@@ -231,8 +212,6 @@ const diceStyles = {
     100% { transform: translateX(38px); }
   }
 
-  /* Enters from off-frame right, arriving a beat after die 1 so the
-     two throws read as distinct, staggered rolls rather than mirrors. */
   @keyframes d2-x {
     0% { transform: translateX(126px); }
     64% { transform: translateX(60px); }
@@ -300,8 +279,6 @@ const diceStyles = {
     74% { box-shadow: 0 0 4px rgba(0, 204, 0, 0.3); }
   }
 
-  /* Pip layouts: three tumble faces per die, flickering as it rolls;
-     each die settles on its own resting face. */
   .dice-face {
     position: absolute;
     inset: 0;
@@ -342,7 +319,6 @@ const diceStyles = {
   .dice-face.f6 .dice-pip.e { right: 3px; top: 50%; margin-top: -2.25px; }
   .dice-face.f6 .dice-pip.f { right: 3px; bottom: 2px; }
 
-  /* Die 1 tumbles through 3-5-6 faces, settles on FOUR. */
   .die-x.d1 .dice-face.f3 { animation: d1-f3 5s steps(1) infinite; }
   .die-x.d1 .dice-face.f5 { animation: d1-f5 5s steps(1) infinite; }
   .die-x.d1 .dice-face.f4 { animation: d1-f4 5s steps(1) infinite; }
@@ -351,9 +327,6 @@ const diceStyles = {
   @keyframes d1-f5 { 0% { opacity: 0; } 13% { opacity: 1; } 24% { opacity: 0; } 35% { opacity: 1; } 49% { opacity: 0; } }
   @keyframes d1-f4 { 0%, 49% { opacity: 0; } 58% { opacity: 1; } }
 
-  /* Die 2 tumbles through 2-4-6 faces, settles on SIX, a beat behind.
-     Shares the .f4 pip-layout rule above with die 1 (position only,
-     scoped to die 2's own opacity/animation here). */
   .die-x.d2 .dice-face.f2 { animation: d2-f2 5s steps(1) infinite; }
   .die-x.d2 .dice-face.f4 { animation: d2-f4 5s steps(1) infinite; }
   .die-x.d2 .dice-face.f6 { animation: d2-f6 5s steps(1) infinite; }
@@ -362,7 +335,6 @@ const diceStyles = {
   @keyframes d2-f4 { 0% { opacity: 0; } 18% { opacity: 1; } 30% { opacity: 0; } 41% { opacity: 1; } 57% { opacity: 0; } }
   @keyframes d2-f6 { 0%, 57% { opacity: 0; } 64% { opacity: 1; } }
 
-  /* Impact puffs at each die's first two bounces. */
   .dice-puff {
     position: absolute;
     bottom: 12px;
@@ -392,7 +364,6 @@ const diceStyles = {
     100% { opacity: 0; }
   }
 
-  /* Combined total, after both dice have settled. */
   .dice-score {
     position: absolute;
     right: 4px;
@@ -411,7 +382,248 @@ const diceStyles = {
     70%, 92% { opacity: 1; }
     96%, 100% { opacity: 0; }
   }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Casino craps table with baize green felt, translucent crimson red die,
+     ivory-white bone die with black & crimson pips, and gold winning score ticker. */
+  .dicec {
+    width: 116px;
+    height: 88px;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 40%, #065f46 0%, #064e3b 60%, #022c22 100%);
+    border-radius: 6px;
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+  }
+
+  /* Table felt line */
+  .dicec-floor {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 10px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(250, 204, 21, 0.4), transparent);
+  }
+
+  .die-x {
+    position: absolute;
+    bottom: 14px;
+  }
+
+  .die-x.d1 { left: -4px; animation: d1-xc 5s infinite; }
+  .die-x.d2 { left: 4px; animation: d2-xc 5s infinite; }
+
+  @keyframes d1-xc {
+    0% { transform: translateX(-30px); }
+    54% { transform: translateX(38px); }
+    100% { transform: translateX(38px); }
+  }
+
+  @keyframes d2-xc {
+    0% { transform: translateX(126px); }
+    64% { transform: translateX(60px); }
+    100% { transform: translateX(60px); }
+  }
+
+  .die-y { animation-duration: 5s; animation-iteration-count: infinite; }
+  .die-x.d1 .die-y { animation-name: d1-yc; }
+  .die-x.d2 .die-y { animation-name: d2-yc; animation-delay: 0.15s; }
+
+  @keyframes d1-yc {
+    0% { transform: translateY(-50px); animation-timing-function: ease-in; }
+    13% { transform: translateY(0); animation-timing-function: ease-out; }
+    24% { transform: translateY(-24px); animation-timing-function: ease-in; }
+    35% { transform: translateY(0); animation-timing-function: ease-out; }
+    43% { transform: translateY(-10px); animation-timing-function: ease-in; }
+    51% { transform: translateY(0); }
+    55% { transform: translateY(-3px); }
+    58%, 100% { transform: translateY(0); }
+  }
+
+  @keyframes d2-yc {
+    0% { transform: translateY(-58px); animation-timing-function: ease-in; }
+    18% { transform: translateY(0); animation-timing-function: ease-out; }
+    30% { transform: translateY(-28px); animation-timing-function: ease-in; }
+    41% { transform: translateY(0); animation-timing-function: ease-out; }
+    49% { transform: translateY(-12px); animation-timing-function: ease-in; }
+    57% { transform: translateY(0); }
+    61% { transform: translateY(-3px); }
+    64%, 100% { transform: translateY(0); }
+  }
+
+  /* Die 1: Translucent Crimson Casino Die */
+  .die-x.d1 .dicec-cube {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border: 1.5px solid #fecdd3;
+    border-radius: 5px;
+    background: radial-gradient(circle at 35% 30%, #f43f5e 0%, #dc2626 50%, #991b1b 100%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+    box-sizing: border-box;
+    animation: d1-spinc 5s infinite;
+  }
+
+  /* Die 2: Crisp Ivory Bone Casino Die */
+  .die-x.d2 .dicec-cube {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 5px;
+    background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f8fafc 55%, #cbd5e1 100%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+    box-sizing: border-box;
+    animation: d2-spinc 5s infinite;
+  }
+
+  @keyframes d1-spinc {
+    0% { transform: rotate(-150deg); }
+    13% { transform: rotate(-82deg); }
+    24% { transform: rotate(-40deg); }
+    35% { transform: rotate(-12deg); }
+    49% { transform: rotate(4deg); }
+    58%, 100% { transform: rotate(0deg); }
+    61% { box-shadow: 0 0 16px rgba(244, 63, 94, 0.9); }
+    68% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); }
+  }
+
+  @keyframes d2-spinc {
+    0% { transform: rotate(170deg); }
+    18% { transform: rotate(96deg); }
+    30% { transform: rotate(50deg); }
+    41% { transform: rotate(16deg); }
+    57% { transform: rotate(-4deg); }
+    64%, 100% { transform: rotate(0deg); }
+    67% { box-shadow: 0 0 16px rgba(255, 255, 255, 0.95); }
+    74% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); }
+  }
+
+  .dicec-face {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  /* Pips for Die 1 (Pure White on Red) */
+  .die-x.d1 .dicec-pip {
+    position: absolute;
+    width: 4.5px;
+    height: 4.5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
+  }
+
+  /* Pips for Die 2 (Jet Black on White) */
+  .die-x.d2 .dicec-pip {
+    position: absolute;
+    width: 4.5px;
+    height: 4.5px;
+    border-radius: 50%;
+    background: #09090b;
+  }
+
+  .dicec-face.f2 .dicec-pip.a { left: 3px; top: 3px; }
+  .dicec-face.f2 .dicec-pip.b { right: 3px; bottom: 3px; }
+
+  .dicec-face.f3 .dicec-pip.a { left: 3px; top: 3px; }
+  .dicec-face.f3 .dicec-pip.b { left: 50%; top: 50%; margin: -2.25px 0 0 -2.25px; }
+  .dicec-face.f3 .dicec-pip.c { right: 3px; bottom: 3px; }
+
+  .dicec-face.f4 .dicec-pip.a { left: 3px; top: 3px; }
+  .dicec-face.f4 .dicec-pip.b { right: 3px; top: 3px; }
+  .dicec-face.f4 .dicec-pip.c { left: 3px; bottom: 3px; }
+  .dicec-face.f4 .dicec-pip.d { right: 3px; bottom: 3px; }
+
+  .dicec-face.f5 .dicec-pip.a { left: 3px; top: 3px; }
+  .dicec-face.f5 .dicec-pip.b { right: 3px; top: 3px; }
+  .dicec-face.f5 .dicec-pip.c { left: 50%; top: 50%; margin: -2.25px 0 0 -2.25px; }
+  .dicec-face.f5 .dicec-pip.d { left: 3px; bottom: 3px; }
+  .dicec-face.f5 .dicec-pip.e { right: 3px; bottom: 3px; }
+
+  .dicec-face.f6 .dicec-pip.a { left: 3px; top: 2px; }
+  .dicec-face.f6 .dicec-pip.b { left: 3px; top: 50%; margin-top: -2.25px; }
+  .dicec-face.f6 .dicec-pip.c { left: 3px; bottom: 2px; }
+  .dicec-face.f6 .dicec-pip.d { right: 3px; top: 2px; }
+  .dicec-face.f6 .dicec-pip.e { right: 3px; top: 50%; margin-top: -2.25px; }
+  .dicec-face.f6 .dicec-pip.f { right: 3px; bottom: 2px; }
+
+  .die-x.d1 .dicec-face.f3 { animation: d1-f3c 5s steps(1) infinite; }
+  .die-x.d1 .dicec-face.f5 { animation: d1-f5c 5s steps(1) infinite; }
+  .die-x.d1 .dicec-face.f4 { animation: d1-f4c 5s steps(1) infinite; }
+
+  @keyframes d1-f3c { 0% { opacity: 1; } 13% { opacity: 0; } 24% { opacity: 1; } 35% { opacity: 0; } }
+  @keyframes d1-f5c { 0% { opacity: 0; } 13% { opacity: 1; } 24% { opacity: 0; } 35% { opacity: 1; } 49% { opacity: 0; } }
+  @keyframes d1-f4c { 0%, 49% { opacity: 0; } 58% { opacity: 1; } }
+
+  .die-x.d2 .dicec-face.f2 { animation: d2-f2c 5s steps(1) infinite; }
+  .die-x.d2 .dicec-face.f4 { animation: d2-f4c 5s steps(1) infinite; }
+  .die-x.d2 .dicec-face.f6 { animation: d2-f6c 5s steps(1) infinite; }
+
+  @keyframes d2-f2c { 0% { opacity: 1; } 18% { opacity: 0; } 30% { opacity: 1; } 41% { opacity: 0; } }
+  @keyframes d2-f4c { 0% { opacity: 0; } 18% { opacity: 1; } 30% { opacity: 0; } 41% { opacity: 1; } 57% { opacity: 0; } }
+  @keyframes d2-f6c { 0%, 57% { opacity: 0; } 64% { opacity: 1; } }
+
+  /* Bounce impact dust puffs */
+  .dicec-puff {
+    position: absolute;
+    bottom: 12px;
+    width: 13px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(250, 204, 21, 0.4);
+    opacity: 0;
+  }
+
+  .dicec-puff.p1 { left: 14px; animation: d1-puffc 5s infinite; }
+  .dicec-puff.p2 { left: 38px; animation: d1-puffc 5s infinite; animation-delay: 1.1s; }
+  .dicec-puff.p3 { left: 26px; animation: d2-puffc 5s infinite; }
+  .dicec-puff.p4 { left: 62px; animation: d2-puffc 5s infinite; animation-delay: 1.2s; }
+
+  @keyframes d1-puffc {
+    0%, 12% { transform: scale(0.3); opacity: 0; }
+    14% { opacity: 0.9; }
+    22% { transform: scale(1.5); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes d2-puffc {
+    0%, 17% { transform: scale(0.3); opacity: 0; }
+    19% { opacity: 0.9; }
+    27% { transform: scale(1.5); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* Winning score payout callout */
+  .dicec-score {
+    position: absolute;
+    right: 4px;
+    top: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #facc15;
+    text-shadow: 0 0 8px rgba(250, 204, 21, 0.9);
+    opacity: 0;
+    animation: dicec-score 5s steps(1) infinite;
+  }
+
+  @keyframes dicec-score {
+    0%, 66% { opacity: 0; }
+    70%, 92% { opacity: 1; }
+    96%, 100% { opacity: 0; }
+  }
+  `,
 };
 
 const diceMarkup = {
@@ -484,6 +696,50 @@ const diceMarkup = {
         <div class="dice-score">4 + 6 = 10</div>
       </div>
     `,
+  v3: `
+      <div class="dicec">
+        <div class="dicec-puff p1"></div>
+        <div class="dicec-puff p2"></div>
+        <div class="dicec-puff p3"></div>
+        <div class="dicec-puff p4"></div>
+        <div class="dicec-floor"></div>
+        <div class="die-x d1">
+          <div class="die-y">
+            <div class="dicec-cube">
+              <div class="dicec-face f3">
+                <div class="dicec-pip a"></div><div class="dicec-pip b"></div><div class="dicec-pip c"></div>
+              </div>
+              <div class="dicec-face f5">
+                <div class="dicec-pip a"></div><div class="dicec-pip b"></div><div class="dicec-pip c"></div>
+                <div class="dicec-pip d"></div><div class="dicec-pip e"></div>
+              </div>
+              <div class="dicec-face f4">
+                <div class="dicec-pip a"></div><div class="dicec-pip b"></div>
+                <div class="dicec-pip c"></div><div class="dicec-pip d"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="die-x d2">
+          <div class="die-y">
+            <div class="dicec-cube">
+              <div class="dicec-face f2">
+                <div class="dicec-pip a"></div><div class="dicec-pip b"></div>
+              </div>
+              <div class="dicec-face f4">
+                <div class="dicec-pip a"></div><div class="dicec-pip b"></div>
+                <div class="dicec-pip c"></div><div class="dicec-pip d"></div>
+              </div>
+              <div class="dicec-face f6">
+                <div class="dicec-pip a"></div><div class="dicec-pip b"></div><div class="dicec-pip c"></div>
+                <div class="dicec-pip d"></div><div class="dicec-pip e"></div><div class="dicec-pip f"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dicec-score">4 + 6 = 10</div>
+      </div>
+    `,
 };
 
 class ConceptDice extends HTMLElement {
@@ -499,8 +755,8 @@ class ConceptDice extends HTMLElement {
     if (this.isConnected) this.render();
   }
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${diceStyles[version] || diceStyles.v2}</style>${diceMarkup[version] || diceMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${diceStyles[version] || diceStyles.v3}</style>${diceMarkup[version] || diceMarkup.v3}`;
   }
 }
 
