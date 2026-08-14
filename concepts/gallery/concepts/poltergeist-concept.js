@@ -1,4 +1,5 @@
-const poltergeistStyles = `
+const poltergeistStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -29,7 +30,6 @@ const poltergeistStyles = `
     box-shadow: 0 0 8px rgba(0, 204, 0, 0.25);
   }
 
-  /* A cup */
   .polt-item.cup {
     left: 20px;
     bottom: 20px;
@@ -53,7 +53,6 @@ const poltergeistStyles = `
     border-radius: 0 4px 4px 0;
   }
 
-  /* A book */
   .polt-item.book {
     left: 46px;
     bottom: 20px;
@@ -75,7 +74,6 @@ const poltergeistStyles = `
     background: repeating-linear-gradient(180deg, rgba(160, 255, 185, 0.35) 0 1px, transparent 1px 3px);
   }
 
-  /* A picture frame */
   .polt-item.frame {
     left: 76px;
     bottom: 20px;
@@ -157,16 +155,183 @@ const poltergeistStyles = `
     0%, 60%, 100% { color: rgba(200, 255, 210, 0); }
     64%, 68% { color: rgba(200, 255, 210, 0.9); }
   }
-`;
-
-class ConceptPoltergeist extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${poltergeistStyles}</style>
+
+  /* v2: Poltergeist haunting with mahogany shelf, cobalt cup, crimson grimoire,
+     golden picture frame, and ectoplasmic purple/cyan aura */
+  .poltc {
+    position: relative;
+    width: 104px;
+    height: 104px;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+  }
+
+  /* Mahogany wood shelf */
+  .poltc-shelf {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 16px;
+    height: 3px;
+    border-radius: 1px;
+    background: linear-gradient(90deg, transparent, #b45309 20%, #78350f 80%, transparent);
+    box-shadow: 0 0 6px #ca8a04;
+  }
+
+  .poltc-item {
+    position: absolute;
+  }
+
+  /* Cobalt porcelain tea cup */
+  .poltc-item.cup {
+    left: 20px;
+    bottom: 20px;
+    width: 14px;
+    height: 12px;
+    border-radius: 2px 2px 5px 5px;
+    background: linear-gradient(180deg, #38bdf8 0%, #0284c7 60%, #1e3a8a 100%);
+    border: 1px solid #7dd3fc;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+    animation: poltc-lift1 6.5s ease-in-out infinite;
+  }
+
+  .poltc-item.cup::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: -5px;
+    width: 5px;
+    height: 6px;
+    border: 1px solid #7dd3fc;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* Crimson leather spellbook with gold pages */
+  .poltc-item.book {
+    left: 46px;
+    bottom: 20px;
+    width: 20px;
+    height: 14px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #b91c1c 0 4px, #ef4444 4px);
+    border: 1px solid #f87171;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+    animation: poltc-lift2 6.5s ease-in-out infinite;
+  }
+
+  .poltc-item.book::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 7px;
+    right: 3px;
+    height: 6px;
+    background: repeating-linear-gradient(180deg, #fef08a 0 1px, transparent 1px 3px);
+  }
+
+  /* Gilt baroque picture frame */
+  .poltc-item.frame {
+    left: 76px;
+    bottom: 20px;
+    width: 13px;
+    height: 16px;
+    border: 2px solid #facc15;
+    border-radius: 2px;
+    background: #0f172a;
+    box-shadow: 0 0 8px #ca8a04;
+    animation: poltc-lift3 6.5s ease-in-out infinite;
+  }
+
+  .poltc-item.frame::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: radial-gradient(circle at 50% 40%, #c084fc 0 25%, transparent 70%);
+  }
+
+  /* Spectral ectoplasmic mist presence */
+  .poltc-presence {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    width: 70px;
+    height: 34px;
+    margin-left: -35px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.4), rgba(56, 189, 248, 0.2) 50%, transparent 70%);
+    filter: blur(4px);
+    animation: poltc-presence 6.5s ease-in-out infinite;
+  }
+
+  /* Eerie tap sound text */
+  .poltc-crack {
+    position: absolute;
+    top: 6px;
+    right: 14px;
+    color: rgba(254, 240, 138, 0);
+    font-family: monospace;
+    font-size: 9px;
+    font-weight: bold;
+    text-shadow: 0 0 6px #facc15;
+    animation: poltc-crack 6.5s linear infinite;
+  }
+
+  @keyframes poltc-lift1 {
+    0%, 12% { transform: translateY(0) rotate(0deg); }
+    26% { transform: translateY(-34px) rotate(-10deg); }
+    40% { transform: translateY(-28px) rotate(8deg); }
+    54% { transform: translateY(-36px) rotate(-6deg); }
+    68% { transform: translateY(-30px) rotate(4deg); }
+    82% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  @keyframes poltc-lift2 {
+    0%, 18% { transform: translateY(0) rotate(0deg); }
+    32% { transform: translateY(-46px) rotate(12deg); }
+    46% { transform: translateY(-40px) rotate(-9deg); }
+    60% { transform: translateY(-48px) rotate(7deg); }
+    74% { transform: translateY(-42px) rotate(-5deg); }
+    88%, 100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  @keyframes poltc-lift3 {
+    0%, 8% { transform: translateY(0) rotate(0deg); }
+    22% { transform: translateY(-22px) rotate(14deg); }
+    36% { transform: translateY(-18px) rotate(-12deg); }
+    50% { transform: translateY(-26px) rotate(10deg); }
+    62% { transform: translateY(-2px) rotate(-3deg); }
+    66% { transform: translateY(-14px) rotate(6deg); }
+    78%, 100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  @keyframes poltc-presence {
+    0%, 10% { opacity: 0.2; transform: translateX(-6px); }
+    40% { opacity: 1; transform: translateX(8px); }
+    70% { opacity: 0.7; transform: translateX(-4px); }
+    90%, 100% { opacity: 0.2; transform: translateX(-6px); }
+  }
+
+  @keyframes poltc-crack {
+    0%, 60%, 100% { color: rgba(254, 240, 138, 0); }
+    64%, 68% { color: #fde047; }
+  }
+  `,
+};
+
+const poltergeistMarkup = {
+  v1: `
       <div class="polt">
         <div class="polt-presence"></div>
         <span class="polt-crack">*tap*</span>
@@ -175,7 +340,34 @@ class ConceptPoltergeist extends HTMLElement {
         <div class="polt-item frame"></div>
         <div class="polt-shelf"></div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="poltc">
+        <div class="poltc-presence"></div>
+        <span class="poltc-crack">*tap*</span>
+        <div class="poltc-item cup"></div>
+        <div class="poltc-item book"></div>
+        <div class="poltc-item frame"></div>
+        <div class="poltc-shelf"></div>
+      </div>
+    `,
+};
+
+class ConceptPoltergeist extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${poltergeistStyles[version] || poltergeistStyles.v2}</style>${poltergeistMarkup[version] || poltergeistMarkup.v2}`;
   }
 }
 

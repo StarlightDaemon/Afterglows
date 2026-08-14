@@ -1,4 +1,5 @@
-const graveyardStyles = `
+const graveyardStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -15,7 +16,6 @@ const graveyardStyles = `
     background: linear-gradient(180deg, #010401 0%, #020a05 75%, #041106 100%);
   }
 
-  /* Ground line. */
   .gy-ground {
     position: absolute;
     left: 0;
@@ -25,7 +25,6 @@ const graveyardStyles = `
     background: linear-gradient(90deg, transparent, rgba(0, 204, 0, 0.4), transparent);
   }
 
-  /* Headstones: one rounded, one cross, one slab (leaning). */
   .gy-stone {
     position: absolute;
     bottom: 16px;
@@ -62,7 +61,6 @@ const graveyardStyles = `
     transform-origin: bottom center;
   }
 
-  /* Cross: vertical + horizontal bars. */
   .gy-cross {
     position: absolute;
     bottom: 16px;
@@ -86,8 +84,6 @@ const graveyardStyles = `
     box-sizing: border-box;
   }
 
-  /* Fog banks: soft blurred bands sliding through at differing speeds,
-     rising slightly as they cross. */
   .gy-fog {
     position: absolute;
     height: 14px;
@@ -126,7 +122,6 @@ const graveyardStyles = `
     animation-delay: -11s;
   }
 
-  /* A bat flitting across the moon on a jinking path. */
   .gy-bat {
     position: absolute;
     top: 0;
@@ -160,7 +155,6 @@ const graveyardStyles = `
     animation-name: gy-flap-r;
   }
 
-  /* Moon low and huge behind the stones. */
   .gy-moon {
     position: absolute;
     top: 10px;
@@ -205,16 +199,227 @@ const graveyardStyles = `
     0%, 100% { opacity: 0.8; }
     50% { opacity: 1; }
   }
-`;
-
-class ConceptGraveyard extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${graveyardStyles}</style>
+
+  /* v2: Midnight graveyard mist with golden Harvest Moon, granite tombstones,
+     lavender fog, and flying bat */
+  .gyc {
+    width: 104px;
+    height: 104px;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+  }
+
+  /* Earth ground line */
+  .gyc-ground {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 14px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #15803d 30%, #166534 70%, transparent);
+    box-shadow: 0 0 6px #15803d;
+  }
+
+  /* Granite headstones */
+  .gyc-stone {
+    position: absolute;
+    bottom: 16px;
+    background: linear-gradient(180deg, #64748b 0%, #334155 70%, #1e293b 100%);
+    border: 1px solid #94a3b8;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    box-sizing: border-box;
+  }
+
+  .gyc-stone.round {
+    left: 14px;
+    width: 20px;
+    height: 26px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .gyc-stone.round::after {
+    content: 'R I P';
+    position: absolute;
+    top: 7px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: monospace;
+    font-size: 6px;
+    font-weight: bold;
+    color: #cbd5e1;
+  }
+
+  .gyc-stone.slab {
+    right: 16px;
+    width: 16px;
+    height: 22px;
+    border-radius: 3px 3px 0 0;
+    transform: rotate(7deg);
+    transform-origin: bottom center;
+  }
+
+  /* Stone cross */
+  .gyc-cross {
+    position: absolute;
+    bottom: 16px;
+    left: 48px;
+    width: 4px;
+    height: 30px;
+    background: linear-gradient(180deg, #94a3b8, #475569);
+    border: 1px solid #cbd5e1;
+    box-sizing: border-box;
+  }
+
+  .gyc-cross::after {
+    content: '';
+    position: absolute;
+    top: 7px;
+    left: -6px;
+    width: 14px;
+    height: 4px;
+    background: #64748b;
+    border: 1px solid #cbd5e1;
+    box-sizing: border-box;
+  }
+
+  /* Lavender & turquoise ground mist */
+  .gyc-fog {
+    position: absolute;
+    height: 14px;
+    border-radius: 50%;
+    filter: blur(3px);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .gyc-fog.f1 {
+    bottom: 12px;
+    left: 0;
+    width: 60px;
+    background: radial-gradient(ellipse, rgba(192, 132, 252, 0.4), transparent 70%);
+    animation-name: gyc-fog-a;
+    animation-duration: 9s;
+  }
+
+  .gyc-fog.f2 {
+    bottom: 20px;
+    left: 0;
+    width: 44px;
+    background: radial-gradient(ellipse, rgba(56, 189, 248, 0.35), transparent 70%);
+    opacity: 0.8;
+    animation-name: gyc-fog-b;
+    animation-duration: 13s;
+    animation-delay: -5s;
+  }
+
+  .gyc-fog.f3 {
+    bottom: 28px;
+    left: 0;
+    width: 34px;
+    background: radial-gradient(ellipse, rgba(168, 85, 247, 0.3), transparent 70%);
+    opacity: 0.5;
+    animation-name: gyc-fog-a;
+    animation-duration: 17s;
+    animation-delay: -11s;
+  }
+
+  /* Obsidian bat */
+  .gyc-bat {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 4px;
+    animation: gyc-bat 7s linear infinite;
+  }
+
+  .gyc-bat::before,
+  .gyc-bat::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 5px;
+    height: 4px;
+    background: #020617;
+    box-shadow: 0 0 2px #38bdf8;
+    animation: gyc-flap 0.34s ease-in-out infinite alternate;
+  }
+
+  .gyc-bat::before {
+    left: 0;
+    border-radius: 80% 20% 0 60%;
+    transform-origin: right center;
+  }
+
+  .gyc-bat::after {
+    right: 0;
+    border-radius: 20% 80% 60% 0;
+    transform-origin: left center;
+    animation-name: gyc-flap-r;
+  }
+
+  /* Glowing golden Harvest Moon */
+  .gyc-moon {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 42% 36%, #fffbeb 0%, #fde047 50%, #eab308 100%);
+    box-shadow: 0 0 16px #facc15, 0 0 24px #eab308;
+    animation: gyc-moon 8s ease-in-out infinite;
+  }
+
+  @keyframes gyc-fog-a {
+    0% { transform: translate(-60px, 0); }
+    100% { transform: translate(120px, -4px); }
+  }
+
+  @keyframes gyc-fog-b {
+    0% { transform: translate(110px, 0); }
+    100% { transform: translate(-60px, -5px); }
+  }
+
+  @keyframes gyc-bat {
+    0% { transform: translate(-12px, 34px); }
+    22% { transform: translate(26px, 20px); }
+    44% { transform: translate(52px, 30px); }
+    66% { transform: translate(74px, 16px); }
+    100% { transform: translate(116px, 26px); }
+  }
+
+  @keyframes gyc-flap {
+    from { transform: rotate(-24deg); }
+    to { transform: rotate(26deg); }
+  }
+
+  @keyframes gyc-flap-r {
+    from { transform: rotate(24deg); }
+    to { transform: rotate(-26deg); }
+  }
+
+  @keyframes gyc-moon {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 1; }
+  }
+  `,
+};
+
+const graveyardMarkup = {
+  v1: `
       <div class="gy">
         <div class="gy-moon"></div>
         <div class="gy-bat"></div>
@@ -226,7 +431,37 @@ class ConceptGraveyard extends HTMLElement {
         <div class="gy-fog f2"></div>
         <div class="gy-fog f3"></div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="gyc">
+        <div class="gyc-moon"></div>
+        <div class="gyc-bat"></div>
+        <div class="gyc-stone round"></div>
+        <div class="gyc-cross"></div>
+        <div class="gyc-stone slab"></div>
+        <div class="gyc-ground"></div>
+        <div class="gyc-fog f1"></div>
+        <div class="gyc-fog f2"></div>
+        <div class="gyc-fog f3"></div>
+      </div>
+    `,
+};
+
+class ConceptGraveyard extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${graveyardStyles[version] || graveyardStyles.v2}</style>${graveyardMarkup[version] || graveyardMarkup.v2}`;
   }
 }
 
