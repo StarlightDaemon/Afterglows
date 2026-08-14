@@ -1,9 +1,7 @@
-// Cash register, rebuilt (2026-08-02): the old render's display, keypad
-// and drawer floated apart and the "$ CHING" text overprinted the body.
-// Now one coherent machine rings up one sale: keys blink as the price is
-// punched, the display total steps up, the SALE flag flashes, the drawer
-// kicks open showing the cash tray, and slams shut for the next customer.
-// v1 is the archived original render, kept verbatim for the gallery.
+// Cash register: keys punch in price, display totals, drawer kicks open with cash tray.
+// v1 and v2 are preserved.
+// v3 adds full color: ornate antique golden brass & walnut body, emerald display,
+// colorful keys, green currency notes, shiny gold coins, and golden ring spark.
 const cashRegisterStyles = {
   v1: `
   :host {
@@ -163,7 +161,7 @@ const cashRegisterStyles = {
     70% { opacity: 1; }
     76%, 100% { opacity: 0; }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -393,7 +391,254 @@ const cashRegisterStyles = {
 
   .cr-foot.f1 { left: 16px; }
   .cr-foot.f2 { right: 16px; }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Ornate antique golden brass and rich walnut cash register with
+     emerald green display, colorful keys, currency bills, gold coins, and ring spark */
+  .crc {
+    width: 104px;
+    height: 96px;
+    position: relative;
+    font-family: 'Courier New', monospace;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Golden Brass Backlit Display Hood */
+  .crc-display {
+    position: absolute;
+    left: 18px;
+    top: 6px;
+    width: 68px;
+    height: 20px;
+    border-radius: 4px 4px 0 0;
+    background: #022c22;
+    border: 2px solid #facc15;
+    box-shadow: 0 0 6px rgba(250, 204, 21, 0.5);
+    overflow: hidden;
+  }
+
+  /* Emerald Green Glowing Total Readout */
+  .crc-amt {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    font-size: 9.5px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #ecfdf5;
+    text-shadow: 0 0 6px #10b981;
+    opacity: 0;
+  }
+
+  .crc-amt.a0 { animation: crc-amt0 6s steps(1) infinite; }
+  .crc-amt.a1 { animation: crc-amt1 6s steps(1) infinite; }
+  .crc-amt.a2 { animation: crc-amt2 6s steps(1) infinite; }
+
+  @keyframes crc-amt0 {
+    0%, 14% { opacity: 1; }
+    15%, 94% { opacity: 0; }
+    95%, 100% { opacity: 1; }
+  }
+
+  @keyframes crc-amt1 {
+    0%, 14% { opacity: 0; }
+    15%, 29% { opacity: 1; }
+    30%, 100% { opacity: 0; }
+  }
+
+  @keyframes crc-amt2 {
+    0%, 29% { opacity: 0; }
+    30%, 94% { opacity: 1; }
+    95%, 100% { opacity: 0; }
+  }
+
+  /* Red SALE Pop-up Flag */
+  .crc-sale {
+    position: absolute;
+    left: 5px;
+    top: 3px;
+    font-size: 8px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #f87171;
+    text-shadow: 0 0 4px #ef4444;
+    opacity: 0;
+    animation: crc-sale 6s steps(1) infinite;
+  }
+
+  @keyframes crc-sale {
+    0%, 34% { opacity: 0; }
+    36%, 44% { opacity: 1; }
+    46%, 48% { opacity: 0; }
+    50%, 58% { opacity: 1; }
+    60%, 100% { opacity: 0; }
+  }
+
+  /* Polished Brass & Walnut Register Body */
+  .crc-body {
+    position: absolute;
+    left: 12px;
+    top: 26px;
+    width: 80px;
+    height: 34px;
+    border-radius: 3px 8px 2px 2px;
+    background: linear-gradient(180deg, #d97706 0%, #b45309 50%, #78350f 100%);
+    border: 2px solid #facc15;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  }
+
+  /* Colorful Tactile Cashier Keypad */
+  .crc-keys {
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    width: 44px;
+    height: 22px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .crc-key {
+    border-radius: 2px;
+    background: #475569;
+    border: 0.5px solid #94a3b8;
+  }
+
+  .crc-key:nth-child(3n+1) { background: #0284c7; }
+  .crc-key:nth-child(3n+2) { background: #16a34a; }
+  .crc-key:nth-child(3n+3) { background: #ea580c; }
+
+  .crc-key.p1 { animation: crc-punch 6s steps(1) infinite; }
+  .crc-key.p2 { animation: crc-punch 6s steps(1) infinite 0.35s; }
+  .crc-key.p3 { animation: crc-punch 6s steps(1) infinite 0.8s; }
+  .crc-key.p4 { animation: crc-punch 6s steps(1) infinite 1.15s; }
+
+  @keyframes crc-punch {
+    0%, 2% { box-shadow: none; }
+    3%, 6% { background: #fde047; box-shadow: 0 0 6px #facc15; }
+    7%, 100% { box-shadow: none; }
+  }
+
+  /* Golden Brass Crank Lever */
+  .crc-lever {
+    position: absolute;
+    right: 6px;
+    top: 5px;
+    width: 4px;
+    height: 14px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #fde047, #ca8a04);
+    box-shadow: 0 0 3px #facc15;
+    transform-origin: 50% 100%;
+    animation: crc-lever 6s ease-in-out infinite;
+  }
+
+  @keyframes crc-lever {
+    0%, 30% { transform: rotate(0deg); }
+    33% { transform: rotate(-50deg); }
+    38% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  /* Walnut & Brass Cash Drawer */
+  .crc-drawer {
+    position: absolute;
+    left: 10px;
+    top: 60px;
+    width: 84px;
+    height: 18px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #78350f 0%, #451a03 100%);
+    border: 2px solid #facc15;
+    overflow: hidden;
+    animation: crc-drawer 6s cubic-bezier(0.2, 1.4, 0.4, 1) infinite;
+  }
+
+  @keyframes crc-drawer {
+    0%, 34% { transform: translateX(0); }
+    38%, 78% { transform: translateX(14px); }
+    84%, 100% { transform: translateX(0); }
+  }
+
+  /* Cash Compartments Tray */
+  .crc-tray {
+    position: absolute;
+    left: 4px;
+    top: 3px;
+    right: 4px;
+    bottom: 3px;
+    display: flex;
+    gap: 3px;
+  }
+
+  /* Green Currency Banknotes */
+  .crc-slot {
+    flex: 1;
+    border: 1px solid #16a34a;
+    border-radius: 1px;
+    background:
+      repeating-linear-gradient(0deg,
+        #22c55e 0 2px,
+        #15803d 2px 4px);
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Golden & Silver Coins Compartment */
+  .crc-slot.coins {
+    background:
+      radial-gradient(circle at 30% 50%, #fde047 0 2px, transparent 3px),
+      radial-gradient(circle at 65% 40%, #ffffff 0 2px, transparent 3px);
+    border: 1px solid #ca8a04;
+  }
+
+  /* Golden Cha-Ching Ring Spark Burst */
+  .crc-ring {
+    position: absolute;
+    left: 50%;
+    top: 62px;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    border: 2px solid #fde047;
+    box-shadow: 0 0 10px #facc15;
+    border-radius: 50%;
+    opacity: 0;
+    animation: crc-ring 6s ease-out infinite;
+  }
+
+  @keyframes crc-ring {
+    0%, 34% { transform: scale(0.4); opacity: 0; }
+    38% { opacity: 1; }
+    50% { transform: scale(1.8); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* Base Brass Feet */
+  .crc-foot {
+    position: absolute;
+    bottom: 8px;
+    width: 10px;
+    height: 4px;
+    border-radius: 0 0 2px 2px;
+    background: #ca8a04;
+    border: 0.5px solid #facc15;
+  }
+
+  .crc-foot.f1 { left: 16px; }
+  .crc-foot.f2 { right: 16px; }
+  `,
 };
 
 const cashRegisterMarkup = {
@@ -435,6 +680,34 @@ const cashRegisterMarkup = {
         <div class="cr-foot f2"></div>
       </div>
     `,
+  v3: `
+      <div class="crc">
+        <div class="crc-display">
+          <span class="crc-sale">SALE</span>
+          <span class="crc-amt a0">$0.00</span>
+          <span class="crc-amt a1">$2.10</span>
+          <span class="crc-amt a2">$4.25</span>
+        </div>
+        <div class="crc-body">
+          <div class="crc-keys">
+            <div class="crc-key"></div><div class="crc-key p1"></div><div class="crc-key"></div><div class="crc-key p3"></div>
+            <div class="crc-key p2"></div><div class="crc-key"></div><div class="crc-key p4"></div><div class="crc-key"></div>
+            <div class="crc-key"></div><div class="crc-key"></div><div class="crc-key"></div><div class="crc-key"></div>
+          </div>
+          <div class="crc-lever"></div>
+        </div>
+        <div class="crc-drawer">
+          <div class="crc-tray">
+            <div class="crc-slot"></div>
+            <div class="crc-slot"></div>
+            <div class="crc-slot coins"></div>
+          </div>
+        </div>
+        <div class="crc-ring"></div>
+        <div class="crc-foot f1"></div>
+        <div class="crc-foot f2"></div>
+      </div>
+    `,
 };
 
 class ConceptCashRegister extends HTMLElement {
@@ -458,9 +731,9 @@ class ConceptCashRegister extends HTMLElement {
   }
 
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    const styles = cashRegisterStyles[version] || cashRegisterStyles.v2;
-    const markup = cashRegisterMarkup[version] || cashRegisterMarkup.v2;
+    const version = this.getAttribute('version') || 'v3';
+    const styles = cashRegisterStyles[version] || cashRegisterStyles.v3;
+    const markup = cashRegisterMarkup[version] || cashRegisterMarkup.v3;
     this.shadowRoot.innerHTML = `<style>${styles}</style>${markup}`;
   }
 }

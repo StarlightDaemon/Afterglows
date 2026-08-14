@@ -1,6 +1,7 @@
-// v1 is the archived original; v2 (default) repositions the chamber
-// window, adds an intake collar on the pencil axis, and seats the crank
-// axle flush on the body's right face.
+// Crank pencil sharpener: handle turns, pencil feeds in, curled shavings fall.
+// v1 and v2 are preserved.
+// v3 adds full color: vintage classroom housing, smoky amber shavings bin,
+// yellow No. 2 cedar pencil with pink eraser & brass ferrule, and curled wood shavings.
 const sharpenerStyles = {
   v1: `
   :host {
@@ -197,7 +198,7 @@ const sharpenerStyles = {
     88% { transform: scale(1, 1); }
     92%, 100% { transform: scale(0.2, 0.3); }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -420,7 +421,233 @@ const sharpenerStyles = {
     88% { transform: scale(1, 1); }
     92%, 100% { transform: scale(0.2, 0.3); }
   }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Vintage classroom mechanical pencil sharpener with
+     amber shavings bin, No. 2 yellow pencil, pink eraser, and cedar shavings */
+  .shc {
+    width: 116px;
+    height: 84px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Cast Iron / Olive Green Sharpener Body */
+  .shc-body {
+    position: absolute;
+    right: 6px;
+    top: 22px;
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #334155 0%, #1e293b 60%, #0f172a 100%);
+    border: 2px solid #64748b;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Smoky Amber Shavings Chamber Window */
+  .shc-body::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 18px;
+    width: 16px;
+    height: 12px;
+    border-radius: 3px;
+    background: rgba(217, 119, 6, 0.45);
+    border: 1px solid #d97706;
+    box-shadow: inset 0 0 4px #b45309;
+  }
+
+  /* Steel Intake Collar */
+  .shc-intake {
+    position: absolute;
+    right: 38px;
+    top: 32px;
+    width: 5px;
+    height: 14px;
+    border-radius: 3px 0 0 3px;
+    background: #020617;
+    border: 1.5px solid #cbd5e1;
+    border-right: none;
+    z-index: 2;
+  }
+
+  /* Chrome Hand Crank Assembly */
+  .shc-crank {
+    position: absolute;
+    right: 6px;
+    top: 39px;
+    width: 0;
+    height: 0;
+    animation: shc-turn 1.4s linear infinite;
+  }
+
+  .shc-crank::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: -3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #1e293b;
+    border: 1.5px solid #f1f5f9;
+  }
+
+  @keyframes shc-turn {
+    to { transform: rotate(360deg); }
+  }
+
+  .shc-crank-arm {
+    position: absolute;
+    top: -1.5px;
+    left: 0;
+    width: 18px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #f1f5f9, #94a3b8);
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+    transform-origin: 0% 50%;
+  }
+
+  .shc-crank-knob {
+    position: absolute;
+    left: 16px;
+    top: -3px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 32%, #4ade80, #15803d 75%);
+    border: 0.5px solid #86efac;
+  }
+
+  /* Pencil Feed Assembly */
+  .shc-pencil {
+    position: absolute;
+    left: 18px;
+    top: 33px;
+    width: 68px;
+    height: 12px;
+    animation: shc-feed 5s ease-in-out infinite;
+  }
+
+  /* Classic Yellow No. 2 Pencil Barrel */
+  .shc-barrel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50px;
+    height: 12px;
+    border-radius: 2px 0 0 2px;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.3), transparent 30%, transparent 70%, rgba(0,0,0,0.3)),
+      repeating-linear-gradient(90deg,
+        #facc15 0 5px,
+        #eab308 5px 10px);
+    border: 1px solid #ca8a04;
+    animation: shc-spin 0.5s linear infinite;
+  }
+
+  @keyframes shc-spin {
+    to { background-position: 0 0, 10px 0; }
+  }
+
+  /* Pink Rubber Eraser & Brass Ferrule */
+  .shc-eraser {
+    position: absolute;
+    left: -6px;
+    top: 1px;
+    width: 6px;
+    height: 10px;
+    border-radius: 3px 0 0 3px;
+    background: #f472b6;
+    border-left: 1px solid #ec4899;
+    box-shadow: inset 1px 0 0 #fde047;
+  }
+
+  /* Honed Cedar Wood Cone + Graphite Core */
+  .shc-tip {
+    position: absolute;
+    left: 50px;
+    top: 0;
+    width: 16px;
+    height: 12px;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    background: linear-gradient(90deg, #fed7aa 0%, #fde68a 70%, #0f172a 75%, #020617 100%);
+    animation: shc-tip 5s ease-in-out infinite;
+  }
+
+  @keyframes shc-tip {
+    0%, 10% { width: 8px; }
+    60% { width: 18px; }
+    92% { width: 18px; }
+    96%, 100% { width: 8px; }
+  }
+
+  @keyframes shc-feed {
+    0%, 10% { transform: translateX(0); }
+    60% { transform: translateX(8px); }
+    82% { transform: translateX(8px); }
+    88% { transform: translateX(-22px); }
+    94% { transform: translateX(-22px); }
+    100% { transform: translateX(0); }
+  }
+
+  /* Natural Curled Cedar Wood Shavings */
+  .shc-shaving {
+    position: absolute;
+    right: 30px;
+    top: 40px;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid #f59e0b;
+    border-radius: 50% 50% 50% 0;
+    border-right-color: transparent;
+    opacity: 0;
+    animation: shc-shaving 1.6s ease-in infinite;
+  }
+
+  .shc-shaving.v2 { animation-delay: -0.6s; right: 34px; border-color: #d97706; border-right-color: transparent; }
+  .shc-shaving.v3 { animation-delay: -1.1s; right: 26px; border-color: #fbbf24; border-right-color: transparent; }
+
+  @keyframes shc-shaving {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translate(-6px, 26px) rotate(160deg); opacity: 0; }
+  }
+
+  /* Growing Shavings Pile */
+  .shc-pile {
+    position: absolute;
+    right: 20px;
+    bottom: 8px;
+    width: 22px;
+    height: 6px;
+    border-radius: 50% 50% 0 0;
+    background: linear-gradient(180deg, #f59e0b, #b45309);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    transform-origin: bottom center;
+    animation: shc-pile 5s infinite;
+  }
+
+  @keyframes shc-pile {
+    0% { transform: scale(0.2, 0.3); }
+    82% { transform: scale(1, 1); }
+    88% { transform: scale(1, 1); }
+    92%, 100% { transform: scale(0.2, 0.3); }
+  }
+  `,
 };
 
 const sharpenerMarkup = {
@@ -461,6 +688,25 @@ const sharpenerMarkup = {
         </div>
       </div>
     `,
+  v3: `
+      <div class="shc">
+        <div class="shc-shaving"></div>
+        <div class="shc-shaving v2"></div>
+        <div class="shc-shaving v3"></div>
+        <div class="shc-pile"></div>
+        <div class="shc-pencil">
+          <div class="shc-eraser"></div>
+          <div class="shc-barrel"></div>
+          <div class="shc-tip"></div>
+        </div>
+        <div class="shc-body"></div>
+        <div class="shc-intake"></div>
+        <div class="shc-crank">
+          <div class="shc-crank-arm"></div>
+          <div class="shc-crank-knob"></div>
+        </div>
+      </div>
+    `,
 };
 
 class ConceptSharpener extends HTMLElement {
@@ -476,8 +722,8 @@ class ConceptSharpener extends HTMLElement {
     if (this.isConnected) this.render();
   }
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${sharpenerStyles[version] || sharpenerStyles.v2}</style>${sharpenerMarkup[version] || sharpenerMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${sharpenerStyles[version] || sharpenerStyles.v3}</style>${sharpenerMarkup[version] || sharpenerMarkup.v3}`;
   }
 }
 

@@ -1,9 +1,7 @@
-// Piggy bank, rebuilt (2026-08-02): the old lumpy striped ellipse read
-// as a bug. Now it's an unmistakable pig in profile facing left — round
-// body, distinct head with a two-nostril snout, perky ear, four legs and
-// a curly tail — with the classic story: a coin drops into the top slot,
-// the pig does a happy wiggle, the tail springs, repeat.
-// v1 below is the archived original, preserved verbatim.
+// Piggy bank: coin drops into slot, pig wiggles, tail springs, clink sparkles.
+// v1 and v2 are preserved.
+// v3 adds full color: bubblegum ceramic pink pig, gold coin with $,
+// rosy cheeks, curly tail, and golden clink starburst.
 const piggybankStyles = {
   v1: `
   :host {
@@ -232,7 +230,7 @@ const piggybankStyles = {
     68% { transform: translateY(-10px); opacity: 0; }
     100% { opacity: 0; }
   }
-`,
+  `,
   v2: `
   :host {
     display: flex;
@@ -261,7 +259,6 @@ const piggybankStyles = {
 
   @keyframes pg-wiggle {
     0%, 42%, 100% { transform: rotate(0deg) scale(1); }
-    /* Coin lands ~46%: happy bounce. */
     48% { transform: rotate(-2.5deg) scale(1.03, 0.97); }
     54% { transform: rotate(2deg) scale(0.98, 1.02); }
     60% { transform: rotate(0deg) scale(1); }
@@ -442,9 +439,7 @@ const piggybankStyles = {
   @keyframes pg-coin {
     0%, 10% { transform: translateY(0) rotate(0deg); opacity: 0; }
     14% { opacity: 1; }
-    /* Falls, turning slightly edge-on toward the slot. */
     40% { transform: translateY(24px) rotate(50deg) scaleX(0.7); opacity: 1; }
-    /* Swallowed by the slot. */
     46% { transform: translateY(31px) rotate(85deg) scaleX(0.25); opacity: 1; }
     48%, 100% { transform: translateY(32px) rotate(90deg) scaleX(0.2); opacity: 0; }
   }
@@ -489,7 +484,271 @@ const piggybankStyles = {
     border-radius: 50%;
     background: radial-gradient(ellipse at center, rgba(0, 204, 0, 0.22), transparent 70%);
   }
-`,
+  `,
+  v3: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v3: Glossy Bubblegum Pink Ceramic Piggy Bank with
+     gold coin ($), painted rosy cheeks, curly tail, and golden clink sparkle */
+  .pgc {
+    width: 108px;
+    height: 96px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Pig Wiggle on Coin Clink */
+  .pgc-pig {
+    position: absolute;
+    left: 10px;
+    top: 26px;
+    width: 88px;
+    height: 56px;
+    transform-origin: 50% 90%;
+    animation: pgc-wiggle 3.5s ease-in-out infinite;
+  }
+
+  @keyframes pgc-wiggle {
+    0%, 42%, 100% { transform: rotate(0deg) scale(1); }
+    48% { transform: rotate(-2.5deg) scale(1.03, 0.97); }
+    54% { transform: rotate(2deg) scale(0.98, 1.02); }
+    60% { transform: rotate(0deg) scale(1); }
+  }
+
+  /* Glossy Bubblegum Pink Body */
+  .pgc-body {
+    position: absolute;
+    left: 14px;
+    top: 6px;
+    width: 62px;
+    height: 44px;
+    border-radius: 50% 46% 48% 50%;
+    background: radial-gradient(circle at 38% 32%, #fbcfe8 0%, #f472b6 55%, #db2777 85%, #9d174d 100%);
+    border: 2px solid #f472b6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+  }
+
+  /* Dark Coin Slot on Back */
+  .pgc-slot {
+    position: absolute;
+    left: 38px;
+    top: 2px;
+    width: 16px;
+    height: 3px;
+    border-radius: 2px;
+    background: #020617;
+    box-shadow: inset 0 0 3px #000000;
+    z-index: 2;
+  }
+
+  /* Ceramic Head with Rose Cheek Highlight */
+  .pgc-head {
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 30px;
+    height: 26px;
+    border-radius: 50% 45% 45% 50%;
+    background: radial-gradient(circle at 40% 34%, #fbcfe8 0%, #f472b6 65%, #db2777 100%);
+    border: 2px solid #f472b6;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.6);
+    z-index: 2;
+  }
+
+  /* Rosy Snout Disc with Nostril Slots */
+  .pgc-snout {
+    position: absolute;
+    left: -6px;
+    top: 22px;
+    width: 12px;
+    height: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fda4af, #f43f5e);
+    border: 1.5px solid #fb7185;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    z-index: 3;
+  }
+
+  .pgc-snout::before,
+  .pgc-snout::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    width: 1.5px;
+    height: 3.5px;
+    border-radius: 1px;
+    background: #881337;
+  }
+
+  .pgc-snout::before { left: 3px; }
+  .pgc-snout::after { right: 3px; }
+
+  /* Glossy Black Ceramic Eye */
+  .pgc-eye {
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #020617;
+    box-shadow: 0 0 1px #ffffff;
+    z-index: 3;
+  }
+
+  /* Perky Pink Ear */
+  .pgc-ear {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 12px;
+    height: 11px;
+    clip-path: polygon(10% 100%, 0 0, 100% 55%);
+    background: linear-gradient(160deg, #fbcfe8, #ec4899);
+    transform-origin: 20% 90%;
+    animation: pgc-ear 3.5s ease-in-out infinite;
+    z-index: 2;
+  }
+
+  @keyframes pgc-ear {
+    0%, 44%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-14deg); }
+    58% { transform: rotate(4deg); }
+    64% { transform: rotate(0deg); }
+  }
+
+  /* Curly Pink Spring Tail */
+  .pgc-tail {
+    position: absolute;
+    right: 6px;
+    top: 16px;
+    width: 12px;
+    height: 12px;
+    border: 2.5px solid #f472b6;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    transform: rotate(-30deg);
+    transform-origin: 10% 60%;
+    animation: pgc-tail 3.5s ease-in-out infinite;
+  }
+
+  .pgc-tail::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    bottom: 0;
+    width: 6px;
+    height: 6px;
+    border: 2px solid #ec4899;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-radius: 50%;
+  }
+
+  @keyframes pgc-tail {
+    0%, 44%, 100% { transform: rotate(-30deg); }
+    50% { transform: rotate(-70deg); }
+    56% { transform: rotate(-12deg); }
+    62% { transform: rotate(-30deg); }
+  }
+
+  /* Ceramic Stumpy Legs */
+  .pgc-leg {
+    position: absolute;
+    bottom: -6px;
+    width: 9px;
+    height: 12px;
+    border-radius: 0 0 3px 3px;
+    background: linear-gradient(180deg, #ec4899 0%, #db2777 100%);
+    border: 1.5px solid #f472b6;
+    border-top: none;
+  }
+
+  .pgc-leg.l1 { left: 20px; }
+  .pgc-leg.l2 { left: 34px; }
+  .pgc-leg.l3 { right: 26px; }
+  .pgc-leg.l4 { right: 12px; }
+
+  /* 24k Gold Coin Falling */
+  .pgc-coin {
+    position: absolute;
+    left: 52px;
+    top: -4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #fde047;
+    background: radial-gradient(circle at 40% 35%, #ffffff 0%, #facc15 50%, #ca8a04 100%);
+    box-shadow: 0 0 8px #facc15;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    font-weight: 900;
+    color: #713f12;
+    animation: pgc-coin 3.5s cubic-bezier(0.5, 0, 0.9, 0.4) infinite;
+  }
+
+  @keyframes pgc-coin {
+    0%, 10% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    14% { opacity: 1; }
+    40% { transform: translateY(24px) rotate(50deg) scaleX(0.7); opacity: 1; }
+    46% { transform: translateY(31px) rotate(85deg) scaleX(0.25); opacity: 1; }
+    48%, 100% { transform: translateY(32px) rotate(90deg) scaleX(0.2); opacity: 0; }
+  }
+
+  /* Golden Starburst Clink Sparkle */
+  .pgc-clink {
+    position: absolute;
+    left: 56px;
+    top: 24px;
+    width: 8px;
+    height: 8px;
+    opacity: 0;
+    animation: pgc-clink 3.5s infinite;
+  }
+
+  .pgc-clink::before,
+  .pgc-clink::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: #fde047;
+    box-shadow: 0 0 8px #facc15;
+  }
+
+  .pgc-clink::before { width: 10px; height: 2px; margin: -1px 0 0 -5px; }
+  .pgc-clink::after { width: 2px; height: 10px; margin: -5px 0 0 -1px; }
+
+  @keyframes pgc-clink {
+    0%, 44% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+    47% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+    54%, 100% { opacity: 0; transform: scale(0.5) rotate(40deg); }
+  }
+
+  /* Soft Ambient Ground Shadow */
+  .pgc-shadow {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.8), transparent 70%);
+  }
+  `,
 };
 
 const piggybankMarkup = {
@@ -531,6 +790,26 @@ const piggybankMarkup = {
         <div class="pg-clink"></div>
       </div>
     `,
+  v3: `
+      <div class="pgc">
+        <div class="pgc-shadow"></div>
+        <div class="pgc-coin">$</div>
+        <div class="pgc-pig">
+          <div class="pgc-tail"></div>
+          <div class="pgc-body"></div>
+          <div class="pgc-slot"></div>
+          <div class="pgc-leg l1"></div>
+          <div class="pgc-leg l2"></div>
+          <div class="pgc-leg l3"></div>
+          <div class="pgc-leg l4"></div>
+          <div class="pgc-ear"></div>
+          <div class="pgc-head"></div>
+          <div class="pgc-eye"></div>
+          <div class="pgc-snout"></div>
+        </div>
+        <div class="pgc-clink"></div>
+      </div>
+    `,
 };
 
 class ConceptPiggybank extends HTMLElement {
@@ -546,8 +825,8 @@ class ConceptPiggybank extends HTMLElement {
     if (this.isConnected) this.render();
   }
   render() {
-    const version = this.getAttribute('version') || 'v2';
-    this.shadowRoot.innerHTML = `<style>${piggybankStyles[version] || piggybankStyles.v2}</style>${piggybankMarkup[version] || piggybankMarkup.v2}`;
+    const version = this.getAttribute('version') || 'v3';
+    this.shadowRoot.innerHTML = `<style>${piggybankStyles[version] || piggybankStyles.v3}</style>${piggybankMarkup[version] || piggybankMarkup.v3}`;
   }
 }
 
