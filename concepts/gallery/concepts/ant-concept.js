@@ -1,4 +1,5 @@
-const antStyles = `
+const antStyles = {
+  v1: `
   :host {
     display: flex;
     align-items: center;
@@ -7,16 +8,12 @@ const antStyles = `
     height: 100%;
   }
 
-  /* An ant hauling a crumb along a trail: it marches left to right,
-     legs scuttling and antennae twitching, a crumb balanced overhead,
-     and drops it at the mound before scurrying back for another. */
   .an {
     width: 116px;
     height: 80px;
     position: relative;
   }
 
-  /* Trail line. */
   .an-trail {
     position: absolute;
     left: 6px;
@@ -28,7 +25,6 @@ const antStyles = `
       transparent 3px 7px);
   }
 
-  /* Anthill mound on the right. */
   .an-mound {
     position: absolute;
     right: 6px;
@@ -52,7 +48,6 @@ const antStyles = `
     background: rgba(0, 30, 6, 0.9);
   }
 
-  /* The ant marches across. */
   .an-ant {
     position: absolute;
     left: 0;
@@ -64,16 +59,13 @@ const antStyles = `
 
   @keyframes an-march {
     0% { transform: translateX(6px) scaleX(1); }
-    /* Haul to the mound. */
     38% { transform: translateX(74px) scaleX(1); }
     46% { transform: translateX(78px) scaleX(1); }
-    /* Turn and scurry back empty. */
     52% { transform: translateX(74px) scaleX(-1); }
     88% { transform: translateX(6px) scaleX(-1); }
     100% { transform: translateX(6px) scaleX(1); }
   }
 
-  /* Body bob for the gait. */
   .an-bob {
     position: absolute;
     inset: 0;
@@ -85,7 +77,6 @@ const antStyles = `
     50% { transform: translateY(-1px); }
   }
 
-  /* Three body segments. */
   .an-seg {
     position: absolute;
     bottom: 4px;
@@ -98,7 +89,6 @@ const antStyles = `
   .an-seg.thorax { left: 10px; width: 8px; height: 7px; bottom: 5px; }
   .an-seg.head { left: 16px; width: 8px; height: 8px; bottom: 5px; }
 
-  /* Eye. */
   .an-seg.head::after {
     content: '';
     position: absolute;
@@ -110,7 +100,6 @@ const antStyles = `
     background: #041a0a;
   }
 
-  /* Antennae. */
   .an-antenna {
     position: absolute;
     left: 22px;
@@ -128,7 +117,6 @@ const antStyles = `
     50% { transform: rotate(8deg); }
   }
 
-  /* Six legs scuttling. */
   .an-leg {
     position: absolute;
     bottom: 0;
@@ -148,7 +136,6 @@ const antStyles = `
     50% { transform: rotate(16deg); }
   }
 
-  /* The crumb, carried overhead then dropped at the mound. */
   .an-crumb {
     position: absolute;
     left: 8px;
@@ -164,21 +151,188 @@ const antStyles = `
   @keyframes an-crumb {
     0% { transform: translateX(6px); opacity: 1; }
     38% { transform: translateX(74px); opacity: 1; }
-    /* Dropped onto the mound. */
     46% { transform: translate(80px, 6px); opacity: 1; }
     50% { transform: translate(82px, 10px); opacity: 0; }
     100% { transform: translateX(6px); opacity: 0; }
   }
-`;
-
-class ConceptAnt extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
+  `,
+  v2: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
   }
-  connectedCallback() {
-    this.shadowRoot.innerHTML = `
-      <style>${antStyles}</style>
+
+  /* v2: Glossy obsidian ant hauling emerald leaf crumb to sand anthill mound */
+  .anc {
+    width: 116px;
+    height: 80px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Ground trail */
+  .anc-trail {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    bottom: 20px;
+    height: 1.5px;
+    background: repeating-linear-gradient(90deg,
+      #ca8a04 0 3px,
+      transparent 3px 7px);
+  }
+
+  /* Terracotta anthill mound */
+  .anc-mound {
+    position: absolute;
+    right: 6px;
+    bottom: 20px;
+    width: 24px;
+    height: 16px;
+    border-radius: 50% 50% 0 0;
+    background: linear-gradient(180deg, #ca8a04 0%, #78350f 70%, #451a03 100%);
+    border: 1px solid #eab308;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  }
+
+  .anc-mound::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 4px;
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
+    border-radius: 50%;
+    background: #09090b;
+  }
+
+  /* Marching ant */
+  .anc-ant {
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    width: 26px;
+    height: 26px;
+    animation: anc-march 6s ease-in-out infinite;
+  }
+
+  @keyframes anc-march {
+    0% { transform: translateX(6px) scaleX(1); }
+    38% { transform: translateX(74px) scaleX(1); }
+    46% { transform: translateX(78px) scaleX(1); }
+    52% { transform: translateX(74px) scaleX(-1); }
+    88% { transform: translateX(6px) scaleX(-1); }
+    100% { transform: translateX(6px) scaleX(1); }
+  }
+
+  .anc-bob {
+    position: absolute;
+    inset: 0;
+    animation: anc-bob 0.3s ease-in-out infinite;
+  }
+
+  @keyframes anc-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1px); }
+  }
+
+  /* Glossy chitinous ant body segments */
+  .anc-seg {
+    position: absolute;
+    bottom: 4px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #475569 0%, #1e293b 50%, #09090b 100%);
+    border: 1px solid #64748b;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  }
+
+  .anc-seg.gaster { left: 0; width: 12px; height: 9px; }
+  .anc-seg.thorax { left: 10px; width: 8px; height: 7px; bottom: 5px; }
+  .anc-seg.head { left: 16px; width: 8px; height: 8px; bottom: 5px; }
+
+  /* Ant eye */
+  .anc-seg.head::after {
+    content: '';
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 2px #ffffff;
+  }
+
+  /* Antennae */
+  .anc-antenna {
+    position: absolute;
+    left: 22px;
+    bottom: 12px;
+    width: 6px;
+    height: 6px;
+    border-top: 1.5px solid #cbd5e1;
+    border-right: 1.5px solid #cbd5e1;
+    border-radius: 0 60% 0 0;
+    animation: anc-antenna 0.5s ease-in-out infinite;
+  }
+
+  @keyframes anc-antenna {
+    0%, 100% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+  }
+
+  /* Scuttling legs */
+  .anc-leg {
+    position: absolute;
+    bottom: 0;
+    width: 5px;
+    height: 6px;
+    border-left: 1.5px solid #94a3b8;
+    transform-origin: top center;
+    animation: anc-step 0.3s ease-in-out infinite;
+  }
+
+  .anc-leg.g1 { left: 4px; }
+  .anc-leg.g2 { left: 10px; animation-delay: -0.1s; }
+  .anc-leg.g3 { left: 16px; animation-delay: -0.2s; }
+
+  @keyframes anc-step {
+    0%, 100% { transform: rotate(-16deg); }
+    50% { transform: rotate(16deg); }
+  }
+
+  /* Emerald leaf crumb */
+  .anc-crumb {
+    position: absolute;
+    left: 8px;
+    bottom: 22px;
+    width: 10px;
+    height: 8px;
+    border-radius: 40% 60% 50% 45%;
+    background: radial-gradient(circle at 35% 30%, #86efac 0%, #22c55e 60%, #15803d 100%);
+    border: 1px solid #4ade80;
+    box-shadow: 0 0 4px #22c55e;
+    animation: anc-crumb 6s ease-in-out infinite;
+  }
+
+  @keyframes anc-crumb {
+    0% { transform: translateX(6px); opacity: 1; }
+    38% { transform: translateX(74px); opacity: 1; }
+    46% { transform: translate(80px, 6px); opacity: 1; }
+    50% { transform: translate(82px, 10px); opacity: 0; }
+    100% { transform: translateX(6px); opacity: 0; }
+  }
+  `,
+};
+
+const antMarkup = {
+  v1: `
       <div class="an">
         <div class="an-trail"></div>
         <div class="an-mound"></div>
@@ -195,7 +349,42 @@ class ConceptAnt extends HTMLElement {
           </div>
         </div>
       </div>
-    `;
+    `,
+  v2: `
+      <div class="anc">
+        <div class="anc-trail"></div>
+        <div class="anc-mound"></div>
+        <div class="anc-crumb"></div>
+        <div class="anc-ant">
+          <div class="anc-bob">
+            <div class="anc-leg g1"></div>
+            <div class="anc-leg g2"></div>
+            <div class="anc-leg g3"></div>
+            <div class="anc-seg gaster"></div>
+            <div class="anc-seg thorax"></div>
+            <div class="anc-seg head"></div>
+            <div class="anc-antenna"></div>
+          </div>
+        </div>
+      </div>
+    `,
+};
+
+class ConceptAnt extends HTMLElement {
+  static get observedAttributes() { return ['version']; }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  connectedCallback() {
+    this.render();
+  }
+  attributeChangedCallback() {
+    if (this.isConnected) this.render();
+  }
+  render() {
+    const version = this.getAttribute('version') || 'v2';
+    this.shadowRoot.innerHTML = `<style>${antStyles[version] || antStyles.v2}</style>${antMarkup[version] || antMarkup.v2}`;
   }
 }
 
