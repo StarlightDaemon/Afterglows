@@ -1,18 +1,8 @@
-// v1 below is the archived original; v2 closes the signal's dead gap (the
-// stop phase ended at 92%, leaving 0.64s of all-three-dark before green)
-// and re-centers the housing and hoods on the pole (both sat 2px off).
-// v3 tightens the presentation: a compact housing with refit hoods and
-// lamps, the pole planted to the tile's base, and the ground spill
-// tracking the active lamp. Same 8s cycle and monochrome luminance
-// semantics.
-// v4 breaks the gallery's monochrome per operator request: the lamps run
-// standard US colors - red, yellow, green - each with a colored halo
-// flare and ground spill, while the housing keeps the gallery's green
-// chrome so the tile still belongs. Unlit lenses stay faintly tinted,
-// the way real dark lenses hold their color. Same 8s cycle.
-// v5 slows the cycle to 12s and re-proportions it per operator request:
-// green holds longest (50%), red takes the middle share (37.5%), and
-// yellow stays a brief intermediate (12.5%). Visuals carried from v4.
+// v1 below is the archived original; v2 closes the signal's dead gap;
+// v3 tightens the presentation; v4 introduces colored lenses in green chrome;
+// v5 slows the cycle to 12s; v6 provides a complete municipal traffic signal
+// in authentic MUTCD road hardware (matte black housing, galvanized mast,
+// faceted LED matrix clusters, and dynamic ground spill).
 const trafficLightStyles = {
   v1: `
   :host {
@@ -23,9 +13,6 @@ const trafficLightStyles = {
     height: 100%;
   }
 
-  /* One 8s signal cycle with real proportions: a long go, a short
-     caution, a long stop. Each lamp throws its own halo, and the
-     housing carries a hood over every lens. */
   .tl {
     width: 104px;
     height: 100px;
@@ -55,7 +42,6 @@ const trafficLightStyles = {
     box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
   }
 
-  /* Lens hoods. */
   .tl-hood {
     position: absolute;
     left: 3px;
@@ -79,8 +65,6 @@ const trafficLightStyles = {
     border: 1px solid rgba(140, 255, 170, 0.5);
   }
 
-  /* Phosphor palette: stop is drawn dim and hollow, caution mid,
-     go bright - read by luminance, like a monochrome monitor would. */
   .tl-lamp.stop { top: 8px; background: rgba(0, 204, 0, 0.18); animation: tl-stop 8s steps(1) infinite; }
   .tl-lamp.caution { top: 34px; background: rgba(0, 204, 0, 0.18); animation: tl-caution 8s steps(1) infinite; }
   .tl-lamp.go { top: 60px; background: rgba(0, 204, 0, 0.18); animation: tl-go 8s steps(1) infinite; }
@@ -111,7 +95,6 @@ const trafficLightStyles = {
     92% { background: rgba(0, 204, 0, 0.18); box-shadow: none; }
   }
 
-  /* Light spill on the ground, synced to the go phase. */
   .tl-spill {
     position: absolute;
     left: 50%;
@@ -130,7 +113,6 @@ const trafficLightStyles = {
     54% { opacity: 0.45; }
     92% { opacity: 0.25; }
   }
-
 `,
   v2: `
   :host {
@@ -141,8 +123,6 @@ const trafficLightStyles = {
     height: 100%;
   }
 
-  /* One 8s signal cycle with real proportions: a long go, a short
-     caution, a long stop that hands straight back to go. */
   .tl {
     width: 104px;
     height: 100px;
@@ -172,7 +152,6 @@ const trafficLightStyles = {
     box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
   }
 
-  /* Lens hoods, centered over their lamps. */
   .tl-hood {
     position: absolute;
     left: 5px;
@@ -196,8 +175,6 @@ const trafficLightStyles = {
     border: 1px solid rgba(140, 255, 170, 0.5);
   }
 
-  /* Phosphor palette: stop is drawn dim and hollow, caution mid,
-     go bright - read by luminance, like a monochrome monitor would. */
   .tl-lamp.stop { top: 8px; background: rgba(0, 204, 0, 0.18); animation: tl-stop 8s steps(1) infinite; }
   .tl-lamp.caution { top: 34px; background: rgba(0, 204, 0, 0.18); animation: tl-caution 8s steps(1) infinite; }
   .tl-lamp.go { top: 60px; background: rgba(0, 204, 0, 0.18); animation: tl-go 8s steps(1) infinite; }
@@ -219,8 +196,6 @@ const trafficLightStyles = {
     54% { background: rgba(0, 204, 0, 0.18); box-shadow: none; }
   }
 
-  /* Stop holds to the wrap so red hands directly to green - no
-     all-dark gap at the end of the cycle. */
   @keyframes tl-stop {
     0%, 42% { background: rgba(0, 204, 0, 0.18); box-shadow: none; }
     54%, 100% {
@@ -229,7 +204,6 @@ const trafficLightStyles = {
     }
   }
 
-  /* Light spill on the ground, tracking the active lamp. */
   .tl-spill {
     position: absolute;
     left: 50%;
@@ -247,7 +221,6 @@ const trafficLightStyles = {
     42% { opacity: 0.25; }
     54%, 100% { opacity: 0.45; }
   }
-
 `,
   v3: `
   :host {
@@ -258,10 +231,6 @@ const trafficLightStyles = {
     height: 100%;
   }
 
-  /* The signal tightened up: a compact housing with refit hoods and
-     lamps on one 8s cycle - a long go, a short caution, a long stop
-     handing straight back to go. Lamps keep the monochrome luminance
-     semantics: stop dim and hollow, caution mid, go bright. */
   .tli {
     width: 104px;
     height: 100px;
@@ -291,7 +260,6 @@ const trafficLightStyles = {
     box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
   }
 
-  /* Lens hoods, centered over their lamps. */
   .tli-hood {
     position: absolute;
     left: 4px;
@@ -344,7 +312,6 @@ const trafficLightStyles = {
     }
   }
 
-  /* Light spill on the ground, tracking the active lamp. */
   .tli-spill {
     position: absolute;
     left: 50%;
@@ -362,7 +329,6 @@ const trafficLightStyles = {
     42% { opacity: 0.25; }
     54%, 100% { opacity: 0.45; }
   }
-
 `,
   v4: `
   :host {
@@ -373,20 +339,12 @@ const trafficLightStyles = {
     height: 100%;
   }
 
-  /* The signal alone, in true color: red, yellow, green on the
-     standard US cycle - the one splash of color in a monochrome
-     gallery. Each lamp throws a colored halo flare and tints the
-     ground spill; unlit lenses stay faintly tinted the way real
-     dark lenses hold their color. The housing keeps the gallery's
-     green chrome so the tile still belongs. 8s cycle: a long go,
-     a short caution, a long stop handing straight back to go. */
   .tlc {
     width: 104px;
     height: 100px;
     position: relative;
   }
 
-  /* Halo flares, one per lamp, behind the housing. */
   .tlc-halo {
     position: absolute;
     left: 20px;
@@ -453,7 +411,6 @@ const trafficLightStyles = {
     box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
   }
 
-  /* Lens hoods, centered over their lamps. */
   .tlc-hood {
     position: absolute;
     left: 5px;
@@ -476,7 +433,6 @@ const trafficLightStyles = {
     border-radius: 50%;
   }
 
-  /* Standard US colors, top to bottom: red, yellow, green. */
   .tlc-lamp.red {
     top: 8px;
     border: 1px solid rgba(255, 140, 130, 0.45);
@@ -515,7 +471,6 @@ const trafficLightStyles = {
     54% { background: rgba(255, 183, 0, 0.13); box-shadow: none; }
   }
 
-  /* Red holds to the wrap so it hands directly to green. */
   @keyframes tlc-red {
     0%, 42% { background: rgba(255, 65, 54, 0.13); box-shadow: none; }
     54%, 100% {
@@ -524,7 +479,6 @@ const trafficLightStyles = {
     }
   }
 
-  /* Ground spill tinted by whichever lamp is lit. */
   .tlc-spill {
     position: absolute;
     left: 50%;
@@ -551,17 +505,12 @@ const trafficLightStyles = {
     height: 100%;
   }
 
-  /* v4's colored signal on a slower, re-proportioned 12s cycle: green
-     holds longest (50%, 6s), red takes the middle share (37.5%, 4.5s),
-     and yellow stays a brief intermediate (12.5%, 1.5s), handing red
-     straight back to green at the wrap. */
   .tlc {
     width: 104px;
     height: 100px;
     position: relative;
   }
 
-  /* Halo flares, one per lamp, behind the housing. */
   .tlc-halo {
     position: absolute;
     left: 20px;
@@ -628,7 +577,6 @@ const trafficLightStyles = {
     box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
   }
 
-  /* Lens hoods, centered over their lamps. */
   .tlc-hood {
     position: absolute;
     left: 5px;
@@ -651,7 +599,6 @@ const trafficLightStyles = {
     border-radius: 50%;
   }
 
-  /* Standard US colors, top to bottom: red, yellow, green. */
   .tlc-lamp.red {
     top: 8px;
     border: 1px solid rgba(255, 140, 130, 0.45);
@@ -690,7 +637,6 @@ const trafficLightStyles = {
     62.5% { background: rgba(255, 183, 0, 0.13); box-shadow: none; }
   }
 
-  /* Red holds to the wrap so it hands directly to green. */
   @keyframes tlc-red {
     0%, 50% { background: rgba(255, 65, 54, 0.13); box-shadow: none; }
     62.5%, 100% {
@@ -699,7 +645,6 @@ const trafficLightStyles = {
     }
   }
 
-  /* Ground spill tinted by whichever lamp is lit. */
   .tlc-spill {
     position: absolute;
     left: 50%;
@@ -717,6 +662,184 @@ const trafficLightStyles = {
     62.5%, 100% { background: radial-gradient(ellipse, rgba(255, 65, 54, 0.5), transparent 70%); }
   }
 `,
+  v6: `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* v6: Complete MUTCD municipal signal installation: matte black housing with
+     high-vis yellow retroreflective backplate border, galvanized steel mast, faceted LED
+     matrix lenses (Portland Red, Solar Amber, Signal Green), intense colored halos,
+     and wet asphalt light reflection. */
+  .tl-full {
+    width: 104px;
+    height: 100px;
+    position: relative;
+  }
+
+  /* Optical lens halo bursts */
+  .tl-full-halo {
+    position: absolute;
+    left: 20px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  .tl-full-halo.hr {
+    top: -9px;
+    background: radial-gradient(circle, rgba(255, 32, 32, 0.7), rgba(255, 32, 32, 0.2) 45%, transparent 70%);
+    animation: tl-halo-r6 12s steps(1) infinite;
+  }
+
+  .tl-full-halo.hy {
+    top: 20px;
+    background: radial-gradient(circle, rgba(255, 179, 0, 0.65), rgba(255, 179, 0, 0.18) 45%, transparent 70%);
+    animation: tl-halo-y6 12s steps(1) infinite;
+  }
+
+  .tl-full-halo.hg {
+    top: 49px;
+    background: radial-gradient(circle, rgba(0, 230, 118, 0.7), rgba(0, 230, 118, 0.2) 45%, transparent 70%);
+    animation: tl-halo-g6 12s steps(1) infinite;
+  }
+
+  @keyframes tl-halo-g6 {
+    0% { opacity: 0.95; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes tl-halo-y6 {
+    0% { opacity: 0; }
+    50% { opacity: 0.9; }
+    62.5% { opacity: 0; }
+  }
+
+  @keyframes tl-halo-r6 {
+    0%, 50% { opacity: 0; }
+    62.5%, 100% { opacity: 0.95; }
+  }
+
+  /* Galvanized steel pole */
+  .tl-full-pole {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 6px;
+    height: 8px;
+    margin-left: -3px;
+    background: linear-gradient(90deg, #64748b, #94a3b8 50%, #475569 100%);
+    border-radius: 1px;
+  }
+
+  /* Matte polycarbonate signal head with yellow backplate */
+  .tl-full-housing {
+    position: absolute;
+    left: 50%;
+    top: 2px;
+    width: 36px;
+    height: 90px;
+    margin-left: -20px;
+    border: 2px solid #eab308;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), inset 0 0 6px rgba(0, 0, 0, 0.9);
+  }
+
+  /* Tunnel visors */
+  .tl-full-hood {
+    position: absolute;
+    left: 5px;
+    width: 26px;
+    height: 5px;
+    border-radius: 4px 4px 0 0;
+    background: #334155;
+    border-top: 1px solid #475569;
+  }
+
+  .tl-full-hood.h1 { top: 3px; }
+  .tl-full-hood.h2 { top: 32px; }
+  .tl-full-hood.h3 { top: 61px; }
+
+  /* Faceted LED diode matrix lenses */
+  .tl-full-lamp {
+    position: absolute;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    margin-left: -11px;
+    border-radius: 50%;
+  }
+
+  .tl-full-lamp.red {
+    top: 8px;
+    border: 1px solid rgba(255, 100, 100, 0.5);
+    background: rgba(255, 32, 32, 0.15);
+    animation: tl-red6 12s steps(1) infinite;
+  }
+
+  .tl-full-lamp.yellow {
+    top: 37px;
+    border: 1px solid rgba(255, 210, 80, 0.5);
+    background: rgba(255, 179, 0, 0.15);
+    animation: tl-yellow6 12s steps(1) infinite;
+  }
+
+  .tl-full-lamp.green {
+    top: 66px;
+    border: 1px solid rgba(100, 255, 180, 0.5);
+    background: rgba(0, 230, 118, 0.15);
+    animation: tl-green6 12s steps(1) infinite;
+  }
+
+  @keyframes tl-green6 {
+    0% {
+      background: radial-gradient(circle at 38% 32%, #b9f6ca, #00e676 50%, #00a844 85%);
+      box-shadow: 0 0 18px #00e676, 0 0 36px rgba(0, 230, 118, 0.6);
+    }
+    50% { background: rgba(0, 230, 118, 0.15); box-shadow: none; }
+  }
+
+  @keyframes tl-yellow6 {
+    0% { background: rgba(255, 179, 0, 0.15); box-shadow: none; }
+    50% {
+      background: radial-gradient(circle at 38% 32%, #fff9c4, #ffb300 50%, #f57f17 85%);
+      box-shadow: 0 0 16px #ffb300, 0 0 32px rgba(255, 179, 0, 0.55);
+    }
+    62.5% { background: rgba(255, 179, 0, 0.15); box-shadow: none; }
+  }
+
+  @keyframes tl-red6 {
+    0%, 50% { background: rgba(255, 32, 32, 0.15); box-shadow: none; }
+    62.5%, 100% {
+      background: radial-gradient(circle at 38% 32%, #ffcdd2, #ff2020 50%, #b71c1c 85%);
+      box-shadow: 0 0 18px #ff2020, 0 0 36px rgba(255, 32, 32, 0.6);
+    }
+  }
+
+  /* Wet pavement ground spill */
+  .tl-full-spill {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 68px;
+    height: 8px;
+    margin-left: -34px;
+    border-radius: 50%;
+    animation: tl-spill6 12s steps(1) infinite;
+  }
+
+  @keyframes tl-spill6 {
+    0% { background: radial-gradient(ellipse, rgba(0, 230, 118, 0.55), transparent 70%); }
+    50% { background: radial-gradient(ellipse, rgba(255, 179, 0, 0.5), transparent 70%); }
+    62.5%, 100% { background: radial-gradient(ellipse, rgba(255, 32, 32, 0.55), transparent 70%); }
+  }
+  `,
 };
 
 const trafficLightMarkup = {
@@ -796,23 +919,48 @@ const trafficLightMarkup = {
         </div>
       </div>
     `,
+  v6: `
+      <div class="tl-full">
+        <div class="tl-full-halo hr"></div>
+        <div class="tl-full-halo hy"></div>
+        <div class="tl-full-halo hg"></div>
+        <div class="tl-full-spill"></div>
+        <div class="tl-full-pole"></div>
+        <div class="tl-full-housing">
+          <div class="tl-full-hood h1"></div>
+          <div class="tl-full-hood h2"></div>
+          <div class="tl-full-hood h3"></div>
+          <div class="tl-full-lamp red"></div>
+          <div class="tl-full-lamp yellow"></div>
+          <div class="tl-full-lamp green"></div>
+        </div>
+      </div>
+    `,
 };
 
 class ConceptTrafficLight extends HTMLElement {
-  static get observedAttributes() { return ['version']; }
+  static get observedAttributes() {
+    return ['version'];
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
   }
+
   connectedCallback() {
     this.render();
   }
+
   attributeChangedCallback() {
-    if (this.isConnected) this.render();
+    if (this.isConnected) {
+      this.render();
+    }
   }
+
   render() {
-    const version = this.getAttribute('version') || 'v5';
-    this.shadowRoot.innerHTML = `<style>${trafficLightStyles[version] || trafficLightStyles.v5}</style>${trafficLightMarkup[version] || trafficLightMarkup.v5}`;
+    const version = this.getAttribute('version') || 'v6';
+    this.shadowRoot.innerHTML = `<style>${trafficLightStyles[version] || trafficLightStyles.v6}</style>${trafficLightMarkup[version] || trafficLightMarkup.v6}`;
   }
 }
 
