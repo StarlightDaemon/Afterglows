@@ -48,7 +48,7 @@ const duddellSingingArcStyles = `
   }
 
   /* Emitted musical acoustic sound waves radiating from arc */
-  .sa-music-waves path {
+  .sa-music-waves circle {
     stroke: #ea80fc;
     stroke-width: 1;
     fill: none;
