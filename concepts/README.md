@@ -11,33 +11,48 @@ This folder contains the complete exploration history of header animation concep
 
 ## 🌌 Concepts Included
 
-The gallery currently holds **240 concepts across 20 categories**, ranging from
-pure geometric/mathematical abstraction all the way to ordinary everyday
-subjects (consolidated 2026-08-03 from the original 29 categories):
+The gallery currently holds **561 concepts across 35 categories**, ranging from
+pure geometric/mathematical abstraction all the way to historical instruments,
+scientific apparatus, and ordinary everyday subjects:
 
 | Category | Title | Concepts |
 | --- | --- | --- |
-| `geometry` | Geometry & Pattern | 12 |
-| `systems` | Systems & Scanning | 14 |
-| `bio` | Science & Bio | 13 |
-| `lab` | Lab & Optics | 12 |
-| `nature` | Nature & Weather | 15 |
-| `space` | Space & Spatial | 12 |
-| `scifi` | Sci-Fi & Encounters | 13 |
-| `occult` | Supernatural & Occult | 11 |
-| `arcane` | Magic & Arcane | 11 |
-| `retro` | Retro & Symbolic | 12 |
-| `mech` | Mechanisms & Tools | 12 |
-| `home` | Home & Office | 11 |
-| `ocean` | Ocean & Deep | 11 |
-| `city` | City & Commerce | 12 |
-| `music` | Music & Sound | 12 |
-| `games` | Games & Sport | 11 |
-| `garden` | Garden & Insects | 12 |
-| `birds` | Birds & Aviary | 12 |
-| `textile` | Textiles & Craft | 11 |
-| `toys` | Toys & Playthings | 11 |
-| **Total** | | **240** |
+| `geometry` | Geometry & Pattern | 19 |
+| `systems` | Systems & Scanning | 19 |
+| `bio` | Science & Bio | 22 |
+| `lab` | Lab & Optics | 33 |
+| `nature` | Nature & Weather | 26 |
+| `space` | Space & Spatial | 19 |
+| `scifi` | Sci-Fi & Encounters | 18 |
+| `occult` | Supernatural & Occult | 18 |
+| `arcane` | Magic & Arcane | 19 |
+| `retro` | Retro & Symbolic | 23 |
+| `mech` | Mechanisms & Tools | 29 |
+| `home` | Home & Office | 18 |
+| `ocean` | Ocean & Deep | 21 |
+| `city` | City & Commerce | 17 |
+| `music` | Music & Sound | 21 |
+| `games` | Games & Sport | 18 |
+| `garden` | Garden & Insects | 20 |
+| `birds` | Birds & Aviary | 18 |
+| `textile` | Textiles & Craft | 17 |
+| `toys` | Toys & Playthings | 18 |
+| `alchemy` | Alchemy & Hermetica | 10 |
+| `geology` | Geology & Earth Sciences | 10 |
+| `cipher` | Ciphers & Cryptography | 10 |
+| `optics` | Optics & Early Cinema | 10 |
+| `navigation` | Navigation & Cartography | 10 |
+| `horology` | Horology & Chronometry | 10 |
+| `telecom` | Telegraphy & Early Telecom | 10 |
+| `acoustics` | Acoustics & Early Phonography | 10 |
+| `surveying` | Surveying & Geodesy | 10 |
+| `aero` | Aeronautics & Early Flight | 10 |
+| `print` | Typography & Historical Printmaking | 10 |
+| `astronomy` | Observational Astronomy & Astrometry | 10 |
+| `crystallography` | Crystallography & Goniometry | 10 |
+| `meteorology` | Historical Meteorology & Atmospheric Instrumentation | 10 |
+| `spectroscopy` | Historical Spectroscopy & Prismatics | 8 |
+| **Total** | | **561** |
 
 Each concept carries a status badge:
 
@@ -72,7 +87,7 @@ The gallery page includes a live filter/search toolbar above the grid:
 *   **Origin chips** (Claude / Gemini) — toggle on/off independently, filtering by which agent(s) built or revised each concept (see **Origin & Attribution** below). A concept touched by both agents matches either chip.
 *   **Model / Version chips** — toggle on/off independently, filtering by which model tier (e.g. Sonnet) and specific version (e.g. 5) made a contribution. Unlike the fixed Origin chips, these are generated from whatever values actually appear in `manifest.js` — a new model/version shows up as its own chip automatically, no code change needed. Concepts with no tracked model/version fall under an **Unspecified** chip in each group (currently most of the archive — see **Origin & Attribution** below).
 *   **Reset** — clears search and restores all categories, statuses, origins, models, versions, and the curated sort.
-*   **Live count** — reads "Showing N of 240" and updates with every filter change.
+*   **Live count** — reads "Showing N of 561" and updates with every filter change.
 
 Every tile also carries two actions: **Copy**, which copies a ready-to-paste embed snippet for that concept to the clipboard, and **Source**, which opens the concept's module file directly.
 
