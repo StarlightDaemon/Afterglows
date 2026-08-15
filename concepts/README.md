@@ -11,7 +11,7 @@ This folder contains the complete exploration history of header animation concep
 
 ## 🌌 Concepts Included
 
-The gallery currently holds **561 concepts across 35 categories**, ranging from
+The gallery currently holds **549 concepts across 35 categories**, ranging from
 pure geometric/mathematical abstraction all the way to historical instruments,
 scientific apparatus, and ordinary everyday subjects:
 
@@ -20,18 +20,18 @@ scientific apparatus, and ordinary everyday subjects:
 | `geometry` | Geometry & Pattern | 19 |
 | `systems` | Systems & Scanning | 19 |
 | `bio` | Science & Bio | 22 |
-| `lab` | Lab & Optics | 33 |
-| `nature` | Nature & Weather | 26 |
-| `space` | Space & Spatial | 19 |
+| `lab` | Lab & Optics | 32 |
+| `nature` | Nature & Weather | 25 |
+| `space` | Space & Spatial | 18 |
 | `scifi` | Sci-Fi & Encounters | 18 |
 | `occult` | Supernatural & Occult | 18 |
 | `arcane` | Magic & Arcane | 19 |
-| `retro` | Retro & Symbolic | 23 |
+| `retro` | Retro & Symbolic | 20 |
 | `mech` | Mechanisms & Tools | 29 |
 | `home` | Home & Office | 18 |
 | `ocean` | Ocean & Deep | 21 |
 | `city` | City & Commerce | 17 |
-| `music` | Music & Sound | 21 |
+| `music` | Music & Sound | 20 |
 | `games` | Games & Sport | 18 |
 | `garden` | Garden & Insects | 20 |
 | `birds` | Birds & Aviary | 18 |
@@ -40,19 +40,19 @@ scientific apparatus, and ordinary everyday subjects:
 | `alchemy` | Alchemy & Hermetica | 10 |
 | `geology` | Geology & Earth Sciences | 10 |
 | `cipher` | Ciphers & Cryptography | 10 |
-| `optics` | Optics & Early Cinema | 10 |
+| `optics` | Optics & Early Cinema | 9 |
 | `navigation` | Navigation & Cartography | 10 |
 | `horology` | Horology & Chronometry | 10 |
 | `telecom` | Telegraphy & Early Telecom | 10 |
-| `acoustics` | Acoustics & Early Phonography | 10 |
+| `acoustics` | Acoustics & Early Phonography | 7 |
 | `surveying` | Surveying & Geodesy | 10 |
 | `aero` | Aeronautics & Early Flight | 10 |
 | `print` | Typography & Historical Printmaking | 10 |
 | `astronomy` | Observational Astronomy & Astrometry | 10 |
 | `crystallography` | Crystallography & Goniometry | 10 |
 | `meteorology` | Historical Meteorology & Atmospheric Instrumentation | 10 |
-| `spectroscopy` | Historical Spectroscopy & Prismatics | 8 |
-| **Total** | | **561** |
+| `spectroscopy` | Historical Spectroscopy & Prismatics | 7 |
+| **Total** | | **549** |
 
 Each concept carries a status badge:
 
