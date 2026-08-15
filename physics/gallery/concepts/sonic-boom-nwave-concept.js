@@ -74,6 +74,16 @@ const sonicStyles = `
     color: rgba(255, 85, 119, 0.9);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Shock fronts trail the jet; the N-wave signature sweeps the ground */
+  .mach-cone { stroke-dasharray: 6 4; animation: nw-cone 1.5s linear infinite; }
+  .n-wave { stroke-dasharray: 7 4; animation: nw-sig 1.2s linear infinite; }
+  .jet { animation: nw-jet 1.8s ease-in-out infinite alternate; }
+  @keyframes nw-cone { to { stroke-dashoffset: -20; } }
+  @keyframes nw-sig { to { stroke-dashoffset: -22; } }
+  @keyframes nw-jet { from { transform: translateX(-1.5px); } to { transform: translateX(1.5px); } }
+
 `;
 
 class PhysicsSonicBoomNwave extends HTMLElement {

@@ -71,6 +71,14 @@ const becStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Below T_c the condensate fraction breathes as the thermal cloud drains */
+  .condensate-peak { transform-box: fill-box; transform-origin: 50% 100%; animation: bec-breathe 2.8s ease-in-out infinite alternate; }
+  .thermal-cloud { animation: bec-drain 2.8s ease-in-out infinite alternate; }
+  @keyframes bec-breathe { from { transform: scaleY(0.86); opacity: 0.85; } to { transform: scaleY(1.06); opacity: 1; filter: drop-shadow(0 0 5px currentColor); } }
+  @keyframes bec-drain { from { opacity: 0.9; } to { opacity: 0.45; } }
+
 `;
 
 class PhysicsBoseEinsteinCondensate extends HTMLElement {

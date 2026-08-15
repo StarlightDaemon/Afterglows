@@ -75,6 +75,16 @@ const braggStyles = `
     color: rgba(255, 85, 119, 0.9);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* X-ray wavefronts stream along both reflected paths */
+  .xray-ray { stroke-dasharray: 6 3; animation: bragg-run 1.1s linear infinite; }
+  .path-diff { animation: bragg-diffp 1.8s ease-in-out infinite alternate; }
+  .lattice-atom { animation: bragg-atom 2.4s ease-in-out infinite alternate; }
+  @keyframes bragg-run { to { stroke-dashoffset: -18; } }
+  @keyframes bragg-diffp { from { opacity: 0.5; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
+  @keyframes bragg-atom { from { opacity: 0.75; } to { opacity: 1; } }
+
 `;
 
 class PhysicsBraggDiffraction extends HTMLElement {

@@ -68,6 +68,16 @@ const alfvenStyles = `
     color: rgba(0, 229, 255, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Transverse MHD oscillation: frozen-in ions ride the field-line wave */
+  .plasma-ion { animation: alf-bob 1.5s ease-in-out infinite alternate; }
+  .b-pert { animation: alf-pert 1.5s ease-in-out infinite alternate; }
+  .field-line { animation: alf-sway 3s ease-in-out infinite alternate; }
+  @keyframes alf-bob { from { transform: translateY(-3px); } to { transform: translateY(3px); } }
+  @keyframes alf-pert { from { opacity: 0.5; } to { opacity: 1; } }
+  @keyframes alf-sway { from { transform: translateY(-1.5px); } to { transform: translateY(1.5px); } }
+
 `;
 
 class PhysicsAlfvenWaves extends HTMLElement {

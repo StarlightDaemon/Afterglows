@@ -69,6 +69,14 @@ const qheStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Field sweep: the Hall staircase carries current while R_xx oscillates */
+  .hall-staircase { stroke-dasharray: 6 4; animation: qhe-step 2.2s linear infinite; }
+  .sdh-peaks { animation: qhe-sdh 1.8s ease-in-out infinite alternate; }
+  @keyframes qhe-step { to { stroke-dashoffset: -20; } }
+  @keyframes qhe-sdh { from { opacity: 0.6; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
+
 `;
 
 class PhysicsQuantumHallEffect extends HTMLElement {

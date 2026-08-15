@@ -69,6 +69,16 @@ const temStyles = `
     color: rgba(255, 85, 119, 0.9);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Intracavity field oscillates; transverse mode lobes pulse */
+  .beam-tem00 { animation: lcm-pump 1.6s ease-in-out infinite alternate; }
+  .lobe-spot { animation: lcm-lobe 1.6s ease-in-out infinite alternate; }
+  .mirror { animation: lcm-mirror 3.2s ease-in-out infinite alternate; }
+  @keyframes lcm-pump { from { opacity: 0.65; } to { opacity: 1; filter: drop-shadow(0 0 6px currentColor); } }
+  @keyframes lcm-lobe { from { opacity: 0.6; transform: scale(0.94); } to { opacity: 1; transform: scale(1.05); } }
+  @keyframes lcm-mirror { from { opacity: 0.8; } to { opacity: 1; } }
+
 `;
 
 class PhysicsLaserCavityModes extends HTMLElement {

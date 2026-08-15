@@ -74,6 +74,14 @@ const fermiStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Quasiparticles march around the Fermi contour */
+  .fermi-contour { stroke-dasharray: 5 3; animation: fermi-march 2.2s linear infinite; }
+  .sym-pt { animation: fermi-sym 2.4s ease-in-out infinite alternate; }
+  @keyframes fermi-march { to { stroke-dashoffset: -16; } }
+  @keyframes fermi-sym { from { opacity: 0.6; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
+
 `;
 
 class PhysicsFermiSurface extends HTMLElement {

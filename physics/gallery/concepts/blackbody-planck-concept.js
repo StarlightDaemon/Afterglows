@@ -86,6 +86,16 @@ const planckStyles = `
     color: rgba(255, 170, 0, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Radiance curves shimmer in turn; Wien locus streams toward short lambda */
+  .curve-5500 { animation: bb-glow 3.6s ease-in-out infinite; }
+  .curve-4000 { animation: bb-glow 3.6s ease-in-out infinite; animation-delay: -1.2s; }
+  .curve-3000 { animation: bb-glow 3.6s ease-in-out infinite; animation-delay: -2.4s; }
+  .wien-locus { stroke-dasharray: 3 3; animation: bb-wien 1.6s linear infinite; }
+  @keyframes bb-glow { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
+  @keyframes bb-wien { to { stroke-dashoffset: -12; } }
+
 `;
 
 class PhysicsBlackbodyPlanck extends HTMLElement {

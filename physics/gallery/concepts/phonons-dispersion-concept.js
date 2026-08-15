@@ -83,6 +83,15 @@ const phononStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Lattice waves propagate along both branches; the gap stays forbidden */
+  .branch-opt { stroke-dasharray: 6 3; animation: pho-run 1.7s linear infinite; }
+  .branch-ac { stroke-dasharray: 6 3; animation: pho-run 1.3s linear infinite; }
+  .bandgap-box { animation: pho-gap 2.6s ease-in-out infinite alternate; }
+  @keyframes pho-run { to { stroke-dashoffset: -18; } }
+  @keyframes pho-gap { from { opacity: 0.45; } to { opacity: 0.85; } }
+
 `;
 
 class PhysicsPhononsDispersion extends HTMLElement {

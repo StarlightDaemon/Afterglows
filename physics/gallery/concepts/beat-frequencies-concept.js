@@ -79,6 +79,17 @@ const beatStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Component waves travel; superposition swells at the beat period */
+  .wave-f1 { stroke-dasharray: 5 3; animation: beat-run1 1.1s linear infinite; }
+  .wave-f2 { stroke-dasharray: 5 3; animation: beat-run2 1.25s linear infinite; }
+  .sum-signal { animation: beat-swell 2.4s ease-in-out infinite alternate; }
+  .beat-envelope { animation: beat-swell 2.4s ease-in-out infinite alternate; }
+  @keyframes beat-run1 { to { stroke-dashoffset: -16; } }
+  @keyframes beat-run2 { to { stroke-dashoffset: -16; } }
+  @keyframes beat-swell { from { opacity: 0.55; } to { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
+
 `;
 
 class PhysicsBeatFrequencies extends HTMLElement {

@@ -66,6 +66,15 @@ const khStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Shear rolls the interface into billows */
+  .billow-wave { stroke-dasharray: 7 4; animation: kh-roll 1.8s linear infinite; }
+  .stream-upper { animation: kh-shimmer 2.6s ease-in-out infinite alternate; }
+  .stream-lower { animation: kh-shimmer 2.6s ease-in-out infinite alternate-reverse; }
+  @keyframes kh-roll { to { stroke-dashoffset: -22; } }
+  @keyframes kh-shimmer { from { opacity: 0.75; } to { opacity: 1; } }
+
 `;
 
 class PhysicsKelvinHelmholtz extends HTMLElement {

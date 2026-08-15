@@ -87,6 +87,16 @@ const minkowskiStyles = `
     color: rgba(255, 170, 0, 0.9);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Boost sweep: primed axes glow while simultaneity slices march */
+  .boosted-axis { animation: mink-boost 2.8s ease-in-out infinite alternate; }
+  .simultaneity-line { stroke-dasharray: 4 3; animation: mink-slice 1.8s linear infinite; }
+  .hyperbola { stroke-dasharray: 5 3; animation: mink-hyp 2.6s linear infinite; }
+  @keyframes mink-boost { from { opacity: 0.65; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
+  @keyframes mink-slice { to { stroke-dashoffset: -14; } }
+  @keyframes mink-hyp { to { stroke-dashoffset: -16; } }
+
 `;
 
 class PhysicsMinkowskiDiagram extends HTMLElement {

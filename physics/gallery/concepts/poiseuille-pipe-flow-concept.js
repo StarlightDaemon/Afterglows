@@ -74,6 +74,16 @@ const poiseuilleStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Laminar streamlines advance fastest on the centerline */
+  .flow-arrow { animation: hp-stream 1.4s ease-in-out infinite alternate; }
+  .centerline { stroke-dasharray: 5 4; animation: hp-center 1.2s linear infinite; }
+  .parabola-profile { animation: hp-profile 2.6s ease-in-out infinite alternate; }
+  @keyframes hp-stream { from { opacity: 0.6; transform: translateX(0); } to { opacity: 1; transform: translateX(3px); } }
+  @keyframes hp-center { to { stroke-dashoffset: -18; } }
+  @keyframes hp-profile { from { opacity: 0.7; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
+
 `;
 
 class PhysicsPoiseuillePipeFlow extends HTMLElement {

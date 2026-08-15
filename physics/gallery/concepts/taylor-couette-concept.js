@@ -70,6 +70,15 @@ const tcStyles = `
     color: rgba(255, 170, 0, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Counter-rotating Taylor vortices spin between the cylinders */
+  .vortex-cell { stroke-dasharray: 6 4; animation: tcv-spin 1.6s linear infinite; }
+  .vortex-cell:nth-of-type(even) { animation-direction: reverse; }
+  .inner-cyl { animation: tcv-inner 2.4s ease-in-out infinite alternate; }
+  @keyframes tcv-spin { to { stroke-dashoffset: -20; } }
+  @keyframes tcv-inner { from { opacity: 0.75; } to { opacity: 1; } }
+
 `;
 
 class PhysicsTaylorCouette extends HTMLElement {

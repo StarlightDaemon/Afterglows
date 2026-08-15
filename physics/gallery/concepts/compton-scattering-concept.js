@@ -87,6 +87,17 @@ const comptonStyles = `
     color: rgba(255, 85, 119, 0.9);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Photon wavetrains propagate in and out; recoil electron kicks away */
+  .wave-incident { stroke-dasharray: 6 3; animation: cmp-run 1.2s linear infinite; }
+  .wave-scattered { stroke-dasharray: 6 3; animation: cmp-run 1.5s linear infinite; }
+  .recoil-electron { animation: cmp-recoil 1.5s ease-in-out infinite alternate; }
+  .angle-arc { animation: cmp-arc 2.2s ease-in-out infinite alternate; }
+  @keyframes cmp-run { to { stroke-dashoffset: -18; } }
+  @keyframes cmp-recoil { from { opacity: 0.6; } to { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
+  @keyframes cmp-arc { from { opacity: 0.5; } to { opacity: 0.95; } }
+
 `;
 
 class PhysicsComptonScattering extends HTMLElement {

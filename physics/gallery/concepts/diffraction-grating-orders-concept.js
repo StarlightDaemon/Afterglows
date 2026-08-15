@@ -82,6 +82,16 @@ const gratingStyles = `
     color: rgba(0, 229, 255, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Diffracted orders stream away from the grating */
+  .incident-beam { stroke-dasharray: 6 3; animation: grat-run 1.1s linear infinite; }
+  .order-zero, .spectrum-red-pos, .spectrum-green-pos, .spectrum-blue-pos,
+  .spectrum-red-neg, .spectrum-green-neg, .spectrum-blue-neg { stroke-dasharray: 5 3; animation: grat-run 1.3s linear infinite; }
+  .grating-slit { animation: grat-slit 2.4s ease-in-out infinite alternate; }
+  @keyframes grat-run { to { stroke-dashoffset: -16; } }
+  @keyframes grat-slit { from { opacity: 0.7; } to { opacity: 1; } }
+
 `;
 
 class PhysicsDiffractionGratingOrders extends HTMLElement {

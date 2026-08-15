@@ -82,6 +82,16 @@ const vdpStyles = `
     color: rgba(0, 229, 255, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* The state orbits the self-sustained limit cycle */
+  .limit-cycle { stroke-dasharray: 6 4; animation: vdp-orbit 1.9s linear infinite; }
+  .orbiting-state { animation: vdp-state 1.9s ease-in-out infinite alternate; }
+  .spiral-in, .spiral-out { animation: vdp-spiral 3.2s ease-in-out infinite alternate; }
+  @keyframes vdp-orbit { to { stroke-dashoffset: -20; } }
+  @keyframes vdp-state { from { opacity: 0.6; transform: scale(0.9); } to { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 4px currentColor); } }
+  @keyframes vdp-spiral { from { opacity: 0.35; } to { opacity: 0.8; } }
+
 `;
 
 class PhysicsVanDerPolOscillator extends HTMLElement {

@@ -76,6 +76,16 @@ const bravaisStyles = `
     color: rgba(255, 170, 0, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Translational symmetry: cell glows while basis vectors trace the net */
+  .lattice-point { animation: brv-pulse 2.6s ease-in-out infinite alternate; }
+  .unit-cell { animation: brv-cell 2.6s ease-in-out infinite alternate; }
+  .basis-vec1, .basis-vec2 { stroke-dasharray: 4 2; animation: brv-vec 1.4s linear infinite; }
+  @keyframes brv-pulse { from { opacity: 0.7; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
+  @keyframes brv-cell { from { opacity: 0.6; } to { opacity: 1; } }
+  @keyframes brv-vec { to { stroke-dashoffset: -12; } }
+
 `;
 
 class PhysicsBravaisLattices extends HTMLElement {

@@ -82,6 +82,17 @@ const stirlingStyles = `
     color: rgba(255, 170, 0, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Working fluid circulates the loop; state points fire in sequence */
+  .cycle-loop { stroke-dasharray: 7 5; animation: stc-circulate 2.4s linear infinite; }
+  .state-pt { animation: stc-state 2.4s ease-in-out infinite; }
+  .state-pt:nth-of-type(2) { animation-delay: -1.8s; }
+  .state-pt:nth-of-type(3) { animation-delay: -1.2s; }
+  .state-pt:nth-of-type(4) { animation-delay: -0.6s; }
+  @keyframes stc-circulate { to { stroke-dashoffset: -24; } }
+  @keyframes stc-state { 0%, 100% { opacity: 0.6; } 25% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } 50% { opacity: 0.6; } }
+
 `;
 
 class PhysicsStirlingEngineCycle extends HTMLElement {

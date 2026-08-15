@@ -83,6 +83,16 @@ const mbStyles = `
     color: rgba(255, 170, 0, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* The three temperature curves shimmer in turn; v_mp marker pulses */
+  .curve-cold { animation: mb-glow 3.9s ease-in-out infinite; }
+  .curve-med { animation: mb-glow 3.9s ease-in-out infinite; animation-delay: -1.3s; }
+  .curve-hot { animation: mb-glow 3.9s ease-in-out infinite; animation-delay: -2.6s; }
+  .peak-marker { animation: mb-peak 2s ease-in-out infinite alternate; }
+  @keyframes mb-glow { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
+  @keyframes mb-peak { from { opacity: 0.55; } to { opacity: 1; } }
+
 `;
 
 class PhysicsMaxwellBoltzmann extends HTMLElement {

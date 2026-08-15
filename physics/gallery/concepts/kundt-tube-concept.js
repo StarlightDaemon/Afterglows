@@ -76,6 +76,16 @@ const kundtStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Standing wave envelope breathes; lycopodium dust dances at the nodes */
+  .pressure-wave { animation: kt-breathe 1.4s ease-in-out infinite alternate; }
+  .dust-heap { transform-box: fill-box; transform-origin: 50% 100%; animation: kt-dance 0.55s ease-in-out infinite alternate; }
+  .piston { animation: kt-drive 0.55s ease-in-out infinite alternate; }
+  @keyframes kt-breathe { from { opacity: 0.35; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
+  @keyframes kt-dance { from { transform: scaleY(0.9); } to { transform: scaleY(1.15); filter: drop-shadow(0 0 3px currentColor); } }
+  @keyframes kt-drive { from { transform: translateX(-0.8px); } to { transform: translateX(0.8px); } }
+
 `;
 
 class PhysicsKundtTube extends HTMLElement {

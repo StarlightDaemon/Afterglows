@@ -73,6 +73,14 @@ const langStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Sweep current streams along the I-V characteristic */
+  .iv-curve { stroke-dasharray: 6 4; animation: lang-sweep 2s linear infinite; }
+  .floating-pot, .plasma-pot { animation: lang-mark 2.2s ease-in-out infinite alternate; }
+  @keyframes lang-sweep { to { stroke-dashoffset: -20; } }
+  @keyframes lang-mark { from { opacity: 0.55; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
+
 `;
 
 class PhysicsLangmuirProbe extends HTMLElement {

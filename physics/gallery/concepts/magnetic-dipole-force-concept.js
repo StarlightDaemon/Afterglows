@@ -71,6 +71,14 @@ const dipoleStyles = `
     color: rgba(255, 170, 0, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Flux threads the pair while the attraction vectors surge */
+  .flux-loop { stroke-dasharray: 5 4; animation: dip-flux 1.8s linear infinite; }
+  .force-vec { animation: dip-surge 1.4s ease-in-out infinite alternate; }
+  @keyframes dip-flux { to { stroke-dashoffset: -18; } }
+  @keyframes dip-surge { from { opacity: 0.6; transform: translateX(0); } to { opacity: 1; transform: translateX(2px); filter: drop-shadow(0 0 3px currentColor); } }
+
 `;
 
 class PhysicsMagneticDipoleForce extends HTMLElement {

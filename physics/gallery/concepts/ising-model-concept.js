@@ -68,6 +68,15 @@ const isingStyles = `
     color: rgba(0, 229, 255, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Thermal fluctuations: spins flicker against the ordered domains */
+  .spin { animation: ise-flicker 3.2s ease-in-out infinite; }
+  .spin:nth-child(4n) { animation-delay: -0.8s; }
+  .spin:nth-child(4n+1) { animation-delay: -1.6s; }
+  .spin:nth-child(4n+2) { animation-delay: -2.4s; }
+  @keyframes ise-flicker { 0%, 88%, 100% { opacity: 1; } 94% { opacity: 0.35; } }
+
 `;
 
 class PhysicsIsingModel extends HTMLElement {

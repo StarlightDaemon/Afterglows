@@ -63,6 +63,14 @@ const percStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Connectivity pulse floods the spanning cluster */
+  .spanning-cluster { animation: perc-flood 2.2s ease-in-out infinite alternate; }
+  .occupied-isolated { animation: perc-iso 2.2s ease-in-out infinite alternate-reverse; }
+  @keyframes perc-flood { from { opacity: 0.65; filter: none; } to { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
+  @keyframes perc-iso { from { opacity: 0.9; } to { opacity: 0.55; } }
+
 `;
 
 class PhysicsPercolationLattice extends HTMLElement {

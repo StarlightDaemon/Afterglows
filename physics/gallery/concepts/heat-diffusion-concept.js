@@ -83,6 +83,16 @@ const heatStyles = `
     color: rgba(255, 170, 0, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Time evolution: the profile relaxes t0 -> t1 -> t2 in sequence */
+  .profile-t0 { animation: heat-seq 5.4s ease-in-out infinite; }
+  .profile-t1 { animation: heat-seq 5.4s ease-in-out infinite; animation-delay: -3.6s; }
+  .profile-t2 { animation: heat-seq 5.4s ease-in-out infinite; animation-delay: -1.8s; }
+  .thermal-rod { animation: heat-rod 2.7s ease-in-out infinite alternate; }
+  @keyframes heat-seq { 0%, 28% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } 38%, 90% { opacity: 0.35; filter: none; } 100% { opacity: 1; } }
+  @keyframes heat-rod { from { opacity: 0.7; } to { opacity: 1; } }
+
 `;
 
 class PhysicsHeatDiffusion extends HTMLElement {

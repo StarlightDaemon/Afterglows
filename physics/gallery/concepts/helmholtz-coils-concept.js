@@ -110,6 +110,16 @@ const helmholtzStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Current circulates and the uniform field streams between the coils */
+  .field-line-straight, .field-line-curve { stroke-dasharray: 6 4; animation: helm-flow 1.5s linear infinite; }
+  .current-arrow { animation: helm-cur 1.5s ease-in-out infinite alternate; }
+  .uniform-zone { animation: helm-zone 3s ease-in-out infinite alternate; }
+  @keyframes helm-flow { to { stroke-dashoffset: -20; } }
+  @keyframes helm-cur { from { opacity: 0.6; } to { opacity: 1; } }
+  @keyframes helm-zone { from { opacity: 0.5; } to { opacity: 0.9; } }
+
 `;
 
 class PhysicsHelmholtzCoils extends HTMLElement {

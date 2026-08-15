@@ -82,6 +82,16 @@ const zeemanStyles = `
     color: rgba(0, 229, 255, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Field ramps on: the split components shimmer around the parent line */
+  .line-pi { animation: zee-split 2.8s ease-in-out infinite; }
+  .line-sigma-minus { animation: zee-split 2.8s ease-in-out infinite; animation-delay: -0.9s; }
+  .line-sigma-plus { animation: zee-split 2.8s ease-in-out infinite; animation-delay: -1.8s; }
+  .field-indicator { animation: zee-field 2.8s ease-in-out infinite alternate; }
+  @keyframes zee-split { 0%, 100% { opacity: 0.65; } 50% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
+  @keyframes zee-field { from { opacity: 0.6; } to { opacity: 1; } }
+
 `;
 
 class PhysicsZeemanEffect extends HTMLElement {

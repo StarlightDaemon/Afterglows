@@ -77,6 +77,16 @@ const vanAllenStyles = `
     color: rgba(255, 170, 0, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Trapped particle bounces between mirror points along the field line */
+  .trapped-particle { animation: va-bounce 1.7s ease-in-out infinite alternate; }
+  .mirror-pt { animation: va-mirror 1.7s ease-in-out infinite alternate; }
+  .dipole-line { stroke-dasharray: 5 4; animation: va-drift 2.6s linear infinite; }
+  @keyframes va-bounce { from { transform: translateY(-9px); } to { transform: translateY(9px); } }
+  @keyframes va-mirror { from { opacity: 0.55; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
+  @keyframes va-drift { to { stroke-dashoffset: -18; } }
+
 `;
 
 class PhysicsVanAllenTrapping extends HTMLElement {

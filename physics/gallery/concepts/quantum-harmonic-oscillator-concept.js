@@ -85,6 +85,16 @@ const qhoStyles = `
     color: rgba(0, 255, 102, 0.85);
     z-index: 10;
   }
+
+  /* Motion pass */
+  /* Stationary states carry e^{-iE_n t/hbar} phase: levels shimmer in turn */
+  .psi-0 { animation: qho-phase 3.6s ease-in-out infinite; }
+  .psi-1 { animation: qho-phase 3.6s ease-in-out infinite; animation-delay: -1.2s; }
+  .psi-2 { animation: qho-phase 3.6s ease-in-out infinite; animation-delay: -2.4s; }
+  .energy-line { animation: qho-level 2.8s ease-in-out infinite alternate; }
+  @keyframes qho-phase { 0%, 100% { opacity: 0.65; } 50% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
+  @keyframes qho-level { from { opacity: 0.6; } to { opacity: 0.95; } }
+
 `;
 
 class PhysicsQuantumHarmonicOscillator extends HTMLElement {
