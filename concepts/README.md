@@ -31,7 +31,7 @@ scientific apparatus, and ordinary everyday subjects:
 | `home` | Home & Office | 18 |
 | `ocean` | Ocean & Deep | 21 |
 | `city` | City & Commerce | 17 |
-| `music` | Music & Sound | 20 |
+| `music` | Music & Sound | 19 |
 | `games` | Games & Sport | 18 |
 | `garden` | Garden & Insects | 20 |
 | `birds` | Birds & Aviary | 18 |
@@ -44,7 +44,7 @@ scientific apparatus, and ordinary everyday subjects:
 | `navigation` | Navigation & Cartography | 10 |
 | `horology` | Horology & Chronometry | 10 |
 | `telecom` | Telegraphy & Early Telecom | 10 |
-| `acoustics` | Acoustics & Early Phonography | 7 |
+| `acoustics` | Acoustics & Early Phonography | 8 |
 | `surveying` | Surveying & Geodesy | 10 |
 | `aero` | Aeronautics & Early Flight | 10 |
 | `print` | Typography & Historical Printmaking | 10 |

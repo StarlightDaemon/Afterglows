@@ -4879,7 +4879,7 @@ export const CONCEPTS = [
   {
     tag: "concept-rubens-tube",
     label: "Rubens' Flame Tube",
-    category: "music",
+    category: "acoustics",
     origin: { contributions: [{ agent: "gemini", model: null, version: null }] },
     added: "2026-08-15T01:50:00Z",
     updated: "2026-08-15T01:50:00Z",
