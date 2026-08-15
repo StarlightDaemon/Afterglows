@@ -87,7 +87,7 @@ The gallery page includes a live filter/search toolbar above the grid:
 *   **Origin chips** (Claude / Gemini) — toggle on/off independently, filtering by which agent(s) built or revised each concept (see **Origin & Attribution** below). A concept touched by both agents matches either chip.
 *   **Model / Version chips** — toggle on/off independently, filtering by which model tier (e.g. Sonnet) and specific version (e.g. 5) made a contribution. Unlike the fixed Origin chips, these are generated from whatever values actually appear in `manifest.js` — a new model/version shows up as its own chip automatically, no code change needed. Concepts with no tracked model/version fall under an **Unspecified** chip in each group (currently most of the archive — see **Origin & Attribution** below).
 *   **Reset** — clears search and restores all categories, statuses, origins, models, versions, and the curated sort.
-*   **Live count** — reads "Showing N of 561" and updates with every filter change.
+*   **Live count** — reads "Showing N of 549" and updates with every filter change.
 
 Every tile also carries two actions: **Copy**, which copies a ready-to-paste embed snippet for that concept to the clipboard, and **Source**, which opens the concept's module file directly.
 
