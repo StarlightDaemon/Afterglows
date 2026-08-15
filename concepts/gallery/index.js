@@ -421,8 +421,13 @@ function statusOf(concept) {
 
 // --- Wave 2: Newest additions --------------------------------------------
 // The most recently added batch date in the manifest (YYYY-MM-DD). Concepts
-// with this added date form the "Newest Additions" landing view.
-const NEWEST_DATE = "2026-08-06";
+// with this added date form the "Newest Additions" landing view. Derived from
+// the manifest rather than hardcoded so new content batches land on the
+// gallery automatically.
+const NEWEST_DATE = CONCEPTS.reduce((max, concept) => {
+  const day = concept.added ? concept.added.slice(0, 10) : "";
+  return day > max ? day : max;
+}, "");
 
 function isNewest(concept) {
   return Boolean(concept.added && concept.added.startsWith(NEWEST_DATE));
