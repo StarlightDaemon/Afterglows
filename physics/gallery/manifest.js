@@ -769,19 +769,6 @@ export const CONCEPTS = [
     default: null,
     versions: [],
   },
-  {
-    tag: "physics-gravitational-time-dilation",
-    label: "Gravitational Time Dilation",
-    category: "relativity",
-    origin: { contributions: [{ agent: "gemini", model: null, version: null }] },
-    added: "2026-08-15T03:20:00Z",
-    updated: "2026-08-15T03:20:00Z",
-    versioned: false,
-    badge: "New v1",
-    badgeCls: "meta-status-new",
-    default: null,
-    versions: [],
-  },
 
   // --- Category: Quantum Mechanics & Modern Physics ---
   {
