@@ -1087,19 +1087,6 @@ export const CONCEPTS = [
     default: null,
     versions: [],
   },
-  {
-    tag: "physics-rubens-flame-tube",
-    label: "Rubens' Flame Tube",
-    category: "acoustics",
-    origin: { contributions: [{ agent: "gemini", model: null, version: null }] },
-    added: "2026-08-15T03:50:00Z",
-    updated: "2026-08-15T03:50:00Z",
-    versioned: false,
-    badge: "New v1",
-    badgeCls: "meta-status-new",
-    default: null,
-    versions: [],
-  },
 
   // --- Category: Plasma & High-Energy Electrodynamics ---
   {
