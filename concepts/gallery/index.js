@@ -279,15 +279,45 @@ function installLazyObserver() {
   });
 
   // Deferred sweep: concept modules resolve at various times. Run a second
-  // pause pass ~1.5 s and ~3 s after render to catch elements that upgraded
-  // while their box was already outside the observer's intersection zone.
-  const sweep = () => {
-    intersectionState.forEach((isIntersecting, box) => {
-      if (!isIntersecting) pauseBox(box);
+  // pause pass ~1.5 s and ~3 s after render to catch animations that appear
+  // late for reasons the upgrade watcher below can't see (e.g. a concept
+  // building DOM on its own timer after upgrade).
+  setTimeout(pauseSweep, 1500);
+  setTimeout(pauseSweep, 3000);
+}
+
+// Pause every box whose last-known intersection state is "outside".
+function pauseSweep() {
+  intersectionState.forEach((isIntersecting, box) => {
+    if (!isIntersecting) pauseBox(box);
+  });
+}
+
+// Deterministic late-upgrade coverage: a module that resolves after the last
+// timed sweep would otherwise animate off-screen forever (the observer only
+// fires on intersection *changes*, so an already-off-screen box never gets
+// another callback). customElements.whenDefined resolves exactly when each
+// concept's elements upgrade, so schedule a coalesced sweep per definition.
+// The double rAF lets the fresh shadow roots' animations start before the
+// pause pass runs.
+let upgradeSweepQueued = false;
+function scheduleUpgradeSweep() {
+  if (upgradeSweepQueued) return;
+  upgradeSweepQueued = true;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      upgradeSweepQueued = false;
+      pauseSweep();
     });
-  };
-  setTimeout(sweep, 1500);
-  setTimeout(sweep, 3000);
+  });
+}
+
+function watchConceptUpgrades() {
+  for (const concept of CONCEPTS) {
+    customElements.whenDefined(concept.tag)
+      .then(scheduleUpgradeSweep)
+      .catch(() => {}); // invalid tag name: module never defines, nothing to pause
+  }
 }
 
 
@@ -390,9 +420,8 @@ function statusOf(concept) {
 }
 
 // --- Wave 2: Newest additions --------------------------------------------
-// The most recently added batch date in the manifest. Concepts with this
-// added date form the "Newest Additions" landing view.
-// All 240 concepts confirmed to have valid ISO-8601 added fields.
+// The most recently added batch date in the manifest (YYYY-MM-DD). Concepts
+// with this added date form the "Newest Additions" landing view.
 const NEWEST_DATE = "2026-08-06";
 
 function isNewest(concept) {
@@ -963,6 +992,7 @@ function init() {
 }
 
 importConceptModules();
+watchConceptUpgrades();
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init, { once: true });
