@@ -39,12 +39,14 @@ const guntersChainStyles = `
   .gc-chain-links path {
     animation: gc-link-flow 2.4s linear infinite;
     stroke: #ffca28;
-    stroke-width: 1.2;
-    fill: none;
+    stroke-width: 2.2;
+    /* Real dash gaps: the previous "24 0" solid pattern made the
+       dashoffset animation a rendered no-op */
+    stroke-dasharray: 10 6;
   }
 
   @keyframes gc-link-flow {
-    to { stroke-dashoffset: -24; }
+    to { stroke-dashoffset: -32; }
   }
 
   /* Brass tally tags swinging at 10-link intervals */
@@ -54,8 +56,8 @@ const guntersChainStyles = `
   }
 
   @keyframes gc-tag-swing {
-    0% { transform: rotate(-8deg); }
-    100% { transform: rotate(8deg); }
+    0% { transform: rotate(-16deg); }
+    100% { transform: rotate(16deg); }
   }
 
   /* Heavy swivel brass pull handles */
@@ -64,8 +66,8 @@ const guntersChainStyles = `
   }
 
   @keyframes gc-pull-tension {
-    0% { transform: translateX(-1px); }
-    100% { transform: translateX(1px); }
+    0% { transform: translateX(-3px); }
+    100% { transform: translateX(3px); }
   }
 
   .gc-label {
@@ -104,7 +106,7 @@ class ConceptGuntersChain extends HTMLElement {
             <!-- Gunter's 66-Foot 100-Link Wrought Iron Chain Span -->
             <g class="gc-chain-links">
               <!-- Linked Rods & Connecting Oval Rings -->
-              <path d="M 12 36 L 24 36 L 26 38 L 28 34 L 30 36 L 42 36 L 44 38 L 46 34 L 48 36 L 60 36 L 64 36" stroke-dasharray="24 0" />
+              <path d="M 12 36 L 24 36 L 26 38 L 28 34 L 30 36 L 42 36 L 44 38 L 46 34 L 48 36 L 60 36 L 64 36" />
             </g>
 
             <!-- Heavy Brass Cast Swivel Pull Handles at Terminals -->

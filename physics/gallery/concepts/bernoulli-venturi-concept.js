@@ -63,6 +63,9 @@ const venturiStyles = `
     height: 38px;
   }
 
+  /* The manometer readings are the concept's key visual: the columns
+     breathe around their equilibrium levels as the flow runs — high
+     static pressure at the wide sections, low at the throat, antiphase */
   .fluid-column {
     width: 100%;
     background: linear-gradient(180deg, #00ffff, #007799);
@@ -70,18 +73,28 @@ const venturiStyles = `
     box-shadow: 0 0 4px #00ffff;
   }
 
-  .col-high { height: 28px; }
-  .col-low { height: 10px; }
+  .col-high { height: 28px; animation: col-high-breathe 2.2s ease-in-out infinite alternate; }
+  .col-low { height: 10px; animation: col-low-breathe 2.2s ease-in-out infinite alternate; }
+
+  @keyframes col-high-breathe {
+    0% { height: 22px; }
+    100% { height: 32px; }
+  }
+
+  @keyframes col-low-breathe {
+    0% { height: 15px; }
+    100% { height: 5px; }
+  }
 
   /* Flow particle streamers accelerating through throat */
   .stream-particle {
     position: absolute;
     top: 75px;
-    width: 4px;
-    height: 2px;
-    border-radius: 1px;
+    width: 7px;
+    height: 3px;
+    border-radius: 1.5px;
     background: #ffffff;
-    box-shadow: 0 0 4px #00ffff;
+    box-shadow: 0 0 6px #00ffff;
     animation: flow-stream 2.2s linear infinite;
   }
 

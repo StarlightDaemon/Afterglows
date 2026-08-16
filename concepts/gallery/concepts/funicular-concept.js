@@ -35,14 +35,26 @@ const funicularStyles = `
     position: absolute;
     top: 8px;
     right: 12px;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     border: 1.5px solid #ffffff;
     background: #011406;
     box-shadow: 0 0 6px #8cffaa;
     z-index: 4;
-    animation: fun-pulley-turn 4.5s linear infinite;
+    animation: fun-pulley-turn 2.5s linear infinite;
+  }
+
+  /* Sheave spokes: without these the spinning circle is rotationally
+     symmetric and the rotation renders as a no-op */
+  .fun-summit-pulley::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: 50%;
+    background:
+      linear-gradient(0deg, transparent 42%, #8cffaa 42% 58%, transparent 58%),
+      linear-gradient(90deg, transparent 42%, #8cffaa 42% 58%, transparent 58%);
   }
 
   @keyframes fun-pulley-turn {

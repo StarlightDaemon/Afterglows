@@ -50,10 +50,12 @@ const reconStyles = `
 
   /* High-velocity Reconnected Plasma Outflow Jets (Left & Right) */
   .jet-arrow {
+    fill: none;
     stroke: #00ff66;
-    stroke-width: 1.5;
+    stroke-width: 2.4;
+    stroke-dasharray: 8 6;
     filter: drop-shadow(0 0 4px #00ff66);
-    animation: jet-pulse 1.8s ease-out infinite;
+    animation: jet-pulse 1.8s linear infinite;
   }
 
   .lbl {
@@ -80,8 +82,8 @@ const reconStyles = `
   }
 
   @keyframes pulse-sheet {
-    0% { opacity: 0.6; }
-    100% { opacity: 1.0; }
+    0% { opacity: 0.35; transform: scaleX(0.8); transform-origin: 65px 65px; }
+    100% { opacity: 1.0; transform: scaleX(1.3); transform-origin: 65px 65px; }
   }
 
   @keyframes jet-pulse {
@@ -111,10 +113,10 @@ class PhysicsMagneticReconnection extends HTMLElement {
           <path d="M 15 92 Q 65 74 115 92" class="field-in-bot" />
 
           <!-- Left Outflow Reconnected Loop -->
-          <path d="M 15 25 C 45 45, 45 85, 15 105" stroke="#00ff66" stroke-width="1.2" fill="none" />
+          <path class="jet-arrow" d="M 15 25 C 45 45, 45 85, 15 105" />
 
           <!-- Right Outflow Reconnected Loop -->
-          <path d="M 115 25 C 85 45, 85 85, 115 105" stroke="#00ff66" stroke-width="1.2" fill="none" />
+          <path class="jet-arrow" d="M 115 25 C 85 45, 85 85, 115 105" />
 
           <!-- Sweet-Parker Current Sheet (X-Point) -->
           <ellipse cx="65" cy="65" rx="8" ry="3" class="current-sheet" />

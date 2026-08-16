@@ -42,27 +42,31 @@ const tuningForkChronographStyles = `
   }
 
   @keyframes tc-tine-vibrate {
-    0% { transform: scaleX(0.96); }
-    100% { transform: scaleX(1.04); }
+    0% { transform: scaleX(0.9); }
+    100% { transform: scaleX(1.1); }
   }
 
-  /* Rotating smoked chronograph drum */
+  /* Rotating smoked chronograph drum: the side-on drum reads as revolving
+     through its scrolling inscribed waveform plus a slight runout wobble */
   .tc-chrono-drum {
-    animation: tc-drum-advance 2.5s linear infinite;
+    animation: tc-drum-advance 2.5s ease-in-out infinite;
     transform-origin: 56px 36px;
   }
 
   @keyframes tc-drum-advance {
     0% { transform: translateY(0); }
-    50% { transform: translateY(-0.8px); }
+    50% { transform: translateY(-2px); }
     100% { transform: translateY(0); }
   }
 
   /* Inscribed millisecond sinusoidal timing wave */
   .tc-sine-wave path {
     stroke: #00e5ff;
-    stroke-width: 1;
+    stroke-width: 1.8;
     fill: none;
+    /* Real dash gaps: the markup's old "20 0" solid pattern made this
+       scroll animation a rendered no-op */
+    stroke-dasharray: 16 5;
     animation: tc-sine-scroll 1.2s linear infinite;
     filter: drop-shadow(0 0 2px #00e5ff);
   }
@@ -139,10 +143,10 @@ class ConceptTuningForkChronograph extends HTMLElement {
 
               <!-- Scratched Continuous 100 Hz Sine Wave / Time-Base Waveform -->
               <g class="tc-sine-wave">
-                <path d="M 43 24 Q 45.5 21 48 24 T 53 24 T 58 24 T 63 24 T 68 24 L 69 24" stroke-dasharray="20 0" />
-                <path d="M 43 28 Q 45.5 25 48 28 T 53 28 T 58 28 T 63 28 T 68 28 L 69 28" stroke-dasharray="20 0" />
-                <path d="M 43 32 Q 45.5 29 48 32 T 53 32 T 58 32 T 63 32 T 68 32 L 69 32" stroke-dasharray="20 0" />
-                <path d="M 43 42 Q 45.5 39 48 42 T 53 42 T 58 42 T 63 42 T 68 42 L 69 42" stroke-dasharray="20 0" />
+                <path d="M 43 24 Q 45.5 21 48 24 T 53 24 T 58 24 T 63 24 T 68 24 L 69 24" />
+                <path d="M 43 28 Q 45.5 25 48 28 T 53 28 T 58 28 T 63 28 T 68 28 L 69 28" />
+                <path d="M 43 32 Q 45.5 29 48 32 T 53 32 T 58 32 T 63 32 T 68 32 L 69 32" />
+                <path d="M 43 42 Q 45.5 39 48 42 T 53 42 T 58 42 T 63 42 T 68 42 L 69 42" />
               </g>
             </g>
 

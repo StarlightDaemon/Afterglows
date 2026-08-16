@@ -33,8 +33,34 @@ const coriolisStyles = `
     position: absolute;
     inset: 4px;
     border-radius: 50%;
-    border: 1px dashed rgba(0, 229, 255, 0.25);
-    animation: rotate-globe 8s linear infinite;
+    border: 1px dashed rgba(0, 229, 255, 0.4);
+    animation: rotate-globe 6s linear infinite;
+  }
+
+  /* Orbiting surface markers: the bare dashed ring is rotationally
+     near-symmetric, so its rotation rendered as a no-op without them */
+  .spin-indicator::before,
+  .spin-indicator::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00e5ff;
+    box-shadow: 0 0 6px #00e5ff;
+  }
+
+  .spin-indicator::before {
+    top: -3px;
+    left: 50%;
+    margin-left: -3px;
+  }
+
+  .spin-indicator::after {
+    bottom: -3px;
+    left: 50%;
+    margin-left: -3px;
+    opacity: 0.55;
   }
 
   .pole-center {

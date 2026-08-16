@@ -60,12 +60,15 @@ const ansibleStyles = `
     justify-content: center;
   }
 
-  /* Entangled Qubit Singlet Pair (Synchronized Spin Precession) */
+  /* Entangled Qubit Singlet Pair (Synchronized Spin Precession).
+     Two-tone Bloch-hemisphere face: a flat filled circle is rotationally
+     symmetric, so the precession would otherwise render as a no-op. */
   .ar-qubit {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    background: #ffffff;
+    background: linear-gradient(90deg, #ffffff 50%, #0a2a3a 50%);
+    border: 1px solid #ffffff;
     box-shadow: 0 0 8px #ffffff;
     animation: ar-spin-sync 2s linear infinite;
   }
@@ -93,7 +96,7 @@ const ansibleStyles = `
   }
 
   @keyframes ar-beam-flux {
-    0% { opacity: 0.7; }
+    0% { opacity: 0.35; }
     100% { opacity: 1; }
   }
 

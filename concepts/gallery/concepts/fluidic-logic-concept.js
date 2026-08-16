@@ -43,28 +43,34 @@ const fluidicStyles = `
     height: 76px;
   }
 
-  /* Dynamic high-velocity fluid stream attached via Coanda effect */
+  /* Dynamic high-velocity fluid stream attached via Coanda effect.
+     The jet detaches from Output 0 and re-attaches to Output 1 when the
+     control ports fire: two attachment states crossfading on the same
+     4s alternate timeline as the LEDs and control pulses. */
   .fld-stream-svg {
     position: absolute;
     inset: 0;
     width: 84px;
     height: 76px;
     filter: drop-shadow(0 0 4px #8cffaa);
-    animation: fld-coanda-switch 4s ease-in-out infinite alternate;
   }
 
-  @keyframes fld-coanda-switch {
-    0%, 40% {
-      /* Attached to Left Output 0 */
-      opacity: 0.95;
-    }
-    50%, 90% {
-      /* Attached to Right Output 1 */
-      opacity: 0.95;
-    }
-    100% {
-      opacity: 0.95;
-    }
+  .fld-jet-left {
+    animation: fld-jet-left 4s ease-in-out infinite alternate;
+  }
+
+  .fld-jet-right {
+    animation: fld-jet-right 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes fld-jet-left {
+    0%, 45% { opacity: 0.95; }
+    55%, 100% { opacity: 0; }
+  }
+
+  @keyframes fld-jet-right {
+    0%, 45% { opacity: 0; }
+    55%, 100% { opacity: 0.95; }
   }
 
   /* Left Control nozzle pulse (C1) */
@@ -169,9 +175,10 @@ class ConceptFluidicLogic extends HTMLElement {
             <line x1="76" y1="38" x2="46" y2="38" stroke="#004408" stroke-width="4" />
           </svg>
 
-          <!-- Switched laminar Coanda jet stream -->
+          <!-- Switched laminar Coanda jet stream (left/right attachment states) -->
           <svg class="fld-stream-svg" viewBox="0 0 84 76">
-            <path d="M 42 72 L 42 46 Q 38 34 24 12" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <path class="fld-jet-left" d="M 42 72 L 42 46 Q 38 34 24 12" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <path class="fld-jet-right" d="M 42 72 L 42 46 Q 46 34 60 12" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" />
           </svg>
 
           <div class="fld-pulse-c1"></div>

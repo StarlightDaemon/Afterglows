@@ -35,16 +35,27 @@ const phonautographStyles = `
     height: 72px;
   }
 
-  /* Rotating lampblack-smoked cylinder */
+  /* Rotating lampblack-smoked cylinder: the side-on drum reads as rotating
+     through its scrolling surface traces plus a slight runout wobble */
   .pa-cylinder {
-    animation: pa-spin-cylinder 3s linear infinite;
+    animation: pa-spin-cylinder 3s ease-in-out infinite;
     transform-origin: 48px 36px;
   }
 
   @keyframes pa-spin-cylinder {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-0.8px); }
+    50% { transform: translateY(-2px); }
     100% { transform: translateY(0px); }
+  }
+
+  /* Hand crank actually turning the arbor */
+  .pa-crank {
+    animation: pa-crank-turn 2s linear infinite;
+    transform-origin: 68px 36px;
+  }
+
+  @keyframes pa-crank-turn {
+    to { transform: rotate(360deg); }
   }
 
   /* Hog bristle stylus sound vibration */
@@ -61,8 +72,11 @@ const phonautographStyles = `
   /* White sound-wave trace line drawn through black soot */
   .pa-white-trace path {
     stroke: #ffffff;
-    stroke-width: 1;
+    stroke-width: 1.6;
     fill: none;
+    /* Real dash gaps: the markup's old "28 0" solid pattern made this
+       scroll animation a rendered no-op */
+    stroke-dasharray: 22 6;
     animation: pa-trace-scroll 1.5s linear infinite;
     filter: drop-shadow(0 0 2px #ffffff);
   }
@@ -133,16 +147,18 @@ class ConceptPhonautograph extends HTMLElement {
 
               <!-- Inscribed Au Clair de la Lune Sound Waveforms (White lines scratched through soot) -->
               <g class="pa-white-trace">
-                <path d="M 35 28 Q 38 25 41 28 T 47 28 T 53 28 T 59 28 L 61 28" stroke-dasharray="28 0" />
-                <path d="M 35 36 Q 38 31 41 36 T 47 36 T 53 36 T 59 36 L 61 36" stroke-dasharray="28 0" />
-                <path d="M 35 44 Q 38 41 41 44 T 47 44 T 53 44 T 59 44 L 61 44" stroke-dasharray="28 0" />
+                <path d="M 35 28 Q 38 25 41 28 T 47 28 T 53 28 T 59 28 L 61 28" />
+                <path d="M 35 36 Q 38 31 41 36 T 47 36 T 53 36 T 59 36 L 61 36" />
+                <path d="M 35 44 Q 38 41 41 44 T 47 44 T 53 44 T 59 44 L 61 44" />
               </g>
             </g>
 
             <!-- Hand Crank Wheel (Far Right) -->
-            <circle cx="68" cy="36" r="6" fill="none" stroke="#ffd700" stroke-width="1" />
-            <line x1="68" y1="36" x2="72" y2="32" stroke="#ffd700" stroke-width="1" />
-            <circle cx="72" cy="32" r="1.2" fill="#8d6e63" />
+            <g class="pa-crank">
+              <circle cx="68" cy="36" r="6" fill="none" stroke="#ffd700" stroke-width="1" />
+              <line x1="68" y1="36" x2="72" y2="32" stroke="#ffd700" stroke-width="1.5" />
+              <circle cx="72" cy="32" r="2" fill="#8d6e63" stroke="#ffd700" stroke-width="0.5" />
+            </g>
           </svg>
         </div>
         <div class="pa-label">PHONAUTOGRAPH</div>
