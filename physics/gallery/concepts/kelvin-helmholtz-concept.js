@@ -69,11 +69,11 @@ const khStyles = `
 
   /* Motion pass */
   /* Shear rolls the interface into billows */
-  .billow-wave { stroke-dasharray: 7 4; animation: kh-roll 1.8s linear infinite; }
+  .billow-wave { stroke-width: 2.6; stroke-dasharray: 7 5; animation: kh-roll 1.8s linear infinite; }
   .stream-upper { animation: kh-shimmer 2.6s ease-in-out infinite alternate; }
   .stream-lower { animation: kh-shimmer 2.6s ease-in-out infinite alternate-reverse; }
-  @keyframes kh-roll { to { stroke-dashoffset: -22; } }
-  @keyframes kh-shimmer { from { opacity: 0.75; } to { opacity: 1; } }
+  @keyframes kh-roll { to { stroke-dashoffset: -24; } }
+  @keyframes kh-shimmer { from { opacity: 0.35; } to { opacity: 1; } }
 
 `;
 

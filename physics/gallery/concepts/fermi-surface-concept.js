@@ -77,10 +77,11 @@ const fermiStyles = `
 
   /* Motion pass */
   /* Quasiparticles march around the Fermi contour */
-  .fermi-contour { stroke-dasharray: 5 3; animation: fermi-march 2.2s linear infinite; }
-  .sym-pt { animation: fermi-sym 2.4s ease-in-out infinite alternate; }
-  @keyframes fermi-march { to { stroke-dashoffset: -16; } }
-  @keyframes fermi-sym { from { opacity: 0.6; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
+  .fermi-contour { stroke-width: 3; stroke-dasharray: 9 7; animation: fermi-march 2.2s linear infinite, fermi-breathe 1.6s ease-in-out infinite alternate; }
+  .sym-pt { r: 3.5px; animation: fermi-sym 2.4s ease-in-out infinite alternate; }
+  @keyframes fermi-march { to { stroke-dashoffset: -26; } }
+  @keyframes fermi-breathe { from { opacity: 0.5; } to { opacity: 1; filter: drop-shadow(0 0 5px currentColor); } }
+  @keyframes fermi-sym { from { opacity: 0.2; } to { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
 
 `;
 

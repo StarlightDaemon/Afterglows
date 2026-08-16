@@ -49,15 +49,29 @@ const rotDopplerStyles = `
   .wave-blue {
     fill: none;
     stroke: #00e5ff;
-    stroke-width: 1.2;
+    stroke-width: 1.8;
     filter: drop-shadow(0 0 3px #00e5ff);
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wave-propagate 1.4s linear infinite;
+  }
+
+  .wave-blue:nth-of-type(2) { animation-delay: -0.47s; }
+  .wave-blue:nth-of-type(3) { animation-delay: -0.93s; }
+
+  @keyframes wave-propagate {
+    0% { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(1.12); opacity: 0.2; }
   }
 
   /* Stretched red-shifted wavefronts receding from stationary observer */
   .wave-red {
     fill: none;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wave-propagate 2s linear infinite;
     stroke: #ff5577;
-    stroke-width: 1.2;
+    stroke-width: 1.8;
     filter: drop-shadow(0 0 3px #ff5577);
   }
 
@@ -112,12 +126,12 @@ class PhysicsDopplerRotational extends HTMLElement {
 
           <!-- Stretched Wavefronts on recession (Left side: -x) -->
           <circle cx="52" cy="65" r="22" class="wave-red" />
-          <circle cx="42" cy="65" r="34" class="wave-red" />
-          <circle cx="32" cy="65" r="46" class="wave-red" />
+          <circle cx="42" cy="65" r="34" class="wave-red" style="animation-delay: -0.67s;" />
+          <circle cx="32" cy="65" r="46" class="wave-red" style="animation-delay: -1.33s;" />
 
           <!-- Whirling Acoustic Emitter -->
           <g class="source-orbit-group">
-            <circle cx="93" cy="65" r="3" class="source-buzzer" />
+            <circle cx="93" cy="65" r="5" class="source-buzzer" />
             <!-- Tangential velocity vector -->
             <line x1="93" y1="65" x2="93" y2="52" stroke="#00ff66" stroke-width="1.2" />
             <polygon points="93,48 90,53 96,53" fill="#00ff66" />

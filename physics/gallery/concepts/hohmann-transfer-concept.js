@@ -66,9 +66,9 @@ const hohmannStyles = `
   /* Target Planets */
   .planet-inner {
     position: absolute;
-    width: 6px;
-    height: 6px;
-    margin: -3px 0 0 -3px;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
     border-radius: 50%;
     background: #00e5ff;
     box-shadow: 0 0 6px #00e5ff;
@@ -79,9 +79,9 @@ const hohmannStyles = `
 
   .planet-outer {
     position: absolute;
-    width: 8px;
-    height: 8px;
-    margin: -4px 0 0 -4px;
+    width: 12px;
+    height: 12px;
+    margin: -6px 0 0 -6px;
     border-radius: 50%;
     background: #00ff66;
     box-shadow: 0 0 6px #00ff66;
@@ -93,9 +93,9 @@ const hohmannStyles = `
   /* Transfer Vehicle */
   .transfer-craft {
     position: absolute;
-    width: 6px;
-    height: 6px;
-    margin: -3px 0 0 -3px;
+    width: 9px;
+    height: 9px;
+    margin: -4.5px 0 0 -4.5px;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 8px #ffcc00, 0 0 14px #ffffff;

@@ -62,9 +62,9 @@ const rocheStyles = `
   /* Approaching & Disrupting Moon */
   .satellite-approach {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    margin: -5px 0 0 -5px;
+    width: 14px;
+    height: 14px;
+    margin: -7px 0 0 -7px;
     offset-path: path("M 118 65 C 118 90, 85 105, 65 105 C 45 105, 25 85, 25 65 C 25 45, 45 30, 65 30 C 78 30, 92 42, 92 65");
     animation: tidal-infall 5s linear infinite;
     z-index: 9;

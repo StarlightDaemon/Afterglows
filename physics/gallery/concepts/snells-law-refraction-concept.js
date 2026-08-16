@@ -53,12 +53,19 @@ const snellStyles = `
     stroke: #ff3366;
     stroke-width: 2;
     filter: drop-shadow(0 0 4px #ff3366);
+    animation: ray-energize 1.4s ease-in-out infinite alternate;
   }
 
   .refracted-ray {
     stroke: #00ffaa;
     stroke-width: 2;
     filter: drop-shadow(0 0 4px #00ffaa);
+    animation: ray-energize 1.4s ease-in-out infinite alternate-reverse;
+  }
+
+  @keyframes ray-energize {
+    from { opacity: 0.45; stroke-width: 1.4; }
+    to { opacity: 1; stroke-width: 3; }
   }
 
   .reflected-ray {
@@ -74,12 +81,12 @@ const snellStyles = `
     position: absolute;
     top: 0;
     left: 0;
-    width: 6px;
-    height: 6px;
-    margin: -3px 0 0 -3px;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 8px #ffffff;
+    box-shadow: 0 0 12px #ffffff, 0 0 5px #00e5ff;
     animation: photon-path 2.4s linear infinite;
   }
 

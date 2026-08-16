@@ -113,7 +113,7 @@ class PhysicsTimeDilation extends HTMLElement {
 
           <!-- Stationary Path & Photon -->
           <line x1="25" y1="28" x2="25" y2="92" class="path-rest" />
-          <circle cx="25" cy="30" r="2.5" class="light-pulse-rest" />
+          <circle cx="25" cy="30" r="4.5" class="light-pulse-rest" />
           <text x="12" y="16" class="lbl lbl-rest">REST: Δt₀ = 2L/c</text>
 
           <!-- Moving Clock Mirror Bounds (v > 0) -->
@@ -122,7 +122,7 @@ class PhysicsTimeDilation extends HTMLElement {
 
           <!-- Zigzag Path (Hypotenuse cΔt) -->
           <polyline points="40,28 75,92 110,28" fill="none" class="path-moving" />
-          <circle r="3" class="light-pulse-moving" />
+          <circle r="5" class="light-pulse-moving" />
           <text x="48" y="16" class="lbl lbl-moving">MOVING: Δt = γΔt₀</text>
 
           <!-- Velocity vector -->

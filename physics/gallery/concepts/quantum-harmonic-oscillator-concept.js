@@ -91,9 +91,13 @@ const qhoStyles = `
   .psi-0 { animation: qho-phase 3.6s ease-in-out infinite; }
   .psi-1 { animation: qho-phase 3.6s ease-in-out infinite; animation-delay: -1.2s; }
   .psi-2 { animation: qho-phase 3.6s ease-in-out infinite; animation-delay: -2.4s; }
+  .psi-0, .psi-1, .psi-2 { transform-box: fill-box; transform-origin: center; }
   .energy-line { animation: qho-level 2.8s ease-in-out infinite alternate; }
-  @keyframes qho-phase { 0%, 100% { opacity: 0.65; } 50% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
-  @keyframes qho-level { from { opacity: 0.6; } to { opacity: 0.95; } }
+  @keyframes qho-phase {
+    0%, 100% { opacity: 0.25; stroke-width: 1.2; transform: scaleY(0.85); }
+    50% { opacity: 1; stroke-width: 3; transform: scaleY(1.15); filter: drop-shadow(0 0 5px currentColor); }
+  }
+  @keyframes qho-level { from { opacity: 0.35; stroke-width: 1; } to { opacity: 1; stroke-width: 2.2; } }
 
 `;
 
