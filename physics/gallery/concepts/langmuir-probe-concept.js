@@ -76,10 +76,15 @@ const langStyles = `
 
   /* Motion pass */
   /* Sweep current streams along the I-V characteristic */
-  .iv-curve { stroke-dasharray: 6 4; animation: lang-sweep 2s linear infinite; }
-  .floating-pot, .plasma-pot { animation: lang-mark 2.2s ease-in-out infinite alternate; }
-  @keyframes lang-sweep { to { stroke-dashoffset: -20; } }
-  @keyframes lang-mark { from { opacity: 0.55; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
+  .iv-curve {
+    stroke-width: 3;
+    stroke-dasharray: 12 10;
+    animation: lang-sweep 2s linear infinite, lang-glow 1.3s ease-in-out infinite alternate;
+  }
+  .floating-pot, .plasma-pot { stroke-width: 2.2; animation: lang-mark 2.2s ease-in-out infinite alternate; }
+  @keyframes lang-sweep { to { stroke-dashoffset: -22; } }
+  @keyframes lang-glow { from { opacity: 0.45; } to { opacity: 1; filter: drop-shadow(0 0 5px #00ff66); } }
+  @keyframes lang-mark { from { opacity: 0.15; } to { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
 
 `;
 
@@ -110,12 +115,12 @@ class PhysicsLangmuirProbe extends HTMLElement {
           " class="iv-curve" />
 
           <!-- Floating Potential V_f (I=0, x=54, y=65) -->
-          <circle cx="54" cy="65" r="2" fill="#ffaa00" />
+          <circle cx="54" cy="65" r="3.5" fill="#ffaa00" filter="drop-shadow(0 0 3px #ffaa00)" />
           <line x1="54" y1="65" x2="54" y2="100" class="floating-pot" />
           <text x="46" y="108" class="lbl lbl-trans">V_f (I=0)</text>
 
           <!-- Plasma Potential V_p (Knee point, x=85, y=32) -->
-          <circle cx="85" cy="32" r="2" fill="#ff5577" />
+          <circle cx="85" cy="32" r="3.5" fill="#ff5577" filter="drop-shadow(0 0 3px #ff5577)" />
           <line x1="85" y1="32" x2="85" y2="65" class="plasma-pot" />
           <text x="82" y="74" class="lbl lbl-elec">V_plasma</text>
 

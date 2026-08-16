@@ -58,8 +58,9 @@ const hydraulicStyles = `
   .jump-roller {
     fill: none;
     stroke: #ffffff;
-    stroke-width: 1.5;
-    stroke-dasharray: 2 2;
+    stroke-width: 2.5;
+    stroke-dasharray: 3 3;
+    filter: drop-shadow(0 0 3px #ffffff);
     animation: turbulence 0.4s linear infinite alternate;
   }
 
@@ -72,17 +73,17 @@ const hydraulicStyles = `
   /* Streamlines */
   .stream-fast {
     fill: none;
-    stroke: rgba(0, 255, 102, 0.6);
-    stroke-width: 1.2;
-    stroke-dasharray: 6 3;
+    stroke: rgba(0, 255, 102, 0.85);
+    stroke-width: 2.4;
+    stroke-dasharray: 6 4;
     animation: flow-fast 0.6s linear infinite;
   }
 
   .stream-slow {
     fill: none;
-    stroke: rgba(0, 229, 255, 0.5);
-    stroke-width: 1.2;
-    stroke-dasharray: 4 4;
+    stroke: rgba(0, 229, 255, 0.75);
+    stroke-width: 2.4;
+    stroke-dasharray: 5 5;
     animation: flow-slow 1.6s linear infinite;
   }
 
@@ -119,8 +120,8 @@ const hydraulicStyles = `
   }
 
   @keyframes turbulence {
-    0% { transform: translateY(0) scale(0.98); }
-    100% { transform: translateY(-1.5px) scale(1.02); }
+    0% { transform: translateY(0.5px) scale(0.95); }
+    100% { transform: translateY(-3px) scale(1.06); }
   }
 
   @keyframes flow-fast {

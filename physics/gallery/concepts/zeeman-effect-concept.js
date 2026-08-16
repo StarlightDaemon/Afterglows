@@ -36,19 +36,19 @@ const zeemanStyles = `
   /* Split Zeeman Triplet Lines (B > 0) */
   .line-pi {
     stroke: #00ff66;
-    stroke-width: 2;
+    stroke-width: 3.5;
     filter: drop-shadow(0 0 3px #00ff66);
   }
 
   .line-sigma-minus {
     stroke: #ffaa00;
-    stroke-width: 2;
+    stroke-width: 3.5;
     filter: drop-shadow(0 0 3px #ffaa00);
   }
 
   .line-sigma-plus {
     stroke: #ff5577;
-    stroke-width: 2;
+    stroke-width: 3.5;
     filter: drop-shadow(0 0 3px #ff5577);
   }
 
@@ -84,13 +84,16 @@ const zeemanStyles = `
   }
 
   /* Motion pass */
-  /* Field ramps on: the split components shimmer around the parent line */
-  .line-pi { animation: zee-split 2.8s ease-in-out infinite; }
-  .line-sigma-minus { animation: zee-split 2.8s ease-in-out infinite; animation-delay: -0.9s; }
-  .line-sigma-plus { animation: zee-split 2.8s ease-in-out infinite; animation-delay: -1.8s; }
+  /* Field ramps on: the sigma components physically spread apart from the
+     parent line (splitting ∝ B), then collapse back as the field ramps off */
+  .line-pi { animation: zee-pi 2.8s ease-in-out infinite; }
+  .line-sigma-minus { animation: zee-sigma-minus 2.8s ease-in-out infinite; }
+  .line-sigma-plus { animation: zee-sigma-plus 2.8s ease-in-out infinite; }
   .field-indicator { animation: zee-field 2.8s ease-in-out infinite alternate; }
-  @keyframes zee-split { 0%, 100% { opacity: 0.65; } 50% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
-  @keyframes zee-field { from { opacity: 0.6; } to { opacity: 1; } }
+  @keyframes zee-pi { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; filter: drop-shadow(0 0 5px currentColor); } }
+  @keyframes zee-sigma-minus { 0%, 100% { transform: translateX(7px); opacity: 0.3; } 50% { transform: translateX(-4px); opacity: 1; filter: drop-shadow(0 0 5px currentColor); } }
+  @keyframes zee-sigma-plus { 0%, 100% { transform: translateX(-7px); opacity: 0.3; } 50% { transform: translateX(4px); opacity: 1; filter: drop-shadow(0 0 5px currentColor); } }
+  @keyframes zee-field { from { opacity: 0.4; } to { opacity: 1; filter: drop-shadow(0 0 3px #ffaa00); } }
 
 `;
 

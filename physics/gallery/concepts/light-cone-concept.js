@@ -36,10 +36,22 @@ const lightConeStyles = `
 
   .cone-future {
     fill: rgba(0, 229, 255, 0.08);
+    animation: cone-glow-future 3.2s ease-in-out infinite alternate;
   }
 
   .cone-past {
     fill: rgba(255, 170, 0, 0.06);
+    animation: cone-glow-past 3.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes cone-glow-future {
+    0% { fill: rgba(0, 229, 255, 0.04); }
+    100% { fill: rgba(0, 229, 255, 0.30); }
+  }
+
+  @keyframes cone-glow-past {
+    0% { fill: rgba(255, 170, 0, 0.22); }
+    100% { fill: rgba(255, 170, 0, 0.03); }
   }
 
   /* Spacetime Axes */
@@ -52,7 +64,7 @@ const lightConeStyles = `
   .worldline {
     fill: none;
     stroke: #00ff66;
-    stroke-width: 1.5;
+    stroke-width: 3;
     filter: drop-shadow(0 0 4px #00ff66);
     stroke-dasharray: 120;
     stroke-dashoffset: 120;
@@ -62,8 +74,8 @@ const lightConeStyles = `
   /* Flash wavefront / Photon on boundary */
   .photon-pulse {
     fill: #00e5ff;
-    r: 2.5;
-    filter: drop-shadow(0 0 4px #00e5ff);
+    r: 4.5;
+    filter: drop-shadow(0 0 7px #00e5ff);
     animation: pulse-photon 3.2s linear infinite;
   }
 

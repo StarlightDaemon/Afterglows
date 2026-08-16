@@ -85,7 +85,7 @@ const vdpStyles = `
 
   /* Motion pass */
   /* The state orbits the self-sustained limit cycle */
-  .limit-cycle { stroke-dasharray: 6 4; animation: vdp-orbit 1.9s linear infinite; }
+  .limit-cycle { stroke-width: 2.6; stroke-dasharray: 7 5; animation: vdp-orbit 1.9s linear infinite; }
   .orbiting-state { animation: vdp-state 1.9s ease-in-out infinite alternate; }
   .spiral-in, .spiral-out { animation: vdp-spiral 3.2s ease-in-out infinite alternate; }
   @keyframes vdp-orbit { to { stroke-dashoffset: -20; } }
@@ -136,7 +136,7 @@ class PhysicsVanDerPolOscillator extends HTMLElement {
             Z
           " class="limit-cycle" />
 
-          <circle cx="98" cy="65" r="2.5" class="orbiting-state" />
+          <circle cx="98" cy="65" r="4.5" class="orbiting-state" />
 
           <!-- Labels -->
           <text x="14" y="24" class="lbl lbl-cycle">LIMIT CYCLE</text>

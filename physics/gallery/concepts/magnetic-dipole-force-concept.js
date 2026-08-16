@@ -74,10 +74,10 @@ const dipoleStyles = `
 
   /* Motion pass */
   /* Flux threads the pair while the attraction vectors surge */
-  .flux-loop { stroke-dasharray: 5 4; animation: dip-flux 1.8s linear infinite; }
-  .force-vec { animation: dip-surge 1.4s ease-in-out infinite alternate; }
+  .flux-loop { stroke-width: 2; stroke: rgba(0, 229, 255, 0.7); stroke-dasharray: 5 4; animation: dip-flux 1.8s linear infinite; }
+  .force-vec { stroke-width: 3; animation: dip-surge 1.4s ease-in-out infinite alternate; }
   @keyframes dip-flux { to { stroke-dashoffset: -18; } }
-  @keyframes dip-surge { from { opacity: 0.6; transform: translateX(0); } to { opacity: 1; transform: translateX(2px); filter: drop-shadow(0 0 3px currentColor); } }
+  @keyframes dip-surge { from { opacity: 0.3; transform: translateX(0); } to { opacity: 1; transform: translateX(5px); filter: drop-shadow(0 0 5px currentColor); } }
 
 `;
 

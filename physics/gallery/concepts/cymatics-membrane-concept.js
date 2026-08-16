@@ -35,12 +35,12 @@ const cymaStyles = `
 
   /* Anti-nodal displacement sectors (Vibrating) */
   .sector-pos {
-    fill: rgba(0, 229, 255, 0.2);
+    fill: rgba(0, 229, 255, 0.55);
     animation: pulse-pos 1.8s ease-in-out infinite alternate;
   }
 
   .sector-neg {
-    fill: rgba(255, 85, 119, 0.2);
+    fill: rgba(255, 85, 119, 0.55);
     animation: pulse-neg 1.8s ease-in-out infinite alternate;
   }
 
@@ -75,13 +75,13 @@ const cymaStyles = `
   }
 
   @keyframes pulse-pos {
-    0% { opacity: 0.1; }
-    100% { opacity: 0.6; }
+    0% { opacity: 0.05; }
+    100% { opacity: 1; }
   }
 
   @keyframes pulse-neg {
-    0% { opacity: 0.6; }
-    100% { opacity: 0.1; }
+    0% { opacity: 1; }
+    100% { opacity: 0.05; }
   }
 `;
 

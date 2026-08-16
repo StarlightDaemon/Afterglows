@@ -40,8 +40,20 @@ const machStyles = `
 
   .sound-wave {
     fill: none;
-    stroke: rgba(255, 204, 0, 0.35);
-    stroke-width: 1;
+    stroke: rgba(255, 204, 0, 0.65);
+    stroke-width: 1.6;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wavefront-grow 1.6s linear infinite;
+  }
+
+  .sound-wave:nth-of-type(2) { animation-delay: -0.4s; }
+  .sound-wave:nth-of-type(3) { animation-delay: -0.8s; }
+  .sound-wave:nth-of-type(4) { animation-delay: -1.2s; }
+
+  @keyframes wavefront-grow {
+    0% { transform: scale(0.7); opacity: 1; }
+    100% { transform: scale(1.15); opacity: 0.15; }
   }
 
   .flight-path {
@@ -78,12 +90,21 @@ const machStyles = `
   }
 
   .diamond {
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     background: #00e5ff;
     transform: rotate(45deg);
-    box-shadow: 0 0 4px #00e5ff;
+    box-shadow: 0 0 6px #00e5ff;
     opacity: 0.8;
+    animation: diamond-flicker 0.3s ease-in-out infinite alternate;
+  }
+
+  .diamond:nth-child(2) { animation-delay: -0.1s; }
+  .diamond:nth-child(3) { animation-delay: -0.2s; }
+
+  @keyframes diamond-flicker {
+    0% { opacity: 0.25; }
+    100% { opacity: 1; }
   }
 
   .angle-label {
@@ -109,8 +130,8 @@ const machStyles = `
   }
 
   @keyframes jitter-flight {
-    0% { transform: translateY(-50%) translateY(-0.5px); }
-    100% { transform: translateY(-50%) translateY(0.5px); }
+    0% { transform: translateY(-50%) translateY(-1.5px); }
+    100% { transform: translateY(-50%) translateY(1.5px); }
   }
 `;
 

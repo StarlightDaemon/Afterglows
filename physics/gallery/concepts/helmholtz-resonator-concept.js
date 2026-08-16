@@ -35,10 +35,10 @@ const helmStyles = `
 
   /* Oscillating Air Slug in Neck (Inertial Mass m_air) */
   .air-plug {
-    fill: rgba(255, 85, 119, 0.4);
+    fill: rgba(255, 85, 119, 0.75);
     stroke: #ff5577;
     stroke-width: 1.2;
-    filter: drop-shadow(0 0 4px #ff5577);
+    filter: drop-shadow(0 0 6px #ff5577);
     animation: bounce-plug 1.8s ease-in-out infinite alternate;
   }
 
@@ -75,13 +75,13 @@ const helmStyles = `
   }
 
   @keyframes bounce-plug {
-    0% { transform: translateY(-4px); }
-    100% { transform: translateY(4px); }
+    0% { transform: translateY(-8px); }
+    100% { transform: translateY(8px); }
   }
 
   @keyframes pulse-cavity {
-    0% { transform: scale(0.9); transform-origin: 65px 75px; opacity: 0.4; }
-    100% { transform: scale(1.1); transform-origin: 65px 75px; opacity: 1; }
+    0% { transform: scale(0.85); transform-origin: 65px 75px; opacity: 0.25; stroke-width: 1.2; fill: rgba(0, 255, 102, 0.02); }
+    100% { transform: scale(1.15); transform-origin: 65px 75px; opacity: 1; stroke-width: 3.5; fill: rgba(0, 255, 102, 0.28); }
   }
 `;
 
