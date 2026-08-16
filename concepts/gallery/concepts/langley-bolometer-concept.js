@@ -52,7 +52,7 @@ const langleyBolometerStyles = `
 
   @keyframes lb-strip-glow {
     0% { stroke: #fdba74; stroke-width: 1; }
-    100% { stroke: #ffedd5; stroke-width: 1.6; filter: drop-shadow(0 0 2px #f97316); }
+    100% { stroke: #ffffff; stroke-width: 2.6; filter: drop-shadow(0 0 4px #f97316); }
   }
 
   /* Sensitive Thomson reflecting galvanometer coil mirror swing */
@@ -94,7 +94,7 @@ class ConceptLangleyBolometer extends HTMLElement {
             <circle cx="25" cy="36" r="11" fill="#0c0a09" stroke="#78350f" stroke-width="0.6" />
 
             <!-- Collimated Infrared Radiant Beam Entrance Aperture -->
-            <line class="lb-infrared-flux" x1="4" y1="36" x2="19" y2="36" stroke-width="1.4" stroke-dasharray="3 1.5" />
+            <line class="lb-infrared-flux" x1="4" y1="36" x2="19" y2="36" stroke-width="2.6" stroke-dasharray="3 2" />
 
             <!-- Twin Lampblack-Coated Platinum Foils in Balanced Wheatstone Bridge -->
             <g class="lb-platinum-strip">
@@ -116,11 +116,11 @@ class ConceptLangleyBolometer extends HTMLElement {
             <!-- Suspended Micro-Galvanometer Mirror & Light Spot Beam -->
             <g class="lb-galvo-mirror">
               <!-- Central Suspended Quartz Fiber & Mirror Dot -->
-              <line x1="56" y1="27" x2="56" y2="45" stroke="#f59e0b" stroke-width="0.8" />
-              <rect x="54" y="34" width="4" height="4" rx="0.5" fill="#fef08a" stroke="#ca8a04" stroke-width="0.4" />
+              <line x1="56" y1="27" x2="56" y2="45" stroke="#f59e0b" stroke-width="1.8" />
+              <rect x="53" y="33" width="6" height="6" rx="0.5" fill="#fef08a" stroke="#ca8a04" stroke-width="0.4" />
               <!-- Reflected Scale Spot Ray (Detects 1/100,000 °C!) -->
-              <line x1="56" y1="36" x2="68" y2="28" stroke="#ef4444" stroke-width="0.9" />
-              <circle cx="68" cy="28" r="1" fill="#f87171" />
+              <line x1="56" y1="36" x2="68" y2="28" stroke="#ef4444" stroke-width="2" />
+              <circle cx="68" cy="28" r="2.2" fill="#f87171" filter="drop-shadow(0 0 3px #ef4444)" />
             </g>
           </svg>
         </div>

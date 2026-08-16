@@ -63,7 +63,9 @@ const planimeterStyles = `
     top: 13px;
     left: 14px;
     width: 34px;
-    height: 2px;
+    height: 3.5px;
+    border-radius: 2px;
+    box-shadow: 0 0 5px #8cffaa;
     background: #8cffaa;
     transform-origin: left center;
     animation: plm-arm-motion 4s ease-in-out infinite alternate;
@@ -81,7 +83,9 @@ const planimeterStyles = `
     top: 22px;
     left: 36px;
     width: 44px;
-    height: 2px;
+    height: 3.5px;
+    border-radius: 2px;
+    box-shadow: 0 0 5px #d6ffe0;
     background: #d6ffe0;
     transform-origin: left center;
     animation: plm-tracer-motion 4s ease-in-out infinite alternate;
@@ -122,11 +126,11 @@ const planimeterStyles = `
   /* Tracer pin point following the boundary path */
   .plm-tracer-pin {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 8px #ffffff;
+    box-shadow: 0 0 12px #ffffff, 0 0 5px #8cffaa;
     z-index: 7;
     offset-path: path("M 20 28 C 35 12 60 18 64 36 C 68 54 48 64 32 60 C 16 56 12 40 20 28");
     animation: plm-trace-path 4s linear infinite;

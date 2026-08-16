@@ -58,11 +58,11 @@ const kelvinStyles = `
   .klv-stream-right { right: 28px; }
 
   .klv-drop {
-    width: 3px;
-    height: 5px;
+    width: 5px;
+    height: 8px;
     background: #ffffff;
     border-radius: 50% 50% 60% 60%;
-    box-shadow: 0 0 4px #8cffaa;
+    box-shadow: 0 0 7px #8cffaa, 0 0 3px #d6ffe0;
     animation: klv-fall 0.8s ease-in infinite;
   }
 

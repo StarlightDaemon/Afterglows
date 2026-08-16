@@ -49,7 +49,8 @@ const sparkGapStyles = `
   /* High-Voltage Quenched Radio Frequency Spark Arc Flash */
   .sg-spark-arc {
     stroke: #00e5ff;
-    stroke-width: 1.8;
+    stroke-width: 3.5;
+    stroke-linecap: round;
     animation: sg-spark-zap 0.2s steps(2, end) infinite;
   }
 
@@ -105,14 +106,14 @@ class ConceptRotarySparkGap extends HTMLElement {
               <circle cx="38" cy="36" r="20" fill="#212121" stroke="#455a64" stroke-width="1" />
               <!-- 8 Radial Copper Stud Electrodes on Disc Perimeter -->
               <g fill="#ffab40">
-                <circle cx="38" cy="18" r="1.5" />
-                <circle cx="50.7" cy="23.3" r="1.5" />
-                <circle cx="56" cy="36" r="1.5" />
-                <circle cx="50.7" cy="48.7" r="1.5" />
-                <circle cx="38" cy="54" r="1.5" />
-                <circle cx="25.3" cy="48.7" r="1.5" />
-                <circle cx="20" cy="36" r="1.5" />
-                <circle cx="25.3" cy="23.3" r="1.5" />
+                <circle cx="38" cy="18" r="3" />
+                <circle cx="50.7" cy="23.3" r="3" />
+                <circle cx="56" cy="36" r="3" />
+                <circle cx="50.7" cy="48.7" r="3" />
+                <circle cx="38" cy="54" r="3" />
+                <circle cx="25.3" cy="48.7" r="3" />
+                <circle cx="20" cy="36" r="3" />
+                <circle cx="25.3" cy="23.3" r="3" />
               </g>
               <!-- Center Steel Motor Shaft Hub -->
               <circle cx="38" cy="36" r="5" fill="#37474f" stroke="#78909c" stroke-width="0.8" />

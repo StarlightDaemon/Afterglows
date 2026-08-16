@@ -38,12 +38,12 @@ const marconiStyles = `
   /* Moving Endless Soft-Iron Wire Rope Loop */
   .md-wire-loop {
     stroke: #cfd8dc;
-    stroke-dasharray: 4 2;
+    stroke-dasharray: 5 4;
     animation: md-wire-flow 2s linear infinite;
   }
 
   @keyframes md-wire-flow {
-    to { stroke-dashoffset: -12; }
+    to { stroke-dashoffset: -18; }
   }
 
   /* Left/Right Driving Pulleys Rotating */
@@ -101,19 +101,21 @@ class ConceptMarconiDetector extends HTMLElement {
             <!-- Left Ebonite Grooved Pulley Wheel (Clockwork driven) -->
             <g class="md-pulley">
               <circle cx="20" cy="36" r="10" fill="#212121" stroke="#4caf50" stroke-width="1" />
-              <line x1="20" y1="28" x2="20" y2="44" stroke="#81c784" stroke-width="0.8" />
+              <line x1="20" y1="28" x2="20" y2="44" stroke="#81c784" stroke-width="2" />
+              <line x1="12" y1="36" x2="28" y2="36" stroke="#81c784" stroke-width="2" />
               <circle cx="20" cy="36" r="2.5" fill="#ffd700" />
             </g>
 
             <!-- Right Grooved Idler Pulley Wheel -->
             <g class="md-pulley-r">
               <circle cx="56" cy="36" r="10" fill="#212121" stroke="#4caf50" stroke-width="1" />
-              <line x1="56" y1="28" x2="56" y2="44" stroke="#81c784" stroke-width="0.8" />
+              <line x1="56" y1="28" x2="56" y2="44" stroke="#81c784" stroke-width="2" />
+              <line x1="48" y1="36" x2="64" y2="36" stroke="#81c784" stroke-width="2" />
               <circle cx="56" cy="36" r="2.5" fill="#ffd700" />
             </g>
 
             <!-- Endless Moving Strand of Braided Soft-Iron Wire -->
-            <path class="md-wire-loop" d="M 20 26 L 56 26 A 10 10 0 0 1 56 46 L 20 46 A 10 10 0 0 1 20 26 Z" fill="none" stroke-width="1.4" />
+            <path class="md-wire-loop" d="M 20 26 L 56 26 A 10 10 0 0 1 56 46 L 20 46 A 10 10 0 0 1 20 26 Z" fill="none" stroke-width="2.4" />
 
             <!-- Dual Permanent Horseshoe Magnets (Opposing poles at center) -->
             <!-- North Magnet (Red) -->

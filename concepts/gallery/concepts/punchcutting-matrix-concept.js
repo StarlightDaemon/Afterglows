@@ -41,10 +41,10 @@ const punchcuttingMatrixStyles = `
   }
 
   @keyframes pm-strike-punch {
-    0% { transform: translateY(-8px); }
+    0% { transform: translateY(-14px); }
     70% { transform: translateY(0); }
-    80% { transform: translateY(-1px); }
-    100% { transform: translateY(-8px); }
+    80% { transform: translateY(-2px); }
+    100% { transform: translateY(-14px); }
   }
 
   /* Impact spark flash when striking matrix */
@@ -55,7 +55,7 @@ const punchcuttingMatrixStyles = `
   @keyframes pm-flash-spark {
     0% { opacity: 0; transform: scale(0.3); }
     68% { opacity: 0; }
-    72% { opacity: 1; transform: scale(1.4); }
+    72% { opacity: 1; transform: scale(2.2); }
     80% { opacity: 0; }
     100% { opacity: 0; }
   }

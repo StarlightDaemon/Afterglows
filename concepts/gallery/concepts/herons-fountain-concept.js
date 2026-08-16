@@ -40,7 +40,7 @@ const heronsStyles = `
   .hrn-jet {
     position: absolute;
     bottom: 8px;
-    width: 2px;
+    width: 4px;
     height: 18px;
     background: linear-gradient(180deg, #ffffff 0%, #00e5ff 60%, rgba(0, 229, 255, 0.2) 100%);
     border-radius: 1px;
@@ -49,25 +49,25 @@ const heronsStyles = `
   }
 
   @keyframes hrn-jet-pulse {
-    0% { height: 14px; opacity: 0.85; }
-    100% { height: 22px; opacity: 1; filter: drop-shadow(0 0 4px #ffffff); }
+    0% { height: 10px; opacity: 0.7; }
+    100% { height: 26px; opacity: 1; filter: drop-shadow(0 0 6px #ffffff); }
   }
 
   /* Droplets cascading back down into basin */
   .hrn-spray {
     position: absolute;
     top: -4px;
-    width: 16px;
-    height: 6px;
-    border-top: 1.5px dotted #ffffff;
+    width: 20px;
+    height: 8px;
+    border-top: 2.5px dotted #ffffff;
     border-radius: 50% 50% 0 0;
     animation: hrn-spray-anim 0.8s linear infinite;
   }
 
   @keyframes hrn-spray-anim {
-    0% { transform: scale(0.6); opacity: 0.3; }
+    0% { transform: scale(0.5); opacity: 0.3; }
     50% { opacity: 1; }
-    100% { transform: scale(1.4); opacity: 0.1; }
+    100% { transform: scale(1.7); opacity: 0.1; }
   }
 
   /* Middle airtight water chamber */
@@ -89,6 +89,13 @@ const heronsStyles = `
     height: 12px;
     background: rgba(0, 229, 255, 0.4);
     border-top: 1px solid #8cffff;
+    transform-origin: bottom;
+    animation: hrn-level-drain 2.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes hrn-level-drain {
+    0% { transform: scaleY(1.15); opacity: 1; }
+    100% { transform: scaleY(0.45); opacity: 0.7; }
   }
 
   /* Lower airtight air/water chamber */
@@ -110,6 +117,13 @@ const heronsStyles = `
     height: 8px;
     background: rgba(0, 229, 255, 0.4);
     border-top: 1px solid #8cffff;
+    transform-origin: bottom;
+    animation: hrn-level-fill 2.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes hrn-level-fill {
+    0% { transform: scaleY(0.5); opacity: 0.7; }
+    100% { transform: scaleY(1.6); opacity: 1; }
   }
 
   /* Connecting pneumatic and hydrostatic tubes */

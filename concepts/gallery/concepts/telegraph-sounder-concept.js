@@ -43,24 +43,25 @@ const sounderStyles = `
 
   @keyframes ts-morse-click {
     0% { transform: rotate(0deg); }
-    20% { transform: rotate(-6deg); } /* Dot down */
+    20% { transform: rotate(-13deg); } /* Dot down */
     30% { transform: rotate(0deg); }
-    50% { transform: rotate(-6deg); } /* Dash down */
-    80% { transform: rotate(-6deg); }
+    50% { transform: rotate(-13deg); } /* Dash down */
+    80% { transform: rotate(-13deg); }
     90% { transform: rotate(0deg); }
   }
 
   /* Anvil Click Shockwave Sound Ring */
   .ts-sound-ring {
     stroke: #ffd54f;
-    stroke-width: 0.8;
+    stroke-width: 1.8;
     fill: none;
+    filter: drop-shadow(0 0 3px #ffd54f);
     animation: ts-acoustic-wave 0.8s ease-out infinite;
   }
 
   @keyframes ts-acoustic-wave {
     0% { transform: scale(0.2); opacity: 1; }
-    100% { transform: scale(2.2); opacity: 0; }
+    100% { transform: scale(2.8); opacity: 0; }
   }
 
   .ts-resonator-hood {
@@ -122,7 +123,7 @@ class ConceptTelegraphSounder extends HTMLElement {
 
             <!-- Acoustic Click Sound Waves radiating from anvil -->
             <g transform="translate(51, 30)">
-              <circle class="ts-sound-ring" cx="0" cy="0" r="4" />
+              <circle class="ts-sound-ring" cx="0" cy="0" r="6" />
             </g>
 
             <!-- Regulation Counterspring at rear -->

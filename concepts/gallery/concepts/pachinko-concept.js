@@ -101,27 +101,27 @@ const pachinkoStyles = `
   }
 
   @keyframes pck-tulip-flap {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(-25deg); }
+    0% { transform: rotate(8deg); }
+    100% { transform: rotate(-40deg); }
   }
 
   /* Cascading / bouncing chrome pachinko ball */
   .pck-ball {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #ffffff;
+    box-shadow: 0 0 10px #ffffff, 0 0 4px #8cffaa;
     z-index: 6;
     offset-path: path("M 72 80 C 72 10 40 6 24 18 C 12 28 32 38 48 46 C 36 56 42 66 41 74");
-    animation: pck-ball-drop 2.2s cubic-bezier(0.2, 0.7, 0.4, 1) infinite;
+    animation: pck-ball-drop 2.2s linear infinite;
   }
 
   @keyframes pck-ball-drop {
     0% { offset-distance: 0%; opacity: 0; }
     10% { opacity: 1; }
-    90% { offset-distance: 100%; opacity: 1; }
+    95% { offset-distance: 100%; opacity: 1; }
     100% { offset-distance: 100%; opacity: 0; }
   }
 
