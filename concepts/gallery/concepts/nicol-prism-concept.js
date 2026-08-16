@@ -41,8 +41,8 @@ const nicolPrismStyles = `
   }
 
   @keyframes np-incident-pulse {
-    0% { stroke: #cbd5e1; opacity: 0.7; }
-    100% { stroke: #ffffff; opacity: 1; filter: drop-shadow(0 0 2px #94a3b8); }
+    0% { stroke: #cbd5e1; opacity: 0.4; stroke-width: 1; }
+    100% { stroke: #ffffff; opacity: 1; stroke-width: 2.6; filter: drop-shadow(0 0 4px #94a3b8); }
   }
 
   /* Ordinary ray total internal reflection onto black absorbing coating */
@@ -51,9 +51,9 @@ const nicolPrismStyles = `
   }
 
   @keyframes np-o-ray-pulse {
-    0% { stroke: #ef4444; opacity: 0.5; }
-    50% { stroke: #f87171; opacity: 0.9; filter: drop-shadow(0 0 2px #ef4444); }
-    100% { stroke: #ef4444; opacity: 0.5; }
+    0% { stroke: #ef4444; opacity: 0.25; stroke-width: 1; }
+    50% { stroke: #fca5a5; opacity: 1; stroke-width: 2.4; filter: drop-shadow(0 0 4px #ef4444); }
+    100% { stroke: #ef4444; opacity: 0.25; stroke-width: 1; }
   }
 
   /* Extraordinary ray transmitted through Canada balsam line */
@@ -62,8 +62,8 @@ const nicolPrismStyles = `
   }
 
   @keyframes np-e-ray-glow {
-    0% { stroke: #38bdf8; opacity: 0.7; stroke-width: 1.2; }
-    100% { stroke: #e0f2fe; opacity: 1; stroke-width: 1.6; filter: drop-shadow(0 0 3px #0ea5e9); }
+    0% { stroke: #38bdf8; opacity: 0.45; stroke-width: 1.2; }
+    100% { stroke: #ffffff; opacity: 1; stroke-width: 3.2; filter: drop-shadow(0 0 5px #0ea5e9); }
   }
 
   /* Canada balsam diagonal cement film gleam */
@@ -72,8 +72,8 @@ const nicolPrismStyles = `
   }
 
   @keyframes np-balsam-gleam {
-    0% { stroke: #fde047; opacity: 0.4; }
-    100% { stroke: #ffffff; opacity: 0.9; }
+    0% { stroke: #fde047; opacity: 0.25; stroke-width: 1; }
+    100% { stroke: #ffffff; opacity: 1; stroke-width: 2.2; filter: drop-shadow(0 0 3px #fde047); }
   }
 
   .np-label {

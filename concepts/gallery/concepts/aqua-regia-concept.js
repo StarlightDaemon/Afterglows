@@ -55,8 +55,8 @@ const aquaRegiaStyles = `
   }
 
   @keyframes ar-dissolve {
-    0% { transform: scale(1); filter: drop-shadow(0 0 4px #ffd700); }
-    100% { transform: scale(0.7); filter: drop-shadow(0 0 8px #ffab00); }
+    0% { transform: scale(1.15); filter: drop-shadow(0 0 4px #ffd700); }
+    100% { transform: scale(0.55); fill: #ffab00; filter: drop-shadow(0 0 10px #ffab00); }
   }
 
   /* Effervescent reaction bubbles */
@@ -70,9 +70,9 @@ const aquaRegiaStyles = `
   .ar-bubbles circle:nth-child(4) { animation-delay: 1.3s; }
 
   @keyframes ar-bubble-rise {
-    0% { transform: translateY(0) scale(0.6); opacity: 0.2; }
+    0% { transform: translateY(0) scale(0.8); opacity: 0.2; }
     50% { opacity: 1; }
-    100% { transform: translateY(-24px) scale(1.2); opacity: 0; }
+    100% { transform: translateY(-30px) scale(1.6); opacity: 0; }
   }
 
   /* Acid solution glow */
@@ -82,8 +82,8 @@ const aquaRegiaStyles = `
   }
 
   @keyframes ar-acid-pulse {
-    0% { opacity: 0.6; }
-    100% { opacity: 0.95; filter: drop-shadow(0 0 6px #ffb300); }
+    0% { opacity: 0.4; }
+    100% { opacity: 1; filter: drop-shadow(0 0 8px #ffb300); }
   }
 
   .ar-label {
@@ -121,7 +121,7 @@ class ConceptAquaRegia extends HTMLElement {
 
             <!-- Fuming Retort Neck Spout -->
             <path d="M 44 20 Q 64 22 68 36" fill="none" stroke="rgba(255, 215, 0, 0.4)" stroke-width="1.2" />
-            <path d="M 44 20 Q 64 22 68 36" fill="none" stroke-width="1" class="ar-fumes" />
+            <path d="M 44 20 Q 64 22 68 36" fill="none" stroke-width="2.2" class="ar-fumes" />
 
             <!-- Boiling Royal Acid Meniscus -->
             <path class="ar-acid-glow" d="M 21 52 C 23 40, 53 40, 55 52 C 52 63, 24 63, 21 52 Z" />
@@ -133,10 +133,10 @@ class ConceptAquaRegia extends HTMLElement {
 
             <!-- Reaction Bubbles (Effervescence) -->
             <g class="ar-bubbles">
-              <circle cx="34" cy="50" r="1.5" />
-              <circle cx="42" cy="49" r="1.8" />
-              <circle cx="38" cy="46" r="1.3" />
-              <circle cx="45" cy="52" r="1.6" />
+              <circle cx="34" cy="50" r="2.5" />
+              <circle cx="42" cy="49" r="3" />
+              <circle cx="38" cy="46" r="2.2" />
+              <circle cx="45" cy="52" r="2.7" />
             </g>
           </svg>
         </div>

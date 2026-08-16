@@ -85,21 +85,21 @@ const pneumaticStyles = `
   /* Traveling cylindrical capsule carrier */
   .pnu-capsule {
     position: absolute;
-    width: 22px;
-    height: 10px;
+    width: 28px;
+    height: 14px;
     background: linear-gradient(90deg, #d6ffe0, #00aa22 30%, #00aa22 70%, #d6ffe0);
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 0 8px #8cffaa;
+    border: 1.5px solid #ffffff;
+    border-radius: 7px;
+    box-shadow: 0 0 12px #8cffaa, 0 0 5px #d6ffe0;
     z-index: 4;
     offset-path: path("M 10 18 L 84 18 C 96 18 96 46 84 46 L 28 46 C 16 46 16 78 28 78 L 92 78");
-    animation: pnu-capsule-travel 3.2s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+    animation: pnu-capsule-travel 3.2s linear infinite;
   }
 
   @keyframes pnu-capsule-travel {
     0% { offset-distance: 0%; opacity: 0; }
     5% { opacity: 1; }
-    90% { offset-distance: 100%; opacity: 1; }
+    95% { offset-distance: 100%; opacity: 1; }
     100% { offset-distance: 100%; opacity: 0; }
   }
 

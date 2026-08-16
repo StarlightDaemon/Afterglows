@@ -72,19 +72,19 @@ const tiddlyStyles = `
 
   @keyframes tw-press-squidger {
     0%, 30% { transform: translate(0, 0) scale(1); }
-    40% { transform: translate(4px, 2px) scale(0.9); }
+    40% { transform: translate(6px, 3px) scale(0.8); }
     50%, 100% { transform: translate(0, 0) scale(1); }
   }
 
   /* Flying small wink counter leaping in arc */
   .tw-flying-wink {
     position: absolute;
-    width: 7px;
-    height: 7px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: #00e5ff;
-    border: 1px solid #ffffff;
-    box-shadow: 0 0 6px #00e5ff;
+    border: 1.2px solid #ffffff;
+    box-shadow: 0 0 9px #00e5ff, 0 0 4px #b2ebf2;
     animation: tw-wink-leap 3s ease-in-out infinite;
   }
 

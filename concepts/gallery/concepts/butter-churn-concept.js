@@ -74,17 +74,17 @@ const churnStyles = `
   }
 
   .bc-staff {
-    width: 3px;
+    width: 5px;
     height: 48px;
     background: #ffecb3;
     border: 0.5px solid #ff8f00;
-    border-radius: 1.5px;
+    border-radius: 2px;
   }
 
   /* Perforated dasher head agitating butter grains */
   .bc-dasher-head {
-    width: 16px;
-    height: 5px;
+    width: 22px;
+    height: 7px;
     background: #ffe082;
     border: 1px solid #ff8f00;
     border-radius: 2px;
@@ -93,8 +93,8 @@ const churnStyles = `
   /* Splashing cream & butterfat grains */
   .bc-butter-grain {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffd54f;
     box-shadow: 0 0 4px #ffd54f;

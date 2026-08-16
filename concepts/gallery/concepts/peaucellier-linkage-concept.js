@@ -77,12 +77,12 @@ const peaucellierStyles = `
   /* Tracer pen point moving up and down in true straight line */
   .pcl-tracer {
     position: absolute;
-    right: 10px;
-    width: 6px;
-    height: 6px;
+    right: 8px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 8px #ffffff;
+    box-shadow: 0 0 12px #ffffff, 0 0 5px #8cffaa;
     z-index: 6;
     animation: pcl-vert-trace 3s ease-in-out infinite alternate;
   }
@@ -96,20 +96,22 @@ const peaucellierStyles = `
   /* Articulating rhombus links */
   .pcl-rhombus-node-top {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: #8cffaa;
+    box-shadow: 0 0 6px #00ff66;
     z-index: 5;
     animation: pcl-rhomb-top 3s ease-in-out infinite alternate;
   }
 
   .pcl-rhombus-node-bot {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: #8cffaa;
+    box-shadow: 0 0 6px #00ff66;
     z-index: 5;
     animation: pcl-rhomb-bot 3s ease-in-out infinite alternate;
   }

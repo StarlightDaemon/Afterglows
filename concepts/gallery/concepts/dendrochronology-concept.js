@@ -83,9 +83,9 @@ const dendroStyles = `
     position: absolute;
     top: 4px;
     bottom: 4px;
-    width: 2px;
-    background: #ffffff;
-    box-shadow: 0 0 6px #ffea00, 0 0 10px #ffffff;
+    width: 5px;
+    background: linear-gradient(90deg, rgba(255, 234, 0, 0.25), #ffffff, rgba(255, 234, 0, 0.25));
+    box-shadow: 0 0 10px #ffea00, 0 0 16px #ffffff;
     z-index: 6;
     animation: dnd-scan 4s ease-in-out infinite alternate;
   }

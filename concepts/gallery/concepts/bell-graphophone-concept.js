@@ -43,19 +43,19 @@ const bellGraphophoneStyles = `
 
   @keyframes bg-spin-wax {
     0% { transform: translateY(0); }
-    50% { transform: translateY(-0.5px); }
+    50% { transform: translateY(-1.5px); }
     100% { transform: translateY(0); }
   }
 
   /* Floating sapphire cutting/reproducing stylus */
   .bg-sapphire-head {
-    animation: bg-sapphire-float 0.14s ease-in-out infinite alternate;
+    animation: bg-sapphire-float 0.3s ease-in-out infinite alternate;
     transform-origin: 38px 24px;
   }
 
   @keyframes bg-sapphire-float {
     0% { transform: translateY(0); }
-    100% { transform: translateY(0.7px); }
+    100% { transform: translateY(2px); }
   }
 
   /* Rubber acoustic hearing tube stethoscope oscillation */
@@ -65,8 +65,8 @@ const bellGraphophoneStyles = `
   }
 
   @keyframes bg-tube-sway {
-    0% { transform: rotate(-3deg); }
-    100% { transform: rotate(3deg); }
+    0% { transform: rotate(-7deg); }
+    100% { transform: rotate(7deg); }
   }
 
   /* Wax shavings / sound groove brilliance */
@@ -75,8 +75,12 @@ const bellGraphophoneStyles = `
   }
 
   @keyframes bg-glint-fade {
-    0% { opacity: 0.3; }
-    100% { opacity: 0.9; }
+    0% { opacity: 0.15; }
+    100% { opacity: 1; filter: drop-shadow(0 0 2px #f48fb1); }
+  }
+
+  .bg-groove-glint line {
+    stroke-width: 1.1;
   }
 
   .bg-label {

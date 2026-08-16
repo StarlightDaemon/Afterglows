@@ -35,18 +35,17 @@ const mutoscopeStyles = `
     height: 72px;
   }
 
-  /* Rapid Card Flipping Animation at Top Retaining Spring */
-  .mt-card-flip path {
-    fill: #fff8e1;
-    stroke: #ffb74d;
-    stroke-width: 0.6;
-    animation: mt-flip 0.3s linear infinite;
+  /* Rapid Card Flipping Animation at Top Retaining Spring.
+     The group carries a translate(36,14) placement, so the keyframes
+     re-state it: CSS transform overrides the SVG transform attribute. */
+  .mt-card-flip {
+    animation: mt-flip 0.4s linear infinite;
   }
 
   @keyframes mt-flip {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    50% { transform: translateY(-2px) rotate(8deg); }
-    100% { transform: translateY(-4px) rotate(16deg); opacity: 0.8; }
+    0% { transform: translate(36px, 14px) rotate(0deg); opacity: 1; }
+    50% { transform: translate(36px, 10px) rotate(14deg); }
+    100% { transform: translate(36px, 7px) rotate(28deg); opacity: 0.7; }
   }
 
   /* Reel rotation */
@@ -129,8 +128,8 @@ class ConceptMutoscopeReel extends HTMLElement {
 
             <!-- Hand Crank Arm & Wooden Knob on Side Axle -->
             <g class="mt-crank">
-              <line x1="66" y1="36" x2="66" y2="24" stroke="#ffab40" stroke-width="1.5" stroke-linecap="round" />
-              <circle cx="66" cy="24" r="2.5" fill="#ffd54f" stroke="#ff8f00" stroke-width="0.8" />
+              <line x1="66" y1="36" x2="66" y2="24" stroke="#ffab40" stroke-width="2.5" stroke-linecap="round" />
+              <circle cx="66" cy="24" r="3.5" fill="#ffd54f" stroke="#ff8f00" stroke-width="0.8" />
             </g>
 
             <!-- Brass Ocular Peep Eyepiece Frame at Top -->

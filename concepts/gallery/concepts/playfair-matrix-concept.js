@@ -45,8 +45,8 @@ const playfairStyles = `
   }
 
   @keyframes pf-box-pulse {
-    0% { filter: drop-shadow(0 0 1px #ba68c8); stroke: #ab47bc; }
-    100% { filter: drop-shadow(0 0 5px #e040fb); stroke: #ffffff; }
+    0% { filter: drop-shadow(0 0 1px #ba68c8); stroke: #ab47bc; stroke-width: 1; fill: rgba(224, 64, 251, 0.05); }
+    100% { filter: drop-shadow(0 0 6px #e040fb); stroke: #ffffff; stroke-width: 2.4; fill: rgba(224, 64, 251, 0.35); }
   }
 
   /* Plaintext Corner Pair Nodes (Gold) */
@@ -56,8 +56,8 @@ const playfairStyles = `
   }
 
   @keyframes pf-plain-pulse {
-    0% { transform: scale(0.9); }
-    100% { transform: scale(1.2); filter: drop-shadow(0 0 4px #ffd700); }
+    0% { transform: scale(0.7); opacity: 0.5; }
+    100% { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 6px #ffd700); }
   }
 
   /* Ciphertext Swapped Corner Pair Nodes (Cyan) */
@@ -68,8 +68,8 @@ const playfairStyles = `
   }
 
   @keyframes pf-cipher-pulse {
-    0% { transform: scale(0.9); }
-    100% { transform: scale(1.2); filter: drop-shadow(0 0 4px #00e5ff); }
+    0% { transform: scale(0.7); opacity: 0.5; }
+    100% { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 6px #00e5ff); }
   }
 
   .pf-label {
@@ -126,12 +126,12 @@ class ConceptPlayfairMatrix extends HTMLElement {
             <line x1="28" y1="46" x2="48" y2="46" stroke="#00e5ff" stroke-width="0.8" stroke-dasharray="1 1" />
 
             <!-- Input Plaintext Corner Nodes (Gold) -->
-            <g transform="translate(28, 26)"><circle class="pf-node-plain" cx="0" cy="0" r="2.5" /></g>
-            <g transform="translate(48, 46)"><circle class="pf-node-plain" cx="0" cy="0" r="2.5" /></g>
+            <g transform="translate(28, 26)"><circle class="pf-node-plain" cx="0" cy="0" r="3.5" /></g>
+            <g transform="translate(48, 46)"><circle class="pf-node-plain" cx="0" cy="0" r="3.5" /></g>
 
             <!-- Encrypted Ciphertext Corner Nodes (Cyan) -->
-            <g transform="translate(48, 26)"><circle class="pf-node-cipher" cx="0" cy="0" r="2.5" /></g>
-            <g transform="translate(28, 46)"><circle class="pf-node-cipher" cx="0" cy="0" r="2.5" /></g>
+            <g transform="translate(48, 26)"><circle class="pf-node-cipher" cx="0" cy="0" r="3.5" /></g>
+            <g transform="translate(28, 46)"><circle class="pf-node-cipher" cx="0" cy="0" r="3.5" /></g>
           </svg>
         </div>
         <div class="pf-label">PLAYFAIR DIGRAM</div>

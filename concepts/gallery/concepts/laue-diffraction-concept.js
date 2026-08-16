@@ -41,8 +41,8 @@ const laueDiffractionStyles = `
   }
 
   @keyframes ld-beam-pulse {
-    0% { r: 1.8px; opacity: 0.8; fill: #ffffff; }
-    100% { r: 2.8px; opacity: 1; fill: #a5f3fc; filter: drop-shadow(0 0 3px #38bdf8); }
+    0% { r: 1.8px; opacity: 0.6; fill: #ffffff; }
+    100% { r: 4px; opacity: 1; fill: #a5f3fc; filter: drop-shadow(0 0 6px #38bdf8); }
   }
 
   /* 4-fold Laue diffraction spot rings flashing with crystal lattice resonance */
@@ -50,20 +50,24 @@ const laueDiffractionStyles = `
     animation: ld-spots-glow 2.4s ease-in-out infinite alternate;
   }
 
+  .ld-spot-inner circle { r: 2.4px; }
+
   .ld-spot-outer {
     animation: ld-spots-glow-outer 3.2s ease-in-out infinite alternate;
   }
 
+  .ld-spot-outer circle { r: 1.9px; }
+
   @keyframes ld-spots-glow {
-    0% { opacity: 0.35; filter: drop-shadow(0 0 1px #0284c7); }
-    50% { opacity: 0.95; filter: drop-shadow(0 0 2.5px #38bdf8); }
-    100% { opacity: 0.5; filter: drop-shadow(0 0 1px #0284c7); }
+    0% { opacity: 0.1; filter: drop-shadow(0 0 1px #0284c7); }
+    50% { opacity: 1; filter: drop-shadow(0 0 4px #38bdf8); }
+    100% { opacity: 0.2; filter: drop-shadow(0 0 1px #0284c7); }
   }
 
   @keyframes ld-spots-glow-outer {
-    0% { opacity: 0.2; }
-    50% { opacity: 0.85; filter: drop-shadow(0 0 2px #7dd3fc); }
-    100% { opacity: 0.3; }
+    0% { opacity: 0.1; }
+    50% { opacity: 1; filter: drop-shadow(0 0 3px #7dd3fc); }
+    100% { opacity: 0.15; }
   }
 
   /* Crystal lattice reflection cones */

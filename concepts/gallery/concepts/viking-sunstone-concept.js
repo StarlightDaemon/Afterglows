@@ -68,8 +68,8 @@ const sunstoneStyles = `
   }
 
   @keyframes ss-crystal-rotate {
-    0% { transform: rotate(-18deg) scale(0.95); }
-    100% { transform: rotate(18deg) scale(1.05); }
+    0% { transform: rotate(-26deg) scale(0.9); }
+    100% { transform: rotate(26deg) scale(1.1); }
   }
 
   /* Dual polarized light spots (extinction null point alignment) */
@@ -86,11 +86,11 @@ const sunstoneStyles = `
   }
 
   .ss-dot {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffd700;
-    box-shadow: 0 0 6px #ffd700;
+    box-shadow: 0 0 9px #ffd700;
   }
 
   .ss-label {
