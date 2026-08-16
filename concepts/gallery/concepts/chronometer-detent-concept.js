@@ -64,7 +64,7 @@ const detentStyles = `
 
   @keyframes cd-detent-lift {
     0% { transform: rotate(0deg); }
-    50% { transform: rotate(-3deg); }
+    50% { transform: rotate(-8deg); }
     100% { transform: rotate(0deg); }
   }
 
@@ -76,7 +76,7 @@ const detentStyles = `
 
   @keyframes cd-flash {
     0% { opacity: 0; }
-    50% { opacity: 1; filter: drop-shadow(0 0 4px #ffd700); }
+    50% { opacity: 1; filter: drop-shadow(0 0 7px #ffd700); }
     100% { opacity: 0; }
   }
 

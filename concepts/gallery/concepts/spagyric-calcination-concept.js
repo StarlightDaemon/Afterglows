@@ -65,8 +65,18 @@ const spagyricStyles = `
   }
 
   @keyframes sp-pulse {
-    0% { transform: scale(0.85); filter: drop-shadow(0 0 3px #ffab00); }
-    100% { transform: scale(1.15); filter: drop-shadow(0 0 10px #ffd700) drop-shadow(0 0 14px #e040fb); }
+    0% { transform: scale(0.6); fill: #ff8f00; filter: drop-shadow(0 0 3px #ffab00); }
+    100% { transform: scale(1.6); fill: #ffffff; filter: drop-shadow(0 0 12px #ffd700) drop-shadow(0 0 16px #e040fb); }
+  }
+
+  /* Quintessence vessel ring resonating with the pulse */
+  .sp-vessel-ring {
+    animation: sp-ring-resonate 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes sp-ring-resonate {
+    0% { stroke-width: 0.8; stroke: #ab47bc; }
+    100% { stroke-width: 3; stroke: #ffffff; }
   }
 
   /* Ash calcination glow in bottom retort */
@@ -121,14 +131,14 @@ class ConceptSpagyricCalcination extends HTMLElement {
             <text x="58" y="48" font-size="4" fill="#cfd8dc" text-anchor="middle" font-family="sans-serif">🜔</text>
 
             <!-- Converging Principle Conduits -->
-            <line x1="38" y1="21" x2="38" y2="33" class="sp-stream-sulfur" stroke-width="1.2" />
-            <line x1="24" y1="48" x2="34" y2="40" class="sp-stream-mercury" stroke-width="1.2" />
-            <line x1="52" y1="48" x2="42" y2="40" class="sp-stream-salt" stroke-width="1.2" />
+            <line x1="38" y1="21" x2="38" y2="33" class="sp-stream-sulfur" stroke-width="2.2" />
+            <line x1="24" y1="48" x2="34" y2="40" class="sp-stream-mercury" stroke-width="2.2" />
+            <line x1="52" y1="48" x2="42" y2="40" class="sp-stream-salt" stroke-width="2.2" />
 
             <!-- Central Quintessence Vessel & Radiant Lapis Stone -->
-            <circle cx="38" cy="38" r="8" fill="rgba(224, 64, 251, 0.12)" stroke="#e040fb" stroke-width="1.4" />
+            <circle class="sp-vessel-ring" cx="38" cy="38" r="8" fill="rgba(224, 64, 251, 0.12)" stroke="#e040fb" stroke-width="1.4" />
             <g transform="translate(38, 38)">
-              <circle class="sp-quintessence" cx="0" cy="0" r="3.5" />
+              <circle class="sp-quintessence" cx="0" cy="0" r="4.5" />
             </g>
           </svg>
         </div>

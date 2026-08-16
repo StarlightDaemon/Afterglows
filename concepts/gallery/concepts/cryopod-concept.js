@@ -138,12 +138,12 @@ const cryopodStyles = {
   .cryo-vent.right { right: -9px; animation-delay: -3.4s; }
 
   @keyframes cryo-breathe {
-    0%, 100% { transform: scaleX(1) scaleY(1); opacity: 0.85; }
-    50% { transform: scaleX(1.12) scaleY(1.03); opacity: 1; }
+    0%, 100% { transform: scaleX(1) scaleY(1); opacity: 0.7; }
+    50% { transform: scaleX(1.2) scaleY(1.06); opacity: 1; }
   }
 
   @keyframes cryo-frost {
-    0%, 100% { opacity: 0.75; }
+    0%, 100% { opacity: 0.5; }
     50% { opacity: 1; }
   }
 
@@ -325,12 +325,12 @@ const cryopodStyles = {
   .cryoc-vent.right { right: -9px; animation-delay: -3.4s; }
 
   @keyframes cryoc-breathe {
-    0%, 100% { transform: scaleX(1) scaleY(1); opacity: 0.85; }
-    50% { transform: scaleX(1.12) scaleY(1.03); opacity: 1; }
+    0%, 100% { transform: scaleX(1) scaleY(1); opacity: 0.7; }
+    50% { transform: scaleX(1.2) scaleY(1.06); opacity: 1; }
   }
 
   @keyframes cryoc-frost {
-    0%, 100% { opacity: 0.75; }
+    0%, 100% { opacity: 0.5; }
     50% { opacity: 1; }
   }
 

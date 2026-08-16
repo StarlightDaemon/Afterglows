@@ -38,23 +38,35 @@ const davisBackstaffStyles = `
   /* Sunlight Shadow Ray from Sun Vane to Horizon Slit */
   .db-shadow-ray {
     stroke: #ffd54f;
-    stroke-dasharray: 4 2;
+    stroke-dasharray: 5 4;
     animation: db-shadow-flow 1.5s linear infinite;
   }
 
   @keyframes db-shadow-flow {
-    to { stroke-dashoffset: -12; }
+    to { stroke-dashoffset: -18; }
   }
 
   /* Sight Line from Eyepiece Vane to Horizon */
   .db-sight-line {
     stroke: #00e5ff;
-    stroke-dasharray: 3 2;
+    stroke-dasharray: 4 3;
     animation: db-sight-flow 1.5s linear infinite;
   }
 
   @keyframes db-sight-flow {
-    to { stroke-dashoffset: -10; }
+    to { stroke-dashoffset: -14; }
+  }
+
+  /* Sun glare pulse behind the navigator */
+  .db-sun {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: db-sun-glare 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes db-sun-glare {
+    0% { opacity: 0.55; transform: scale(0.85); filter: drop-shadow(0 0 2px #ff9800); }
+    100% { opacity: 1; transform: scale(1.35); filter: drop-shadow(0 0 8px #ffd700); }
   }
 
   /* Pearwood / Lignum Vitae Main Frame */
@@ -87,7 +99,7 @@ class ConceptDavisBackstaff extends HTMLElement {
         <div class="db-stage">
           <svg class="db-svg" viewBox="0 0 76 72">
             <!-- Sun in upper left (Behind navigator's back) -->
-            <circle cx="8" cy="10" r="4" fill="#ffd700" filter="drop-shadow(0 0 4px #ff9800)" />
+            <circle class="db-sun" cx="8" cy="10" r="4" fill="#ffd700" />
 
             <!-- Main Wooden Long Staff Spine -->
             <line x1="16" y1="46" x2="64" y2="28" stroke="#5d4037" stroke-width="2.5" stroke-linecap="round" />
@@ -109,11 +121,11 @@ class ConceptDavisBackstaff extends HTMLElement {
 
             <!-- Sunlight Ray Casting Shadow of Sun Vane onto Horizon Slit -->
             <line x1="8" y1="10" x2="20" y2="28" stroke="#ffd700" stroke-width="1.2" opacity="0.6" />
-            <line x1="20" y1="28" x2="16" y2="47" class="db-shadow-ray" stroke-width="1.2" />
+            <line x1="20" y1="28" x2="16" y2="47" class="db-shadow-ray" stroke-width="2.2" />
 
             <!-- Navigator's Visual Sight Line from Eyepiece Vane through Horizon Slit to Sea Horizon -->
-            <line x1="58" y1="46" x2="16" y2="47" class="db-sight-line" stroke-width="1" />
-            <line x1="16" y1="47" x2="4" y2="47.5" class="db-sight-line" stroke-width="1" />
+            <line x1="58" y1="46" x2="16" y2="47" class="db-sight-line" stroke-width="2" />
+            <line x1="16" y1="47" x2="4" y2="47.5" class="db-sight-line" stroke-width="2" />
           </svg>
         </div>
         <div class="db-label">DAVIS BACKSTAFF</div>

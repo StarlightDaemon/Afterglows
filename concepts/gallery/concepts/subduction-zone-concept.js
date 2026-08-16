@@ -37,12 +37,12 @@ const subductionStyles = `
 
   /* Oceanic slab subduction descent conveyor */
   .sz-slab-motion {
-    stroke-dasharray: 4 3;
+    stroke-dasharray: 6 4;
     animation: sz-subduct 2s linear infinite;
   }
 
   @keyframes sz-subduct {
-    to { stroke-dashoffset: 14; }
+    to { stroke-dashoffset: 20; }
   }
 
   /* Dewatering volatile fluid bubbles rising from slab */
@@ -55,9 +55,9 @@ const subductionStyles = `
   .sz-fluids circle:nth-child(3) { animation-delay: 1.4s; }
 
   @keyframes sz-fluid-rise {
-    0% { transform: translateY(0) scale(0.6); opacity: 0.2; }
+    0% { transform: translateY(0) scale(0.8); opacity: 0.2; }
     50% { opacity: 1; }
-    100% { transform: translateY(-16px) scale(1.2); opacity: 0; }
+    100% { transform: translateY(-22px) scale(1.6); opacity: 0; }
   }
 
   /* Magma diapir ascent to volcanic arc chamber */
@@ -78,8 +78,8 @@ const subductionStyles = `
   }
 
   @keyframes sz-eruption-pulse {
-    0% { opacity: 0.5; filter: drop-shadow(0 0 2px #d84315); }
-    100% { opacity: 1; filter: drop-shadow(0 0 8px #ff3d00); }
+    0% { opacity: 0.3; filter: drop-shadow(0 0 2px #d84315); }
+    100% { opacity: 1; filter: drop-shadow(0 0 10px #ff3d00); }
   }
 
   .sz-label {
@@ -110,7 +110,7 @@ class ConceptSubductionZone extends HTMLElement {
             <!-- Subducting Oceanic Lithospheric Plate (Descending slab from left to deep right) -->
             <path d="M 8 36 L 28 36 L 56 64 L 46 64 L 22 40 L 8 40 Z" fill="#37474f" stroke="#78909c" stroke-width="1" />
             <!-- Plate motion markers -->
-            <path class="sz-slab-motion" d="M 12 38 L 26 38 L 50 62" fill="none" stroke="#90a4ae" stroke-width="1.2" />
+            <path class="sz-slab-motion" d="M 12 38 L 26 38 L 50 62" fill="none" stroke="#b0bec5" stroke-width="2.4" />
 
             <!-- Ocean Deep Trench (Above bend) -->
             <path d="M 8 32 L 28 32 L 32 36 L 28 36 L 8 36 Z" fill="#01579b" opacity="0.6" />
@@ -123,13 +123,13 @@ class ConceptSubductionZone extends HTMLElement {
             <polygon class="sz-volcano-glow" points="42,22 46,22 44,18" />
 
             <!-- Rising Magma Diapirs from Dewatering Zone -->
-            <line x1="42" y1="52" x2="44" y2="40" class="sz-magma-plume" stroke-width="1.5" />
+            <line x1="42" y1="52" x2="44" y2="40" class="sz-magma-plume" stroke-width="3" />
 
             <!-- Dewatering Volatiles (H2O escaping slab into mantle wedge) -->
             <g class="sz-fluids">
-              <circle cx="38" cy="52" r="1.2" />
-              <circle cx="44" cy="56" r="1.2" />
-              <circle cx="36" cy="48" r="1" />
+              <circle cx="38" cy="52" r="2.2" />
+              <circle cx="44" cy="56" r="2.2" />
+              <circle cx="36" cy="48" r="1.8" />
             </g>
           </svg>
         </div>

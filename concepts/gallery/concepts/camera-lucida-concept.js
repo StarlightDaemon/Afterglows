@@ -64,12 +64,12 @@ const lucidaStyles = `
 
   .cl-ray-path {
     stroke: #00e5ff;
-    stroke-dasharray: 4 2;
+    stroke-dasharray: 5 4;
     animation: cl-ray-flow 1.5s linear infinite;
   }
 
   @keyframes cl-ray-flow {
-    to { stroke-dashoffset: -6; }
+    to { stroke-dashoffset: -18; }
   }
 
   /* Drawing paper easel on bottom right */
@@ -92,14 +92,14 @@ const lucidaStyles = `
   .cl-ghost-sketch {
     width: 26px;
     height: 20px;
-    border: 1px dashed rgba(255, 255, 255, 0.8);
+    border: 1.5px dashed rgba(255, 255, 255, 0.9);
     border-radius: 3px;
     animation: cl-ghost-fade 3s ease-in-out infinite alternate;
   }
 
   @keyframes cl-ghost-fade {
-    0% { opacity: 0.3; transform: scale(0.95); }
-    100% { opacity: 1; transform: scale(1.05); }
+    0% { opacity: 0.1; transform: scale(0.85); background: rgba(0, 229, 255, 0); }
+    100% { opacity: 1; transform: scale(1.1); background: rgba(0, 229, 255, 0.3); }
   }
 
   .cl-label {
@@ -127,7 +127,7 @@ class ConceptCameraLucida extends HTMLElement {
 
           <svg class="cl-ray-svg" viewBox="0 0 96 76">
             <!-- Ray from subject to prism, then down to paper -->
-            <path class="cl-ray-path" d="M 88 18 L 32 18 L 62 56" fill="none" stroke-width="1.2" />
+            <path class="cl-ray-path" d="M 88 18 L 32 18 L 62 56" fill="none" stroke-width="2.2" />
           </svg>
 
           <div class="cl-prism-head"></div>

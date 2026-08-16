@@ -64,8 +64,8 @@ const zoopraxiscopeStyles = `
   }
 
   @keyframes zp-beam-flicker {
-    0% { opacity: 0.6; }
-    100% { opacity: 0.95; filter: drop-shadow(0 0 6px #ffd700); }
+    0% { opacity: 0.35; }
+    100% { opacity: 1; filter: drop-shadow(0 0 8px #ffd700); }
   }
 
   /* Projected galloping horse silhouette on distant screen */
@@ -75,9 +75,9 @@ const zoopraxiscopeStyles = `
 
   @keyframes zp-horse-stride {
     0% { transform: translateY(0); }
-    25% { transform: translateY(-2px); }
+    25% { transform: translateY(-4px); }
     50% { transform: translateY(0); }
-    75% { transform: translateY(1px); }
+    75% { transform: translateY(2.5px); }
   }
 
   .zp-label {

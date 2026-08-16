@@ -41,11 +41,11 @@ const gramophoneStyles = {
   .gram-platter::after {
     content: '';
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: rgba(190, 255, 205, 0.95);
-    box-shadow: 0 0 3px rgba(140, 255, 170, 0.8);
+    box-shadow: 0 0 6px rgba(140, 255, 170, 0.9);
     animation: gram-label-orbit 2.4s linear infinite;
   }
 
@@ -87,8 +87,8 @@ const gramophoneStyles = {
   }
 
   @keyframes gram-needle-jitter {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(1deg) translateY(-0.5px); }
+    0% { transform: rotate(-1.5deg); }
+    100% { transform: rotate(2.5deg) translateY(-1.5px); }
   }
 
   .gram-horn-rig {
@@ -102,7 +102,7 @@ const gramophoneStyles = {
 
   @keyframes gram-horn-vibe {
     0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(0.5px, -0.5px) rotate(0.6deg); }
+    100% { transform: translate(1.5px, -1.5px) rotate(1.5deg); }
   }
 
   .gram-neck {
@@ -135,8 +135,9 @@ const gramophoneStyles = {
     top: 6px;
     width: 14px;
     height: 36px;
-    border-right: 2px solid rgba(140, 255, 170, 0.9);
+    border-right: 3.5px solid rgba(140, 255, 170, 0.95);
     border-radius: 0 18px 18px 0;
+    box-shadow: 2px 0 6px rgba(140, 255, 170, 0.5);
     animation: gram-wave-radiate 1.8s cubic-bezier(0.2, 0.7, 0.4, 1) infinite;
     pointer-events: none;
   }
@@ -210,11 +211,11 @@ const gramophoneStyles = {
   .gramc-platter::after {
     content: '';
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #fde047;
-    box-shadow: 0 0 4px #facc15;
+    box-shadow: 0 0 7px #facc15;
     animation: gramc-label-orbit 2.4s linear infinite;
   }
 
@@ -227,9 +228,9 @@ const gramophoneStyles = {
   }
 
   @keyframes gramc-spin {
-    0% { filter: brightness(1); }
-    50% { filter: brightness(1.2); }
-    100% { filter: brightness(1); }
+    0% { filter: brightness(0.85); }
+    50% { filter: brightness(1.35); }
+    100% { filter: brightness(0.85); }
   }
 
   /* Center gold spindle */
@@ -258,8 +259,8 @@ const gramophoneStyles = {
   }
 
   @keyframes gramc-needle-jitter {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(1deg) translateY(-0.5px); }
+    0% { transform: rotate(-1.5deg); }
+    100% { transform: rotate(2.5deg) translateY(-1.5px); }
   }
 
   /* Brass horn assembly with acoustic shudder */
@@ -274,7 +275,7 @@ const gramophoneStyles = {
 
   @keyframes gramc-horn-vibe {
     0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(0.5px, -0.5px) rotate(0.6deg); }
+    100% { transform: translate(1.5px, -1.5px) rotate(1.5deg); }
   }
 
   /* Curved brass conduit neck */
@@ -309,9 +310,9 @@ const gramophoneStyles = {
     top: 6px;
     width: 14px;
     height: 36px;
-    border-right: 2px solid #fde047;
+    border-right: 3.5px solid #fde047;
     border-radius: 0 18px 18px 0;
-    box-shadow: 2px 0 6px rgba(250, 204, 21, 0.6);
+    box-shadow: 2px 0 8px rgba(250, 204, 21, 0.7);
     animation: gramc-wave-radiate 1.8s cubic-bezier(0.2, 0.7, 0.4, 1) infinite;
     pointer-events: none;
   }

@@ -46,10 +46,11 @@ const antlionStyles = `
   /* Avalanching sand grains streaming to center */
   .al-sand-grain {
     position: absolute;
-    width: 2px;
-    height: 2px;
+    width: 4px;
+    height: 4px;
     background: #ffe082;
     border-radius: 50%;
+    box-shadow: 0 0 4px #ffca28;
     animation: al-avalanche 1.5s linear infinite;
   }
 
@@ -98,11 +99,11 @@ const antlionStyles = `
     position: absolute;
     top: 20px;
     left: 26px;
-    width: 6px;
-    height: 4px;
+    width: 9px;
+    height: 6px;
     background: #ff7043;
     border-radius: 50%;
-    box-shadow: 0 0 4px #ff7043;
+    box-shadow: 0 0 7px #ff7043, 0 0 3px #ffab91;
     animation: al-prey-slip 3s ease-in-out infinite;
   }
 

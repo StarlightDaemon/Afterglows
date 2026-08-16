@@ -39,6 +39,7 @@ const assmannPsychrometerStyles = `
   .ap-fan-spin {
     animation: ap-fan-rotate 1.2s linear infinite;
     transform-origin: 38px 14px;
+    filter: drop-shadow(0 0 3px #bae6fd);
   }
 
   @keyframes ap-fan-rotate {
@@ -52,8 +53,28 @@ const assmannPsychrometerStyles = `
   }
 
   @keyframes ap-air-flow {
-    0% { stroke-dashoffset: 0; opacity: 0.4; }
-    100% { stroke-dashoffset: 12; opacity: 0.95; stroke: #38bdf8; }
+    0% { stroke-dashoffset: 0; opacity: 0.2; }
+    100% { stroke-dashoffset: 24; opacity: 1; stroke: #ffffff; filter: drop-shadow(0 0 3px #38bdf8); }
+  }
+
+  /* Polished chrome radiation shields glinting as air is drawn through */
+  .ap-chrome-tube {
+    animation: ap-chrome-glint 1.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes ap-chrome-glint {
+    0% { stroke: #64748b; stroke-width: 0.8; }
+    100% { stroke: #f8fafc; stroke-width: 1.8; filter: drop-shadow(0 0 3px #94a3b8); }
+  }
+
+  /* Fan housing whir glow while the clockwork motor runs */
+  .ap-fan-housing {
+    animation: ap-housing-whir 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes ap-housing-whir {
+    0% { stroke: #38bdf8; filter: drop-shadow(0 0 1px #38bdf8); }
+    100% { stroke: #ffffff; filter: drop-shadow(0 0 6px #7dd3fc); }
   }
 
   /* Wet-bulb evaporative cooling differential shimmer */
@@ -62,8 +83,13 @@ const assmannPsychrometerStyles = `
   }
 
   @keyframes ap-wick-evaporate {
-    0% { fill: #0284c7; filter: drop-shadow(0 0 1px #38bdf8); }
-    100% { fill: #38bdf8; filter: drop-shadow(0 0 3px #bae6fd); }
+    0% { fill: #0284c7; transform: scale(0.8); filter: drop-shadow(0 0 1px #38bdf8); }
+    100% { fill: #bae6fd; transform: scale(1.5); filter: drop-shadow(0 0 6px #bae6fd); }
+  }
+
+  .ap-wet-bulb-wick {
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
   .ap-label {
@@ -91,20 +117,21 @@ class ConceptAssmannPsychrometer extends HTMLElement {
             <!-- 1887 Richard Assmann Aspirated Precision Psychrometer -->
             <!-- Top Clockwork Centrifugal Suction Fan Housing (Spring Motor) -->
             <rect x="28" y="8" width="20" height="12" rx="2" fill="#1e293b" stroke="#0284c7" stroke-width="0.9" />
-            <circle cx="38" cy="14" r="5" fill="#0f172a" stroke="#38bdf8" stroke-width="0.6" />
+            <circle class="ap-fan-housing" cx="38" cy="14" r="5" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
 
             <!-- Spinning Fan Impeller Blades -->
-            <g class="ap-fan-spin" stroke="#bae6fd" stroke-width="0.8">
-              <line x1="38" y1="10" x2="38" y2="18" />
-              <line x1="34" y1="14" x2="42" y2="14" />
+            <g class="ap-fan-spin" stroke="#bae6fd" stroke-width="1.4">
+              <line x1="38" y1="9.5" x2="38" y2="18.5" />
+              <line x1="33.5" y1="14" x2="42.5" y2="14" />
+              <line x1="35" y1="11" x2="41" y2="17" stroke-width="1" />
             </g>
 
             <!-- Twin Polished Chrome Radiation Shield Tubes (Double-Walled) -->
-            <rect x="23" y="24" width="11" height="34" rx="2" fill="#0f172a" stroke="#94a3b8" stroke-width="0.8" />
-            <rect x="42" y="24" width="11" height="34" rx="2" fill="#0f172a" stroke="#94a3b8" stroke-width="0.8" />
+            <rect class="ap-chrome-tube" x="23" y="24" width="11" height="34" rx="2" fill="#0f172a" stroke="#94a3b8" stroke-width="0.8" />
+            <rect class="ap-chrome-tube" x="42" y="24" width="11" height="34" rx="2" fill="#0f172a" stroke="#94a3b8" stroke-width="0.8" />
 
             <!-- Aspiration Air Stream Inflow Arrows (2.5 m/s ventilation) -->
-            <g class="ap-airflow-stream" stroke="#7dd3fc" stroke-width="0.7" stroke-dasharray="2 2" fill="none">
+            <g class="ap-airflow-stream" stroke="#7dd3fc" stroke-width="2.6" stroke-dasharray="4 4" fill="none">
               <line x1="28.5" y1="64" x2="28.5" y2="24" />
               <line x1="47.5" y1="64" x2="47.5" y2="24" />
             </g>

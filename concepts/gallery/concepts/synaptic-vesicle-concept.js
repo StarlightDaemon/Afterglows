@@ -76,8 +76,8 @@ const synapseStyles = `
   }
 
   @keyframes sv-fuse-pulse {
-    0% { transform: scaleY(0.7); }
-    100% { transform: scaleY(1.2); }
+    0% { transform: scaleY(0.5) scaleX(0.85); }
+    100% { transform: scaleY(1.35) scaleX(1.15); }
   }
 
   /* Released Neurotransmitter Molecules diffusing in cleft */
@@ -90,11 +90,11 @@ const synapseStyles = `
 
   .sv-molecule {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #ffd600;
-    box-shadow: 0 0 4px #ffd600;
+    box-shadow: 0 0 7px #ffd600, 0 0 3px #fff59d;
     animation: sv-diffuse 2s linear infinite;
   }
 
