@@ -59,21 +59,24 @@ const windTunnelStyles = `
     width: 86px;
     height: 74px;
     z-index: 2;
-    animation: wnd-smoke-flow 1.2s linear infinite;
+  }
+
+  /* Smoke streaks flow downstream along the streamlines */
+  .wnd-streamlines-svg path {
+    animation: wnd-smoke-flow 0.9s linear infinite;
   }
 
   @keyframes wnd-smoke-flow {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(4px); }
+    to { stroke-dashoffset: -15; }
   }
 
   /* Turbulent boundary layer separation vortex eddies */
   .wnd-vortex {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    border: 1px dashed rgba(214, 255, 224, 0.7);
+    border: 1.5px dashed rgba(214, 255, 224, 0.85);
     animation: wnd-vortex-spin 0.8s linear infinite;
     z-index: 3;
   }
@@ -82,8 +85,8 @@ const windTunnelStyles = `
   .wnd-vortex.v2 { top: 34px; right: 8px; animation-delay: 0.3s; }
 
   @keyframes wnd-vortex-spin {
-    0% { transform: rotate(0deg) scale(0.6); opacity: 0.8; }
-    100% { transform: rotate(360deg) scale(1.3); opacity: 0.2; }
+    0% { transform: rotate(0deg) scale(0.5); opacity: 0.9; }
+    100% { transform: rotate(360deg) scale(1.6); opacity: 0.15; }
   }
 
   /* Upstream smoke injection rake manifold */

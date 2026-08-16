@@ -40,6 +40,8 @@ const traverseStyles = `
     fill: #ffffff;
     stroke: #ff9100;
     stroke-width: 0.6;
+    transform-box: fill-box;
+    transform-origin: center;
     animation: tb-peg-glow 2s ease-in-out infinite alternate;
   }
 
@@ -47,8 +49,8 @@ const traverseStyles = `
   .tb-pegs circle:nth-child(3n) { animation-delay: 1.2s; }
 
   @keyframes tb-peg-glow {
-    0% { filter: drop-shadow(0 0 1px #ff9100); }
-    100% { filter: drop-shadow(0 0 4px #ffd700); fill: #fffde7; }
+    0% { filter: drop-shadow(0 0 1px #ff9100); opacity: 0.15; transform: scale(0.9); }
+    100% { filter: drop-shadow(0 0 6px #ffd700); fill: #fffde7; opacity: 1; transform: scale(2); }
   }
 
   /* Wooden Oak Board Texture */
@@ -113,16 +115,16 @@ class ConceptTraverseBoard extends HTMLElement {
             <!-- Active Bone Pegs inserted in compass course & speed holes -->
             <g class="tb-pegs">
               <!-- Compass course pegs inserted (recording headings during watch) -->
-              <circle cx="38" cy="14" r="1.2" />
-              <circle cx="46" cy="20" r="1.2" />
-              <circle cx="50" cy="28" r="1.2" />
-              <circle cx="38" cy="20" r="1.2" />
+              <circle cx="38" cy="14" r="1.8" />
+              <circle cx="46" cy="20" r="1.8" />
+              <circle cx="50" cy="28" r="1.8" />
+              <circle cx="38" cy="20" r="1.8" />
 
               <!-- Speed knot pegs in lower table -->
-              <circle cx="24.5" cy="54" r="1" />
-              <circle cx="33.5" cy="54" r="1" />
-              <circle cx="42.5" cy="58" r="1" />
-              <circle cx="51.5" cy="54" r="1" />
+              <circle cx="24.5" cy="54" r="1.5" />
+              <circle cx="33.5" cy="54" r="1.5" />
+              <circle cx="42.5" cy="58" r="1.5" />
+              <circle cx="51.5" cy="54" r="1.5" />
             </g>
 
             <!-- Lanyard Cord attached to peg cluster -->

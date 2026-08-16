@@ -50,7 +50,7 @@ const kamalStyles = `
   /* Polaris Star Sight Beam */
   .km-polaris-beam {
     stroke: #ffd700;
-    stroke-dasharray: 3 2;
+    stroke-dasharray: 4 3;
     animation: km-sight 1.5s linear infinite;
   }
 
@@ -61,7 +61,7 @@ const kamalStyles = `
   /* Sea Horizon Beam */
   .km-horizon-beam {
     stroke: #00e5ff;
-    stroke-dasharray: 3 2;
+    stroke-dasharray: 4 3;
     animation: km-sight 1.5s linear infinite;
   }
 
@@ -74,8 +74,8 @@ const kamalStyles = `
   }
 
   @keyframes km-card-float {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-2px); }
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-5px) rotate(-2.5deg); }
   }
 
   .km-label {
@@ -129,10 +129,10 @@ class ConceptKamalNavigator extends HTMLElement {
             </g>
 
             <!-- Celestial Sight Ray: Card Top -> Polaris -->
-            <line x1="50" y1="20" x2="62" y2="14" class="km-polaris-beam" stroke-width="1" />
+            <line x1="50" y1="20" x2="62" y2="14" class="km-polaris-beam" stroke-width="1.8" />
 
             <!-- Horizon Sight Ray: Card Bottom -> Horizon -->
-            <line x1="50" y1="52" x2="68" y2="52" class="km-horizon-beam" stroke-width="1" />
+            <line x1="50" y1="52" x2="68" y2="52" class="km-horizon-beam" stroke-width="1.8" />
           </svg>
         </div>
         <div class="km-label">KAMAL NAVIGATOR</div>

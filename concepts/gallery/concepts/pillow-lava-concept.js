@@ -41,8 +41,8 @@ const pillowLavaStyles = `
   }
 
   @keyframes pl-inflate {
-    0% { transform: scale(0.9); }
-    100% { transform: scale(1.08); }
+    0% { transform: scale(0.8); }
+    100% { transform: scale(1.22); }
   }
 
   /* Incandescent lava rupture fissures */
@@ -53,14 +53,15 @@ const pillowLavaStyles = `
   }
 
   @keyframes pl-crack-glow {
-    0% { stroke: #d84315; filter: drop-shadow(0 0 1px #ff3d00); }
-    100% { stroke: #ffd600; filter: drop-shadow(0 0 5px #ff6d00); }
+    0% { stroke: #d84315; stroke-width: 0.8; filter: drop-shadow(0 0 1px #ff3d00); }
+    100% { stroke: #ffd600; stroke-width: 2.4; filter: drop-shadow(0 0 7px #ff6d00); }
   }
 
   /* Hydrothermal steam / boiling quench shimmer */
   .pl-quench-vapor path {
     stroke: #80d8ff;
-    stroke-dasharray: 2 3;
+    stroke-width: 1.6;
+    stroke-dasharray: 3 3;
     animation: pl-vapor-rise 1.5s linear infinite;
   }
 

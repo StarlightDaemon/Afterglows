@@ -63,11 +63,11 @@ const crookesStyles = `
     height: 28px;
     background: linear-gradient(90deg, rgba(0, 255, 136, 0.5) 0%, rgba(0, 255, 136, 0.15) 100%);
     clip-path: polygon(0 40%, 100% 0%, 100% 100%, 0 60%);
-    animation: ct-beam-flicker 0.15s infinite alternate;
+    animation: ct-beam-flicker 0.32s infinite alternate;
   }
 
   @keyframes ct-beam-flicker {
-    0% { opacity: 0.85; }
+    0% { opacity: 0.35; }
     100% { opacity: 1; }
   }
 
@@ -94,6 +94,12 @@ const crookesStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: ct-phosphor-pulse 1.3s ease-in-out infinite alternate;
+  }
+
+  @keyframes ct-phosphor-pulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
   }
 
   /* Crisp projected shadow on the phosphor screen */

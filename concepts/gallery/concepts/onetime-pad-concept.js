@@ -43,8 +43,8 @@ const onetimePadStyles = `
   }
 
   @keyframes op-burn {
-    0% { stroke: #ff5722; filter: drop-shadow(0 0 2px #ff9100); }
-    100% { stroke: #ffd600; filter: drop-shadow(0 0 8px #ff3d00); }
+    0% { stroke: #bf360c; stroke-width: 1; opacity: 0.35; filter: drop-shadow(0 0 2px #ff9100); }
+    100% { stroke: #ffffff; stroke-width: 3.5; opacity: 1; filter: drop-shadow(0 0 12px #ff3d00); }
   }
 
   /* Sparks and ash particles rising */
@@ -58,8 +58,8 @@ const onetimePadStyles = `
   .op-embers circle:nth-child(4) { animation-delay: 1.2s; }
 
   @keyframes op-ember-fly {
-    0% { transform: translate(0, 0) scale(1); opacity: 1; }
-    100% { transform: translate(6px, -18px) scale(0.2); opacity: 0; }
+    0% { transform: translate(0, 0) scale(2.4); opacity: 1; }
+    100% { transform: translate(9px, -28px) scale(0.4); opacity: 0; }
   }
 
   /* 5-Letter Key Groups Glowing */
@@ -76,8 +76,8 @@ const onetimePadStyles = `
   }
 
   @keyframes op-group-glow {
-    0% { filter: drop-shadow(0 0 1px #ff9800); }
-    100% { filter: drop-shadow(0 0 4px #ffd600); }
+    0% { filter: drop-shadow(0 0 1px #ff9800); opacity: 0.35; }
+    100% { filter: drop-shadow(0 0 5px #ffd600); opacity: 1; }
   }
 
   .op-label {

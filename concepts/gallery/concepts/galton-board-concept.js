@@ -52,11 +52,12 @@ const galtonStyles = `
   /* Falling bouncing beads */
   .glt-bead {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 7px;
+    height: 7px;
+    margin: -2px 0 0 -2px;
     border-radius: 50%;
-    background: #d6ffe0;
-    box-shadow: 0 0 5px #00ff66;
+    background: #ffffff;
+    box-shadow: 0 0 10px #00ff66, 0 0 4px #d6ffe0;
   }
 
   .b1 { animation: glt-bounce-1 1.6s ease-in-out infinite; }

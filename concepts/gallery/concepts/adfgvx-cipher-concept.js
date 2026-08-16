@@ -38,12 +38,23 @@ const adfgvxStyles = `
   /* Columnar Transposition Ribbon Flow */
   .ad-ribbon-stream {
     stroke: #69f0ae;
-    stroke-dasharray: 4 2;
+    stroke-dasharray: 5 4;
     animation: ad-stream 1.5s linear infinite;
   }
 
   @keyframes ad-stream {
-    to { stroke-dashoffset: -12; }
+    to { stroke-dashoffset: -18; }
+  }
+
+  /* Row-scan highlight sweeping the Polybius square during lookup */
+  .ad-scan {
+    fill: rgba(105, 240, 174, 0.35);
+    animation: ad-scan-sweep 3s steps(6, end) infinite;
+  }
+
+  @keyframes ad-scan-sweep {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(34px); }
   }
 
   /* Fractionated coordinate pulse */
@@ -109,6 +120,9 @@ class ConceptAdfgvxCipher extends HTMLElement {
               <text x="5" y="47">X</text>
             </g>
 
+            <!-- Row-scan highlight (coordinate lookup sweep) -->
+            <rect class="ad-scan" x="8" y="14" width="34" height="6" />
+
             <!-- Matrix Grid Cells Division -->
             <g stroke="rgba(76, 175, 80, 0.25)" stroke-width="0.5">
               <line x1="8" y1="20" x2="42" y2="20" />
@@ -128,8 +142,8 @@ class ConceptAdfgvxCipher extends HTMLElement {
             <text x="26.5" y="30.5" font-family="monospace" font-size="3.5" font-weight="bold" fill="#000000" text-anchor="middle">K</text>
 
             <!-- Fractionation Conduits routing to Columnar Transposition Ribbons -->
-            <path class="ad-ribbon-stream" d="M 42 30 L 48 30 L 48 18 L 54 18" fill="none" stroke-width="1.2" />
-            <path class="ad-ribbon-stream" d="M 42 30 L 48 30 L 48 40 L 54 40" fill="none" stroke-width="1.2" />
+            <path class="ad-ribbon-stream" d="M 42 30 L 48 30 L 48 18 L 54 18" fill="none" stroke-width="2.2" />
+            <path class="ad-ribbon-stream" d="M 42 30 L 48 30 L 48 40 L 54 40" fill="none" stroke-width="2.2" />
 
             <!-- Transposition Columns on Right -->
             <rect x="54" y="12" width="16" height="48" fill="#1b2e21" stroke="#81c784" stroke-width="0.8" />

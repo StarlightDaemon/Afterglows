@@ -78,8 +78,8 @@ const fulguriteStyles = `
   }
 
   @keyframes fg-glow-pulse {
-    0% { stroke: #00e5ff; opacity: 0.6; }
-    100% { stroke: #ffffff; opacity: 1; filter: drop-shadow(0 0 10px #00e5ff); }
+    0% { stroke: #00e5ff; opacity: 0.3; stroke-width: 1.2; filter: drop-shadow(0 0 2px #00ffff); }
+    100% { stroke: #ffffff; opacity: 1; stroke-width: 3; filter: drop-shadow(0 0 12px #00e5ff); }
   }
 
   .fg-label {
