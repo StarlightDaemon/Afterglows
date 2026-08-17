@@ -62,11 +62,11 @@ const yardangStyles = `
   /* High-velocity saltating sand grains with parabolic saltation arcs */
   .yd-sand-grain {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #ffe082;
-    box-shadow: 0 0 4px #ff9800;
+    box-shadow: 0 0 6px #ff9800, 0 0 3px #ffffff;
     z-index: 6;
     animation: yd-saltation-hop 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }

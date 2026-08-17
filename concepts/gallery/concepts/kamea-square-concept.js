@@ -70,8 +70,8 @@ const kameaStyles = `
   /* Planetary tracing spark traversing numbers 1 -> 9 sequentially */
   .km-sigil-spark {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 8px #ffffff, 0 0 14px #ffd700;

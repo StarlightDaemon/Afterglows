@@ -63,8 +63,8 @@ const pyrosomeStyles = `
   /* Bioluminescent zooid spark traveling down the colony tube */
   .pyr-bio-spark {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 8px #ffffff, 0 0 14px #00ffcc;
