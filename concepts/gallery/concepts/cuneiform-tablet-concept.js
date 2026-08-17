@@ -53,31 +53,39 @@ const cuneiformStyles = `
     font-weight: bold;
     color: #ffd277;
     text-shadow: 1px 1px 2px #000000;
-    animation: cun-glyph-carve 3s ease-in-out infinite alternate;
+    transition: transform 0.2s;
   }
 
-  @keyframes cun-glyph-carve {
-    0% { opacity: 0.7; filter: brightness(0.9); }
-    100% { opacity: 1; filter: brightness(1.3); }
+  .g-dyn {
+    animation: cun-glyph-press 2.4s ease-in-out infinite;
   }
 
-  /* Triangular reed stylus pressing into clay */
+  @keyframes cun-glyph-press {
+    0%, 30% { transform: scale(0.6); opacity: 0.5; }
+    40%, 80% { transform: scale(1.3); opacity: 1; color: #ffffff; text-shadow: 0 0 6px #ffaa00; }
+    100% { transform: scale(1); opacity: 0.9; color: #ffd277; }
+  }
+
+  /* Triangular reed stylus actively stepping and pressing into clay */
   .cun-stylus {
     position: absolute;
-    top: 14px;
-    right: 8px;
-    width: 6px;
-    height: 38px;
+    top: 10px;
+    right: 12px;
+    width: 7px;
+    height: 36px;
     background: linear-gradient(135deg, #ffffff 0%, #ffaa00 40%, #553300 100%);
     clip-path: polygon(0 0, 100% 0, 50% 100%);
-    transform: rotate(24deg);
-    box-shadow: 0 0 6px #ffea88;
-    animation: cun-press 2s ease-in-out infinite alternate;
+    box-shadow: 0 0 8px #ffea88;
+    z-index: 8;
+    animation: cun-stylus-circuit 2.4s ease-in-out infinite;
   }
 
-  @keyframes cun-press {
-    0% { transform: translate(-2px, -4px) rotate(20deg); }
-    100% { transform: translate(2px, 2px) rotate(28deg); }
+  @keyframes cun-stylus-circuit {
+    0% { transform: translate(-42px, 2px) rotate(15deg); }
+    25% { transform: translate(-42px, 8px) rotate(35deg) scale(1.15); }
+    50% { transform: translate(-22px, 18px) rotate(15deg); }
+    75% { transform: translate(-22px, 24px) rotate(35deg) scale(1.15); }
+    100% { transform: translate(-42px, 2px) rotate(15deg); }
   }
 
   .cun-label {
@@ -102,7 +110,7 @@ class ConceptCuneiformTablet extends HTMLElement {
       <div class="cun">
         <div class="cun-tablet">
           <div class="cun-register">
-            <span class="cun-glyph">楔</span>
+            <span class="cun-glyph g-dyn">楔</span>
             <span class="cun-glyph">▼</span>
             <span class="cun-glyph">◀</span>
             <span class="cun-glyph">▲</span>
@@ -110,7 +118,7 @@ class ConceptCuneiformTablet extends HTMLElement {
 
           <div class="cun-register">
             <span class="cun-glyph">▶</span>
-            <span class="cun-glyph">▼</span>
+            <span class="cun-glyph g-dyn">▼</span>
             <span class="cun-glyph">楔</span>
             <span class="cun-glyph">▲</span>
           </div>

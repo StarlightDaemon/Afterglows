@@ -35,36 +35,65 @@ const cupellationStyles = `
     height: 72px;
   }
 
-  /* Air blast stream oxidising molten surface */
-  .cp-air-blast {
-    stroke: #ffccbc;
-    stroke-dasharray: 4 3;
-    animation: cp-blow 1.2s linear infinite;
+  /* Air blast packet from tuyere stream */
+  .cp-air-packet {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffccbc;
+    z-index: 6;
+    animation: cp-blow-packet 1.4s linear infinite;
   }
 
-  @keyframes cp-blow {
-    to { stroke-dashoffset: -14; }
+  @keyframes cp-blow-packet {
+    0% { transform: translate(22px, -6px) scale(0.5); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(-4px, 6px) scale(1.2); opacity: 0; }
+  }
+
+  /* Descending molten lead oxide (litharge) slag drops absorbing into porous bone-ash cupel */
+  .cp-litharge-drop {
+    position: absolute;
+    width: 3px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffab00;
+    box-shadow: 0 0 4px #ff6d00;
+    z-index: 5;
+  }
+
+  .ld1 { left: 32px; animation: cp-drop-fall 2.2s linear infinite; }
+  .ld2 { left: 48px; animation: cp-drop-fall 2.2s linear infinite; animation-delay: 1.1s; }
+
+  @keyframes cp-drop-fall {
+    0% { transform: translateY(44px) scale(0.8); opacity: 1; }
+    60% { transform: translateY(54px) scale(1.1); opacity: 1; }
+    100% { transform: translateY(60px) scale(0.3); opacity: 0; }
+  }
+
+  /* Pure noble metal silver bead "Blick" crystallization flash */
+  .cp-metal-bead {
+    transform-origin: 38px 42.5px;
+    animation: cp-silver-blick 2.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes cp-silver-blick {
+    0% { transform: scale(0.7); fill: #8d6e63; }
+    50% { transform: scale(1.1); fill: #cfd8dc; }
+    100% { transform: scale(1.45); fill: #ffffff; filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 14px #ffd700); }
   }
 
   /* Litharge / lead oxide absorption glow on cupel rim */
   .cp-rim-glow {
-    animation: cp-absorb 3s ease-in-out infinite alternate;
+    animation: cp-absorb 2s ease-in-out infinite alternate;
   }
 
   @keyframes cp-absorb {
     0% { stroke: #ff7043; filter: drop-shadow(0 0 2px #d84315); }
     100% { stroke: #ffab91; filter: drop-shadow(0 0 6px #ff7043); }
-  }
-
-  /* Shimmering pure noble metal bead (Blick / flash of silver) */
-  .cp-metal-bead {
-    animation: cp-flash 3.5s ease-in-out infinite;
-  }
-
-  @keyframes cp-flash {
-    0%, 20% { fill: #8d6e63; filter: brightness(0.8); }
-    50% { fill: #cfd8dc; filter: brightness(1.2); }
-    80%, 100% { fill: #ffffff; filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 14px #ffd700); }
   }
 
   /* Muffle furnace arch */
@@ -95,6 +124,10 @@ class ConceptCupellationCalcine extends HTMLElement {
       <style>${cupellationStyles}</style>
       <div class="cp-box">
         <div class="cp-stage">
+          <div class="cp-air-packet"></div>
+          <div class="cp-litharge-drop ld1"></div>
+          <div class="cp-litharge-drop ld2"></div>
+
           <svg class="cp-svg" viewBox="0 0 76 72">
             <!-- Muffle Furnace Firebrick Vault -->
             <path class="cp-arch" d="M 12 60 L 12 32 C 12 14, 64 14, 64 32 L 64 60" />
@@ -110,16 +143,16 @@ class ConceptCupellationCalcine extends HTMLElement {
             <!-- Molten Lead/Slag Meniscus -->
             <ellipse cx="38" cy="43" rx="12" ry="3" fill="#ffab00" opacity="0.6" />
 
-            <!-- Pure Noble Silver Bead ("Le Blick") -->
+            <!-- Pure Noble Silver Bead ("Le Blick") with Dynamic Expansion -->
             <ellipse class="cp-metal-bead" cx="38" cy="42.5" rx="5" ry="2.2" />
 
             <!-- Tuyère Blast Pipe (Air Current Injector) -->
-            <path d="M 68 24 L 52 36" fill="none" stroke="#b0bec5" stroke-width="2" />
-            <line x1="51" y1="37" x2="39" y2="42" class="cp-air-blast" stroke-width="1.2" />
+            <path d="M 68 24 L 52 36" fill="none" stroke="#b0bec5" stroke-width="2.5" />
+            <line x1="51" y1="37" x2="39" y2="42" stroke="#ffccbc" stroke-width="1.4" stroke-dasharray="3 2" />
 
             <!-- Heat Waves / Radiance -->
-            <path d="M 28 36 Q 30 30 28 24" fill="none" stroke="#ff9800" stroke-width="0.8" opacity="0.6" />
-            <path d="M 48 36 Q 46 30 48 24" fill="none" stroke="#ff9800" stroke-width="0.8" opacity="0.6" />
+            <path d="M 28 36 Q 30 30 28 24" fill="none" stroke="#ff9800" stroke-width="1" opacity="0.7" />
+            <path d="M 48 36 Q 46 30 48 24" fill="none" stroke="#ff9800" stroke-width="1" opacity="0.7" />
           </svg>
         </div>
         <div class="cp-label">CUPELLATION FURNACE</div>
@@ -128,4 +161,6 @@ class ConceptCupellationCalcine extends HTMLElement {
   }
 }
 
-customElements.define('concept-cupellation-calcine', ConceptCupellationCalcine);
+if (!customElements.get('concept-cupellation-calcine')) {
+  customElements.define('concept-cupellation-calcine', ConceptCupellationCalcine);
+}

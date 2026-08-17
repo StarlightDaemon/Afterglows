@@ -61,71 +61,88 @@ const cloudChamberStyles = `
     font-family: monospace;
   }
 
-  /* Alpha particle: thick dense straight track */
+  /* Continuous Alpha particle ionizing ray shooting across chamber */
+  .cld-alpha-bullet {
+    position: absolute;
+    top: 46px;
+    left: 46px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #8cffaa;
+    animation: cld-alpha-shoot 1.8s cubic-bezier(0.1, 0.8, 0.2, 1) infinite;
+  }
+
+  @keyframes cld-alpha-shoot {
+    0% { transform: translate(0, 0) scale(1.4); opacity: 1; }
+    50% { transform: translate(32px, -24px) scale(0.8); opacity: 1; }
+    100% { transform: translate(42px, -32px) scale(0.4); opacity: 0; }
+  }
+
   .cld-track-alpha {
     position: absolute;
     left: 48px;
     top: 50px;
-    width: 32px;
-    height: 3px;
-    background: linear-gradient(90deg, #ffffff, rgba(140, 255, 170, 0.9), transparent);
+    width: 38px;
+    height: 3.5px;
+    background: linear-gradient(90deg, #ffffff, rgba(140, 255, 170, 0.95), transparent);
     border-radius: 2px;
     transform-origin: left center;
     transform: rotate(-35deg);
-    filter: drop-shadow(0 0 4px #8cffaa);
-    animation: cld-alpha-anim 3.2s cubic-bezier(0.1, 0.8, 0.2, 1) infinite;
+    filter: drop-shadow(0 0 6px #8cffaa);
+    animation: cld-alpha-anim 1.8s ease-out infinite;
   }
 
   @keyframes cld-alpha-anim {
-    0% { transform: scaleX(0) rotate(-35deg); opacity: 0; }
-    15% { transform: scaleX(1) rotate(-35deg); opacity: 1; filter: drop-shadow(0 0 6px #ffffff); }
-    70% { transform: scaleX(1) rotate(-35deg); opacity: 0.7; filter: blur(1.2px) drop-shadow(0 0 2px #8cffaa); }
-    100% { transform: scaleX(1) rotate(-35deg); opacity: 0; filter: blur(2.5px); }
+    0% { transform: scaleX(0.1) rotate(-35deg); opacity: 0; }
+    20% { transform: scaleX(1) rotate(-35deg); opacity: 1; }
+    80% { transform: scaleX(1.1) rotate(-35deg); opacity: 0.5; filter: blur(1.5px); }
+    100% { transform: scaleX(1.1) rotate(-35deg); opacity: 0; filter: blur(3px); }
   }
 
-  /* Beta particle: fast curving thin track (Lorentz force) */
+  /* Beta particle: fast curving Lorentz electron track */
   .cld-track-beta {
     position: absolute;
-    left: 28px;
-    top: 24px;
-    width: 44px;
-    height: 44px;
-    border: 1.5px solid transparent;
-    border-top-color: #f2ffdd;
+    left: 20px;
+    top: 20px;
+    width: 48px;
+    height: 48px;
+    border: 2px solid transparent;
+    border-top-color: #ffffff;
     border-right-color: #8cffaa;
     border-radius: 50%;
-    transform: rotate(40deg);
-    filter: drop-shadow(0 0 3px #8cffaa);
-    animation: cld-beta-anim 2.5s ease-out infinite;
-    animation-delay: 1.1s;
+    filter: drop-shadow(0 0 4px #8cffaa);
+    animation: cld-beta-anim 2.2s ease-out infinite;
+    animation-delay: 0.6s;
   }
 
   @keyframes cld-beta-anim {
-    0% { opacity: 0; transform: rotate(0deg) scale(0.6); }
-    20% { opacity: 1; transform: rotate(40deg) scale(1); }
-    80% { opacity: 0.4; filter: blur(1px); }
-    100% { opacity: 0; filter: blur(2px); }
+    0% { opacity: 0; transform: rotate(0deg) scale(0.3); }
+    30% { opacity: 1; transform: rotate(65deg) scale(1.1); }
+    80% { opacity: 0.4; filter: blur(1.2px); }
+    100% { opacity: 0; filter: blur(2.5px); }
   }
 
   /* Positron / secondary spiral track */
   .cld-track-spiral {
     position: absolute;
-    left: 54px;
-    top: 42px;
-    width: 22px;
-    height: 22px;
-    border: 1.5px solid transparent;
+    left: 48px;
+    top: 38px;
+    width: 26px;
+    height: 26px;
+    border: 2px solid transparent;
     border-bottom-color: #ffffff;
-    border-left-color: rgba(140, 255, 170, 0.8);
+    border-left-color: rgba(140, 255, 170, 0.9);
     border-radius: 50%;
-    filter: drop-shadow(0 0 3px #8cffaa);
-    animation: cld-spiral-anim 3.8s ease-out infinite;
-    animation-delay: 1.8s;
+    filter: drop-shadow(0 0 4px #8cffaa);
+    animation: cld-spiral-anim 2.4s ease-out infinite;
+    animation-delay: 1.2s;
   }
 
   @keyframes cld-spiral-anim {
     0% { opacity: 0; transform: rotate(0deg) scale(0.2); }
-    25% { opacity: 1; transform: rotate(180deg) scale(1); }
+    35% { opacity: 1; transform: rotate(240deg) scale(1.1); }
     85% { opacity: 0.3; filter: blur(1.5px); }
     100% { opacity: 0; filter: blur(2.5px); }
   }
@@ -134,13 +151,7 @@ const cloudChamberStyles = `
   .cld-droplets {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 45% 45%, rgba(140, 255, 170, 0.12) 0%, transparent 60%);
-    animation: cld-fog 4s ease-in-out infinite alternate;
-  }
-
-  @keyframes cld-fog {
-    0% { opacity: 0.3; }
-    100% { opacity: 0.8; }
+    background: radial-gradient(circle at 45% 45%, rgba(140, 255, 170, 0.15) 0%, transparent 60%);
   }
 
   /* Outer metal casing & illumination bezel */
@@ -170,6 +181,7 @@ class ConceptCloudChamber extends HTMLElement {
         <div class="cld-ring">
           <div class="cld-droplets"></div>
           <div class="cld-track-alpha"></div>
+          <div class="cld-alpha-bullet"></div>
           <div class="cld-track-beta"></div>
           <div class="cld-track-spiral"></div>
         </div>

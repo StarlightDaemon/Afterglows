@@ -35,26 +35,37 @@ const conoscopicInterferenceStyles = `
     height: 72px;
   }
 
-  /* Uniaxial/Biaxial optic axis Maltese cross (isogyres) rotation */
+  /* Uniaxial optic axis Maltese cross (isogyres) continuous crystal stage rotation */
   .ci-isogyre-cross {
-    animation: ci-isogyre-sweep 6s ease-in-out infinite alternate;
+    animation: ci-isogyre-sweep 3.6s linear infinite;
     transform-origin: 38px 36px;
   }
 
   @keyframes ci-isogyre-sweep {
-    0% { transform: rotate(0deg); opacity: 0.95; }
-    50% { transform: rotate(25deg); opacity: 0.85; }
-    100% { transform: rotate(-25deg); opacity: 0.95; }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
-  /* Concentric chromatic spectral isochrome rings breathing */
+  /* Concentric chromatic spectral isochrome rings breathing expansion */
   .ci-isochrome-rings {
-    animation: ci-rings-pulse 3s ease-in-out infinite alternate;
+    animation: ci-rings-pulse 2.2s ease-in-out infinite alternate;
+    transform-origin: 38px 36px;
   }
 
   @keyframes ci-rings-pulse {
-    0% { transform: scale(0.96); filter: drop-shadow(0 0 1px #ec4899); }
-    100% { transform: scale(1.04); filter: drop-shadow(0 0 4px #f43f5e); }
+    0% { transform: scale(0.88); filter: drop-shadow(0 0 2px #ec4899); }
+    100% { transform: scale(1.15); filter: drop-shadow(0 0 8px #f43f5e); }
+  }
+
+  /* Rotating quartz wedge compensator indicator line */
+  .ci-compensator-ray {
+    animation: ci-comp-sweep 3.6s linear infinite reverse;
+    transform-origin: 38px 36px;
+  }
+
+  @keyframes ci-comp-sweep {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .ci-label {
@@ -84,30 +95,35 @@ class ConceptConoscopicInterference extends HTMLElement {
             <circle cx="38" cy="36" r="28" fill="#180b1f" stroke="#701a75" stroke-width="1.2" />
 
             <!-- Concentric Newton Color Isochromes (Interference Color Rings) -->
-            <g class="ci-isochrome-rings" style="transform-origin: 38px 36px;">
+            <g class="ci-isochrome-rings">
               <!-- 4th Order Ring (Red-Green) -->
-              <circle cx="38" cy="36" r="24" fill="none" stroke="#06b6d4" stroke-width="1.8" opacity="0.6" />
-              <circle cx="38" cy="36" r="22" fill="none" stroke="#f43f5e" stroke-width="1.6" opacity="0.7" />
+              <circle cx="38" cy="36" r="24" fill="none" stroke="#06b6d4" stroke-width="2.2" opacity="0.8" />
+              <circle cx="38" cy="36" r="22" fill="none" stroke="#f43f5e" stroke-width="2" opacity="0.85" />
               <!-- 3rd Order Ring (Yellow-Violet) -->
-              <circle cx="38" cy="36" r="18" fill="none" stroke="#a855f7" stroke-width="1.8" opacity="0.75" />
-              <circle cx="38" cy="36" r="15" fill="none" stroke="#eab308" stroke-width="1.6" opacity="0.8" />
+              <circle cx="38" cy="36" r="18" fill="none" stroke="#a855f7" stroke-width="2.2" opacity="0.9" />
+              <circle cx="38" cy="36" r="15" fill="none" stroke="#eab308" stroke-width="2" opacity="0.95" />
               <!-- 2nd Order Ring (Blue-Orange) -->
-              <circle cx="38" cy="36" r="12" fill="none" stroke="#3b82f6" stroke-width="1.8" opacity="0.85" />
-              <circle cx="38" cy="36" r="9" fill="none" stroke="#f97316" stroke-width="1.6" opacity="0.9" />
+              <circle cx="38" cy="36" r="12" fill="none" stroke="#3b82f6" stroke-width="2.2" opacity="0.95" />
+              <circle cx="38" cy="36" r="9" fill="none" stroke="#f97316" stroke-width="2" opacity="1" />
               <!-- 1st Order Ring (White-Gray Melatope Center) -->
-              <circle cx="38" cy="36" r="5" fill="none" stroke="#fef08a" stroke-width="1.4" opacity="0.95" />
+              <circle cx="38" cy="36" r="5" fill="none" stroke="#ffffff" stroke-width="1.6" opacity="1" />
             </g>
 
             <!-- Black Isogyre Cross (Maltese cross showing vibration directions) -->
             <g class="ci-isogyre-cross">
               <!-- Vertical Isogyre Brush -->
-              <path d="M 36 8 C 37 20, 37 28, 38 36 C 39 28, 39 20, 40 8 Z" fill="#030712" opacity="0.95" />
-              <path d="M 36 64 C 37 52, 37 44, 38 36 C 39 44, 39 52, 40 64 Z" fill="#030712" opacity="0.95" />
+              <path d="M 35 8 C 36 20, 36 28, 38 36 C 40 28, 40 20, 41 8 Z" fill="#000000" stroke="#f43f5e" stroke-width="0.5" />
+              <path d="M 35 64 C 36 52, 36 44, 38 36 C 40 44, 40 52, 41 64 Z" fill="#000000" stroke="#f43f5e" stroke-width="0.5" />
               <!-- Horizontal Isogyre Brush -->
-              <path d="M 10 36 C 22 37, 30 37, 38 38 C 30 39, 22 39, 10 40 Z" fill="#030712" opacity="0.95" />
-              <path d="M 66 36 C 54 37, 46 37, 38 38 C 46 39, 54 39, 66 40 Z" fill="#030712" opacity="0.95" />
+              <path d="M 10 35 C 22 36, 30 36, 38 38 C 30 40, 22 40, 10 41 Z" fill="#000000" stroke="#f43f5e" stroke-width="0.5" />
+              <path d="M 66 35 C 54 36, 46 36, 38 38 C 46 40, 54 40, 66 41 Z" fill="#000000" stroke="#f43f5e" stroke-width="0.5" />
               <!-- Central Melatope Eye (Optic axis emergence point) -->
-              <circle cx="38" cy="36" r="2.2" fill="#030712" stroke="#ffffff" stroke-width="0.5" />
+              <circle cx="38" cy="36" r="2.5" fill="#ffffff" filter="drop-shadow(0 0 4px #ffffff)" />
+            </g>
+
+            <!-- Gypsum Plate 45° Compensator Axis Line -->
+            <g class="ci-compensator-ray">
+              <line x1="18" y1="18" x2="58" y2="54" stroke="#ffffff" stroke-width="1.2" stroke-dasharray="2 2" />
             </g>
           </svg>
         </div>
@@ -117,4 +133,6 @@ class ConceptConoscopicInterference extends HTMLElement {
   }
 }
 
-customElements.define('concept-conoscopic-interference', ConceptConoscopicInterference);
+if (!customElements.get('concept-conoscopic-interference')) {
+  customElements.define('concept-conoscopic-interference', ConceptConoscopicInterference);
+}

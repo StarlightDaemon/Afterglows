@@ -35,54 +35,69 @@ const chappeStyles = `
     height: 72px;
   }
 
-  /* Central Regulator Arm (Main Crossbar) Stepped Articulation */
+  /* Central Regulator Arm (Main Crossbar) continuous signaling rotation */
   .cs-regulator-beam {
     transform-origin: 38px 24px;
-    animation: cs-reg-rotate 6s steps(4, end) infinite;
+    animation: cs-reg-rotate 3.2s ease-in-out infinite alternate;
   }
 
   @keyframes cs-reg-rotate {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(45deg); }
-    50% { transform: rotate(-45deg); }
-    75% { transform: rotate(90deg); }
-    100% { transform: rotate(0deg); }
+    0% { transform: rotate(-55deg); }
+    50% { transform: rotate(45deg); }
+    100% { transform: rotate(-10deg); }
   }
 
-  /* Left Indicator Wing (Flipper arm) */
+  /* Left Indicator Wing (Flipper arm) articulating signaling */
   .cs-wing-left {
     transform-origin: -14px 0px;
-    animation: cs-wing-l-flip 3s steps(3, end) infinite alternate;
+    animation: cs-wing-l-flip 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes cs-wing-l-flip {
     0% { transform: rotate(45deg); }
-    50% { transform: rotate(-90deg); }
-    100% { transform: rotate(135deg); }
+    100% { transform: rotate(-110deg); }
   }
 
-  /* Right Indicator Wing (Flipper arm) */
+  /* Right Indicator Wing (Flipper arm) articulating signaling */
   .cs-wing-right {
     transform-origin: 14px 0px;
-    animation: cs-wing-r-flip 3s steps(3, end) infinite alternate;
-    animation-delay: 1.5s;
+    animation: cs-wing-r-flip 1.6s ease-in-out infinite alternate;
+    animation-delay: 0.8s;
   }
 
   @keyframes cs-wing-r-flip {
     0% { transform: rotate(-45deg); }
-    50% { transform: rotate(90deg); }
-    100% { transform: rotate(-135deg); }
+    100% { transform: rotate(120deg); }
   }
 
-  /* Semaphore Optical Signal Glow */
+  /* Traveling optical signal packet passing across relay tower */
+  .cs-signal-packet {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #00e5ff, 0 0 14px #ffd700;
+    z-index: 6;
+    animation: cs-packet-flight 2.4s ease-in-out infinite;
+  }
+
+  @keyframes cs-packet-flight {
+    0% { transform: translate(-36px, -18px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(36px, -18px) scale(0.6); opacity: 0; }
+  }
+
+  /* Semaphore Lantern Beacon Glow */
   .cs-signal-beacon {
     fill: #ffd700;
-    animation: cs-beacon-pulse 1.5s ease-in-out infinite alternate;
+    animation: cs-beacon-pulse 1s ease-in-out infinite alternate;
   }
 
   @keyframes cs-beacon-pulse {
-    0% { filter: drop-shadow(0 0 1px #ff9100); opacity: 0.7; }
-    100% { filter: drop-shadow(0 0 6px #00e5ff); opacity: 1; }
+    0% { filter: drop-shadow(0 0 2px #ff9100); opacity: 0.7; }
+    100% { filter: drop-shadow(0 0 8px #00e5ff); opacity: 1; }
   }
 
   .cs-label {
@@ -106,6 +121,8 @@ class ConceptChappeSemaphore extends HTMLElement {
       <style>${chappeStyles}</style>
       <div class="cs-box">
         <div class="cs-stage">
+          <div class="cs-signal-packet"></div>
+
           <svg class="cs-svg" viewBox="0 0 76 72">
             <!-- Stone Relay Tower Roof & Balcony (Bottom Base) -->
             <path d="M 20 66 L 56 66 L 52 48 L 24 48 Z" fill="#263238" stroke="#455a64" stroke-width="1" />
@@ -120,28 +137,28 @@ class ConceptChappeSemaphore extends HTMLElement {
             <!-- Articulated Semaphore Mechanism (Pivoting at top of mast 38, 24) -->
             <g class="cs-regulator-beam">
               <!-- Central Black Slatted Wooden Regulator Beam (14 units each side) -->
-              <line x1="-14" y1="0" x2="14" y2="0" stroke="#ffd700" stroke-width="2.2" stroke-linecap="round" transform="translate(38, 24)" />
-              <circle cx="38" cy="24" r="2" fill="#ff3d00" />
+              <line x1="-14" y1="0" x2="14" y2="0" stroke="#ffd700" stroke-width="2.5" stroke-linecap="round" transform="translate(38, 24)" />
+              <circle cx="38" cy="24" r="2.2" fill="#ff3d00" />
 
               <!-- Left Indicator Wing Arm (Indicateur) -->
               <g transform="translate(38, 24)">
                 <g class="cs-wing-left">
-                  <line x1="-14" y1="0" x2="-23" y2="0" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" />
-                  <circle cx="-14" cy="0" r="1.2" fill="#ffd700" />
+                  <line x1="-14" y1="0" x2="-24" y2="0" stroke="#00e5ff" stroke-width="2.2" stroke-linecap="round" />
+                  <circle cx="-14" cy="0" r="1.4" fill="#ffd700" />
                 </g>
               </g>
 
               <!-- Right Indicator Wing Arm (Indicateur) -->
               <g transform="translate(38, 24)">
                 <g class="cs-wing-right">
-                  <line x1="14" y1="0" x2="23" y2="0" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" />
-                  <circle cx="14" cy="0" r="1.2" fill="#ffd700" />
+                  <line x1="14" y1="0" x2="24" y2="0" stroke="#00e5ff" stroke-width="2.2" stroke-linecap="round" />
+                  <circle cx="14" cy="0" r="1.4" fill="#ffd700" />
                 </g>
               </g>
             </g>
 
             <!-- Lantern Beacon Signal Indicator for Night Telegraphy -->
-            <circle class="cs-signal-beacon" cx="38" cy="10" r="2" />
+            <circle class="cs-signal-beacon" cx="38" cy="10" r="2.2" />
           </svg>
         </div>
         <div class="cs-label">CHAPPE SEMAPHORE</div>
@@ -150,4 +167,6 @@ class ConceptChappeSemaphore extends HTMLElement {
   }
 }
 
-customElements.define('concept-chappe-semaphore', ConceptChappeSemaphore);
+if (!customElements.get('concept-chappe-semaphore')) {
+  customElements.define('concept-chappe-semaphore', ConceptChappeSemaphore);
+}

@@ -28,6 +28,12 @@ const claudeGlassStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: cg-mirror-tilt 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes cg-mirror-tilt {
+    0% { transform: rotate(-8deg) translateY(-2px); }
+    100% { transform: rotate(8deg) translateY(2px); }
   }
 
   .cg-svg {
@@ -35,26 +41,26 @@ const claudeGlassStyles = `
     height: 72px;
   }
 
-  /* Reflected Claude Glass Romantic Sunset Landscape Shimmer */
+  /* Reflected Claude Glass Romantic Landscape Parallax Panning */
   .cg-landscape {
-    animation: cg-tonal-shift 3.5s ease-in-out infinite alternate;
+    animation: cg-parallax-pan 3.6s ease-in-out infinite alternate;
   }
 
-  @keyframes cg-tonal-shift {
-    0% { filter: brightness(0.85) sepia(0.8); }
-    100% { filter: brightness(1.2) sepia(0.3) drop-shadow(0 0 4px #ffd54f); }
+  @keyframes cg-parallax-pan {
+    0% { transform: translateX(-6px); }
+    100% { transform: translateX(6px); }
   }
 
-  /* Curved Obsidian Convex Glass Specular Highlight */
+  /* Curved Obsidian Convex Glass Specular Highlight Sweeping Arc */
   .cg-specular-arc {
-    stroke: #fff9c4;
-    stroke-width: 1.2;
-    animation: cg-specular-breathe 2.5s ease-in-out infinite alternate;
+    stroke: #ffffff;
+    stroke-width: 1.4;
+    animation: cg-specular-sweep 3.6s ease-in-out infinite alternate;
   }
 
-  @keyframes cg-specular-breathe {
-    0% { opacity: 0.4; stroke-width: 1; }
-    100% { opacity: 0.9; stroke-width: 1.6; filter: drop-shadow(0 0 3px #ffffff); }
+  @keyframes cg-specular-sweep {
+    0% { transform: translateY(-3px) scaleX(0.9); opacity: 0.5; }
+    100% { transform: translateY(3px) scaleX(1.1); opacity: 0.95; filter: drop-shadow(0 0 4px #ffd700); }
   }
 
   .cg-frame {
@@ -95,13 +101,13 @@ class ConceptClaudeGlass extends HTMLElement {
             <!-- Reflected Landscape in Convex Black Mirror (Curved horizon, sunset mountains, glowing sun) -->
             <g class="cg-landscape" clip-path="url(#cg-mirror-clip)">
               <!-- Sepia / Amber Tonal Sky -->
-              <ellipse cx="38" cy="32" rx="23" ry="21" fill="#3e2723" />
-              <circle cx="38" cy="24" r="5" fill="#ffd54f" opacity="0.9" />
+              <ellipse cx="38" cy="32" rx="28" ry="24" fill="#3e2723" />
+              <circle cx="38" cy="24" r="5.5" fill="#ffd54f" opacity="0.9" filter="drop-shadow(0 0 6px #ffb300)" />
 
               <!-- Distant Mountain Ranges (Compressed picturesque silhouette) -->
-              <path d="M 16 38 Q 28 26 38 34 Q 48 24 60 38 L 60 54 L 16 54 Z" fill="#2e1c11" />
+              <path d="M 10 38 Q 28 24 38 34 Q 48 22 66 38 L 66 54 L 10 54 Z" fill="#2e1c11" />
               <!-- Foreground Romantic Oak Tree Silhouette on Left -->
-              <path d="M 22 46 Q 18 34 26 28 Q 30 36 28 46" fill="#1b0f08" stroke="#3e2723" stroke-width="1" />
+              <path d="M 22 46 Q 18 34 26 28 Q 30 36 28 46" fill="#1b0f08" stroke="#ffb300" stroke-width="0.8" />
             </g>
 
             <!-- Clip Path for Oval Glass Face -->
@@ -125,4 +131,6 @@ class ConceptClaudeGlass extends HTMLElement {
   }
 }
 
-customElements.define('concept-claude-glass', ConceptClaudeGlass);
+if (!customElements.get('concept-claude-glass')) {
+  customElements.define('concept-claude-glass', ConceptClaudeGlass);
+}

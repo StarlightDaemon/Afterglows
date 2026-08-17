@@ -55,13 +55,47 @@ const coreMemoryStyles = `
 
   .cor-sense {
     stroke: #ffffff;
-    stroke-width: 1;
-    stroke-dasharray: 3 2;
-    animation: cor-sense-pulse 2s linear infinite;
+    stroke-width: 1.2;
+    filter: drop-shadow(0 0 3px #8cffaa);
   }
 
-  @keyframes cor-sense-pulse {
-    to { stroke-dashoffset: -10; }
+  /* Half-select write current pulse packets racing across drive lines */
+  .cor-pulse-x {
+    position: absolute;
+    top: 35px;
+    left: 4px;
+    width: 6px;
+    height: 4px;
+    border-radius: 2px;
+    background: #ffffff;
+    box-shadow: 0 0 8px #8cffaa, 0 0 12px #00ff66;
+    animation: cor-flow-x 1.8s linear infinite;
+  }
+
+  @keyframes cor-flow-x {
+    0% { transform: translateX(0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateX(72px); opacity: 0; }
+  }
+
+  .cor-pulse-y {
+    position: absolute;
+    left: 39px;
+    top: 4px;
+    width: 4px;
+    height: 6px;
+    border-radius: 2px;
+    background: #ffffff;
+    box-shadow: 0 0 8px #8cffaa, 0 0 12px #00ff66;
+    animation: cor-flow-y 1.8s linear infinite;
+  }
+
+  @keyframes cor-flow-y {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(64px); opacity: 0; }
   }
 
   /* Toroidal ferrite core rings */
@@ -72,31 +106,30 @@ const coreMemoryStyles = `
     border: 2px solid #00ff66;
     border-radius: 50%;
     box-shadow: 0 0 4px #8cffaa;
-    transform: rotate(45deg);
   }
 
-  .cor-ring.active {
-    border-color: #ffffff;
-    box-shadow: 0 0 8px #ffffff, 0 0 12px #00ff66;
-    animation: cor-flip 1.5s ease-in-out infinite alternate;
-  }
+  .r00 { top: 12px; left: 16px; animation: cor-flip-subtle 3s ease-in-out infinite alternate; }
+  .r01 { top: 12px; left: 37px; animation: cor-flip-subtle 3s ease-in-out infinite alternate; animation-delay: 0.3s; }
+  .r02 { top: 12px; left: 58px; animation: cor-flip-subtle 3s ease-in-out infinite alternate; animation-delay: 0.6s; }
 
-  @keyframes cor-flip {
+  .r10 { top: 33px; left: 16px; animation: cor-flip-subtle 3s ease-in-out infinite alternate; animation-delay: 0.9s; }
+  .r11 { top: 33px; left: 37px; border-color: #ffffff; box-shadow: 0 0 8px #ffffff, 0 0 12px #00ff66; animation: cor-flip-target 1.8s ease-in-out infinite; }
+  .r12 { top: 33px; left: 58px; animation: cor-flip-subtle 3s ease-in-out infinite alternate; animation-delay: 1.2s; }
+
+  .r20 { top: 54px; left: 16px; animation: cor-flip-subtle 3s ease-in-out infinite alternate; animation-delay: 1.5s; }
+  .r21 { top: 54px; left: 37px; animation: cor-flip-subtle 3s ease-in-out infinite alternate; animation-delay: 1.8s; }
+  .r22 { top: 54px; left: 58px; animation: cor-flip-subtle 3s ease-in-out infinite alternate; animation-delay: 2.1s; }
+
+  @keyframes cor-flip-target {
     0% { transform: rotate(45deg) scale(0.9); }
-    100% { transform: rotate(225deg) scale(1.15); filter: drop-shadow(0 0 6px #ffffff); }
+    50% { transform: rotate(225deg) scale(1.3); }
+    100% { transform: rotate(405deg) scale(0.9); }
   }
 
-  .r00 { top: 12px; left: 16px; }
-  .r01 { top: 12px; left: 37px; }
-  .r02 { top: 12px; left: 58px; }
-
-  .r10 { top: 33px; left: 16px; }
-  .r11 { top: 33px; left: 37px; } /* Selected coincident target */
-  .r12 { top: 33px; left: 58px; }
-
-  .r20 { top: 54px; left: 16px; }
-  .r21 { top: 54px; left: 37px; }
-  .r22 { top: 54px; left: 58px; }
+  @keyframes cor-flip-subtle {
+    0% { transform: rotate(45deg); }
+    100% { transform: rotate(135deg); }
+  }
 
   .cor-label {
     position: absolute;
@@ -134,12 +167,15 @@ class ConceptCoreMemory extends HTMLElement {
             <path class="cor-sense" d="M 6 6 L 20 16 L 41 37 L 62 58 L 76 68" fill="none" />
           </svg>
 
+          <div class="cor-pulse-x"></div>
+          <div class="cor-pulse-y"></div>
+
           <div class="cor-ring r00"></div>
           <div class="cor-ring r01"></div>
           <div class="cor-ring r02"></div>
 
           <div class="cor-ring r10"></div>
-          <div class="cor-ring r11 active"></div>
+          <div class="cor-ring r11"></div>
           <div class="cor-ring r12"></div>
 
           <div class="cor-ring r20"></div>

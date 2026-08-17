@@ -26,19 +26,26 @@ const crepuscularStyles = `
     position: absolute;
     top: 14px;
     left: 50%;
-    width: 16px;
-    height: 16px;
-    margin-left: -8px;
+    width: 18px;
+    height: 18px;
+    margin-left: -9px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 16px #ffea88, 0 0 32px #ffaa00;
+    box-shadow: 0 0 18px #ffea88, 0 0 34px #ffaa00;
   }
 
-  /* Radial fanning perspective god rays */
+  /* Radial fanning perspective god rays with dynamic angular sweep */
   .crp-rays-container {
     position: absolute;
     inset: 0;
     pointer-events: none;
+    transform-origin: 50% 18px;
+    animation: crp-fan-sweep 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes crp-fan-sweep {
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(10deg); }
   }
 
   .crp-ray-beam {
@@ -47,27 +54,22 @@ const crepuscularStyles = `
     left: 50%;
     width: 120px;
     height: 90px;
-    background: linear-gradient(180deg, rgba(255, 235, 120, 0.5) 0%, rgba(255, 170, 0, 0.15) 60%, transparent 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 200, 0.85) 0%, rgba(255, 170, 0, 0.3) 60%, transparent 100%);
     transform-origin: 0% 0%;
-    animation: crp-ray-drift 4s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 4px #ffd600);
   }
 
-  .rb1 { clip-path: polygon(0 0, 10% 100%, 25% 100%); transform: rotate(-40deg); }
-  .rb2 { clip-path: polygon(0 0, 20% 100%, 38% 100%); transform: rotate(-20deg); animation-delay: 0.8s; }
-  .rb3 { clip-path: polygon(0 0, 42% 100%, 58% 100%); transform: rotate(0deg); animation-delay: 1.6s; }
-  .rb4 { clip-path: polygon(0 0, 62% 100%, 80% 100%); transform: rotate(20deg); animation-delay: 0.4s; }
-  .rb5 { clip-path: polygon(0 0, 75% 100%, 90% 100%); transform: rotate(40deg); animation-delay: 1.2s; }
+  .rb1 { clip-path: polygon(0 0, 10% 100%, 25% 100%); transform: rotate(-42deg); }
+  .rb2 { clip-path: polygon(0 0, 20% 100%, 38% 100%); transform: rotate(-20deg); }
+  .rb3 { clip-path: polygon(0 0, 42% 100%, 58% 100%); transform: rotate(0deg); }
+  .rb4 { clip-path: polygon(0 0, 62% 100%, 80% 100%); transform: rotate(20deg); }
+  .rb5 { clip-path: polygon(0 0, 75% 100%, 90% 100%); transform: rotate(42deg); }
 
-  @keyframes crp-ray-drift {
-    0% { opacity: 0.6; filter: brightness(0.9); }
-    100% { opacity: 1; filter: brightness(1.3); }
-  }
-
-  /* Dark cloud bank casting ray shadows */
+  /* Dark cloud bank drifting across the sun casting dynamic shadow shafts */
   .crp-cloud-bank {
     position: absolute;
     top: 10px;
-    width: 96px;
+    width: 104px;
     height: 18px;
     background: #1f1406;
     border: 1px solid #ffaa00;
@@ -77,15 +79,21 @@ const crepuscularStyles = `
     justify-content: space-evenly;
     align-items: center;
     z-index: 5;
+    animation: crp-cloud-drift 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes crp-cloud-drift {
+    0% { transform: translateX(-8px); }
+    100% { transform: translateX(8px); }
   }
 
   /* Cloud gap apertures letting sunbeams through */
   .crp-gap {
-    width: 8px;
-    height: 4px;
+    width: 9px;
+    height: 5px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #ffd600;
   }
 
   /* Mountain ridge silhouette at bottom */

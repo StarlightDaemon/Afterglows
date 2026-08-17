@@ -47,7 +47,7 @@ const chrysalisStyles = `
     z-index: 4;
   }
 
-  /* Hanging Chrysalis Pupa assembly */
+  /* Hanging Chrysalis Pupa assembly with active muscular sway */
   .chr-pupa-rig {
     position: absolute;
     top: 24px;
@@ -57,14 +57,15 @@ const chrysalisStyles = `
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: chr-gentle-sway 4s ease-in-out infinite alternate;
+    animation: chr-active-sway 2.6s ease-in-out infinite alternate;
     transform-origin: top center;
     z-index: 5;
   }
 
-  @keyframes chr-gentle-sway {
-    0% { transform: rotate(-3deg); }
-    100% { transform: rotate(3deg); }
+  @keyframes chr-active-sway {
+    0% { transform: rotate(-14deg) scale(0.95); }
+    50% { transform: rotate(0deg) scale(1.05); }
+    100% { transform: rotate(14deg) scale(0.95); }
   }
 
   /* Pupa body shell SVG */
@@ -77,12 +78,12 @@ const chrysalisStyles = `
   /* Golden reflective decorative spots */
   .chr-gold-spot {
     position: absolute;
-    width: 3.5px;
-    height: 3.5px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 8px #ffffff, 0 0 12px #8cffaa;
-    animation: chr-gold-glint 1.8s ease-in-out infinite alternate;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #ffd700;
+    animation: chr-gold-glint 1.3s ease-in-out infinite alternate;
   }
 
   .chr-gold-spot.g1 { top: 12px; left: 6px; animation-delay: 0s; }
@@ -91,24 +92,24 @@ const chrysalisStyles = `
   .chr-gold-spot.g4 { top: 22px; right: 4px; animation-delay: 0.9s; }
 
   @keyframes chr-gold-glint {
-    0% { transform: scale(0.8); opacity: 0.5; }
-    100% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 8px #ffffff); }
+    0% { transform: scale(0.7); opacity: 0.4; }
+    100% { transform: scale(1.4); opacity: 1; filter: drop-shadow(0 0 10px #ffffff); }
   }
 
-  /* Developing wing venation pattern pulsing translucently inside */
+  /* Developing butterfly wing venation actively unfurling inside */
   .chr-wing-venation {
     position: absolute;
-    top: 20px;
-    width: 18px;
-    height: 26px;
-    border: 1px dashed rgba(255, 255, 255, 0.7);
+    top: 18px;
+    width: 20px;
+    height: 30px;
+    border: 1.5px dashed rgba(255, 255, 255, 0.85);
     border-radius: 50% 50% 30% 30%;
-    animation: chr-venation-breathe 2.4s ease-in-out infinite alternate;
+    animation: chr-wing-expand 2.6s ease-in-out infinite alternate;
   }
 
-  @keyframes chr-venation-breathe {
-    0% { opacity: 0.3; transform: scale(0.9); }
-    100% { opacity: 0.9; transform: scale(1.05); filter: drop-shadow(0 0 4px #8cffaa); }
+  @keyframes chr-wing-expand {
+    0% { transform: scale(0.75) rotate(-5deg); opacity: 0.4; }
+    100% { transform: scale(1.2) rotate(5deg); opacity: 1; filter: drop-shadow(0 0 6px #8cffaa); }
   }
 
   /* Metamorphosis label */
@@ -148,9 +149,9 @@ class ConceptChrysalis extends HTMLElement {
             <!-- Jade green monarch chrysalis contoured body -->
             <path d="M 16 2 C 26 8 30 20 28 36 C 26 48 20 56 16 58 C 12 56 6 48 4 36 C 2 20 6 8 16 2 Z" fill="url(#pupaGrad)" stroke="#ffffff" stroke-width="1.2" />
             <!-- Abdominal segments -->
-            <path d="M 8 14 Q 16 18 24 14" stroke="#ffffff" stroke-width="0.9" fill="none" />
-            <path d="M 9 24 Q 16 28 23 24" stroke="#d6ffe0" stroke-width="0.8" fill="none" />
-            <path d="M 11 34 Q 16 38 21 34" stroke="#d6ffe0" stroke-width="0.8" fill="none" />
+            <path d="M 8 14 Q 16 18 24 14" stroke="#ffffff" stroke-width="1" fill="none" />
+            <path d="M 9 24 Q 16 28 23 24" stroke="#d6ffe0" stroke-width="1" fill="none" />
+            <path d="M 11 34 Q 16 38 21 34" stroke="#d6ffe0" stroke-width="1" fill="none" />
           </svg>
 
           <div class="chr-wing-venation"></div>

@@ -35,21 +35,36 @@ const columnarBasaltStyles = `
     height: 72px;
   }
 
-  /* Thermal contraction joint glow in magma fissures */
+  /* Thermal contraction joint fissures */
   .cb-fissures {
     stroke: #ff5722;
     stroke-width: 1.2;
-    animation: cb-thermal-stress 3s ease-in-out infinite alternate;
   }
 
-  @keyframes cb-thermal-stress {
-    0% { stroke: #e65100; filter: drop-shadow(0 0 2px #bf360c); }
-    100% { stroke: #ffab40; filter: drop-shadow(0 0 6px #ff6d00); }
+  /* Stepped Hexagonal Column Vertical Settling Shear */
+  .cb-col-1 { animation: cb-column-settle-1 3.5s ease-in-out infinite alternate; }
+  .cb-col-2 { animation: cb-column-settle-2 3.5s ease-in-out infinite alternate; }
+  .cb-col-3 { animation: cb-column-settle-3 3.5s ease-in-out infinite alternate; }
+  .cb-col-4 { animation: cb-column-settle-4 3.5s ease-in-out infinite alternate; }
+
+  @keyframes cb-column-settle-1 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px); }
   }
 
-  /* Stepped Hexagonal Column Caps */
-  .cb-cap {
-    transition: transform 0.3s ease;
+  @keyframes cb-column-settle-2 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(5px); }
+  }
+
+  @keyframes cb-column-settle-3 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-5px); }
+  }
+
+  @keyframes cb-column-settle-4 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
   }
 
   .cb-columns polygon {
@@ -60,6 +75,34 @@ const columnarBasaltStyles = `
   .cb-p1 { fill: #292524; }
   .cb-p2 { fill: #383532; }
   .cb-p3 { fill: #44403c; }
+
+  /* Ascending Molten Magma Surge Pulses in fissure joints */
+  .cb-magma-pulse {
+    position: absolute;
+    width: 4px;
+    height: 6px;
+    border-radius: 2px;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ff5722, 0 0 12px #ff9100;
+    z-index: 5;
+  }
+
+  .mp1 { left: 32px; animation: cb-magma-up-1 2.2s linear infinite; }
+  .mp2 { left: 56px; animation: cb-magma-up-2 2.2s linear infinite; animation-delay: 1.1s; }
+
+  @keyframes cb-magma-up-1 {
+    0% { transform: translateY(48px) scale(0.6); opacity: 0; }
+    30% { opacity: 1; transform: translateY(32px) scale(1.2); }
+    80% { opacity: 1; transform: translateY(14px) scale(0.9); }
+    100% { transform: translateY(0px) scale(0.4); opacity: 0; }
+  }
+
+  @keyframes cb-magma-up-2 {
+    0% { transform: translateY(52px) scale(0.6); opacity: 0; }
+    30% { opacity: 1; transform: translateY(36px) scale(1.2); }
+    80% { opacity: 1; transform: translateY(18px) scale(0.9); }
+    100% { transform: translateY(4px) scale(0.4); opacity: 0; }
+  }
 
   /* Molten thermal base */
   .cb-magma-base {
@@ -93,6 +136,9 @@ class ConceptColumnarBasalt extends HTMLElement {
       <style>${columnarBasaltStyles}</style>
       <div class="cb-box">
         <div class="cb-stage">
+          <div class="cb-magma-pulse mp1"></div>
+          <div class="cb-magma-pulse mp2"></div>
+
           <svg class="cb-svg" viewBox="0 0 76 72">
             <defs>
               <linearGradient id="cb-magma-grad" x1="0" y1="1" x2="0" y2="0">
@@ -107,20 +153,28 @@ class ConceptColumnarBasalt extends HTMLElement {
             <!-- Hexagonal Basalt Columns Structure -->
             <g class="cb-columns">
               <!-- Column 1 (Left low) -->
-              <polygon class="cb-p1" points="14,40 22,36 30,40 30,60 14,60" />
-              <polygon class="cb-p3" points="14,40 22,36 30,40 22,44" />
+              <g class="cb-col-1">
+                <polygon class="cb-p1" points="14,40 22,36 30,40 30,60 14,60" />
+                <polygon class="cb-p3" points="14,40 22,36 30,40 22,44" />
+              </g>
 
               <!-- Column 2 (Tall Center-Left) -->
-              <polygon class="cb-p2" points="26,24 38,18 50,24 50,60 26,60" />
-              <polygon class="cb-p3" points="26,24 38,18 50,24 38,30" />
+              <g class="cb-col-2">
+                <polygon class="cb-p2" points="26,24 38,18 50,24 50,60 26,60" />
+                <polygon class="cb-p3" points="26,24 38,18 50,24 38,30" />
+              </g>
 
               <!-- Column 3 (Mid-Height Right) -->
-              <polygon class="cb-p1" points="46,32 56,27 66,32 66,60 46,60" />
-              <polygon class="cb-p3" points="46,32 56,27 66,32 56,37" />
+              <g class="cb-col-3">
+                <polygon class="cb-p1" points="46,32 56,27 66,32 66,60 46,60" />
+                <polygon class="cb-p3" points="46,32 56,27 66,32 56,37" />
+              </g>
 
               <!-- Column 4 (Stepped Front Center) -->
-              <polygon class="cb-p2" points="30,42 42,37 54,42 54,62 30,62" />
-              <polygon class="cb-p3" points="30,42 42,37 54,42 42,47" />
+              <g class="cb-col-4">
+                <polygon class="cb-p2" points="30,42 42,37 54,42 54,62 30,62" />
+                <polygon class="cb-p3" points="30,42 42,37 54,42 42,47" />
+              </g>
             </g>
 
             <!-- Glowing Thermal Contraction Joint Lines (Hexagonal cooling fissures) -->
@@ -140,4 +194,6 @@ class ConceptColumnarBasalt extends HTMLElement {
   }
 }
 
-customElements.define('concept-columnar-basalt', ConceptColumnarBasalt);
+if (!customElements.get('concept-columnar-basalt')) {
+  customElements.define('concept-columnar-basalt', ConceptColumnarBasalt);
+}
