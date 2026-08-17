@@ -210,6 +210,52 @@ trail some of these entries reference.
   cycler now rewinds the incoming frame's shadow-root animations to zero on
   switch, so each iteration performs its full story deterministically.
 
+## [1.9.0] - 2026-08-17
+
+### Fixed
+- **Animation-perception metric recalibration.** An automated pixel-diff
+  sweep (`f30`: % of pixels crossing a brightness-delta threshold across a
+  sampled continuous-playback window) had been driving low-motion fix
+  campaigns, but a calibration session measured it against 30 real operator
+  ratings and found no correlation worth trusting (Spearman rank
+  correlation 0.045 — statistically indistinguishable from zero). The
+  metric tracks *changed pixel area*, which intensity effects like opacity
+  pulses, glow, and color cycling dominate — and which people discount
+  entirely when judging whether something reads as "animated." The same
+  session derived a replacement standard, now the project's standing
+  verification rubric: a tile reads as animated only when a visible
+  element on the concept's main subject undergoes real geometric motion
+  (translate/rotate/scale), independent of intensity effects.
+- **Perception-rubric correction pass — 33 tiles**: re-audited against the
+  new rubric and fixed — 8 tiles previously misclassified as having no
+  animation at all, and 25 tiles whose earlier fix (made under the old
+  metric) was intensity-only and needed a real geometric-motion
+  re-conversion.
+- **Perception-rubric correction pass — 121 tiles**: a second pass
+  covering the remainder of the gallery flagged by the new rubric.
+- **Verification pass on the 121-tile batch** (38 of those tiles
+  re-touched): checked against real continuous-playback frame captures
+  rather than the discredited pixel-diff metric, and caught a shared bug
+  on 12 tiles (13 occurrences — one tile had it twice) where a
+  `position: absolute` traveling element was animated purely via
+  `transform` with no base `top`/`left` to offset from, leaving its
+  resting position undefined; the rest of the 38 needed amplitude or
+  brightness increases on movers that were real but too subtle to read.
+  The same pass also caught 8 files a later batch had silently
+  overwritten with redundant, out-of-scope re-implementations pulled from
+  a stale target list; those were reverted back to their already-correct,
+  previously-verified versions.
+- **Unrelated genuine animation-code bugs — 9 tiles**: fixed independently
+  of the perception-metric question, surfaced by the original sweep (e.g.
+  a rotating element with no visual asymmetry so its rotation was a
+  no-op, a `stroke-dasharray` with no gap for the offset to move
+  against).
+
+197 concept files were touched in total across the full campaign (initial
+amplitude tuning, the two rubric-driven correction passes, and the
+verification re-touches), after deduplication and net of the reverted
+8-file detour.
+
 ## [1.8.1] - 2026-07-24
 
 ### Fixed
@@ -405,6 +451,7 @@ against.
 At this point Afterglows and Stargate were not yet split into separate
 projects — see [1.0.0](#100) for that milestone.
 
+[1.9.0]: #190---2026-08-17
 [1.8.1]: #181---2026-07-24
 [1.8.0]: #180---2026-07-24
 [1.7.0]: #170---2026-07-23

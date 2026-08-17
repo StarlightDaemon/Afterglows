@@ -1,6 +1,6 @@
 {
   "name": "afterglows",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "description": "Retro terminal archives and web demos.",
   "scripts": {
     "dev": "npx http-server . -p 3000 -c-1 --cors",
