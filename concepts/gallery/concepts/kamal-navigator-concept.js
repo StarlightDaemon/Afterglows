@@ -65,17 +65,17 @@ const kamalStyles = `
     animation: km-sight 1.5s linear infinite;
   }
 
-  /* Wooden Kamal Card Plate */
+  /* Wooden Kamal Card Plate — slid along the cord toward the eye and back */
   .km-card-plate {
-    fill: #3e2723;
-    stroke: #d7ccc8;
+    fill: #5d4037;
+    stroke: #ffe0b2;
     stroke-width: 1.2;
-    animation: km-card-float 3s ease-in-out infinite alternate;
+    animation: km-card-slide 2.75s ease-in-out infinite alternate;
   }
 
-  @keyframes km-card-float {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-5px) rotate(-2.5deg); }
+  @keyframes km-card-slide {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-9px, -2px) rotate(-2deg); }
   }
 
   .km-label {
@@ -110,8 +110,8 @@ class ConceptKamalNavigator extends HTMLElement {
             <!-- Navigator's Teeth/Anchor Point on Left -->
             <circle cx="10" cy="36" r="2.5" fill="#cfd8dc" stroke="#90a4ae" stroke-width="0.8" />
 
-            <!-- Knotted Hemp Chord extending from teeth to card center hole -->
-            <line x1="10" y1="36" x2="42" y2="36" class="km-cord-line" />
+            <!-- Knotted Hemp Chord extending from teeth through card center hole -->
+            <line x1="10" y1="36" x2="50" y2="36" class="km-cord-line" />
             <!-- Knots (Isba latitude finger units) -->
             <circle cx="18" cy="36" r="1.5" fill="#ffd700" />
             <circle cx="26" cy="36" r="1.5" fill="#ffd700" />
@@ -126,13 +126,13 @@ class ConceptKamalNavigator extends HTMLElement {
               <polygon points="50,20 48,22 52,22" fill="#ffd700" />
               <!-- Lower sighting edge notch (Horizon alignment) -->
               <polygon points="50,52 48,50 52,50" fill="#00e5ff" />
+
+              <!-- Celestial Sight Ray: Card Top -> Polaris (rides with the card) -->
+              <line x1="50" y1="20" x2="66" y2="12" class="km-polaris-beam" stroke-width="1.8" />
+
+              <!-- Horizon Sight Ray: Card Bottom -> Horizon -->
+              <line x1="50" y1="52" x2="72" y2="52" class="km-horizon-beam" stroke-width="1.8" />
             </g>
-
-            <!-- Celestial Sight Ray: Card Top -> Polaris -->
-            <line x1="50" y1="20" x2="62" y2="14" class="km-polaris-beam" stroke-width="1.8" />
-
-            <!-- Horizon Sight Ray: Card Bottom -> Horizon -->
-            <line x1="50" y1="52" x2="68" y2="52" class="km-horizon-beam" stroke-width="1.8" />
           </svg>
         </div>
         <div class="km-label">KAMAL NAVIGATOR</div>

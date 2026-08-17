@@ -71,7 +71,7 @@ const crookesStyles = `
     100% { opacity: 1; }
   }
 
-  /* Hinged Metal Maltese Cross */
+  /* Hinged Metal Maltese Cross — folds flat and springs back upright */
   .ct-cross {
     position: absolute;
     left: 46px;
@@ -82,6 +82,15 @@ const crookesStyles = `
       35% 0%, 65% 0%, 55% 35%, 100% 35%, 100% 65%, 55% 65%, 65% 100%, 35% 100%, 45% 65%, 0% 65%, 0% 35%, 45% 35%
     );
     box-shadow: 0 0 4px #00ff88;
+    transform-origin: 50% 100%;
+    animation: ct-cross-flip 3s ease-in-out infinite;
+  }
+
+  @keyframes ct-cross-flip {
+    0%, 8% { transform: rotateX(0deg); }
+    30%, 45% { transform: rotateX(78deg); }
+    62% { transform: rotateX(-10deg); }
+    70%, 100% { transform: rotateX(0deg); }
   }
 
   /* Phosphor green fluorescent glass back wall */
@@ -102,7 +111,7 @@ const crookesStyles = `
     100% { opacity: 1; }
   }
 
-  /* Crisp projected shadow on the phosphor screen */
+  /* Crisp projected shadow on the phosphor screen — folds away with the cross */
   .ct-shadow {
     position: absolute;
     right: 4px;
@@ -112,6 +121,15 @@ const crookesStyles = `
     clip-path: polygon(
       35% 0%, 65% 0%, 55% 35%, 100% 35%, 100% 65%, 55% 65%, 65% 100%, 35% 100%, 45% 65%, 0% 65%, 0% 35%, 45% 35%
     );
+    transform-origin: 50% 100%;
+    animation: ct-shadow-sync 3s ease-in-out infinite;
+  }
+
+  @keyframes ct-shadow-sync {
+    0%, 8% { transform: rotateX(0deg); opacity: 1; }
+    30%, 45% { transform: rotateX(78deg); opacity: 0; }
+    62% { transform: rotateX(-10deg); opacity: 0.9; }
+    70%, 100% { transform: rotateX(0deg); opacity: 1; }
   }
 
   .ct-label {

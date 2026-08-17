@@ -47,6 +47,18 @@ const onetimePadStyles = `
     100% { stroke: #ffffff; stroke-width: 3.5; opacity: 1; filter: drop-shadow(0 0 12px #ff3d00); }
   }
 
+  /* Used key strip torn off the pad and flung away to be burnt */
+  .op-sheet-tear {
+    animation: op-tear-away 3.4s ease-in-out infinite;
+  }
+
+  @keyframes op-tear-away {
+    0%, 12% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    60% { transform: translate(10px, -20px) rotate(9deg); opacity: 1; }
+    78% { transform: translate(16px, -30px) rotate(14deg); opacity: 0; }
+    79%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  }
+
   /* Sparks and ash particles rising */
   .op-embers circle {
     fill: #ffab40;
@@ -107,6 +119,12 @@ class ConceptOnetimePad extends HTMLElement {
 
             <!-- Charred Burned Top Edge (Used sheet destruction) -->
             <path class="op-fire-edge" d="M 14 22 Q 26 26 38 20 Q 50 24 62 16" fill="none" />
+
+            <!-- Used key strip being torn away for destruction -->
+            <g class="op-sheet-tear">
+              <path d="M 14 22 L 62 16 L 62 23 L 14 29 Z" fill="#d7ccc8" stroke="#a1887f" stroke-width="0.6" />
+              <text x="20" y="27.5" font-family="monospace" font-size="3.8" font-weight="bold" fill="#4e342e">74920  18395</text>
+            </g>
 
             <!-- Flying Burning Embers -->
             <g class="op-embers">

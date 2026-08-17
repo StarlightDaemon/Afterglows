@@ -50,6 +50,37 @@ const windTunnelStyles = `
     box-shadow: 0 0 8px #8cffaa;
     transform: rotate(-10deg);
     z-index: 4;
+    animation: wnd-pitch 2.4s ease-in-out infinite alternate;
+  }
+
+  /* Angle-of-attack sweep of the test airfoil */
+  @keyframes wnd-pitch {
+    0% { transform: rotate(-4deg); }
+    100% { transform: rotate(-17deg); }
+  }
+
+  /* Bright smoke pulses shot from the rake, carried downstream */
+  .wnd-puff {
+    position: absolute;
+    left: 4px;
+    width: 9px;
+    height: 3px;
+    border-radius: 2px;
+    background: #ffffff;
+    box-shadow: 0 0 4px #d6ffe0;
+    z-index: 3;
+    animation: wnd-puff-run 1.6s linear infinite;
+  }
+
+  .wnd-puff.p1 { top: 21px; }
+  .wnd-puff.p2 { top: 39px; animation-delay: -0.55s; }
+  .wnd-puff.p3 { top: 55px; animation-delay: -1.1s; }
+
+  @keyframes wnd-puff-run {
+    0% { transform: translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { transform: translateX(72px); opacity: 0; }
   }
 
   /* Laminar smoke streak streamlines SVG */
@@ -136,6 +167,10 @@ class ConceptWindTunnel extends HTMLElement {
           </svg>
 
           <div class="wnd-airfoil"></div>
+
+          <div class="wnd-puff p1"></div>
+          <div class="wnd-puff p2"></div>
+          <div class="wnd-puff p3"></div>
 
           <div class="wnd-vortex v1"></div>
           <div class="wnd-vortex v2"></div>

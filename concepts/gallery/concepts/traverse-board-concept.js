@@ -53,6 +53,23 @@ const traverseStyles = `
     100% { filter: drop-shadow(0 0 6px #ffd700); fill: #fffde7; opacity: 1; transform: scale(2); }
   }
 
+  /* The watch peg being walked from hole to hole around the rose */
+  .tb-peg-runner {
+    fill: #fffde7;
+    stroke: #ffd700;
+    stroke-width: 0.7;
+    filter: drop-shadow(0 0 3px #ffd700);
+    animation: tb-peg-walk 4s ease-in-out infinite;
+  }
+
+  @keyframes tb-peg-walk {
+    0%, 6% { transform: translate(0, 0); }
+    18%, 26% { transform: translate(12px, 0); }
+    40%, 48% { transform: translate(8px, -8px); }
+    62%, 70% { transform: translate(0, -14px); }
+    88%, 100% { transform: translate(0, 0); }
+  }
+
   /* Wooden Oak Board Texture */
   .tb-board-plate {
     fill: #3e2723;
@@ -129,6 +146,9 @@ class ConceptTraverseBoard extends HTMLElement {
 
             <!-- Lanyard Cord attached to peg cluster -->
             <path d="M 38 28 Q 44 40 48 48" fill="none" stroke="#cfd8dc" stroke-width="0.6" stroke-dasharray="1 1" />
+
+            <!-- Watch peg being moved between course holes -->
+            <circle class="tb-peg-runner" cx="38" cy="28" r="2.4" />
           </svg>
         </div>
         <div class="tb-label">TRAVERSE BOARD</div>

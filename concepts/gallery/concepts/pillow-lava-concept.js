@@ -57,6 +57,20 @@ const pillowLavaStyles = `
     100% { stroke: #ffd600; stroke-width: 2.4; filter: drop-shadow(0 0 7px #ff6d00); }
   }
 
+  /* Molten breakout bud extruding from the lobe, inflating, then quenching */
+  .pl-breakout {
+    filter: drop-shadow(0 0 4px #ff6d00);
+    animation: pl-extrude 3s ease-in-out infinite;
+  }
+
+  @keyframes pl-extrude {
+    0% { transform: translate(0, 0) scale(0.15); opacity: 0; }
+    12% { transform: translate(2px, 0.5px) scale(0.4); opacity: 1; }
+    55% { transform: translate(11px, 3px) scale(1); opacity: 1; }
+    80% { transform: translate(13px, 4px) scale(1.05); opacity: 0.85; }
+    100% { transform: translate(13px, 4px) scale(1.05); opacity: 0; }
+  }
+
   /* Hydrothermal steam / boiling quench shimmer */
   .pl-quench-vapor path {
     stroke: #80d8ff;
@@ -113,6 +127,11 @@ class ConceptPillowLava extends HTMLElement {
                 <path class="pl-fissure" d="M -8 1 Q 0 -4 8 -1 M -4 4 Q 1 0 6 5" fill="none" />
                 <circle cx="0" cy="0" r="2.5" fill="#ff6d00" />
               </g>
+            </g>
+
+            <!-- Fresh molten lobe extruding from the active pillow -->
+            <g transform="translate(35, 33)">
+              <ellipse class="pl-breakout" cx="0" cy="0" rx="6" ry="4.2" fill="#ff8a00" stroke="#ffd600" stroke-width="0.8" />
             </g>
 
             <!-- Quenching Thermal Shimmer / Water Steam Wisps -->

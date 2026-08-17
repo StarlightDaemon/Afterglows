@@ -82,6 +82,27 @@ const fulguriteStyles = `
     100% { stroke: #ffffff; opacity: 1; stroke-width: 3; filter: drop-shadow(0 0 12px #00e5ff); }
   }
 
+  /* Discharge surge racing down the vitrifying tube */
+  .fg-surge {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 5px #00e5ff);
+    offset-path: path("M 34 0 Q 36 15 32 25 Q 24 35 14 44");
+    offset-rotate: auto;
+    animation: fg-surge-run 1.8s linear infinite;
+  }
+
+  .fg-surge.b2 {
+    offset-path: path("M 34 10 Q 48 18 58 24");
+    animation-delay: -0.9s;
+  }
+
+  @keyframes fg-surge-run {
+    0% { offset-distance: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
   .fg-label {
     position: absolute;
     bottom: 3px;
@@ -115,6 +136,10 @@ class ConceptFulguriteGlass extends HTMLElement {
             <path class="fg-glass-tube" d="M 32 25 Q 40 34 52 42" fill="none" stroke-width="1.8" />
             <path class="fg-glass-tube" d="M 34 10 Q 48 18 58 24" fill="none" stroke-width="1.5" />
             <path class="fg-glass-tube" d="M 28 30 Q 32 40 34 46" fill="none" stroke-width="1.2" />
+
+            <!-- Lightning energy surges vitrifying the sand -->
+            <ellipse class="fg-surge" rx="4.5" ry="2" />
+            <ellipse class="fg-surge b2" rx="3.5" ry="1.6" />
           </svg>
         </div>
 
