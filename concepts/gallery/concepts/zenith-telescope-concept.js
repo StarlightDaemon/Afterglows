@@ -37,47 +37,55 @@ const zenithTelescopeStyles = `
 
   /* Zenith telescope vertical 180-degree meridian reversal (Horrebow-Talcott Method) */
   .zt-vertical-scope {
-    animation: zt-zenith-reversal 4.4s ease-in-out infinite alternate;
+    animation: zt-zenith-reversal 2.4s ease-in-out infinite alternate;
     transform-origin: 38px 40px;
   }
 
   @keyframes zt-zenith-reversal {
-    0% { transform: rotate(-6deg); }
-    50% { transform: rotate(0deg); }
-    100% { transform: rotate(6deg); }
+    0% { transform: rotate(-20deg); }
+    100% { transform: rotate(20deg); }
   }
 
   /* Sensitive Horrebow spirit level bubble oscillation */
   .zt-level-bubble {
-    animation: zt-bubble-drift 2.2s ease-in-out infinite alternate;
+    animation: zt-bubble-drift 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes zt-bubble-drift {
-    0% { transform: translateX(-1.5px); }
-    100% { transform: translateX(1.5px); }
+    0% { transform: translateX(-4.5px); }
+    100% { transform: translateX(4.5px); }
   }
 
   /* Filar micrometer spider-wire adjustment */
   .zt-filar-wire {
-    animation: zt-wire-shift 1.6s ease-in-out infinite alternate;
+    animation: zt-wire-shift 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes zt-wire-shift {
-    0% { transform: translateY(-1px); }
-    100% { transform: translateY(1px); }
+    0% { transform: translateY(-2px); }
+    100% { transform: translateY(2px); }
   }
 
-  /* Zenith star pair meridian transit rays */
-  .zt-zenith-rays line {
-    animation: zt-ray-pulse 1.4s ease-in-out infinite alternate;
-    stroke: #80d8ff;
-    stroke-width: 0.8;
-    stroke-dasharray: 3 1.5;
+  /* Zenith star photon packet streaming into telescope objective */
+  .zt-star-packet {
+    position: absolute;
+    width: 3.5px;
+    height: 3.5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #00e5ff;
+    z-index: 6;
+    animation: zt-star-fall 1.2s linear infinite;
   }
 
-  @keyframes zt-ray-pulse {
-    0% { opacity: 0.3; }
-    100% { opacity: 1; filter: drop-shadow(0 0 2px #00e5ff); }
+  .zp1 { top: 8px; left: 34px; animation-delay: 0s; }
+  .zp2 { top: 8px; left: 42px; animation-delay: 0.6s; }
+
+  @keyframes zt-star-fall {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(32px); opacity: 0; }
   }
 
   .zt-label {
@@ -101,42 +109,42 @@ class ConceptZenithTelescope extends HTMLElement {
       <style>${zenithTelescopeStyles}</style>
       <div class="zt-box">
         <div class="zt-stage">
+          <div class="zt-star-packet zp1"></div>
+          <div class="zt-star-packet zp2"></div>
+
           <svg class="zt-svg" viewBox="0 0 76 72">
             <!-- Massive Masonry Geodetic Pillar Base -->
             <rect x="22" y="60" width="32" height="6" rx="1" fill="#263238" stroke="#455a64" stroke-width="0.8" />
             <rect x="34" y="52" width="8" height="8" fill="#37474f" stroke="#78909c" stroke-width="0.6" />
 
             <!-- Sighted Zenith Star Pair Transit Vectors (Top Zenith) -->
-            <g class="zt-zenith-rays">
-              <line x1="34" y1="2" x2="36" y2="12" />
-              <line x1="42" y1="2" x2="40" y2="12" />
-            </g>
-            <circle cx="34" cy="3" r="1" fill="#ffffff" filter="drop-shadow(0 0 2px #00e5ff)" />
-            <circle cx="42" cy="3" r="1" fill="#ffffff" filter="drop-shadow(0 0 2px #00e5ff)" />
+            <line x1="34" y1="2" x2="36" y2="12" stroke="#80d8ff" stroke-width="1" stroke-dasharray="3 1.5" />
+            <line x1="42" y1="2" x2="40" y2="12" stroke="#80d8ff" stroke-width="1" stroke-dasharray="3 1.5" />
+
+            <circle cx="34" cy="3" r="1.5" fill="#ffffff" filter="drop-shadow(0 0 3px #00e5ff)" />
+            <circle cx="42" cy="3" r="1.5" fill="#ffffff" filter="drop-shadow(0 0 3px #00e5ff)" />
 
             <!-- Vertical Achromatic Zenith Telescope Tube -->
             <g class="zt-vertical-scope">
-              <!-- Objective Lens Cell (Top pointing straight to zenith) -->
+              <!-- Objective Lens Cell -->
               <rect x="34" y="12" width="8" height="4" rx="1" fill="#ffd700" stroke="#ffb300" stroke-width="0.6" />
-              <line x1="35" y1="12" x2="41" y2="12" stroke="#80d8ff" stroke-width="1.2" />
+              <line x1="35" y1="12" x2="41" y2="12" stroke="#80d8ff" stroke-width="1.4" />
 
               <!-- Main Brass Telescope Body Tube -->
               <rect x="36" y="16" width="4" height="34" fill="#3e2723" stroke="#ffd700" stroke-width="0.8" />
 
               <!-- Diagonal Eyepiece & Filar Position Micrometer Box (Bottom) -->
               <rect x="33" y="46" width="10" height="7" rx="1" fill="#212121" stroke="#ffd700" stroke-width="0.6" />
-              <!-- Filar micrometer drum drum knob -->
               <circle cx="46" cy="49.5" r="2.2" fill="#ffd700" stroke="#ffb300" stroke-width="0.5" />
-              <line class="zt-filar-wire" x1="34" y1="49.5" x2="42" y2="49.5" stroke="#00e5ff" stroke-width="0.6" />
+              <line class="zt-filar-wire" x1="34" y1="49.5" x2="42" y2="49.5" stroke="#00e5ff" stroke-width="0.8" />
 
-              <!-- Highly Sensitive Horrebow Striding Spirit Level (Attached to telescope tube) -->
+              <!-- Highly Sensitive Horrebow Striding Spirit Level -->
               <rect x="22" y="28" width="12" height="4" rx="1" fill="#0f2622" stroke="#00e676" stroke-width="0.6" />
               <rect class="zt-level-bubble" x="27" y="29" width="3" height="2" rx="0.5" fill="#69f0ae" />
-              <!-- Level support brackets -->
               <line x1="34" y1="30" x2="36" y2="30" stroke="#ffd700" stroke-width="0.8" />
 
               <!-- Vertical Meridian Circle Setting Arc -->
-              <path d="M 44 26 A 14 14 0 0 1 44 42" fill="none" stroke="#ffd700" stroke-width="0.8" stroke-dasharray="1 1" />
+              <path d="M 44 26 A 14 14 0 0 1 44 42" fill="none" stroke="#ffd700" stroke-width="1" stroke-dasharray="2 1" />
             </g>
 
             <!-- Trunnion Axis Center Pivot -->
@@ -149,4 +157,6 @@ class ConceptZenithTelescope extends HTMLElement {
   }
 }
 
-customElements.define('concept-zenith-telescope', ConceptZenithTelescope);
+if (!customElements.get('concept-zenith-telescope')) {
+  customElements.define('concept-zenith-telescope', ConceptZenithTelescope);
+}

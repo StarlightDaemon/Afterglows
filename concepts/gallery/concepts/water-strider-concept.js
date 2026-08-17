@@ -36,14 +36,14 @@ const striderStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: wst-rowing-stride 2.5s ease-in-out infinite;
+    animation: wst-rowing-stride 1.8s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
   }
 
   @keyframes wst-rowing-stride {
-    0% { transform: translate(-8px, -4px) scale(0.95); }
-    35% { transform: translate(10px, 4px) scale(1.05); } /* Power rowing stroke! */
-    70% { transform: translate(6px, 2px) scale(1); }
-    100% { transform: translate(-8px, -4px) scale(0.95); }
+    0% { transform: translate(-14px, -6px) scale(0.92); }
+    30% { transform: translate(16px, 8px) scale(1.08); } /* Power rowing stroke! */
+    70% { transform: translate(10px, 4px) scale(1); }
+    100% { transform: translate(-14px, -6px) scale(0.92); }
   }
 
   /* Slender elongated insect body */
@@ -65,12 +65,12 @@ const striderStyles = `
     width: 82px;
     height: 64px;
     filter: drop-shadow(0 0 2px #8cffaa);
-    animation: wst-leg-oar 2.5s ease-in-out infinite;
+    animation: wst-leg-oar 1.8s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
   }
 
   @keyframes wst-leg-oar {
     0%, 100% { transform: rotate(0deg); }
-    35% { transform: rotate(-6deg); }
+    30% { transform: rotate(-18deg) scaleY(1.2); }
   }
 
   /* Surface tension meniscus depression dimple circles under foot tarsi */
@@ -80,7 +80,7 @@ const striderStyles = `
     border: 1.5px solid rgba(255, 255, 255, 0.8);
     background: radial-gradient(circle, rgba(214, 255, 224, 0.35), transparent 70%);
     box-shadow: 0 0 6px #8cffaa;
-    animation: wst-dimple-breathe 2.5s ease-in-out infinite;
+    animation: wst-dimple-breathe 1.8s ease-in-out infinite;
   }
 
   .wst-dimple.d1 { top: 4px; left: 6px; width: 14px; height: 14px; }
@@ -91,8 +91,8 @@ const striderStyles = `
   .wst-dimple.d6 { bottom: 4px; right: 10px; width: 16px; height: 16px; }
 
   @keyframes wst-dimple-breathe {
-    0%, 100% { transform: scale(0.9); opacity: 0.7; }
-    35% { transform: scale(1.25); opacity: 1; filter: drop-shadow(0 0 8px #ffffff); }
+    0%, 100% { transform: scale(0.85); opacity: 0.6; }
+    30% { transform: scale(1.4); opacity: 1; filter: drop-shadow(0 0 10px #ffffff); }
   }
 
   /* Surface tension caption */
@@ -134,8 +134,8 @@ class ConceptWaterStrider extends HTMLElement {
             <polyline points="44,24 58,14 69,11" stroke="#d6ffe0" stroke-width="1.2" fill="none" />
 
             <!-- Middle long rowing legs -->
-            <polyline points="38,32 20,32 11,35" stroke="#ffffff" stroke-width="1.5" fill="none" />
-            <polyline points="44,32 62,32 71,35" stroke="#ffffff" stroke-width="1.5" fill="none" />
+            <polyline points="38,32 20,32 11,35" stroke="#ffffff" stroke-width="1.8" fill="none" />
+            <polyline points="44,32 62,32 71,35" stroke="#ffffff" stroke-width="1.8" fill="none" />
 
             <!-- Hind steering legs -->
             <polyline points="38,40 26,50 18,56" stroke="#d6ffe0" stroke-width="1.2" fill="none" />

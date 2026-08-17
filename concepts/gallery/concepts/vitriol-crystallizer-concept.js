@@ -37,32 +37,55 @@ const vitriolStyles = `
 
   /* Vitriol green liquor convective shimmer */
   .vt-liquor {
-    fill: rgba(0, 230, 118, 0.12);
+    fill: rgba(0, 230, 118, 0.15);
     stroke: #00e676;
-    stroke-width: 1;
+    stroke-width: 1.2;
     animation: vt-liquor-pulse 3s ease-in-out infinite alternate;
   }
 
   @keyframes vt-liquor-pulse {
     0% { filter: drop-shadow(0 0 2px #00b0ff); }
-    100% { filter: drop-shadow(0 0 6px #00e676); }
+    100% { filter: drop-shadow(0 0 8px #00e676); }
   }
 
-  /* Rhombic crystals growing on central seed thread */
+  /* Rising convective solute flow packets in liquor */
+  .vt-solute-packet {
+    position: absolute;
+    width: 3.5px;
+    height: 3.5px;
+    border-radius: 50%;
+    background: #69f0ae;
+    box-shadow: 0 0 6px #69f0ae, 0 0 10px #ffffff;
+    z-index: 5;
+    animation: vt-solute-rise 2s ease-in-out infinite;
+  }
+
+  .sol1 { left: 28px; animation-delay: 0s; }
+  .sol2 { left: 48px; animation-delay: 0.7s; }
+  .sol3 { left: 34px; animation-delay: 1.4s; }
+
+  @keyframes vt-solute-rise {
+    0% { bottom: 20px; opacity: 0; transform: scale(0.5); }
+    20% { opacity: 1; transform: scale(1); }
+    80% { opacity: 1; transform: scale(1.2); }
+    100% { bottom: 52px; opacity: 0; transform: scale(0.6); }
+  }
+
+  /* Rhombic crystals actively growing on central seed thread */
   .vt-crystals polygon {
     fill: #1de9b6;
     stroke: #e0f2f1;
-    stroke-width: 0.8;
-    animation: vt-grow 3.5s ease-in-out infinite alternate;
+    stroke-width: 1;
+    animation: vt-grow 2.6s ease-in-out infinite alternate;
   }
 
   .vt-crystals polygon:nth-child(even) {
-    animation-delay: 1.2s;
+    animation-delay: 0.8s;
   }
 
   @keyframes vt-grow {
-    0% { transform: scale(0.7); opacity: 0.5; filter: brightness(0.9); }
-    100% { transform: scale(1.15); opacity: 1; filter: brightness(1.3) drop-shadow(0 0 4px #00e676); }
+    0% { transform: scale(0.6); opacity: 0.6; filter: brightness(0.9); }
+    100% { transform: scale(1.4); opacity: 1; filter: brightness(1.3) drop-shadow(0 0 6px #00e676); }
   }
 
   /* Suspended nucleation thread */
@@ -93,6 +116,10 @@ class ConceptVitriolCrystallizer extends HTMLElement {
       <style>${vitriolStyles}</style>
       <div class="vt-box">
         <div class="vt-stage">
+          <div class="vt-solute-packet sol1"></div>
+          <div class="vt-solute-packet sol2"></div>
+          <div class="vt-solute-packet sol3"></div>
+
           <svg class="vt-svg" viewBox="0 0 76 72">
             <!-- Glass Jar Vessel -->
             <path d="M 22 14 L 54 14 L 54 18 L 58 24 L 58 60 C 58 64, 18 64, 18 60 L 18 24 L 22 18 Z" 
@@ -116,11 +143,6 @@ class ConceptVitriolCrystallizer extends HTMLElement {
               <!-- Bottom Accent Crystal -->
               <polygon points="38,52 43,56 38,60 33,56" style="transform-origin: 38px 56px;" />
             </g>
-
-            <!-- Vitriol V.I.T.R.I.O.L. Glyphs / Sparks -->
-            <circle cx="26" cy="46" r="0.8" fill="#69f0ae" />
-            <circle cx="50" cy="38" r="0.8" fill="#69f0ae" />
-            <circle cx="48" cy="54" r="0.8" fill="#69f0ae" />
           </svg>
         </div>
         <div class="vt-label">GREEN VITRIOL</div>
@@ -129,4 +151,6 @@ class ConceptVitriolCrystallizer extends HTMLElement {
   }
 }
 
-customElements.define('concept-vitriol-crystallizer', ConceptVitriolCrystallizer);
+if (!customElements.get('concept-vitriol-crystallizer')) {
+  customElements.define('concept-vitriol-crystallizer', ConceptVitriolCrystallizer);
+}

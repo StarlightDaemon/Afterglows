@@ -42,26 +42,39 @@ const vdgStyles = `
     overflow: hidden;
   }
 
-  /* Rotating rubber belt with charge dots */
+  /* Rotating rubber belt */
   .vdg-belt {
     position: absolute;
-    left: 4px;
-    top: -20px;
+    left: 5px;
+    top: 0;
     width: 6px;
-    height: 80px;
-    background: repeating-linear-gradient(
-      180deg,
-      #8cffaa 0px,
-      #8cffaa 4px,
-      rgba(0, 100, 20, 0.8) 4px,
-      rgba(0, 100, 20, 0.8) 8px
-    );
-    animation: vdg-belt-run 0.35s linear infinite;
+    height: 100%;
+    background: rgba(0, 100, 20, 0.8);
+    border-left: 1px solid #8cffaa;
+    border-right: 1px solid #8cffaa;
   }
 
-  @keyframes vdg-belt-run {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-8px); }
+  /* Discrete electrostatic charge carrier packets traveling up to the dome */
+  .vdg-charge-carrier {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #8cffaa;
+    left: 6px;
+    animation: vdg-charge-up 1.2s linear infinite;
+  }
+
+  .cg1 { animation-delay: 0s; }
+  .cg2 { animation-delay: 0.4s; }
+  .cg3 { animation-delay: 0.8s; }
+
+  @keyframes vdg-charge-up {
+    0% { bottom: 0; opacity: 0; transform: scale(0.6); }
+    15% { opacity: 1; transform: scale(1); }
+    85% { opacity: 1; transform: scale(1); }
+    100% { bottom: 44px; opacity: 0; transform: scale(1.4); }
   }
 
   /* Top hollow dome electrode */
@@ -79,9 +92,9 @@ const vdgStyles = `
   }
 
   @keyframes vdg-dome-charge {
-    0% { filter: drop-shadow(0 0 4px #8cffaa); }
-    85% { filter: drop-shadow(0 0 16px #ffffff); }
-    90%, 100% { filter: drop-shadow(0 0 4px #8cffaa); }
+    0% { filter: drop-shadow(0 0 4px #8cffaa); transform: scale(0.98); }
+    85% { filter: drop-shadow(0 0 18px #ffffff); transform: scale(1.02); }
+    90%, 100% { filter: drop-shadow(0 0 4px #8cffaa); transform: scale(0.98); }
   }
 
   /* Grounded discharge sphere & stand */
@@ -119,11 +132,11 @@ const vdgStyles = `
   }
 
   @keyframes vdg-spark-flash {
-    0%, 86% { opacity: 0; }
-    88% { opacity: 1; filter: drop-shadow(0 0 6px #ffffff); }
-    90% { opacity: 0; }
-    92% { opacity: 1; filter: drop-shadow(0 0 10px #ffffff); }
-    96%, 100% { opacity: 0; }
+    0%, 82% { opacity: 0; transform: scaleX(0.2); }
+    85% { opacity: 1; transform: scaleX(1); filter: drop-shadow(0 0 8px #ffffff); }
+    88% { opacity: 0; }
+    90% { opacity: 1; transform: scaleX(1); filter: drop-shadow(0 0 14px #ffffff); }
+    95%, 100% { opacity: 0; }
   }
 
   /* Electrostatic corona discharge aura */
@@ -134,13 +147,13 @@ const vdgStyles = `
     width: 56px;
     height: 52px;
     border-radius: 50%;
-    border: 1px dotted rgba(214, 255, 224, 0.5);
+    border: 1.5px dotted rgba(214, 255, 224, 0.7);
     animation: vdg-corona-pulse 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes vdg-corona-pulse {
-    0% { transform: scale(0.96); opacity: 0.2; }
-    100% { transform: scale(1.06); opacity: 0.8; }
+    0% { transform: scale(0.94); opacity: 0.3; }
+    100% { transform: scale(1.1); opacity: 0.9; }
   }
 `;
 
@@ -158,6 +171,9 @@ class ConceptVanDeGraaff extends HTMLElement {
         <div class="vdg-base"></div>
         <div class="vdg-column">
           <div class="vdg-belt"></div>
+          <div class="vdg-charge-carrier cg1"></div>
+          <div class="vdg-charge-carrier cg2"></div>
+          <div class="vdg-charge-carrier cg3"></div>
         </div>
         <div class="vdg-dome"></div>
 
@@ -165,9 +181,9 @@ class ConceptVanDeGraaff extends HTMLElement {
         <div class="vdg-ground-sphere"></div>
 
         <svg class="vdg-spark-svg" viewBox="0 0 46 28">
-          <polyline points="2,14 12,6 18,20 28,8 34,22 42,12" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-          <polyline points="12,6 16,2 24,10" stroke="#8cffaa" stroke-width="1.2" fill="none" />
-          <polyline points="28,8 32,4 38,12" stroke="#8cffaa" stroke-width="1.2" fill="none" />
+          <polyline points="2,14 12,6 18,20 28,8 34,22 42,12" stroke="#ffffff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <polyline points="12,6 16,2 24,10" stroke="#8cffaa" stroke-width="1.5" fill="none" />
+          <polyline points="28,8 32,4 38,12" stroke="#8cffaa" stroke-width="1.5" fill="none" />
         </svg>
       </div>
     `;

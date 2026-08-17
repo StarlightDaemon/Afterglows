@@ -59,6 +59,12 @@ const zoetropeStyles = `
     display: flex;
     flex-direction: column;
     align-items: center;
+    animation: ztr-drum-spin 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes ztr-drum-spin {
+    0% { transform: rotate(-4deg); }
+    100% { transform: rotate(4deg); }
   }
 
   /* Vertical viewing slits along top rim */
@@ -75,7 +81,7 @@ const zoetropeStyles = `
       #011004 14px
     );
     border-bottom: 1.5px solid #8cffaa;
-    animation: ztr-slits-spin 1.2s linear infinite;
+    animation: ztr-slits-spin 0.8s linear infinite;
   }
 
   @keyframes ztr-slits-spin {
@@ -94,20 +100,18 @@ const zoetropeStyles = `
     background: #000803;
   }
 
-  /* Galloping horse animated sprite */
+  /* Galloping horse animated sprite with wide gallop translation across stage */
   .ztr-horse-svg {
     width: 32px;
     height: 22px;
     filter: drop-shadow(0 0 4px #8cffaa);
-    animation: ztr-gallop 0.4s steps(4, end) infinite;
+    animation: ztr-gallop-travel 0.5s ease-in-out infinite alternate;
   }
 
-  @keyframes ztr-gallop {
-    0% { transform: translateY(0) scaleY(1); }
-    25% { transform: translateY(-3px) scaleY(0.9); }
-    50% { transform: translateY(-5px) scaleY(1.1); }
-    75% { transform: translateY(-2px) scaleY(1); }
-    100% { transform: translateY(0) scaleY(1); }
+  @keyframes ztr-gallop-travel {
+    0% { transform: translateX(-12px) translateY(2px) scale(0.9); }
+    50% { transform: translateX(0px) translateY(-6px) scale(1.1); }
+    100% { transform: translateX(12px) translateY(0px) scale(0.95); }
   }
 
   /* Stroboscopic optical shutter pulse */

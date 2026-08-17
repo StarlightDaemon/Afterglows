@@ -60,12 +60,13 @@ const witchHazelStyles = `
     border: 1.2px solid #ffb300;
     border-radius: 12px 2px 2px 12px;
     transform-origin: bottom center;
-    animation: wh-pop-l 3s ease-in-out infinite;
+    animation: wh-pop-l 2.2s ease-in-out infinite;
   }
 
   @keyframes wh-pop-l {
-    0%, 65% { transform: rotate(0deg); }
-    70%, 100% { transform: rotate(-25deg); }
+    0%, 45% { transform: rotate(0deg); }
+    52%, 90% { transform: rotate(-35deg); }
+    100% { transform: rotate(0deg); }
   }
 
   .wh-valve-r {
@@ -75,44 +76,52 @@ const witchHazelStyles = `
     border: 1.2px solid #ffb300;
     border-radius: 2px 12px 12px 2px;
     transform-origin: bottom center;
-    animation: wh-pop-r 3s ease-in-out infinite;
+    animation: wh-pop-r 2.2s ease-in-out infinite;
   }
 
   @keyframes wh-pop-r {
-    0%, 65% { transform: rotate(0deg); }
-    70%, 100% { transform: rotate(25deg); }
+    0%, 45% { transform: rotate(0deg); }
+    52%, 90% { transform: rotate(35deg); }
+    100% { transform: rotate(0deg); }
   }
 
-  /* Explosively shot glossy black seed */
+  /* Explosively shot glossy black seed with long ballistic travel */
   .wh-seed {
     position: absolute;
     width: 6px;
     height: 4px;
     border-radius: 50%;
     background: #111111;
-    border: 1px solid #ffd54f;
-    box-shadow: 0 0 6px #ffc107;
-    animation: wh-shoot 3s ease-in-out infinite;
+    border: 1.2px solid #ffd54f;
+    box-shadow: 0 0 8px #ffc107;
+    animation: wh-shoot 2.2s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
   }
 
   @keyframes wh-shoot {
-    0%, 68% { bottom: 34px; left: 41px; opacity: 1; transform: scale(1); }
-    72% { bottom: 62px; left: 74px; opacity: 1; transform: scale(1.1) rotate(45deg); }
-    78%, 100% { bottom: 68px; left: 88px; opacity: 0; transform: scale(0.5); }
+    0%, 48% { bottom: 34px; left: 41px; opacity: 1; transform: scale(1) rotate(0deg); }
+    54% { bottom: 58px; left: 68px; opacity: 1; transform: scale(1.2) rotate(45deg); }
+    65% { bottom: 68px; left: 92px; opacity: 1; transform: scale(0.9) rotate(90deg); }
+    72%, 100% { bottom: 72px; left: 104px; opacity: 0; transform: scale(0.4); }
   }
 
-  /* Golden crinkled strap petals of witch-hazel bloom */
+  /* Golden crinkled strap petals with wind flutter */
   .wh-petals-svg {
     position: absolute;
     bottom: 20px;
     left: 20px;
     width: 32px;
     height: 32px;
+    animation: wh-petals-flutter 1.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes wh-petals-flutter {
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(8deg); }
   }
 
   .wh-strap-petal {
     stroke: #ffd54f;
-    stroke-width: 1.2;
+    stroke-width: 1.4;
     fill: none;
   }
 

@@ -59,18 +59,29 @@ const yardangStyles = `
     stroke-width: 0.8;
   }
 
-  .yd-saltation-particles circle {
-    fill: #ffe082;
-    animation: yd-grain-bounce 1s linear infinite;
+  /* High-velocity saltating sand grains with parabolic saltation arcs */
+  .yd-sand-grain {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #ffe082;
+    box-shadow: 0 0 4px #ff9800;
+    z-index: 6;
+    animation: yd-saltation-hop 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
-  .yd-saltation-particles circle:nth-child(2) { animation-delay: 0.3s; }
-  .yd-saltation-particles circle:nth-child(3) { animation-delay: 0.6s; }
+  .sg1 { top: 22px; animation-delay: 0s; }
+  .sg2 { top: 38px; animation-delay: 0.45s; }
+  .sg3 { top: 56px; animation-delay: 0.9s; }
 
-  @keyframes yd-grain-bounce {
-    0% { transform: translate(-10px, 0); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translate(20px, 0); opacity: 0; }
+  @keyframes yd-saltation-hop {
+    0% { left: 8px; opacity: 0; transform: translateY(0) scale(0.6); }
+    20% { opacity: 1; transform: translateY(-6px) scale(1.2); }
+    50% { transform: translateY(0) scale(1); }
+    70% { transform: translateY(-8px) scale(1.2); }
+    90% { opacity: 1; }
+    100% { left: 74px; opacity: 0; transform: translateY(0) scale(0.6); }
   }
 
   .yd-label {
@@ -94,6 +105,10 @@ class ConceptYardangErosion extends HTMLElement {
       <style>${yardangStyles}</style>
       <div class="yd-box">
         <div class="yd-stage">
+          <div class="yd-sand-grain sg1"></div>
+          <div class="yd-sand-grain sg2"></div>
+          <div class="yd-sand-grain sg3"></div>
+
           <svg class="yd-svg" viewBox="0 0 76 72">
             <!-- Desert Bedrock Floor / Wind Chute Corridor -->
             <rect x="8" y="10" width="60" height="54" fill="rgba(255, 167, 38, 0.05)" />
@@ -106,12 +121,12 @@ class ConceptYardangErosion extends HTMLElement {
 
             <!-- Main Central Streamlined Teardrop Keel Yardang Ridge -->
             <g transform="translate(6, 28)">
-              <!-- Prow (Blunt windward head facing left wind) & Tapering Leeward Tail -->
+              <!-- Prow & Tapering Leeward Tail -->
               <path class="yd-ridge-lit" d="M 10 12 C 14 2, 34 4, 56 12 L 10 12 Z" />
               <path class="yd-ridge-shadow" d="M 10 12 L 56 12 C 40 18, 20 20, 10 12 Z" />
               <!-- Fluting Scour Grooves -->
-              <line x1="18" y1="10" x2="38" y2="10" stroke="#ffd180" stroke-width="0.6" stroke-dasharray="2 1" />
-              <line x1="16" y1="14" x2="42" y2="14" stroke="#8d6e63" stroke-width="0.6" stroke-dasharray="2 1" />
+              <line x1="18" y1="10" x2="38" y2="10" stroke="#ffd180" stroke-width="0.8" stroke-dasharray="2 1" />
+              <line x1="16" y1="14" x2="42" y2="14" stroke="#8d6e63" stroke-width="0.8" stroke-dasharray="2 1" />
             </g>
 
             <!-- Yardang Ridge 3 (Bottom Foreground) -->
@@ -120,17 +135,10 @@ class ConceptYardangErosion extends HTMLElement {
               <path class="yd-ridge-shadow" d="M 8 8 L 44 8 C 36 12, 16 11, 8 8 Z" />
             </g>
 
-            <!-- Sandblasting Wind Streamlines (Left-to-right uni-directional gale) -->
-            <line x1="6" y1="20" x2="68" y2="20" class="yd-wind-stream" stroke-width="1" />
-            <line x1="6" y1="46" x2="68" y2="46" class="yd-wind-stream" stroke-width="1" />
-            <line x1="6" y1="58" x2="68" y2="58" class="yd-wind-stream" stroke-width="1" />
-
-            <!-- Saltating Sand Grains -->
-            <g class="yd-saltation-particles">
-              <circle cx="20" cy="22" r="0.8" />
-              <circle cx="36" cy="48" r="0.8" />
-              <circle cx="50" cy="60" r="0.8" />
-            </g>
+            <!-- Sandblasting Wind Streamlines -->
+            <line x1="6" y1="20" x2="68" y2="20" class="yd-wind-stream" stroke-width="1.2" />
+            <line x1="6" y1="46" x2="68" y2="46" class="yd-wind-stream" stroke-width="1.2" />
+            <line x1="6" y1="58" x2="68" y2="58" class="yd-wind-stream" stroke-width="1.2" />
           </svg>
         </div>
         <div class="yd-label">AEOLIAN YARDANG</div>
@@ -139,4 +147,6 @@ class ConceptYardangErosion extends HTMLElement {
   }
 }
 
-customElements.define('concept-yardang-erosion', ConceptYardangErosion);
+if (!customElements.get('concept-yardang-erosion')) {
+  customElements.define('concept-yardang-erosion', ConceptYardangErosion);
+}

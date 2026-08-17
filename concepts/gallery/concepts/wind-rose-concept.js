@@ -39,7 +39,24 @@ const windRoseStyles = `
     pointer-events: none;
   }
 
-  /* 32-point compass wind rose disc */
+  /* Orbiting portolan rhumb course spark */
+  .wnr-course-spark {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #ffaa00;
+    z-index: 8;
+    animation: wnr-spark-orbit 3.2s linear infinite;
+  }
+
+  @keyframes wnr-spark-orbit {
+    0% { transform: rotate(0deg) translate(28px) rotate(0deg); }
+    100% { transform: rotate(360deg) translate(28px) rotate(-360deg); }
+  }
+
+  /* 32-point compass wind rose disc actively hunting magnetic north */
   .wnr-rose-disc {
     position: relative;
     width: 64px;
@@ -47,12 +64,12 @@ const windRoseStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: wnr-slow-rot 18s ease-in-out infinite alternate;
+    animation: wnr-compass-hunt 3.6s ease-in-out infinite alternate;
   }
 
-  @keyframes wnr-slow-rot {
-    0% { transform: rotate(-8deg); }
-    100% { transform: rotate(8deg); }
+  @keyframes wnr-compass-hunt {
+    0% { transform: rotate(-35deg); }
+    100% { transform: rotate(35deg); }
   }
 
   /* Central Fleur-de-lis / North arrow */
@@ -100,6 +117,8 @@ class ConceptWindRose extends HTMLElement {
       <style>${windRoseStyles}</style>
       <div class="wnr">
         <div class="wnr-chart">
+          <div class="wnr-course-spark"></div>
+
           <svg class="wnr-rhumb-lines-svg" viewBox="0 0 86 76">
             <!-- Portolan 16-point radiating rhumb course lines -->
             <line x1="43" y1="0" x2="43" y2="76" stroke="rgba(255, 170, 0, 0.4)" stroke-width="0.8" />

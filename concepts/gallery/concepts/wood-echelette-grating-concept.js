@@ -37,32 +37,54 @@ const woodEcheletteGratingStyles = `
 
   /* Blazed sawtooth groove facet specular reflection gleam */
   .we-blaze-facets {
-    animation: we-facet-shimmer 2.5s ease-in-out infinite alternate;
+    animation: we-facet-shimmer 2.2s ease-in-out infinite alternate;
   }
 
   @keyframes we-facet-shimmer {
-    0% { stroke: #ea580c; opacity: 0.6; }
-    100% { stroke: #fdba74; opacity: 1; filter: drop-shadow(0 0 3px #f97316); }
+    0% { stroke: #ea580c; opacity: 0.7; }
+    100% { stroke: #fdba74; opacity: 1; filter: drop-shadow(0 0 4px #f97316); }
   }
 
   /* Concentrated energy beam into blaze diffraction order m */
   .we-blazed-order {
-    animation: we-order-glow 2s ease-in-out infinite alternate;
+    animation: we-order-glow 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes we-order-glow {
     0% { stroke-width: 1.2; stroke: #fb923c; opacity: 0.7; }
-    100% { stroke-width: 2; stroke: #ffffff; opacity: 1; filter: drop-shadow(0 0 4px #ea580c); }
+    100% { stroke-width: 2.2; stroke: #ffffff; opacity: 1; filter: drop-shadow(0 0 6px #ea580c); }
   }
 
-  /* Diamond carver stylus ruling angle */
+  /* Diamond carver stylus ruling translation */
   .we-carver-diamond {
-    animation: we-diamond-tap 3s ease-in-out infinite alternate;
+    animation: we-diamond-ruling 2.6s ease-in-out infinite alternate;
+    transform-origin: 39px 24px;
   }
 
-  @keyframes we-diamond-tap {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(1.5px); }
+  @keyframes we-diamond-ruling {
+    0% { transform: translateX(-16px) translateY(-1px); }
+    50% { transform: translateX(0px) translateY(1.5px); }
+    100% { transform: translateX(16px) translateY(-1px); }
+  }
+
+  /* Traveling infrared photon wave packet impacting blazed facet and reflecting into 1st order */
+  .we-photon-spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #fb923c;
+    z-index: 6;
+    animation: we-photon-path 2s linear infinite;
+  }
+
+  @keyframes we-photon-path {
+    0% { top: 22px; left: 24px; opacity: 0; }
+    20% { opacity: 1; }
+    50% { top: 48px; left: 40px; opacity: 1; }
+    80% { opacity: 1; }
+    100% { top: 22px; left: 62px; opacity: 0; }
   }
 
   .we-label {
@@ -86,6 +108,8 @@ class ConceptWoodEcheletteGrating extends HTMLElement {
       <style>${woodEcheletteGratingStyles}</style>
       <div class="we-box">
         <div class="we-stage">
+          <div class="we-photon-spark"></div>
+
           <svg class="we-svg" viewBox="0 0 76 72">
             <!-- 1910 Robert W. Wood Blazed Echelette Reflection Grating -->
             <!-- Thick Polished Copper/Aluminum Substrate Block -->
@@ -106,19 +130,19 @@ class ConceptWoodEcheletteGrating extends HTMLElement {
             </g>
 
             <!-- Diamond Scribing Tool Edge (Ruling the Grooves) -->
-            <g class="we-carver-diamond" style="transform-origin: 39px 24px;">
-              <polygon points="39,36 36,26 42,26" fill="#38bdf8" stroke="#e0f2fe" stroke-width="0.6" />
+            <g class="we-carver-diamond">
+              <polygon points="39,36 36,26 42,26" fill="#38bdf8" stroke="#e0f2fe" stroke-width="0.8" />
               <rect x="37.5" y="16" width="3" height="10" fill="#64748b" />
             </g>
 
             <!-- Incident Broad Infrared Light Beam -->
-            <line x1="20" y1="12" x2="34" y2="38" stroke="#fdba74" stroke-width="1.1" stroke-dasharray="2.5 1.5" />
+            <line x1="20" y1="12" x2="34" y2="38" stroke="#fdba74" stroke-width="1.3" stroke-dasharray="2.5 1.5" />
 
             <!-- Blazed Order Reflection Concentration (80-90% efficiency in 1st order!) -->
             <line class="we-blazed-order" x1="34" y1="38" x2="56" y2="12" />
 
             <!-- Weak Un-Blazed Zero Order Specular Ray (Suppressed) -->
-            <line x1="34" y1="38" x2="44" y2="12" stroke="#94a3b8" stroke-width="0.5" stroke-dasharray="1.5 2" opacity="0.4" />
+            <line x1="34" y1="38" x2="44" y2="12" stroke="#94a3b8" stroke-width="0.6" stroke-dasharray="1.5 2" opacity="0.4" />
           </svg>
         </div>
         <div class="we-label">WOOD ECHELETTE 1910</div>
@@ -127,4 +151,6 @@ class ConceptWoodEcheletteGrating extends HTMLElement {
   }
 }
 
-customElements.define('concept-wood-echelette-grating', ConceptWoodEcheletteGrating);
+if (!customElements.get('concept-wood-echelette-grating')) {
+  customElements.define('concept-wood-echelette-grating', ConceptWoodEcheletteGrating);
+}
