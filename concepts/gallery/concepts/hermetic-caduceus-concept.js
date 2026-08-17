@@ -33,7 +33,7 @@ const caduceusStyles = `
   /* Central Gold Rod / Wand */
   .hc-rod {
     position: absolute;
-    width: 3px;
+    width: 3.5px;
     height: 64px;
     background: linear-gradient(180deg, #ffffff 0%, #ffd700 50%, #ff8f00 100%);
     border-radius: 1.5px;
@@ -44,32 +44,33 @@ const caduceusStyles = `
   .hc-orb {
     position: absolute;
     top: 8px;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: #ffffff;
     border: 1.5px solid #ffd700;
     box-shadow: 0 0 10px #ffd700, 0 0 16px #00e676;
-    animation: hc-orb-glow 2s ease-in-out infinite alternate;
+    animation: hc-orb-glow 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes hc-orb-glow {
-    0% { transform: scale(0.9); box-shadow: 0 0 8px #ffd700; }
-    100% { transform: scale(1.15); box-shadow: 0 0 14px #00e676; }
+    0% { transform: scale(0.85); box-shadow: 0 0 8px #ffd700; }
+    100% { transform: scale(1.25); box-shadow: 0 0 16px #00e676; }
   }
 
-  /* Alchemical Wings */
+  /* Alchemical Wings with active flapping sweep */
   .hc-wings-svg {
     position: absolute;
-    top: 10px;
-    width: 52px;
-    height: 16px;
-    animation: hc-wings-flap 3s ease-in-out infinite alternate;
+    top: 6px;
+    width: 56px;
+    height: 20px;
+    animation: hc-wings-flap 2.2s ease-in-out infinite alternate;
+    transform-origin: 28px 16px;
   }
 
   @keyframes hc-wings-flap {
-    0% { transform: scaleY(0.85); }
-    100% { transform: scaleY(1.1); }
+    0% { transform: rotate(-14deg) scaleY(0.8); }
+    100% { transform: rotate(14deg) scaleY(1.2); }
   }
 
   /* Dual Intertwined Helical Serpents */
@@ -82,22 +83,53 @@ const caduceusStyles = `
 
   .hc-serpent-left {
     stroke: #00e676;
-    stroke-dasharray: 6 3;
-    animation: hc-helix-l 2s linear infinite;
-  }
-
-  @keyframes hc-helix-l {
-    to { stroke-dashoffset: -18; }
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    fill: none;
   }
 
   .hc-serpent-right {
     stroke: #ffd700;
-    stroke-dasharray: 6 3;
-    animation: hc-helix-r 2s linear infinite;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    fill: none;
   }
 
-  @keyframes hc-helix-r {
-    to { stroke-dashoffset: 18; }
+  /* Ascending kundalini/transmutation spark nodes along serpent helices */
+  .hc-kundalini-spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    z-index: 6;
+  }
+
+  .ks-left {
+    box-shadow: 0 0 6px #00e676, 0 0 10px #ffffff;
+    animation: hc-ascend-left 2.4s ease-in-out infinite;
+  }
+
+  .ks-right {
+    box-shadow: 0 0 6px #ffd700, 0 0 10px #ffffff;
+    animation: hc-ascend-right 2.4s ease-in-out infinite;
+    animation-delay: 1.2s;
+  }
+
+  @keyframes hc-ascend-left {
+    0% { transform: translate(-12px, 28px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    50% { transform: translate(12px, 0px) scale(1.1); }
+    80% { opacity: 1; }
+    100% { transform: translate(-8px, -26px) scale(1.3); opacity: 0; }
+  }
+
+  @keyframes hc-ascend-right {
+    0% { transform: translate(12px, 28px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    50% { transform: translate(-12px, 0px) scale(1.1); }
+    80% { opacity: 1; }
+    100% { transform: translate(8px, -26px) scale(1.3); opacity: 0; }
   }
 
   .hc-label {
@@ -122,19 +154,21 @@ class ConceptHermeticCaduceus extends HTMLElement {
       <div class="hc-box">
         <div class="hc-stage">
           <svg class="hc-wings-svg" viewBox="0 0 52 16">
-            <path d="M 26 12 C 16 0, 0 4, 2 14 C 10 10, 18 12, 26 12 Z" fill="rgba(255, 215, 0, 0.6)" stroke="#ffffff" stroke-width="0.8" />
-            <path d="M 26 12 C 36 0, 52 4, 50 14 C 42 10, 34 12, 26 12 Z" fill="rgba(255, 215, 0, 0.6)" stroke="#ffffff" stroke-width="0.8" />
+            <path d="M 26 12 C 16 0, 0 4, 2 14 C 10 10, 18 12, 26 12 Z" fill="rgba(255, 215, 0, 0.8)" stroke="#ffffff" stroke-width="1" />
+            <path d="M 26 12 C 36 0, 52 4, 50 14 C 42 10, 34 12, 26 12 Z" fill="rgba(255, 215, 0, 0.8)" stroke="#ffffff" stroke-width="1" />
           </svg>
 
           <div class="hc-rod"></div>
 
           <svg class="hc-serpents-svg" viewBox="0 0 80 80">
             <!-- Left Emerald Serpent Helix -->
-            <path class="hc-serpent-left" d="M 40 70 Q 26 60 40 50 Q 54 40 40 30 Q 26 20 40 12" fill="none" stroke-width="2" stroke-linecap="round" />
+            <path class="hc-serpent-left" d="M 40 70 Q 26 60 40 50 Q 54 40 40 30 Q 26 20 40 12" />
             <!-- Right Solar Serpent Helix -->
-            <path class="hc-serpent-right" d="M 40 70 Q 54 60 40 50 Q 26 40 40 30 Q 54 20 40 12" fill="none" stroke-width="2" stroke-linecap="round" />
+            <path class="hc-serpent-right" d="M 40 70 Q 54 60 40 50 Q 26 40 40 30 Q 54 20 40 12" />
           </svg>
 
+          <div class="hc-kundalini-spark ks-left"></div>
+          <div class="hc-kundalini-spark ks-right"></div>
           <div class="hc-orb"></div>
         </div>
 

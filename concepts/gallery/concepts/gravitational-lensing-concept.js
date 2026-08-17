@@ -21,72 +21,82 @@ const gravLensStyles = `
     justify-content: center;
   }
 
-  /* Spacetime coordinate grid warped into gravity funnel */
+  /* Spacetime coordinate grid warped into gravity funnel with dynamic breathing */
   .grv-spacetime-svg {
     position: absolute;
     inset: 0;
     width: 118px;
     height: 102px;
-    opacity: 0.45;
+    opacity: 0.55;
+    animation: grv-spacetime-warp 3.2s ease-in-out infinite alternate;
+    transform-origin: 59px 51px;
+  }
+
+  @keyframes grv-spacetime-warp {
+    0% { transform: scale(0.92); }
+    100% { transform: scale(1.08); }
   }
 
   /* Massive central lensing galaxy cluster */
   .grv-lens-mass {
     position: absolute;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: radial-gradient(circle at 50% 50%, #ffffff 0%, #8cffaa 45%, #004408 85%, transparent 100%);
-    box-shadow: 0 0 14px #8cffaa;
+    box-shadow: 0 0 16px #8cffaa, 0 0 24px #00ff66;
     z-index: 5;
   }
 
-  /* Lensed Einstein Ring & Arcs */
-  .grv-einstein-ring {
+  /* Lensed Einstein Ring & Arcs with dynamic rotation */
+  .grv-einstein-ring-rot {
     position: absolute;
     width: 64px;
     height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: grv-ring-spin 6s linear infinite;
+  }
+
+  @keyframes grv-ring-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .grv-einstein-ring {
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
-    border: 1.5px solid #d6ffe0;
+    border: 2px dashed #d6ffe0;
     box-shadow: 0 0 10px #8cffaa, inset 0 0 8px rgba(0, 204, 0, 0.4);
-    animation: grv-ring-pulse 4s ease-in-out infinite alternate;
   }
 
-  @keyframes grv-ring-pulse {
-    0% { transform: scale(0.92); opacity: 0.7; }
-    100% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 6px #ffffff); }
-  }
-
-  /* Einstein Cross quadruple mirage images */
+  /* Einstein Cross quadruple mirage images rotating along the ring */
   .grv-cross-node {
     position: absolute;
-    width: 6px;
-    height: 6px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #8cffaa;
+  }
+
+  .grv-cross-node.n1 { top: -3.5px; left: calc(50% - 3.5px); }
+  .grv-cross-node.n2 { bottom: -3.5px; left: calc(50% - 3.5px); }
+  .grv-cross-node.n3 { top: calc(50% - 3.5px); left: -3.5px; }
+  .grv-cross-node.n4 { top: calc(50% - 3.5px); right: -3.5px; }
+
+  /* Bold photons bending around curved geodesic paths */
+  .grv-geodesic-ray {
+    position: absolute;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 8px #ffffff, 0 0 12px #8cffaa;
-    animation: grv-cross-twinkle 2s ease-in-out infinite alternate;
-  }
-
-  .grv-cross-node.n1 { top: 18px; left: 56px; animation-delay: 0.1s; }
-  .grv-cross-node.n2 { bottom: 18px; left: 56px; animation-delay: 0.4s; }
-  .grv-cross-node.n3 { top: 48px; left: 26px; animation-delay: 0.7s; }
-  .grv-cross-node.n4 { top: 48px; right: 26px; animation-delay: 1.0s; }
-
-  @keyframes grv-cross-twinkle {
-    0% { transform: scale(0.8); opacity: 0.6; }
-    100% { transform: scale(1.2); opacity: 1; }
-  }
-
-  /* Photons bending around geodesic paths */
-  .grv-geodesic-ray {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 0 0 4px #8cffaa;
-    animation: grv-photon-deflect 3s ease-in-out infinite;
+    z-index: 6;
+    animation: grv-photon-deflect 2.2s linear infinite;
   }
 
   .grv-geodesic-ray.r1 {
@@ -95,7 +105,7 @@ const gravLensStyles = `
   }
   .grv-geodesic-ray.r2 {
     offset-path: path("M 110 20 C 83 20 73 35 73 51 C 73 67 83 82 110 82");
-    animation-delay: 1.5s;
+    animation-delay: 1.1s;
   }
 
   @keyframes grv-photon-deflect {
@@ -129,21 +139,23 @@ class ConceptGravitationalLensing extends HTMLElement {
       <div class="grv">
         <svg class="grv-spacetime-svg" viewBox="0 0 118 102">
           <!-- Curvature coordinates -->
-          <circle cx="59" cy="51" r="18" stroke="#8cffaa" stroke-width="1" stroke-dasharray="2,3" fill="none" />
-          <circle cx="59" cy="51" r="32" stroke="#8cffaa" stroke-width="1" stroke-dasharray="3,3" fill="none" />
-          <circle cx="59" cy="51" r="46" stroke="#8cffaa" stroke-width="1" stroke-dasharray="4,4" fill="none" />
+          <circle cx="59" cy="51" r="18" stroke="#8cffaa" stroke-width="1.2" stroke-dasharray="2,3" fill="none" />
+          <circle cx="59" cy="51" r="32" stroke="#8cffaa" stroke-width="1.2" stroke-dasharray="3,3" fill="none" />
+          <circle cx="59" cy="51" r="46" stroke="#8cffaa" stroke-width="1.2" stroke-dasharray="4,4" fill="none" />
           <!-- Radial geodesics -->
-          <line x1="8" y1="8" x2="110" y2="94" stroke="rgba(0, 204, 0, 0.4)" stroke-width="1" />
-          <line x1="8" y1="94" x2="110" y2="8" stroke="rgba(0, 204, 0, 0.4)" stroke-width="1" />
+          <line x1="8" y1="8" x2="110" y2="94" stroke="rgba(0, 204, 0, 0.5)" stroke-width="1.2" />
+          <line x1="8" y1="94" x2="110" y2="8" stroke="rgba(0, 204, 0, 0.5)" stroke-width="1.2" />
         </svg>
 
-        <div class="grv-einstein-ring"></div>
-        <div class="grv-lens-mass"></div>
+        <div class="grv-einstein-ring-rot">
+          <div class="grv-einstein-ring"></div>
+          <div class="grv-cross-node n1"></div>
+          <div class="grv-cross-node n2"></div>
+          <div class="grv-cross-node n3"></div>
+          <div class="grv-cross-node n4"></div>
+        </div>
 
-        <div class="grv-cross-node n1"></div>
-        <div class="grv-cross-node n2"></div>
-        <div class="grv-cross-node n3"></div>
-        <div class="grv-cross-node n4"></div>
+        <div class="grv-lens-mass"></div>
 
         <div class="grv-geodesic-ray r1"></div>
         <div class="grv-geodesic-ray r2"></div>

@@ -35,25 +35,21 @@ const heliographStyles = `
     height: 72px;
   }
 
-  /* Morse Code Keyed Sunlight Flash Beam */
-  .hg-flash-beam {
-    fill: url(#hg-beam-grad);
-    animation: hg-morse-flash 1.6s steps(1, end) infinite;
+  /* Articulating Signaling Mirror gimbal tilt */
+  .hg-mirror-gimbal {
+    transform-origin: 22px 24px;
+    animation: hg-mirror-tilt 2.4s ease-in-out infinite alternate;
   }
 
-  @keyframes hg-morse-flash {
-    0% { opacity: 0; }
-    20% { opacity: 1; }   /* Dot */
-    30% { opacity: 0; }
-    50% { opacity: 1; }   /* Dash */
-    80% { opacity: 1; }
-    90% { opacity: 0; }
+  @keyframes hg-mirror-tilt {
+    0% { transform: rotate(-14deg); }
+    100% { transform: rotate(14deg); }
   }
 
   /* Specular Mirror Glint */
   .hg-mirror-glint {
     fill: #ffffff;
-    animation: hg-specular 1.6s ease-in-out infinite alternate;
+    animation: hg-specular 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes hg-specular {
@@ -61,19 +57,49 @@ const heliographStyles = `
     100% { filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 14px #ffab00); }
   }
 
-  /* Mechanical Shutter Blinder Vane oscillation */
-  .hg-shutter-vane {
-    animation: hg-shutter-toggle 1.6s steps(1, end) infinite;
-    transform-origin: 34px 24px;
+  /* Mechanical Telegraph Key click lever */
+  .hg-key-lever {
+    transform-origin: 32px 36px;
+    animation: hg-key-tap 0.8s ease-in-out infinite alternate;
   }
 
-  @keyframes hg-shutter-toggle {
-    0% { transform: scaleY(1); }
-    20% { transform: scaleY(0.2); }
-    30% { transform: scaleY(1); }
-    50% { transform: scaleY(0.2); }
-    80% { transform: scaleY(0.2); }
-    90% { transform: scaleY(1); }
+  @keyframes hg-key-tap {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(8deg); }
+  }
+
+  /* Expanding Morse Solar Flash Beam Cone */
+  .hg-flash-beam {
+    fill: url(#hg-beam-grad);
+    transform-origin: 38px 24px;
+    animation: hg-beam-pulse 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes hg-beam-pulse {
+    0% { transform: scaleX(0.4) scaleY(0.6); opacity: 0.4; }
+    100% { transform: scaleX(1.15) scaleY(1.1); opacity: 1; }
+  }
+
+  /* Traveling Morse solar photon packet */
+  .hg-signal-packet {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #ffd700;
+    z-index: 6;
+    animation: hg-signal-transmit 1.6s linear infinite;
+  }
+
+  .spk1 { animation-delay: 0s; }
+  .spk2 { animation-delay: 0.8s; }
+
+  @keyframes hg-signal-transmit {
+    0% { transform: translate(-6px, -12px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(38px, -12px) scale(1.3); opacity: 0; }
   }
 
   .hg-label {
@@ -97,6 +123,9 @@ class ConceptHeliographFlash extends HTMLElement {
       <style>${heliographStyles}</style>
       <div class="hg-box">
         <div class="hg-stage">
+          <div class="hg-signal-packet spk1"></div>
+          <div class="hg-signal-packet spk2"></div>
+
           <svg class="hg-svg" viewBox="0 0 76 72">
             <defs>
               <linearGradient id="hg-beam-grad" x1="0" y1="0" x2="1" y2="0">
@@ -107,37 +136,37 @@ class ConceptHeliographFlash extends HTMLElement {
             </defs>
 
             <!-- Surveyor Brass Tripod Stand -->
-            <path d="M 22 34 L 10 64 M 22 34 L 22 64 M 22 34 L 34 64" stroke="#8d6e63" stroke-width="1.4" stroke-linecap="round" />
-            <circle cx="22" cy="34" r="3" fill="#ffd54f" stroke="#ff8f00" stroke-width="0.8" />
+            <path d="M 22 34 L 10 64 M 22 34 L 22 64 M 22 34 L 34 64" stroke="#8d6e63" stroke-width="1.6" stroke-linecap="round" />
+            <circle cx="22" cy="34" r="3.5" fill="#ffd54f" stroke="#ff8f00" stroke-width="1" />
 
-            <!-- Circular Signaling Mirror (Left) -->
-            <circle cx="22" cy="24" r="10" fill="#cfd8dc" stroke="#ffd700" stroke-width="1.2" />
-            <circle class="hg-mirror-glint" cx="22" cy="24" r="7" />
-
-            <!-- Morse Signaling Key & Screen Shutter Box (Right of mirror) -->
-            <rect x="32" y="16" width="6" height="16" fill="#3e2723" stroke="#ffb74d" stroke-width="0.8" />
-            <!-- Shutter Blinder Louver Slats -->
-            <g class="hg-shutter-vane">
-              <line x1="33" y1="19" x2="37" y2="19" stroke="#ffd700" stroke-width="1.5" />
-              <line x1="33" y1="24" x2="37" y2="24" stroke="#ffd700" stroke-width="1.5" />
-              <line x1="33" y1="29" x2="37" y2="29" stroke="#ffd700" stroke-width="1.5" />
+            <!-- Circular Signaling Mirror (Left) with Active Articulating Tilt -->
+            <g class="hg-mirror-gimbal">
+              <circle cx="22" cy="24" r="10" fill="#cfd8dc" stroke="#ffd700" stroke-width="1.4" />
+              <circle class="hg-mirror-glint" cx="22" cy="24" r="7" />
             </g>
 
-            <!-- Morse Telegraph Sending Key Lever -->
-            <line x1="32" y1="36" x2="42" y2="36" stroke="#cfd8dc" stroke-width="1.2" />
-            <circle cx="42" cy="36" r="1.5" fill="#212121" />
+            <!-- Morse Signaling Key & Screen Shutter Box -->
+            <rect x="32" y="16" width="6" height="16" fill="#3e2723" stroke="#ffb74d" stroke-width="1" />
 
-            <!-- Expanding Solar Morse Flash Beam Cone (Shooting right across the miles) -->
+            <!-- Morse Telegraph Sending Key Lever with Dynamic Tapping -->
+            <g class="hg-key-lever">
+              <line x1="32" y1="36" x2="42" y2="36" stroke="#cfd8dc" stroke-width="1.6" />
+              <circle cx="42" cy="36" r="2" fill="#ffd700" />
+            </g>
+
+            <!-- Expanding Solar Morse Flash Beam Cone -->
             <polygon class="hg-flash-beam" points="38,24 72,8 72,40" />
 
             <!-- Distant Mountain Station Silhouette in Background -->
-            <path d="M 48 54 L 58 42 L 72 56 Z" fill="#1b1208" stroke="#3e2723" stroke-width="0.6" />
+            <path d="M 48 54 L 58 42 L 72 56 Z" fill="#1b1208" stroke="#3e2723" stroke-width="0.8" />
           </svg>
         </div>
-        <div class="hg-label">SOLAR HELIOGRAPH</div>
+        <div class="hg-label">SOLAR HELIOGRAPH 1869</div>
       </div>
     `;
   }
 }
 
-customElements.define('concept-heliograph-flash', ConceptHeliographFlash);
+if (!customElements.get('concept-heliograph-flash')) {
+  customElements.define('concept-heliograph-flash', ConceptHeliographFlash);
+}

@@ -35,35 +35,55 @@ const hauyCleavageStyles = `
     height: 72px;
   }
 
-  /* Stepped calcite scalenohedron dissolving into fundamental rhombohedron */
-  .hc-stepped-layers {
-    animation: hc-cleavage-cycle 5s ease-in-out infinite alternate;
+  /* Stepped outer calcite scalenohedron facets shearing apart along cleavage planes */
+  .hc-stepped-left {
+    transform-origin: 38px 36px;
+    animation: hc-cleave-left 3.2s ease-in-out infinite alternate;
   }
 
-  @keyframes hc-cleavage-cycle {
-    0% { opacity: 0.9; stroke-width: 0.7; }
-    50% { opacity: 0.3; stroke-width: 0.4; }
-    100% { opacity: 0.9; stroke-width: 0.7; }
+  .hc-stepped-right {
+    transform-origin: 38px 36px;
+    animation: hc-cleave-right 3.2s ease-in-out infinite alternate;
   }
 
-  /* Central core primitive rhombohedral unit cell pulsing */
-  .hc-primitive-rhomb {
-    animation: hc-unit-glow 2.5s ease-in-out infinite alternate;
+  @keyframes hc-cleave-left {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(-8px, -4px); opacity: 0.5; }
   }
 
-  @keyframes hc-unit-glow {
-    0% { fill: #c084fc; stroke: #f3e8ff; filter: drop-shadow(0 0 1px #a855f7); }
-    100% { fill: #e879f9; stroke: #ffffff; filter: drop-shadow(0 0 4px #d946ef); }
+  @keyframes hc-cleave-right {
+    0% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(8px, 4px); opacity: 0.5; }
   }
 
-  /* Cleavage fracture plane flash */
-  .hc-cleavage-line {
-    animation: hc-fracture-gleam 2s ease-in-out infinite alternate;
+  /* Central core primitive rhombohedral unit cell (Molécule Intégrante) */
+  .hc-primitive-rhomb-group {
+    transform-origin: 38px 36px;
+    animation: hc-unit-emerge 3.2s ease-in-out infinite alternate;
   }
 
-  @keyframes hc-fracture-gleam {
-    0% { stroke: #d8b4fe; opacity: 0.3; }
-    100% { stroke: #ffffff; opacity: 1; filter: drop-shadow(0 0 2px #c084fc); }
+  @keyframes hc-unit-emerge {
+    0% { transform: scale(0.75) rotate(-6deg); }
+    100% { transform: scale(1.35) rotate(6deg); filter: drop-shadow(0 0 8px #d946ef); }
+  }
+
+  /* Cleavage fracture spark */
+  .hc-cleave-spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #c084fc;
+    z-index: 6;
+    animation: hc-spark-slide 1.6s linear infinite;
+  }
+
+  @keyframes hc-spark-slide {
+    0% { transform: translate(-22px, -12px); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(22px, 12px); opacity: 0; }
   }
 
   .hc-label {
@@ -87,37 +107,41 @@ class ConceptHauyCleavage extends HTMLElement {
       <style>${hauyCleavageStyles}</style>
       <div class="hc-box">
         <div class="hc-stage">
+          <div class="hc-cleave-spark"></div>
+
           <svg class="hc-svg" viewBox="0 0 76 72">
             <!-- 1784 René-Just Haüy Calcite Cleavage & Integral Molecule Theory -->
-            <!-- Outer Stepped Scalenohedron Envelope ("Dogtooth Spar") -->
-            <g class="hc-stepped-layers" fill="none" stroke="#a855f7">
-              <!-- Tier 1 Top Peak -->
-              <polygon points="38,8 44,14 38,18 32,14" stroke-width="0.7" fill="#3b0764" fill-opacity="0.3" />
-              <!-- Tier 2 Stepped Layer -->
-              <polygon points="38,14 48,22 38,28 28,22" stroke-width="0.7" fill="#3b0764" fill-opacity="0.25" />
-              <!-- Tier 3 Stepped Layer -->
-              <polygon points="38,20 54,30 38,38 22,30" stroke-width="0.7" fill="#3b0764" fill-opacity="0.2" />
-              <!-- Tier 4 Stepped Layer -->
-              <polygon points="38,26 60,38 38,48 16,38" stroke-width="0.7" fill="#3b0764" fill-opacity="0.15" />
-              <!-- Lower Symmetrical Tiers -->
-              <polygon points="38,48 54,56 38,64 22,56" stroke-width="0.7" fill="#3b0764" fill-opacity="0.2" />
+            <!-- Outer Stepped Scalenohedron Envelope Layers with Cleaving Separation -->
+            <g class="hc-stepped-left" fill="#3b0764" fill-opacity="0.3" stroke="#c084fc" stroke-width="1">
+              <polygon points="38,8 32,14 38,18 38,8" />
+              <polygon points="38,14 28,22 38,28 38,14" />
+              <polygon points="38,20 22,30 38,38 38,20" />
+              <polygon points="38,26 16,38 38,48 38,26" />
+              <polygon points="38,48 22,56 38,64 38,48" />
             </g>
 
-            <!-- Decapitated Cleavage Planes & Decrescent Sub-blocks -->
-            <g class="hc-cleavage-line" fill="none" stroke-width="0.8">
-              <line x1="16" y1="38" x2="60" y2="38" stroke-dasharray="2 1.5" />
-              <line x1="22" y1="30" x2="54" y2="56" stroke-dasharray="2 1.5" />
-              <line x1="22" y1="56" x2="54" y2="30" stroke-dasharray="2 1.5" />
+            <g class="hc-stepped-right" fill="#3b0764" fill-opacity="0.3" stroke="#c084fc" stroke-width="1">
+              <polygon points="38,8 44,14 38,18 38,8" />
+              <polygon points="38,14 48,22 38,28 38,14" />
+              <polygon points="38,20 54,30 38,38 38,20" />
+              <polygon points="38,26 60,38 38,48 38,26" />
+              <polygon points="38,48 54,56 38,64 38,48" />
             </g>
 
-            <!-- Central Primitive Rhombohedron (Molécule Intégrante Core) -->
-            <g>
+            <!-- Decapitated Cleavage Planes -->
+            <g stroke="#ffffff" stroke-width="1.2" stroke-dasharray="3 2">
+              <line x1="16" y1="38" x2="60" y2="38" />
+              <line x1="22" y1="30" x2="54" y2="56" />
+            </g>
+
+            <!-- Central Primitive Rhombohedron (Molécule Intégrante Core) with Dynamic Emergence -->
+            <g class="hc-primitive-rhomb-group">
               <!-- Top Face -->
-              <polygon class="hc-primitive-rhomb" points="38,26 46,31 38,36 30,31" />
+              <polygon points="38,26 46,31 38,36 30,31" fill="#e879f9" stroke="#ffffff" stroke-width="1" />
               <!-- Left Face -->
-              <polygon points="30,31 38,36 38,47 30,42" fill="#9333ea" stroke="#d8b4fe" stroke-width="0.6" />
+              <polygon points="30,31 38,36 38,47 30,42" fill="#9333ea" stroke="#d8b4fe" stroke-width="1" />
               <!-- Right Face -->
-              <polygon points="38,36 46,31 46,42 38,47" fill="#7e22ce" stroke="#d8b4fe" stroke-width="0.6" />
+              <polygon points="38,36 46,31 46,42 38,47" fill="#7e22ce" stroke="#d8b4fe" stroke-width="1" />
             </g>
           </svg>
         </div>
@@ -127,4 +151,6 @@ class ConceptHauyCleavage extends HTMLElement {
   }
 }
 
-customElements.define('concept-hauy-cleavage', ConceptHauyCleavage);
+if (!customElements.get('concept-hauy-cleavage')) {
+  customElements.define('concept-hauy-cleavage', ConceptHauyCleavage);
+}

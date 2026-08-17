@@ -28,7 +28,7 @@ const glaucusStyles = `
     background: radial-gradient(ellipse at 50% 50%, rgba(0, 229, 255, 0.12), transparent 75%);
   }
 
-  /* Undulating Glaucus body rig */
+  /* Undulating Glaucus body rig with active swimming translation */
   .glc-body-rig {
     position: relative;
     width: 78px;
@@ -36,12 +36,13 @@ const glaucusStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: glc-undulate 3.5s ease-in-out infinite alternate;
+    animation: glc-undulate 3.2s ease-in-out infinite alternate;
   }
 
   @keyframes glc-undulate {
-    0% { transform: rotate(-4deg) translateY(-2px) scale(0.96); }
-    100% { transform: rotate(4deg) translateY(2px) scale(1.04); }
+    0% { transform: translate(-8px, -6px) rotate(-12deg); }
+    50% { transform: translate(2px, 3px) rotate(2deg); }
+    100% { transform: translate(8px, 6px) rotate(12deg); }
   }
 
   /* Central dorsal/ventral tapered body */
@@ -51,30 +52,31 @@ const glaucusStyles = `
     height: 52px;
     background: linear-gradient(180deg, #ffffff 0%, #00e5ff 30%, #0044cc 80%, #001144 100%);
     border-radius: 50% 50% 20% 20%;
-    box-shadow: 0 0 8px #00e5ff;
+    box-shadow: 0 0 10px #00e5ff;
     z-index: 5;
   }
 
-  /* Radiating cerata finger clusters (3 pairs) */
+  /* Radiating cerata finger clusters with flapping wing motion */
   .glc-cerata-svg {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
+    animation: glc-cerata-flap 2.2s ease-in-out infinite alternate;
+    transform-origin: center center;
+  }
+
+  @keyframes glc-cerata-flap {
+    0% { transform: scale(0.85) skewX(-10deg); }
+    100% { transform: scale(1.18) skewX(10deg); }
   }
 
   .glc-finger {
     fill: none;
     stroke: #00e5ff;
-    stroke-width: 1.6;
+    stroke-width: 1.8;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 3px #0088ff);
-  }
-
-  .glc-finger-tip {
-    fill: #ffffff;
-    stroke: #00e5ff;
-    stroke-width: 0.8;
+    filter: drop-shadow(0 0 4px #0088ff);
   }
 
   /* Head rhynchodaeum tentacles */

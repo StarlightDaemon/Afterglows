@@ -33,11 +33,11 @@ const glassHarmonicaStyles = `
   /* Mahogany & brass trough stand */
   .gh-trough {
     position: absolute;
-    bottom: 12px;
+    bottom: 10px;
     width: 88px;
     height: 14px;
     background: #102a3a;
-    border: 1px solid #4dd0e1;
+    border: 1.2px solid #4dd0e1;
     border-radius: 2px;
     box-shadow: inset 0 0 6px rgba(77, 208, 225, 0.3);
   }
@@ -47,52 +47,77 @@ const glassHarmonicaStyles = `
     position: absolute;
     top: 32px;
     width: 86px;
-    height: 2px;
+    height: 3px;
     background: #ffcc80;
-    box-shadow: 0 0 4px #ffb74d;
+    box-shadow: 0 0 6px #ffb74d;
+    z-index: 3;
   }
 
-  /* Nested graduated glass bowls */
+  /* Nested graduated spinning glass bowls */
   .gh-bowls {
     position: absolute;
-    top: 14px;
+    top: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 4px;
+    z-index: 4;
   }
 
   .gh-bowl {
-    border: 1.5px solid #e0f7fa;
+    border: 1.8px solid #e0f7fa;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(224, 247, 250, 0.25) 0%, rgba(77, 208, 225, 0.1) 70%);
-    box-shadow: 0 0 8px rgba(77, 208, 225, 0.5);
-    animation: gh-spin 2s linear infinite;
+    background: radial-gradient(circle, rgba(224, 247, 250, 0.35) 0%, rgba(77, 208, 225, 0.15) 70%);
+    box-shadow: 0 0 8px rgba(77, 208, 225, 0.6);
+    animation: gh-spin 1.8s linear infinite;
   }
 
   @keyframes gh-spin {
     0% { transform: rotate(0deg) scaleY(1); }
-    50% { transform: rotate(180deg) scaleY(0.95); }
+    50% { transform: rotate(180deg) scaleY(0.92); }
     100% { transform: rotate(360deg) scaleY(1); }
   }
 
-  .gh-b1 { width: 14px; height: 20px; }
-  .gh-b2 { width: 18px; height: 26px; }
-  .gh-b3 { width: 22px; height: 32px; }
-  .gh-b4 { width: 26px; height: 38px; }
+  .gh-b1 { width: 14px; height: 22px; }
+  .gh-b2 { width: 18px; height: 28px; }
+  .gh-b3 { width: 22px; height: 34px; }
+  .gh-b4 { width: 26px; height: 40px; }
 
-  /* Acoustic resonant tone rings radiating from rim */
+  /* Moist playing fingertip translating horizontally across bowls */
+  .gh-fingertip {
+    position: absolute;
+    top: 10px;
+    width: 6px;
+    height: 10px;
+    border-radius: 3px;
+    background: #ffe0b2;
+    border: 1px solid #ffb74d;
+    box-shadow: 0 0 6px #ffffff;
+    z-index: 6;
+    animation: gh-play-stroke 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes gh-play-stroke {
+    0% { transform: translate(-30px, 0); }
+    33% { transform: translate(-10px, 2px); }
+    66% { transform: translate(10px, 4px); }
+    100% { transform: translate(30px, 6px); }
+  }
+
+  /* Acoustic resonant tone rings radiating from touched rim */
   .gh-ripple {
     position: absolute;
-    top: 18px;
-    right: 22px;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    border: 1.5px solid #80deea;
-    animation: gh-ring-pulse 1.8s ease-out infinite;
+    border: 1.8px solid #80deea;
     pointer-events: none;
+    z-index: 5;
+    animation: gh-ring-pulse 1.8s cubic-bezier(0.1, 0.7, 0.3, 1) infinite;
   }
+
+  .r1 { top: 16px; left: 24px; animation-delay: 0s; }
+  .r2 { top: 18px; right: 24px; animation-delay: 0.9s; }
 
   @keyframes gh-ring-pulse {
     0% { transform: scale(0.3); opacity: 1; }
@@ -130,10 +155,12 @@ class ConceptGlassHarmonica extends HTMLElement {
             <div class="gh-bowl gh-b4"></div>
           </div>
 
-          <div class="gh-ripple"></div>
+          <div class="gh-fingertip"></div>
+          <div class="gh-ripple r1"></div>
+          <div class="gh-ripple r2"></div>
         </div>
 
-        <div class="gh-label">GLASS ARMONICA</div>
+        <div class="gh-label">GLASS ARMONICA 1761</div>
       </div>
     `;
   }
