@@ -31,15 +31,15 @@ const barchanStyles = `
   /* Wind saltation streamlines blowing from left to right */
   .dune-wind-stream {
     position: absolute;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(214, 255, 224, 0.8), transparent);
-    animation: dune-wind 1.8s linear infinite;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, rgba(214, 255, 224, 0.9), transparent);
+    animation: dune-wind 1.4s linear infinite;
   }
 
-  .dune-wind-stream.w1 { top: 18px; left: -60px; width: 80px; animation-delay: 0s; }
-  .dune-wind-stream.w2 { top: 32px; left: -80px; width: 100px; animation-delay: 0.5s; }
-  .dune-wind-stream.w3 { top: 46px; left: -50px; width: 70px; animation-delay: 0.9s; }
-  .dune-wind-stream.w4 { top: 60px; left: -70px; width: 90px; animation-delay: 1.3s; }
+  .dune-wind-stream.w1 { top: 16px; left: -60px; width: 80px; animation-delay: 0s; }
+  .dune-wind-stream.w2 { top: 28px; left: -80px; width: 100px; animation-delay: 0.35s; }
+  .dune-wind-stream.w3 { top: 40px; left: -50px; width: 70px; animation-delay: 0.7s; }
+  .dune-wind-stream.w4 { top: 52px; left: -70px; width: 90px; animation-delay: 1.05s; }
 
   @keyframes dune-wind {
     0% { transform: translateX(0); opacity: 0; }
@@ -47,35 +47,55 @@ const barchanStyles = `
     100% { transform: translateX(200px); opacity: 0; }
   }
 
-  /* Crescent Barchan Dune Body SVG */
+  /* Crescent Barchan Dune Body with slow forward creep migration */
   .dune-body-svg {
     position: absolute;
     bottom: 8px;
     width: 108px;
     height: 64px;
     filter: drop-shadow(0 0 4px rgba(0, 204, 0, 0.4));
+    animation: dune-creep 4s ease-in-out infinite alternate;
   }
 
-  /* Saltating sand grains tumbling down slip face */
-  .dune-grain {
+  @keyframes dune-creep {
+    0% { transform: translateX(-6px); }
+    100% { transform: translateX(6px); }
+  }
+
+  /* Ballistic saltating sand packets leaping up the windward face and down the slip face */
+  .dune-sand-cluster {
     position: absolute;
-    width: 2px;
-    height: 2px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 4px #8cffaa;
-    animation: dune-sand-fall 2.2s linear infinite;
+    box-shadow: 0 0 6px #8cffaa, 0 0 10px #00ff66;
+    z-index: 5;
   }
 
-  .dune-grain.g1 { left: 62px; top: 52px; animation-delay: 0.2s; }
-  .dune-grain.g2 { left: 68px; top: 56px; animation-delay: 0.7s; }
-  .dune-grain.g3 { left: 74px; top: 62px; animation-delay: 1.2s; }
-  .dune-grain.g4 { left: 58px; top: 68px; animation-delay: 1.6s; }
+  .sc1 { animation: dune-saltate-1 1.8s ease-in-out infinite; }
+  .sc2 { animation: dune-saltate-2 1.8s ease-in-out infinite; animation-delay: 0.6s; }
+  .sc3 { animation: dune-saltate-3 1.8s ease-in-out infinite; animation-delay: 1.2s; }
 
-  @keyframes dune-sand-fall {
-    0% { transform: translate(0, 0); opacity: 0; }
-    20% { opacity: 1; }
-    100% { transform: translate(14px, 16px); opacity: 0; }
+  @keyframes dune-saltate-1 {
+    0% { transform: translate(16px, 72px) scale(0.6); opacity: 0; }
+    30% { opacity: 1; transform: translate(44px, 50px) scale(1.2); }
+    60% { opacity: 1; transform: translate(68px, 42px) scale(1); }
+    100% { transform: translate(92px, 68px) scale(0.5); opacity: 0; }
+  }
+
+  @keyframes dune-saltate-2 {
+    0% { transform: translate(22px, 76px) scale(0.6); opacity: 0; }
+    30% { opacity: 1; transform: translate(50px, 48px) scale(1.1); }
+    60% { opacity: 1; transform: translate(72px, 44px) scale(1); }
+    100% { transform: translate(96px, 72px) scale(0.5); opacity: 0; }
+  }
+
+  @keyframes dune-saltate-3 {
+    0% { transform: translate(28px, 74px) scale(0.5); opacity: 0; }
+    30% { opacity: 1; transform: translate(54px, 46px) scale(1.3); }
+    60% { opacity: 1; transform: translate(76px, 46px) scale(1); }
+    100% { transform: translate(100px, 70px) scale(0.5); opacity: 0; }
   }
 
   /* Compass / wind direction indicator */
@@ -85,7 +105,7 @@ const barchanStyles = `
     left: 8px;
     font-family: monospace;
     font-size: 7.5px;
-    color: rgba(140, 255, 170, 0.7);
+    color: rgba(140, 255, 170, 0.85);
     letter-spacing: 0.5px;
   }
 `;
@@ -101,7 +121,7 @@ class ConceptBarchanDune extends HTMLElement {
       <style>${barchanStyles}</style>
       <div class="dune">
         <div class="dune-sky"></div>
-        <div class="dune-wind-indicator">WIND ➔➔</div>
+        <div class="dune-wind-indicator">WIND SALTATION ➔➔</div>
 
         <div class="dune-wind-stream w1"></div>
         <div class="dune-wind-stream w2"></div>
@@ -124,10 +144,9 @@ class ConceptBarchanDune extends HTMLElement {
           <path d="M 60 22 C 76 35 90 46 102 56" stroke="#ffffff" stroke-width="1.2" stroke-dasharray="1.5,2" fill="none" />
         </svg>
 
-        <div class="dune-grain g1"></div>
-        <div class="dune-grain g2"></div>
-        <div class="dune-grain g3"></div>
-        <div class="dune-grain g4"></div>
+        <div class="dune-sand-cluster sc1"></div>
+        <div class="dune-sand-cluster sc2"></div>
+        <div class="dune-sand-cluster sc3"></div>
       </div>
     `;
   }

@@ -37,33 +37,52 @@ const bunsenSpectroscopeStyles = `
 
   /* Bunsen burner flame excitation glow */
   .bs-flame-glow {
-    animation: bs-flame-flicker 1.4s ease-in-out infinite alternate;
+    animation: bs-flame-flicker 0.6s ease-in-out infinite alternate;
   }
 
   @keyframes bs-flame-flicker {
-    0% { transform: scale(0.92); fill: #3b82f6; opacity: 0.7; }
-    50% { fill: #eab308; opacity: 0.9; }
-    100% { transform: scale(1.08); fill: #f97316; opacity: 1; filter: drop-shadow(0 0 3px #ea580c); }
+    0% { transform: translateY(0) scaleY(0.9) scaleX(0.9); fill: #3b82f6; }
+    100% { transform: translateY(-3px) scaleY(1.2) scaleX(1.1); fill: #f97316; filter: drop-shadow(0 0 5px #ea580c); }
   }
 
-  /* Flint glass prism refraction rays */
-  .bs-refracted-ray {
-    animation: bs-ray-pulse 2.2s ease-in-out infinite alternate;
+  /* Slewing observing telescope arm scanning across the refracted spectrum fan */
+  .bs-telescope-arm {
+    transform-origin: 38px 36px;
+    animation: bs-tele-sweep 3s ease-in-out infinite alternate;
   }
 
-  @keyframes bs-ray-pulse {
-    0% { stroke: #fbbf24; opacity: 0.5; }
-    100% { stroke: #ffffff; opacity: 1; filter: drop-shadow(0 0 2px #f59e0b); }
+  @keyframes bs-tele-sweep {
+    0% { transform: rotate(-14deg); }
+    100% { transform: rotate(14deg); }
   }
 
-  /* Millimeter scale tube projection reflection */
-  .bs-scale-beam {
-    animation: bs-scale-gleam 3s ease-in-out infinite alternate;
+  /* Traveling spectral photon packets */
+  .bs-photon {
+    fill: #ffd600;
+    box-shadow: 0 0 4px #ffd600;
   }
 
-  @keyframes bs-scale-gleam {
-    0% { opacity: 0.3; stroke: #38bdf8; }
-    100% { opacity: 0.8; stroke: #bae6fd; }
+  .p-in {
+    animation: bs-photon-in 2s linear infinite;
+  }
+
+  .p-out {
+    animation: bs-photon-out 2s linear infinite;
+    animation-delay: 0.8s;
+  }
+
+  @keyframes bs-photon-in {
+    0% { transform: translate(10px, 49px); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(36px, 37px); opacity: 0; }
+  }
+
+  @keyframes bs-photon-out {
+    0% { transform: translate(40px, 37px); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(64px, 49px); opacity: 0; }
   }
 
   .bs-label {
@@ -88,36 +107,41 @@ class ConceptBunsenSpectroscope extends HTMLElement {
       <div class="bs-box">
         <div class="bs-stage">
           <svg class="bs-svg" viewBox="0 0 76 72">
-            <!-- 1859 Robert Bunsen & Gustav Kirchhoff Prism Spectroscope -->
             <!-- Central Heavy Cast Iron Pillar Stand -->
             <polygon points="34,66 42,66 39,52 37,52" fill="#292524" stroke="#78716c" stroke-width="0.8" />
             <rect x="28" y="66" width="20" height="3" rx="1" fill="#1c1917" stroke="#b45309" stroke-width="0.8" />
 
             <!-- Central Round Prism Table & Flint Glass Equilateral Prism -->
             <circle cx="38" cy="36" r="12" fill="#1c1917" stroke="#b45309" stroke-width="0.8" />
-            <polygon points="38,28 47,43 29,43" fill="#0284c7" fill-opacity="0.4" stroke="#67e8f9" stroke-width="1.1" />
+            <polygon points="38,28 47,43 29,43" fill="#0284c7" fill-opacity="0.4" stroke="#67e8f9" stroke-width="1.2" />
 
             <!-- Tube 1: Collimator Tube with Adjustable Slit (Left, 225° direction) -->
-            <line x1="12" y1="48" x2="31" y2="39" stroke="#b45309" stroke-width="3" stroke-linecap="round" />
-            <rect x="8" y="48" width="5" height="5" rx="1" fill="#78350f" stroke="#fbbf24" stroke-width="0.5" />
+            <line x1="12" y1="48" x2="31" y2="39" stroke="#b45309" stroke-width="3.2" stroke-linecap="round" />
+            <rect x="8" y="48" width="5" height="5" rx="1" fill="#78350f" stroke="#fbbf24" stroke-width="0.8" />
 
             <!-- Bunsen Burner Flame with Salt Sample Platinum Wire Bead -->
             <path class="bs-flame-glow" d="M 6 58 Q 2 50 6 44 Q 10 50 6 58 Z" />
-            <line x1="10" y1="50" x2="6" y2="48" stroke="#cbd5e1" stroke-width="0.5" />
+            <line x1="10" y1="50" x2="6" y2="48" stroke="#cbd5e1" stroke-width="0.8" />
 
-            <!-- Tube 2: Observing Telescope with Eyepiece (Right, 315° direction) -->
-            <line x1="45" y1="39" x2="64" y2="48" stroke="#b45309" stroke-width="3" stroke-linecap="round" />
-            <circle cx="65" cy="49" r="2.5" fill="#451a03" stroke="#f59e0b" stroke-width="0.6" />
-
-            <!-- Tube 3: Scale Tube Projecting Engraved Millimeter Grid (Top) -->
+            <!-- Tube 3: Scale Tube (Top) -->
             <line x1="38" y1="12" x2="38" y2="26" stroke="#b45309" stroke-width="2.5" stroke-linecap="round" />
             <circle cx="38" cy="10" r="3" fill="#451a03" stroke="#f59e0b" stroke-width="0.6" />
 
             <!-- Dispersed Spectrum Light Ray Path -->
-            <line x1="12" y1="48" x2="34" y2="37" stroke="#fbbf24" stroke-width="0.8" stroke-dasharray="2 1.5" />
-            <line class="bs-refracted-ray" x1="42" y1="37" x2="64" y2="48" stroke-width="1" />
-            <!-- Scale Projection Beam -->
-            <line class="bs-scale-beam" x1="38" y1="14" x2="42" y2="37" stroke-width="0.6" stroke-dasharray="1.5 1.5" />
+            <line x1="12" y1="48" x2="34" y2="37" stroke="#fbbf24" stroke-width="1" stroke-dasharray="2 1.5" />
+
+            <!-- Slewing Observing Telescope Arm & Eyepiece (Right) -->
+            <g class="bs-telescope-arm">
+              <line x1="38" y1="36" x2="64" y2="48" stroke="#b45309" stroke-width="3.2" stroke-linecap="round" />
+              <line x1="38" y1="36" x2="64" y2="48" stroke="#f59e0b" stroke-width="1" />
+              <circle cx="64" cy="48" r="3" fill="#451a03" stroke="#f59e0b" stroke-width="0.8" />
+              <!-- Eyepiece spectral focus spot -->
+              <circle cx="64" cy="48" r="1.5" fill="#ffffff" />
+            </g>
+
+            <!-- Traveling Photons -->
+            <circle class="bs-photon p-in" cx="0" cy="0" r="1.8" />
+            <circle class="bs-photon p-out" cx="0" cy="0" r="1.8" />
           </svg>
         </div>
         <div class="bs-label">BUNSEN-KIRCHHOFF</div>

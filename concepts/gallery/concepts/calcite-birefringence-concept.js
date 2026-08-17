@@ -41,12 +41,12 @@ const calciteStyles = `
     position: relative;
     width: 58px;
     height: 48px;
-    animation: cct-crystal-turn 6s ease-in-out infinite alternate;
+    animation: cct-crystal-turn 3.6s linear infinite;
   }
 
   @keyframes cct-crystal-turn {
-    0% { transform: rotate(-10deg); }
-    100% { transform: rotate(20deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Rhombohedral crystal facets SVG */
@@ -58,13 +58,13 @@ const calciteStyles = `
     filter: drop-shadow(0 0 4px #8cffaa);
   }
 
-  /* Double refracted ordinary (O-ray) and extraordinary (E-ray) text */
+  /* Stationary ordinary (O-ray) image */
   .cct-ray-o {
     position: absolute;
-    top: 14px;
+    top: 18px;
     left: 8px;
     font-family: monospace;
-    font-size: 8px;
+    font-size: 8.5px;
     font-weight: bold;
     color: #ffffff;
     letter-spacing: 1px;
@@ -72,23 +72,24 @@ const calciteStyles = `
     z-index: 5;
   }
 
+  /* Extraordinary (E-ray) image rotating around the ordinary ray */
   .cct-ray-e {
     position: absolute;
-    top: 24px;
-    left: 14px;
+    top: 18px;
+    left: 8px;
     font-family: monospace;
-    font-size: 8px;
+    font-size: 8.5px;
     font-weight: bold;
     color: #8cffaa;
     letter-spacing: 1px;
     text-shadow: 0 0 6px #8cffaa;
     z-index: 5;
-    animation: cct-e-ray-shift 6s ease-in-out infinite alternate;
+    animation: cct-e-ray-orbit 3.6s linear infinite;
   }
 
-  @keyframes cct-e-ray-shift {
-    0% { transform: translate(-2px, -3px); }
-    100% { transform: translate(4px, 4px); }
+  @keyframes cct-e-ray-orbit {
+    0% { transform: rotate(0deg) translateX(11px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(11px) rotate(-360deg); }
   }
 
   /* Optical cleavage gleam line */

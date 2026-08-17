@@ -24,7 +24,7 @@ const cartesianStyles = `
   /* Glass water column cylinder tube */
   .ctd-tube {
     position: relative;
-    width: 44px;
+    width: 46px;
     height: 86px;
     border: 1.5px solid #d6ffe0;
     border-radius: 12px 12px 6px 6px;
@@ -36,49 +36,43 @@ const cartesianStyles = `
     justify-content: center;
   }
 
-  /* Flexible rubber diaphragm bulb at top */
+  /* Flexible rubber diaphragm bulb squeezing at top */
   .ctd-bulb {
     position: absolute;
     top: 2px;
-    width: 28px;
+    width: 30px;
     height: 10px;
     background: #008818;
     border: 1.5px solid #ffffff;
     border-radius: 5px;
     box-shadow: 0 0 6px #8cffaa;
-    animation: ctd-squeeze 4s ease-in-out infinite;
+    animation: ctd-squeeze 2.2s ease-in-out infinite alternate;
   }
 
   @keyframes ctd-squeeze {
-    0%, 30% { transform: scaleY(1); }
-    40%, 75% { transform: scaleY(0.7); } /* Squeeze pressure pulse */
-    85%, 100% { transform: scaleY(1); }
+    0% { transform: scaleY(1); }
+    100% { transform: scaleY(0.65) scaleX(1.1); }
   }
 
   /* Sinking & Rising Glass Cartesian Diver figurine */
   .ctd-diver-rig {
     position: absolute;
+    top: 14px;
     width: 22px;
     height: 32px;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 5;
-    animation: ctd-diver-dive 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: ctd-diver-dive 2.2s ease-in-out infinite alternate;
   }
 
   @keyframes ctd-diver-dive {
-    0%, 30% {
-      top: 14px;
-      transform: rotate(0deg);
+    0% {
+      transform: translateY(0) rotate(0deg);
     }
-    45%, 70% {
-      top: 50px; /* Sinks under pressure! */
-      transform: rotate(360deg); /* Corkscrew spiral tail */
-    }
-    85%, 100% {
-      top: 14px; /* Floats back to surface */
-      transform: rotate(720deg);
+    100% {
+      transform: translateY(38px) rotate(360deg);
     }
   }
 
@@ -102,13 +96,12 @@ const cartesianStyles = `
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 6px #ffffff;
-    animation: ctd-bubble-compress 4s ease-in-out infinite;
+    animation: ctd-bubble-compress 2.2s ease-in-out infinite alternate;
   }
 
   @keyframes ctd-bubble-compress {
-    0%, 30% { transform: scale(1); }
-    45%, 70% { transform: scale(0.45); } /* Bubble shrinks under pressure */
-    85%, 100% { transform: scale(1); }
+    0% { transform: scale(1); }
+    100% { transform: scale(0.4); }
   }
 
   /* Diver curly tail nozzle */
@@ -119,19 +112,18 @@ const cartesianStyles = `
     border-radius: 0 0 2px 2px;
   }
 
-  /* Hydrostatic pressure waves in column */
-  .ctd-press-wave {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.4), transparent 60%);
-    opacity: 0;
-    animation: ctd-wave-pulse 4s ease-in-out infinite;
+  /* Water droplet expelled from tail during pressure change */
+  .ctd-tail-jet {
+    width: 2px;
+    height: 6px;
+    background: #ffffff;
+    box-shadow: 0 0 4px #00ff66;
+    animation: ctd-jet-pulse 2.2s ease-in-out infinite alternate;
   }
 
-  @keyframes ctd-wave-pulse {
-    0%, 35% { opacity: 0; }
-    40%, 75% { opacity: 0.8; }
-    85%, 100% { opacity: 0; }
+  @keyframes ctd-jet-pulse {
+    0% { transform: scaleY(0.4); opacity: 0.2; }
+    100% { transform: scaleY(1.4); opacity: 1; }
   }
 
   /* Caption */
@@ -157,7 +149,6 @@ class ConceptCartesianDiver extends HTMLElement {
       <style>${cartesianStyles}</style>
       <div class="ctd">
         <div class="ctd-tube">
-          <div class="ctd-press-wave"></div>
           <div class="ctd-bulb"></div>
 
           <div class="ctd-diver-rig">
@@ -165,6 +156,7 @@ class ConceptCartesianDiver extends HTMLElement {
               <div class="ctd-air-bubble"></div>
             </div>
             <div class="ctd-diver-tail"></div>
+            <div class="ctd-tail-jet"></div>
           </div>
         </div>
 

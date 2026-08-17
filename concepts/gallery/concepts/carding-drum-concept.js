@@ -38,16 +38,17 @@ const cardingDrumStyles = `
     height: 52px;
     border-radius: 50%;
     background: radial-gradient(circle, #3d2612 0%, #1a1005 70%);
-    border: 1.5px dashed #ffb04a;
+    border: 1.5px solid #ffb04a;
     box-shadow: 0 0 6px rgba(255, 176, 74, 0.3);
-    animation: cd-spin-main 4s linear infinite;
+    animation: cd-spin-main 2.4s linear infinite;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   @keyframes cd-spin-main {
-    to { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Smaller Licker-in / Doffer Drum */
@@ -58,45 +59,56 @@ const cardingDrumStyles = `
     height: 28px;
     border-radius: 50%;
     background: radial-gradient(circle, #4a3018 0%, #201306 70%);
-    border: 1.5px dashed #ffd494;
+    border: 1.5px solid #ffd494;
     box-shadow: 0 0 5px rgba(255, 212, 148, 0.3);
-    animation: cd-spin-doffer 2s linear infinite reverse;
+    animation: cd-spin-doffer 1.2s linear infinite reverse;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   @keyframes cd-spin-doffer {
-    to { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
-  /* Brass center pins */
+  /* Carding spoke teeth & crank peg */
+  .cd-spoke {
+    position: absolute;
+    width: 2px;
+    background: #ffd494;
+  }
+
+  .cd-main-spoke { height: 48px; }
+  .cd-doffer-spoke { height: 24px; }
+
   .cd-pin {
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background: #ffecb3;
     border: 1px solid #ff9900;
+    z-index: 5;
   }
 
-  /* Wool fiber web streaming between drums */
-  .cd-fiber-stream {
+  /* Wool fleece tufts traveling between drums */
+  .cd-wool-tuft {
     position: absolute;
-    top: 24px;
-    left: 42px;
-    width: 22px;
-    height: 26px;
-    pointer-events: none;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #fff8e7;
+    z-index: 6;
   }
 
-  .cd-fiber-line {
-    stroke: #fff8e7;
-    stroke-dasharray: 4 3;
-    animation: cd-fibers 1s linear infinite;
-  }
+  .w1 { width: 5px; height: 5px; animation: cd-wool-flow 1.6s linear infinite; }
+  .w2 { width: 6px; height: 4px; animation: cd-wool-flow 1.6s linear infinite; animation-delay: 0.55s; }
+  .w3 { width: 4px; height: 5px; animation: cd-wool-flow 1.6s linear infinite; animation-delay: 1.1s; }
 
-  @keyframes cd-fibers {
-    to { stroke-dashoffset: -7; }
+  @keyframes cd-wool-flow {
+    0% { transform: translate(12px, 32px) scale(0.6); opacity: 0; }
+    25% { opacity: 1; transform: translate(32px, 26px) scale(1.1); }
+    75% { opacity: 1; transform: translate(56px, 28px) scale(0.9); }
+    100% { transform: translate(78px, 34px) scale(0.5); opacity: 0; }
   }
 
   .cd-label {
@@ -121,18 +133,23 @@ class ConceptCardingDrum extends HTMLElement {
       <div class="cd-box">
         <div class="cd-stage">
           <div class="cd-main-drum">
+            <div class="cd-spoke cd-main-spoke" style="transform: rotate(0deg);"></div>
+            <div class="cd-spoke cd-main-spoke" style="transform: rotate(45deg);"></div>
+            <div class="cd-spoke cd-main-spoke" style="transform: rotate(90deg);"></div>
+            <div class="cd-spoke cd-main-spoke" style="transform: rotate(135deg);"></div>
             <div class="cd-pin"></div>
           </div>
 
           <div class="cd-doffer-drum">
+            <div class="cd-spoke cd-doffer-spoke" style="transform: rotate(0deg);"></div>
+            <div class="cd-spoke cd-doffer-spoke" style="transform: rotate(60deg);"></div>
+            <div class="cd-spoke cd-doffer-spoke" style="transform: rotate(120deg);"></div>
             <div class="cd-pin"></div>
           </div>
 
-          <svg class="cd-fiber-stream" viewBox="0 0 22 26">
-            <path class="cd-fiber-line" d="M 0 4 Q 11 8 22 12" fill="none" stroke-width="1.2" />
-            <path class="cd-fiber-line" d="M 0 12 Q 11 15 22 18" fill="none" stroke-width="1.2" style="animation-delay: -0.3s;" />
-            <path class="cd-fiber-line" d="M 0 20 Q 11 22 22 24" fill="none" stroke-width="1.2" style="animation-delay: -0.6s;" />
-          </svg>
+          <div class="cd-wool-tuft w1"></div>
+          <div class="cd-wool-tuft w2"></div>
+          <div class="cd-wool-tuft w3"></div>
         </div>
 
         <div class="cd-label">TEXTILE DRUM CARDER</div>

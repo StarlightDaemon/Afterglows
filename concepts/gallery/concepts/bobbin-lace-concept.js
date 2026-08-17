@@ -38,18 +38,18 @@ const bobbinStyles = `
   /* Brass pricking pins stuck in pillow */
   .bob-pin {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 3.5px;
+    height: 3.5px;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 4px #8cffaa;
   }
 
-  .p-c { top: 22px; left: 42px; }
-  .p-l1 { top: 28px; left: 28px; }
-  .p-r1 { top: 28px; right: 28px; }
-  .p-l2 { top: 40px; left: 34px; }
-  .p-r2 { top: 40px; right: 34px; }
+  .p-c { top: 18px; left: 41px; }
+  .p-l1 { top: 26px; left: 24px; }
+  .p-r1 { top: 26px; right: 24px; }
+  .p-l2 { top: 38px; left: 32px; }
+  .p-r2 { top: 38px; right: 32px; }
 
   /* Intricate lace thread network SVG */
   .bob-threads-svg {
@@ -70,15 +70,34 @@ const bobbinStyles = `
   .bob-braid {
     fill: none;
     stroke: #8cffaa;
-    stroke-width: 1;
-    stroke-dasharray: 2 2;
+    stroke-width: 1.2;
   }
 
-  /* Swinging pairs of wooden bobbins hanging down */
+  /* Traversing working weaver lace knot traveling horizontally across pillow */
+  .bob-weaver-knot {
+    position: absolute;
+    top: 32px;
+    left: 41px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #8cffaa, 0 0 14px #00ff44;
+    z-index: 6;
+    animation: bob-knot-travel 2.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes bob-knot-travel {
+    0% { transform: translate(-22px, -8px); }
+    50% { transform: translate(0, 6px); }
+    100% { transform: translate(22px, -8px); }
+  }
+
+  /* Active cross-and-twist bobbin rows */
   .bob-bobbin-row {
     position: absolute;
-    bottom: 12px;
-    width: 76px;
+    bottom: 8px;
+    width: 80px;
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
@@ -86,26 +105,30 @@ const bobbinStyles = `
 
   .bob-pair {
     display: flex;
-    gap: 3px;
-    animation: bob-swing 2s ease-in-out infinite alternate;
+    gap: 4px;
   }
 
-  .pair-1 { animation-delay: 0s; }
-  .pair-2 { animation-delay: 0.5s; }
-  .pair-3 { animation-delay: 1s; }
+  .pair-1 { animation: bob-cross-1 1.8s ease-in-out infinite alternate; }
+  .pair-2 { animation: bob-cross-2 1.8s ease-in-out infinite alternate; animation-delay: 0.45s; }
+  .pair-3 { animation: bob-cross-1 1.8s ease-in-out infinite alternate; animation-delay: 0.9s; }
 
-  @keyframes bob-swing {
-    0% { transform: rotate(-15deg); }
-    100% { transform: rotate(15deg); }
+  @keyframes bob-cross-1 {
+    0% { transform: rotate(-24deg) translateX(-4px); }
+    100% { transform: rotate(24deg) translateX(4px); }
+  }
+
+  @keyframes bob-cross-2 {
+    0% { transform: rotate(24deg) translateX(4px); }
+    100% { transform: rotate(-24deg) translateX(-4px); }
   }
 
   .bob-spindle {
-    width: 3.5px;
-    height: 16px;
+    width: 4px;
+    height: 18px;
     background: linear-gradient(180deg, #d6ffe0 0%, #1b4724 40%, #031407 100%);
-    border: 0.8px solid #8cffaa;
-    border-radius: 1px 1px 2px 2px;
-    box-shadow: 0 0 3px rgba(140, 255, 170, 0.4);
+    border: 1px solid #8cffaa;
+    border-radius: 2px 2px 3px 3px;
+    box-shadow: 0 0 4px rgba(140, 255, 170, 0.5);
   }
 
   .bob-label {
@@ -135,10 +158,10 @@ class ConceptBobbinLace extends HTMLElement {
             <!-- Cross and twist braids radiating down to bobbins -->
             <path class="bob-thread" d="M 43 14 L 43 50" />
             <path class="bob-thread" d="M 24 32 L 62 32" />
-            <path class="bob-braid" d="M 24 32 L 20 66" />
-            <path class="bob-braid" d="M 34 44 L 38 66" />
-            <path class="bob-braid" d="M 52 44 L 48 66" />
-            <path class="bob-braid" d="M 62 32 L 66 66" />
+            <path class="bob-braid" d="M 24 32 L 20 62" />
+            <path class="bob-braid" d="M 34 44 L 38 62" />
+            <path class="bob-braid" d="M 52 44 L 48 62" />
+            <path class="bob-braid" d="M 62 32 L 66 62" />
           </svg>
 
           <div class="bob-pin p-c"></div>
@@ -146,6 +169,8 @@ class ConceptBobbinLace extends HTMLElement {
           <div class="bob-pin p-r1"></div>
           <div class="bob-pin p-l2"></div>
           <div class="bob-pin p-r2"></div>
+
+          <div class="bob-weaver-knot"></div>
 
           <div class="bob-bobbin-row">
             <div class="bob-pair pair-1">

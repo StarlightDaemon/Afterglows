@@ -35,41 +35,50 @@ const blinkComparatorStyles = `
     height: 72px;
   }
 
-  /* Rapid mechanical shutter alternating between photographic sky plate A and B */
+  /* Rapid mechanical prism shutter paddle oscillating between photographic sky plates */
   .bc-shutter-paddle {
     transform-origin: 38px 24px;
-    animation: bc-toggle-shutter 1.2s steps(1) infinite alternate;
+    animation: bc-oscillate-shutter 0.8s ease-in-out infinite alternate;
   }
 
-  @keyframes bc-toggle-shutter {
-    0% { transform: rotate(-25deg); }
-    100% { transform: rotate(25deg); }
+  @keyframes bc-oscillate-shutter {
+    0% { transform: rotate(-35deg); }
+    100% { transform: rotate(35deg); }
   }
 
-  /* Moving celestial body (Pluto / Asteroid) jumping position between alternating blinks */
+  /* Moving celestial body (Pluto / Asteroid) jumping position across eyepiece */
   .bc-jumping-planet {
-    animation: bc-jump-position 1.2s steps(1) infinite alternate;
+    animation: bc-jump-position 0.8s ease-in-out infinite alternate;
   }
 
   @keyframes bc-jump-position {
-    0% { transform: translate(-5px, -3px); fill: #ffeb3b; }
-    100% { transform: translate(5px, 3px); fill: #00e5ff; }
+    0% { transform: translate(-8px, -4px); }
+    100% { transform: translate(8px, 4px); }
+  }
+
+  /* Alternating illumination beams lighting plate A and plate B */
+  .bc-plate-a {
+    animation: bc-flash-a 0.8s ease-in-out infinite alternate;
+  }
+
+  .bc-plate-b {
+    animation: bc-flash-b 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bc-flash-a {
+    0% { fill: rgba(0, 229, 255, 0.25); stroke: #00e5ff; }
+    100% { fill: #090e18; stroke: #37474f; }
+  }
+
+  @keyframes bc-flash-b {
+    0% { fill: #090e18; stroke: #37474f; }
+    100% { fill: rgba(255, 215, 0, 0.25); stroke: #ffd700; }
   }
 
   /* Fixed background stars remaining stationary during blink */
   .bc-fixed-stars circle {
     fill: #ffffff;
     opacity: 0.85;
-  }
-
-  /* Glass photographic plate boundary gleam */
-  .bc-plate-border {
-    animation: bc-plate-glow 2s ease-in-out infinite alternate;
-  }
-
-  @keyframes bc-plate-glow {
-    0% { stroke: #78909c; }
-    100% { stroke: #b0bec5; filter: drop-shadow(0 0 2px #00e5ff); }
   }
 
   .bc-label {
@@ -94,27 +103,27 @@ class ConceptBlinkComparator extends HTMLElement {
       <div class="bc-box">
         <div class="bc-stage">
           <svg class="bc-svg" viewBox="0 0 76 72">
-            <!-- Zeiss-Pulfrich Stereoscopic Blink Comparator Mechanism (Lowell Observatory Pluto Discovery) -->
+            <!-- Zeiss-Pulfrich Stereoscopic Blink Comparator Mechanism -->
             <!-- Left Glass Photographic Sky Plate A (January 23, 1930) -->
-            <rect class="bc-plate-border" x="8" y="10" width="26" height="24" rx="1" fill="#090e18" stroke-width="0.8" />
+            <rect class="bc-plate-a" x="8" y="10" width="26" height="24" rx="1" stroke-width="1.2" />
             <text x="12" y="16" font-family="monospace" font-size="3" fill="#90caf9">PLATE A</text>
 
             <!-- Right Glass Photographic Sky Plate B (January 29, 1930) -->
-            <rect class="bc-plate-border" x="42" y="10" width="26" height="24" rx="1" fill="#090e18" stroke-width="0.8" />
-            <text x="46" y="16" font-family="monospace" font-size="3" fill="#90caf9">PLATE B</text>
+            <rect class="bc-plate-b" x="42" y="10" width="26" height="24" rx="1" stroke-width="1.2" />
+            <text x="46" y="16" font-family="monospace" font-size="3" fill="#ffd700">PLATE B</text>
 
             <!-- Rapid Alternating Prism Shutter Lever (Center) -->
             <g class="bc-shutter-paddle">
-              <circle cx="38" cy="24" r="2" fill="#ffd700" />
-              <line x1="38" y1="24" x2="38" y2="12" stroke="#ffb300" stroke-width="1.6" />
-              <polygon points="36,12 40,12 38,8" fill="#ff5252" />
+              <circle cx="38" cy="24" r="2.5" fill="#ffd700" />
+              <line x1="38" y1="24" x2="38" y2="10" stroke="#ffb300" stroke-width="2" />
+              <polygon points="35,10 41,10 38,5" fill="#ff5252" />
             </g>
 
             <!-- Central Binocular Eyepiece Field of View (Bottom) -->
             <circle cx="38" cy="48" r="16" fill="#04070d" stroke="#00e5ff" stroke-width="1.2" />
             <circle cx="38" cy="48" r="14.5" fill="none" stroke="#37474f" stroke-width="0.5" stroke-dasharray="1 1" />
 
-            <!-- Stationary Background Fixed Reference Stars (Identical on both plates) -->
+            <!-- Stationary Background Fixed Reference Stars -->
             <g class="bc-fixed-stars">
               <circle cx="28" cy="44" r="1" />
               <circle cx="48" cy="44" r="1" />
@@ -123,10 +132,10 @@ class ConceptBlinkComparator extends HTMLElement {
               <circle cx="38" cy="40" r="1.2" />
             </g>
 
-            <!-- The Jumping Moving Body: Clyde Tombaugh's Planet Pluto Jumping Position on Blink -->
+            <!-- The Jumping Moving Body: Planet Pluto with Target Cursor -->
             <g class="bc-jumping-planet">
-              <circle cx="38" cy="48" r="1.8" filter="drop-shadow(0 0 3px #00e5ff)" />
-              <circle cx="38" cy="48" r="3.2" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-dasharray="1 1" />
+              <circle cx="38" cy="48" r="2.2" fill="#ffd600" filter="drop-shadow(0 0 4px #00e5ff)" />
+              <circle cx="38" cy="48" r="4.5" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-dasharray="2 1" />
             </g>
 
             <!-- Clyde Tombaugh 1930 Pluto Discovery Annotation -->

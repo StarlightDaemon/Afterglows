@@ -25,6 +25,39 @@ const bioluminescenceStyles = `
     background: linear-gradient(180deg, rgba(0, 30, 10, 0.2) 0%, rgba(0, 15, 5, 0.9) 100%);
   }
 
+  /* Swimming bioluminescent ctenophore / comb jelly */
+  .bio-jelly-rig {
+    position: absolute;
+    top: 32px;
+    left: -20px;
+    width: 24px;
+    height: 24px;
+    z-index: 6;
+    animation: bio-jelly-swim 4.5s ease-in-out infinite;
+  }
+
+  @keyframes bio-jelly-swim {
+    0% { transform: translate(0, 10px) scale(0.85); opacity: 0; }
+    15% { opacity: 1; }
+    50% { transform: translate(65px, -8px) scale(1.15) rotate(15deg); opacity: 1; }
+    85% { opacity: 1; }
+    100% { transform: translate(145px, 6px) scale(0.9) rotate(30deg); opacity: 0; }
+  }
+
+  .bio-jelly-bell {
+    width: 20px;
+    height: 16px;
+    border-radius: 50% 50% 40% 40%;
+    background: radial-gradient(circle at 50% 40%, #ffffff 0%, rgba(0, 255, 68, 0.7) 60%, transparent 100%);
+    box-shadow: 0 0 10px #ffffff, 0 0 18px #00ff66;
+    animation: bio-bell-pulse 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes bio-bell-pulse {
+    0% { transform: scaleX(0.85) scaleY(1.15); }
+    100% { transform: scaleX(1.15) scaleY(0.85); }
+  }
+
   /* Traveling mechanical disturbance wave */
   .bio-wave {
     position: absolute;
@@ -43,7 +76,7 @@ const bioluminescenceStyles = `
     100% { transform: scale(1.3) rotate(60deg); opacity: 0; }
   }
 
-  /* Bioluminescent dinoflagellate clusters */
+  /* Bioluminescent dinoflagellate spark clusters */
   .bio-cluster {
     position: absolute;
     width: 100%;
@@ -55,7 +88,7 @@ const bioluminescenceStyles = `
     border-radius: 50%;
     background: #d6ffe0;
     box-shadow: 0 0 8px #8cffaa, 0 0 14px #00ff44;
-    animation: bio-sparkle 3s ease-in-out infinite;
+    animation: bio-sparkle 2.2s ease-in-out infinite;
   }
 
   .bio-spark.s1 { top: 22px; left: 30px; width: 4px; height: 4px; animation-delay: 0.2s; }
@@ -65,12 +98,11 @@ const bioluminescenceStyles = `
   .bio-spark.s5 { top: 30px; left: 75px; width: 5px; height: 5px; animation-delay: 1.1s; }
   .bio-spark.s6 { top: 48px; left: 88px; width: 4px; height: 4px; animation-delay: 1.7s; }
   .bio-spark.s7 { top: 75px; left: 82px; width: 6px; height: 6px; animation-delay: 2.1s; }
-  .bio-spark.s8 { top: 82px; left: 38px; width: 3px; height: 3px; animation-delay: 2.4s; }
+  .bio-spark.s8 { top: 82px; left: 38px; width: 3px; height: 3px; animation-delay: 0.4s; }
 
   @keyframes bio-sparkle {
-    0%, 100% { opacity: 0.1; transform: scale(0.5); filter: blur(1px); }
-    30%, 55% { opacity: 1; transform: scale(1.3); filter: blur(0px); box-shadow: 0 0 12px #ffffff, 0 0 20px #8cffaa; }
-    80% { opacity: 0.2; transform: scale(0.7); }
+    0%, 100% { opacity: 0.1; transform: scale(0.5); }
+    30%, 65% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 12px #ffffff, 0 0 20px #8cffaa; }
   }
 
   /* Micro-plankton tendrils floating in current */
@@ -79,12 +111,12 @@ const bioluminescenceStyles = `
     inset: 0;
     pointer-events: none;
     opacity: 0.75;
-    animation: bio-drift 5s ease-in-out infinite alternate;
+    animation: bio-drift 3.5s ease-in-out infinite alternate;
   }
 
   @keyframes bio-drift {
-    0% { transform: translateY(-3px) translateX(2px); }
-    100% { transform: translateY(3px) translateX(-2px); }
+    0% { transform: translateY(-5px) translateX(4px); }
+    100% { transform: translateY(5px) translateX(-4px); }
   }
 `;
 
@@ -100,6 +132,11 @@ class ConceptBioluminescence extends HTMLElement {
       <div class="bio-lum">
         <div class="bio-water"></div>
         <div class="bio-wave"></div>
+
+        <div class="bio-jelly-rig">
+          <div class="bio-jelly-bell"></div>
+        </div>
+
         <svg class="bio-tendril-svg" viewBox="0 0 118 102">
           <!-- Drifting pelagic colonial siphonophore / dinoflagellate trails -->
           <path d="M 20 80 Q 40 50 30 20" stroke="rgba(140, 255, 170, 0.4)" stroke-width="1.2" stroke-dasharray="3,3" fill="none" />

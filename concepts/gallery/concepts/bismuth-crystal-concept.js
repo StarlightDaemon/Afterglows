@@ -29,12 +29,12 @@ const bismuthStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: bis-spin-tilt 8s ease-in-out infinite alternate;
+    animation: bis-spin-zoom 5s ease-in-out infinite alternate;
   }
 
-  @keyframes bis-spin-tilt {
-    0% { transform: rotate(-6deg) scale(0.95); }
-    100% { transform: rotate(6deg) scale(1.05); }
+  @keyframes bis-spin-zoom {
+    0% { transform: rotate(-25deg) scale(0.85); }
+    100% { transform: rotate(25deg) scale(1.18); }
   }
 
   /* Concentric hopper staircase square steps */
@@ -43,19 +43,38 @@ const bismuthStyles = `
     border: 2px solid #8cffaa;
     background: radial-gradient(circle, rgba(0, 40, 10, 0.4), rgba(0, 15, 5, 0.8));
     box-shadow: 0 0 6px rgba(0, 204, 0, 0.4);
-    animation: bis-oxide-shimmer 3s ease-in-out infinite alternate;
+    animation: bis-step-twist 2.5s ease-in-out infinite alternate;
   }
 
   .bis-step.s1 { width: 72px; height: 72px; border-color: #d6ffe0; animation-delay: 0s; }
-  .bis-step.s2 { width: 56px; height: 56px; border-color: #8cffaa; animation-delay: 0.4s; }
-  .bis-step.s3 { width: 42px; height: 42px; border-color: #00ff44; animation-delay: 0.8s; }
-  .bis-step.s4 { width: 28px; height: 28px; border-color: #ffffff; animation-delay: 1.2s; }
-  .bis-step.s5 { width: 16px; height: 16px; border-color: #d6ffe0; animation-delay: 1.6s; }
+  .bis-step.s2 { width: 56px; height: 56px; border-color: #8cffaa; animation-delay: 0.3s; }
+  .bis-step.s3 { width: 42px; height: 42px; border-color: #00ff44; animation-delay: 0.6s; }
+  .bis-step.s4 { width: 28px; height: 28px; border-color: #ffffff; animation-delay: 0.9s; }
+  .bis-step.s5 { width: 16px; height: 16px; border-color: #d6ffe0; animation-delay: 1.2s; }
 
-  @keyframes bis-oxide-shimmer {
-    0% { filter: drop-shadow(0 0 2px #8cffaa); }
-    50% { filter: drop-shadow(0 0 8px #ffffff); border-color: #ffffff; }
-    100% { filter: drop-shadow(0 0 4px #00aa22); }
+  @keyframes bis-step-twist {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(12deg); }
+  }
+
+  /* Traveling spectral gleam packet racing along hopper stairs */
+  .bis-gleam-packet {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffd700, 0 0 14px #e040fb;
+    z-index: 7;
+    animation: bis-gleam-path 3.2s linear infinite;
+  }
+
+  @keyframes bis-gleam-path {
+    0% { transform: translate(-30px, -30px); fill: #00e5ff; }
+    25% { transform: translate(30px, -30px); fill: #ffd700; }
+    50% { transform: translate(30px, 30px); fill: #ff4081; }
+    75% { transform: translate(-30px, 30px); fill: #7c4dff; }
+    100% { transform: translate(-30px, -30px); fill: #00e5ff; }
   }
 
   /* 90-Degree spiral stepped edge connecting ridges SVG */
@@ -105,6 +124,8 @@ class ConceptBismuthCrystal extends HTMLElement {
           <div class="bis-step s3"></div>
           <div class="bis-step s4"></div>
           <div class="bis-step s5"></div>
+
+          <div class="bis-gleam-packet"></div>
 
           <svg class="bis-ridges-svg" viewBox="0 0 78 78">
             <!-- 90-degree corner spiral hopper staircase diagonals -->
