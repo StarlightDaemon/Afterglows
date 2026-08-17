@@ -100,6 +100,36 @@ const ansibleStyles = `
     100% { opacity: 1; }
   }
 
+  /* Correlated state packets shuttling across the bridge in both directions */
+  .ar-msg {
+    filter: drop-shadow(0 0 4px currentColor);
+  }
+
+  .ar-msg.m1 {
+    color: #00e5ff;
+    animation: ar-msg-right 1.4s ease-in-out infinite;
+  }
+
+  .ar-msg.m2 {
+    color: #e040fb;
+    animation: ar-msg-left 1.4s ease-in-out infinite;
+    animation-delay: -0.7s;
+  }
+
+  @keyframes ar-msg-right {
+    0% { transform: translateX(0); opacity: 0; }
+    12% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { transform: translateX(34px); opacity: 0; }
+  }
+
+  @keyframes ar-msg-left {
+    0% { transform: translateX(0); opacity: 0; }
+    12% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { transform: translateX(-34px); opacity: 0; }
+  }
+
   .ar-label {
     position: absolute;
     bottom: 3px;
@@ -128,6 +158,8 @@ class ConceptAnsibleRelay extends HTMLElement {
           <svg class="ar-bridge-svg" viewBox="0 0 40 28">
             <line class="ar-entangle-line" x1="0" y1="14" x2="40" y2="14" stroke-width="1.8" />
             <circle cx="20" cy="14" r="5" fill="none" stroke="#e040fb" stroke-width="1" stroke-dasharray="2 2" />
+            <circle class="ar-msg m1" cx="3" cy="14" r="2.2" fill="#00e5ff" />
+            <circle class="ar-msg m2" cx="37" cy="14" r="2.2" fill="#e040fb" />
           </svg>
 
           <div class="ar-node-r">

@@ -73,6 +73,30 @@ const fluidicStyles = `
     55%, 100% { opacity: 0.95; }
   }
 
+  /* Fluid slugs streaming through whichever branch the jet is attached to */
+  .fld-slug {
+    fill: #d6ffe0;
+    filter: drop-shadow(0 0 3px #8cffaa);
+    animation: fld-slug-run 1.1s linear infinite;
+  }
+
+  .fld-slug.left {
+    offset-path: path("M 42 72 L 42 46 Q 38 34 24 12");
+  }
+
+  .fld-slug.right {
+    offset-path: path("M 42 72 L 42 46 Q 46 34 60 12");
+  }
+
+  .fld-slug.s2 { animation-delay: -0.55s; }
+
+  @keyframes fld-slug-run {
+    0% { offset-distance: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
   /* Left Control nozzle pulse (C1) */
   .fld-pulse-c1 {
     position: absolute;
@@ -179,6 +203,16 @@ class ConceptFluidicLogic extends HTMLElement {
           <svg class="fld-stream-svg" viewBox="0 0 84 76">
             <path class="fld-jet-left" d="M 42 72 L 42 46 Q 38 34 24 12" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" />
             <path class="fld-jet-right" d="M 42 72 L 42 46 Q 46 34 60 12" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" />
+
+            <!-- Fluid slugs riding the attached jet (visibility follows jet state) -->
+            <g class="fld-jet-left">
+              <circle class="fld-slug left" r="2.4" />
+              <circle class="fld-slug left s2" r="2" />
+            </g>
+            <g class="fld-jet-right">
+              <circle class="fld-slug right" r="2.4" />
+              <circle class="fld-slug right s2" r="2" />
+            </g>
           </svg>
 
           <div class="fld-pulse-c1"></div>

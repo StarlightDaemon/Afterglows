@@ -35,17 +35,14 @@ const phonautographStyles = `
     height: 72px;
   }
 
-  /* Rotating lampblack-smoked cylinder: the side-on drum reads as rotating
-     through its scrolling surface traces plus a slight runout wobble */
+  /* Drum advances along the threaded lead screw as it turns, then is wound back */
   .pa-cylinder {
-    animation: pa-spin-cylinder 3s ease-in-out infinite;
-    transform-origin: 48px 36px;
+    animation: pa-screw-travel 3.4s ease-in-out infinite alternate;
   }
 
-  @keyframes pa-spin-cylinder {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-2px); }
-    100% { transform: translateY(0px); }
+  @keyframes pa-screw-travel {
+    0% { transform: translateX(-5px); }
+    100% { transform: translateX(5px); }
   }
 
   /* Hand crank actually turning the arbor */
@@ -65,8 +62,8 @@ const phonautographStyles = `
   }
 
   @keyframes pa-bristle-wiggle {
-    0% { transform: rotate(-6deg); }
-    100% { transform: rotate(6deg); }
+    0% { transform: rotate(-11deg); }
+    100% { transform: rotate(11deg); }
   }
 
   /* White sound-wave trace line drawn through black soot */
@@ -136,12 +133,12 @@ class ConceptPhonautograph extends HTMLElement {
               <polygon points="34,35 36,36 34,37" fill="#ffffff" />
             </g>
 
+            <!-- Lead-screw brass threaded arbor axle (fixed; drum slides along it) -->
+            <line x1="32" y1="36" x2="68" y2="36" stroke="#ffd700" stroke-width="1.4" />
+            <line x1="58" y1="36" x2="68" y2="36" stroke="#ffb300" stroke-width="1" stroke-dasharray="1 1" />
+
             <!-- Lampblack-Smoked Paper Recording Cylinder (Right) -->
             <g class="pa-cylinder">
-              <!-- Lead-screw brass threaded arbor axle -->
-              <line x1="32" y1="36" x2="68" y2="36" stroke="#ffd700" stroke-width="1.4" />
-              <line x1="58" y1="36" x2="68" y2="36" stroke="#ffb300" stroke-width="1" stroke-dasharray="1 1" />
-
               <!-- Smoked Matte-Black Carbon Soot Surface -->
               <rect x="35" y="22" width="26" height="28" rx="2" fill="#111111" stroke="#424242" stroke-width="0.8" />
 
@@ -156,8 +153,8 @@ class ConceptPhonautograph extends HTMLElement {
             <!-- Hand Crank Wheel (Far Right) -->
             <g class="pa-crank">
               <circle cx="68" cy="36" r="6" fill="none" stroke="#ffd700" stroke-width="1" />
-              <line x1="68" y1="36" x2="72" y2="32" stroke="#ffd700" stroke-width="1.5" />
-              <circle cx="72" cy="32" r="2" fill="#8d6e63" stroke="#ffd700" stroke-width="0.5" />
+              <line x1="68" y1="36" x2="73" y2="30" stroke="#ffd700" stroke-width="1.5" />
+              <circle cx="73" cy="30" r="2.4" fill="#ffca28" stroke="#ffd700" stroke-width="0.5" />
             </g>
           </svg>
         </div>

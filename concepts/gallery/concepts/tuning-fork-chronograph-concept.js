@@ -46,17 +46,14 @@ const tuningForkChronographStyles = `
     100% { transform: scaleX(1.1); }
   }
 
-  /* Rotating smoked chronograph drum: the side-on drum reads as revolving
-     through its scrolling inscribed waveform plus a slight runout wobble */
+  /* Drum descends along the clockwork spindle screw, then rewinds */
   .tc-chrono-drum {
-    animation: tc-drum-advance 2.5s ease-in-out infinite;
-    transform-origin: 56px 36px;
+    animation: tc-drum-advance 3.2s ease-in-out infinite alternate;
   }
 
   @keyframes tc-drum-advance {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-2px); }
-    100% { transform: translateY(0); }
+    0% { transform: translateY(-6px); }
+    100% { transform: translateY(6px); }
   }
 
   /* Inscribed millisecond sinusoidal timing wave */
@@ -134,10 +131,11 @@ class ConceptTuningForkChronograph extends HTMLElement {
               <line x1="22" y1="33" x2="28" y2="33" stroke="#ffd700" stroke-width="0.5" />
             </g>
 
+            <!-- Precision Clockwork Spindle Shaft (fixed; drum travels along it) -->
+            <line x1="56" y1="10" x2="56" y2="60" stroke="#b0bec5" stroke-width="1.4" />
+
             <!-- Revolving Smoked Glazed Paper Timing Cylinder Drum (Right) -->
             <g class="tc-chrono-drum">
-              <!-- Precision Clockwork Spindle Shaft -->
-              <line x1="56" y1="12" x2="56" y2="56" stroke="#b0bec5" stroke-width="1.4" />
               <!-- Cylinder Drum Body -->
               <rect x="43" y="16" width="26" height="36" rx="2" fill="#0d1b1e" stroke="#455a64" stroke-width="0.8" />
 

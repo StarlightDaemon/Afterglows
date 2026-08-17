@@ -56,8 +56,23 @@ const guntersChainStyles = `
   }
 
   @keyframes gc-tag-swing {
-    0% { transform: rotate(-16deg); }
-    100% { transform: rotate(16deg); }
+    0% { transform: rotate(-24deg); }
+    100% { transform: rotate(24deg); }
+  }
+
+  /* Chaining pin pulled, carried a chain-length forward, and re-planted */
+  .gc-pin-runner {
+    filter: drop-shadow(0 0 3px #ef5350);
+    animation: gc-pin-carry 4s ease-in-out infinite;
+  }
+
+  @keyframes gc-pin-carry {
+    0%, 10% { transform: translate(0, 0); opacity: 1; }
+    35% { transform: translate(22px, -12px); opacity: 1; }
+    60%, 78% { transform: translate(44px, 0); opacity: 1; }
+    88% { transform: translate(44px, 0); opacity: 0; }
+    92% { transform: translate(0, 0); opacity: 0; }
+    100% { transform: translate(0, 0); opacity: 1; }
   }
 
   /* Heavy swivel brass pull handles */
@@ -102,6 +117,12 @@ class ConceptGuntersChain extends HTMLElement {
 
             <line x1="60" y1="46" x2="60" y2="58" stroke="#cfd8dc" stroke-width="1.2" />
             <circle cx="60" cy="46" r="2.2" fill="none" stroke="#e53935" stroke-width="1" />
+
+            <!-- Chaining pin being carried forward one chain-length -->
+            <g class="gc-pin-runner">
+              <line x1="16" y1="46" x2="16" y2="58" stroke="#ffffff" stroke-width="1.4" />
+              <circle cx="16" cy="46" r="2.6" fill="none" stroke="#ff5252" stroke-width="1.3" />
+            </g>
 
             <!-- Gunter's 66-Foot 100-Link Wrought Iron Chain Span -->
             <g class="gc-chain-links">
