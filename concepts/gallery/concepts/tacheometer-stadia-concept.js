@@ -52,8 +52,8 @@ const tacheometerStadiaStyles = `
   }
 
   @keyframes ts-staff-pan {
-    0% { transform: translate(-12px, -6px); }
-    100% { transform: translate(12px, 6px); }
+    0% { transform: translate(-18px, -9px); }
+    100% { transform: translate(18px, 9px); }
   }
 
   /* Optical rangefinder calculation beam */

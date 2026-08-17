@@ -57,7 +57,7 @@ const obsidianFractureStyles = `
     0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
     15% { opacity: 1; }
     80% { opacity: 1; }
-    100% { transform: translate(8px, 14px) rotate(8deg); opacity: 0; }
+    100% { transform: translate(16px, 26px) rotate(16deg); opacity: 0; }
   }
 
   /* Impact initiation point (Bulb of Percussion strike spark) */

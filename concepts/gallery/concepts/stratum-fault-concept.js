@@ -58,15 +58,15 @@ const stratumFaultStyles = `
   }
 
   @keyframes flt-shear-left {
-    0%, 30% { transform: translateY(0); }
-    45% { transform: translateY(-12px); } /* Sudden stick-slip rupture */
-    80%, 100% { transform: translateY(0); }
+    0%, 15% { transform: translateY(0); }
+    45%, 65% { transform: translateY(-20px); } /* Sudden stick-slip rupture */
+    95%, 100% { transform: translateY(0); }
   }
 
   @keyframes flt-shear-right {
-    0%, 30% { transform: translateY(0); }
-    45% { transform: translateY(12px); } /* Sudden stick-slip rupture */
-    80%, 100% { transform: translateY(0); }
+    0%, 15% { transform: translateY(0); }
+    45%, 65% { transform: translateY(20px); } /* Sudden stick-slip rupture */
+    95%, 100% { transform: translateY(0); }
   }
 
   /* Geological strata layer stripes */

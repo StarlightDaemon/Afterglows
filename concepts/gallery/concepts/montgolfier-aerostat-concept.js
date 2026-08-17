@@ -60,11 +60,12 @@ const montgolfierAerostatStyles = `
   /* Ascending hot-air convective ember sparks rising into envelope throat */
   .ma-ember-spark {
     position: absolute;
-    width: 3.5px;
-    height: 3.5px;
+    top: 50px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #ff5722, 0 0 10px #ffd700;
+    box-shadow: 0 0 8px #ff5722, 0 0 12px #ffd700;
     z-index: 6;
     animation: ma-ember-rise 1.6s linear infinite;
   }

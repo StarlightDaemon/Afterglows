@@ -68,13 +68,13 @@ const invarBaselineStyles = `
   }
 
   @keyframes ib-reticle-sweep {
-    0% { transform: translateX(-10px); }
-    100% { transform: translateX(10px); }
+    0% { transform: translateX(-16px); }
+    100% { transform: translateX(16px); }
   }
 
   .ib-microscope-reticle circle {
     stroke: #ffd700;
-    filter: drop-shadow(0 0 3px #ffea00);
+    filter: drop-shadow(0 0 6px #ffea00);
   }
 
   .ib-label {

@@ -82,20 +82,22 @@ const jeffersonStyles = `
   /* Encryption cipher decode spark scanning along alignment row */
   .jc-scan-spark {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    top: 29px;
+    left: 15px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #00e5ff, 0 0 10px #ffffff;
+    box-shadow: 0 0 8px #00e5ff, 0 0 12px #ffffff;
     z-index: 6;
     animation: jc-scan-across 2.8s linear infinite;
   }
 
   @keyframes jc-scan-across {
-    0% { transform: translate(-26px, -11px); opacity: 0; }
+    0% { transform: translateX(0); opacity: 0; }
     15% { opacity: 1; }
     85% { opacity: 1; }
-    100% { transform: translate(26px, -11px); opacity: 0; }
+    100% { transform: translateX(57px); opacity: 0; }
   }
 
   .jc-label {

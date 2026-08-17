@@ -50,10 +50,10 @@ const monotypeCasterStyles = `
   }
 
   @keyframes mc-case-hunt {
-    0% { transform: translate(-6px, -4px); }
-    33% { transform: translate(6px, -2px); }
-    66% { transform: translate(-4px, 4px); }
-    100% { transform: translate(4px, 4px); }
+    0% { transform: translate(-11px, -7px); }
+    33% { transform: translate(11px, -4px); }
+    66% { transform: translate(-8px, 7px); }
+    100% { transform: translate(8px, 7px); }
   }
 
   /* Molten lead pump nozzle plunger stroke */

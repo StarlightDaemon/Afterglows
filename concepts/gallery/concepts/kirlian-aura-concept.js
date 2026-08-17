@@ -89,11 +89,13 @@ const kirlianStyles = `
   /* Radiating electric plasma sparks shooting outward */
   .krl-spark-packet {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    top: 35px;
+    left: 39px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #00e5ff, 0 0 10px #ffffff;
+    box-shadow: 0 0 8px #00e5ff, 0 0 12px #ffffff;
     z-index: 6;
     animation: krl-spark-shoot 1.2s linear infinite;
   }

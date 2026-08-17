@@ -75,11 +75,13 @@ const kaiserpanoramaStyles = `
   /* Orbiting stereoview slide spark packet */
   .kp-slide-spark {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    top: 38px;
+    left: 43px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #00e5ff, 0 0 10px #ffffff;
+    box-shadow: 0 0 8px #00e5ff, 0 0 12px #ffffff;
     z-index: 6;
     animation: kp-orbit 3.6s linear infinite;
   }

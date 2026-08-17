@@ -45,11 +45,13 @@ const solitaireStyles = `
   /* Orbiting captured marble in gutter */
   .ps-gutter-marble {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    top: 36px;
+    left: 36px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffd54f;
-    box-shadow: 0 0 6px #ffd54f;
+    box-shadow: 0 0 8px #ffd54f, 0 0 4px #ffffff;
     z-index: 6;
     animation: ps-gutter-roll 3.6s linear infinite;
   }

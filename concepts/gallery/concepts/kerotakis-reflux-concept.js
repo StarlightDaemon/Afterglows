@@ -38,11 +38,13 @@ const kerotakisStyles = `
   /* Ascending sulphur/mercury vapor packets surging up central riser */
   .kr-vapor-packet {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    top: 40px;
+    left: 43px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffb142;
-    box-shadow: 0 0 6px #ffb142, 0 0 10px #ffffff;
+    box-shadow: 0 0 8px #ffb142, 0 0 12px #ffffff;
     z-index: 6;
     animation: kr-vapor-surge 1.6s linear infinite;
   }
@@ -60,11 +62,12 @@ const kerotakisStyles = `
   /* Descending condensed reflux droplets falling down side walls */
   .kr-reflux-drop {
     position: absolute;
-    width: 3.5px;
-    height: 5px;
+    top: 27px;
+    width: 5px;
+    height: 7px;
     border-radius: 50% 50% 20% 20%;
     background: #ffd700;
-    box-shadow: 0 0 6px #ffd700;
+    box-shadow: 0 0 8px #ffd700;
     z-index: 6;
     animation: kr-reflux-fall 1.8s linear infinite;
   }

@@ -70,11 +70,13 @@ const pelicanStillStyles = `
   /* Ascending vapor packet surging up central column */
   .ps-vapor-packet {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    top: 38px;
+    left: 45px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffd700;
-    box-shadow: 0 0 8px #ffd700;
+    box-shadow: 0 0 10px #ffd700, 0 0 5px #ffffff;
     z-index: 5;
     animation: ps-vapor-rise 2s ease-in-out infinite;
   }

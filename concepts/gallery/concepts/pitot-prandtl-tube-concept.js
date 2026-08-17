@@ -38,11 +38,12 @@ const pitotPrandtlStyles = `
   /* Traveling high-velocity airstream packet impacting stagnation port */
   .pp-airstream-packet {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    left: 22px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #ffffff, 0 0 10px #448aff;
+    box-shadow: 0 0 8px #ffffff, 0 0 12px #448aff;
     z-index: 6;
     animation: pp-air-shoot 1.6s linear infinite;
   }

@@ -57,12 +57,12 @@ const vdgStyles = `
   /* Discrete electrostatic charge carrier packets traveling up to the dome */
   .vdg-charge-carrier {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #ffffff, 0 0 10px #8cffaa;
-    left: 6px;
+    box-shadow: 0 0 8px #ffffff, 0 0 12px #8cffaa;
+    left: 5px;
     animation: vdg-charge-up 1.2s linear infinite;
   }
 

@@ -45,11 +45,11 @@ const lummerGehrckePlateStyles = `
   /* Traveling laser photon packet bouncing down internal reflection path */
   .lg-photon-packet {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #ffffff, 0 0 10px #34d399;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #34d399;
     z-index: 6;
     offset-path: path("M 15 29 L 20 44 L 28 32 L 36 44 L 44 32 L 52 44 L 60 32 L 68 44");
     animation: lg-photon-bounce 2.2s linear infinite;

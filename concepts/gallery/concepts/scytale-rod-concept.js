@@ -41,8 +41,8 @@ const scytaleStyles = `
   }
 
   @keyframes sc-ribbon-slide {
-    0% { transform: translateX(-8px); }
-    100% { transform: translateX(8px); }
+    0% { transform: translateX(-14px); }
+    100% { transform: translateX(14px); }
   }
 
   .sc-ribbon-bands polygon {

@@ -89,8 +89,8 @@ const stereoscopeStyles = `
   }
 
   @keyframes str-slide-focus {
-    0% { transform: translateX(8px); }
-    100% { transform: translateX(36px); }
+    0% { transform: translateX(0px); }
+    100% { transform: translateX(44px); }
   }
 
   /* Dual photographic stereo pairs with parallax offset */

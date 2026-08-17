@@ -67,11 +67,11 @@ const myceliumStyles = `
   /* Spore particles floating up from gills continuously */
   .myc-spore {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #8cffaa;
+    box-shadow: 0 0 8px #8cffaa, 0 0 4px #ffffff;
     animation: myc-spore-drift 2.4s ease-out infinite;
   }
 

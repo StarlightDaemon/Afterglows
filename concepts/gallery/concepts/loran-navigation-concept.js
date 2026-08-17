@@ -131,8 +131,8 @@ const loranStyles = `
   }
 
   @keyframes lrn-ship-navigate {
-    0% { transform: translate(-12px, -8px); }
-    100% { transform: translate(12px, 8px); }
+    0% { transform: translate(-20px, -13px); }
+    100% { transform: translate(20px, 13px); }
   }
 
   .lrn-fix-cross {
