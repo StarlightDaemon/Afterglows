@@ -35,8 +35,8 @@ const athanorStyles = `
   .af-tower {
     position: absolute;
     bottom: 6px;
-    width: 44px;
-    height: 58px;
+    width: 48px;
+    height: 60px;
     background: #2b1208;
     border: 1.5px solid #ff7a29;
     border-radius: 4px;
@@ -49,18 +49,42 @@ const athanorStyles = `
 
   /* Fuel tower hopper on top */
   .af-hopper {
-    width: 28px;
-    height: 12px;
+    position: absolute;
+    top: 0;
+    width: 32px;
+    height: 14px;
     background: #190a04;
     border-bottom: 1.5px solid #ff7a29;
+    overflow: hidden;
+  }
+
+  /* Descending charcoal lumps down hopper shaft */
+  .af-charcoal {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #1c1917;
+    border: 1px solid #78350f;
+    border-radius: 1px;
+    box-shadow: 0 0 2px #ff7a29;
+  }
+
+  .c1 { left: 8px; animation: af-coal-drop 2.6s ease-in infinite; }
+  .c2 { left: 18px; animation: af-coal-drop 2.6s ease-in infinite; animation-delay: 1.3s; }
+
+  @keyframes af-coal-drop {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(44px); opacity: 0; }
   }
 
   /* Glass flask digestion vessel in sand bath */
   .af-vessel {
     position: absolute;
-    top: 16px;
-    width: 22px;
-    height: 22px;
+    top: 15px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(255, 230, 150, 0.4) 0%, rgba(255, 120, 40, 0.1) 80%);
     border: 1.2px solid #ffe082;
@@ -68,36 +92,48 @@ const athanorStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 3;
   }
 
-  .af-elixir {
-    width: 10px;
-    height: 10px;
+  /* Convective circulating elixir essence loop */
+  .af-elixir-orbit {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    animation: af-elixir-circulate 2s linear infinite;
+  }
+
+  .af-elixir-drop {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ff3d00;
     box-shadow: 0 0 8px #ffab00;
-    animation: af-brew 2s ease-in-out infinite alternate;
   }
 
-  @keyframes af-brew {
-    0% { transform: scale(0.8); opacity: 0.7; }
-    100% { transform: scale(1.15); opacity: 1; }
+  @keyframes af-elixir-circulate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Hearth fire chamber draft */
   .af-fire {
     position: absolute;
     bottom: 2px;
-    width: 26px;
-    height: 12px;
-    background: radial-gradient(ellipse at 50% 100%, #ffffff 0%, #ff9100 60%, transparent 100%);
+    width: 32px;
+    height: 14px;
+    background: radial-gradient(ellipse at 50% 100%, #ffffff 0%, #ff9100 50%, transparent 90%);
     filter: drop-shadow(0 0 4px #ff3d00);
-    animation: af-flame 0.2s infinite alternate;
+    animation: af-flame 0.4s ease-in-out infinite alternate;
   }
 
   @keyframes af-flame {
-    0% { transform: scaleY(0.9) skewX(-2deg); }
-    100% { transform: scaleY(1.1) skewX(2deg); }
+    0% { transform: scaleY(0.8) scaleX(0.9); }
+    100% { transform: scaleY(1.25) scaleX(1.1); }
   }
 
   .af-label {
@@ -122,9 +158,14 @@ class ConceptAthanorFurnace extends HTMLElement {
       <div class="af-box">
         <div class="af-stage">
           <div class="af-tower">
-            <div class="af-hopper"></div>
+            <div class="af-hopper">
+              <div class="af-charcoal c1"></div>
+              <div class="af-charcoal c2"></div>
+            </div>
             <div class="af-vessel">
-              <div class="af-elixir"></div>
+              <div class="af-elixir-orbit">
+                <div class="af-elixir-drop"></div>
+              </div>
             </div>
             <div class="af-fire"></div>
           </div>

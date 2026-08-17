@@ -38,23 +38,36 @@ const albertiStyles = `
   /* Inner movable disk stepped rotation */
   .ab-inner-disk {
     transform-origin: 38px 36px;
-    animation: ab-step-rotate 12s steps(8, end) infinite;
+    animation: ab-disk-rotate 3.6s ease-in-out infinite alternate;
   }
 
-  @keyframes ab-step-rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  @keyframes ab-disk-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(180deg); }
   }
 
-  /* Key letter index alignment indicator flash */
-  .ab-index-needle {
+  /* Key letter index alignment indicator arm */
+  .ab-index-arm {
+    transform-origin: 38px 36px;
+    animation: ab-arm-rock 1.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes ab-arm-rock {
+    0% { transform: rotate(-24deg); }
+    100% { transform: rotate(24deg); }
+  }
+
+  /* Enciphering scan ray connecting outer and inner letters */
+  .ab-cipher-ray {
     stroke: #ff3d00;
-    animation: ab-needle-pulse 1.5s ease-in-out infinite alternate;
+    stroke-width: 1.5;
+    filter: drop-shadow(0 0 3px #ff3d00);
+    animation: ab-ray-glow 0.9s ease-in-out infinite alternate;
   }
 
-  @keyframes ab-needle-pulse {
-    0% { filter: drop-shadow(0 0 1px #ff3d00); }
-    100% { filter: drop-shadow(0 0 4px #ffd600); }
+  @keyframes ab-ray-glow {
+    0% { opacity: 0.6; stroke-width: 1.2; }
+    100% { opacity: 1; stroke-width: 2; filter: drop-shadow(0 0 6px #ffd600); }
   }
 
   .ab-outer-plate {
@@ -144,8 +157,12 @@ class ConceptAlbertiDisk extends HTMLElement {
             <circle cx="38" cy="36" r="4" fill="#ffd54f" stroke="#ff8f00" stroke-width="1" />
             <circle cx="38" cy="36" r="1.5" fill="#3e2723" />
 
-            <!-- Stationary Top Alignment Indicator Arrow -->
-            <polygon class="ab-index-needle" points="38,2 35,6 41,6" fill="#ff3d00" stroke-width="0.5" />
+            <!-- Dynamic Index Alignment Arm & Ray -->
+            <g class="ab-index-arm">
+              <line class="ab-cipher-ray" x1="38" y1="4" x2="38" y2="22" stroke-linecap="round" />
+              <polygon points="38,2 35,7 41,7" fill="#ff3d00" />
+              <circle cx="38" cy="22" r="2" fill="#ffd600" />
+            </g>
           </svg>
         </div>
         <div class="ab-label">ALBERTI CIPHER DISK</div>

@@ -35,37 +35,57 @@ const aludelSublimerStyles = `
     height: 72px;
   }
 
-  /* Sublimation vapor particles ascending through necks */
-  .as-sublime-stream {
-    stroke: #ff5252;
-    stroke-dasharray: 4 3;
-    animation: as-stream 1.5s linear infinite;
+  /* Discrete sublimation vapor parcels ascending through pots */
+  .as-vapor-parcel {
+    fill: #ff5252;
+    box-shadow: 0 0 6px #ff1744;
   }
 
-  @keyframes as-stream {
-    to { stroke-dashoffset: -14; }
+  .as-vp1 { animation: as-ascend-1 2.2s ease-in-out infinite; }
+  .as-vp2 { animation: as-ascend-2 2.2s ease-in-out infinite; animation-delay: 0.75s; }
+  .as-vp3 { animation: as-ascend-3 2.2s ease-in-out infinite; animation-delay: 1.5s; }
+
+  @keyframes as-ascend-1 {
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; transform: translateY(-10px) scale(1.1); fill: #ff9100; }
+    60% { transform: translateY(-24px) scale(0.9); fill: #ff1744; }
+    90%, 100% { transform: translateY(-38px) scale(1.3); opacity: 0; }
+  }
+
+  @keyframes as-ascend-2 {
+    0% { transform: translateY(0) translateX(2px) scale(0.5); opacity: 0; }
+    20% { opacity: 1; transform: translateY(-12px) translateX(-2px) scale(1.2); fill: #ffd600; }
+    60% { transform: translateY(-26px) translateX(2px) scale(0.9); fill: #ff5252; }
+    90%, 100% { transform: translateY(-38px) translateX(0) scale(1.4); opacity: 0; }
+  }
+
+  @keyframes as-ascend-3 {
+    0% { transform: translateY(0) translateX(-2px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; transform: translateY(-10px) translateX(2px) scale(1); fill: #ff5252; }
+    60% { transform: translateY(-24px) translateX(-1px) scale(1.1); fill: #ff1744; }
+    90%, 100% { transform: translateY(-38px) translateX(0) scale(1.3); opacity: 0; }
   }
 
   /* Ruby crystalline cinnabar encrustations growing on upper pot walls */
   .as-crystals {
     fill: #ff1744;
-    animation: as-crystallize 2.8s ease-in-out infinite alternate;
+    animation: as-crystallize 2s ease-in-out infinite alternate;
   }
 
   @keyframes as-crystallize {
-    0% { opacity: 0.3; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1.1); filter: drop-shadow(0 0 3px #ff5252); }
+    0% { opacity: 0.4; transform: scale(0.85); }
+    100% { opacity: 1; transform: scale(1.25); filter: drop-shadow(0 0 4px #ff5252); }
   }
 
-  /* Furnace coal embers glowing */
+  /* Active furnace fire tongues leaping */
   .as-furnace-flame {
-    fill: #ff9100;
-    animation: as-flame 1.8s ease-in-out infinite alternate;
+    transform-origin: 38px 62px;
+    animation: as-flame-flicker 0.6s ease-in-out infinite alternate;
   }
 
-  @keyframes as-flame {
-    0% { transform: scale(0.9); opacity: 0.7; fill: #ff3d00; }
-    100% { transform: scale(1.1); opacity: 1; fill: #ffd600; filter: drop-shadow(0 0 4px #ff6d00); }
+  @keyframes as-flame-flicker {
+    0% { transform: translateY(0) scaleY(0.8) scaleX(0.9); fill: #ff3d00; }
+    100% { transform: translateY(-3px) scaleY(1.3) scaleX(1.1); fill: #ffd600; filter: drop-shadow(0 0 6px #ff6d00); }
   }
 
   .as-label {
@@ -92,9 +112,12 @@ class ConceptAludelSublimer extends HTMLElement {
           <svg class="as-svg" viewBox="0 0 76 72">
             <!-- Furnace Base with Heating Grate -->
             <path d="M 22 66 L 54 66 L 50 56 L 26 56 Z" fill="#2d1318" stroke="#ff5252" stroke-width="1" />
-            <circle class="as-furnace-flame" cx="38" cy="60" r="3.5" />
-            <circle class="as-furnace-flame" cx="32" cy="61" r="2.5" />
-            <circle class="as-furnace-flame" cx="44" cy="61" r="2.5" />
+            <g class="as-furnace-flame">
+              <circle cx="38" cy="60" r="3.5" />
+              <circle cx="32" cy="61" r="2.5" />
+              <circle cx="44" cy="61" r="2.5" />
+              <polygon points="38,55 35,62 41,62" fill="#ffd600" />
+            </g>
 
             <!-- Tier 1: Bottom Cucurbit (Boiling Mineral Matrix) -->
             <path d="M 30 56 C 24 54, 24 46, 32 44 L 32 42 L 44 42 L 44 44 C 52 46, 52 54, 46 56 Z" 
@@ -108,8 +131,10 @@ class ConceptAludelSublimer extends HTMLElement {
             <path d="M 33 28 C 28 26, 28 16, 38 8 C 48 16, 48 26, 43 28 Z" 
                   fill="rgba(255, 82, 82, 0.12)" stroke="#ff5252" stroke-width="1.2" />
 
-            <!-- Central Sublimation Vapor Shaft -->
-            <line x1="38" y1="52" x2="38" y2="12" class="as-sublime-stream" stroke-width="1.5" />
+            <!-- Ascending Sublimation Vapor Parcels -->
+            <circle class="as-vapor-parcel as-vp1" cx="38" cy="50" r="2.5" />
+            <circle class="as-vapor-parcel as-vp2" cx="38" cy="50" r="2.8" />
+            <circle class="as-vapor-parcel as-vp3" cx="38" cy="50" r="2.2" />
 
             <!-- Sublimed Cinnabar Needles on Inside Walls -->
             <g class="as-crystals">

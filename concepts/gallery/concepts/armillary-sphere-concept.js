@@ -52,7 +52,7 @@ const armillaryStyles = `
     transform: rotate(23.5deg);
   }
 
-  /* Meridian and Colure Rings */
+  /* Rotating Meridian Ring Armature */
   .as-ring-meridian {
     position: absolute;
     width: 64px;
@@ -60,11 +60,12 @@ const armillaryStyles = `
     border-radius: 50%;
     border: 1.5px solid #ffd700;
     box-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
-    animation: as-spin-meridian 12s linear infinite;
+    animation: as-spin-meridian 4s linear infinite;
   }
 
   @keyframes as-spin-meridian {
-    to { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Equator Ring */
@@ -86,12 +87,32 @@ const armillaryStyles = `
     border: 2.5px solid #ff9100;
     box-shadow: 0 0 8px #ffab00;
     transform: rotateX(60deg) rotateZ(30deg);
-    animation: as-ecliptic-wobble 6s ease-in-out infinite alternate;
   }
 
-  @keyframes as-ecliptic-wobble {
-    0% { transform: rotateX(55deg) rotateZ(20deg); }
-    100% { transform: rotateX(65deg) rotateZ(40deg); }
+  /* Sol Sun gem marker traveling along the ecliptic ring */
+  .as-sol-orbiter {
+    position: absolute;
+    width: 62px;
+    height: 30px;
+    border-radius: 50%;
+    transform: rotateX(60deg) rotateZ(30deg);
+    animation: as-orbit-sol 3.2s linear infinite;
+  }
+
+  .as-sol-sun {
+    position: absolute;
+    top: -4px;
+    left: 27px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffd700, 0 0 16px #ff6d00;
+  }
+
+  @keyframes as-orbit-sol {
+    0% { transform: rotateX(60deg) rotateZ(0deg); }
+    100% { transform: rotateX(60deg) rotateZ(360deg); }
   }
 
   /* Central Earth Globe */
@@ -106,7 +127,7 @@ const armillaryStyles = `
     z-index: 6;
   }
 
-  /* Polar Axis Spindle */
+  /* Polar Axis Spindle & Pointer */
   .as-polar-axis {
     position: absolute;
     width: 2px;
@@ -143,6 +164,9 @@ class ConceptArmillarySphere extends HTMLElement {
             <div class="as-ring-meridian"></div>
             <div class="as-ring-equator"></div>
             <div class="as-band-ecliptic"></div>
+            <div class="as-sol-orbiter">
+              <div class="as-sol-sun"></div>
+            </div>
             <div class="as-central-earth"></div>
           </div>
         </div>

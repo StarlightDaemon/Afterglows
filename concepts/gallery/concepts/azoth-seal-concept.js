@@ -38,7 +38,7 @@ const azothSealStyles = `
   /* Rotating 7-pointed heptagram star */
   .az-heptagram {
     transform-origin: 38px 36px;
-    animation: az-spin 24s linear infinite;
+    animation: az-spin 4s linear infinite;
   }
 
   @keyframes az-spin {
@@ -49,7 +49,7 @@ const azothSealStyles = `
   /* Counter-rotating planetary vertex nodes */
   .az-outer-ring {
     transform-origin: 38px 36px;
-    animation: az-counter-spin 36s linear infinite;
+    animation: az-counter-spin 6s linear infinite;
   }
 
   @keyframes az-counter-spin {
@@ -57,23 +57,45 @@ const azothSealStyles = `
     to { transform: rotate(0deg); }
   }
 
+  /* Counter-rotating triangle of principles */
+  .az-triangle {
+    transform-origin: 38px 36px;
+    animation: az-tri-spin 3s linear infinite reverse;
+  }
+
+  @keyframes az-tri-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Orbiting transmutation spark packet */
+  .az-spark-orbiter {
+    transform-origin: 38px 36px;
+    animation: az-spark-orbit 2.2s linear infinite;
+  }
+
+  @keyframes az-spark-orbit {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
   /* Central glowing spiritus core */
   .az-core {
     fill: #ffd700;
-    animation: az-core-pulse 2s ease-in-out infinite alternate;
+    animation: az-core-pulse 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes az-core-pulse {
     0% { transform: scale(0.85); filter: drop-shadow(0 0 2px #e040fb); }
-    100% { transform: scale(1.15); filter: drop-shadow(0 0 8px #ffd700); }
+    100% { transform: scale(1.25); filter: drop-shadow(0 0 8px #ffd700); }
   }
 
   .az-vertices circle {
-    animation: az-node-flash 3s ease-in-out infinite alternate;
+    animation: az-node-flash 1.5s ease-in-out infinite alternate;
   }
 
   .az-vertices circle:nth-child(odd) {
-    animation-delay: 1.5s;
+    animation-delay: 0.75s;
   }
 
   @keyframes az-node-flash {
@@ -141,14 +163,21 @@ class ConceptAzothSeal extends HTMLElement {
                 <circle cx="8.8" cy="42.5" r="2" />
                 <circle cx="14.6" cy="17.3" r="2" />
               </g>
+            </g>
 
-              <!-- Central Equilateral Triangle of Principles (Salt, Sulphur, Mercury) -->
-              <polygon points="38,22 50,43 26,43" fill="none" stroke="#ffd700" stroke-width="1" />
+            <!-- Central Counter-Rotating Equilateral Triangle of Principles -->
+            <g class="az-triangle">
+              <polygon points="38,20 52,44 24,44" fill="none" stroke="#ffd700" stroke-width="1.2" />
+            </g>
+
+            <!-- Orbiting Transmutation Spark -->
+            <g class="az-spark-orbiter">
+              <circle cx="38" cy="10" r="2.5" fill="#ffffff" filter="drop-shadow(0 0 4px #00e5ff)" />
             </g>
 
             <!-- Glowing Core (transform center) -->
             <g transform="translate(38,36)">
-              <circle class="az-core" cx="0" cy="0" r="3" />
+              <circle class="az-core" cx="0" cy="0" r="3.5" />
             </g>
           </svg>
         </div>

@@ -51,8 +51,18 @@ const angstromSpectrumStyles = `
   }
 
   @keyframes as-balmer-pulse {
-    0% { opacity: 0.5; stroke-width: 0.8; }
-    100% { opacity: 1; stroke-width: 1.4; filter: drop-shadow(0 0 3px #ffffff); }
+    0% { opacity: 0.6; stroke-width: 1; }
+    100% { opacity: 1; stroke-width: 1.6; filter: drop-shadow(0 0 4px #ffffff); }
+  }
+
+  /* Traveling spectral vernier crosshair scanning across wavelengths */
+  .as-vernier-cursor {
+    animation: as-cursor-sweep 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes as-cursor-sweep {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(45px); }
   }
 
   .as-label {
@@ -105,13 +115,13 @@ class ConceptAngstromSpectrum extends HTMLElement {
             <!-- Fundamental Hydrogen Balmer Lines (H-delta, H-gamma, H-beta, H-alpha) -->
             <g class="as-balmer-series">
               <!-- H-delta (4102 Å Violet) -->
-              <line x1="16" y1="26" x2="16" y2="50" stroke="#c084fc" />
+              <line x1="16" y1="26" x2="16" y2="50" stroke="#c084fc" stroke-width="1.2" />
               <!-- H-gamma (4340 Å Blue-Violet) -->
-              <line x1="21" y1="26" x2="21" y2="50" stroke="#818cf8" />
+              <line x1="21" y1="26" x2="21" y2="50" stroke="#818cf8" stroke-width="1.2" />
               <!-- H-beta (4861 Å Cyan-Green) -->
-              <line x1="29" y1="26" x2="29" y2="50" stroke="#34d399" />
+              <line x1="29" y1="26" x2="29" y2="50" stroke="#34d399" stroke-width="1.4" />
               <!-- H-alpha (6563 Å Bright Crimson-Red) -->
-              <line x1="57" y1="26" x2="57" y2="50" stroke="#f43f5e" stroke-width="1.3" />
+              <line x1="57" y1="26" x2="57" y2="50" stroke="#f43f5e" stroke-width="1.6" />
             </g>
 
             <!-- Telluric & Solar Multi-line Forest (Fine Absorption Splittings) -->
@@ -123,6 +133,14 @@ class ConceptAngstromSpectrum extends HTMLElement {
               <line x1="42" y1="28" x2="42" y2="48" />
               <line x1="48" y1="28" x2="48" y2="48" />
               <line x1="51" y1="28" x2="51" y2="48" />
+            </g>
+
+            <!-- Sweeping Vernier Cursor / Optical Micrometer -->
+            <g class="as-vernier-cursor">
+              <line x1="15" y1="16" x2="15" y2="56" stroke="#ffffff" stroke-width="1.4" filter="drop-shadow(0 0 3px #c084fc)" />
+              <polygon points="15,16 12,11 18,11" fill="#f43f5e" />
+              <polygon points="15,56 12,61 18,61" fill="#f43f5e" />
+              <circle cx="15" cy="38" r="2" fill="#ffd600" />
             </g>
           </svg>
         </div>

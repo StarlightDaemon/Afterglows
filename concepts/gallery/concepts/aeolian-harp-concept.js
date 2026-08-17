@@ -24,7 +24,7 @@ const aeolianStyles = `
   /* Wooden resonator soundbox body */
   .aeo-box {
     position: relative;
-    width: 92px;
+    width: 96px;
     height: 64px;
     background: linear-gradient(180deg, #008818 0%, #011d06 100%);
     border: 1.5px solid var(--accent, #00cc00);
@@ -61,7 +61,7 @@ const aeolianStyles = `
   /* Bridges at ends */
   .aeo-bridge-l {
     position: absolute;
-    left: 10px;
+    left: 8px;
     top: 4px;
     bottom: 4px;
     width: 3px;
@@ -71,7 +71,7 @@ const aeolianStyles = `
 
   .aeo-bridge-r {
     position: absolute;
-    right: 10px;
+    right: 8px;
     top: 4px;
     bottom: 4px;
     width: 3px;
@@ -79,11 +79,11 @@ const aeolianStyles = `
     border-radius: 1px;
   }
 
-  /* Tensioned harmonic strings vibrating with standing waves */
+  /* Tensioned harmonic strings vibrating with standing wave arcs */
   .aeo-strings-rig {
     position: absolute;
-    left: 12px;
-    right: 12px;
+    left: 10px;
+    right: 10px;
     top: 6px;
     bottom: 6px;
     display: flex;
@@ -94,44 +94,75 @@ const aeolianStyles = `
   .aeo-string {
     position: relative;
     width: 100%;
-    height: 2px;
+    height: 2.5px;
     background: #d6ffe0;
-    box-shadow: 0 0 4px #8cffaa;
+    box-shadow: 0 0 6px #8cffaa;
+    border-radius: 1px;
   }
 
-  .aeo-string.s1 { animation: aeo-vibrate-1 0.18s ease-in-out infinite alternate; }
-  .aeo-string.s2 { animation: aeo-vibrate-2 0.14s ease-in-out infinite alternate; }
-  .aeo-string.s3 { animation: aeo-vibrate-3 0.22s ease-in-out infinite alternate; }
-  .aeo-string.s4 { animation: aeo-vibrate-4 0.16s ease-in-out infinite alternate; }
+  .aeo-string.s1 { animation: aeo-wave-1 0.4s ease-in-out infinite alternate; }
+  .aeo-string.s2 { animation: aeo-wave-2 0.32s ease-in-out infinite alternate; }
+  .aeo-string.s3 { animation: aeo-wave-3 0.48s ease-in-out infinite alternate; }
+  .aeo-string.s4 { animation: aeo-wave-4 0.36s ease-in-out infinite alternate; }
 
-  @keyframes aeo-vibrate-1 {
-    0% { transform: scaleY(0.7) translateY(-1.5px); }
-    100% { transform: scaleY(1.3) translateY(1.5px); }
+  @keyframes aeo-wave-1 {
+    0% { transform: translateY(-3.5px) scaleY(1.4); }
+    100% { transform: translateY(3.5px) scaleY(0.7); }
   }
-  @keyframes aeo-vibrate-2 {
-    0% { transform: scaleY(1.3) translateY(1.8px); }
-    100% { transform: scaleY(0.7) translateY(-1.8px); }
+  @keyframes aeo-wave-2 {
+    0% { transform: translateY(4px) scaleY(0.8); }
+    100% { transform: translateY(-4px) scaleY(1.3); }
   }
-  @keyframes aeo-vibrate-3 {
-    0% { transform: scaleY(0.6) translateY(-2px); }
-    100% { transform: scaleY(1.4) translateY(2px); }
+  @keyframes aeo-wave-3 {
+    0% { transform: translateY(-4.5px) scaleY(1.5); }
+    100% { transform: translateY(4.5px) scaleY(0.6); }
   }
-  @keyframes aeo-vibrate-4 {
-    0% { transform: scaleY(1.4) translateY(1.6px); }
-    100% { transform: scaleY(0.6) translateY(-1.6px); }
+  @keyframes aeo-wave-4 {
+    0% { transform: translateY(3.5px) scaleY(0.7); }
+    100% { transform: translateY(-3.5px) scaleY(1.4); }
   }
 
-  /* Gentle wind gust vortex streamlines blowing across strings */
-  .aeo-breeze-svg {
+  /* Traveling Karman vortex wind packets */
+  .aeo-vortex {
     position: absolute;
-    inset: 0;
+    width: 14px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0%, rgba(140, 255, 170, 0.8) 50%, transparent 80%);
+    box-shadow: 0 0 8px #8cffaa;
     pointer-events: none;
-    animation: aeo-breeze 3s ease-in-out infinite alternate;
+    z-index: 5;
   }
 
-  @keyframes aeo-breeze {
-    0% { opacity: 0.3; transform: translateX(-4px); }
-    100% { opacity: 0.8; transform: translateX(4px); }
+  .aeo-vortex.v1 {
+    top: 26px;
+    animation: aeo-drift-1 1.6s linear infinite;
+  }
+
+  .aeo-vortex.v2 {
+    top: 48px;
+    animation: aeo-drift-2 2.1s linear infinite;
+    animation-delay: 0.7s;
+  }
+
+  .aeo-vortex.v3 {
+    top: 66px;
+    animation: aeo-drift-1 1.9s linear infinite;
+    animation-delay: 1.1s;
+  }
+
+  @keyframes aeo-drift-1 {
+    0% { transform: translateX(-15px) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.9; }
+    80% { opacity: 0.9; }
+    100% { transform: translateX(115px) rotate(360deg); opacity: 0; }
+  }
+
+  @keyframes aeo-drift-2 {
+    0% { transform: translateX(-15px) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.9; }
+    80% { opacity: 0.9; }
+    100% { transform: translateX(115px) rotate(-360deg); opacity: 0; }
   }
 
   /* Harmonic frequency overtone badge */
@@ -156,11 +187,9 @@ class ConceptAeolianHarp extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>${aeolianStyles}</style>
       <div class="aeo">
-        <svg class="aeo-breeze-svg" viewBox="0 0 118 102">
-          <!-- Karman vortex wind paths -->
-          <path d="M 8 30 Q 30 18 60 32 T 110 24" stroke="rgba(214, 255, 224, 0.35)" stroke-width="1" stroke-dasharray="3,3" fill="none" />
-          <path d="M 8 70 Q 35 84 70 68 T 110 76" stroke="rgba(214, 255, 224, 0.35)" stroke-width="1" stroke-dasharray="3,3" fill="none" />
-        </svg>
+        <div class="aeo-vortex v1"></div>
+        <div class="aeo-vortex v2"></div>
+        <div class="aeo-vortex v3"></div>
 
         <div class="aeo-box">
           <div class="aeo-bridge-l"></div>

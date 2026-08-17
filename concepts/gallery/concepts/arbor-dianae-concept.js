@@ -35,36 +35,54 @@ const arborDianaeStyles = `
     height: 72px;
   }
 
+  /* Descending silver nitrate reactant ion droplets */
+  .ad-ion-drop {
+    fill: #00e5ff;
+    filter: drop-shadow(0 0 4px #00e5ff);
+  }
+
+  .ad-id1 { animation: ad-drop-fall 2.4s ease-in infinite; }
+  .ad-id2 { animation: ad-drop-fall 2.4s ease-in infinite; animation-delay: 1.2s; }
+
+  @keyframes ad-drop-fall {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(42px); opacity: 0; }
+  }
+
   /* Dendritic tree growth pulse */
   .ad-branches path {
     stroke: #e0f7fa;
     stroke-dasharray: 40;
     stroke-dashoffset: 40;
-    animation: ad-grow 4s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    animation: ad-grow 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
   }
 
   @keyframes ad-grow {
-    0% { stroke-dashoffset: 40; opacity: 0.3; }
+    0% { stroke-dashoffset: 40; opacity: 0.4; }
     100% { stroke-dashoffset: 0; opacity: 1; filter: drop-shadow(0 0 3px #00e5ff); }
   }
 
-  /* Sparkling crystal buds at tips */
-  .ad-crystals circle {
-    fill: #ffffff;
-    animation: ad-sparkle 2s ease-in-out infinite alternate;
+  /* Sprouting crystal shoots extending outward */
+  .ad-shoot-l {
+    transform-origin: 27px 34px;
+    animation: ad-shoot-grow 3.2s ease-in-out infinite alternate;
   }
 
-  .ad-crystals circle:nth-child(2n) {
-    animation-delay: 0.7s;
+  .ad-shoot-r {
+    transform-origin: 49px 32px;
+    animation: ad-shoot-grow 3.2s ease-in-out infinite alternate;
   }
 
-  .ad-crystals circle:nth-child(3n) {
-    animation-delay: 1.3s;
+  .ad-shoot-top {
+    transform-origin: 38px 24px;
+    animation: ad-shoot-grow 3.2s ease-in-out infinite alternate;
   }
 
-  @keyframes ad-sparkle {
-    0% { transform: scale(0.6); opacity: 0.4; fill: #80deea; }
-    100% { transform: scale(1.4); opacity: 1; fill: #ffffff; filter: drop-shadow(0 0 4px #00e5ff); }
+  @keyframes ad-shoot-grow {
+    0% { transform: scale(0.3) translateY(4px); opacity: 0.3; }
+    100% { transform: scale(1.2) translateY(0); opacity: 1; filter: drop-shadow(0 0 4px #00e5ff); }
   }
 
   /* Mercury amalgam seed pool */
@@ -74,8 +92,8 @@ const arborDianaeStyles = `
   }
 
   @keyframes ad-pulse {
-    0% { filter: drop-shadow(0 0 2px #90caf9); }
-    100% { filter: drop-shadow(0 0 6px #00e5ff); }
+    0% { filter: drop-shadow(0 0 2px #90caf9); transform: scale(0.95); }
+    100% { filter: drop-shadow(0 0 6px #00e5ff); transform: scale(1.05); }
   }
 
   .ad-label {
@@ -104,36 +122,43 @@ class ConceptArborDianae extends HTMLElement {
             <path d="M 33 10 L 43 10 L 43 22 L 58 54 A 10 10 0 0 1 48 64 L 28 64 A 10 10 0 0 1 18 54 L 33 22 Z" 
                   fill="rgba(0, 229, 255, 0.05)" stroke="rgba(0, 229, 255, 0.5)" stroke-width="1.2" />
 
+            <!-- Descending Silver Nitrate Reactant Droplets -->
+            <circle class="ad-ion-drop ad-id1" cx="38" cy="14" r="2" />
+            <circle class="ad-ion-drop ad-id2" cx="38" cy="14" r="1.8" />
+
             <!-- Mercury Amalgam Pool -->
             <ellipse class="ad-seed" cx="38" cy="59" rx="14" ry="4" />
 
             <!-- Dendritic Silver Tree Branches -->
-            <g class="ad-branches" stroke-width="1.4" fill="none" stroke-linecap="round">
+            <g class="ad-branches" stroke-width="1.5" fill="none" stroke-linecap="round">
               <!-- Trunk -->
               <path d="M 38 58 L 38 42" />
               <!-- Primary Branches -->
               <path d="M 38 45 Q 32 38 27 34" />
               <path d="M 38 43 Q 44 36 49 32" />
               <path d="M 38 36 L 38 24" />
-              <!-- Sub-Branches -->
-              <path d="M 27 34 Q 24 28 22 25" />
-              <path d="M 27 34 Q 30 28 32 24" />
-              <path d="M 49 32 Q 53 26 55 22" />
-              <path d="M 49 32 Q 46 26 44 23" />
-              <path d="M 38 24 Q 35 18 34 14" />
-              <path d="M 38 24 Q 41 18 42 14" />
             </g>
 
-            <!-- Silver Crystal Clusters -->
-            <g class="ad-crystals">
-              <circle cx="22" cy="25" r="1.5" />
-              <circle cx="32" cy="24" r="1.5" />
-              <circle cx="55" cy="22" r="1.5" />
-              <circle cx="44" cy="23" r="1.5" />
-              <circle cx="34" cy="14" r="1.5" />
-              <circle cx="42" cy="14" r="1.5" />
-              <circle cx="27" cy="34" r="1.2" />
-              <circle cx="49" cy="32" r="1.2" />
+            <!-- Sprouting Silver Crystal Shoots & Needles -->
+            <g class="ad-shoot-l" stroke="#ffffff" stroke-width="1.4" fill="none" stroke-linecap="round">
+              <path d="M 27 34 Q 24 28 20 23" />
+              <path d="M 27 34 Q 30 28 33 22" />
+              <polygon points="20,23 18,20 23,21" fill="#ffffff" />
+              <polygon points="33,22 36,19 35,24" fill="#ffffff" />
+            </g>
+
+            <g class="ad-shoot-r" stroke="#ffffff" stroke-width="1.4" fill="none" stroke-linecap="round">
+              <path d="M 49 32 Q 54 25 57 19" />
+              <path d="M 49 32 Q 45 25 43 21" />
+              <polygon points="57,19 60,16 58,22" fill="#ffffff" />
+              <polygon points="43,21 41,18 45,19" fill="#ffffff" />
+            </g>
+
+            <g class="ad-shoot-top" stroke="#ffffff" stroke-width="1.4" fill="none" stroke-linecap="round">
+              <path d="M 38 24 Q 34 17 33 12" />
+              <path d="M 38 24 Q 42 17 43 12" />
+              <polygon points="33,12 31,8 36,10" fill="#ffffff" />
+              <polygon points="43,12 45,8 40,10" fill="#ffffff" />
             </g>
           </svg>
         </div>

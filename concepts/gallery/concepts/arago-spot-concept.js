@@ -35,51 +35,72 @@ const aragoStyles = `
     justify-content: center;
   }
 
-  /* Outer concentric Fresnel diffraction rings */
+  /* Outward propagating Fresnel diffraction wave rings */
   .arg-diffraction-ring {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(0, 255, 100, 0.4);
-    animation: arg-shimmer-ring 3s ease-in-out infinite alternate;
+    border: 1.5px solid rgba(0, 255, 100, 0.7);
+    pointer-events: none;
   }
 
-  .r-outer1 { width: 72px; height: 72px; border-style: dashed; }
-  .r-outer2 { width: 60px; height: 60px; border-color: rgba(140, 255, 170, 0.6); }
-  .r-outer3 { width: 48px; height: 48px; border-color: rgba(0, 255, 100, 0.8); }
+  .r1 { animation: arg-wave-expand 3s linear infinite; }
+  .r2 { animation: arg-wave-expand 3s linear infinite; animation-delay: 1s; }
+  .r3 { animation: arg-wave-expand 3s linear infinite; animation-delay: 2s; }
 
-  @keyframes arg-shimmer-ring {
-    0% { transform: scale(0.98); opacity: 0.6; }
-    100% { transform: scale(1.02); opacity: 1; filter: drop-shadow(0 0 4px #00ff66); }
+  @keyframes arg-wave-expand {
+    0% { width: 34px; height: 34px; transform: scale(1); opacity: 1; }
+    100% { width: 34px; height: 34px; transform: scale(2.4); opacity: 0; }
   }
 
   /* Circular opaque shadow disc */
   .arg-shadow-disc {
     position: absolute;
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background: #010602;
-    border: 1.5px solid #004414;
+    border: 1.5px solid #005c1b;
     box-shadow: inset 0 0 8px #000000;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 3;
+  }
+
+  /* Converging diffraction photon rays from obstacle edge to center */
+  .arg-converge-ray {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 4;
+  }
+
+  .arg-diffract-beam {
+    stroke: #8cffaa;
+    stroke-width: 1.2;
+    stroke-dasharray: 6 4;
+    animation: arg-dash-flow 1.2s linear infinite;
+  }
+
+  @keyframes arg-dash-flow {
+    to { stroke-dashoffset: -20; }
   }
 
   /* Constructive interference Poisson-Arago pinpoint spot at dead center */
   .arg-central-spot {
-    width: 6px;
-    height: 6px;
+    position: absolute;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 8px #ffffff, 0 0 16px #00ff66, 0 0 24px #aaffaa;
     z-index: 6;
-    animation: arg-spot-glow 1.5s ease-in-out infinite alternate;
+    animation: arg-spot-glow 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes arg-spot-glow {
-    0% { transform: scale(0.85); filter: brightness(1); }
-    100% { transform: scale(1.2); filter: brightness(1.5); }
+    0% { transform: scale(0.8); filter: brightness(1); }
+    100% { transform: scale(1.35); filter: brightness(1.6); }
   }
 
   .arg-label {
@@ -103,13 +124,21 @@ class ConceptAragoSpot extends HTMLElement {
       <style>${aragoStyles}</style>
       <div class="arg">
         <div class="arg-screen">
-          <div class="arg-diffraction-ring r-outer1"></div>
-          <div class="arg-diffraction-ring r-outer2"></div>
-          <div class="arg-diffraction-ring r-outer3"></div>
+          <div class="arg-diffraction-ring r1"></div>
+          <div class="arg-diffraction-ring r2"></div>
+          <div class="arg-diffraction-ring r3"></div>
 
-          <div class="arg-shadow-disc">
-            <div class="arg-central-spot"></div>
-          </div>
+          <div class="arg-shadow-disc"></div>
+
+          <svg class="arg-converge-ray" viewBox="0 0 82 82">
+            <!-- 4 Converging wave rays from obstacle rim into center (41,41) -->
+            <line class="arg-diffract-beam" x1="23" y1="41" x2="41" y2="41" />
+            <line class="arg-diffract-beam" x1="59" y1="41" x2="41" y2="41" />
+            <line class="arg-diffract-beam" x1="41" y1="23" x2="41" y2="41" />
+            <line class="arg-diffract-beam" x1="41" y1="59" x2="41" y2="41" />
+          </svg>
+
+          <div class="arg-central-spot"></div>
         </div>
 
         <div class="arg-label">POISSON-ARAGO SPOT</div>

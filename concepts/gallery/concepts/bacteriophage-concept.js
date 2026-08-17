@@ -36,7 +36,7 @@ const phageStyles = `
   /* Bacteriophage nano-assembly */
   .phg-body-rig {
     position: absolute;
-    top: 6px;
+    top: 4px;
     width: 70px;
     display: flex;
     flex-direction: column;
@@ -44,17 +44,23 @@ const phageStyles = `
     z-index: 3;
   }
 
-  /* Icosahedral capsid head */
+  /* Icosahedral capsid head plunging downward on contract */
   .phg-capsid-svg {
     width: 38px;
     height: 38px;
     filter: drop-shadow(0 0 6px #8cffaa);
+    animation: phg-capsid-plunge 2.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes phg-capsid-plunge {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(10px); }
   }
 
   /* Contractile helical tail sheath */
   .phg-sheath {
     width: 8px;
-    height: 24px;
+    height: 20px;
     background: repeating-linear-gradient(
       180deg,
       #ffffff 0px,
@@ -65,13 +71,13 @@ const phageStyles = `
     border: 1px solid #d6ffe0;
     border-radius: 2px;
     box-shadow: 0 0 4px #8cffaa;
-    animation: phg-contract 3s ease-in-out infinite alternate;
+    transform-origin: bottom center;
+    animation: phg-contract 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes phg-contract {
-    0% { height: 24px; transform: scaleY(1); }
-    70% { height: 24px; }
-    85%, 100% { height: 14px; transform: scaleY(0.6); } /* Compression injection stroke! */
+    0% { transform: scaleY(1); }
+    100% { transform: scaleY(0.5); }
   }
 
   /* Baseplate and tail pins */
@@ -84,31 +90,41 @@ const phageStyles = `
     box-shadow: 0 0 4px #ffffff;
   }
 
-  /* Spider-like tail fibers gripping cell wall */
+  /* Tail fibers flexing under insertion load */
   .phg-fibers-svg {
     position: absolute;
     bottom: -6px;
     width: 70px;
     height: 28px;
     pointer-events: none;
+    transform-origin: top center;
+    animation: phg-fiber-flex 2.4s ease-in-out infinite alternate;
   }
 
-  /* Viral DNA injection filament packet passing into bacterium */
-  .phg-dna-injection {
+  @keyframes phg-fiber-flex {
+    0% { transform: scaleY(1) scaleX(1); }
+    100% { transform: scaleY(0.75) scaleX(1.18); }
+  }
+
+  /* Viral DNA genome packets injecting continuously into host */
+  .phg-dna-packet {
     position: absolute;
-    bottom: 4px;
-    width: 3px;
-    height: 18px;
+    width: 3.5px;
+    height: 14px;
     background: #ffffff;
-    border-radius: 1.5px;
-    box-shadow: 0 0 6px #ffffff;
+    border-radius: 2px;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #00ff66;
     z-index: 5;
-    animation: phg-inject 3s ease-in-out infinite alternate;
   }
 
-  @keyframes phg-inject {
-    0%, 75% { opacity: 0; transform: translateY(-8px); }
-    85%, 100% { opacity: 1; transform: translateY(6px); filter: drop-shadow(0 0 8px #8cffaa); }
+  .dp1 { animation: phg-inject-packet 2s ease-in infinite; }
+  .dp2 { animation: phg-inject-packet 2s ease-in infinite; animation-delay: 1s; }
+
+  @keyframes phg-inject-packet {
+    0% { transform: translateY(40px) scale(0.6); opacity: 0; }
+    30% { opacity: 1; transform: translateY(55px) scale(1); }
+    70% { opacity: 1; }
+    100% { transform: translateY(85px) scale(0.8); opacity: 0; }
   }
 
   /* Caption */
@@ -155,7 +171,7 @@ class ConceptBacteriophage extends HTMLElement {
           <div class="phg-baseplate"></div>
 
           <svg class="phg-fibers-svg" viewBox="0 0 70 28">
-            <!-- 6 Jointed tail fibers -->
+            <!-- Jointed tail fibers -->
             <path d="M 30 2 L 18 12 L 6 24" stroke="#8cffaa" stroke-width="1.5" fill="none" stroke-linecap="round" />
             <path d="M 32 2 L 24 14 L 16 26" stroke="#8cffaa" stroke-width="1.5" fill="none" stroke-linecap="round" />
             <path d="M 40 2 L 52 12 L 64 24" stroke="#8cffaa" stroke-width="1.5" fill="none" stroke-linecap="round" />
@@ -163,7 +179,8 @@ class ConceptBacteriophage extends HTMLElement {
           </svg>
         </div>
 
-        <div class="phg-dna-injection"></div>
+        <div class="phg-dna-packet dp1"></div>
+        <div class="phg-dna-packet dp2"></div>
         <div class="phg-membrane"></div>
       </div>
     `;
