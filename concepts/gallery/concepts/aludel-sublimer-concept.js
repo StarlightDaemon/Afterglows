@@ -38,7 +38,7 @@ const aludelSublimerStyles = `
   /* Discrete sublimation vapor parcels ascending through pots */
   .as-vapor-parcel {
     fill: #ff5252;
-    box-shadow: 0 0 6px #ff1744;
+    filter: drop-shadow(0 0 5px #ff1744) drop-shadow(0 0 3px #ffd600);
   }
 
   .as-vp1 { animation: as-ascend-1 2.2s ease-in-out infinite; }
@@ -132,9 +132,9 @@ class ConceptAludelSublimer extends HTMLElement {
                   fill="rgba(255, 82, 82, 0.12)" stroke="#ff5252" stroke-width="1.2" />
 
             <!-- Ascending Sublimation Vapor Parcels -->
-            <circle class="as-vapor-parcel as-vp1" cx="38" cy="50" r="2.5" />
-            <circle class="as-vapor-parcel as-vp2" cx="38" cy="50" r="2.8" />
-            <circle class="as-vapor-parcel as-vp3" cx="38" cy="50" r="2.2" />
+            <circle class="as-vapor-parcel as-vp1" cx="38" cy="50" r="4.2" />
+            <circle class="as-vapor-parcel as-vp2" cx="38" cy="50" r="4.6" />
+            <circle class="as-vapor-parcel as-vp3" cx="38" cy="50" r="3.8" />
 
             <!-- Sublimed Cinnabar Needles on Inside Walls -->
             <g class="as-crystals">

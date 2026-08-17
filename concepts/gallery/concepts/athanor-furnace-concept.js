@@ -58,15 +58,15 @@ const athanorStyles = `
     overflow: hidden;
   }
 
-  /* Descending charcoal lumps down hopper shaft */
+  /* Descending glowing ember lumps down hopper shaft */
   .af-charcoal {
     position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #1c1917;
-    border: 1px solid #78350f;
+    width: 8px;
+    height: 8px;
+    background: #ff9100;
+    border: 1px solid #ffd54f;
     border-radius: 1px;
-    box-shadow: 0 0 2px #ff7a29;
+    box-shadow: 0 0 8px #ff6d00, 0 0 4px #ffd54f;
   }
 
   .c1 { left: 8px; animation: af-coal-drop 2.6s ease-in infinite; }
@@ -98,21 +98,21 @@ const athanorStyles = `
   /* Convective circulating elixir essence loop */
   .af-elixir-orbit {
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     animation: af-elixir-circulate 2s linear infinite;
   }
 
   .af-elixir-drop {
     position: absolute;
-    top: 0;
-    left: 5px;
-    width: 6px;
-    height: 6px;
+    top: -2px;
+    left: 8px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: #ff3d00;
-    box-shadow: 0 0 8px #ffab00;
+    background: #ffd54f;
+    box-shadow: 0 0 10px #ff6d00, 0 0 6px #ffffff;
   }
 
   @keyframes af-elixir-circulate {

@@ -115,6 +115,25 @@ const armillaryStyles = `
     100% { transform: rotateX(60deg) rotateZ(360deg); }
   }
 
+  /* Guaranteed flat-plane orbit marker so the Sol gem reads as clearly traveling
+     regardless of the 3D-tilted ring's squash (no perspective is set on an ancestor) */
+  .as-sol-flat-orbit {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffd700, 0 0 14px #ff6d00;
+    z-index: 7;
+    offset-path: circle(26px at 50% 50%);
+    animation: as-flat-orbit-travel 3.2s linear infinite;
+  }
+
+  @keyframes as-flat-orbit-travel {
+    0% { offset-distance: 0%; }
+    100% { offset-distance: 100%; }
+  }
+
   /* Central Earth Globe */
   .as-central-earth {
     position: absolute;
@@ -168,6 +187,7 @@ class ConceptArmillarySphere extends HTMLElement {
               <div class="as-sol-sun"></div>
             </div>
             <div class="as-central-earth"></div>
+            <div class="as-sol-flat-orbit"></div>
           </div>
         </div>
 

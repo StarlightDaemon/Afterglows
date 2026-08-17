@@ -51,7 +51,7 @@ const balneumMariaeStyles = `
   /* Distillate droplets falling from alembic beaks into receivers */
   .bm-drop {
     fill: #ffffff;
-    filter: drop-shadow(0 0 3px #4fc3f7);
+    filter: drop-shadow(0 0 5px #4fc3f7) drop-shadow(0 0 3px #ffffff);
   }
 
   .bm-dl1 { animation: bm-drip-fall 1.8s ease-in infinite; }
@@ -61,9 +61,9 @@ const balneumMariaeStyles = `
 
   @keyframes bm-drip-fall {
     0% { transform: translateY(0) scale(0.6); opacity: 0; }
-    20% { opacity: 1; transform: translateY(2px) scale(1); }
+    20% { opacity: 1; transform: translateY(3px) scale(1.2); }
     80% { opacity: 1; }
-    100% { transform: translateY(16px) scale(0.8); opacity: 0; }
+    100% { transform: translateY(24px) scale(0.9); opacity: 0; }
   }
 
   /* Convection bubbles rising in water bath */
@@ -139,8 +139,8 @@ class ConceptBalneumMariae extends HTMLElement {
             <!-- Left Receiver Vial -->
             <path d="M 11 48 L 17 48 L 17 56 C 17 58, 11 58, 11 56 Z" fill="rgba(79, 195, 247, 0.2)" stroke="#4fc3f7" stroke-width="0.8" />
             <!-- Left Falling Droplets -->
-            <circle class="bm-drop bm-dl1" cx="14" cy="37" r="1.5" />
-            <circle class="bm-drop bm-dl2" cx="14" cy="37" r="1.3" />
+            <circle class="bm-drop bm-dl1" cx="14" cy="37" r="2.6" />
+            <circle class="bm-drop bm-dl2" cx="14" cy="37" r="2.2" />
 
             <!-- Right Distillation Cucurbit & Alembic Arm -->
             <path d="M 48 24 L 52 24 L 52 36 C 57 39, 57 49, 52 52 C 47 52, 47 39, 52 36 L 48 36 Z" 
@@ -150,8 +150,8 @@ class ConceptBalneumMariae extends HTMLElement {
             <!-- Right Receiver Vial -->
             <path d="M 59 48 L 65 48 L 65 56 C 65 58, 59 58, 59 56 Z" fill="rgba(79, 195, 247, 0.2)" stroke="#4fc3f7" stroke-width="0.8" />
             <!-- Right Falling Droplets -->
-            <circle class="bm-drop bm-dr1" cx="62" cy="37" r="1.5" />
-            <circle class="bm-drop bm-dr2" cx="62" cy="37" r="1.3" />
+            <circle class="bm-drop bm-dr1" cx="62" cy="37" r="2.6" />
+            <circle class="bm-drop bm-dr2" cx="62" cy="37" r="2.2" />
           </svg>
         </div>
         <div class="bm-label">BALNEUM MARIAE</div>

@@ -109,11 +109,13 @@ const phageStyles = `
   /* Viral DNA genome packets injecting continuously into host */
   .phg-dna-packet {
     position: absolute;
-    width: 3.5px;
-    height: 14px;
+    top: 0;
+    left: 57px;
+    width: 5px;
+    height: 16px;
     background: #ffffff;
     border-radius: 2px;
-    box-shadow: 0 0 6px #ffffff, 0 0 10px #00ff66;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #00ff66;
     z-index: 5;
   }
 

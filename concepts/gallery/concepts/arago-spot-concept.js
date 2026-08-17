@@ -103,6 +103,31 @@ const aragoStyles = `
     100% { transform: scale(1.35); filter: brightness(1.6); }
   }
 
+  /* Traveling diffracted photon packet racing in along the rim-to-center ray */
+  .arg-photon-packet {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 12px #00ff66;
+    z-index: 5;
+    offset-path: path("M 23 41 L 41 41");
+    animation: arg-photon-travel 1.2s linear infinite;
+  }
+
+  .arg-photon-packet.p2 {
+    offset-path: path("M 59 41 L 41 41");
+    animation-delay: 0.3s;
+  }
+
+  @keyframes arg-photon-travel {
+    0% { offset-distance: 0%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
   .arg-label {
     position: absolute;
     bottom: 3px;
@@ -139,6 +164,8 @@ class ConceptAragoSpot extends HTMLElement {
           </svg>
 
           <div class="arg-central-spot"></div>
+          <div class="arg-photon-packet"></div>
+          <div class="arg-photon-packet p2"></div>
         </div>
 
         <div class="arg-label">POISSON-ARAGO SPOT</div>
