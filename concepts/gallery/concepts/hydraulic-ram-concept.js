@@ -69,8 +69,31 @@ const ramStyles = `
   }
 
   @keyframes hr-clack-slam {
-    0%, 75% { transform: translateY(0); }
-    80%, 100% { transform: translateY(-5px); }
+    0%, 30% { transform: translateY(0); }
+    45%, 65% { transform: translateY(-7px); }
+    80%, 100% { transform: translateY(0); }
+  }
+
+  /* Water slugs surging through the drive manifold */
+  .hr-slug {
+    position: absolute;
+    bottom: 15px;
+    left: 12px;
+    width: 9px;
+    height: 6px;
+    border-radius: 3px;
+    background: #7ffcff;
+    box-shadow: 0 0 5px #00ffff;
+    animation: hr-slug-run 1.2s linear infinite;
+  }
+
+  .hr-slug.s2 { animation-delay: -0.6s; }
+
+  @keyframes hr-slug-run {
+    0% { transform: translateX(0); opacity: 0; }
+    12% { opacity: 1; }
+    82% { opacity: 1; }
+    100% { transform: translateX(46px); opacity: 0; }
   }
 
   /* Domed air vessel pressure cushion */
@@ -146,6 +169,8 @@ class ConceptHydraulicRam extends HTMLElement {
         <div class="hr-stage">
           <div class="hr-drive-pipe"></div>
           <div class="hr-manifold"></div>
+          <div class="hr-slug"></div>
+          <div class="hr-slug s2"></div>
           <div class="hr-waste-valve"></div>
           <div class="hr-air-dome"></div>
 

@@ -61,8 +61,18 @@ const fraunhoferLinesStyles = `
   }
 
   @keyframes fl-doublet-gleam {
-    0% { stroke: #fbbf24; opacity: 0.4; }
-    100% { stroke: #ffffff; opacity: 0.9; filter: drop-shadow(0 0 2px #f59e0b); }
+    0% { stroke: #fbbf24; opacity: 0.6; }
+    100% { stroke: #ffffff; opacity: 1; filter: drop-shadow(0 0 2px #f59e0b); }
+  }
+
+  /* Measuring reticle scanning the spectrum, line by line */
+  .fl-scanner {
+    animation: fl-scan 4.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes fl-scan {
+    0% { transform: translateX(-35px); }
+    100% { transform: translateX(15px); }
   }
 
   .fl-label {
@@ -141,9 +151,11 @@ class ConceptFraunhoferLines extends HTMLElement {
               <text x="62" y="20">A</text>
             </g>
 
-            <!-- Precision Sighting Crosshair Reticle & Vernier Scale -->
-            <line class="fl-d-doublet" x1="47.5" y1="10" x2="47.5" y2="24" stroke-width="0.8" />
-            <polygon points="45.5,12 49.5,12 47.5,16" fill="#fbbf24" />
+            <!-- Precision Sighting Crosshair Reticle scanning across the band -->
+            <g class="fl-scanner">
+              <line class="fl-d-doublet" x1="47.5" y1="10" x2="47.5" y2="48" stroke-width="1.4" />
+              <polygon points="45,10 50,10 47.5,15" fill="#fbbf24" />
+            </g>
           </svg>
         </div>
         <div class="fl-label">FRAUNHOFER 1814</div>

@@ -37,12 +37,22 @@ const torricelliBarometerStyles = `
 
   /* Mercury column height breathing with barometric pressure */
   .tb-mercury-column {
-    animation: tb-column-breathe 4s ease-in-out infinite alternate;
+    animation: tb-column-breathe 2.6s ease-in-out infinite alternate;
   }
 
   @keyframes tb-column-breathe {
-    0% { y: 22px; height: 38px; }
-    100% { y: 16px; height: 44px; }
+    0% { y: 26px; height: 32px; }
+    100% { y: 12px; height: 46px; }
+  }
+
+  /* Convex meniscus riding the top of the column */
+  .tb-meniscus {
+    animation: tb-meniscus-ride 2.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes tb-meniscus-ride {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-14px); }
   }
 
   /* Torricellian vacuum shimmer at top of sealed tube */
@@ -109,18 +119,18 @@ class ConceptTorricelliBarometer extends HTMLElement {
             </g>
 
             <!-- Inverted Glass Barometer Tube (Sealed at top, immersed at bottom) -->
-            <rect x="35" y="8" width="6" height="50" rx="3" fill="#0f172a" fill-opacity="0.4" stroke="#cbd5e1" stroke-width="0.8" />
+            <rect x="33" y="8" width="10" height="50" rx="4" fill="#0f172a" fill-opacity="0.4" stroke="#cbd5e1" stroke-width="0.8" />
 
             <!-- Torricellian Vacuum Space (Top Void) -->
-            <rect class="tb-torricelli-vacuum" x="36" y="9" width="4" height="10" rx="2" fill="#0284c7" />
+            <rect class="tb-torricelli-vacuum" x="34" y="9" width="8" height="10" rx="3" fill="#0284c7" />
 
             <!-- Liquid Mercury Column Rising up Tube (760mm hydrostatic balance) -->
-            <rect class="tb-mercury-column" x="36" y="19" width="4" height="39" fill="#e2e8f0" />
+            <rect class="tb-mercury-column" x="34" y="26" width="8" height="32" fill="#e2e8f0" />
             <!-- Mercury Convex Meniscus -->
-            <ellipse cx="38" cy="19" rx="2" ry="0.8" fill="#f8fafc" />
+            <ellipse class="tb-meniscus" cx="38" cy="26" rx="4" ry="1.2" fill="#f8fafc" />
 
             <!-- Glass Reflection Specular Line -->
-            <line x1="36" y1="12" x2="36" y2="54" stroke="#ffffff" stroke-width="0.5" opacity="0.6" />
+            <line x1="34.5" y1="12" x2="34.5" y2="54" stroke="#ffffff" stroke-width="0.5" opacity="0.6" />
           </svg>
         </div>
         <div class="tb-label">TORRICELLI 760mm</div>

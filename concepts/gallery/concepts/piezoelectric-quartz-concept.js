@@ -37,12 +37,12 @@ const piezoelectricQuartzStyles = `
 
   /* Hanging weight load applying compression tension to quartz plate */
   .pq-weight-load {
-    animation: pq-weight-bounce 3s ease-in-out infinite alternate;
+    animation: pq-weight-bounce 2s ease-in-out infinite alternate;
   }
 
   @keyframes pq-weight-bounce {
     0% { transform: translateY(0); }
-    100% { transform: translateY(2px); }
+    100% { transform: translateY(6px); }
   }
 
   /* Piezoelectric electrostatic charge spark & field polarization */
@@ -59,12 +59,12 @@ const piezoelectricQuartzStyles = `
   /* Electrometer gold needle deflection */
   .pq-electrometer-needle {
     transform-origin: 58px 30px;
-    animation: pq-needle-swing 3s ease-in-out infinite alternate;
+    animation: pq-needle-swing 2s ease-in-out infinite alternate;
   }
 
   @keyframes pq-needle-swing {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(26deg); }
+    0% { transform: rotate(-28deg); }
+    100% { transform: rotate(28deg); }
   }
 
   .pq-label {
@@ -124,7 +124,7 @@ class ConceptPiezoelectricQuartz extends HTMLElement {
 
             <!-- Deflecting Electrometer Light Gold Foil Vane / Needle -->
             <g class="pq-electrometer-needle">
-              <line x1="58" y1="30" x2="58" y2="19" stroke="#fbbf24" stroke-width="1.2" stroke-linecap="round" />
+              <line x1="58" y1="30" x2="58" y2="17" stroke="#fbbf24" stroke-width="1.6" stroke-linecap="round" />
               <!-- Mirror Dot at Pivot -->
               <circle cx="58" cy="30" r="1.5" fill="#fef08a" />
             </g>

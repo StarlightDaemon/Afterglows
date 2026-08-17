@@ -55,14 +55,21 @@ const rowlandConcaveGratingStyles = `
     100% { stroke: #ffffff; filter: drop-shadow(0 0 2px #38bdf8); }
   }
 
-  /* Diffracted spectral rays focusing on photographic plate */
+  /* Diffracted spectral rays sweeping their focus along the plate arc */
   .rc-spectrum-focus {
-    animation: rc-focus-pulse 2s ease-in-out infinite alternate;
+    transform-origin: 38px 59px;
+    animation: rc-focus-pulse 2s ease-in-out infinite alternate,
+               rc-fan-sweep 3.2s ease-in-out infinite alternate;
   }
 
   @keyframes rc-focus-pulse {
-    0% { opacity: 0.4; }
+    0% { opacity: 0.65; }
     100% { opacity: 1; filter: drop-shadow(0 0 2.5px #f43f5e); }
+  }
+
+  @keyframes rc-fan-sweep {
+    0% { transform: rotate(-9deg); }
+    100% { transform: rotate(9deg); }
   }
 
   .rc-label {
@@ -110,13 +117,17 @@ class ConceptRowlandConcaveGrating extends HTMLElement {
             <path d="M 16 26 A 26 26 0 0 1 28 14" fill="none" stroke="#ef4444" stroke-width="1.8" />
 
             <!-- Self-Focused Diffracted Spectral Rays (No lenses required!) -->
-            <g class="rc-spectrum-focus" stroke-width="0.8">
+            <g class="rc-spectrum-focus" stroke-width="1.3">
               <!-- Violet Ray -->
               <line x1="38" y1="59" x2="26" y2="15" stroke="#a855f7" />
               <!-- Cyan/Green Ray -->
               <line x1="38" y1="59" x2="21" y2="20" stroke="#06b6d4" />
               <!-- Red Ray -->
               <line x1="38" y1="59" x2="17" y2="26" stroke="#f43f5e" />
+              <!-- Focused spectral spots on the plate -->
+              <circle cx="26" cy="15" r="1.9" fill="#c084fc" />
+              <circle cx="21" cy="20" r="1.9" fill="#22d3ee" />
+              <circle cx="17" cy="26" r="1.9" fill="#fb7185" />
             </g>
           </svg>
         </div>

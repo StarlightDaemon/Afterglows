@@ -85,7 +85,7 @@ const bowerbirdStyles = `
     100% { filter: brightness(1.3); transform: scale(1.1); }
   }
 
-  /* Satin bowerbird silhouette inspecting avenue */
+  /* Satin bowerbird patrolling its avenue court */
   .bwr-bird {
     position: absolute;
     top: 8px;
@@ -96,22 +96,30 @@ const bowerbirdStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: bwr-bob 2.5s ease-in-out infinite alternate;
+    animation: bwr-patrol 3.6s ease-in-out infinite;
   }
 
-  @keyframes bwr-bob {
-    0% { transform: translateY(0) rotate(-3deg); }
-    50% { transform: translateY(2px) rotate(2deg); }
-    100% { transform: translateY(0) rotate(-3deg); }
+  @keyframes bwr-patrol {
+    0%   { transform: translateX(-15px) translateY(0) scaleX(1); }
+    12%  { transform: translateX(-8px) translateY(-3px) scaleX(1); }
+    25%  { transform: translateX(0) translateY(0) scaleX(1); }
+    37%  { transform: translateX(8px) translateY(-3px) scaleX(1); }
+    49%  { transform: translateX(15px) translateY(0) scaleX(1); }
+    51%  { transform: translateX(15px) translateY(0) scaleX(-1); }
+    63%  { transform: translateX(8px) translateY(-3px) scaleX(-1); }
+    75%  { transform: translateX(0) translateY(0) scaleX(-1); }
+    87%  { transform: translateX(-8px) translateY(-3px) scaleX(-1); }
+    99%  { transform: translateX(-15px) translateY(0) scaleX(-1); }
+    100% { transform: translateX(-15px) translateY(0) scaleX(1); }
   }
 
   .bwr-bird-body {
     width: 16px;
     height: 10px;
-    background: #020814;
-    border: 1.2px solid #00a0ff;
+    background: linear-gradient(180deg, #0d4066 0%, #041a2e 100%);
+    border: 1.5px solid #00cdf2;
     border-radius: 60% 40% 40% 60%;
-    box-shadow: inset 0 0 4px #00e5ff;
+    box-shadow: inset 0 0 4px #00e5ff, 0 0 5px rgba(0, 229, 255, 0.5);
   }
 
   .bwr-bird-eye {

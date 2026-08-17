@@ -82,13 +82,21 @@ const leydenStyles = `
     z-index: 6;
   }
 
-  /* Grounding discharge wand on right */
+  /* Grounding discharge wand on right, brought toward the knob and back */
   .lyd-wand {
     position: absolute;
     top: 18px;
     right: 18px;
     width: 24px;
     height: 48px;
+    animation: lyd-approach 2.2s ease-in-out infinite;
+  }
+
+  @keyframes lyd-approach {
+    0% { transform: translate(6px, -3px) rotate(6deg); }
+    42% { transform: translate(-12px, 2px) rotate(-4deg); }
+    56% { transform: translate(-12px, 2px) rotate(-4deg); }
+    100% { transform: translate(6px, -3px) rotate(6deg); }
   }
 
   .lyd-wand-knob {
@@ -102,12 +110,12 @@ const leydenStyles = `
     box-shadow: 0 0 6px #00ffcc;
   }
 
-  /* Intense electrostatic spark discharge jumping between knobs */
+  /* Intense electrostatic spark discharge jumping at closest approach */
   .lyd-spark {
     position: absolute;
-    top: 22px;
-    left: 54px;
-    width: 22px;
+    top: 21px;
+    left: 55px;
+    width: 14px;
     height: 2px;
     background: #ffffff;
     box-shadow: 0 0 8px #ffffff, 0 0 16px #00ffcc;
@@ -115,10 +123,11 @@ const leydenStyles = `
   }
 
   @keyframes lyd-spark-fire {
-    0%, 93% { opacity: 0; transform: scaleX(0); }
-    94% { opacity: 1; transform: scaleX(1) translateY(-1px); }
-    96% { opacity: 1; transform: scaleX(1) translateY(1px); }
-    97%, 100% { opacity: 0; transform: scaleX(0); }
+    0%, 43% { opacity: 0; transform: scaleX(0); }
+    44% { opacity: 1; transform: scaleX(1) translateY(-1px); }
+    48% { opacity: 1; transform: scaleX(1) translateY(1px); }
+    52% { opacity: 1; transform: scaleX(1) translateY(-1px); }
+    55%, 100% { opacity: 0; transform: scaleX(0); }
   }
 
   .lyd-label {

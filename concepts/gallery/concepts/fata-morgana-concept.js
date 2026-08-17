@@ -60,7 +60,7 @@ const fataMorganaStyles = `
     100% { transform: scaleY(1.2) translateY(1px); opacity: 0.8; }
   }
 
-  /* Real distant ship below horizon */
+  /* Real distant ship below horizon, steaming along the sea line */
   .ftm-real-ship {
     position: absolute;
     bottom: 26px;
@@ -68,8 +68,14 @@ const fataMorganaStyles = `
     width: 18px;
     height: 6px;
     background: #021a24;
-    border: 1px solid #0088aa;
-    opacity: 0.6;
+    border: 1px solid #00c8e8;
+    opacity: 0.8;
+    animation: ftm-sail 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes ftm-sail {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(22px); }
   }
 
   /* Hovering superior mirage (inverted image + erect top image) */
@@ -83,15 +89,15 @@ const fataMorganaStyles = `
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    animation: ftm-waver 4s ease-in-out infinite alternate;
+    animation: ftm-waver 3.2s ease-in-out infinite alternate;
   }
 
   @keyframes ftm-waver {
-    0% { transform: translateY(-2px) skewX(-2deg); }
-    100% { transform: translateY(2px) skewX(2deg); filter: drop-shadow(0 0 6px #00e5ff); }
+    0% { transform: translateY(-6px) skewX(-2deg); }
+    100% { transform: translateY(5px) skewX(2deg); filter: drop-shadow(0 0 6px #00e5ff); }
   }
 
-  /* Erect towering upper mirage ship */
+  /* Erect towering upper mirage ship — stretches vertically as the duct towers */
   .ftm-ship-erect {
     width: 28px;
     height: 10px;
@@ -101,6 +107,13 @@ const fataMorganaStyles = `
     box-shadow: 0 0 8px #00e5ff;
     display: flex;
     justify-content: space-around;
+    transform-origin: 50% 100%;
+    animation: ftm-tower 3.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes ftm-tower {
+    0% { transform: scaleY(1); }
+    100% { transform: scaleY(1.8); }
   }
 
   /* Inverted middle mirage ship */
