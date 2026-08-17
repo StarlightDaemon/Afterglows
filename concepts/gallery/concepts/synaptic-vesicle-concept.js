@@ -60,6 +60,29 @@ const synapseStyles = `
     justify-content: center;
   }
 
+  /* Vesicle trafficking across the bouton to dock at the active zone */
+  .sv-transport-vesicle {
+    position: absolute;
+    top: 2px;
+    left: 14px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #00b0ff;
+    border: 1px solid #ffffff;
+    box-shadow: 0 0 6px #00e5ff;
+    animation: sv-transport 3s ease-in-out infinite;
+  }
+
+  @keyframes sv-transport {
+    0% { transform: translate(0, 0); opacity: 0; }
+    10% { transform: translate(3px, 2px); opacity: 1; }
+    55% { transform: translate(28px, 16px); opacity: 1; }
+    70% { transform: translate(28px, 20px) scale(1.1); opacity: 0.9; }
+    82% { transform: translate(28px, 22px) scale(0.4); opacity: 0; }
+    100% { transform: translate(28px, 22px) scale(0.4); opacity: 0; }
+  }
+
   /* Vesicle undergoing exocytosis fusion at active zone */
   .sv-fusing-vesicle {
     position: absolute;
@@ -153,6 +176,7 @@ class ConceptSynapticVesicle extends HTMLElement {
             <div class="sv-vesicle"></div>
             <div class="sv-vesicle"></div>
             <div class="sv-fusing-vesicle"></div>
+            <div class="sv-transport-vesicle"></div>
           </div>
 
           <div class="sv-cleft-neurotransmitters">

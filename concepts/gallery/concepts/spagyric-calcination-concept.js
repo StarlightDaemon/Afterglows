@@ -58,6 +58,39 @@ const spagyricStyles = `
     to { stroke-dashoffset: -12; }
   }
 
+  /* Essence droplets carried from each principle flask into the vessel */
+  .sp-drop {
+    filter: drop-shadow(0 0 3px currentColor);
+    animation-duration: 2.4s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .sp-drop.sulfur { animation-name: sp-drop-sulfur; }
+  .sp-drop.mercury { animation-name: sp-drop-mercury; animation-delay: -0.8s; }
+  .sp-drop.salt { animation-name: sp-drop-salt; animation-delay: -1.6s; }
+
+  @keyframes sp-drop-sulfur {
+    0% { transform: translate(0, 0); opacity: 0; }
+    15% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(0, 24px); opacity: 0; }
+  }
+
+  @keyframes sp-drop-mercury {
+    0% { transform: translate(0, 0); opacity: 0; }
+    15% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(20px, -14px); opacity: 0; }
+  }
+
+  @keyframes sp-drop-salt {
+    0% { transform: translate(0, 0); opacity: 0; }
+    15% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(-20px, -14px); opacity: 0; }
+  }
+
   /* Golden Quintessence Elixir Orb */
   .sp-quintessence {
     fill: #ffd700;
@@ -134,6 +167,11 @@ class ConceptSpagyricCalcination extends HTMLElement {
             <line x1="38" y1="21" x2="38" y2="33" class="sp-stream-sulfur" stroke-width="2.2" />
             <line x1="24" y1="48" x2="34" y2="40" class="sp-stream-mercury" stroke-width="2.2" />
             <line x1="52" y1="48" x2="42" y2="40" class="sp-stream-salt" stroke-width="2.2" />
+
+            <!-- Principle essence droplets converging on the vessel -->
+            <circle class="sp-drop sulfur" cx="38" cy="14" r="2.2" fill="#ff5252" color="#ff5252" />
+            <circle class="sp-drop mercury" cx="18" cy="52" r="2.2" fill="#00e5ff" color="#00e5ff" />
+            <circle class="sp-drop salt" cx="58" cy="52" r="2.2" fill="#ffffff" color="#ffffff" />
 
             <!-- Central Quintessence Vessel & Radiant Lapis Stone -->
             <circle class="sp-vessel-ring" cx="38" cy="38" r="8" fill="rgba(224, 64, 251, 0.12)" stroke="#e040fb" stroke-width="1.4" />

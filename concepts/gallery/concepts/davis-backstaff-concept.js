@@ -69,6 +69,28 @@ const davisBackstaffStyles = `
     100% { opacity: 1; transform: scale(1.35); filter: drop-shadow(0 0 8px #ffd700); }
   }
 
+  /* Shadow vane slid along the 60-degree arc by the navigator */
+  .db-shadow-vane {
+    transform-origin: 36px 30px;
+    animation: db-vane-slide 2.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes db-vane-slide {
+    0% { transform: rotate(-20deg); }
+    100% { transform: rotate(16deg); }
+  }
+
+  /* Sight vane slid along the 30-degree arc in counter-adjustment */
+  .db-sight-vane {
+    transform-origin: 30px 55px;
+    animation: db-sight-slide 2.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes db-sight-slide {
+    0% { transform: rotate(11deg); }
+    100% { transform: rotate(-11deg); }
+  }
+
   /* Pearwood / Lignum Vitae Main Frame */
   .db-frame {
     fill: #3e2723;
@@ -108,12 +130,12 @@ class ConceptDavisBackstaff extends HTMLElement {
             <!-- Small 60-Degree Shadow Arch Arc at Front (Left) -->
             <path class="db-frame" d="M 24 43 A 18 18 0 0 1 20 22 L 24 24 A 14 14 0 0 0 28 41 Z" />
             <!-- Sliding Shadow Vane on 60-Deg Arc -->
-            <rect x="18" y="26" width="5" height="3" fill="#ffd54f" stroke="#ff8f00" stroke-width="0.5" />
+            <rect class="db-shadow-vane" x="18" y="26" width="5" height="3" fill="#ffd54f" stroke="#ff8f00" stroke-width="0.5" />
 
             <!-- Large 30-Degree Sight Arch Arc at Back (Right) -->
             <path class="db-frame" d="M 52 32 A 32 32 0 0 1 62 58 L 58 59 A 28 28 0 0 0 48 34 Z" />
             <!-- Sliding Sight Vane (Eyepiece) on 30-Deg Arc -->
-            <rect x="56" y="44" width="5" height="4" fill="#cfd8dc" stroke="#90a4ae" stroke-width="0.5" />
+            <rect class="db-sight-vane" x="56" y="44" width="5" height="4" fill="#eceff1" stroke="#90a4ae" stroke-width="0.5" />
 
             <!-- Horizon Vane at Extreme Tip of Staff (Slit window) -->
             <rect x="14" y="44" width="4" height="6" fill="#ffd54f" stroke="#ff8f00" stroke-width="0.6" />

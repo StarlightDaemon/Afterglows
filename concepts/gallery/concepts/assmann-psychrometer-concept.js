@@ -57,6 +57,22 @@ const assmannPsychrometerStyles = `
     100% { stroke-dashoffset: 24; opacity: 1; stroke: #ffffff; filter: drop-shadow(0 0 3px #38bdf8); }
   }
 
+  /* Discrete air parcels drawn up through the shield tubes by the fan */
+  .ap-air-puff {
+    fill: #e0f2fe;
+    filter: drop-shadow(0 0 3px #38bdf8);
+    animation: ap-puff-rise 1.4s linear infinite;
+  }
+
+  .ap-air-puff.d2 { animation-delay: -0.7s; }
+
+  @keyframes ap-puff-rise {
+    0% { transform: translateY(0); opacity: 0; }
+    12% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { transform: translateY(-38px); opacity: 0; }
+  }
+
   /* Polished chrome radiation shields glinting as air is drawn through */
   .ap-chrome-tube {
     animation: ap-chrome-glint 1.5s ease-in-out infinite alternate;
@@ -150,6 +166,12 @@ class ConceptAssmannPsychrometer extends HTMLElement {
             <!-- Central Connecting Air Manifold & Carrying Handle -->
             <path d="M 28 24 L 38 20 L 48 24" fill="none" stroke="#64748b" stroke-width="1" />
             <circle cx="38" cy="6" r="2" fill="none" stroke="#94a3b8" stroke-width="0.8" />
+
+            <!-- Discrete aspirated air parcels rising through both tubes (painted last, on top) -->
+            <circle class="ap-air-puff" cx="28.5" cy="61" r="2.2" />
+            <circle class="ap-air-puff d2" cx="28.5" cy="61" r="1.8" />
+            <circle class="ap-air-puff d2" cx="47.5" cy="61" r="2.2" />
+            <circle class="ap-air-puff" cx="47.5" cy="61" r="1.8" />
           </svg>
         </div>
         <div class="ap-label">ASSMANN PSYCHROMETER</div>

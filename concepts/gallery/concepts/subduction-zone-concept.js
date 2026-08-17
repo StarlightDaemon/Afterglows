@@ -45,6 +45,40 @@ const subductionStyles = `
     to { stroke-dashoffset: 20; }
   }
 
+  /* Crust blocks riding the subducting slab conveyor down the bend */
+  .sz-crust-block {
+    fill: #cfd8dc;
+    stroke: #eceff1;
+    stroke-width: 0.5;
+    filter: drop-shadow(0 0 2px #b0bec5);
+    offset-path: path("M 12 37 L 26 37 L 50 61");
+    offset-rotate: auto;
+    animation: sz-conveyor 3s linear infinite;
+  }
+
+  .sz-crust-block.c2 { animation-delay: -1.5s; }
+
+  @keyframes sz-conveyor {
+    0% { offset-distance: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
+  /* Molten diapir blob ascending from the dewatering zone to the chamber */
+  .sz-magma-blob {
+    fill: #ff9e40;
+    filter: drop-shadow(0 0 3px #ff3d00);
+    animation: sz-blob-rise 1.8s ease-in infinite;
+  }
+
+  @keyframes sz-blob-rise {
+    0% { transform: translate(0, 0); opacity: 0; }
+    20% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { transform: translate(2px, -14px); opacity: 0; }
+  }
+
   /* Dewatering volatile fluid bubbles rising from slab */
   .sz-fluids circle {
     fill: #80d8ff;
@@ -122,8 +156,13 @@ class ConceptSubductionZone extends HTMLElement {
             <ellipse class="sz-volcano-glow" cx="44" cy="38" rx="6" ry="4" />
             <polygon class="sz-volcano-glow" points="42,22 46,22 44,18" />
 
+            <!-- Crust blocks carried down on the slab conveyor -->
+            <rect class="sz-crust-block" x="-3" y="-2" width="6" height="4" rx="1" />
+            <rect class="sz-crust-block c2" x="-3" y="-2" width="6" height="4" rx="1" />
+
             <!-- Rising Magma Diapirs from Dewatering Zone -->
             <line x1="42" y1="52" x2="44" y2="40" class="sz-magma-plume" stroke-width="3" />
+            <circle class="sz-magma-blob" cx="42" cy="53" r="2.6" />
 
             <!-- Dewatering Volatiles (H2O escaping slab into mantle wedge) -->
             <g class="sz-fluids">

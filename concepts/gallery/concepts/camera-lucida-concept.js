@@ -98,8 +98,30 @@ const lucidaStyles = `
   }
 
   @keyframes cl-ghost-fade {
-    0% { opacity: 0.1; transform: scale(0.85); background: rgba(0, 229, 255, 0); }
-    100% { opacity: 1; transform: scale(1.1); background: rgba(0, 229, 255, 0.3); }
+    0% { opacity: 0.25; background: rgba(0, 229, 255, 0); }
+    100% { opacity: 1; background: rgba(0, 229, 255, 0.3); }
+  }
+
+  /* Artist's pencil tracing the superimposed ghost outline */
+  .cl-pencil {
+    position: absolute;
+    left: 8px;
+    top: 1px;
+    width: 3px;
+    height: 11px;
+    background: linear-gradient(180deg, #ffe082 0%, #ffb74d 75%, #ffffff 100%);
+    border-radius: 1.5px 1.5px 0 0;
+    box-shadow: 0 0 4px #ffd54f;
+    transform-origin: 50% 100%;
+    animation: cl-pencil-trace 3.2s linear infinite;
+  }
+
+  @keyframes cl-pencil-trace {
+    0% { transform: translate(0, 0) rotate(24deg); }
+    25% { transform: translate(24px, 0) rotate(30deg); }
+    50% { transform: translate(24px, 18px) rotate(24deg); }
+    75% { transform: translate(0, 18px) rotate(18deg); }
+    100% { transform: translate(0, 0) rotate(24deg); }
   }
 
   .cl-label {
@@ -134,6 +156,7 @@ class ConceptCameraLucida extends HTMLElement {
 
           <div class="cl-paper">
             <div class="cl-ghost-sketch"></div>
+            <div class="cl-pencil"></div>
           </div>
         </div>
 
