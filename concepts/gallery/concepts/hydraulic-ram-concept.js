@@ -54,7 +54,7 @@ const ramStyles = `
     transform: rotate(-15deg);
   }
 
-  /* Waste clack valve slamming open and shut with crisp mechanical recoil */
+  /* Waste clack valve slamming open and shut */
   .hr-waste-valve {
     position: absolute;
     bottom: 28px;
@@ -65,12 +65,12 @@ const ramStyles = `
     border: 1px solid #ffffff;
     border-radius: 2px 2px 0 0;
     box-shadow: 0 0 4px #ffd54f;
-    animation: hr-clack-slam 1.4s ease-in-out infinite;
+    animation: hr-clack-slam 1.2s ease-in-out infinite;
   }
 
   @keyframes hr-clack-slam {
     0%, 30% { transform: translateY(0); }
-    45%, 65% { transform: translateY(-10px); }
+    45%, 65% { transform: translateY(-7px); }
     80%, 100% { transform: translateY(0); }
   }
 
@@ -84,10 +84,10 @@ const ramStyles = `
     border-radius: 3px;
     background: #7ffcff;
     box-shadow: 0 0 5px #00ffff;
-    animation: hr-slug-run 1.4s linear infinite;
+    animation: hr-slug-run 1.2s linear infinite;
   }
 
-  .hr-slug.s2 { animation-delay: -0.7s; }
+  .hr-slug.s2 { animation-delay: -0.6s; }
 
   @keyframes hr-slug-run {
     0% { transform: translateX(0); opacity: 0; }
@@ -107,12 +107,12 @@ const ramStyles = `
     background: radial-gradient(circle at 30% 30%, #2bd9b0 0%, #0c3330 80%);
     border: 1.2px solid #00e6c8;
     box-shadow: inset 0 0 6px rgba(0, 230, 200, 0.4);
-    animation: hr-air-pulse 1.4s ease-in-out infinite;
+    animation: hr-air-pulse 1.2s ease-in-out infinite;
   }
 
   @keyframes hr-air-pulse {
     0%, 75% { transform: scale(1); }
-    80% { transform: scale(1.12); filter: drop-shadow(0 0 8px #00ffff); }
+    80% { transform: scale(1.08); filter: drop-shadow(0 0 6px #00ffff); }
     100% { transform: scale(1); }
   }
 
@@ -127,24 +127,23 @@ const ramStyles = `
     border: 1px solid #00e6c8;
   }
 
-  /* Water surge packet rising up delivery pipe and geysering out */
-  .hr-delivery-packet {
+  /* Water surge jet pulsing out top */
+  .hr-jet {
     position: absolute;
-    right: 19px;
-    width: 4px;
-    height: 6px;
-    border-radius: 2px;
-    background: #ffffff;
+    top: 4px;
+    right: 16px;
+    width: 10px;
+    height: 8px;
+    background: #00ffff;
+    border-radius: 50% 50% 0 0;
     box-shadow: 0 0 6px #00ffff;
-    z-index: 6;
-    animation: hr-delivery-fountain 1.4s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+    animation: hr-water-surge 1.2s ease-in-out infinite;
   }
 
-  @keyframes hr-delivery-fountain {
-    0%, 70% { bottom: 26px; opacity: 0; transform: scale(0.5); }
-    75% { opacity: 1; transform: scale(1); }
-    85% { bottom: 64px; opacity: 1; transform: scale(1.4); }
-    92%, 100% { bottom: 74px; opacity: 0; transform: scale(0.4); }
+  @keyframes hr-water-surge {
+    0%, 75% { opacity: 0.3; transform: scaleY(0.5); }
+    82% { opacity: 1; transform: scaleY(1.4); }
+    100% { opacity: 0.3; transform: scaleY(0.5); }
   }
 
   .hr-label {
@@ -176,7 +175,7 @@ class ConceptHydraulicRam extends HTMLElement {
           <div class="hr-air-dome"></div>
 
           <div class="hr-delivery-pipe"></div>
-          <div class="hr-delivery-packet"></div>
+          <div class="hr-jet"></div>
         </div>
 
         <div class="hr-label">HYDRAULIC RAM PUMP</div>

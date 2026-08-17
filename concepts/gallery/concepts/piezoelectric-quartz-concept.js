@@ -35,66 +35,36 @@ const piezoelectricQuartzStyles = `
     height: 72px;
   }
 
-  /* Quartz crystal bar under compressive mechanical strain */
-  .pq-crystal-bar {
-    animation: pq-crystal-compress 1.8s ease-in-out infinite alternate;
-    transform-origin: 22px 30px;
-  }
-
-  @keyframes pq-crystal-compress {
-    0% { transform: scaleY(1.06); }
-    100% { transform: scaleY(0.92); }
-  }
-
   /* Hanging weight load applying compression tension to quartz plate */
   .pq-weight-load {
-    animation: pq-weight-bounce 1.8s ease-in-out infinite alternate;
+    animation: pq-weight-bounce 2s ease-in-out infinite alternate;
   }
 
   @keyframes pq-weight-bounce {
-    0% { transform: translateY(-4px); }
-    100% { transform: translateY(12px); }
+    0% { transform: translateY(0); }
+    100% { transform: translateY(6px); }
   }
 
   /* Piezoelectric electrostatic charge spark & field polarization */
   .pq-charge-field {
-    animation: pq-charge-pulse 1.8s ease-in-out infinite alternate;
+    animation: pq-charge-pulse 3s ease-in-out infinite alternate;
   }
 
   @keyframes pq-charge-pulse {
     0% { opacity: 0.3; stroke: #ea580c; }
-    100% { opacity: 1; stroke: #fed7aa; filter: drop-shadow(0 0 4px #f97316); }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; stroke: #fed7aa; filter: drop-shadow(0 0 3px #f97316); }
   }
 
   /* Electrometer gold needle deflection */
   .pq-electrometer-needle {
     transform-origin: 58px 30px;
-    animation: pq-needle-swing 1.8s ease-in-out infinite alternate;
+    animation: pq-needle-swing 2s ease-in-out infinite alternate;
   }
 
   @keyframes pq-needle-swing {
-    0% { transform: rotate(-42deg); }
-    100% { transform: rotate(42deg); }
-  }
-
-  /* Traveling piezoelectric charge packet along conductor wire */
-  .pq-charge-packet {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 0 0 6px #ffffff, 0 0 10px #f97316;
-    z-index: 6;
-    offset-path: path("M 27 30 L 44 30 L 44 24 L 58 24");
-    animation: pq-charge-travel 1.8s linear infinite;
-  }
-
-  @keyframes pq-charge-travel {
-    0% { offset-distance: 0%; opacity: 0; }
-    20% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { offset-distance: 100%; opacity: 0; }
+    0% { transform: rotate(-28deg); }
+    100% { transform: rotate(28deg); }
   }
 
   .pq-label {
@@ -118,8 +88,6 @@ class ConceptPiezoelectricQuartz extends HTMLElement {
       <style>${piezoelectricQuartzStyles}</style>
       <div class="pq-box">
         <div class="pq-stage">
-          <div class="pq-charge-packet"></div>
-
           <svg class="pq-svg" viewBox="0 0 76 72">
             <!-- 1880 Jacques & Pierre Curie Piezoelectric Quartz Electrometer -->
             <!-- Support Frame & Brass Pillar -->
@@ -127,26 +95,26 @@ class ConceptPiezoelectricQuartz extends HTMLElement {
             <line x1="14" y1="10" x2="30" y2="10" stroke="#b45309" stroke-width="1.2" />
 
             <!-- Clamped Quartz Crystal Lamina with Tin Foil Electrode Plates -->
-            <g class="pq-crystal-bar">
+            <g>
               <!-- Quartz Crystal Cut Bar -->
               <rect x="17" y="18" width="10" height="24" rx="1" fill="#431407" stroke="#fdba74" stroke-width="0.8" />
               <!-- Top & Bottom Clamping Jaws -->
               <rect x="15" y="16" width="14" height="3" fill="#d97706" />
               <rect x="15" y="41" width="14" height="3" fill="#d97706" />
               <!-- Surface Electrode Tin Foil Linings -->
-              <line x1="17" y1="20" x2="17" y2="40" stroke="#fed7aa" stroke-width="0.8" />
-              <line x1="27" y1="20" x2="27" y2="40" stroke="#fed7aa" stroke-width="0.8" />
+              <line x1="17" y1="20" x2="17" y2="40" stroke="#fed7aa" stroke-width="0.6" />
+              <line x1="27" y1="20" x2="27" y2="40" stroke="#fed7aa" stroke-width="0.6" />
             </g>
 
             <!-- Mechanical Weight Pan & Hanging Mass Hook -->
             <g class="pq-weight-load">
-              <line x1="22" y1="44" x2="22" y2="52" stroke="#d97706" stroke-width="1.2" />
+              <line x1="22" y1="44" x2="22" y2="52" stroke="#d97706" stroke-width="0.9" />
               <!-- Brass Hanging Weight Cylinder -->
-              <polygon points="18,52 26,52 25,58 19,58" fill="#b45309" stroke="#f59e0b" stroke-width="0.9" />
+              <polygon points="18,52 26,52 25,58 19,58" fill="#b45309" stroke="#f59e0b" stroke-width="0.7" />
             </g>
 
             <!-- Piezoelectric Charge Transfer Conductor Wire -->
-            <path class="pq-charge-field" d="M 27 30 L 44 30 L 44 24 L 58 24" fill="none" stroke-width="1.2" stroke-dasharray="2 1" />
+            <path class="pq-charge-field" d="M 27 30 L 44 30 L 44 24 L 58 24" fill="none" stroke-width="0.9" stroke-dasharray="2 1" />
 
             <!-- Kelvin/Curie Quadrant Electrometer Housing (Right) -->
             <circle cx="58" cy="30" r="14" fill="#1c1917" stroke="#ea580c" stroke-width="1" />
@@ -156,9 +124,9 @@ class ConceptPiezoelectricQuartz extends HTMLElement {
 
             <!-- Deflecting Electrometer Light Gold Foil Vane / Needle -->
             <g class="pq-electrometer-needle">
-              <line x1="58" y1="30" x2="58" y2="17" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round" />
+              <line x1="58" y1="30" x2="58" y2="17" stroke="#fbbf24" stroke-width="1.6" stroke-linecap="round" />
               <!-- Mirror Dot at Pivot -->
-              <circle cx="58" cy="30" r="1.8" fill="#fef08a" />
+              <circle cx="58" cy="30" r="1.5" fill="#fef08a" />
             </g>
           </svg>
         </div>
@@ -168,6 +136,4 @@ class ConceptPiezoelectricQuartz extends HTMLElement {
   }
 }
 
-if (!customElements.get('concept-piezoelectric-quartz')) {
-  customElements.define('concept-piezoelectric-quartz', ConceptPiezoelectricQuartz);
-}
+customElements.define('concept-piezoelectric-quartz', ConceptPiezoelectricQuartz);
