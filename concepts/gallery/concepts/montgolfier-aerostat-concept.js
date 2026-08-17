@@ -35,38 +35,48 @@ const montgolfierAerostatStyles = `
     height: 72px;
   }
 
-  /* Hot air aerostat buoyancy floating ascension */
+  /* Hot air aerostat buoyancy floating ascension with wide sweep */
   .ma-balloon-float {
-    animation: ma-buoyant-bob 3.6s ease-in-out infinite alternate;
+    animation: ma-buoyant-bob 4.2s ease-in-out infinite alternate;
     transform-origin: 38px 32px;
   }
 
   @keyframes ma-buoyant-bob {
-    0% { transform: translateY(3px) rotate(-1deg); }
-    100% { transform: translateY(-4px) rotate(1.5deg); }
+    0% { transform: translateY(10px) rotate(-8deg) scale(0.96); }
+    100% { transform: translateY(-10px) rotate(8deg) scale(1.04); }
   }
 
   /* Straw and wool burner brazier flame flickering */
   .ma-brazier-fire {
-    animation: ma-flame-flicker 0.15s ease-in-out infinite alternate;
+    animation: ma-flame-flicker 0.8s ease-in-out infinite alternate;
     transform-origin: 38px 48px;
   }
 
   @keyframes ma-flame-flicker {
-    0% { transform: scale(0.9) translateY(0); fill: #ff9800; }
-    100% { transform: scale(1.15) translateY(-0.8px); fill: #ffeb3b; filter: drop-shadow(0 0 3px #ff5722); }
+    0% { transform: scale(0.85); fill: #ff9800; }
+    100% { transform: scale(1.25); fill: #ffeb3b; filter: drop-shadow(0 0 6px #ff5722); }
   }
 
-  /* Thermal buoyant hot-air vortex circulation within paper-silk envelope */
-  .ma-thermal-flow path {
-    stroke: #ffcc80;
-    stroke-width: 0.6;
-    fill: none;
-    animation: ma-thermal-rise 1.8s linear infinite;
+  /* Ascending hot-air convective ember sparks rising into envelope throat */
+  .ma-ember-spark {
+    position: absolute;
+    width: 3.5px;
+    height: 3.5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ff5722, 0 0 10px #ffd700;
+    z-index: 6;
+    animation: ma-ember-rise 1.6s linear infinite;
   }
 
-  @keyframes ma-thermal-rise {
-    to { stroke-dashoffset: -12; }
+  .em1 { left: 42px; animation-delay: 0s; }
+  .em2 { left: 46px; animation-delay: 0.8s; }
+
+  @keyframes ma-ember-rise {
+    0% { transform: translateY(12px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(-24px) scale(1.2); opacity: 0; }
   }
 
   .ma-label {
@@ -90,39 +100,37 @@ class ConceptMontgolfierAerostat extends HTMLElement {
       <style>${montgolfierAerostatStyles}</style>
       <div class="ma-box">
         <div class="ma-stage">
+          <div class="ma-ember-spark em1"></div>
+          <div class="ma-ember-spark em2"></div>
+
           <svg class="ma-svg" viewBox="0 0 76 72">
             <!-- Floating Montgolfière Aerostat Assembly -->
             <g class="ma-balloon-float">
               <!-- Ornate Royal Blue & Golden Fleur-de-lis Paper-Silk Balloon Envelope -->
-              <path d="M 38 6 C 22 6 18 22 26 38 L 32 46 L 44 46 L 50 38 C 58 22 54 6 38 6 Z" fill="#1a237e" stroke="#ffd700" stroke-width="1.2" />
+              <path d="M 38 6 C 22 6 18 22 26 38 L 32 46 L 44 46 L 50 38 C 58 22 54 6 38 6 Z" fill="#1a237e" stroke="#ffd700" stroke-width="1.4" />
 
               <!-- Gilded Decorative Drapery Swags & Zodiacal Sun Medallions -->
-              <path d="M 23 24 Q 38 32 53 24" fill="none" stroke="#ffd700" stroke-width="0.8" />
-              <path d="M 27 34 Q 38 40 49 34" fill="none" stroke="#ffd700" stroke-width="0.8" />
+              <path d="M 23 24 Q 38 32 53 24" fill="none" stroke="#ffd700" stroke-width="1" />
+              <path d="M 27 34 Q 38 40 49 34" fill="none" stroke="#ffd700" stroke-width="1" />
               <!-- Royal Sun / Fleur-de-lis Emblem in Center -->
-              <circle cx="38" cy="20" r="3.5" fill="#ffd700" stroke="#ffb300" stroke-width="0.5" />
-              <line x1="38" y1="14" x2="38" y2="26" stroke="#ffeb3b" stroke-width="0.6" />
-              <line x1="32" y1="20" x2="44" y2="20" stroke="#ffeb3b" stroke-width="0.6" />
-
-              <!-- Internal Thermal Hot Air Updraft Convection Currents -->
-              <g class="ma-thermal-flow" stroke-dasharray="4 2">
-                <path d="M 35 44 C 32 32 30 20 38 12 C 46 20 44 32 41 44" />
-              </g>
+              <circle cx="38" cy="20" r="4" fill="#ffd700" stroke="#ffb300" stroke-width="0.8" />
+              <line x1="38" y1="13" x2="38" y2="27" stroke="#ffeb3b" stroke-width="0.8" />
+              <line x1="31" y1="20" x2="45" y2="20" stroke="#ffeb3b" stroke-width="0.8" />
 
               <!-- Burning Straw & Wool Iron Grate Brazier -->
-              <rect x="34" y="46" width="8" height="3" fill="#212121" stroke="#ffb300" stroke-width="0.5" />
+              <rect x="34" y="46" width="8" height="3" fill="#212121" stroke="#ffb300" stroke-width="0.8" />
               <g class="ma-brazier-fire">
-                <polygon points="35,46 38,40 41,46" fill="#ff5722" />
-                <polygon points="36.5,46 38,42 39.5,46" fill="#ffeb3b" />
+                <polygon points="35,46 38,39 41,46" fill="#ff5722" />
+                <polygon points="36.5,46 38,41 39.5,46" fill="#ffeb3b" />
               </g>
 
               <!-- Suspension Shroud Rigging Cords -->
-              <line x1="32" y1="46" x2="30" y2="54" stroke="#d7ccc8" stroke-width="0.6" />
-              <line x1="44" y1="46" x2="46" y2="54" stroke="#d7ccc8" stroke-width="0.6" />
+              <line x1="32" y1="46" x2="30" y2="54" stroke="#d7ccc8" stroke-width="0.8" />
+              <line x1="44" y1="46" x2="46" y2="54" stroke="#d7ccc8" stroke-width="0.8" />
 
-              <!-- Wicker Passenger Gallery Basket (Circular Balustrade) -->
-              <rect x="28" y="54" width="20" height="7" rx="1.5" fill="#5d4037" stroke="#8d6e63" stroke-width="0.8" />
-              <line x1="28" y1="57.5" x2="48" y2="57.5" stroke="#d7ccc8" stroke-width="0.5" />
+              <!-- Wicker Passenger Gallery Basket -->
+              <rect x="28" y="54" width="20" height="7" rx="1.5" fill="#5d4037" stroke="#8d6e63" stroke-width="1" />
+              <line x1="28" y1="57.5" x2="48" y2="57.5" stroke="#d7ccc8" stroke-width="0.8" />
             </g>
 
             <!-- Altitude / Atmosphere Cloud Puffs -->
@@ -130,10 +138,12 @@ class ConceptMontgolfierAerostat extends HTMLElement {
             <ellipse cx="64" cy="58" rx="8" ry="2.5" fill="rgba(255,255,255,0.08)" />
           </svg>
         </div>
-        <div class="ma-label">MONTGOLFIER AEROSTAT</div>
+        <div class="ma-label">MONTGOLFIER AEROSTAT 1783</div>
       </div>
     `;
   }
 }
 
-customElements.define('concept-montgolfier-aerostat', ConceptMontgolfierAerostat);
+if (!customElements.get('concept-montgolfier-aerostat')) {
+  customElements.define('concept-montgolfier-aerostat', ConceptMontgolfierAerostat);
+}

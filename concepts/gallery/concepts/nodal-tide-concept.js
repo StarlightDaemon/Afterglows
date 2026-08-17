@@ -24,23 +24,29 @@ const nodalTideStyles = `
   /* Ocean basin outline */
   .ntd-basin {
     position: absolute;
-    width: 84px;
-    height: 74px;
-    border: 1.5px solid rgba(0, 229, 255, 0.4);
+    width: 86px;
+    height: 76px;
+    border: 1.8px solid rgba(0, 229, 255, 0.5);
     border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
-    background: radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.08), transparent 70%);
+    background: radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.12), transparent 70%);
   }
 
-  /* Concentric co-range amplitude rings (0m, 1m, 2m, 3m) */
+  /* Concentric co-range amplitude rings with dynamic breathing */
   .ntd-range-ring {
     position: absolute;
-    border: 1px dashed rgba(0, 229, 255, 0.25);
+    border: 1.2px dashed rgba(0, 229, 255, 0.35);
     border-radius: 50%;
+    animation: ntd-ring-breathe 3.2s ease-in-out infinite alternate;
   }
 
-  .ntd-range-ring.r1 { width: 24px; height: 24px; }
-  .ntd-range-ring.r2 { width: 46px; height: 46px; }
-  .ntd-range-ring.r3 { width: 68px; height: 68px; }
+  .ntd-range-ring.r1 { width: 24px; height: 24px; animation-delay: 0s; }
+  .ntd-range-ring.r2 { width: 46px; height: 46px; animation-delay: 0.5s; }
+  .ntd-range-ring.r3 { width: 68px; height: 68px; animation-delay: 1s; }
+
+  @keyframes ntd-ring-breathe {
+    0% { transform: scale(0.92); }
+    100% { transform: scale(1.08); }
+  }
 
   /* Amphidromic central node (Zero tidal range) */
   .ntd-node {
@@ -54,12 +60,12 @@ const nodalTideStyles = `
     z-index: 6;
   }
 
-  /* Rotating cotidal lines (Hour markers revolving counter-clockwise) */
+  /* Rotating cotidal lines revolving counter-clockwise */
   .ntd-cotidal-system {
     position: absolute;
     width: 80px;
     height: 80px;
-    animation: ntd-rot-cotidal 8s linear infinite;
+    animation: ntd-rot-cotidal 3.6s linear infinite;
   }
 
   @keyframes ntd-rot-cotidal {
@@ -70,9 +76,9 @@ const nodalTideStyles = `
   .ntd-crest-beam {
     position: absolute;
     inset: 0;
-    background: conic-gradient(from 0deg, rgba(0, 229, 255, 0.4) 0deg, rgba(0, 229, 255, 0) 60deg, transparent 360deg);
+    background: conic-gradient(from 0deg, rgba(0, 229, 255, 0.5) 0deg, rgba(0, 229, 255, 0) 60deg, transparent 360deg);
     border-radius: 50%;
-    filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.5));
+    filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.7));
   }
 
   .ntd-spoke {
@@ -80,7 +86,7 @@ const nodalTideStyles = `
     top: 50%;
     left: 50%;
     width: 38px;
-    height: 1px;
+    height: 1.2px;
     background: linear-gradient(90deg, #ffffff, rgba(0, 229, 255, 0.2));
     transform-origin: 0% 0%;
   }
@@ -92,24 +98,41 @@ const nodalTideStyles = `
   .ntd-spoke.s120 { transform: rotate(240deg); }
   .ntd-spoke.s150 { transform: rotate(300deg); }
 
+  /* Orbiting high-tide Kelvin wave crest packet */
+  .ntd-crest-packet {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 12px #00e5ff;
+    z-index: 7;
+    animation: ntd-wave-orbit 3.6s linear infinite;
+  }
+
+  @keyframes ntd-wave-orbit {
+    0% { transform: rotate(0deg) translate(28px) rotate(0deg); }
+    100% { transform: rotate(360deg) translate(28px) rotate(-360deg); }
+  }
+
   /* Coastal tidal gauge sensors */
   .ntd-gauge {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #00e5ff;
-    animation: ntd-gauge-pulse 2s ease-in-out infinite alternate;
+    animation: ntd-gauge-pulse 1.8s ease-in-out infinite alternate;
   }
 
   .ntd-gauge.g1 { top: 18px; left: 24px; animation-delay: 0s; }
-  .ntd-gauge.g2 { top: 20px; right: 26px; animation-delay: 0.5s; }
-  .ntd-gauge.g3 { bottom: 18px; right: 28px; animation-delay: 1s; }
-  .ntd-gauge.g4 { bottom: 20px; left: 26px; animation-delay: 1.5s; }
+  .ntd-gauge.g2 { top: 20px; right: 26px; animation-delay: 0.45s; }
+  .ntd-gauge.g3 { bottom: 18px; right: 28px; animation-delay: 0.9s; }
+  .ntd-gauge.g4 { bottom: 20px; left: 26px; animation-delay: 1.35s; }
 
   @keyframes ntd-gauge-pulse {
-    0% { transform: scale(0.8); opacity: 0.4; box-shadow: 0 0 2px #00e5ff; }
-    100% { transform: scale(1.4); opacity: 1; box-shadow: 0 0 8px #ffffff; }
+    0% { transform: scale(0.7); opacity: 0.4; }
+    100% { transform: scale(1.4); opacity: 1; box-shadow: 0 0 10px #ffffff; }
   }
 
   .ntd-label {
@@ -137,6 +160,8 @@ class ConceptNodalTide extends HTMLElement {
         <div class="ntd-range-ring r1"></div>
         <div class="ntd-range-ring r2"></div>
         <div class="ntd-range-ring r3"></div>
+
+        <div class="ntd-crest-packet"></div>
 
         <div class="ntd-cotidal-system">
           <div class="ntd-crest-beam"></div>

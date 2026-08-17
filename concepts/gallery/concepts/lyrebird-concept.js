@@ -41,60 +41,67 @@ const lyrebirdStyles = `
     border-radius: 4px 4px 0 0;
   }
 
-  /* Lyrebird Body */
+  /* Lyrebird Body with active bowing dance */
   .lb-body {
     position: absolute;
     bottom: 16px;
-    width: 20px;
-    height: 14px;
+    width: 22px;
+    height: 15px;
     background: #4e342e;
-    border: 1.2px solid #ffab40;
+    border: 1.4px solid #ffab40;
     border-radius: 50% 50% 30% 30%;
     z-index: 4;
+    animation: lb-body-bow 2.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes lb-body-bow {
+    0% { transform: translateY(-4px) rotate(-6deg); }
+    100% { transform: translateY(4px) rotate(8deg); }
   }
 
   .lb-head {
     position: absolute;
     top: -6px;
     right: -4px;
-    width: 10px;
-    height: 8px;
+    width: 11px;
+    height: 9px;
     background: #3e2723;
-    border: 1px solid #ffe082;
+    border: 1.2px solid #ffe082;
     border-radius: 50%;
   }
 
-  /* S-shaped outer Lyre tail feathers curving overhead */
+  /* S-shaped outer Lyre tail feathers curving overhead in wide courtship sweep */
   .lb-tail-svg {
     position: absolute;
-    bottom: 22px;
-    width: 68px;
-    height: 48px;
+    bottom: 20px;
+    width: 72px;
+    height: 52px;
     transform-origin: center bottom;
-    animation: lb-tail-quiver 0.3s ease-in-out infinite alternate;
+    animation: lb-tail-dance 2.6s ease-in-out infinite alternate;
   }
 
-  @keyframes lb-tail-quiver {
-    0% { transform: rotate(-2deg) scale(0.98); }
-    100% { transform: rotate(2deg) scale(1.02); }
+  @keyframes lb-tail-dance {
+    0% { transform: rotate(-22deg) scale(0.85); }
+    100% { transform: rotate(22deg) scale(1.2); }
   }
 
   /* Acoustic mimicry waveform rings */
   .lb-sound-waves {
     position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 24px;
-    height: 24px;
+    top: 12px;
+    right: 12px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
-    border: 1.2px dashed #ffe082;
-    animation: lb-ring-pulse 1.4s ease-out infinite;
+    border: 1.5px solid #ffe082;
+    animation: lb-ring-pulse 1.6s cubic-bezier(0.1, 0.7, 0.3, 1) infinite;
     pointer-events: none;
+    z-index: 6;
   }
 
   @keyframes lb-ring-pulse {
     0% { transform: scale(0.2); opacity: 1; }
-    100% { transform: scale(1.8); opacity: 0; }
+    100% { transform: scale(2.2); opacity: 0; }
   }
 
   .lb-label {
@@ -123,13 +130,13 @@ class ConceptLyrebird extends HTMLElement {
 
           <svg class="lb-tail-svg" viewBox="0 0 68 48">
             <!-- Left lyrical S-feather -->
-            <path d="M 34 46 C 20 40, 4 30, 8 12 C 10 2, 22 8, 26 18" fill="none" stroke="#ffe082" stroke-width="2" stroke-linecap="round" />
+            <path d="M 34 46 C 20 40, 4 30, 8 12 C 10 2, 22 8, 26 18" fill="none" stroke="#ffe082" stroke-width="2.2" stroke-linecap="round" />
             <!-- Right lyrical S-feather -->
-            <path d="M 34 46 C 48 40, 64 30, 60 12 C 58 2, 46 8, 42 18" fill="none" stroke="#ffe082" stroke-width="2" stroke-linecap="round" />
+            <path d="M 34 46 C 48 40, 64 30, 60 12 C 58 2, 46 8, 42 18" fill="none" stroke="#ffe082" stroke-width="2.2" stroke-linecap="round" />
             <!-- Filamentous white gauze plumes in canopy -->
-            <path d="M 34 46 Q 24 16 18 6" fill="none" stroke="rgba(255, 255, 255, 0.6)" stroke-width="1" stroke-dasharray="2 2" />
-            <path d="M 34 46 Q 34 10 34 2" fill="none" stroke="rgba(255, 255, 255, 0.8)" stroke-width="1" stroke-dasharray="2 2" />
-            <path d="M 34 46 Q 44 16 50 6" fill="none" stroke="rgba(255, 255, 255, 0.6)" stroke-width="1" stroke-dasharray="2 2" />
+            <path d="M 34 46 Q 24 16 18 6" fill="none" stroke="rgba(255, 255, 255, 0.8)" stroke-width="1.2" stroke-dasharray="2 2" />
+            <path d="M 34 46 Q 34 10 34 2" fill="none" stroke="rgba(255, 255, 255, 0.9)" stroke-width="1.2" stroke-dasharray="2 2" />
+            <path d="M 34 46 Q 44 16 50 6" fill="none" stroke="rgba(255, 255, 255, 0.8)" stroke-width="1.2" stroke-dasharray="2 2" />
           </svg>
 
           <div class="lb-body">

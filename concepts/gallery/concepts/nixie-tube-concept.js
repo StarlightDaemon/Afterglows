@@ -24,12 +24,12 @@ const nixieStyles = `
   /* Glass tube vacuum envelope */
   .nix-envelope {
     position: relative;
-    width: 52px;
-    height: 72px;
+    width: 54px;
+    height: 74px;
     background: linear-gradient(180deg, rgba(255, 180, 100, 0.08) 0%, rgba(20, 10, 5, 0.6) 80%, #100602 100%);
-    border: 1.5px solid rgba(255, 150, 50, 0.5);
-    border-radius: 26px 26px 8px 8px;
-    box-shadow: inset 0 0 12px rgba(255, 100, 0, 0.2), 0 0 10px rgba(255, 80, 0, 0.25);
+    border: 1.5px solid rgba(255, 150, 50, 0.6);
+    border-radius: 27px 27px 8px 8px;
+    box-shadow: inset 0 0 12px rgba(255, 100, 0, 0.25), 0 0 12px rgba(255, 80, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,8 +46,8 @@ const nixieStyles = `
                 repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(255, 100, 0, 0.1) 4px);
   }
 
-  /* Stacked cathode numeral filaments */
-  .nix-digit {
+  /* Stacked cathode numeral filaments with rolling numerical counter */
+  .nix-digit-stack {
     position: absolute;
     font-size: 38px;
     font-family: 'Courier New', monospace;
@@ -56,39 +56,36 @@ const nixieStyles = `
     color: #ff9933;
     text-shadow: 0 0 4px #ffffff, 0 0 10px #ff7700, 0 0 20px #ff3300;
     filter: drop-shadow(0 0 6px rgba(255, 80, 0, 0.9));
+    animation: nix-count-sequence 4s steps(4) infinite;
   }
 
-  .d-8 {
-    animation: nix-cycle-8 4s steps(1) infinite;
+  @keyframes nix-count-sequence {
+    0% { transform: scale(0.9); }
+    25% { transform: scale(1.15); }
+    50% { transform: scale(0.95); }
+    75% { transform: scale(1.08); }
+    100% { transform: scale(0.9); }
   }
 
-  .d-3 {
-    animation: nix-cycle-3 4s steps(1) infinite;
+  .d-val {
+    animation: nix-digit-switch 4s steps(1) infinite;
   }
 
-  @keyframes nix-cycle-8 {
-    0%, 49% { opacity: 1; transform: scale(1); }
-    50%, 100% { opacity: 0; transform: scale(0.98); }
-  }
-
-  @keyframes nix-cycle-3 {
-    0%, 49% { opacity: 0; transform: scale(0.98); }
-    50%, 100% { opacity: 1; transform: scale(1); }
-  }
-
-  /* Neon gas plasma corona ionization glow */
-  .nix-plasma-glow {
+  /* Neon gas plasma ionization breakdown spark */
+  .nix-plasma-spark {
     position: absolute;
-    width: 36px;
-    height: 48px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 120, 0, 0.35) 0%, transparent 70%);
-    animation: nix-flicker 0.2s ease-in-out infinite alternate;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 12px #ff6600;
+    z-index: 6;
+    animation: nix-spark-perimeter 2s linear infinite;
   }
 
-  @keyframes nix-flicker {
-    0% { transform: scale(0.96); opacity: 0.85; }
-    100% { transform: scale(1.04); opacity: 1; }
+  @keyframes nix-spark-perimeter {
+    0% { transform: rotate(0deg) translate(14px) rotate(0deg); }
+    100% { transform: rotate(360deg) translate(14px) rotate(-360deg); }
   }
 
   /* Ceramic base pins */
@@ -132,9 +129,8 @@ class ConceptNixieTube extends HTMLElement {
       <div class="nix">
         <div class="nix-envelope">
           <div class="nix-mesh"></div>
-          <div class="nix-plasma-glow"></div>
-          <div class="nix-digit d-8">8</div>
-          <div class="nix-digit d-3">3</div>
+          <div class="nix-plasma-spark"></div>
+          <div class="nix-digit-stack" id="num">7</div>
         </div>
 
         <div class="nix-base">
@@ -147,6 +143,19 @@ class ConceptNixieTube extends HTMLElement {
         <div class="nix-label">IN-14 NIXIE TUBE</div>
       </div>
     `;
+
+    // Dynamic numeric sequence cycle
+    const digits = ['3', '7', '4', '9', '2', '8', '5', '0'];
+    let idx = 0;
+    const numEl = this.shadowRoot.getElementById('num');
+    this._timer = setInterval(() => {
+      idx = (idx + 1) % digits.length;
+      if (numEl) numEl.textContent = digits[idx];
+    }, 1000);
+  }
+
+  disconnectedCallback() {
+    if (this._timer) clearInterval(this._timer);
   }
 }
 

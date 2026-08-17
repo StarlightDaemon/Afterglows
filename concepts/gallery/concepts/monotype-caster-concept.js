@@ -46,34 +46,47 @@ const monotypeCasterStyles = `
 
   /* 225-character matrix case 2D X-Y coordinate positioning shift */
   .mc-matrix-case {
-    animation: mc-case-hunt 1.2s steps(4) infinite alternate;
+    animation: mc-case-hunt 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes mc-case-hunt {
-    0% { transform: translate(-2px, -2px); }
-    33% { transform: translate(3px, -1px); }
-    66% { transform: translate(-1px, 2px); }
-    100% { transform: translate(2px, 3px); }
+    0% { transform: translate(-6px, -4px); }
+    33% { transform: translate(6px, -2px); }
+    66% { transform: translate(-4px, 4px); }
+    100% { transform: translate(4px, 4px); }
   }
 
-  /* High-speed metal pump casting single individual type character */
+  /* Molten lead pump nozzle plunger stroke */
+  .mc-pump-nozzle {
+    animation: mc-pump-stroke 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes mc-pump-stroke {
+    0% { transform: translateY(-3px); fill: #ff5722; }
+    50% { transform: translateY(3px); fill: #ffab40; filter: drop-shadow(0 0 4px #ff3d00); }
+    100% { transform: translateY(-3px); fill: #ff5722; }
+  }
+
+  /* High-speed metal pump casting single individual type character stream */
   .mc-type-stream {
-    animation: mc-stream-push 1.2s linear infinite;
+    animation: mc-stream-push 1.6s linear infinite;
   }
 
   @keyframes mc-stream-push {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(12px); }
+    0% { transform: translateX(-12px); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateX(12px); opacity: 0; }
   }
 
   /* Air blast / pneumatic nozzle pressure glow */
   .mc-air-nozzle {
-    animation: mc-air-pulse 0.6s ease-in-out infinite alternate;
+    animation: mc-air-pulse 0.8s ease-in-out infinite alternate;
   }
 
   @keyframes mc-air-pulse {
-    0% { opacity: 0.3; stroke: #69f0ae; }
-    100% { opacity: 1; stroke: #ffffff; filter: drop-shadow(0 0 2px #00e676); }
+    0% { opacity: 0.4; stroke: #69f0ae; }
+    100% { opacity: 1; stroke: #ffffff; filter: drop-shadow(0 0 3px #00e676); }
   }
 
   .mc-label {
@@ -110,46 +123,50 @@ class ConceptMonotypeCaster extends HTMLElement {
 
             <!-- Pneumatic Air-Tower Cylinder Bank (31 Compressed Air Pins) -->
             <g class="mc-air-nozzle">
-              <rect x="30" y="20" width="16" height="5" fill="#37474f" stroke="#00e676" stroke-width="0.6" />
-              <line x1="33" y1="20" x2="33" y2="25" stroke-width="0.8" />
-              <line x1="38" y1="20" x2="38" y2="25" stroke-width="0.8" />
-              <line x1="43" y1="20" x2="43" y2="25" stroke-width="0.8" />
+              <rect x="30" y="20" width="16" height="5" fill="#37474f" stroke="#00e676" stroke-width="0.8" />
+              <line x1="33" y1="20" x2="33" y2="25" stroke-width="1" />
+              <line x1="38" y1="20" x2="38" y2="25" stroke-width="1" />
+              <line x1="43" y1="20" x2="43" y2="25" stroke-width="1" />
             </g>
 
-            <!-- 15x15 (225 Cell) Movable Brass Matrix Case (Grid of individual brass matrices) -->
+            <!-- 15x15 (225 Cell) Movable Brass Matrix Case with Dynamic 2D Travel -->
             <g class="mc-matrix-case">
-              <rect x="26" y="28" width="24" height="18" rx="1" fill="#1b2e22" stroke="#ffd700" stroke-width="1" />
+              <rect x="26" y="28" width="24" height="18" rx="1" fill="#1b2e22" stroke="#ffd700" stroke-width="1.2" />
               <!-- Matrix Grid Cells -->
-              <line x1="32" y1="28" x2="32" y2="46" stroke="#ffb300" stroke-width="0.5" stroke-dasharray="1 1" />
-              <line x1="38" y1="28" x2="38" y2="46" stroke="#ffb300" stroke-width="0.5" stroke-dasharray="1 1" />
-              <line x1="44" y1="28" x2="44" y2="46" stroke="#ffb300" stroke-width="0.5" stroke-dasharray="1 1" />
-              <line x1="26" y1="34" x2="50" y2="34" stroke="#ffb300" stroke-width="0.5" stroke-dasharray="1 1" />
-              <line x1="26" y1="40" x2="50" y2="40" stroke="#ffb300" stroke-width="0.5" stroke-dasharray="1 1" />
+              <line x1="32" y1="28" x2="32" y2="46" stroke="#ffb300" stroke-width="0.6" stroke-dasharray="1 1" />
+              <line x1="38" y1="28" x2="38" y2="46" stroke="#ffb300" stroke-width="0.6" stroke-dasharray="1 1" />
+              <line x1="44" y1="28" x2="44" y2="46" stroke="#ffb300" stroke-width="0.6" stroke-dasharray="1 1" />
+              <line x1="26" y1="34" x2="50" y2="34" stroke="#ffb300" stroke-width="0.6" stroke-dasharray="1 1" />
+              <line x1="26" y1="40" x2="50" y2="40" stroke="#ffb300" stroke-width="0.6" stroke-dasharray="1 1" />
               <!-- Selected active character matrix highlight -->
-              <rect x="35" y="31" width="3" height="3" fill="#00e676" filter="drop-shadow(0 0 2px #00e676)" />
+              <rect x="35" y="31" width="3.5" height="3.5" fill="#00e676" filter="drop-shadow(0 0 3px #00e676)" />
             </g>
 
-            <!-- Adjustable Mold Blade & Metal Pump Nozzle (Bottom Center) -->
-            <rect x="34" y="48" width="8" height="8" rx="0.5" fill="#455a64" stroke="#78909c" stroke-width="0.6" />
-            <circle cx="38" cy="52" r="1.5" fill="#ff5722" />
+            <!-- Adjustable Mold Blade & Metal Pump Nozzle with Plunger Action -->
+            <g class="mc-pump-nozzle">
+              <rect x="34" y="48" width="8" height="8" rx="0.5" fill="#455a64" stroke="#78909c" stroke-width="0.8" />
+              <circle cx="38" cy="52" r="1.8" />
+            </g>
 
             <!-- Stream of Individual Movable Type Characters Ejected into Line Channel -->
             <g class="mc-type-stream">
               <!-- Individual metal type sorts (Letter A, B, C, D) -->
-              <rect x="44" y="50" width="3" height="6" fill="#cfd8dc" stroke="#263238" stroke-width="0.5" />
-              <rect x="49" y="50" width="3" height="6" fill="#cfd8dc" stroke="#263238" stroke-width="0.5" />
-              <rect x="54" y="50" width="3" height="6" fill="#cfd8dc" stroke="#263238" stroke-width="0.5" />
-              <rect x="59" y="50" width="3" height="6" fill="#cfd8dc" stroke="#263238" stroke-width="0.5" />
+              <rect x="44" y="50" width="3" height="6" fill="#cfd8dc" stroke="#263238" stroke-width="0.6" />
+              <rect x="49" y="50" width="3" height="6" fill="#cfd8dc" stroke="#263238" stroke-width="0.6" />
+              <rect x="54" y="50" width="3" height="6" fill="#cfd8dc" stroke="#263238" stroke-width="0.6" />
+              <rect x="59" y="50" width="3" height="6" fill="#cfd8dc" stroke="#263238" stroke-width="0.6" />
             </g>
 
             <!-- Type Output Delivery Channel -->
-            <rect x="42" y="56" width="28" height="3" fill="#212121" stroke="#546e7a" stroke-width="0.5" />
+            <rect x="42" y="56" width="28" height="3" fill="#212121" stroke="#546e7a" stroke-width="0.8" />
           </svg>
         </div>
-        <div class="mc-label">MONOTYPE CASTER</div>
+        <div class="mc-label">MONOTYPE CASTER 1887</div>
       </div>
     `;
   }
 }
 
-customElements.define('concept-monotype-caster', ConceptMonotypeCaster);
+if (!customElements.get('concept-monotype-caster')) {
+  customElements.define('concept-monotype-caster', ConceptMonotypeCaster);
+}

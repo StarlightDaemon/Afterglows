@@ -21,7 +21,7 @@ const mobiusStyles = `
     justify-content: center;
   }
 
-  /* Rotating 3D Mobius loop rig */
+  /* Rotating 3D Mobius loop rig with wide isometric rocking */
   .mob-loop-rig {
     position: relative;
     width: 86px;
@@ -29,12 +29,12 @@ const mobiusStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: mob-wobble 8s ease-in-out infinite alternate;
+    animation: mob-wobble 3.6s ease-in-out infinite alternate;
   }
 
   @keyframes mob-wobble {
-    0% { transform: rotate(-4deg) scale(0.96); }
-    100% { transform: rotate(4deg) scale(1.04); }
+    0% { transform: rotate(-14deg) scale(0.9); }
+    100% { transform: rotate(14deg) scale(1.12); }
   }
 
   /* Mobius strip ribbon curves SVG */
@@ -44,7 +44,7 @@ const mobiusStyles = `
     filter: drop-shadow(0 0 4px #8cffaa);
   }
 
-  /* Traveling photon particle traversing the single continuous surface */
+  /* Traveling photon particles traversing the single continuous surface */
   .mob-particle {
     position: absolute;
     width: 5px;
@@ -53,15 +53,18 @@ const mobiusStyles = `
     background: #ffffff;
     box-shadow: 0 0 8px #ffffff, 0 0 14px #8cffaa;
     offset-path: path("M 14 32 C 14 14 42 14 56 32 C 70 50 82 50 82 32 C 82 14 56 14 42 32 C 28 50 14 50 14 32");
-    animation: mob-traverse 5s linear infinite;
+    animation: mob-traverse 2.6s linear infinite;
     z-index: 5;
   }
 
+  .mp1 { animation-delay: 0s; }
+  .mp2 { animation-delay: 1.3s; }
+
   @keyframes mob-traverse {
     0% { offset-distance: 0%; transform: scale(1); }
-    25% { transform: scale(0.7); opacity: 0.6; }
-    50% { offset-distance: 50%; transform: scale(1.2); opacity: 1; }
-    75% { transform: scale(0.7); opacity: 0.6; }
+    25% { transform: scale(0.6); opacity: 0.6; }
+    50% { offset-distance: 50%; transform: scale(1.3); opacity: 1; }
+    75% { transform: scale(0.6); opacity: 0.6; }
     100% { offset-distance: 100%; transform: scale(1); }
   }
 
@@ -102,7 +105,7 @@ class ConceptMobiusStrip extends HTMLElement {
               </linearGradient>
             </defs>
 
-            <!-- Front loop loop half -->
+            <!-- Front loop half -->
             <path d="M 14 32 C 14 14 42 14 56 32 C 70 50 82 50 82 32" stroke="url(#mobGrad1)" stroke-width="6" fill="none" stroke-linecap="round" />
             <!-- Back twist loop half -->
             <path d="M 82 32 C 82 14 56 14 42 32 C 28 50 14 50 14 32" stroke="url(#mobGrad2)" stroke-width="4" stroke-dasharray="3,2" fill="none" stroke-linecap="round" />
@@ -110,7 +113,8 @@ class ConceptMobiusStrip extends HTMLElement {
             <path d="M 14 32 C 14 14 42 14 56 32 C 70 50 82 50 82 32 C 82 14 56 14 42 32 C 28 50 14 50 14 32" stroke="#ffffff" stroke-width="1.2" fill="none" opacity="0.8" />
           </svg>
 
-          <div class="mob-particle"></div>
+          <div class="mob-particle mp1"></div>
+          <div class="mob-particle mp2"></div>
         </div>
 
         <div class="mob-label">χ = 0 • 1-SIDED</div>

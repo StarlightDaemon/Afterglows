@@ -30,7 +30,7 @@ const myceliumStyles = `
     background: rgba(0, 204, 0, 0.6);
   }
 
-  /* Fruiting mushroom bodies above surface */
+  /* Fruiting mushroom bodies with organic respiration */
   .myc-shroom {
     position: absolute;
     top: 10px;
@@ -38,6 +38,13 @@ const myceliumStyles = `
     width: 22px;
     height: 16px;
     z-index: 2;
+    animation: myc-shroom-breathe 3.2s ease-in-out infinite alternate;
+    transform-origin: 11px 16px;
+  }
+
+  @keyframes myc-shroom-breathe {
+    0% { transform: rotate(-5deg) scale(0.94); }
+    100% { transform: rotate(5deg) scale(1.08); }
   }
 
   .myc-cap {
@@ -45,7 +52,7 @@ const myceliumStyles = `
     height: 10px;
     border-radius: 12px 12px 2px 2px;
     background: linear-gradient(180deg, #d6ffe0, #008818);
-    border: 1px solid #ffffff;
+    border: 1.2px solid #ffffff;
     box-shadow: 0 0 8px #8cffaa;
   }
 
@@ -57,29 +64,27 @@ const myceliumStyles = `
     border-radius: 1px;
   }
 
-  /* Spore particles floating up from gills */
+  /* Spore particles floating up from gills continuously */
   .myc-spore {
     position: absolute;
-    width: 2px;
-    height: 2px;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 4px #8cffaa;
-    animation: myc-spore-drift 3s ease-out infinite;
+    box-shadow: 0 0 6px #8cffaa;
+    animation: myc-spore-drift 2.4s ease-out infinite;
   }
 
-  .myc-spore.sp1 { left: 46px; top: 18px; animation-delay: 0.3s; }
-  .myc-spore.sp2 { left: 56px; top: 16px; animation-delay: 1.2s; }
-  .myc-spore.sp3 { left: 66px; top: 18px; animation-delay: 2.1s; }
+  .myc-spore.sp1 { left: 46px; top: 18px; animation-delay: 0.2s; --sx: -10px; }
+  .myc-spore.sp2 { left: 56px; top: 16px; animation-delay: 1.0s; --sx: 4px; }
+  .myc-spore.sp3 { left: 66px; top: 18px; animation-delay: 1.8s; --sx: 12px; }
 
   @keyframes myc-spore-drift {
-    0% { transform: translate(0, 0); opacity: 0; }
+    0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
     20% { opacity: 1; }
-    100% { transform: translate(calc(var(--sx, 4px)), -16px); opacity: 0; }
+    80% { opacity: 1; }
+    100% { transform: translate(var(--sx, 4px), -24px) scale(1.2); opacity: 0; }
   }
-  .myc-spore.sp1 { --sx: -8px; }
-  .myc-spore.sp2 { --sx: 2px; }
-  .myc-spore.sp3 { --sx: 10px; }
 
   /* Hyphae branching network SVG */
   .myc-hyphae-svg {
@@ -91,25 +96,41 @@ const myceliumStyles = `
   }
 
   /* Action potential electrical signal pulses traveling through hyphae */
-  .myc-pulse-node {
+  .myc-signal-packet {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 8px #8cffaa;
-    animation: myc-pulse 2.8s ease-in-out infinite;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #8cffaa;
+    z-index: 6;
+    animation: myc-signal-flow 2.4s linear infinite;
   }
 
-  .myc-pulse-node.n1 { left: 56px; top: 38px; animation-delay: 0s; }
-  .myc-pulse-node.n2 { left: 34px; top: 56px; animation-delay: 0.7s; }
-  .myc-pulse-node.n3 { left: 82px; top: 54px; animation-delay: 0.9s; }
-  .myc-pulse-node.n4 { left: 20px; top: 82px; animation-delay: 1.6s; }
-  .myc-pulse-node.n5 { left: 96px; top: 80px; animation-delay: 1.8s; }
+  .sig1 {
+    offset-path: path("M 22 64 L 36 38 L 59 20 L 59 8");
+    animation-delay: 0s;
+  }
 
-  @keyframes myc-pulse {
-    0%, 100% { transform: scale(0.6); opacity: 0.3; }
-    50% { transform: scale(1.4); opacity: 1; box-shadow: 0 0 12px #ffffff; }
+  .sig2 {
+    offset-path: path("M 98 62 L 84 36 L 59 20 L 59 8");
+    animation-delay: 1.2s;
+  }
+
+  @keyframes myc-signal-flow {
+    0% { offset-distance: 0%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
+  .myc-label {
+    position: absolute;
+    bottom: 3px;
+    font-size: 6.5px;
+    font-family: monospace;
+    color: #8cffaa;
+    letter-spacing: 0.5px;
   }
 `;
 
@@ -134,23 +155,22 @@ class ConceptMyceliumNetwork extends HTMLElement {
         <div class="myc-spore sp2"></div>
         <div class="myc-spore sp3"></div>
 
+        <div class="myc-signal-packet sig1"></div>
+        <div class="myc-signal-packet sig2"></div>
+
         <svg class="myc-hyphae-svg" viewBox="0 0 118 76">
           <!-- Primary hyphal cords & anastomosis cross-links -->
-          <path d="M 59 8 L 59 20 L 36 38 L 22 64" stroke="#d6ffe0" stroke-width="1.6" fill="none" />
-          <path d="M 59 20 L 84 36 L 98 62" stroke="#d6ffe0" stroke-width="1.6" fill="none" />
-          <path d="M 36 38 L 59 48 L 84 36" stroke="#8cffaa" stroke-width="1.2" stroke-dasharray="3,2" fill="none" />
-          <path d="M 36 38 L 48 68" stroke="#8cffaa" stroke-width="1.2" fill="none" />
-          <path d="M 59 48 L 62 70" stroke="#8cffaa" stroke-width="1.2" fill="none" />
-          <path d="M 84 36 L 74 66" stroke="#8cffaa" stroke-width="1.2" fill="none" />
+          <path d="M 59 8 L 59 20 L 36 38 L 22 64" stroke="#d6ffe0" stroke-width="1.8" fill="none" />
+          <path d="M 59 20 L 84 36 L 98 62" stroke="#d6ffe0" stroke-width="1.8" fill="none" />
+          <path d="M 36 38 L 59 48 L 84 36" stroke="#8cffaa" stroke-width="1.4" stroke-dasharray="3,2" fill="none" />
+          <path d="M 36 38 L 48 68" stroke="#8cffaa" stroke-width="1.4" fill="none" />
+          <path d="M 59 48 L 62 70" stroke="#8cffaa" stroke-width="1.4" fill="none" />
+          <path d="M 84 36 L 74 66" stroke="#8cffaa" stroke-width="1.4" fill="none" />
           <!-- Fine rootlets -->
-          <path d="M 22 64 L 10 74 M 22 64 L 28 75 M 98 62 L 108 72 M 98 62 L 92 75" stroke="rgba(140, 255, 170, 0.7)" stroke-width="1" fill="none" />
+          <path d="M 22 64 L 10 74 M 22 64 L 28 75 M 98 62 L 108 72 M 98 62 L 92 75" stroke="rgba(140, 255, 170, 0.8)" stroke-width="1.2" fill="none" />
         </svg>
 
-        <div class="myc-pulse-node n1"></div>
-        <div class="myc-pulse-node n2"></div>
-        <div class="myc-pulse-node n3"></div>
-        <div class="myc-pulse-node n4"></div>
-        <div class="myc-pulse-node n5"></div>
+        <div class="myc-label">MYCELIUM NETWORK</div>
       </div>
     `;
   }

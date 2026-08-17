@@ -35,40 +35,55 @@ const obsidianFractureStyles = `
     height: 72px;
   }
 
-  /* Conchoidal Hertzian Cone Fracture Ripple Waves */
-  .of-ripples path {
-    fill: none;
-    stroke: #b0bec5;
-    stroke-width: 1;
-    animation: of-shockwave 2.5s ease-out infinite;
+  /* Conchoidal Hertzian Cone Fracture Ripple Waves expanding outward */
+  .of-ripples {
+    transform-origin: 30px 18px;
+    animation: of-conchoidal-expand 2.2s cubic-bezier(0.1, 0.7, 0.3, 1) infinite;
   }
 
-  .of-ripples path:nth-child(2) { animation-delay: 0.5s; }
-  .of-ripples path:nth-child(3) { animation-delay: 1.0s; }
-  .of-ripples path:nth-child(4) { animation-delay: 1.5s; }
-
-  @keyframes of-shockwave {
-    0% { opacity: 0.2; stroke: #546e7a; }
-    50% { opacity: 1; stroke: #eceff1; filter: drop-shadow(0 0 2px #cfd8dc); }
-    100% { opacity: 0.4; stroke: #78909c; }
+  @keyframes of-conchoidal-expand {
+    0% { transform: scale(0.3); opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
   }
 
-  /* Impact initiation point (Bulb of Percussion) */
-  .of-impact-point {
-    fill: #ffffff;
-    animation: of-strike 2.5s ease-in-out infinite alternate;
+  /* Detached knapped prismatic obsidian razor blade shearing away */
+  .of-knapped-flake {
+    animation: of-blade-detach 2.2s ease-out infinite;
+    transform-origin: 30px 18px;
   }
 
-  @keyframes of-strike {
-    0% { transform: scale(0.8); opacity: 0.6; }
-    100% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 4px #ffffff); }
+  @keyframes of-blade-detach {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    15% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(8px, 14px) rotate(8deg); opacity: 0; }
+  }
+
+  /* Impact initiation point (Bulb of Percussion strike spark) */
+  .of-impact-spark {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 12px #90caf9;
+    z-index: 6;
+    animation: of-strike-flash 2.2s ease-in-out infinite;
+  }
+
+  @keyframes of-strike-flash {
+    0% { transform: scale(0.4); opacity: 0; }
+    10% { transform: scale(1.6); opacity: 1; }
+    30% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(0.4); opacity: 0; }
   }
 
   /* Glassy Obsidian Core */
   .of-glass-body {
     fill: #1a1e24;
     stroke: #455a64;
-    stroke-width: 1.2;
+    stroke-width: 1.4;
   }
 
   .of-label {
@@ -92,36 +107,38 @@ class ConceptObsidianFracture extends HTMLElement {
       <style>${obsidianFractureStyles}</style>
       <div class="of-box">
         <div class="of-stage">
+          <div class="of-impact-spark" style="top: 24px; left: 34px;"></div>
+
           <svg class="of-svg" viewBox="0 0 76 72">
             <!-- Volcanic Glass Obsidian Block Contour -->
             <polygon class="of-glass-body" points="14,14 62,10 66,58 48,64 12,56" />
 
             <!-- Conchoidal Fracture Ripples (Expanding concentric curved arcs) -->
-            <g class="of-ripples">
-              <!-- Ripple Arc 1 (Near percussion point) -->
+            <g class="of-ripples" fill="none" stroke="#eceff1" stroke-width="1.4">
+              <!-- Ripple Arc 1 -->
               <path d="M 22 26 C 26 22, 34 22, 38 26" />
               <!-- Ripple Arc 2 -->
-              <path d="M 18 34 C 26 26, 42 26, 48 34" />
+              <path d="M 18 34 C 26 26, 42 26, 48 34" stroke-width="1.6" />
               <!-- Ripple Arc 3 -->
-              <path d="M 16 44 C 28 32, 50 32, 58 44" />
+              <path d="M 16 44 C 28 32, 50 32, 58 44" stroke-width="1.8" />
               <!-- Ripple Arc 4 -->
-              <path d="M 14 54 C 30 38, 56 38, 64 54" />
+              <path d="M 14 54 C 30 38, 56 38, 64 54" stroke-width="2" />
+            </g>
+
+            <!-- Knapped Prismatic Blade Flake Detachment -->
+            <g class="of-knapped-flake">
+              <polygon points="30,18 42,32 36,48 26,38" fill="#37474f" stroke="#ffffff" stroke-width="1.2" />
             </g>
 
             <!-- Radial Hackle / Fissure Cleavage Lines radiating from point -->
-            <g stroke="#78909c" stroke-width="0.7" stroke-dasharray="2 2">
+            <g stroke="#78909c" stroke-width="1" stroke-dasharray="2 2">
               <line x1="28" y1="18" x2="16" y2="44" />
               <line x1="30" y1="18" x2="38" y2="58" />
               <line x1="32" y1="18" x2="60" y2="48" />
             </g>
 
-            <!-- Percussion Strike Point (Bulb of Percussion origin) -->
-            <g transform="translate(30, 18)">
-              <circle class="of-impact-point" cx="0" cy="0" r="2" />
-            </g>
-
             <!-- Vitreous Gloss Highlight Glint -->
-            <path d="M 52 14 L 60 12 L 62 24" fill="none" stroke="#eceff1" stroke-width="1.2" opacity="0.8" />
+            <path d="M 52 14 L 60 12 L 62 24" fill="none" stroke="#eceff1" stroke-width="1.4" opacity="0.9" />
           </svg>
         </div>
         <div class="of-label">CONCHOIDAL FRACTURE</div>
@@ -130,4 +147,6 @@ class ConceptObsidianFracture extends HTMLElement {
   }
 }
 
-customElements.define('concept-obsidian-fracture', ConceptObsidianFracture);
+if (!customElements.get('concept-obsidian-fracture')) {
+  customElements.define('concept-obsidian-fracture', ConceptObsidianFracture);
+}
