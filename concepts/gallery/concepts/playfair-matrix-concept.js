@@ -72,6 +72,29 @@ const playfairStyles = `
     100% { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 6px #00e5ff); }
   }
 
+  /* Digram swap: plaintext nodes slide along the swap vectors to the cipher corners */
+  .pf-swap-r {
+    animation: pf-swap-right 3s ease-in-out infinite;
+  }
+
+  .pf-swap-l {
+    animation: pf-swap-left 3s ease-in-out infinite;
+  }
+
+  @keyframes pf-swap-right {
+    0%, 12% { transform: translate(0, 0); opacity: 1; }
+    55% { transform: translate(20px, 0); opacity: 1; }
+    70%, 92% { transform: translate(20px, 0); opacity: 0; }
+    100% { transform: translate(0, 0); opacity: 1; }
+  }
+
+  @keyframes pf-swap-left {
+    0%, 12% { transform: translate(0, 0); opacity: 1; }
+    55% { transform: translate(-20px, 0); opacity: 1; }
+    70%, 92% { transform: translate(-20px, 0); opacity: 0; }
+    100% { transform: translate(0, 0); opacity: 1; }
+  }
+
   .pf-label {
     position: absolute;
     bottom: 3px;
@@ -125,9 +148,9 @@ class ConceptPlayfairMatrix extends HTMLElement {
             <line x1="28" y1="26" x2="48" y2="26" stroke="#ffd700" stroke-width="0.8" stroke-dasharray="1 1" />
             <line x1="28" y1="46" x2="48" y2="46" stroke="#00e5ff" stroke-width="0.8" stroke-dasharray="1 1" />
 
-            <!-- Input Plaintext Corner Nodes (Gold) -->
-            <g transform="translate(28, 26)"><circle class="pf-node-plain" cx="0" cy="0" r="3.5" /></g>
-            <g transform="translate(48, 46)"><circle class="pf-node-plain" cx="0" cy="0" r="3.5" /></g>
+            <!-- Input Plaintext Corner Nodes (Gold), sliding to their cipher corners -->
+            <g transform="translate(28, 26)"><g class="pf-swap-r"><circle class="pf-node-plain" cx="0" cy="0" r="3.5" /></g></g>
+            <g transform="translate(48, 46)"><g class="pf-swap-l"><circle class="pf-node-plain" cx="0" cy="0" r="3.5" /></g></g>
 
             <!-- Encrypted Ciphertext Corner Nodes (Cyan) -->
             <g transform="translate(48, 26)"><circle class="pf-node-cipher" cx="0" cy="0" r="3.5" /></g>

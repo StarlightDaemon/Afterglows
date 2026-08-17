@@ -58,11 +58,11 @@ const kelvinStyles = `
   .klv-stream-right { right: 28px; }
 
   .klv-drop {
-    width: 5px;
-    height: 8px;
+    width: 7px;
+    height: 11px;
     background: #ffffff;
     border-radius: 50% 50% 60% 60%;
-    box-shadow: 0 0 7px #8cffaa, 0 0 3px #d6ffe0;
+    box-shadow: 0 0 9px #8cffaa, 0 0 4px #d6ffe0;
     animation: klv-fall 0.8s ease-in infinite;
   }
 
@@ -164,9 +164,10 @@ const kelvinStyles = `
   }
 
   @keyframes klv-spark-discharge {
-    0%, 94% { opacity: 0; transform: scaleX(0); }
-    95% { opacity: 1; transform: scaleX(1) translateY(-1px); }
-    97% { opacity: 1; transform: scaleX(1) translateY(1px); }
+    0%, 88% { opacity: 0; transform: scaleX(0); }
+    90% { opacity: 1; transform: scaleX(1) translateY(-1px); }
+    93% { opacity: 1; transform: scaleX(1) translateY(1px); }
+    96% { opacity: 1; transform: scaleX(1) translateY(-1px); }
     98%, 100% { opacity: 0; transform: scaleX(0); }
   }
 

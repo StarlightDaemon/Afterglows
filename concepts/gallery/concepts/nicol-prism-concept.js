@@ -66,6 +66,28 @@ const nicolPrismStyles = `
     100% { stroke: #ffffff; opacity: 1; stroke-width: 3.2; filter: drop-shadow(0 0 5px #0ea5e9); }
   }
 
+  /* Photon packets traveling the ray paths */
+  .np-photon {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 4px #38bdf8);
+    offset-path: path("M 6 36 L 38 36 L 70 36");
+    animation: np-photon-run 1.6s linear infinite;
+  }
+
+  .np-photon.o-branch {
+    fill: #fca5a5;
+    filter: drop-shadow(0 0 4px #ef4444);
+    offset-path: path("M 22 36 L 38 36 L 46 52");
+    animation-delay: -0.55s;
+  }
+
+  @keyframes np-photon-run {
+    0% { offset-distance: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
   /* Canada balsam diagonal cement film gleam */
   .np-balsam-cut {
     animation: np-balsam-gleam 3s ease-in-out infinite alternate;
@@ -127,6 +149,10 @@ class ConceptNicolPrism extends HTMLElement {
             <line x1="48" y1="32" x2="48" y2="40" stroke="#38bdf8" stroke-width="0.8" />
             <line x1="56" y1="32" x2="56" y2="40" stroke="#38bdf8" stroke-width="0.8" />
             <line x1="64" y1="32" x2="64" y2="40" stroke="#38bdf8" stroke-width="0.8" />
+
+            <!-- Traveling photon packets: transmitted e-ray and absorbed o-ray -->
+            <circle class="np-photon" r="2.2" />
+            <circle class="np-photon o-branch" r="1.8" />
           </svg>
         </div>
         <div class="np-label">NICOL PRISM 1828</div>

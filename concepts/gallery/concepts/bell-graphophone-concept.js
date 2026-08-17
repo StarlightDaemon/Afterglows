@@ -47,6 +47,16 @@ const bellGraphophoneStyles = `
     100% { transform: translateY(0); }
   }
 
+  /* Feed screw carries the whole reproducer carriage along the cylinder */
+  .bg-carriage {
+    animation: bg-carriage-travel 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes bg-carriage-travel {
+    0% { transform: translateX(-9px); }
+    100% { transform: translateX(9px); }
+  }
+
   /* Floating sapphire cutting/reproducing stylus */
   .bg-sapphire-head {
     animation: bg-sapphire-float 0.3s ease-in-out infinite alternate;
@@ -130,6 +140,8 @@ class ConceptBellGraphophone extends HTMLElement {
               </g>
             </g>
 
+            <!-- Reproducer carriage: head + listening tubes ride the feed screw -->
+            <g class="bg-carriage">
             <!-- Floating Floating Reproducer Head with Jewel Sapphire Stylus -->
             <g class="bg-sapphire-head">
               <!-- Brass soundbox ring -->
@@ -148,6 +160,7 @@ class ConceptBellGraphophone extends HTMLElement {
 
               <path d="M 38 15 Q 46 10 56 12 Q 62 14 66 18" fill="none" stroke="#212121" stroke-width="1.2" />
               <circle cx="66" cy="18" r="1.4" fill="#8d6e63" stroke="#ffd700" stroke-width="0.4" />
+            </g>
             </g>
 
             <!-- Governor Pulley at Left -->

@@ -62,6 +62,9 @@ const aquaRegiaStyles = `
   /* Effervescent reaction bubbles */
   .ar-bubbles circle {
     fill: #ffff8d;
+    stroke: #ffffff;
+    stroke-width: 0.5;
+    filter: drop-shadow(0 0 3px #ffd600);
     animation: ar-bubble-rise 1.8s ease-in infinite;
   }
 
@@ -73,6 +76,24 @@ const aquaRegiaStyles = `
     0% { transform: translateY(0) scale(0.8); opacity: 0.2; }
     50% { opacity: 1; }
     100% { transform: translateY(-30px) scale(1.6); opacity: 0; }
+  }
+
+  /* Fume puffs escaping along the retort neck */
+  .ar-fume-puff {
+    fill: #ffb74d;
+    filter: drop-shadow(0 0 4px #ff9100);
+    offset-path: path("M 44 20 Q 64 22 68 36");
+    offset-rotate: auto;
+    animation: ar-puff-escape 1.6s linear infinite;
+  }
+
+  .ar-fume-puff.p2 { animation-delay: -0.8s; }
+
+  @keyframes ar-puff-escape {
+    0% { offset-distance: 0%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
   }
 
   /* Acid solution glow */
@@ -133,11 +154,15 @@ class ConceptAquaRegia extends HTMLElement {
 
             <!-- Reaction Bubbles (Effervescence) -->
             <g class="ar-bubbles">
-              <circle cx="34" cy="50" r="2.5" />
-              <circle cx="42" cy="49" r="3" />
-              <circle cx="38" cy="46" r="2.2" />
-              <circle cx="45" cy="52" r="2.7" />
+              <circle cx="34" cy="50" r="3.2" />
+              <circle cx="42" cy="49" r="3.8" />
+              <circle cx="38" cy="46" r="3" />
+              <circle cx="45" cy="52" r="3.4" />
             </g>
+
+            <!-- Acid fume puffs escaping the neck spout -->
+            <ellipse class="ar-fume-puff" rx="3" ry="1.6" />
+            <ellipse class="ar-fume-puff p2" rx="2.4" ry="1.3" />
           </svg>
         </div>
         <div class="ar-label">AQUA REGIA</div>

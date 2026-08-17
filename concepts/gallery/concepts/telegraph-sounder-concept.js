@@ -38,16 +38,15 @@ const sounderStyles = `
   /* Rapid Clattering Sounder Lever Armature Action */
   .ts-lever-arm {
     transform-origin: 22px 38px;
-    animation: ts-morse-click 1.6s steps(1, end) infinite;
+    animation: ts-morse-click 1.6s ease-in-out infinite;
   }
 
   @keyframes ts-morse-click {
-    0% { transform: rotate(0deg); }
-    20% { transform: rotate(-13deg); } /* Dot down */
-    30% { transform: rotate(0deg); }
-    50% { transform: rotate(-13deg); } /* Dash down */
-    80% { transform: rotate(-13deg); }
-    90% { transform: rotate(0deg); }
+    0%, 8% { transform: rotate(0deg); }
+    16%, 24% { transform: rotate(-16deg); } /* Dot down */
+    32%, 42% { transform: rotate(0deg); }
+    50%, 72% { transform: rotate(-16deg); } /* Dash down */
+    80%, 100% { transform: rotate(0deg); }
   }
 
   /* Anvil Click Shockwave Sound Ring */

@@ -67,13 +67,13 @@ const tiddlyStyles = `
     background: #e040fb;
     border: 1.2px solid #ffffff;
     box-shadow: 0 0 4px #e040fb;
-    animation: tw-press-squidger 3s ease-in-out infinite;
+    animation: tw-press-squidger 2.4s ease-in-out infinite;
   }
 
   @keyframes tw-press-squidger {
-    0%, 30% { transform: translate(0, 0) scale(1); }
-    40% { transform: translate(6px, 3px) scale(0.8); }
-    50%, 100% { transform: translate(0, 0) scale(1); }
+    0%, 4% { transform: translate(0, 0) scale(1); }
+    12% { transform: translate(6px, 3px) scale(0.8); }
+    22%, 100% { transform: translate(0, 0) scale(1); }
   }
 
   /* Flying small wink counter leaping in arc */
@@ -85,14 +85,24 @@ const tiddlyStyles = `
     background: #00e5ff;
     border: 1.2px solid #ffffff;
     box-shadow: 0 0 9px #00e5ff, 0 0 4px #b2ebf2;
-    animation: tw-wink-leap 3s ease-in-out infinite;
+    animation: tw-wink-leap 2.4s ease-in-out infinite;
+  }
+
+  /* Second wink offset half a cycle so one is nearly always in flight */
+  .tw-flying-wink.w2 {
+    background: #ffea00;
+    box-shadow: 0 0 9px #ffea00, 0 0 4px #fff9c4;
+    animation-delay: -1.2s;
   }
 
   @keyframes tw-wink-leap {
-    0%, 40% { bottom: 14px; left: 16px; opacity: 1; transform: scale(1); }
-    55% { bottom: 42px; left: 32px; opacity: 1; transform: scale(1.15) rotate(180deg); }
-    70% { bottom: 22px; left: 45px; opacity: 1; transform: scale(0.8) rotate(360deg); }
-    75%, 100% { bottom: 18px; left: 45px; opacity: 0; transform: scale(0.5); }
+    0%, 12% { bottom: 14px; left: 16px; opacity: 1; transform: scale(1) rotate(0deg); }
+    32% { bottom: 42px; left: 32px; opacity: 1; transform: scale(1.15) rotate(180deg); }
+    52% { bottom: 22px; left: 45px; opacity: 1; transform: scale(0.9) rotate(360deg); }
+    60% { bottom: 18px; left: 45px; opacity: 1; transform: scale(0.7) rotate(360deg); }
+    70% { bottom: 16px; left: 45px; opacity: 0; transform: scale(0.5) rotate(360deg); }
+    78% { bottom: 14px; left: 16px; opacity: 0; transform: scale(1) rotate(0deg); }
+    88%, 100% { bottom: 14px; left: 16px; opacity: 1; transform: scale(1) rotate(0deg); }
   }
 
   /* Target launch arc trail */
@@ -139,6 +149,7 @@ class ConceptTiddlywinks extends HTMLElement {
           <div class="tw-pot"></div>
           <div class="tw-squidger"></div>
           <div class="tw-flying-wink"></div>
+          <div class="tw-flying-wink w2"></div>
         </div>
 
         <div class="tw-label">TIDDLYWINKS SQUIDGER</div>
