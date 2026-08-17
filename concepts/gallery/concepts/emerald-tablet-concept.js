@@ -35,51 +35,69 @@ const emeraldTabletStyles = `
     height: 72px;
   }
 
-  /* Emerald tablet breathing glow */
+  /* Emerald tablet slab breathing glow */
   .et-slab {
     fill: #004d2c;
     stroke: #00e676;
     stroke-width: 1.2;
-    animation: et-slab-pulse 3s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 4px rgba(0, 230, 118, 0.5));
   }
 
-  @keyframes et-slab-pulse {
-    0% { filter: drop-shadow(0 0 2px rgba(0, 230, 118, 0.3)); }
-    100% { filter: drop-shadow(0 0 8px rgba(0, 230, 118, 0.8)); }
+  /* Orbiting celestial Sol & Luna gem at top */
+  .et-sun-moon {
+    transform-origin: 38px 18px;
+    animation: et-orb-orbit 3.6s linear infinite;
   }
 
-  /* Inscribed Hermetic Runes / Glyphs shining */
+  @keyframes et-orb-orbit {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Seal of Solomon counter-rotating elemental triangles */
+  .et-tri-up {
+    transform-origin: 38px 34px;
+    animation: et-rot-up 3s ease-in-out infinite alternate;
+  }
+
+  .et-tri-dn {
+    transform-origin: 38px 34px;
+    animation: et-rot-dn 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes et-rot-up {
+    0% { transform: rotate(-25deg); }
+    100% { transform: rotate(25deg); }
+  }
+
+  @keyframes et-rot-dn {
+    0% { transform: rotate(25deg); }
+    100% { transform: rotate(-25deg); }
+  }
+
+  /* Vertical oscillating transmutation spark packet: As Above, So Below */
+  .et-spark-packet {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffd700, 0 0 14px #00e676;
+    z-index: 6;
+    animation: et-as-above-so-below 2.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes et-as-above-so-below {
+    0% { transform: translate(0, -18px) scale(0.7); }
+    100% { transform: translate(0, 18px) scale(1.3); }
+  }
+
+  /* Inscribed Hermetic Runes / Glyphs */
   .et-glyphs path, .et-glyphs line, .et-glyphs circle {
     stroke: #b9f6ca;
     fill: none;
-    stroke-width: 1;
-    animation: et-glyph-glow 2.5s ease-in-out infinite alternate;
-  }
-
-  @keyframes et-glyph-glow {
-    0% { opacity: 0.4; stroke: #69f0ae; }
-    100% { opacity: 1; stroke: #ffffff; filter: drop-shadow(0 0 2px #00e676); }
-  }
-
-  /* Celestial and Terrestrial oscillating linkage ("As Above, So Below") */
-  .et-linkage {
-    stroke: #ffd700;
-    stroke-dasharray: 2 3;
-    animation: et-link 2s linear infinite;
-  }
-
-  @keyframes et-link {
-    to { stroke-dashoffset: -10; }
-  }
-
-  .et-sun-moon {
-    animation: et-orbit 6s linear infinite;
-    transform-origin: 38px 20px;
-  }
-
-  @keyframes et-orbit {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    stroke-width: 1.2;
+    filter: drop-shadow(0 0 2px #00e676);
   }
 
   .et-label {
@@ -103,6 +121,8 @@ class ConceptEmeraldTablet extends HTMLElement {
       <style>${emeraldTabletStyles}</style>
       <div class="et-box">
         <div class="et-stage">
+          <div class="et-spark-packet"></div>
+
           <svg class="et-svg" viewBox="0 0 76 72">
             <!-- Emerald Slab Base -->
             <polygon class="et-slab" points="16,8 60,8 64,64 12,64" />
@@ -110,15 +130,17 @@ class ConceptEmeraldTablet extends HTMLElement {
             <!-- Inscribed Glyphs -->
             <g class="et-glyphs">
               <!-- Celestial Sun & Moon Symbols at Top -->
-              <circle cx="38" cy="18" r="4" />
-              <path d="M 38 12 L 38 14 M 38 22 L 38 24 M 32 18 L 34 18 M 42 18 L 44 18" />
+              <g class="et-sun-moon">
+                <circle cx="38" cy="18" r="4" fill="#003318" stroke="#ffd700" stroke-width="1.2" />
+                <circle cx="38" cy="12" r="1.5" fill="#ffffff" filter="drop-shadow(0 0 4px #ffd700)" />
+              </g>
 
-              <!-- Central Hexagram / Seal of Solomon -->
-              <polygon points="38,26 46,38 30,38" />
-              <polygon points="38,42 46,30 30,30" />
+              <!-- Central Hexagram / Seal of Solomon with Counter-Rotation -->
+              <polygon class="et-tri-up" points="38,26 46,38 30,38" stroke="#00e676" stroke-width="1.2" />
+              <polygon class="et-tri-dn" points="38,42 46,30 30,30" stroke="#ffd700" stroke-width="1.2" />
 
               <!-- "As Above, So Below" Vertical Resonance Rays -->
-              <line x1="38" y1="20" x2="38" y2="48" class="et-linkage" stroke-width="1.2" />
+              <line x1="38" y1="18" x2="38" y2="52" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 2" />
 
               <!-- Lower Terrestrial Salt & Sulfur Alchemical Marks -->
               <!-- Sulfur -->
@@ -144,4 +166,6 @@ class ConceptEmeraldTablet extends HTMLElement {
   }
 }
 
-customElements.define('concept-emerald-tablet', ConceptEmeraldTablet);
+if (!customElements.get('concept-emerald-tablet')) {
+  customElements.define('concept-emerald-tablet', ConceptEmeraldTablet);
+}

@@ -28,7 +28,7 @@ const cuttlefishStyles = `
     background: radial-gradient(circle at 50% 50%, rgba(0, 40, 12, 0.4), #000803 90%);
   }
 
-  /* Cuttlefish body rig */
+  /* Cuttlefish body rig with swimming forward/back translation */
   .cut-body-rig {
     position: relative;
     width: 90px;
@@ -36,12 +36,13 @@ const cuttlefishStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: cut-hover 3s ease-in-out infinite alternate;
+    animation: cut-swim-glide 3.2s ease-in-out infinite alternate;
   }
 
-  @keyframes cut-hover {
-    0% { transform: translateY(-2px) rotate(-1deg); }
-    100% { transform: translateY(2px) rotate(1deg); }
+  @keyframes cut-swim-glide {
+    0% { transform: translate(-10px, -4px) rotate(-3deg); }
+    50% { transform: translate(4px, 2px) rotate(1deg); }
+    100% { transform: translate(12px, -2px) rotate(4deg); }
   }
 
   /* Undulating marginal fin ribbon along mantle edge */
@@ -53,7 +54,7 @@ const cuttlefishStyles = `
     height: 6px;
     border-top: 1.5px dashed #8cffaa;
     border-radius: 50%;
-    animation: cut-fin-wave 1.2s ease-in-out infinite alternate;
+    animation: cut-fin-wave 1s ease-in-out infinite alternate;
   }
 
   .cut-fin-bot {
@@ -64,12 +65,12 @@ const cuttlefishStyles = `
     height: 6px;
     border-bottom: 1.5px dashed #8cffaa;
     border-radius: 50%;
-    animation: cut-fin-wave 1.2s ease-in-out infinite alternate-reverse;
+    animation: cut-fin-wave 1s ease-in-out infinite alternate-reverse;
   }
 
   @keyframes cut-fin-wave {
-    0% { transform: scaleY(0.6) skewX(-4deg); opacity: 0.6; }
-    100% { transform: scaleY(1.4) skewX(4deg); opacity: 1; }
+    0% { transform: scaleY(0.5) skewX(-8deg); opacity: 0.6; }
+    100% { transform: scaleY(1.5) skewX(8deg); opacity: 1; }
   }
 
   /* Main mantle dome with chromatophore skin */
@@ -84,32 +85,27 @@ const cuttlefishStyles = `
     box-shadow: 0 0 10px rgba(0, 204, 0, 0.3);
   }
 
-  /* Chromatophore dynamic traveling zebra bands */
-  .cut-chromato-band {
+  /* Chromatophore traveling waves moving across the cuttlefish skin */
+  .cut-chromato-wave {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 8px;
-    background: repeating-linear-gradient(
-      180deg,
-      #ffffff 0px,
-      #ffffff 3px,
-      transparent 3px,
-      transparent 7px
-    );
-    opacity: 0.8;
-    filter: drop-shadow(0 0 4px #8cffaa);
-    animation: cut-band-sweep 2.5s ease-in-out infinite;
+    width: 10px;
+    background: radial-gradient(circle, #ffffff 30%, #8cffaa 70%, transparent 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 6px #8cffaa, 0 0 10px #00ff44;
+    animation: cut-wave-travel 2.4s linear infinite;
   }
 
-  .cut-chromato-band.b1 { left: 10px; animation-delay: 0s; }
-  .cut-chromato-band.b2 { left: 24px; animation-delay: 0.4s; }
-  .cut-chromato-band.b3 { left: 38px; animation-delay: 0.8s; }
-  .cut-chromato-band.b4 { left: 52px; animation-delay: 1.2s; }
+  .cw1 { animation-delay: 0s; }
+  .cw2 { animation-delay: 0.8s; }
+  .cw3 { animation-delay: 1.6s; }
 
-  @keyframes cut-band-sweep {
-    0%, 100% { opacity: 0.2; transform: scaleX(0.5); }
-    50% { opacity: 1; transform: scaleX(1.3); }
+  @keyframes cut-wave-travel {
+    0% { transform: translateX(-15px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateX(75px) scale(1.3); opacity: 0; }
   }
 
   /* Head and W-shaped pupil eye */
@@ -147,11 +143,11 @@ const cuttlefishStyles = `
     font-family: sans-serif;
   }
 
-  /* Front tentacle cluster */
+  /* Front tentacle cluster extending and undulating */
   .cut-arms {
     position: absolute;
-    right: -10px;
-    width: 12px;
+    right: -14px;
+    width: 16px;
     height: 24px;
     display: flex;
     flex-direction: column;
@@ -159,19 +155,29 @@ const cuttlefishStyles = `
   }
 
   .cut-arm {
-    width: 10px;
-    height: 2px;
+    width: 14px;
+    height: 2.5px;
     background: #8cffaa;
     border-radius: 1px;
-    animation: cut-arm-flex 2s ease-in-out infinite alternate;
+    box-shadow: 0 0 4px #8cffaa;
+    animation: cut-arm-flex 1.6s ease-in-out infinite alternate;
   }
   .cut-arm.a1 { animation-delay: 0.1s; }
   .cut-arm.a2 { animation-delay: 0.4s; }
   .cut-arm.a3 { animation-delay: 0.7s; }
 
   @keyframes cut-arm-flex {
-    0% { transform: rotate(-8deg); }
-    100% { transform: rotate(12deg); }
+    0% { transform: scaleX(0.7) rotate(-16deg); }
+    100% { transform: scaleX(1.4) rotate(18deg); }
+  }
+
+  .cut-label {
+    position: absolute;
+    bottom: 3px;
+    font-size: 6.5px;
+    font-family: monospace;
+    color: rgba(140, 255, 170, 0.85);
+    letter-spacing: 0.5px;
   }
 `;
 
@@ -191,10 +197,9 @@ class ConceptCuttlefish extends HTMLElement {
           <div class="cut-fin-bot"></div>
 
           <div class="cut-mantle">
-            <div class="cut-chromato-band b1"></div>
-            <div class="cut-chromato-band b2"></div>
-            <div class="cut-chromato-band b3"></div>
-            <div class="cut-chromato-band b4"></div>
+            <div class="cut-chromato-wave cw1"></div>
+            <div class="cut-chromato-wave cw2"></div>
+            <div class="cut-chromato-wave cw3"></div>
           </div>
 
           <div class="cut-head">
@@ -209,6 +214,8 @@ class ConceptCuttlefish extends HTMLElement {
             <div class="cut-arm a3"></div>
           </div>
         </div>
+
+        <div class="cut-label">CUTTLEFISH CAMOUFLAGE</div>
       </div>
     `;
   }

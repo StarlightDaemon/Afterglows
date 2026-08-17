@@ -35,30 +35,42 @@ const debyeScherrerStyles = `
     height: 72px;
   }
 
+  /* Incident primary X-ray photon packet */
+  .ds-xray-photon {
+    animation: ds-xray-flight 1.6s linear infinite;
+  }
+
+  @keyframes ds-xray-flight {
+    0% { transform: translate(6px, 36px); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(38px, 36px); opacity: 0; }
+  }
+
   /* Polycrystalline powder diffraction cones expanding outward */
   .ds-diffraction-cones {
-    animation: ds-cones-pulse 2.8s ease-in-out infinite alternate;
+    animation: ds-cones-pulse 2s ease-in-out infinite alternate;
   }
 
   @keyframes ds-cones-pulse {
-    0% { opacity: 0.4; stroke-width: 0.6; stroke: #34d399; }
-    50% { opacity: 0.95; stroke-width: 1.2; stroke: #a7f3d0; filter: drop-shadow(0 0 2px #10b981); }
-    100% { opacity: 0.5; stroke-width: 0.7; stroke: #34d399; }
+    0% { opacity: 0.5; stroke-width: 0.8; stroke: #34d399; }
+    100% { opacity: 1; stroke-width: 1.6; stroke: #a7f3d0; filter: drop-shadow(0 0 4px #10b981); }
   }
 
-  /* Symmetric Debye rings on unrolled cylindrical strip film */
+  /* Symmetric Debye rings on unrolled cylindrical strip film with dynamic expansion */
   .ds-film-rings {
-    animation: ds-rings-gleam 2s ease-in-out infinite alternate;
+    animation: ds-rings-expand 2s ease-in-out infinite alternate;
+    transform-origin: 38px 36px;
   }
 
-  @keyframes ds-rings-gleam {
-    0% { opacity: 0.5; }
-    100% { opacity: 1; filter: drop-shadow(0 0 2px #6ee7b7); }
+  @keyframes ds-rings-expand {
+    0% { transform: scale(0.92); stroke: #34d399; }
+    100% { transform: scale(1.08); stroke: #ffffff; filter: drop-shadow(0 0 4px #6ee7b7); }
   }
 
   /* Rotating central powder specimen capillary */
   .ds-capillary-spin {
-    animation: ds-cap-spin 4s linear infinite;
+    animation: ds-cap-spin 3s linear infinite;
     transform-origin: 38px 36px;
   }
 
@@ -95,7 +107,9 @@ class ConceptDebyeScherrer extends HTMLElement {
             <circle cx="38" cy="36" r="25" fill="#064e3b" fill-opacity="0.3" stroke="#047857" stroke-dasharray="2 2" stroke-width="0.6" />
 
             <!-- Primary X-Ray Collimator Pinholes (Left to Right) -->
-            <line x1="6" y1="36" x2="38" y2="36" stroke="#6ee7b7" stroke-width="1.2" />
+            <line x1="6" y1="36" x2="38" y2="36" stroke="#6ee7b7" stroke-width="1.2" stroke-dasharray="2 2" />
+            <circle class="ds-xray-photon" cx="0" cy="0" r="1.8" fill="#ffffff" filter="drop-shadow(0 0 4px #a7f3d0)" />
+
             <!-- Beam Stop Trap Pinhole (Right) -->
             <rect x="63" y="33" width="7" height="6" rx="1" fill="#022c22" stroke="#10b981" stroke-width="0.8" />
 
@@ -114,7 +128,7 @@ class ConceptDebyeScherrer extends HTMLElement {
             </g>
 
             <!-- Symmetric Debye Arcs / Rings on Circumferential Film Strip -->
-            <g class="ds-film-rings" stroke="#ecfdf5" fill="none" stroke-width="1.2">
+            <g class="ds-film-rings" fill="none" stroke-width="1.5">
               <path d="M 56 18 A 28 28 0 0 1 56 54" stroke-dasharray="3 3" />
               <path d="M 62 26 A 28 28 0 0 1 62 46" stroke-dasharray="3 2" />
               <path d="M 20 18 A 28 28 0 0 0 20 54" stroke-dasharray="3 3" />
@@ -123,8 +137,9 @@ class ConceptDebyeScherrer extends HTMLElement {
 
             <!-- Central Glass Capillary Containing Random Polycrystalline Powder -->
             <g class="ds-capillary-spin">
-              <circle cx="38" cy="36" r="3.5" fill="#047857" stroke="#34d399" stroke-width="0.8" />
-              <circle cx="38" cy="36" r="1.5" fill="#ffffff" />
+              <circle cx="38" cy="36" r="3.5" fill="#047857" stroke="#34d399" stroke-width="1" />
+              <line x1="35" y1="36" x2="41" y2="36" stroke="#ffffff" stroke-width="1.2" />
+              <line x1="38" y1="33" x2="38" y2="39" stroke="#ffffff" stroke-width="1.2" />
             </g>
           </svg>
         </div>
@@ -134,4 +149,6 @@ class ConceptDebyeScherrer extends HTMLElement {
   }
 }
 
-customElements.define('concept-debye-scherrer', ConceptDebyeScherrer);
+if (!customElements.get('concept-debye-scherrer')) {
+  customElements.define('concept-debye-scherrer', ConceptDebyeScherrer);
+}

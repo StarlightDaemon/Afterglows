@@ -35,34 +35,45 @@ const dinesMeteorographStyles = `
     height: 72px;
   }
 
-  /* Aerological sounding balloon ascending into stratosphere */
+  /* Aerological sounding balloon ascending into stratosphere with turbulent sway */
   .dm-balloon-sway {
-    animation: dm-balloon-ascent 4s ease-in-out infinite alternate;
+    animation: dm-balloon-ascent 3.2s ease-in-out infinite alternate;
   }
 
   @keyframes dm-balloon-ascent {
-    0% { transform: translateY(0px) rotate(-3deg); }
-    100% { transform: translateY(-3px) rotate(3deg); }
+    0% { transform: translateY(-5px) rotate(-10deg); }
+    100% { transform: translateY(5px) rotate(10deg); }
   }
 
   /* Microscopic diamond stylus scratching trace onto silvered copper plate */
   .dm-stylus-trace {
-    animation: dm-trace-scratch 2.5s ease-in-out infinite alternate;
+    animation: dm-trace-scratch 2s ease-in-out infinite alternate;
   }
 
   @keyframes dm-trace-scratch {
-    0% { transform: rotate(-5deg); stroke: #38bdf8; }
-    100% { transform: rotate(5deg); stroke: #ffffff; filter: drop-shadow(0 0 2px #38bdf8); }
+    0% { transform: rotate(-18deg); stroke: #38bdf8; }
+    100% { transform: rotate(18deg); stroke: #ffffff; filter: drop-shadow(0 0 4px #38bdf8); }
   }
 
   /* Bimetallic temperature coil flexing in sub-zero tropospheric air */
   .dm-bimetal-flex {
-    animation: dm-bimetal-coil 3s ease-in-out infinite alternate;
+    animation: dm-bimetal-coil 2.5s ease-in-out infinite alternate;
   }
 
   @keyframes dm-bimetal-coil {
-    0% { transform: scaleX(0.9); }
-    100% { transform: scaleX(1.1); }
+    0% { transform: scaleX(0.75) scaleY(1.1); }
+    100% { transform: scaleX(1.25) scaleY(0.9); }
+  }
+
+  /* Micro-aneroid pressure capsule compression */
+  .dm-aneroid-capsule {
+    animation: dm-aneroid-breathe 2.5s ease-in-out infinite alternate;
+    transform-origin: 32px 50px;
+  }
+
+  @keyframes dm-aneroid-breathe {
+    0% { transform: scaleY(0.7); }
+    100% { transform: scaleY(1.3); }
   }
 
   .dm-label {
@@ -91,31 +102,33 @@ class ConceptDinesMeteorograph extends HTMLElement {
             <!-- Pilot Balloon Tether Cord (Top) -->
             <g class="dm-balloon-sway" style="transform-origin: 38px 10px;">
               <!-- Latex Sounding Balloon (Cutaway Top) -->
-              <ellipse cx="38" cy="1" rx="16" ry="12" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="0.8" />
+              <ellipse cx="38" cy="1" rx="16" ry="12" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1" />
               <!-- Suspension Cords & Spider Web Shock Absorber -->
-              <line x1="30" y1="12" x2="38" y2="24" stroke="#94a3b8" stroke-width="0.5" />
-              <line x1="46" y1="12" x2="38" y2="24" stroke="#94a3b8" stroke-width="0.5" />
+              <line x1="30" y1="12" x2="38" y2="24" stroke="#94a3b8" stroke-width="0.8" />
+              <line x1="46" y1="12" x2="38" y2="24" stroke="#94a3b8" stroke-width="0.8" />
 
               <!-- Lightweight Polished Aluminum Frame (Weighs only 30 grams!) -->
-              <rect x="20" y="24" width="36" height="34" rx="2" fill="#1e293b" stroke="#cbd5e1" stroke-width="0.9" />
+              <rect x="20" y="24" width="36" height="34" rx="2" fill="#1e293b" stroke="#cbd5e1" stroke-width="1.2" />
 
               <!-- Highly Polished Silvered Copper Recording Plate (Postage-stamp size) -->
-              <rect x="24" y="28" width="16" height="16" rx="1" fill="#0f172a" stroke="#e2e8f0" stroke-width="0.7" />
+              <rect x="24" y="28" width="16" height="16" rx="1" fill="#0f172a" stroke="#e2e8f0" stroke-width="1" />
               <!-- Scratched Temperature vs Pressure Sounding Curve on Plate -->
-              <path d="M 26 40 Q 32 32 36 30" fill="none" stroke="#f43f5e" stroke-width="0.7" />
+              <path d="M 26 40 Q 32 32 36 30" fill="none" stroke="#f43f5e" stroke-width="1.2" />
 
               <!-- Ultra-Light Bimetallic Temperature Sensor Strip (Right) -->
               <g class="dm-bimetal-flex" style="transform-origin: 48px 32px;">
-                <path d="M 44 28 C 48 26, 52 30, 48 34 C 44 38, 52 42, 46 44" fill="none" stroke="#38bdf8" stroke-width="1" />
+                <path d="M 44 28 C 48 26, 52 30, 48 34 C 44 38, 52 42, 46 44" fill="none" stroke="#38bdf8" stroke-width="1.4" />
               </g>
 
               <!-- Micro-Aneroid Pressure Capsule (Bottom) -->
-              <ellipse cx="32" cy="50" rx="6" ry="2" fill="#334155" stroke="#94a3b8" stroke-width="0.6" />
+              <g class="dm-aneroid-capsule">
+                <ellipse cx="32" cy="50" rx="6" ry="2.5" fill="#334155" stroke="#94a3b8" stroke-width="0.8" />
+              </g>
 
               <!-- Hairspring Diamond Scribing Stylus Arm -->
               <g class="dm-stylus-trace" style="transform-origin: 42px 46px;">
-                <line x1="42" y1="46" x2="30" y2="34" stroke-width="0.8" />
-                <circle cx="30" cy="34" r="0.9" fill="#ffffff" />
+                <line x1="42" y1="46" x2="30" y2="34" stroke-width="1.2" />
+                <circle cx="30" cy="34" r="1.2" fill="#ffffff" filter="drop-shadow(0 0 3px #38bdf8)" />
               </g>
             </g>
           </svg>
@@ -126,4 +139,6 @@ class ConceptDinesMeteorograph extends HTMLElement {
   }
 }
 
-customElements.define('concept-dines-meteorograph', ConceptDinesMeteorograph);
+if (!customElements.get('concept-dines-meteorograph')) {
+  customElements.define('concept-dines-meteorograph', ConceptDinesMeteorograph);
+}

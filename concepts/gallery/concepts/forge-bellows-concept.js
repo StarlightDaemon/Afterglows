@@ -33,7 +33,7 @@ const bellowsStyles = `
   /* Dual chamber folding leather accordion bellows */
   .fb-bellows-body {
     position: absolute;
-    left: 8px;
+    left: 6px;
     width: 44px;
     height: 48px;
     display: flex;
@@ -45,58 +45,66 @@ const bellowsStyles = `
     width: 40px;
     height: 18px;
     background: #3e2723;
-    border: 1.2px solid #ff9100;
+    border: 1.5px solid #ff9100;
     clip-path: polygon(0 0, 100% 40%, 100% 60%, 0 100%);
     transform-origin: right center;
-    animation: fb-pump-top 2s ease-in-out infinite alternate;
+    animation: fb-pump-top 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes fb-pump-top {
-    0% { transform: rotate(-14deg); }
-    100% { transform: rotate(4deg); }
+    0% { transform: rotate(-24deg); }
+    100% { transform: rotate(6deg); }
   }
 
   .fb-leaf-bot {
     width: 40px;
     height: 18px;
     background: #3e2723;
-    border: 1.2px solid #ff9100;
+    border: 1.5px solid #ff9100;
     clip-path: polygon(0 0, 100% 40%, 100% 60%, 0 100%);
     transform-origin: right center;
-    animation: fb-pump-bot 2s ease-in-out infinite alternate;
-    animation-delay: -1s;
+    animation: fb-pump-bot 1.6s ease-in-out infinite alternate;
+    animation-delay: -0.8s;
   }
 
   @keyframes fb-pump-bot {
-    0% { transform: rotate(14deg); }
-    100% { transform: rotate(-4deg); }
+    0% { transform: rotate(24deg); }
+    100% { transform: rotate(-6deg); }
   }
 
   /* Tuyere iron nozzle pipe */
   .fb-nozzle {
     position: absolute;
-    left: 48px;
+    left: 46px;
     top: 35px;
     width: 14px;
-    height: 5px;
+    height: 6px;
     background: #ffffff;
     border: 1px solid #ff9100;
+    border-radius: 1px;
+    z-index: 4;
   }
 
-  /* Air blast stream into hearth */
-  .fb-air-blast {
+  /* Translating discrete high-velocity air blast packets */
+  .fb-air-packet {
     position: absolute;
-    left: 62px;
-    top: 36px;
-    width: 18px;
+    width: 5px;
     height: 3px;
-    background: linear-gradient(90deg, #ffffff 0%, transparent 100%);
-    animation: fb-blast 0.2s infinite alternate;
+    border-radius: 2px;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #ffccbc;
+    z-index: 5;
+    animation: fb-blast-travel 0.8s linear infinite;
   }
 
-  @keyframes fb-blast {
-    0% { transform: scaleX(0.8); opacity: 0.7; }
-    100% { transform: scaleX(1.2); opacity: 1; }
+  .ap1 { animation-delay: 0s; }
+  .ap2 { animation-delay: 0.4s; }
+
+  @keyframes fb-blast-travel {
+    0% { transform: translate(4px, 0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(24px, 0) scale(1.4); opacity: 0; }
   }
 
   /* Glowing charcoal hearth forge coals */
@@ -109,13 +117,41 @@ const bellowsStyles = `
     background: radial-gradient(circle at 50% 50%, #ffffff 0%, #ff3d00 50%, #210d05 100%);
     border: 1.5px solid #ffab00;
     border-radius: 50%;
-    box-shadow: 0 0 12px #ff3d00, 0 0 24px rgba(255, 109, 0, 0.6);
-    animation: fb-coal-glow 2s ease-in-out infinite alternate;
+    box-shadow: 0 0 14px #ff3d00, 0 0 28px rgba(255, 109, 0, 0.7);
+    animation: fb-coal-glow 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes fb-coal-glow {
-    0% { transform: scale(0.9); filter: brightness(0.9); }
-    100% { transform: scale(1.1); filter: brightness(1.3); }
+    0% { transform: scale(0.85); filter: brightness(0.8); }
+    100% { transform: scale(1.2); filter: brightness(1.4); }
+  }
+
+  /* Leaping ballistic hearth sparks */
+  .fb-spark {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffd700, 0 0 10px #ff3d00;
+    z-index: 6;
+  }
+
+  .sp1 { right: 18px; top: 32px; animation: fb-spark-leap-1 1.2s ease-out infinite; }
+  .sp2 { right: 14px; top: 28px; animation: fb-spark-leap-2 1.2s ease-out infinite; animation-delay: 0.6s; }
+
+  @keyframes fb-spark-leap-1 {
+    0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(-12px, -20px) scale(1.2); opacity: 0; }
+  }
+
+  @keyframes fb-spark-leap-2 {
+    0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(8px, -22px) scale(1.2); opacity: 0; }
   }
 
   .fb-label {
@@ -145,8 +181,11 @@ class ConceptForgeBellows extends HTMLElement {
           </div>
 
           <div class="fb-nozzle"></div>
-          <div class="fb-air-blast"></div>
+          <div class="fb-air-packet ap1"></div>
+          <div class="fb-air-packet ap2"></div>
           <div class="fb-hearth"></div>
+          <div class="fb-spark sp1"></div>
+          <div class="fb-spark sp2"></div>
         </div>
 
         <div class="fb-label">FORGE BELLOWS</div>

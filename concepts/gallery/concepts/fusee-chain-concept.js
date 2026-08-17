@@ -35,26 +35,50 @@ const fuseeStyles = `
     height: 72px;
   }
 
-  /* Miniature Link Chain Wrapping / Unwrapping Flow */
-  .fc-chain-stream {
-    stroke: #ffecb3;
-    stroke-dasharray: 3 2;
-    animation: fc-chain-draw 1.5s linear infinite;
-  }
-
-  @keyframes fc-chain-draw {
-    to { stroke-dashoffset: -10; }
-  }
-
-  /* Mainspring Barrel Slow Clockwise Rotation */
+  /* Mainspring Barrel Continuous Clockwise Rotation */
   .fc-barrel-rotation {
     transform-origin: 20px 36px;
-    animation: fc-spin-barrel 8s linear infinite;
+    animation: fc-spin-barrel 3.2s linear infinite;
   }
 
   @keyframes fc-spin-barrel {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+  }
+
+  /* Conical Fusee Frustum Counter-Rotation */
+  .fc-cone-rotation {
+    transform-origin: 54px 36px;
+    animation: fc-spin-cone 3.2s linear infinite reverse;
+  }
+
+  @keyframes fc-spin-cone {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Discrete steel chain link packets traveling horizontally */
+  .fc-chain-link {
+    position: absolute;
+    width: 5px;
+    height: 3px;
+    background: #ffecb3;
+    border: 1px solid #ffd54f;
+    border-radius: 1px;
+    box-shadow: 0 0 4px #ffd54f;
+    z-index: 5;
+    animation: fc-link-travel 1.6s linear infinite;
+  }
+
+  .cl1 { animation-delay: 0s; }
+  .cl2 { animation-delay: 0.53s; }
+  .cl3 { animation-delay: 1.06s; }
+
+  @keyframes fc-link-travel {
+    0% { transform: translate(-14px, -14px) scale(0.8); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(16px, -12px) scale(1.1); opacity: 0; }
   }
 
   /* Conical Fusee Brass Frustum */
@@ -85,42 +109,37 @@ class ConceptFuseeChain extends HTMLElement {
       <style>${fuseeStyles}</style>
       <div class="fc-box">
         <div class="fc-stage">
+          <div class="fc-chain-link cl1"></div>
+          <div class="fc-chain-link cl2"></div>
+          <div class="fc-chain-link cl3"></div>
+
           <svg class="fc-svg" viewBox="0 0 76 72">
             <!-- Left Cylindrical Mainspring Barrel Housing -->
             <g class="fc-barrel-rotation">
               <circle cx="20" cy="36" r="14" fill="#2d1c14" stroke="#ffb74d" stroke-width="1.2" />
               <circle cx="20" cy="36" r="6" fill="#1b100a" stroke="#ffd54f" stroke-width="0.8" />
               <circle cx="20" cy="36" r="2" fill="#ff8f00" />
-              <!-- Internal Mainspring Spiral Silhouette -->
-              <path d="M 20 36 A 3 3 0 0 1 20 40 A 6 6 0 0 1 20 32 A 9 9 0 0 1 20 46" fill="none" stroke="rgba(255, 183, 77, 0.4)" stroke-width="0.6" />
+              <!-- Radial spoke gear teeth -->
+              <line x1="6" y1="36" x2="34" y2="36" stroke="#ffb74d" stroke-width="0.8" />
+              <line x1="20" y1="22" x2="20" y2="50" stroke="#ffb74d" stroke-width="0.8" />
             </g>
 
-            <!-- Right Conical Grooved Fusee Frustum (Truncated hyperboloid cone) -->
-            <g transform="translate(42, 18)">
-              <!-- Cone Profile Silhouette (Narrow top, broad base) -->
-              <path class="fc-cone-body" d="M 8 0 L 16 0 L 22 36 L 2 36 Z" />
-
-              <!-- Helical Chain Grooves (Spiral steps up the cone) -->
-              <g stroke="#ffd54f" stroke-width="0.8" opacity="0.8">
-                <line x1="7.5" y1="5" x2="16.5" y2="5" />
-                <line x1="6.5" y1="11" x2="17.5" y2="11" />
-                <line x1="5.5" y1="17" x2="18.5" y2="17" />
-                <line x1="4.5" y1="23" x2="19.5" y2="23" />
-                <line x1="3.5" y1="29" x2="20.5" y2="29" />
-              </g>
-
-              <!-- Fusee Base Great Wheel Gear Teeth -->
-              <rect x="0" y="34" width="24" height="3" fill="#ffb300" stroke="#ff8f00" stroke-width="0.5" />
-              <!-- Winding Square Arbor at Top of Cone -->
-              <rect x="10" y="-3" width="4" height="3" fill="#cfd8dc" stroke="#90a4ae" stroke-width="0.5" />
+            <!-- Right Conical Grooved Fusee Frustum with Rotation -->
+            <g class="fc-cone-rotation">
+              <circle cx="54" cy="36" r="13" fill="#3e2723" stroke="#ffb300" stroke-width="1.2" />
+              <circle cx="54" cy="36" r="8" fill="#2d1c14" stroke="#ffd54f" stroke-width="0.8" />
+              <circle cx="54" cy="36" r="3" fill="#ffd700" />
+              <!-- Helical winding grooves -->
+              <line x1="41" y1="36" x2="67" y2="36" stroke="#ffd54f" stroke-width="0.8" />
+              <line x1="54" y1="23" x2="54" y2="49" stroke="#ffd54f" stroke-width="0.8" />
             </g>
 
             <!-- Miniature Steel Fusee Link Chain (Connecting barrel to cone groove) -->
-            <path d="M 20 22 C 30 20, 42 22, 50 24" fill="none" stroke="#ffe082" stroke-width="1.4" class="fc-chain-stream" />
+            <line x1="20" y1="22" x2="54" y2="23" stroke="#ffe082" stroke-width="1.6" stroke-dasharray="3 2" />
 
             <!-- Tangent Chain Link Nodes -->
-            <circle cx="20" cy="22" r="1.2" fill="#ffd700" />
-            <circle cx="50" cy="24" r="1.2" fill="#ffd700" />
+            <circle cx="20" cy="22" r="1.6" fill="#ffd700" />
+            <circle cx="54" cy="23" r="1.6" fill="#ffd700" />
           </svg>
         </div>
         <div class="fc-label">FUSEE & CHAIN</div>
@@ -129,4 +148,6 @@ class ConceptFuseeChain extends HTMLElement {
   }
 }
 
-customElements.define('concept-fusee-chain', ConceptFuseeChain);
+if (!customElements.get('concept-fusee-chain')) {
+  customElements.define('concept-fusee-chain', ConceptFuseeChain);
+}

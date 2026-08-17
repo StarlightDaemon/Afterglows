@@ -37,7 +37,7 @@ const dorpatRefractorStyles = `
 
   /* German equatorial mount polar axis tracking rotation */
   .dr-polar-axis {
-    animation: dr-equatorial-track 5s linear infinite;
+    animation: dr-equatorial-track 4s linear infinite;
     transform-origin: 38px 34px;
   }
 
@@ -46,22 +46,22 @@ const dorpatRefractorStyles = `
     100% { transform: rotate(360deg); }
   }
 
-  /* 9.6-inch Fraunhofer Achromatic Refractor tube declination slew */
+  /* 9.6-inch Fraunhofer Achromatic Refractor tube bold equatorial slew */
   .dr-telescope-tube {
     transform-origin: 38px 30px;
-    animation: dr-tube-slew 3.8s ease-in-out infinite alternate;
+    animation: dr-tube-slew 3.6s ease-in-out infinite alternate;
   }
 
   @keyframes dr-tube-slew {
-    0% { transform: rotate(-28deg); }
-    50% { transform: rotate(5deg); }
-    100% { transform: rotate(32deg); }
+    0% { transform: rotate(-35deg); }
+    50% { transform: rotate(4deg); }
+    100% { transform: rotate(35deg); }
   }
 
   /* Centrifugal governor clockwork drive oscillation */
   .dr-clockwork-governor {
     transform-origin: 24px 50px;
-    animation: dr-spin-governor 1s linear infinite;
+    animation: dr-spin-governor 1.2s linear infinite;
   }
 
   @keyframes dr-spin-governor {
@@ -69,14 +69,23 @@ const dorpatRefractorStyles = `
     100% { transform: rotate(360deg); }
   }
 
-  /* Starlight ray beam entering flint/crown glass doublet */
-  .dr-star-beam {
-    stroke-dasharray: 4 2;
-    animation: dr-beam-flow 1.2s linear infinite;
+  /* Starlight photon packet entering telescope objective */
+  .dr-star-photon {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00e5ff, 0 0 10px #ffffff;
+    z-index: 6;
+    animation: dr-photon-travel 1.8s linear infinite;
   }
 
-  @keyframes dr-beam-flow {
-    to { stroke-dashoffset: -12; }
+  @keyframes dr-photon-travel {
+    0% { transform: translate(32px, -18px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(-4px, 4px) scale(1.2); opacity: 0; }
   }
 
   .dr-label {
@@ -100,48 +109,51 @@ class ConceptFraunhoferDorpatRefractor extends HTMLElement {
       <style>${dorpatRefractorStyles}</style>
       <div class="dr-box">
         <div class="dr-stage">
+          <div class="dr-star-photon"></div>
+
           <svg class="dr-svg" viewBox="0 0 76 72">
             <!-- Heavy Mahogany Pedestal & German Polar Axis Casting -->
-            <polygon points="38,50 20,68 56,68" fill="#2d1c14" stroke="#5c3826" stroke-width="0.8" />
+            <polygon points="38,50 18,68 58,68" fill="#2d1c14" stroke="#ffb300" stroke-width="1" />
 
-            <!-- Fraunhofer Centrifugal Friction Governor Clockwork Drive (Tucked in base) -->
+            <!-- Fraunhofer Centrifugal Friction Governor Clockwork Drive -->
             <g class="dr-clockwork-governor">
-              <circle cx="24" cy="50" r="3.5" fill="#ffd700" stroke="#ffb300" stroke-width="0.6" />
-              <line x1="20" y1="50" x2="28" y2="50" stroke="#ffffff" stroke-width="0.8" />
-              <line x1="24" y1="46" x2="24" y2="54" stroke="#ffffff" stroke-width="0.8" />
+              <circle cx="24" cy="50" r="4" fill="#ffd700" stroke="#ffb300" stroke-width="0.8" />
+              <line x1="20" y1="50" x2="28" y2="50" stroke="#ffffff" stroke-width="1" />
+              <line x1="24" y1="46" x2="24" y2="54" stroke="#ffffff" stroke-width="1" />
             </g>
 
             <!-- Inclined Polar Axis Pier (Aligned to Tartu/Dorpat 58° Latitude) -->
-            <line x1="38" y1="50" x2="38" y2="34" stroke="#ffd700" stroke-width="3" stroke-linecap="round" />
+            <line x1="38" y1="50" x2="38" y2="34" stroke="#ffd700" stroke-width="3.5" stroke-linecap="round" />
 
             <!-- Graduated Right Ascension Hour Circle (Polar Axis Worm Gear) -->
             <g class="dr-polar-axis">
-              <circle cx="38" cy="34" r="7" fill="#1b2938" stroke="#00e5ff" stroke-width="0.8" stroke-dasharray="2 1" />
+              <circle cx="38" cy="34" r="8" fill="#1b2938" stroke="#00e5ff" stroke-width="1.2" stroke-dasharray="3 1" />
+              <line x1="30" y1="34" x2="46" y2="34" stroke="#ffd700" stroke-width="1" />
+              <line x1="38" y1="26" x2="38" y2="42" stroke="#ffd700" stroke-width="1" />
             </g>
 
-            <!-- Fraunhofer 9.6-Inch Achromatic Refractor Telescope Assembly -->
+            <!-- Fraunhofer 9.6-Inch Achromatic Refractor Telescope Assembly (Bold & Bright) -->
             <g class="dr-telescope-tube">
               <!-- Declination Axis Hub & Counterweight Bar -->
-              <circle cx="38" cy="30" r="3" fill="#ffd700" stroke="#ffb300" stroke-width="0.8" />
-              <line x1="38" y1="30" x2="48" y2="38" stroke="#ffd700" stroke-width="1.6" />
-              <circle cx="48" cy="38" r="2.5" fill="#37474f" stroke="#78909c" stroke-width="0.5" />
+              <circle cx="38" cy="30" r="4" fill="#ffd700" stroke="#ffb300" stroke-width="1" />
+              <line x1="38" y1="30" x2="48" y2="40" stroke="#ffd700" stroke-width="2.2" />
+              <circle cx="48" cy="40" r="3.5" fill="#37474f" stroke="#ffd700" stroke-width="0.8" />
 
-              <!-- Mahogany Veneer Main Telescope Tube -->
-              <polygon points="14,28.5 62,28.5 62,31.5 14,31.5" fill="#4e342e" stroke="#ffd700" stroke-width="0.8" />
+              <!-- Bold Mahogany & Polished Brass Main Telescope Barrel -->
+              <polygon points="12,27 64,27 64,33 12,33" fill="#6d4c41" stroke="#ffd700" stroke-width="1.2" />
+              <line x1="12" y1="30" x2="64" y2="30" stroke="#ffecb3" stroke-width="0.8" />
 
               <!-- 9.6-Inch Crown & Flint Doublet Achromatic Objective Lens Cell (Right) -->
-              <rect x="62" y="27" width="5" height="6" rx="1" fill="#ffd700" stroke="#ffb300" stroke-width="0.6" />
-              <line x1="63" y1="28" x2="63" y2="32" stroke="#00e5ff" stroke-width="1.2" />
-
-              <!-- Sighting Starlight Collimation Ray entering Objective -->
-              <line class="dr-star-beam" x1="67" y1="30" x2="76" y2="30" stroke="#80d8ff" stroke-width="0.8" />
+              <rect x="64" y="25" width="6" height="10" rx="1.5" fill="#ffd700" stroke="#ffb300" stroke-width="1" />
+              <line x1="66" y1="26" x2="66" y2="34" stroke="#00e5ff" stroke-width="2" />
 
               <!-- Eyepiece Drawtube & Micrometer (Left) -->
-              <rect x="9" y="29" width="5" height="2" fill="#ffd700" stroke="#ffb300" stroke-width="0.5" />
+              <rect x="6" y="28" width="6" height="4" rx="1" fill="#ffd700" stroke="#ffb300" stroke-width="0.8" />
+              <circle cx="6" cy="30" r="1.5" fill="#00e5ff" />
             </g>
 
-            <!-- Stellar Parallax Tracking Equation -->
-            <text x="38" y="65" font-family="monospace" font-size="3" fill="#80d8ff" text-anchor="middle">FRAUNHOFER CLOCK DRIVE 1824</text>
+            <!-- Inscription -->
+            <text x="38" y="66" font-family="monospace" font-size="3" fill="#80d8ff" text-anchor="middle">FRAUNHOFER CLOCK DRIVE</text>
           </svg>
         </div>
         <div class="dr-label">DORPAT REFRACTOR</div>
@@ -150,4 +162,6 @@ class ConceptFraunhoferDorpatRefractor extends HTMLElement {
   }
 }
 
-customElements.define('concept-fraunhofer-dorpat-refractor', ConceptFraunhoferDorpatRefractor);
+if (!customElements.get('concept-fraunhofer-dorpat-refractor')) {
+  customElements.define('concept-fraunhofer-dorpat-refractor', ConceptFraunhoferDorpatRefractor);
+}

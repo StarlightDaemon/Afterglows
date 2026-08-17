@@ -35,35 +35,71 @@ const fitzroyStormglassStyles = `
     height: 72px;
   }
 
-  /* Camphor crystal dendrites growing and drifting in liquid */
+  /* Camphor crystal dendrites growing and branching upward */
   .sg-crystal-ferns {
-    animation: sg-crystal-drift 5s ease-in-out infinite alternate;
+    transform-origin: 38px 54px;
+    animation: sg-fern-grow 3.2s ease-in-out infinite alternate;
   }
 
-  @keyframes sg-crystal-drift {
-    0% { transform: translateY(0px) rotate(-2deg); opacity: 0.7; }
-    50% { opacity: 1; filter: drop-shadow(0 0 3px #e0f2fe); }
-    100% { transform: translateY(-4px) rotate(2deg); opacity: 0.8; }
+  @keyframes sg-fern-grow {
+    0% { transform: scaleY(0.7) rotate(-4deg); opacity: 0.7; }
+    100% { transform: scaleY(1.25) rotate(4deg); opacity: 1; filter: drop-shadow(0 0 4px #ffffff); }
+  }
+
+  /* Precipitating camphor crystal flakes falling through liquid */
+  .sg-falling-crystal {
+    position: absolute;
+    width: 3.5px;
+    height: 3.5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 4px #e0f2fe;
+    z-index: 5;
+  }
+
+  .fc1 { left: 40px; animation: sg-fall-1 2.6s linear infinite; }
+  .fc2 { left: 45px; animation: sg-fall-2 2.6s linear infinite; animation-delay: 0.9s; }
+  .fc3 { left: 36px; animation: sg-fall-3 2.6s linear infinite; animation-delay: 1.8s; }
+
+  @keyframes sg-fall-1 {
+    0% { transform: translateY(18px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(52px) scale(1.1); opacity: 0; }
+  }
+
+  @keyframes sg-fall-2 {
+    0% { transform: translateY(22px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(54px) scale(1.1); opacity: 0; }
+  }
+
+  @keyframes sg-fall-3 {
+    0% { transform: translateY(20px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(50px) scale(1.1); opacity: 0; }
   }
 
   /* Floating feather crystals settling at the bottom */
   .sg-feathers {
-    animation: sg-feather-shimmer 3s ease-in-out infinite alternate;
+    animation: sg-feather-settle 2.5s ease-in-out infinite alternate;
   }
 
-  @keyframes sg-feather-shimmer {
-    0% { opacity: 0.4; }
-    100% { opacity: 0.95; filter: drop-shadow(0 0 2px #bae6fd); }
+  @keyframes sg-feather-settle {
+    0% { transform: translateY(0); opacity: 0.6; }
+    100% { transform: translateY(-3px); opacity: 1; filter: drop-shadow(0 0 4px #bae6fd); }
   }
 
   /* Liquid meniscus reflection */
   .sg-liquid-gleam {
-    animation: sg-liquid-pulse 4s ease-in-out infinite alternate;
+    animation: sg-liquid-pulse 3s ease-in-out infinite alternate;
   }
 
   @keyframes sg-liquid-pulse {
-    0% { opacity: 0.3; }
-    100% { opacity: 0.7; }
+    0% { opacity: 0.4; }
+    100% { opacity: 0.9; stroke-width: 1.2; }
   }
 
   .sg-label {
@@ -87,25 +123,29 @@ class ConceptFitzroyStormglass extends HTMLElement {
       <style>${fitzroyStormglassStyles}</style>
       <div class="sg-box">
         <div class="sg-stage">
+          <div class="sg-falling-crystal fc1"></div>
+          <div class="sg-falling-crystal fc2"></div>
+          <div class="sg-falling-crystal fc3"></div>
+
           <svg class="sg-svg" viewBox="0 0 76 72">
             <!-- 1860 Admiral Robert FitzRoy Chemical Weather Storm Glass Phial -->
             <!-- Polished Brass Mounting Plate / Stand -->
             <rect x="22" y="6" width="32" height="60" rx="2" fill="#1e293b" stroke="#475569" stroke-width="0.8" />
             <!-- Engraved Forecast Scale Ticks on Brass Backing (Fair, Storm, Rain) -->
-            <line x1="24" y1="18" x2="28" y2="18" stroke="#94a3b8" stroke-width="0.5" />
-            <line x1="24" y1="32" x2="28" y2="32" stroke="#94a3b8" stroke-width="0.5" />
-            <line x1="24" y1="46" x2="28" y2="46" stroke="#94a3b8" stroke-width="0.5" />
+            <line x1="24" y1="18" x2="28" y2="18" stroke="#94a3b8" stroke-width="0.8" />
+            <line x1="24" y1="32" x2="28" y2="32" stroke="#94a3b8" stroke-width="0.8" />
+            <line x1="24" y1="46" x2="28" y2="46" stroke="#94a3b8" stroke-width="0.8" />
 
             <!-- Hermetically Sealed Cylindrical Glass Phial -->
-            <rect x="30" y="8" width="16" height="52" rx="8" fill="#0c4a6e" fill-opacity="0.3" stroke="#93c5fd" stroke-width="1.2" />
+            <rect x="30" y="8" width="16" height="52" rx="8" fill="#0c4a6e" fill-opacity="0.35" stroke="#93c5fd" stroke-width="1.2" />
 
             <!-- Hydroalcoholic Camphor Solution Fill Level Meniscus -->
-            <path class="sg-liquid-gleam" d="M 31 16 Q 38 18 45 16" fill="none" stroke="#e0f2fe" stroke-width="0.8" />
+            <path class="sg-liquid-gleam" d="M 31 16 Q 38 18 45 16" fill="none" stroke="#e0f2fe" stroke-width="1" />
 
             <!-- Growing Camphor / Nitrate Dendritic Fern Crystals -->
-            <g class="sg-crystal-ferns" stroke="#ffffff" fill="none" stroke-width="0.7">
+            <g class="sg-crystal-ferns" stroke="#ffffff" fill="none" stroke-width="1">
               <!-- Central Fern Frond Stem -->
-              <path d="M 38 52 Q 37 38 39 26" />
+              <path d="M 38 54 Q 37 38 39 26" />
               <!-- Feathery Side Needles -->
               <path d="M 38 46 L 33 42 M 38 46 L 43 42" />
               <path d="M 38 40 L 32 36 M 38 40 L 44 36" />
@@ -114,16 +154,16 @@ class ConceptFitzroyStormglass extends HTMLElement {
             </g>
 
             <!-- Bottom Precipitated Crystal Bed ("Turbid Liquid with Spots") -->
-            <g class="sg-feathers" fill="#f0f9ff" stroke="#bae6fd" stroke-width="0.4">
+            <g class="sg-feathers" fill="#f0f9ff" stroke="#bae6fd" stroke-width="0.6">
               <polygon points="32,54 36,50 38,55 34,56" />
               <polygon points="40,55 42,49 45,54 42,56" />
-              <circle cx="34" cy="48" r="0.8" />
-              <circle cx="43" cy="46" r="0.8" />
-              <circle cx="37" cy="49" r="0.7" />
+              <circle cx="34" cy="48" r="1.2" />
+              <circle cx="43" cy="46" r="1.2" />
+              <circle cx="37" cy="49" r="1" />
             </g>
 
             <!-- Glass Reflection Specular Strip -->
-            <line x1="33" y1="12" x2="33" y2="52" stroke="#ffffff" stroke-width="0.6" opacity="0.5" />
+            <line x1="33" y1="12" x2="33" y2="52" stroke="#ffffff" stroke-width="0.8" opacity="0.6" />
           </svg>
         </div>
         <div class="sg-label">FITZROY STORM GLASS</div>
@@ -132,4 +172,6 @@ class ConceptFitzroyStormglass extends HTMLElement {
   }
 }
 
-customElements.define('concept-fitzroy-stormglass', ConceptFitzroyStormglass);
+if (!customElements.get('concept-fitzroy-stormglass')) {
+  customElements.define('concept-fitzroy-stormglass', ConceptFitzroyStormglass);
+}

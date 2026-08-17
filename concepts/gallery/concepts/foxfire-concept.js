@@ -34,7 +34,7 @@ const foxfireStyles = `
     z-index: 2;
   }
 
-  /* Bioluminescent mushroom clusters */
+  /* Bioluminescent mushroom clusters with active organic sway */
   .fxf-shroom-cluster {
     position: absolute;
     bottom: 24px;
@@ -50,16 +50,26 @@ const foxfireStyles = `
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: fxf-glow-pulse 3s ease-in-out infinite alternate;
+    transform-origin: bottom center;
   }
 
-  .fxf-shroom.s1 { animation-delay: 0s; }
-  .fxf-shroom.s2 { animation-delay: 0.8s; }
-  .fxf-shroom.s3 { animation-delay: 1.6s; }
+  .fxf-shroom.s1 { animation: fxf-sway-1 2.8s ease-in-out infinite alternate; }
+  .fxf-shroom.s2 { animation: fxf-sway-2 3.4s ease-in-out infinite alternate; }
+  .fxf-shroom.s3 { animation: fxf-sway-3 2.5s ease-in-out infinite alternate; }
 
-  @keyframes fxf-glow-pulse {
-    0% { filter: drop-shadow(0 0 4px #8cffaa); }
-    100% { filter: drop-shadow(0 0 12px #ffffff) drop-shadow(0 0 20px #00ff44); }
+  @keyframes fxf-sway-1 {
+    0% { transform: rotate(-10deg) skewX(-4deg); }
+    100% { transform: rotate(8deg) skewX(4deg); }
+  }
+
+  @keyframes fxf-sway-2 {
+    0% { transform: rotate(8deg) skewX(3deg); }
+    100% { transform: rotate(-12deg) skewX(-3deg); }
+  }
+
+  @keyframes fxf-sway-3 {
+    0% { transform: rotate(-8deg) skewX(-3deg); }
+    100% { transform: rotate(10deg) skewX(3deg); }
   }
 
   /* Mushroom Glowing Cap */
@@ -67,7 +77,7 @@ const foxfireStyles = `
     background: radial-gradient(circle at 50% 30%, #ffffff 0%, #8cffaa 50%, #008818 100%);
     border: 1.5px solid #ffffff;
     border-radius: 50% 50% 20% 20%;
-    box-shadow: 0 0 8px #ffffff;
+    box-shadow: 0 0 10px #8cffaa, 0 0 16px #00ff44;
   }
 
   .fxf-shroom.s1 .fxf-cap { width: 22px; height: 12px; }
@@ -85,31 +95,28 @@ const foxfireStyles = `
   .fxf-shroom.s2 .fxf-stalk { height: 28px; }
   .fxf-shroom.s3 .fxf-stalk { height: 14px; }
 
-  /* Drifting luminous fungal spores */
+  /* Drifting luminous fungal spore clouds with strong upward travel */
   .fxf-spore {
     position: absolute;
-    width: 2.5px;
-    height: 2.5px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #ffffff, 0 0 10px #8cffaa;
-    animation: fxf-spore-drift 4s ease-out infinite;
+    box-shadow: 0 0 6px #ffffff, 0 0 12px #8cffaa;
     z-index: 5;
+    animation: fxf-spore-drift 3.2s ease-out infinite;
   }
 
-  .fxf-spore.p1 { left: 28px; bottom: 32px; animation-delay: 0.2s; }
-  .fxf-spore.p2 { left: 52px; bottom: 44px; animation-delay: 1.2s; }
-  .fxf-spore.p3 { right: 28px; bottom: 30px; animation-delay: 2.2s; }
+  .fxf-spore.p1 { left: 24px; bottom: 32px; animation-delay: 0.1s; --dx: -14px; }
+  .fxf-spore.p2 { left: 52px; bottom: 44px; animation-delay: 1.1s; --dx: 10px; }
+  .fxf-spore.p3 { right: 24px; bottom: 30px; animation-delay: 2.1s; --dx: 18px; }
 
   @keyframes fxf-spore-drift {
-    0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
-    30% { opacity: 1; }
-    80% { opacity: 0.8; }
-    100% { transform: translate(var(--dx, 8px), -36px) scale(1.2); opacity: 0; }
+    0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 0.9; }
+    100% { transform: translate(var(--dx), -42px) scale(1.3); opacity: 0; }
   }
-  .fxf-spore.p1 { --dx: -12px; }
-  .fxf-spore.p2 { --dx: 6px; }
-  .fxf-spore.p3 { --dx: 14px; }
 
   /* Caption */
   .fxf-label {
