@@ -68,7 +68,7 @@ const stereoscopeStyles = `
     box-shadow: 0 0 6px #8cffaa;
   }
 
-  /* Sliding stereograph card carriage */
+  /* Sliding stereograph card carriage with active focusing translation */
   .str-carriage {
     position: absolute;
     top: 18px;
@@ -85,13 +85,12 @@ const stereoscopeStyles = `
     justify-content: space-evenly;
     padding: 2px;
     box-sizing: border-box;
-    animation: str-slide-focus 6s ease-in-out infinite alternate;
+    animation: str-slide-focus 2.6s ease-in-out infinite alternate;
   }
 
   @keyframes str-slide-focus {
-    0% { right: 8px; }
-    50% { right: 30px; }
-    100% { right: 12px; }
+    0% { transform: translateX(8px); }
+    100% { transform: translateX(36px); }
   }
 
   /* Dual photographic stereo pairs with parallax offset */
@@ -113,10 +112,16 @@ const stereoscopeStyles = `
     height: 14px;
     background: #8cffaa;
     clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    animation: str-tree-parallax 2.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes str-tree-parallax {
+    0% { transform: translateX(-2px); }
+    100% { transform: translateX(2px); }
   }
 
   .str-photo.left .str-photo-tree { left: 8px; }
-  .str-photo.right .str-photo-tree { left: 14px; } /* Parallax offset */
+  .str-photo.right .str-photo-tree { left: 14px; }
 
   .str-photo-sun {
     position: absolute;
@@ -150,8 +155,8 @@ class ConceptStereoscope extends HTMLElement {
       <div class="str">
         <svg class="str-sightlines" viewBox="0 0 118 102">
           <!-- Focal convergence rays -->
-          <line x1="30" y1="36" x2="80" y2="44" stroke="rgba(140, 255, 170, 0.35)" stroke-width="1" stroke-dasharray="2,2" />
-          <line x1="30" y1="64" x2="80" y2="58" stroke="rgba(140, 255, 170, 0.35)" stroke-width="1" stroke-dasharray="2,2" />
+          <line x1="30" y1="36" x2="80" y2="44" stroke="rgba(140, 255, 170, 0.5)" stroke-width="1.2" stroke-dasharray="2,2" />
+          <line x1="30" y1="64" x2="80" y2="58" stroke="rgba(140, 255, 170, 0.5)" stroke-width="1.2" stroke-dasharray="2,2" />
         </svg>
         <div class="str-handle"></div>
         <div class="str-rail"></div>

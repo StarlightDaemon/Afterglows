@@ -29,7 +29,7 @@ const thaumaturgyStyles = `
     border-radius: 50%;
     border: 1.5px solid #d400ff;
     box-shadow: 0 0 8px rgba(212, 0, 255, 0.4);
-    animation: thm-spin-cw 12s linear infinite;
+    animation: thm-spin-cw 3.6s linear infinite;
   }
 
   @keyframes thm-spin-cw {
@@ -45,12 +45,29 @@ const thaumaturgyStyles = `
     border-radius: 50%;
     border: 1.2px dashed #ffffff;
     box-shadow: 0 0 6px #ff88ff;
-    animation: thm-spin-ccw 8s linear infinite;
+    animation: thm-spin-ccw 2.4s linear infinite;
   }
 
   @keyframes thm-spin-ccw {
     from { transform: rotate(0deg); }
     to { transform: rotate(-360deg); }
+  }
+
+  /* Orbiting transmutation energy spark */
+  .thm-arcane-spark {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #ff00ea;
+    z-index: 7;
+    animation: thm-spark-orbit 2.6s linear infinite;
+  }
+
+  @keyframes thm-spark-orbit {
+    0% { transform: rotate(0deg) translate(30px) rotate(0deg); }
+    100% { transform: rotate(-360deg) translate(30px) rotate(360deg); }
   }
 
   /* Central elemental transmutation core */
@@ -61,12 +78,12 @@ const thaumaturgyStyles = `
     border-radius: 50%;
     background: radial-gradient(circle, #ffffff 0%, #ff00ea 60%, transparent 100%);
     box-shadow: 0 0 12px #ff00ea, 0 0 20px #ffffff;
-    animation: thm-pulse-crucible 2s ease-in-out infinite alternate;
+    animation: thm-pulse-crucible 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes thm-pulse-crucible {
-    0% { transform: scale(0.8); opacity: 0.7; }
-    100% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 8px #ffffff); }
+    0% { transform: scale(0.75); opacity: 0.7; }
+    100% { transform: scale(1.35); opacity: 1; filter: drop-shadow(0 0 10px #ffffff); }
   }
 
   /* Radiant runic ray runes */
@@ -102,12 +119,14 @@ class ConceptThaumaturgyCircle extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>${thaumaturgyStyles}</style>
       <div class="thm">
+        <div class="thm-arcane-spark"></div>
+
         <div class="thm-ring-outer">
           <svg viewBox="0 0 80 80" style="position: absolute; inset: 0; width: 100%; height: 100%;">
             <!-- Outer Hexagram transmutation seal -->
-            <polygon points="40,4 71,58 9,58" fill="none" stroke="rgba(212, 0, 255, 0.6)" stroke-width="1" />
-            <polygon points="40,76 71,22 9,22" fill="none" stroke="rgba(212, 0, 255, 0.6)" stroke-width="1" />
-            <circle cx="40" cy="40" r="32" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-dasharray="2 4" />
+            <polygon points="40,4 71,58 9,58" fill="none" stroke="rgba(212, 0, 255, 0.6)" stroke-width="1.2" />
+            <polygon points="40,76 71,22 9,22" fill="none" stroke="rgba(212, 0, 255, 0.6)" stroke-width="1.2" />
+            <circle cx="40" cy="40" r="32" fill="none" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 4" />
           </svg>
           <div class="thm-rune rn-1">🜍</div>
           <div class="thm-rune rn-2">🜂</div>
@@ -118,8 +137,8 @@ class ConceptThaumaturgyCircle extends HTMLElement {
         <div class="thm-ring-inner">
           <svg viewBox="0 0 54 54" style="position: absolute; inset: 0; width: 100%; height: 100%;">
             <!-- Inner heptagram / octagram star -->
-            <rect x="11" y="11" width="32" height="32" fill="none" stroke="#ff88ff" stroke-width="1" />
-            <rect x="11" y="11" width="32" height="32" fill="none" stroke="#ff88ff" stroke-width="1" transform="rotate(45 27 27)" />
+            <rect x="11" y="11" width="32" height="32" fill="none" stroke="#ff88ff" stroke-width="1.2" />
+            <rect x="11" y="11" width="32" height="32" fill="none" stroke="#ff88ff" stroke-width="1.2" transform="rotate(45 27 27)" />
           </svg>
         </div>
 

@@ -45,15 +45,15 @@ const tacheometerStadiaStyles = `
     100% { stroke: #ffffff; filter: drop-shadow(0 0 2px #00e676); }
   }
 
-  /* Distant E-pattern leveling staff rod reading shift */
+  /* Sighted surveyor's leveling staff rod active translation across field */
   .ts-staff-rod {
-    animation: ts-staff-sway 3.2s ease-in-out infinite alternate;
+    animation: ts-staff-pan 2.6s ease-in-out infinite alternate;
     transform-origin: 38px 36px;
   }
 
-  @keyframes ts-staff-sway {
-    0% { transform: translateY(-3px); }
-    100% { transform: translateY(3px); }
+  @keyframes ts-staff-pan {
+    0% { transform: translate(-12px, -6px); }
+    100% { transform: translate(12px, 6px); }
   }
 
   /* Optical rangefinder calculation beam */
@@ -96,7 +96,7 @@ class ConceptTacheometerStadia extends HTMLElement {
             <polygon class="ts-range-cone" points="38,36 30,12 46,12" fill="#00e676" />
             <polygon class="ts-range-cone" points="38,36 30,60 46,60" fill="#00e676" />
 
-            <!-- Sighted Surveyor's E-Pattern Leveling Rod / Stadia Staff (Vertical in center) -->
+            <!-- Sighted Surveyor's E-Pattern Leveling Rod / Stadia Staff -->
             <g class="ts-staff-rod">
               <!-- Wooden Staff Body -->
               <rect x="35" y="10" width="6" height="52" fill="#ffffff" stroke="#37474f" stroke-width="0.5" />
@@ -119,11 +119,11 @@ class ConceptTacheometerStadia extends HTMLElement {
               <!-- Main Vertical Center Wire -->
               <line x1="38" y1="8" x2="38" y2="64" />
               <!-- Main Horizontal Center Crosshair Wire -->
-              <line x1="10" y1="36" x2="66" y2="36" stroke-width="1" />
-              <!-- Upper Stadia Interval Wire (Interval s = Upper - Lower) -->
-              <line x1="24" y1="24" x2="52" y2="24" />
+              <line x1="10" y1="36" x2="66" y2="36" stroke-width="1.2" />
+              <!-- Upper Stadia Interval Wire -->
+              <line x1="24" y1="24" x2="52" y2="24" stroke-width="1" />
               <!-- Lower Stadia Interval Wire -->
-              <line x1="24" y1="48" x2="52" y2="48" />
+              <line x1="24" y1="48" x2="52" y2="48" stroke-width="1" />
             </g>
 
             <!-- Distance Law Formula Annotation -->
@@ -136,4 +136,6 @@ class ConceptTacheometerStadia extends HTMLElement {
   }
 }
 
-customElements.define('concept-tacheometer-stadia', ConceptTacheometerStadia);
+if (!customElements.get('concept-tacheometer-stadia')) {
+  customElements.define('concept-tacheometer-stadia', ConceptTacheometerStadia);
+}

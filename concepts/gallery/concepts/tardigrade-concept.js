@@ -33,7 +33,7 @@ const tardigradeStyles = `
     box-shadow: 0 0 6px rgba(0, 204, 0, 0.3);
   }
 
-  /* Water bear body assembly */
+  /* Water bear body walking stride assembly */
   .tdg-bear {
     position: relative;
     width: 82px;
@@ -41,12 +41,12 @@ const tardigradeStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: tdg-waddle 2.4s ease-in-out infinite alternate;
+    animation: tdg-crawl-stride 2.8s ease-in-out infinite alternate;
   }
 
-  @keyframes tdg-waddle {
-    0% { transform: translateY(-1px) rotate(-1deg); }
-    100% { transform: translateY(1px) rotate(1deg); }
+  @keyframes tdg-crawl-stride {
+    0% { transform: translateX(-14px) translateY(-2px) rotate(-5deg); }
+    100% { transform: translateX(14px) translateY(2px) rotate(5deg); }
   }
 
   /* 4 Plump segmented body cuticle lobes */
@@ -64,7 +64,7 @@ const tardigradeStyles = `
   .tdg-cuticle.c3 { left: 42px; width: 22px; z-index: 2; }
   .tdg-cuticle.c4 { left: 56px; width: 20px; z-index: 1; } /* Rear */
 
-  /* Tubular snout / mouthcone */
+  /* Tubular snout / mouthcone probing */
   .tdg-snout {
     position: absolute;
     left: 8px;
@@ -72,7 +72,7 @@ const tardigradeStyles = `
     width: 10px;
     height: 8px;
     background: #ffffff;
-    border: 1px solid #00aa22;
+    border: 1.2px solid #00aa22;
     border-radius: 4px;
     box-shadow: 0 0 4px #8cffaa;
     z-index: 5;
@@ -80,18 +80,18 @@ const tardigradeStyles = `
   }
 
   @keyframes tdg-nibble {
-    0% { transform: scaleX(0.8); }
-    100% { transform: scaleX(1.1); }
+    0% { transform: scaleX(0.7) translateX(2px); }
+    100% { transform: scaleX(1.3) translateX(-3px); }
   }
 
-  /* 4 Pairs of stubby clawed legs with harmonic gait */
+  /* 4 Pairs of stubby clawed legs with wide harmonic gait */
   .tdg-leg {
     position: absolute;
     bottom: -4px;
     width: 8px;
     height: 14px;
     background: #8cffaa;
-    border: 1px solid #004408;
+    border: 1.2px solid #004408;
     border-radius: 4px;
     transform-origin: top center;
     z-index: 5;
@@ -108,14 +108,14 @@ const tardigradeStyles = `
     border-radius: 50%;
   }
 
-  .tdg-leg.l1 { left: 22px; animation: tdg-step 1.2s ease-in-out infinite alternate; }
-  .tdg-leg.l2 { left: 36px; animation: tdg-step 1.2s ease-in-out infinite alternate-reverse; }
-  .tdg-leg.l3 { left: 50px; animation: tdg-step 1.2s ease-in-out infinite alternate; }
-  .tdg-leg.l4 { left: 64px; animation: tdg-step 1.2s ease-in-out infinite alternate-reverse; }
+  .tdg-leg.l1 { left: 22px; animation: tdg-step 1.4s ease-in-out infinite alternate; }
+  .tdg-leg.l2 { left: 36px; animation: tdg-step 1.4s ease-in-out infinite alternate-reverse; }
+  .tdg-leg.l3 { left: 50px; animation: tdg-step 1.4s ease-in-out infinite alternate; }
+  .tdg-leg.l4 { left: 64px; animation: tdg-step 1.4s ease-in-out infinite alternate-reverse; }
 
   @keyframes tdg-step {
-    0% { transform: rotate(-22deg); }
-    100% { transform: rotate(22deg); }
+    0% { transform: rotate(-35deg); }
+    100% { transform: rotate(35deg); }
   }
 
   /* Microscopic reticle / scale bar */

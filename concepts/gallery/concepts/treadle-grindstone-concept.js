@@ -64,7 +64,7 @@ const grindstoneStyles = `
     background: radial-gradient(circle, #8d6e63 0%, #4e342e 70%);
     border: 2px dashed #ffe082;
     box-shadow: 0 0 6px rgba(255, 224, 130, 0.4);
-    animation: tg-spin-stone 1.5s linear infinite;
+    animation: tg-spin-stone 1.2s linear infinite;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -82,7 +82,43 @@ const grindstoneStyles = `
     border: 1px solid #ff8f00;
   }
 
-  /* Steel chisel tool held against wheel */
+  /* Pumping foot treadle pedal */
+  .tg-treadle-pedal {
+    position: absolute;
+    bottom: 4px;
+    left: 12px;
+    width: 32px;
+    height: 5px;
+    background: #5d4037;
+    border: 1px solid #ffb74d;
+    border-radius: 2px;
+    transform-origin: 0% 50%;
+    animation: tg-pedal-pump 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes tg-pedal-pump {
+    0% { transform: rotate(-18deg); }
+    100% { transform: rotate(18deg); }
+  }
+
+  /* Connecting pitman crank rod */
+  .tg-pitman-rod {
+    position: absolute;
+    bottom: 10px;
+    left: 42px;
+    width: 2px;
+    height: 22px;
+    background: #ffe082;
+    transform-origin: 50% 100%;
+    animation: tg-pitman-rock 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes tg-pitman-rock {
+    0% { transform: rotate(-16deg) scaleY(0.85); }
+    100% { transform: rotate(16deg) scaleY(1.15); }
+  }
+
+  /* Steel chisel tool held against wheel with active chatter */
   .tg-tool {
     position: absolute;
     top: 24px;
@@ -92,9 +128,14 @@ const grindstoneStyles = `
     background: #ffffff;
     border: 1px solid #78909c;
     border-radius: 1px;
-    transform: rotate(-25deg);
     box-shadow: 0 0 4px #ffffff;
     z-index: 5;
+    animation: tg-tool-chatter 0.3s ease-in-out infinite alternate;
+  }
+
+  @keyframes tg-tool-chatter {
+    0% { transform: rotate(-24deg) translateY(0); }
+    100% { transform: rotate(-26deg) translateY(-1.5px); }
   }
 
   /* Friction spark stream spraying off wheel */
@@ -108,17 +149,17 @@ const grindstoneStyles = `
 
   .tg-spark {
     position: absolute;
-    width: 2px;
-    height: 2px;
+    width: 2.5px;
+    height: 2.5px;
     border-radius: 50%;
     background: #ffd600;
-    box-shadow: 0 0 4px #ff6d00;
-    animation: tg-spark-fly 0.3s linear infinite;
+    box-shadow: 0 0 6px #ff6d00, 0 0 10px #ffffff;
+    animation: tg-spark-fly 0.4s linear infinite;
   }
 
   @keyframes tg-spark-fly {
     0% { transform: translate(0, 0) scale(1); opacity: 1; }
-    100% { transform: translate(18px, 12px) scale(0.2); opacity: 0; }
+    100% { transform: translate(22px, 14px) scale(0.2); opacity: 0; }
   }
 
   .tg-label {
@@ -145,6 +186,9 @@ class ConceptTreadleGrindstone extends HTMLElement {
           <div class="tg-bench"></div>
           <div class="tg-water-trough"></div>
 
+          <div class="tg-treadle-pedal"></div>
+          <div class="tg-pitman-rod"></div>
+
           <div class="tg-stone-wheel">
             <div class="tg-axle"></div>
           </div>
@@ -153,8 +197,8 @@ class ConceptTreadleGrindstone extends HTMLElement {
 
           <div class="tg-spark-shower">
             <div class="tg-spark" style="top: 2px; left: 0px; animation-delay: 0s;"></div>
-            <div class="tg-spark" style="top: 4px; left: 2px; animation-delay: 0.1s;"></div>
-            <div class="tg-spark" style="top: 0px; left: 1px; animation-delay: 0.2s;"></div>
+            <div class="tg-spark" style="top: 4px; left: 2px; animation-delay: 0.12s;"></div>
+            <div class="tg-spark" style="top: 0px; left: 1px; animation-delay: 0.24s;"></div>
           </div>
         </div>
 

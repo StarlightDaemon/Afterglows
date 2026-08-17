@@ -35,19 +35,25 @@ const speleothemStyles = `
     height: 72px;
   }
 
-  /* Mineral droplet forming, hanging, falling */
+  /* Mineral droplet forming, swelling, and plunging down */
   .sp-drop {
-    fill: #e1bee7;
-    animation: sp-drip-fall 2.2s cubic-bezier(0.4, 0, 1, 1) infinite;
+    position: absolute;
+    width: 4px;
+    height: 6px;
+    border-radius: 50% 50% 20% 20%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #e1bee7, 0 0 12px #b39ddb;
+    z-index: 6;
+    animation: sp-drip-fall 2s cubic-bezier(0.4, 0, 1, 1) infinite;
   }
 
   @keyframes sp-drip-fall {
-    0% { transform: translateY(0) scale(0.6); opacity: 0; }
-    25% { transform: translateY(0) scale(1); opacity: 1; }
-    40% { transform: translateY(2px) scale(1.2, 0.8); }
-    75% { transform: translateY(26px) scale(0.8, 1.4); opacity: 1; }
-    85% { transform: translateY(30px) scale(1.8, 0.3); opacity: 0.8; }
-    100% { transform: translateY(30px) scale(2.4, 0.1); opacity: 0; }
+    0% { top: 34px; left: 36px; transform: scale(0.6); opacity: 0; }
+    20% { top: 36px; left: 36px; transform: scale(1); opacity: 1; }
+    35% { top: 38px; left: 36px; transform: scale(1.3, 0.7); }
+    75% { top: 62px; left: 36px; transform: scale(0.8, 1.4); opacity: 1; }
+    85% { top: 64px; left: 36px; transform: scale(2, 0.3); opacity: 0.8; }
+    100% { top: 64px; left: 36px; transform: scale(2.6, 0.1); opacity: 0; }
   }
 
   /* Calcite crystal luminescence rings */
@@ -58,26 +64,33 @@ const speleothemStyles = `
   }
 
   .sp-stalactite {
-    animation: sp-pulse-rock 3s ease-in-out infinite alternate;
+    animation: sp-pulse-rock 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes sp-pulse-rock {
     0% { filter: drop-shadow(0 0 1px #9575cd); }
-    100% { filter: drop-shadow(0 0 4px #d1c4e9); }
+    100% { filter: drop-shadow(0 0 6px #d1c4e9); }
   }
 
   /* Splash ripple at floor */
   .sp-ripple {
-    stroke: #e1bee7;
-    stroke-width: 0.8;
-    fill: none;
-    animation: sp-splash 2.2s ease-out infinite;
+    position: absolute;
+    bottom: 22px;
+    left: 28px;
+    width: 20px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid #ffffff;
+    box-shadow: 0 0 6px #e1bee7;
+    pointer-events: none;
+    animation: sp-splash 2s ease-out infinite;
   }
 
   @keyframes sp-splash {
-    0%, 75% { transform: scale(0.1); opacity: 0; }
-    85% { opacity: 1; }
-    100% { transform: scale(1.8); opacity: 0; }
+    0%, 72% { transform: scale(0.1); opacity: 0; }
+    75% { transform: scale(0.4); opacity: 1; }
+    88% { transform: scale(1.6); opacity: 0.8; }
+    100% { transform: scale(2.4); opacity: 0; }
   }
 
   .sp-label {
@@ -101,12 +114,14 @@ class ConceptSpeleothemDrip extends HTMLElement {
       <style>${speleothemStyles}</style>
       <div class="sp-box">
         <div class="sp-stage">
+          <div class="sp-drop"></div>
+          <div class="sp-ripple"></div>
+
           <svg class="sp-svg" viewBox="0 0 76 72">
             <!-- Cave Ceiling Rock Mass -->
             <path d="M 8 10 Q 24 16 38 12 Q 52 16 68 10 L 68 6 L 8 6 Z" fill="#28223d" stroke="#5e548e" stroke-width="1" />
 
             <!-- Ceiling Stalactites -->
-            <!-- Flanking Small Stalactites -->
             <polygon class="sp-calcite" points="20,12 24,12 22,24" />
             <polygon class="sp-calcite" points="54,12 58,12 56,22" />
 
@@ -114,13 +129,8 @@ class ConceptSpeleothemDrip extends HTMLElement {
             <g class="sp-stalactite">
               <path class="sp-calcite" d="M 33 12 L 43 12 L 40 28 L 39 36 L 37 36 L 36 28 Z" />
               <!-- Calcite Growth Rings -->
-              <line x1="35" y1="20" x2="41" y2="20" stroke="#ede7f6" stroke-width="0.6" />
-              <line x1="36" y1="26" x2="40" y2="26" stroke="#ede7f6" stroke-width="0.6" />
-            </g>
-
-            <!-- Falling Mineral Droplet -->
-            <g transform="translate(38, 36)">
-              <circle class="sp-drop" cx="0" cy="0" r="1.5" />
+              <line x1="35" y1="20" x2="41" y2="20" stroke="#ede7f6" stroke-width="0.8" />
+              <line x1="36" y1="26" x2="40" y2="26" stroke="#ede7f6" stroke-width="0.8" />
             </g>
 
             <!-- Floor Stalagmites & Cave Floor -->
@@ -132,11 +142,6 @@ class ConceptSpeleothemDrip extends HTMLElement {
             <!-- Flanking Stalagmites -->
             <polygon class="sp-calcite" points="18,64 24,64 21,56" />
             <polygon class="sp-calcite" points="52,64 58,64 55,58" />
-
-            <!-- Splash Ripple on Stalagmite Tip -->
-            <g transform="translate(38, 48)">
-              <ellipse class="sp-ripple" cx="0" cy="0" rx="4" ry="1.5" />
-            </g>
           </svg>
         </div>
         <div class="sp-label">SPELEOTHEM DRIP</div>
@@ -145,4 +150,6 @@ class ConceptSpeleothemDrip extends HTMLElement {
   }
 }
 
-customElements.define('concept-speleothem-drip', ConceptSpeleothemDrip);
+if (!customElements.get('concept-speleothem-drip')) {
+  customElements.define('concept-speleothem-drip', ConceptSpeleothemDrip);
+}

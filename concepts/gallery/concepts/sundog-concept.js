@@ -31,8 +31,8 @@ const sundogStyles = `
   /* Central solar disk */
   .sdg-sun {
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 14px #ffffff, 0 0 24px #8cffaa;
@@ -45,44 +45,80 @@ const sundogStyles = `
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    border: 1.5px solid rgba(214, 255, 224, 0.6);
-    box-shadow: 0 0 8px rgba(0, 255, 68, 0.4);
+    border: 1.5px solid rgba(214, 255, 224, 0.7);
+    box-shadow: 0 0 10px rgba(0, 255, 68, 0.4);
     animation: sdg-halo-pulse 3s ease-in-out infinite alternate;
   }
 
   @keyframes sdg-halo-pulse {
-    0% { transform: scale(0.97); opacity: 0.7; }
-    100% { transform: scale(1.03); opacity: 1; filter: drop-shadow(0 0 6px #ffffff); }
+    0% { transform: scale(0.95); opacity: 0.7; }
+    100% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 8px #ffffff); }
+  }
+
+  /* Refracted photon packets shooting to parhelia */
+  .sdg-ray-packet {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #8cffaa;
+    z-index: 6;
+    animation: sdg-ray-shoot 1.8s linear infinite;
+  }
+
+  .ray-l {
+    animation-name: sdg-ray-shoot-l;
+    animation-delay: 0s;
+  }
+
+  .ray-r {
+    animation-name: sdg-ray-shoot-r;
+    animation-delay: 0.9s;
+  }
+
+  @keyframes sdg-ray-shoot-l {
+    0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(-36px, 0) scale(1.4); opacity: 0; }
+  }
+
+  @keyframes sdg-ray-shoot-r {
+    0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(36px, 0) scale(1.4); opacity: 0; }
   }
 
   /* Left Parhelion (Left Sun Dog) flare */
   .sdg-dog-l {
     position: absolute;
-    left: 18px;
-    width: 12px;
-    height: 16px;
+    left: 16px;
+    width: 14px;
+    height: 18px;
     border-radius: 50%;
     background: radial-gradient(circle at 40% 50%, #ffffff 0%, rgba(140, 255, 170, 0.8) 50%, transparent 100%);
     box-shadow: 0 0 10px #ffffff, 0 0 16px #8cffaa;
-    animation: sdg-dog-flare 2s ease-in-out infinite alternate;
+    animation: sdg-dog-flare 1.8s ease-in-out infinite alternate;
   }
 
   /* Right Parhelion (Right Sun Dog) flare */
   .sdg-dog-r {
     position: absolute;
-    right: 18px;
-    width: 12px;
-    height: 16px;
+    right: 16px;
+    width: 14px;
+    height: 18px;
     border-radius: 50%;
     background: radial-gradient(circle at 60% 50%, #ffffff 0%, rgba(140, 255, 170, 0.8) 50%, transparent 100%);
     box-shadow: 0 0 10px #ffffff, 0 0 16px #8cffaa;
-    animation: sdg-dog-flare 2s ease-in-out infinite alternate;
+    animation: sdg-dog-flare 1.8s ease-in-out infinite alternate;
     animation-delay: 0.4s;
   }
 
   @keyframes sdg-dog-flare {
-    0% { transform: scale(0.9) scaleX(0.8); }
-    100% { transform: scale(1.15) scaleX(1.3); filter: drop-shadow(0 0 12px #ffffff); }
+    0% { transform: scale(0.85) scaleX(0.7); }
+    100% { transform: scale(1.25) scaleX(1.4); filter: drop-shadow(0 0 14px #ffffff); }
   }
 
   /* Upper tangent arc & parhelic circle SVG */
@@ -93,24 +129,26 @@ const sundogStyles = `
     height: 102px;
   }
 
-  /* Glinting hexagonal ice crystal prisms in cloud */
+  /* Rotating hexagonal ice crystal prism */
   .sdg-crystal {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 5px;
+    height: 5px;
     background: #ffffff;
-    box-shadow: 0 0 4px #ffffff;
-    animation: sdg-glint 1.6s ease-in-out infinite alternate;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    box-shadow: 0 0 6px #ffffff;
+    animation: sdg-crystal-spin 2.6s linear infinite;
   }
 
-  .sdg-crystal.c1 { top: 20px; left: 32px; animation-delay: 0.2s; }
-  .sdg-crystal.c2 { top: 22px; right: 34px; animation-delay: 0.7s; }
-  .sdg-crystal.c3 { bottom: 24px; left: 38px; animation-delay: 1.1s; }
-  .sdg-crystal.c4 { bottom: 24px; right: 38px; animation-delay: 1.4s; }
+  .sdg-crystal.c1 { top: 20px; left: 32px; animation-delay: 0s; }
+  .sdg-crystal.c2 { top: 22px; right: 34px; animation-delay: -0.6s; }
+  .sdg-crystal.c3 { bottom: 24px; left: 38px; animation-delay: -1.2s; }
+  .sdg-crystal.c4 { bottom: 24px; right: 38px; animation-delay: -1.8s; }
 
-  @keyframes sdg-glint {
-    0% { opacity: 0.2; transform: scale(0.6); }
-    100% { opacity: 1; transform: scale(1.3); }
+  @keyframes sdg-crystal-spin {
+    from { transform: rotate(0deg) scale(0.8); }
+    50% { transform: rotate(180deg) scale(1.3); }
+    to { transform: rotate(360deg) scale(0.8); }
   }
 
   /* Optics label */
@@ -137,11 +175,14 @@ class ConceptSundog extends HTMLElement {
       <div class="sdg">
         <div class="sdg-haze"></div>
 
+        <div class="sdg-ray-packet ray-l"></div>
+        <div class="sdg-ray-packet ray-r"></div>
+
         <svg class="sdg-arcs-svg" viewBox="0 0 118 102">
           <!-- Parhelic horizontal light circle -->
-          <line x1="8" y1="51" x2="110" y2="51" stroke="rgba(214, 255, 224, 0.4)" stroke-width="1" stroke-dasharray="3,3" />
+          <line x1="8" y1="51" x2="110" y2="51" stroke="rgba(214, 255, 224, 0.5)" stroke-width="1.2" stroke-dasharray="3,3" />
           <!-- Upper tangent arc (wings) -->
-          <path d="M 36 20 Q 59 10 82 20" stroke="#d6ffe0" stroke-width="1.5" fill="none" />
+          <path d="M 36 20 Q 59 10 82 20" stroke="#d6ffe0" stroke-width="1.8" fill="none" />
         </svg>
 
         <div class="sdg-halo-ring"></div>

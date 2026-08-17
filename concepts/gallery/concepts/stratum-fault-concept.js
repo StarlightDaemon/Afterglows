@@ -41,7 +41,7 @@ const stratumFaultStyles = `
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    animation: flt-shear-left 3.5s ease-in-out infinite;
+    animation: flt-shear-left 2.4s ease-in-out infinite;
   }
 
   /* Right tectonic crust block */
@@ -54,19 +54,19 @@ const stratumFaultStyles = `
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    animation: flt-shear-right 3.5s ease-in-out infinite;
+    animation: flt-shear-right 2.4s ease-in-out infinite;
   }
 
   @keyframes flt-shear-left {
-    0%, 45% { transform: translateY(0); }
-    50% { transform: translateY(-7px); } /* Sudden stick-slip rupture */
-    90%, 100% { transform: translateY(0); }
+    0%, 30% { transform: translateY(0); }
+    45% { transform: translateY(-12px); } /* Sudden stick-slip rupture */
+    80%, 100% { transform: translateY(0); }
   }
 
   @keyframes flt-shear-right {
-    0%, 45% { transform: translateY(0); }
-    50% { transform: translateY(7px); } /* Sudden stick-slip rupture */
-    90%, 100% { transform: translateY(0); }
+    0%, 30% { transform: translateY(0); }
+    45% { transform: translateY(12px); } /* Sudden stick-slip rupture */
+    80%, 100% { transform: translateY(0); }
   }
 
   /* Geological strata layer stripes */
@@ -102,18 +102,18 @@ const stratumFaultStyles = `
     width: 10px;
     height: 10px;
     margin: -5px 0 0 -5px;
-    border: 1.5px solid #ffffff;
+    border: 2px solid #ffffff;
     border-radius: 50%;
     box-shadow: 0 0 8px #aaffaa;
     pointer-events: none;
-    animation: flt-seismic 3.5s ease-out infinite;
+    animation: flt-seismic 2.4s ease-out infinite;
   }
 
   @keyframes flt-seismic {
-    0%, 48% { opacity: 0; transform: scale(0.2); }
-    50% { opacity: 1; transform: scale(0.5); }
-    70% { opacity: 0.8; transform: scale(3.2); border-color: #8cffaa; }
-    85%, 100% { opacity: 0; transform: scale(5); }
+    0%, 42% { opacity: 0; transform: scale(0.2); }
+    45% { opacity: 1; transform: scale(0.5); }
+    65% { opacity: 0.8; transform: scale(3.4); border-color: #8cffaa; }
+    80%, 100% { opacity: 0; transform: scale(5.5); }
   }
 
   /* Relative motion shear vector arrows */
@@ -124,7 +124,7 @@ const stratumFaultStyles = `
     font-size: 8px;
     font-weight: bold;
     color: #ffffff;
-    animation: flt-arrow-up 3.5s ease-in-out infinite;
+    animation: flt-arrow-up 2.4s ease-in-out infinite;
   }
 
   .flt-vector-down {
@@ -134,19 +134,19 @@ const stratumFaultStyles = `
     font-size: 8px;
     font-weight: bold;
     color: #ffffff;
-    animation: flt-arrow-down 3.5s ease-in-out infinite;
+    animation: flt-arrow-down 2.4s ease-in-out infinite;
   }
 
   @keyframes flt-arrow-up {
-    0%, 45% { transform: translateY(0); opacity: 0.5; }
-    50% { transform: translateY(-4px); opacity: 1; text-shadow: 0 0 6px #00ff66; }
-    90%, 100% { transform: translateY(0); opacity: 0.5; }
+    0%, 30% { transform: translateY(0); opacity: 0.5; }
+    45% { transform: translateY(-6px); opacity: 1; text-shadow: 0 0 6px #00ff66; }
+    80%, 100% { transform: translateY(0); opacity: 0.5; }
   }
 
   @keyframes flt-arrow-down {
-    0%, 45% { transform: translateY(0); opacity: 0.5; }
-    50% { transform: translateY(4px); opacity: 1; text-shadow: 0 0 6px #00ff66; }
-    90%, 100% { transform: translateY(0); opacity: 0.5; }
+    0%, 30% { transform: translateY(0); opacity: 0.5; }
+    45% { transform: translateY(6px); opacity: 1; text-shadow: 0 0 6px #00ff66; }
+    80%, 100% { transform: translateY(0); opacity: 0.5; }
   }
 
   .flt-label {

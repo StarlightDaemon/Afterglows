@@ -39,7 +39,7 @@ const spirographStyles = `
     position: absolute;
     width: 82px;
     height: 82px;
-    animation: spg-orbit 12s linear infinite;
+    animation: spg-orbit 2.8s linear infinite;
   }
 
   @keyframes spg-orbit {
@@ -57,7 +57,7 @@ const spirographStyles = `
     border: 1.5px dashed #d6ffe0;
     background: rgba(0, 40, 10, 0.4);
     box-shadow: 0 0 6px #8cffaa;
-    animation: spg-wheel-spin 4s linear infinite;
+    animation: spg-wheel-spin 1.4s linear infinite;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,12 +85,12 @@ const spirographStyles = `
     width: 72px;
     height: 72px;
     filter: drop-shadow(0 0 4px #8cffaa);
-    animation: spg-curve-glint 4s ease-in-out infinite alternate;
+    animation: spg-curve-rot 5.6s linear infinite;
   }
 
-  @keyframes spg-curve-glint {
-    0% { opacity: 0.7; }
-    100% { opacity: 1; filter: drop-shadow(0 0 8px #ffffff); }
+  @keyframes spg-curve-rot {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Stylus pen tip dot */
@@ -100,10 +100,10 @@ const spirographStyles = `
     height: 6px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 10px #ffffff;
+    box-shadow: 0 0 10px #ffffff, 0 0 16px #00ff88;
     z-index: 6;
     offset-path: path("M 36 6 C 50 18 66 12 60 28 C 72 38 64 56 48 54 C 44 70 28 66 22 52 C 6 50 8 32 20 28 C 14 12 30 14 36 6");
-    animation: spg-stylus-trace 4s linear infinite;
+    animation: spg-stylus-trace 2.8s linear infinite;
   }
 
   @keyframes spg-stylus-trace {
@@ -136,8 +136,8 @@ class ConceptSpirograph extends HTMLElement {
         <div class="spg-ring-stator">
           <svg class="spg-rosette-svg" viewBox="0 0 72 72">
             <!-- 5-Petal Hypotrochoid Curve -->
-            <path d="M 36 6 C 50 18 66 12 60 28 C 72 38 64 56 48 54 C 44 70 28 66 22 52 C 6 50 8 32 20 28 C 14 12 30 14 36 6 Z" stroke="#d6ffe0" stroke-width="1.5" fill="none" />
-            <path d="M 36 12 C 46 22 58 18 54 30 C 62 38 56 50 44 48 C 40 60 28 56 24 46 C 12 44 14 32 22 30 C 18 18 30 20 36 12 Z" stroke="#8cffaa" stroke-width="1" stroke-dasharray="2,2" fill="none" opacity="0.6" />
+            <path d="M 36 6 C 50 18 66 12 60 28 C 72 38 64 56 48 54 C 44 70 28 66 22 52 C 6 50 8 32 20 28 C 14 12 30 14 36 6 Z" stroke="#d6ffe0" stroke-width="1.8" fill="none" />
+            <path d="M 36 12 C 46 22 58 18 54 30 C 62 38 56 50 44 48 C 40 60 28 56 24 46 C 12 44 14 32 22 30 C 18 18 30 20 36 12 Z" stroke="#8cffaa" stroke-width="1.2" stroke-dasharray="2,2" fill="none" opacity="0.7" />
           </svg>
 
           <div class="spg-rotor-orbit">

@@ -44,18 +44,18 @@ const sundewStyles = `
     background: #ffffff;
     box-shadow: 0 0 6px #ffffff;
     z-index: 6;
-    animation: sdw-struggle 1.5s ease-in-out infinite alternate;
+    animation: sdw-struggle 0.8s ease-in-out infinite alternate;
   }
 
   @keyframes sdw-struggle {
-    0% { transform: scale(0.9) translate(-1px, 0); }
-    100% { transform: scale(1.1) translate(1px, 0); }
+    0% { transform: scale(0.85) translate(-2px, -1px); }
+    100% { transform: scale(1.15) translate(2px, 1px); }
   }
 
   /* Glandular tentacles with curling thigmonastic animation */
   .sdw-tentacle {
     position: absolute;
-    width: 2px;
+    width: 2.5px;
     height: 24px;
     background: linear-gradient(180deg, #d6ffe0, #008818);
     transform-origin: bottom center;
@@ -77,47 +77,47 @@ const sundewStyles = `
   }
 
   /* Radial tentacles around leaf rim bending inward */
-  .sdw-tentacle.t1 { top: -14px; left: 30px; animation: sdw-curl-n 4s ease-in-out infinite alternate; }
-  .sdw-tentacle.t2 { bottom: -14px; left: 30px; transform: rotate(180deg); animation: sdw-curl-s 4s ease-in-out infinite alternate; }
-  .sdw-tentacle.t3 { left: -14px; top: 19px; transform: rotate(-90deg); animation: sdw-curl-w 4s ease-in-out infinite alternate; }
-  .sdw-tentacle.t4 { right: -14px; top: 19px; transform: rotate(90deg); animation: sdw-curl-e 4s ease-in-out infinite alternate; }
+  .sdw-tentacle.t1 { top: -14px; left: 30px; animation: sdw-curl-n 2.2s ease-in-out infinite alternate; }
+  .sdw-tentacle.t2 { bottom: -14px; left: 30px; transform: rotate(180deg); animation: sdw-curl-s 2.2s ease-in-out infinite alternate; }
+  .sdw-tentacle.t3 { left: -14px; top: 19px; transform: rotate(-90deg); animation: sdw-curl-w 2.2s ease-in-out infinite alternate; }
+  .sdw-tentacle.t4 { right: -14px; top: 19px; transform: rotate(90deg); animation: sdw-curl-e 2.2s ease-in-out infinite alternate; }
 
-  .sdw-tentacle.t5 { top: -6px; right: -6px; transform: rotate(45deg); animation: sdw-curl-ne 4s ease-in-out infinite alternate; }
-  .sdw-tentacle.t6 { bottom: -6px; right: -6px; transform: rotate(135deg); animation: sdw-curl-se 4s ease-in-out infinite alternate; }
-  .sdw-tentacle.t7 { bottom: -6px; left: -6px; transform: rotate(-135deg); animation: sdw-curl-sw 4s ease-in-out infinite alternate; }
-  .sdw-tentacle.t8 { top: -6px; left: -6px; transform: rotate(-45deg); animation: sdw-curl-nw 4s ease-in-out infinite alternate; }
+  .sdw-tentacle.t5 { top: -6px; right: -6px; transform: rotate(45deg); animation: sdw-curl-ne 2.2s ease-in-out infinite alternate; }
+  .sdw-tentacle.t6 { bottom: -6px; right: -6px; transform: rotate(135deg); animation: sdw-curl-se 2.2s ease-in-out infinite alternate; }
+  .sdw-tentacle.t7 { bottom: -6px; left: -6px; transform: rotate(-135deg); animation: sdw-curl-sw 2.2s ease-in-out infinite alternate; }
+  .sdw-tentacle.t8 { top: -6px; left: -6px; transform: rotate(-45deg); animation: sdw-curl-nw 2.2s ease-in-out infinite alternate; }
 
   @keyframes sdw-curl-n {
     0% { transform: rotate(0deg) scaleY(1); }
-    100% { transform: rotate(35deg) scaleY(0.75); }
+    100% { transform: rotate(50deg) scaleY(0.6); }
   }
   @keyframes sdw-curl-s {
     0% { transform: rotate(180deg) scaleY(1); }
-    100% { transform: rotate(145deg) scaleY(0.75); }
+    100% { transform: rotate(130deg) scaleY(0.6); }
   }
   @keyframes sdw-curl-w {
     0% { transform: rotate(-90deg) scaleY(1); }
-    100% { transform: rotate(-55deg) scaleY(0.75); }
+    100% { transform: rotate(-40deg) scaleY(0.6); }
   }
   @keyframes sdw-curl-e {
     0% { transform: rotate(90deg) scaleY(1); }
-    100% { transform: rotate(55deg) scaleY(0.75); }
+    100% { transform: rotate(40deg) scaleY(0.6); }
   }
   @keyframes sdw-curl-ne {
     0% { transform: rotate(45deg) scaleY(1); }
-    100% { transform: rotate(20deg) scaleY(0.7); }
+    100% { transform: rotate(10deg) scaleY(0.55); }
   }
   @keyframes sdw-curl-se {
     0% { transform: rotate(135deg) scaleY(1); }
-    100% { transform: rotate(110deg) scaleY(0.7); }
+    100% { transform: rotate(100deg) scaleY(0.55); }
   }
   @keyframes sdw-curl-sw {
     0% { transform: rotate(-135deg) scaleY(1); }
-    100% { transform: rotate(-110deg) scaleY(0.7); }
+    100% { transform: rotate(-100deg) scaleY(0.55); }
   }
   @keyframes sdw-curl-nw {
     0% { transform: rotate(-45deg) scaleY(1); }
-    100% { transform: rotate(-20deg) scaleY(0.7); }
+    100% { transform: rotate(-10deg) scaleY(0.55); }
   }
 
   /* Caption */
