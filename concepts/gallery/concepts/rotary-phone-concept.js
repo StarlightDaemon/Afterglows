@@ -46,6 +46,12 @@ const rotaryPhoneStyles = `
     border-radius: 6px;
     box-shadow: 0 0 6px rgba(0, 204, 0, 0.4);
     z-index: 5;
+    animation: rtp-handset-tilt 2.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes rtp-handset-tilt {
+    0% { transform: translateY(0) rotate(-2deg); }
+    100% { transform: translateY(-3px) rotate(2deg); }
   }
 
   /* Rotary Dial Assembly */
@@ -68,13 +74,14 @@ const rotaryPhoneStyles = `
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    animation: rtp-dial-spin 4s ease-in-out infinite;
+    animation: rtp-dial-spin 2.4s ease-in-out infinite;
   }
 
   @keyframes rtp-dial-spin {
-    0%, 20% { transform: rotate(0deg); }
-    45% { transform: rotate(180deg); } /* Dialing clockwise */
-    70%, 100% { transform: rotate(0deg); } /* Spring-return ratchet pulse */
+    0% { transform: rotate(0deg); }
+    40% { transform: rotate(220deg); } /* Dialing stroke */
+    70% { transform: rotate(0deg); } /* Spring-return ratchet pulse */
+    100% { transform: rotate(0deg); }
   }
 
   /* 10 Finger holes arranged radially */
@@ -84,7 +91,7 @@ const rotaryPhoneStyles = `
     height: 8px;
     border-radius: 50%;
     background: #011406;
-    border: 1px solid #8cffaa;
+    border: 1.2px solid #8cffaa;
     box-shadow: inset 0 0 3px #8cffaa;
   }
 
@@ -123,6 +130,26 @@ const rotaryPhoneStyles = `
     z-index: 4;
   }
 
+  /* Pulse dialing electrical click spark */
+  .rtp-pulse-spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 12px #00ff66;
+    z-index: 7;
+    animation: rtp-spark-burst 2.4s ease-out infinite;
+  }
+
+  @keyframes rtp-spark-burst {
+    0%, 45% { opacity: 0; transform: scale(0.4); }
+    50% { opacity: 1; transform: scale(1.4); }
+    58% { opacity: 1; transform: scale(1.1); }
+    66% { opacity: 1; transform: scale(1.4); }
+    72%, 100% { opacity: 0; transform: scale(0.4); }
+  }
+
   /* Pulse signaling readout */
   .rtp-label {
     position: absolute;
@@ -149,6 +176,8 @@ class ConceptRotaryPhone extends HTMLElement {
           <div class="rtp-cradle"></div>
 
           <div class="rtp-dial-housing">
+            <div class="rtp-pulse-spark"></div>
+
             <div class="rtp-finger-wheel">
               <div class="rtp-hole h1"></div>
               <div class="rtp-hole h2"></div>

@@ -36,7 +36,7 @@ const rubensStyles = `
     justify-content: space-around;
   }
 
-  /* Speaker driver transducer on left end */
+  /* Speaker driver transducer on left end with bold translation */
   .rbn-speaker {
     position: absolute;
     left: 8px;
@@ -47,12 +47,12 @@ const rubensStyles = `
     border: 1px solid #ffffff;
     border-radius: 3px 0 0 3px;
     box-shadow: 0 0 8px #ffaa00;
-    animation: rbn-vibrate 0.15s linear infinite alternate;
+    animation: rbn-vibrate 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes rbn-vibrate {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(1px); }
+    0% { transform: translateX(-3px); }
+    100% { transform: translateX(3px); }
   }
 
   /* Gas inlet pipe on right */
@@ -83,19 +83,20 @@ const rubensStyles = `
     background: linear-gradient(180deg, #ffffff 0%, #ffcc00 35%, #ff5500 80%, rgba(255, 50, 0, 0.2) 100%);
     border-radius: 50% 50% 20% 20%;
     filter: drop-shadow(0 0 4px #ff8800);
-    animation: rbn-flicker 0.4s ease-in-out infinite alternate;
+    transform-origin: 50% 100%;
+    animation: rbn-standing-wave 1.8s ease-in-out infinite alternate;
   }
 
-  /* Flame height envelope forming acoustic standing wave sinusoidal curve */
-  .f-node { height: 4px; opacity: 0.6; }
-  .f-low { height: 10px; }
-  .f-mid { height: 18px; }
-  .f-high { height: 26px; }
-  .f-peak { height: 32px; filter: drop-shadow(0 0 6px #ffcc00); }
+  /* Standing wave node/antinode height modulations */
+  .f-node { height: 6px; animation-delay: 0s; }
+  .f-low { height: 12px; animation-delay: 0.2s; }
+  .f-mid { height: 20px; animation-delay: 0.4s; }
+  .f-high { height: 28px; animation-delay: 0.6s; }
+  .f-peak { height: 34px; filter: drop-shadow(0 0 6px #ffcc00); animation-delay: 0.8s; }
 
-  @keyframes rbn-flicker {
-    0% { transform: scaleY(0.92) scaleX(0.95); }
-    100% { transform: scaleY(1.08) scaleX(1.05); }
+  @keyframes rbn-standing-wave {
+    0% { transform: scaleY(0.4) scaleX(0.8); }
+    100% { transform: scaleY(1.35) scaleX(1.1); }
   }
 
   /* Standing sound wave sine curve overlay */
@@ -150,7 +151,7 @@ class ConceptRubensTube extends HTMLElement {
 
         <svg class="rbn-wave-svg" viewBox="0 0 88 36">
           <!-- Standing acoustic pressure waveform -->
-          <path d="M 4 32 Q 24 0 44 32 Q 64 0 84 32" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="1.2" stroke-dasharray="2 1.5" />
+          <path d="M 4 32 Q 24 0 44 32 Q 64 0 84 32" fill="none" stroke="rgba(255, 255, 255, 0.7)" stroke-width="1.4" stroke-dasharray="2 1.5" />
         </svg>
 
         <div class="rbn-tube"></div>

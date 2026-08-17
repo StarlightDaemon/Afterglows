@@ -60,20 +60,59 @@ const rutherfordStyles = `
     position: absolute;
     top: 50%;
     left: 48px;
-    width: 10px;
-    height: 10px;
-    margin: -5px 0 0 -5px;
+    width: 12px;
+    height: 12px;
+    margin: -6px 0 0 -6px;
     border-radius: 50%;
     background: #ffffff;
     border: 1.5px solid #ffaa00;
-    box-shadow: 0 0 10px #ffea00, 0 0 18px #ff7700;
+    box-shadow: 0 0 12px #ffea00, 0 0 20px #ff7700;
     z-index: 7;
     animation: rth-nuc-glow 1.5s ease-in-out infinite alternate;
   }
 
   @keyframes rth-nuc-glow {
-    0% { transform: scale(0.9); }
-    100% { transform: scale(1.15); filter: brightness(1.4); }
+    0% { transform: scale(0.85); }
+    100% { transform: scale(1.2); filter: brightness(1.4); }
+  }
+
+  /* Alpha particle 1: Undeflected straight transmission */
+  .rth-alpha-straight {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffd54f;
+    z-index: 6;
+    animation: rth-shoot-straight 1.6s linear infinite;
+  }
+
+  @keyframes rth-shoot-straight {
+    0% { transform: translate(-30px, -15px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(32px, -15px) scale(1.2); opacity: 0; }
+  }
+
+  /* Alpha particle 2: Coulomb hyperbolic backscatter */
+  .rth-alpha-scatter {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 12px #ff7700;
+    z-index: 6;
+    offset-path: path("M 16 36 Q 44 36 34 14");
+    animation: rth-deflect-flow 1.8s linear infinite;
+  }
+
+  @keyframes rth-deflect-flow {
+    0% { offset-distance: 0%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
   }
 
   /* Alpha trajectories SVG */
@@ -86,43 +125,36 @@ const rutherfordStyles = `
 
   .rth-straight {
     fill: none;
-    stroke: rgba(255, 235, 120, 0.7);
+    stroke: rgba(255, 235, 120, 0.5);
     stroke-width: 1.2;
     stroke-dasharray: 4 2;
-    animation: rth-stream 1s linear infinite;
   }
 
   .rth-deflected {
     fill: none;
     stroke: #ffffff;
-    stroke-width: 1.5;
-    stroke-dasharray: 4 2;
+    stroke-width: 1.6;
     filter: drop-shadow(0 0 4px #ffcc00);
-    animation: rth-stream 0.8s linear infinite;
-  }
-
-  @keyframes rth-stream {
-    to { stroke-dashoffset: -12; }
   }
 
   /* Scintillation flash on detector screen */
   .rth-flash {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 8px #ffffff;
+    box-shadow: 0 0 10px #ffffff, 0 0 16px #ffff00;
     animation: rth-scintillate 1.8s steps(1) infinite;
   }
 
-  .fl-1 { top: 12px; left: 34px; animation-delay: 0.2s; }
-  .fl-2 { top: 50%; right: 4px; margin-top: -2.5px; animation-delay: 0.6s; }
+  .fl-1 { top: 10px; left: 32px; animation-delay: 1.5s; }
+  .fl-2 { top: 50%; right: 4px; margin-top: -3px; animation-delay: 1.3s; }
 
   @keyframes rth-scintillate {
-    0%, 90% { opacity: 0; transform: scale(0.5); }
-    91%, 96% { opacity: 1; transform: scale(1.4); }
-    97%, 100% { opacity: 0; }
+    0%, 80% { opacity: 0; transform: scale(0.4); }
+    81%, 95% { opacity: 1; transform: scale(1.6); }
+    96%, 100% { opacity: 0; }
   }
 
   .rth-label {
@@ -149,6 +181,9 @@ class ConceptRutherfordScattering extends HTMLElement {
           <div class="rth-detector-ring"></div>
           <div class="rth-emitter"></div>
           <div class="rth-gold-nucleus"></div>
+
+          <div class="rth-alpha-straight"></div>
+          <div class="rth-alpha-scatter"></div>
 
           <svg class="rth-paths-svg" viewBox="0 0 86 74">
             <!-- Undeflected alpha trajectories passing through vacuum -->

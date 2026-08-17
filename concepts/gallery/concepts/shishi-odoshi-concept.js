@@ -35,22 +35,25 @@ const shishiStyles = `
     z-index: 3;
   }
 
-  /* Water trickle dripping from spout */
+  /* Discrete water stream packet dripping from spout */
   .shi-drip {
     position: absolute;
-    top: 26px;
-    right: 44px;
-    width: 3px;
-    height: 16px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(140, 255, 170, 0.5));
-    border-radius: 2px;
-    filter: drop-shadow(0 0 3px #8cffaa);
-    animation: shi-trickle 0.4s linear infinite alternate;
+    top: 24px;
+    right: 46px;
+    width: 4px;
+    height: 6px;
+    background: #ffffff;
+    border-radius: 50% 50% 20% 20%;
+    box-shadow: 0 0 6px #8cffaa;
+    z-index: 5;
+    animation: shi-drop-fall 1.4s linear infinite;
   }
 
-  @keyframes shi-trickle {
-    0% { opacity: 0.6; transform: scaleX(0.8); }
-    100% { opacity: 1; transform: scaleX(1.2); }
+  @keyframes shi-drop-fall {
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(22px) scale(1.2); opacity: 0; }
   }
 
   /* Pivot axle post */
@@ -66,7 +69,7 @@ const shishiStyles = `
     z-index: 2;
   }
 
-  /* Pivoting hollow bamboo rocker arm */
+  /* Pivoting hollow bamboo rocker arm with active rock clack cycle */
   .shi-rocker-arm {
     position: absolute;
     bottom: 44px;
@@ -79,15 +82,16 @@ const shishiStyles = `
     transform-origin: 34px 5px;
     box-shadow: 0 0 6px rgba(0, 204, 0, 0.4);
     z-index: 4;
-    animation: shi-rock-cycle 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: shi-rock-cycle 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
   @keyframes shi-rock-cycle {
-    0%, 65% { transform: rotate(-18deg); } /* Filling with water */
-    75% { transform: rotate(24deg); } /* Tipping forward & pouring */
-    82% { transform: rotate(-24deg); } /* Snapping back & hitting rock! */
-    86% { transform: rotate(-16deg); } /* Clack bounce */
-    90%, 100% { transform: rotate(-18deg); } /* Settling */
+    0% { transform: rotate(-20deg); } /* Starting filling tilt */
+    45% { transform: rotate(-14deg); } /* Weight accumulates */
+    60% { transform: rotate(32deg); } /* Forward tip & water discharge */
+    75% { transform: rotate(-28deg); } /* Sharp recoil strike on stone anvil! */
+    82% { transform: rotate(-18deg); } /* Elastic bounce */
+    90%, 100% { transform: rotate(-20deg); }
   }
 
   /* River rock anvil at bottom left */
@@ -112,15 +116,15 @@ const shishiStyles = `
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 1.5px solid #ffffff;
-    animation: shi-clack-sound 4.5s ease-out infinite;
+    border: 2px solid #ffffff;
+    animation: shi-clack-sound 2.8s ease-out infinite;
   }
 
   @keyframes shi-clack-sound {
-    0%, 81% { opacity: 0; transform: scale(0.2); }
-    82% { opacity: 1; transform: scale(0.6); filter: drop-shadow(0 0 6px #ffffff); }
-    88% { opacity: 0.8; transform: scale(1.6); }
-    94%, 100% { opacity: 0; transform: scale(2.4); }
+    0%, 74% { opacity: 0; transform: scale(0.2); }
+    75% { opacity: 1; transform: scale(0.6); filter: drop-shadow(0 0 8px #ffffff); }
+    84% { opacity: 0.8; transform: scale(1.8); }
+    92%, 100% { opacity: 0; transform: scale(2.6); }
   }
 
   /* Garden stone & pool basin at bottom */

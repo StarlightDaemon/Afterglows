@@ -55,6 +55,24 @@ const shadowboxStyles = `
     box-shadow: 0 0 10px #ffffff, 0 0 18px #8cffaa;
   }
 
+  /* Drifting firefly particle in stage depth */
+  .shd-firefly {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #8cffaa;
+    z-index: 5;
+    animation: shd-firefly-drift 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes shd-firefly-drift {
+    0% { transform: translate(-28px, 14px); opacity: 0.4; }
+    50% { transform: translate(0px, -8px); opacity: 1; }
+    100% { transform: translate(28px, 8px); opacity: 0.5; }
+  }
+
   /* Layer 2: Distant castle / mountain silhouettes (slow parallax) */
   .shd-layer-2-svg {
     position: absolute;
@@ -62,12 +80,12 @@ const shadowboxStyles = `
     width: 86px;
     height: 76px;
     opacity: 0.6;
-    animation: shd-parallax-2 5s ease-in-out infinite alternate;
+    animation: shd-parallax-2 3.6s ease-in-out infinite alternate;
   }
 
   @keyframes shd-parallax-2 {
-    0% { transform: translateX(-2px); }
-    100% { transform: translateX(2px); }
+    0% { transform: translateX(-5px); }
+    100% { transform: translateX(5px); }
   }
 
   /* Layer 3: Midground gothic forest trees */
@@ -77,12 +95,12 @@ const shadowboxStyles = `
     width: 86px;
     height: 76px;
     opacity: 0.85;
-    animation: shd-parallax-3 5s ease-in-out infinite alternate;
+    animation: shd-parallax-3 3.6s ease-in-out infinite alternate;
   }
 
   @keyframes shd-parallax-3 {
-    0% { transform: translateX(-4px); }
-    100% { transform: translateX(4px); }
+    0% { transform: translateX(-10px); }
+    100% { transform: translateX(10px); }
   }
 
   /* Layer 4: Foreground proscenium arch cutouts with wandering wanderer figure */
@@ -92,12 +110,12 @@ const shadowboxStyles = `
     width: 86px;
     height: 76px;
     filter: drop-shadow(0 0 3px #8cffaa);
-    animation: shd-parallax-4 5s ease-in-out infinite alternate;
+    animation: shd-parallax-4 3.6s ease-in-out infinite alternate;
   }
 
   @keyframes shd-parallax-4 {
-    0% { transform: translateX(-7px); }
-    100% { transform: translateX(7px); }
+    0% { transform: translateX(-16px); }
+    100% { transform: translateX(16px); }
   }
 
   /* Hidden footlight stage illumination */
@@ -139,6 +157,8 @@ class ConceptShadowboxDiorama extends HTMLElement {
             <div class="shd-moon"></div>
           </div>
 
+          <div class="shd-firefly"></div>
+
           <!-- Layer 2: Distant mountains -->
           <svg class="shd-layer-2-svg" viewBox="0 0 86 76">
             <polygon points="0,76 18,36 34,50 56,28 72,48 86,38 86,76" fill="#003308" />
@@ -160,7 +180,7 @@ class ConceptShadowboxDiorama extends HTMLElement {
             <!-- Standing figure with lantern -->
             <circle cx="43" cy="48" r="2.5" fill="#ffffff" />
             <rect x="41.5" y="51" width="3" height="7" fill="#ffffff" />
-            <circle cx="48" cy="54" r="1.5" fill="#8cffaa" />
+            <circle cx="48" cy="54" r="1.8" fill="#8cffaa" />
           </svg>
 
           <div class="shd-footlights"></div>

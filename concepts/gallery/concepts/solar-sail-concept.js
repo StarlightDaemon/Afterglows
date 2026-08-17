@@ -32,7 +32,7 @@ const solarSailStyles = `
       radial-gradient(1px 1px at 25px 85px, #8cffaa, transparent);
   }
 
-  /* Solar Sail assembly rig floating in deep space */
+  /* Solar Sail assembly rig accelerating through deep space */
   .sls-sail-rig {
     position: relative;
     width: 82px;
@@ -40,12 +40,12 @@ const solarSailStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: sls-orbital-glide 6s ease-in-out infinite alternate;
+    animation: sls-orbital-glide 3.8s ease-in-out infinite alternate;
   }
 
   @keyframes sls-orbital-glide {
-    0% { transform: scale(0.94) rotate(-4deg); }
-    100% { transform: scale(1.04) rotate(4deg); }
+    0% { transform: translate(-10px, -8px) rotate(-8deg) scale(0.92); }
+    100% { transform: translate(10px, 8px) rotate(8deg) scale(1.08); }
   }
 
   /* 4-Quadrant Reflective Membrane Diamond Sail */
@@ -68,30 +68,33 @@ const solarSailStyles = `
     z-index: 6;
   }
 
-  /* Incident solar photon radiation stream rays */
-  .sls-photon-stream {
+  /* Traveling incident solar photon momentum packets impacting and reflecting */
+  .sls-photon-spark {
     position: absolute;
-    left: -20px;
-    top: 10px;
-    width: 80px;
-    height: 60px;
-    pointer-events: none;
-    z-index: 1;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #8cffaa;
+    z-index: 7;
+    animation: sls-photon-bounce 1.6s linear infinite;
   }
 
-  .sls-ray {
-    position: absolute;
-    height: 1px;
-    background: linear-gradient(90deg, #ffffff, transparent);
-    animation: sls-photon-pulse 2s ease-in-out infinite alternate;
+  .ph1 {
+    offset-path: path("M 10 10 L 40 40 L 70 20");
+    animation-delay: 0s;
   }
-  .sls-ray.r1 { top: 12px; width: 52px; transform: rotate(25deg); }
-  .sls-ray.r2 { top: 28px; width: 64px; transform: rotate(25deg); animation-delay: 0.4s; }
-  .sls-ray.r3 { top: 44px; width: 48px; transform: rotate(25deg); animation-delay: 0.8s; }
 
-  @keyframes sls-photon-pulse {
-    0% { opacity: 0.3; }
-    100% { opacity: 1; filter: drop-shadow(0 0 4px #ffffff); }
+  .ph2 {
+    offset-path: path("M 15 25 L 45 45 L 75 30");
+    animation-delay: 0.6s;
+  }
+
+  @keyframes sls-photon-bounce {
+    0% { offset-distance: 0%; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
   }
 
   /* Solar radiation pressure vector readout */
@@ -118,13 +121,10 @@ class ConceptSolarSail extends HTMLElement {
       <div class="sls">
         <div class="sls-starfield"></div>
 
-        <div class="sls-photon-stream">
-          <div class="sls-ray r1"></div>
-          <div class="sls-ray r2"></div>
-          <div class="sls-ray r3"></div>
-        </div>
-
         <div class="sls-sail-rig">
+          <div class="sls-photon-spark ph1"></div>
+          <div class="sls-photon-spark ph2"></div>
+
           <svg class="sls-membrane-svg" viewBox="0 0 78 78">
             <defs>
               <linearGradient id="sailGrad" x1="0" y1="0" x2="1" y2="1">

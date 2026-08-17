@@ -35,43 +35,61 @@ const scytaleStyles = `
     height: 72px;
   }
 
-  /* Ribbon winding / unwinding translation */
+  /* Ribbon winding / unwinding translation across cylinder */
+  .sc-ribbon-bands {
+    animation: sc-ribbon-slide 3.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes sc-ribbon-slide {
+    0% { transform: translateX(-8px); }
+    100% { transform: translateX(8px); }
+  }
+
   .sc-ribbon-bands polygon {
     fill: #d4a359;
     stroke: #faedcd;
-    stroke-width: 0.8;
-    animation: sc-band-shimmer 3s ease-in-out infinite alternate;
+    stroke-width: 1;
   }
 
   .sc-ribbon-bands polygon:nth-child(even) {
     fill: #bc8a3e;
-    animation-delay: 0.7s;
-  }
-
-  @keyframes sc-band-shimmer {
-    0% { filter: brightness(0.9); }
-    100% { filter: brightness(1.2) drop-shadow(0 0 3px rgba(212, 163, 89, 0.4)); }
   }
 
   /* Aligned secret message letters flashing along horizontal line */
   .sc-message text {
     font-family: monospace;
-    font-size: 5px;
+    font-size: 5.5px;
     font-weight: bold;
     fill: #ffffff;
-    animation: sc-text-pulse 2s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 3px #ffd166);
   }
 
-  @keyframes sc-text-pulse {
-    0% { fill: #fefae0; filter: drop-shadow(0 0 1px #d4a359); }
-    100% { fill: #ffffff; filter: drop-shadow(0 0 4px #ffd166); }
+  /* Waving unwound trailing ribbon tails */
+  .sc-tail-top {
+    transform-origin: 10px 26px;
+    animation: sc-tail-wave-1 2.4s ease-in-out infinite alternate;
+  }
+
+  .sc-tail-bot {
+    transform-origin: 66px 46px;
+    animation: sc-tail-wave-2 2.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes sc-tail-wave-1 {
+    0% { transform: rotate(-12deg); }
+    100% { transform: rotate(12deg); }
+  }
+
+  @keyframes sc-tail-wave-2 {
+    0% { transform: rotate(14deg); }
+    100% { transform: rotate(-14deg); }
   }
 
   /* Wooden baton rod */
   .sc-baton {
     fill: #583110;
     stroke: #804e1e;
-    stroke-width: 1.2;
+    stroke-width: 1.4;
   }
 
   .sc-label {
@@ -100,8 +118,8 @@ class ConceptScytaleRod extends HTMLElement {
             <rect class="sc-baton" x="8" y="24" width="60" height="24" rx="3" />
 
             <!-- End Caps / Lathe turned finials -->
-            <ellipse cx="8" cy="36" rx="3" ry="12" fill="#381e09" stroke="#804e1e" stroke-width="1" />
-            <ellipse cx="68" cy="36" rx="3" ry="12" fill="#583110" stroke="#804e1e" stroke-width="1" />
+            <ellipse cx="8" cy="36" rx="3" ry="12" fill="#381e09" stroke="#804e1e" stroke-width="1.2" />
+            <ellipse cx="68" cy="36" rx="3" ry="12" fill="#583110" stroke="#804e1e" stroke-width="1.2" />
 
             <!-- Helically Wound Leather Parchment Strip Bands -->
             <g class="sc-ribbon-bands">
@@ -112,25 +130,29 @@ class ConceptScytaleRod extends HTMLElement {
               <polygon points="44,24 52,24 46,48 38,48" />
               <polygon points="52,24 60,24 54,48 46,48" />
               <polygon points="60,24 68,24 62,48 54,48" />
+
+              <!-- Greek / Latin Cipher Text Characters aligned across strips -->
+              <g class="sc-message" text-anchor="middle">
+                <text x="14" y="38">S</text>
+                <text x="22" y="38">E</text>
+                <text x="30" y="38">C</text>
+                <text x="38" y="38">R</text>
+                <text x="46" y="38">E</text>
+                <text x="54" y="38">T</text>
+                <text x="62" y="38">A</text>
+              </g>
             </g>
 
             <!-- Deciphered Horizontal Plaintext Alignment Line -->
-            <line x1="10" y1="36" x2="66" y2="36" stroke="rgba(255, 255, 255, 0.4)" stroke-width="0.6" stroke-dasharray="2 1" />
-
-            <!-- Greek / Latin Cipher Text Characters aligned across strips -->
-            <g class="sc-message" text-anchor="middle">
-              <text x="14" y="38">S</text>
-              <text x="22" y="38">E</text>
-              <text x="30" y="38">C</text>
-              <text x="38" y="38">R</text>
-              <text x="46" y="38">E</text>
-              <text x="54" y="38">T</text>
-              <text x="62" y="38">A</text>
-            </g>
+            <line x1="10" y1="36" x2="66" y2="36" stroke="rgba(255, 255, 255, 0.6)" stroke-width="0.8" stroke-dasharray="2 1" />
 
             <!-- Trailing Unwound Ribbon Tails -->
-            <path d="M 66 46 Q 72 56 68 64" fill="none" stroke="#d4a359" stroke-width="2" />
-            <path d="M 10 26 Q 4 16 8 8" fill="none" stroke="#d4a359" stroke-width="2" />
+            <g class="sc-tail-bot">
+              <path d="M 66 46 Q 72 56 68 64" fill="none" stroke="#d4a359" stroke-width="2.2" />
+            </g>
+            <g class="sc-tail-top">
+              <path d="M 10 26 Q 4 16 8 8" fill="none" stroke="#d4a359" stroke-width="2.2" />
+            </g>
           </svg>
         </div>
         <div class="sc-label">SPARTAN SCYTALE</div>
@@ -139,4 +161,6 @@ class ConceptScytaleRod extends HTMLElement {
   }
 }
 
-customElements.define('concept-scytale-rod', ConceptScytaleRod);
+if (!customElements.get('concept-scytale-rod')) {
+  customElements.define('concept-scytale-rod', ConceptScytaleRod);
+}

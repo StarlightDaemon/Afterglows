@@ -48,6 +48,33 @@ const slimeMoldStyles = `
   .fn3 { bottom: 22px; right: 24px; }
   .fn4 { bottom: 26px; left: 30px; }
 
+  /* Traveling cytoplasmic shuttle streaming packets */
+  .slm-shuttle-spark {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #d4ff00;
+    z-index: 7;
+    animation: slm-shuttle-flow 2.4s ease-in-out infinite alternate;
+  }
+
+  .spk1 {
+    offset-path: path("M 28 26 Q 59 18 86 22");
+    animation-delay: 0s;
+  }
+
+  .spk2 {
+    offset-path: path("M 28 26 Q 59 50 90 76");
+    animation-delay: 0.8s;
+  }
+
+  @keyframes slm-shuttle-flow {
+    0% { offset-distance: 0%; }
+    100% { offset-distance: 100%; }
+  }
+
   /* Pulsing cytoplasmic plasmodium network SVG */
   .slm-network-svg {
     position: absolute;
@@ -59,47 +86,41 @@ const slimeMoldStyles = `
   .slm-main-vein {
     fill: none;
     stroke: #d4ff00;
-    stroke-width: 2.2;
+    stroke-width: 2.4;
     stroke-linecap: round;
     stroke-linejoin: round;
     filter: drop-shadow(0 0 4px #aaff00);
-    animation: slm-pulse 2.5s ease-in-out infinite alternate;
+    animation: slm-vein-dilate 1.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes slm-vein-dilate {
+    0% { stroke-width: 1.8; }
+    100% { stroke-width: 3.4; filter: drop-shadow(0 0 8px #ffffff); }
   }
 
   .slm-branch-vein {
     fill: none;
-    stroke: rgba(170, 255, 0, 0.6);
-    stroke-width: 1.2;
+    stroke: rgba(170, 255, 0, 0.7);
+    stroke-width: 1.4;
     stroke-linecap: round;
-    stroke-dasharray: 4 2;
-    animation: slm-stream 1.5s linear infinite;
   }
 
-  @keyframes slm-pulse {
-    0% { stroke-width: 1.8; filter: drop-shadow(0 0 2px #aaff00); }
-    100% { stroke-width: 3; filter: drop-shadow(0 0 8px #ffffff); }
-  }
-
-  @keyframes slm-stream {
-    to { stroke-dashoffset: -12; }
-  }
-
-  /* Pseudopod exploratory front fans */
+  /* Pseudopod exploratory front fans expanding and retracting */
   .slm-fan {
     position: absolute;
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(212, 255, 0, 0.4) 0%, transparent 80%);
-    animation: slm-fan-expand 3s ease-in-out infinite alternate;
+    background: radial-gradient(circle, rgba(212, 255, 0, 0.5) 0%, transparent 80%);
+    animation: slm-fan-expand 2.6s ease-in-out infinite alternate;
   }
 
-  .fa1 { top: 16px; left: 52px; }
-  .fa2 { bottom: 32px; right: 48px; }
+  .fa1 { top: 14px; left: 50px; }
+  .fa2 { bottom: 30px; right: 46px; animation-delay: 1.3s; }
 
   @keyframes slm-fan-expand {
-    0% { transform: scale(0.6); opacity: 0.3; }
-    100% { transform: scale(1.4); opacity: 0.9; }
+    0% { transform: scale(0.5); opacity: 0.3; }
+    100% { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 6px #d4ff00); }
   }
 
   .slm-label {
@@ -123,6 +144,9 @@ class ConceptSlimeMold extends HTMLElement {
       <style>${slimeMoldStyles}</style>
       <div class="slm">
         <div class="slm-petri"></div>
+
+        <div class="slm-shuttle-spark spk1"></div>
+        <div class="slm-shuttle-spark spk2"></div>
 
         <div class="slm-fan fa1"></div>
         <div class="slm-fan fa2"></div>

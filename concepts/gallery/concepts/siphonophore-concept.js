@@ -28,7 +28,7 @@ const siphonophoreStyles = `
     background: linear-gradient(180deg, rgba(0, 30, 8, 0.2) 0%, rgba(0, 10, 3, 0.8) 100%);
   }
 
-  /* Siphonophore colonial chain rig */
+  /* Siphonophore colonial chain swimming undulation */
   .sph-colony-rig {
     position: relative;
     width: 70px;
@@ -36,12 +36,12 @@ const siphonophoreStyles = `
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: sph-abyssal-undulate 5s ease-in-out infinite alternate;
+    animation: sph-abyssal-swim 3.6s ease-in-out infinite alternate;
   }
 
-  @keyframes sph-abyssal-undulate {
-    0% { transform: translateY(-3px) rotate(-2deg); }
-    100% { transform: translateY(3px) rotate(2deg); }
+  @keyframes sph-abyssal-swim {
+    0% { transform: translateY(-10px) rotate(-8deg) scale(0.94); }
+    100% { transform: translateY(10px) rotate(8deg) scale(1.06); }
   }
 
   /* Apical pneumatophore gas float bell */
@@ -69,18 +69,18 @@ const siphonophoreStyles = `
     height: 8px;
     border-radius: 50% 50% 20% 20%;
     background: rgba(140, 255, 170, 0.6);
-    border: 1px solid #ffffff;
+    border: 1.2px solid #ffffff;
     box-shadow: 0 0 6px #8cffaa;
     margin: 1px 0;
   }
 
-  .sph-bell.b1 { animation: sph-pulse 1.2s ease-in-out infinite; animation-delay: 0s; }
-  .sph-bell.b2 { animation: sph-pulse 1.2s ease-in-out infinite; animation-delay: 0.2s; }
-  .sph-bell.b3 { animation: sph-pulse 1.2s ease-in-out infinite; animation-delay: 0.4s; }
+  .sph-bell.b1 { animation: sph-pulse 1.4s ease-in-out infinite; animation-delay: 0s; }
+  .sph-bell.b2 { animation: sph-pulse 1.4s ease-in-out infinite; animation-delay: 0.25s; }
+  .sph-bell.b3 { animation: sph-pulse 1.4s ease-in-out infinite; animation-delay: 0.5s; }
 
   @keyframes sph-pulse {
-    0%, 100% { transform: scaleX(0.85) scaleY(0.9); opacity: 0.7; }
-    50% { transform: scaleX(1.15) scaleY(1.1); opacity: 1; filter: drop-shadow(0 0 6px #ffffff); }
+    0%, 100% { transform: scaleX(0.7) scaleY(0.85); opacity: 0.7; }
+    50% { transform: scaleX(1.3) scaleY(1.15); opacity: 1; filter: drop-shadow(0 0 6px #ffffff); }
   }
 
   /* Siphosome stem with specialized zooids & trailing tentilla */
@@ -88,32 +88,31 @@ const siphonophoreStyles = `
     width: 70px;
     height: 48px;
     filter: drop-shadow(0 0 3px #8cffaa);
-    animation: sph-tentilla-sway 3s ease-in-out infinite alternate;
+    animation: sph-tentilla-sway 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes sph-tentilla-sway {
-    0% { transform: skewX(-4deg); }
-    100% { transform: skewX(4deg); }
+    0% { transform: skewX(-12deg) scaleX(0.9); }
+    100% { transform: skewX(12deg) scaleX(1.1); }
   }
 
-  /* Luminous zooid bioluminescent nodes */
-  .sph-zooid-node {
+  /* Traveling bioluminescent spark flowing down central stem */
+  .sph-bio-spark {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #ffffff;
-    animation: sph-zooid-sparkle 2s ease-in-out infinite alternate;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #00ff88;
+    z-index: 6;
+    animation: sph-spark-flow 2.4s linear infinite;
   }
 
-  .sph-zooid-node.z1 { top: 40px; left: 30px; animation-delay: 0.1s; }
-  .sph-zooid-node.z2 { top: 48px; right: 30px; animation-delay: 0.6s; }
-  .sph-zooid-node.z3 { top: 58px; left: 32px; animation-delay: 1.1s; }
-
-  @keyframes sph-zooid-sparkle {
-    0% { opacity: 0.3; transform: scale(0.6); }
-    100% { opacity: 1; transform: scale(1.4); }
+  @keyframes sph-spark-flow {
+    0% { transform: translateY(-28px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(32px) scale(1.2); opacity: 0; }
   }
 
   /* Caption */
@@ -142,6 +141,7 @@ class ConceptSiphonophore extends HTMLElement {
 
         <div class="sph-colony-rig">
           <div class="sph-float"></div>
+          <div class="sph-bio-spark"></div>
 
           <div class="sph-nectosome">
             <div class="sph-bell b1"></div>
@@ -153,14 +153,10 @@ class ConceptSiphonophore extends HTMLElement {
             <!-- Central stem cord -->
             <path d="M 35 0 C 33 16 37 32 35 48" stroke="#d6ffe0" stroke-width="1.8" fill="none" />
             <!-- Trailing tentilla tentacles -->
-            <path d="M 35 12 Q 20 28 24 46" stroke="#8cffaa" stroke-width="1" stroke-dasharray="2,2" fill="none" />
-            <path d="M 35 22 Q 50 36 44 48" stroke="#8cffaa" stroke-width="1" stroke-dasharray="2,2" fill="none" />
-            <path d="M 35 32 Q 22 40 28 48" stroke="#8cffaa" stroke-width="1" stroke-dasharray="2,2" fill="none" />
+            <path d="M 35 12 Q 18 28 22 46" stroke="#8cffaa" stroke-width="1.2" stroke-dasharray="2,2" fill="none" />
+            <path d="M 35 22 Q 52 36 46 48" stroke="#8cffaa" stroke-width="1.2" stroke-dasharray="2,2" fill="none" />
+            <path d="M 35 32 Q 20 40 26 48" stroke="#8cffaa" stroke-width="1.2" stroke-dasharray="2,2" fill="none" />
           </svg>
-
-          <div class="sph-zooid-node z1"></div>
-          <div class="sph-zooid-node z2"></div>
-          <div class="sph-zooid-node z3"></div>
         </div>
 
         <div class="sph-label">PELAGIC SIPHONOPHORE</div>
