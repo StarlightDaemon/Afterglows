@@ -47,8 +47,9 @@ const kameaStyles = `
     align-items: center;
     justify-content: center;
     font-family: monospace;
-    font-size: 7px;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 7.5px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.85);
   }
 
   /* Planetary Sigil connecting numbers in sequential path */
@@ -61,26 +62,44 @@ const kameaStyles = `
 
   .km-sigil-path {
     stroke: #ffd700;
-    stroke-width: 1.5;
+    stroke-width: 1.6;
     fill: none;
     filter: drop-shadow(0 0 4px #ffd700);
-    stroke-dasharray: 120;
-    stroke-dashoffset: 120;
-    animation: km-draw-sigil 4s ease-in-out infinite alternate;
   }
 
-  @keyframes km-draw-sigil {
-    0% { stroke-dashoffset: 120; opacity: 0.3; }
-    100% { stroke-dashoffset: 0; opacity: 1; }
+  /* Planetary tracing spark traversing numbers 1 -> 9 sequentially */
+  .km-sigil-spark {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #ffd700;
+    z-index: 6;
+    offset-path: path("M 38 63 L 63 13 L 13 38 L 13 13 L 38 38 L 63 63 L 63 38 L 13 63 L 38 13");
+    animation: km-spark-trace 3.6s linear infinite;
   }
 
-  /* Concentric occult containment ring */
+  @keyframes km-spark-trace {
+    0% { offset-distance: 0%; opacity: 0; }
+    5% { opacity: 1; }
+    95% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
+  /* Concentric occult containment ring with continuous rotation */
   .km-circle {
     position: absolute;
-    inset: -3px;
+    inset: -6px;
     border-radius: 50%;
-    border: 1px dashed rgba(255, 215, 0, 0.4);
+    border: 1.2px dashed rgba(255, 215, 0, 0.6);
+    animation: km-circle-rot 4s linear infinite;
     pointer-events: none;
+  }
+
+  @keyframes km-circle-rot {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   .km-label {
@@ -105,6 +124,7 @@ class ConceptKameaSquare extends HTMLElement {
       <div class="km-box">
         <div class="km-stage">
           <div class="km-circle"></div>
+          <div class="km-sigil-spark"></div>
 
           <div class="km-grid">
             <div class="km-cell">4</div>
@@ -120,7 +140,6 @@ class ConceptKameaSquare extends HTMLElement {
 
           <svg class="km-sigil-svg" viewBox="0 0 76 76">
             <!-- Sigil path passing through numbers 1 to 9 -->
-            <!-- 1(38,63) -> 2(63,13) -> 3(13,38) -> 4(13,13) -> 5(38,38) -> 6(63,63) -> 7(63,38) -> 8(13,63) -> 9(38,13) -->
             <path class="km-sigil-path" d="M 38 63 L 63 13 L 13 38 L 13 13 L 38 38 L 63 63 L 63 38 L 13 63 L 38 13" />
           </svg>
         </div>

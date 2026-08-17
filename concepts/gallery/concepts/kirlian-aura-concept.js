@@ -27,7 +27,7 @@ const kirlianStyles = `
     width: 82px;
     height: 74px;
     background: #0d0214;
-    border: 1.2px solid #b400ff;
+    border: 1.5px solid #b400ff;
     border-radius: 3px;
     box-shadow: inset 0 0 10px rgba(180, 0, 255, 0.3);
     display: flex;
@@ -41,9 +41,9 @@ const kirlianStyles = `
     width: 38px;
     height: 52px;
     background: #001a08;
-    border: 1.5px solid #00ff66;
+    border: 1.8px solid #00ff66;
     border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
-    box-shadow: inset 0 0 6px rgba(0, 255, 100, 0.4);
+    box-shadow: inset 0 0 8px rgba(0, 255, 100, 0.5);
     z-index: 5;
   }
 
@@ -52,14 +52,14 @@ const kirlianStyles = `
     position: absolute;
     inset: -12px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(180, 0, 255, 0.4) 30%, rgba(0, 229, 255, 0.3) 60%, transparent 80%);
-    filter: drop-shadow(0 0 8px #b400ff) drop-shadow(0 0 16px #00e5ff);
+    background: radial-gradient(circle, rgba(180, 0, 255, 0.5) 30%, rgba(0, 229, 255, 0.4) 60%, transparent 80%);
+    filter: drop-shadow(0 0 10px #b400ff) drop-shadow(0 0 18px #00e5ff);
     animation: krl-aura-pulse 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes krl-aura-pulse {
-    0% { transform: scale(0.92); opacity: 0.7; }
-    100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 12px #ffffff); }
+    0% { transform: scale(0.88); opacity: 0.7; }
+    100% { transform: scale(1.18); opacity: 1; filter: drop-shadow(0 0 14px #ffffff); }
   }
 
   /* High-frequency corona streamer sparks SVG */
@@ -69,20 +69,58 @@ const kirlianStyles = `
     width: 100%;
     height: 100%;
     pointer-events: none;
+    animation: krl-streamer-twitch 0.3s steps(2, end) infinite alternate;
+    transform-origin: center center;
+  }
+
+  @keyframes krl-streamer-twitch {
+    0% { transform: scale(0.92) rotate(-2deg); }
+    100% { transform: scale(1.08) rotate(2deg); }
   }
 
   .krl-streamer {
     fill: none;
     stroke: #ffffff;
-    stroke-width: 1.2;
+    stroke-width: 1.5;
     stroke-linecap: round;
-    stroke-dasharray: 3 2;
     filter: drop-shadow(0 0 4px #00e5ff);
-    animation: krl-spark-flow 0.4s linear infinite;
   }
 
-  @keyframes krl-spark-flow {
-    to { stroke-dashoffset: -8; }
+  /* Radiating electric plasma sparks shooting outward */
+  .krl-spark-packet {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00e5ff, 0 0 10px #ffffff;
+    z-index: 6;
+    animation: krl-spark-shoot 1.2s linear infinite;
+  }
+
+  .spk-top { animation-name: krl-shoot-top; animation-delay: 0s; }
+  .spk-right { animation-name: krl-shoot-right; animation-delay: 0.4s; }
+  .spk-left { animation-name: krl-shoot-left; animation-delay: 0.8s; }
+
+  @keyframes krl-shoot-top {
+    0% { transform: translate(0, -22px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(0, -38px) scale(1.3); opacity: 0; }
+  }
+
+  @keyframes krl-shoot-right {
+    0% { transform: translate(16px, 0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(32px, 0) scale(1.3); opacity: 0; }
+  }
+
+  @keyframes krl-shoot-left {
+    0% { transform: translate(-16px, 0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(-32px, 0) scale(1.3); opacity: 0; }
   }
 
   .krl-label {
@@ -107,14 +145,17 @@ class ConceptKirlianAura extends HTMLElement {
       <div class="krl">
         <div class="krl-plate">
           <div class="krl-corona-aura"></div>
+          <div class="krl-spark-packet spk-top"></div>
+          <div class="krl-spark-packet spk-right"></div>
+          <div class="krl-spark-packet spk-left"></div>
 
           <div class="krl-leaf">
             <svg viewBox="0 0 38 52" style="position: absolute; inset: 0; width: 100%; height: 100%;">
               <!-- Leaf venation structure -->
-              <line x1="19" y1="4" x2="19" y2="48" stroke="#00ff66" stroke-width="1.2" />
-              <path d="M 19 16 Q 10 12 6 8 M 19 16 Q 28 12 32 8" fill="none" stroke="#00ff66" stroke-width="0.8" />
-              <path d="M 19 28 Q 8 24 4 18 M 19 28 Q 30 24 34 18" fill="none" stroke="#00ff66" stroke-width="0.8" />
-              <path d="M 19 40 Q 10 36 6 32 M 19 40 Q 28 36 32 32" fill="none" stroke="#00ff66" stroke-width="0.8" />
+              <line x1="19" y1="4" x2="19" y2="48" stroke="#00ff66" stroke-width="1.4" />
+              <path d="M 19 16 Q 10 12 6 8 M 19 16 Q 28 12 32 8" fill="none" stroke="#00ff66" stroke-width="1" />
+              <path d="M 19 28 Q 8 24 4 18 M 19 28 Q 30 24 34 18" fill="none" stroke="#00ff66" stroke-width="1" />
+              <path d="M 19 40 Q 10 36 6 32 M 19 40 Q 28 36 32 32" fill="none" stroke="#00ff66" stroke-width="1" />
             </svg>
           </div>
 

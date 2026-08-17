@@ -75,7 +75,7 @@ const homunculusStyles = `
     z-index: 5;
   }
 
-  /* Miniature floating glowing Homunculus entity */
+  /* Miniature floating glowing Homunculus entity with wide swimming excursion */
   .hmc-entity-rig {
     position: relative;
     width: 26px;
@@ -83,13 +83,14 @@ const homunculusStyles = `
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: hmc-float 3s ease-in-out infinite alternate;
+    animation: hmc-float 3.2s ease-in-out infinite alternate;
     z-index: 6;
   }
 
   @keyframes hmc-float {
-    0% { transform: translateY(-4px) rotate(-3deg); }
-    100% { transform: translateY(4px) rotate(3deg); }
+    0% { transform: translate(-8px, -10px) rotate(-14deg) scale(0.9); }
+    50% { transform: translate(4px, 2px) rotate(4deg) scale(1.05); }
+    100% { transform: translate(8px, 10px) rotate(14deg) scale(1.15); }
   }
 
   .hmc-head {
@@ -109,34 +110,36 @@ const homunculusStyles = `
     margin-top: 1px;
   }
 
-  /* Liquid elixir bubbles rising */
+  /* Liquid elixir bubbles rising continuously */
   .hmc-bubble {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 3.5px;
+    height: 3.5px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 4px #8cffaa;
+    box-shadow: 0 0 6px #8cffaa;
     animation: hmc-bubble-rise 2s linear infinite;
   }
 
-  .hmc-bubble.b1 { left: 14px; bottom: 8px; animation-delay: 0.2s; }
-  .hmc-bubble.b2 { right: 14px; bottom: 12px; animation-delay: 0.9s; }
+  .hmc-bubble.b1 { left: 12px; bottom: 6px; animation-delay: 0.1s; }
+  .hmc-bubble.b2 { right: 12px; bottom: 8px; animation-delay: 0.8s; }
+  .hmc-bubble.b3 { left: 24px; bottom: 4px; animation-delay: 1.4s; }
 
   @keyframes hmc-bubble-rise {
-    0% { transform: translateY(0); opacity: 0.4; }
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
     80% { opacity: 1; }
-    100% { transform: translateY(-42px); opacity: 0; }
+    100% { transform: translateY(-48px) scale(1.2); opacity: 0; }
   }
 
   /* Swirling transmutation arcane glyph ring */
   .hmc-glyph-ring {
     position: absolute;
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
-    border: 1px dotted rgba(214, 255, 224, 0.45);
-    animation: hmc-ring-spin 8s linear infinite;
+    border: 1.2px dashed rgba(214, 255, 224, 0.6);
+    animation: hmc-ring-spin 3.2s linear infinite;
   }
 
   @keyframes hmc-ring-spin {
@@ -175,6 +178,7 @@ class ConceptHomunculus extends HTMLElement {
           <div class="hmc-glyph-ring"></div>
           <div class="hmc-bubble b1"></div>
           <div class="hmc-bubble b2"></div>
+          <div class="hmc-bubble b3"></div>
 
           <div class="hmc-entity-rig">
             <div class="hmc-head"></div>

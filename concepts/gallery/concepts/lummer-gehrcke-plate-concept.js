@@ -37,32 +37,46 @@ const lummerGehrckePlateStyles = `
 
   /* Internal glancing reflection ray bouncing down parallel plate */
   .lg-glancing-rays {
-    animation: lg-glance-pulse 2.4s ease-in-out infinite alternate;
+    stroke: #34d399;
+    stroke-width: 1.2;
+    filter: drop-shadow(0 0 3px #059669);
   }
 
-  @keyframes lg-glance-pulse {
-    0% { stroke: #34d399; opacity: 0.5; }
-    100% { stroke: #a7f3d0; opacity: 1; filter: drop-shadow(0 0 2px #059669); }
+  /* Traveling laser photon packet bouncing down internal reflection path */
+  .lg-photon-packet {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #34d399;
+    z-index: 6;
+    offset-path: path("M 15 29 L 20 44 L 28 32 L 36 44 L 44 32 L 52 44 L 60 32 L 68 44");
+    animation: lg-photon-bounce 2.2s linear infinite;
+  }
+
+  @keyframes lg-photon-bounce {
+    0% { offset-distance: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
   }
 
   /* Grazing emergent parallel interference beams */
   .lg-emergent-beams {
-    animation: lg-beam-shimmer 2s ease-in-out infinite alternate;
+    stroke: #6ee7b7;
+    stroke-width: 1;
+    filter: drop-shadow(0 0 2px #34d399);
   }
 
-  @keyframes lg-beam-shimmer {
-    0% { opacity: 0.3; stroke: #6ee7b7; }
-    100% { opacity: 0.95; stroke: #ffffff; filter: drop-shadow(0 0 2px #34d399); }
-  }
-
-  /* High-resolution Zeeman/hyperfine spectral line pairs */
+  /* High-resolution Zeeman/hyperfine spectral line pairs with scanning sweep */
   .lg-hyperfine-split {
-    animation: lg-split-flash 2.8s ease-in-out infinite alternate;
+    animation: lg-fringe-sweep 2.4s ease-in-out infinite alternate;
   }
 
-  @keyframes lg-split-flash {
-    0% { transform: scaleY(0.9); }
-    100% { transform: scaleY(1.1); }
+  @keyframes lg-fringe-sweep {
+    0% { transform: translateX(-4px); }
+    100% { transform: translateX(4px); }
   }
 
   .lg-label {
@@ -86,33 +100,35 @@ class ConceptLummerGehrckePlate extends HTMLElement {
       <style>${lummerGehrckePlateStyles}</style>
       <div class="lg-box">
         <div class="lg-stage">
+          <div class="lg-photon-packet"></div>
+
           <svg class="lg-svg" viewBox="0 0 76 72">
             <!-- 1901 Otto Lummer & Ernst Gehrcke Multiple-Interference Resolving Plate -->
-            <!-- Long Plane-Parallel Optical Quartz/Glass Plate (Length ~ 20cm, thickness ~ 5mm) -->
-            <rect x="8" y="32" width="60" height="12" rx="1" fill="#064e3b" fill-opacity="0.3" stroke="#059669" stroke-width="0.9" />
+            <!-- Long Plane-Parallel Optical Quartz/Glass Plate -->
+            <rect x="8" y="32" width="60" height="12" rx="1" fill="#064e3b" fill-opacity="0.3" stroke="#059669" stroke-width="1.2" />
 
             <!-- Entrance Prism Cemented to Top Left of Plate -->
-            <polygon points="12,32 20,32 12,24" fill="#047857" stroke="#34d399" stroke-width="0.7" />
+            <polygon points="12,32 20,32 12,24" fill="#047857" stroke="#34d399" stroke-width="1" />
 
             <!-- Incident Collimated Light Ray into Coupling Prism -->
-            <line x1="6" y1="20" x2="15" y2="29" stroke="#fef08a" stroke-width="0.9" />
+            <line x1="6" y1="20" x2="15" y2="29" stroke="#fef08a" stroke-width="1.2" />
 
             <!-- Multiple Glancing Internal Reflections Near Critical Angle -->
-            <path class="lg-glancing-rays" d="M 15 29 L 20 44 L 28 32 L 36 44 L 44 32 L 52 44 L 60 32 L 68 44" fill="none" stroke-width="0.8" />
+            <path class="lg-glancing-rays" d="M 15 29 L 20 44 L 28 32 L 36 44 L 44 32 L 52 44 L 60 32 L 68 44" fill="none" />
 
-            <!-- Grazing Emergent Parallel Rays at Top Surface (High Resolving Power R > 300,000) -->
-            <g class="lg-emergent-beams" stroke-width="0.7" stroke-dasharray="2 1.5">
+            <!-- Grazing Emergent Parallel Rays at Top Surface -->
+            <g class="lg-emergent-beams" stroke-dasharray="3 2">
               <line x1="28" y1="32" x2="36" y2="16" />
               <line x1="44" y1="32" x2="52" y2="16" />
               <line x1="60" y1="32" x2="68" y2="16" />
             </g>
 
-            <!-- High-Resolution Spectral Hyperfine Doublet Fringe Lines (Top Right Focus) -->
-            <g class="lg-hyperfine-split" stroke="#ecfdf5" stroke-width="0.9">
-              <line x1="50" y1="12" x2="50" y2="20" />
-              <line x1="52" y1="12" x2="52" y2="20" />
-              <line x1="66" y1="12" x2="66" y2="20" />
-              <line x1="68" y1="12" x2="68" y2="20" />
+            <!-- High-Resolution Spectral Hyperfine Doublet Fringe Lines with Sighting Sweep -->
+            <g class="lg-hyperfine-split" stroke="#ecfdf5" stroke-width="1.2">
+              <line x1="50" y1="10" x2="50" y2="20" />
+              <line x1="53" y1="10" x2="53" y2="20" />
+              <line x1="65" y1="10" x2="65" y2="20" />
+              <line x1="68" y1="10" x2="68" y2="20" />
             </g>
           </svg>
         </div>
@@ -122,4 +138,6 @@ class ConceptLummerGehrckePlate extends HTMLElement {
   }
 }
 
-customElements.define('concept-lummer-gehrcke-plate', ConceptLummerGehrckePlate);
+if (!customElements.get('concept-lummer-gehrcke-plate')) {
+  customElements.define('concept-lummer-gehrcke-plate', ConceptLummerGehrckePlate);
+}

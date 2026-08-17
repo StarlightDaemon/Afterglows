@@ -35,45 +35,70 @@ const kerotakisStyles = `
     height: 72px;
   }
 
-  /* Sulphur vapor rising */
-  .kr-vapor {
-    stroke-dasharray: 4 3;
-    animation: kr-rise 1.6s linear infinite;
+  /* Ascending sulphur/mercury vapor packets surging up central riser */
+  .kr-vapor-packet {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffb142;
+    box-shadow: 0 0 6px #ffb142, 0 0 10px #ffffff;
+    z-index: 6;
+    animation: kr-vapor-surge 1.6s linear infinite;
   }
 
-  @keyframes kr-rise {
-    to { stroke-dashoffset: -14; }
+  .vp1 { animation-delay: 0s; }
+  .vp2 { animation-delay: 0.8s; }
+
+  @keyframes kr-vapor-surge {
+    0% { transform: translateY(14px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(-20px) scale(1.3); opacity: 0; }
   }
 
-  /* Condensate droplets returning down */
-  .kr-reflux {
-    stroke-dasharray: 3 4;
-    animation: kr-fall 1.4s linear infinite;
+  /* Descending condensed reflux droplets falling down side walls */
+  .kr-reflux-drop {
+    position: absolute;
+    width: 3.5px;
+    height: 5px;
+    border-radius: 50% 50% 20% 20%;
+    background: #ffd700;
+    box-shadow: 0 0 6px #ffd700;
+    z-index: 6;
+    animation: kr-reflux-fall 1.8s linear infinite;
   }
 
-  @keyframes kr-fall {
-    to { stroke-dashoffset: 14; }
+  .rd-left { left: 24px; animation-delay: 0.3s; }
+  .rd-right { right: 24px; animation-delay: 1.1s; }
+
+  @keyframes kr-reflux-fall {
+    0% { transform: translateY(-16px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(18px) scale(1.1); opacity: 0; }
   }
 
   /* Suspended metal palette changing state (Mary's blackening to gold patina) */
   .kr-palette {
-    animation: kr-patina 4s ease-in-out infinite alternate;
+    transform-origin: 38px 33px;
+    animation: kr-patina 3.2s ease-in-out infinite alternate;
   }
 
   @keyframes kr-patina {
-    0% { fill: #2c2530; stroke: #6b5b75; }
-    50% { fill: #8d4f18; stroke: #e58e26; }
-    100% { fill: #ffd700; stroke: #fff07c; filter: drop-shadow(0 0 4px #ffd700); }
+    0% { transform: scale(0.85); fill: #2c2530; stroke: #6b5b75; }
+    50% { transform: scale(1.05); fill: #8d4f18; stroke: #e58e26; }
+    100% { transform: scale(1.25); fill: #ffd700; stroke: #fff07c; filter: drop-shadow(0 0 6px #ffd700); }
   }
 
   /* Boiling sulphur base */
   .kr-boiler {
-    animation: kr-bubble 2s ease-in-out infinite alternate;
+    animation: kr-bubble 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes kr-bubble {
-    0% { transform: scaleY(0.95); fill: #ff793f; }
-    100% { transform: scaleY(1.05); fill: #ffb142; }
+    0% { transform: scaleY(0.92); fill: #ff793f; }
+    100% { transform: scaleY(1.12); fill: #ffb142; }
   }
 
   .kr-label {
@@ -97,26 +122,31 @@ class ConceptKerotakisReflux extends HTMLElement {
       <style>${kerotakisStyles}</style>
       <div class="kr-box">
         <div class="kr-stage">
+          <div class="kr-vapor-packet vp1"></div>
+          <div class="kr-vapor-packet vp2"></div>
+          <div class="kr-reflux-drop rd-left"></div>
+          <div class="kr-reflux-drop rd-right"></div>
+
           <svg class="kr-svg" viewBox="0 0 76 72">
             <!-- Furnace Base -->
-            <path d="M 22 66 L 54 66 L 50 56 L 26 56 Z" fill="#2d1b2e" stroke="#f5a623" stroke-width="1" />
+            <path d="M 22 66 L 54 66 L 50 56 L 26 56 Z" fill="#2d1b2e" stroke="#f5a623" stroke-width="1.2" />
             <ellipse class="kr-boiler" cx="38" cy="55" rx="14" ry="4" />
 
             <!-- Cylindrical Glass / Metal Vessel -->
-            <rect x="24" y="20" width="28" height="36" rx="2" fill="rgba(245, 166, 35, 0.08)" stroke="#f5a623" stroke-width="1.2" />
+            <rect x="24" y="20" width="28" height="36" rx="2" fill="rgba(245, 166, 35, 0.12)" stroke="#f5a623" stroke-width="1.4" />
 
             <!-- Upper Condensation Dome / Cap -->
-            <path d="M 22 20 Q 38 4 54 20" fill="none" stroke="#f5a623" stroke-width="1.5" />
+            <path d="M 22 20 Q 38 4 54 20" fill="none" stroke="#f5a623" stroke-width="1.6" />
             
             <!-- Central Vapor Riser Tube -->
-            <line x1="38" y1="52" x2="38" y2="22" stroke="#ffb142" stroke-width="1.5" class="kr-vapor" />
+            <line x1="38" y1="52" x2="38" y2="22" stroke="#ffb142" stroke-width="1.8" />
 
             <!-- Suspended Triangular Palette (Metal Leaf undergoing transmutation) -->
-            <polygon class="kr-palette" points="38,28 47,38 29,38" stroke-width="1" />
+            <polygon class="kr-palette" points="38,28 47,38 29,38" stroke-width="1.2" />
 
-            <!-- Reflux Return Streams along walls -->
-            <path class="kr-reflux" d="M 26 22 L 26 50" fill="none" stroke="#ffd700" stroke-width="1.2" />
-            <path class="kr-reflux" d="M 50 22 L 50 50" fill="none" stroke="#ffd700" stroke-width="1.2" />
+            <!-- Reflux Return Side Walls -->
+            <path d="M 26 22 L 26 50" fill="none" stroke="rgba(255, 215, 0, 0.4)" stroke-width="1.2" />
+            <path d="M 50 22 L 50 50" fill="none" stroke="rgba(255, 215, 0, 0.4)" stroke-width="1.2" />
           </svg>
         </div>
         <div class="kr-label">KEROTAKIS REFLUX</div>
@@ -125,4 +155,6 @@ class ConceptKerotakisReflux extends HTMLElement {
   }
 }
 
-customElements.define('concept-kerotakis-reflux', ConceptKerotakisReflux);
+if (!customElements.get('concept-kerotakis-reflux')) {
+  customElements.define('concept-kerotakis-reflux', ConceptKerotakisReflux);
+}
