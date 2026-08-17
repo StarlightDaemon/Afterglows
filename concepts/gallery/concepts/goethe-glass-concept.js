@@ -65,24 +65,24 @@ const goetheStyles = `
   .gg-storm-drop {
     position: absolute;
     top: 14px;
-    left: 23px;
-    width: 4px;
-    height: 6px;
+    left: 22px;
+    width: 6px;
+    height: 9px;
     border-radius: 50% 50% 20% 20%;
     background: #00e5ff;
-    box-shadow: 0 0 6px #00e5ff;
+    box-shadow: 0 0 8px #00e5ff, 0 0 4px #ffffff;
     z-index: 5;
     animation: gg-drop-fall 2.4s linear infinite;
   }
 
-  .sd1 { animation-delay: 1.2s; }
-  .sd2 { animation-delay: 2.0s; }
+  .sd1 { animation-delay: 0.8s; }
+  .sd2 { animation-delay: 1.6s; }
 
   @keyframes gg-drop-fall {
     0% { transform: translateY(0) scale(0.6); opacity: 0; }
-    30% { opacity: 1; transform: translateY(4px) scale(1); }
+    30% { opacity: 1; transform: translateY(6px) scale(1); }
     80% { opacity: 1; }
-    100% { transform: translateY(22px) scale(0.4); opacity: 0; }
+    100% { transform: translateY(32px) scale(0.4); opacity: 0; }
   }
 
   /* Trapped air bulb breathing */

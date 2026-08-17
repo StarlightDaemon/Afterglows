@@ -51,8 +51,8 @@ const dinesMeteorographStyles = `
   }
 
   @keyframes dm-trace-scratch {
-    0% { transform: rotate(-18deg); stroke: #38bdf8; }
-    100% { transform: rotate(18deg); stroke: #ffffff; filter: drop-shadow(0 0 4px #38bdf8); }
+    0% { transform: rotate(-28deg); stroke: #38bdf8; }
+    100% { transform: rotate(28deg); stroke: #ffffff; filter: drop-shadow(0 0 4px #38bdf8); }
   }
 
   /* Bimetallic temperature coil flexing in sub-zero tropospheric air */
@@ -127,8 +127,8 @@ class ConceptDinesMeteorograph extends HTMLElement {
 
               <!-- Hairspring Diamond Scribing Stylus Arm -->
               <g class="dm-stylus-trace" style="transform-origin: 42px 46px;">
-                <line x1="42" y1="46" x2="30" y2="34" stroke-width="1.2" />
-                <circle cx="30" cy="34" r="1.2" fill="#ffffff" filter="drop-shadow(0 0 3px #38bdf8)" />
+                <line x1="42" y1="46" x2="30" y2="34" stroke-width="1.6" />
+                <circle cx="30" cy="34" r="2.2" fill="#ffffff" filter="drop-shadow(0 0 6px #38bdf8) drop-shadow(0 0 3px #ffffff)" />
               </g>
             </g>
           </svg>

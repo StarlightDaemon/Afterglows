@@ -40,9 +40,9 @@ const glaucusStyles = `
   }
 
   @keyframes glc-undulate {
-    0% { transform: translate(-8px, -6px) rotate(-12deg); }
-    50% { transform: translate(2px, 3px) rotate(2deg); }
-    100% { transform: translate(8px, 6px) rotate(12deg); }
+    0% { transform: translate(-14px, -9px) rotate(-18deg); }
+    50% { transform: translate(3px, 4px) rotate(3deg); }
+    100% { transform: translate(14px, 9px) rotate(18deg); }
   }
 
   /* Central dorsal/ventral tapered body */

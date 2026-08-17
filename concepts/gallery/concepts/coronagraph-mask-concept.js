@@ -53,8 +53,8 @@ const coronagraphStyles = `
   }
 
   @keyframes co-mask-align {
-    0% { transform: translate(-6px, -4px); }
-    100% { transform: translate(4px, 3px); }
+    0% { transform: translate(-11px, -8px); }
+    100% { transform: translate(8px, 6px); }
   }
 
   /* Deflected intense photospheric heat beam ejected down */
@@ -126,7 +126,7 @@ class ConceptCoronagraphMask extends HTMLElement {
               <!-- Dark Occulting Shadow Disc -->
               <circle cx="38" cy="36" r="8.5" fill="#05080e" stroke="#ff5252" stroke-width="1.2" />
               <!-- Mirrored Deflection Cone Tip reflecting fierce photospheric heat out side port -->
-              <polygon points="38,36 33,31 33,41" fill="#ffd700" filter="drop-shadow(0 0 3px #ffd700)" />
+              <polygon points="38,36 31,29 31,43" fill="#ffd700" filter="drop-shadow(0 0 6px #ffd700) drop-shadow(0 0 3px #ffffff)" />
               <!-- Ejected Heat Beam -->
               <line class="co-heat-eject" x1="33" y1="36" x2="33" y2="48" stroke="#ff9100" stroke-width="2" stroke-dasharray="2 2" />
             </g>

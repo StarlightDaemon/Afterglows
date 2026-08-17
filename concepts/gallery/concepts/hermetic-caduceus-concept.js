@@ -98,8 +98,8 @@ const caduceusStyles = `
   /* Ascending kundalini/transmutation spark nodes along serpent helices */
   .hc-kundalini-spark {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffffff;
     z-index: 6;
@@ -117,19 +117,19 @@ const caduceusStyles = `
   }
 
   @keyframes hc-ascend-left {
-    0% { transform: translate(-12px, 28px) scale(0.6); opacity: 0; }
+    0% { transform: translate(-14px, 32px) scale(0.7); opacity: 0; }
     20% { opacity: 1; }
-    50% { transform: translate(12px, 0px) scale(1.1); }
+    50% { transform: translate(14px, 2px) scale(1.3); }
     80% { opacity: 1; }
-    100% { transform: translate(-8px, -26px) scale(1.3); opacity: 0; }
+    100% { transform: translate(-10px, -30px) scale(1.5); opacity: 0; }
   }
 
   @keyframes hc-ascend-right {
-    0% { transform: translate(12px, 28px) scale(0.6); opacity: 0; }
+    0% { transform: translate(14px, 32px) scale(0.7); opacity: 0; }
     20% { opacity: 1; }
-    50% { transform: translate(-12px, 0px) scale(1.1); }
+    50% { transform: translate(-14px, 2px) scale(1.3); }
     80% { opacity: 1; }
-    100% { transform: translate(8px, -26px) scale(1.3); opacity: 0; }
+    100% { transform: translate(10px, -30px) scale(1.5); opacity: 0; }
   }
 
   .hc-label {

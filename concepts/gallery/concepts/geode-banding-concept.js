@@ -79,11 +79,13 @@ const geodeBandingStyles = `
   /* Hydrothermal circulating mineral fluid spark */
   .gb-fluid-spark {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    top: 38px;
+    left: 43px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 6px #ffffff, 0 0 10px #e040fb;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #e040fb;
     z-index: 6;
     animation: gb-fluid-orbit 4s linear infinite;
   }

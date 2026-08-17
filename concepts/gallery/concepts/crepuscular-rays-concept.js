@@ -44,8 +44,30 @@ const crepuscularStyles = `
   }
 
   @keyframes crp-fan-sweep {
-    0% { transform: rotate(-10deg); }
-    100% { transform: rotate(10deg); }
+    0% { transform: rotate(-16deg); }
+    100% { transform: rotate(16deg); }
+  }
+
+  /* Bright dust mote drifting down through the beam shafts */
+  .crp-mote {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #ffd600;
+    z-index: 4;
+    animation: crp-mote-drift 3.6s ease-in infinite;
+  }
+
+  @keyframes crp-mote-drift {
+    0% { transform: translate(-18px, 0) scale(0.6); opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { transform: translate(22px, 52px) scale(1.2); opacity: 0; }
   }
 
   .crp-ray-beam {
@@ -139,6 +161,8 @@ class ConceptCrepuscularRays extends HTMLElement {
           <div class="crp-ray-beam rb4"></div>
           <div class="crp-ray-beam rb5"></div>
         </div>
+
+        <div class="crp-mote"></div>
 
         <div class="crp-cloud-bank">
           <div class="crp-gap"></div>

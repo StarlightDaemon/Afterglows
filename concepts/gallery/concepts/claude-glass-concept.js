@@ -63,6 +63,26 @@ const claudeGlassStyles = `
     100% { transform: translateY(3px) scaleX(1.1); opacity: 0.95; filter: drop-shadow(0 0 4px #ffd700); }
   }
 
+  /* Bright convex-glass glint sweeping a large visible arc across the oval face */
+  .cg-glint {
+    position: absolute;
+    top: 58px;
+    left: 20px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e0f7ff;
+    box-shadow: 0 0 12px #80d8ff, 0 0 20px #ffffff;
+    z-index: 8;
+    animation: cg-glint-travel 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes cg-glint-travel {
+    0% { transform: translate(0, 0); opacity: 0.4; }
+    50% { transform: translate(24px, -6px); opacity: 1; }
+    100% { transform: translate(48px, 4px); opacity: 0.4; }
+  }
+
   .cg-frame {
     fill: #3e2723;
     stroke: #ffb300;
@@ -90,6 +110,7 @@ class ConceptClaudeGlass extends HTMLElement {
       <style>${claudeGlassStyles}</style>
       <div class="cg-box">
         <div class="cg-stage">
+          <div class="cg-glint"></div>
           <svg class="cg-svg" viewBox="0 0 76 72">
             <!-- Folding Pocket Shagreen / Leather Case Cover (Hinged at bottom) -->
             <path d="M 18 56 L 38 68 L 58 56 L 50 48 L 26 48 Z" fill="#2d1b14" stroke="#8d6e63" stroke-width="1" />

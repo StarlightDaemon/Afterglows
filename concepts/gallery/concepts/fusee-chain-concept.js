@@ -60,8 +60,10 @@ const fuseeStyles = `
   /* Discrete steel chain link packets traveling horizontally */
   .fc-chain-link {
     position: absolute;
-    width: 5px;
-    height: 3px;
+    top: 22px;
+    left: 34px;
+    width: 6px;
+    height: 4px;
     background: #ffecb3;
     border: 1px solid #ffd54f;
     border-radius: 1px;
@@ -122,6 +124,8 @@ class ConceptFuseeChain extends HTMLElement {
               <!-- Radial spoke gear teeth -->
               <line x1="6" y1="36" x2="34" y2="36" stroke="#ffb74d" stroke-width="0.8" />
               <line x1="20" y1="22" x2="20" y2="50" stroke="#ffb74d" stroke-width="0.8" />
+              <!-- Bright rim index mark so rotation is unambiguous -->
+              <circle cx="20" cy="22" r="1.8" fill="#ffffff" />
             </g>
 
             <!-- Right Conical Grooved Fusee Frustum with Rotation -->
