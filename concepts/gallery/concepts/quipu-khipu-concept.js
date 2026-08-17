@@ -41,7 +41,7 @@ const quipuStyles = `
     box-shadow: 0 0 4px #ffd54f;
   }
 
-  /* Pendent colored recording cords hanging vertically */
+  /* Pendent colored recording cords hanging vertically with wide swaying */
   .qk-cords-container {
     position: absolute;
     top: 17px;
@@ -58,7 +58,8 @@ const quipuStyles = `
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: qk-cord-sway 4s ease-in-out infinite alternate;
+    transform-origin: 50% 0%;
+    animation: qk-cord-sway 3.2s ease-in-out infinite alternate;
   }
 
   .qk-p1 { animation-delay: 0s; }
@@ -67,25 +68,44 @@ const quipuStyles = `
   .qk-p4 { animation-delay: -2.4s; }
 
   @keyframes qk-cord-sway {
-    0% { transform: rotate(-3deg); }
-    100% { transform: rotate(3deg); }
+    0% { transform: rotate(-14deg) scale(0.94); }
+    100% { transform: rotate(14deg) scale(1.06); }
   }
 
   .qk-string {
     position: absolute;
-    width: 1.5px;
+    width: 1.8px;
     height: 100%;
     background: #ffcc80;
+  }
+
+  /* Traveling Quipucamayoc counting reckoning spark */
+  .qk-reckon-spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #ffd54f;
+    z-index: 6;
+    animation: qk-reckon-travel 2.8s linear infinite;
+  }
+
+  @keyframes qk-reckon-travel {
+    0% { transform: translate(-30px, -18px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(30px, 26px) scale(1.3); opacity: 0; }
   }
 
   /* Decimal knot clusters (Hundreds, Tens, Units) */
   .qk-knot {
     position: absolute;
-    width: 5px;
-    height: 4px;
+    width: 6px;
+    height: 4.5px;
     border-radius: 50%;
     background: #ffffff;
-    border: 1px solid #d84315;
+    border: 1.2px solid #d84315;
     box-shadow: 0 0 4px #ff7043;
   }
 
@@ -115,6 +135,7 @@ class ConceptQuipuKhipu extends HTMLElement {
       <div class="qk-box">
         <div class="qk-stage">
           <div class="qk-main-cord"></div>
+          <div class="qk-reckon-spark"></div>
 
           <div class="qk-cords-container">
             <!-- Cord 1: 342 -->

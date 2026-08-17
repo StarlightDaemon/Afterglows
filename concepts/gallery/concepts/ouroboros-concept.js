@@ -29,7 +29,7 @@ const ouroborosStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: our-rotate 12s linear infinite;
+    animation: our-rotate 3.6s linear infinite;
   }
 
   @keyframes our-rotate {
@@ -47,7 +47,7 @@ const ouroborosStyles = `
   .our-body {
     fill: none;
     stroke: #00ff88;
-    stroke-width: 4;
+    stroke-width: 4.5;
     stroke-linecap: round;
     filter: drop-shadow(0 0 4px #00cc66);
   }
@@ -55,7 +55,7 @@ const ouroborosStyles = `
   .our-scales {
     fill: none;
     stroke: #ffffff;
-    stroke-width: 1.5;
+    stroke-width: 1.8;
     stroke-dasharray: 2 4;
   }
 
@@ -83,7 +83,24 @@ const ouroborosStyles = `
     box-shadow: 0 0 4px #ffffff;
   }
 
-  /* Central alchemical symbol (Philosopher's stone squared circle) */
+  /* Circulating spark traversing the ouroboros loop */
+  .our-spark {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 12px #00ff88;
+    z-index: 7;
+    animation: our-spark-flow 3.6s linear infinite;
+  }
+
+  @keyframes our-spark-flow {
+    0% { transform: rotate(0deg) translate(28px) rotate(0deg); }
+    100% { transform: rotate(-360deg) translate(28px) rotate(360deg); }
+  }
+
+  /* Central alchemical symbol counter-rotating */
   .our-center-glyph {
     position: absolute;
     width: 32px;
@@ -91,12 +108,12 @@ const ouroborosStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: our-glyph-pulse 3s ease-in-out infinite alternate;
+    animation: our-glyph-spin 2.6s linear infinite;
   }
 
-  @keyframes our-glyph-pulse {
-    0% { transform: scale(0.85); opacity: 0.7; }
-    100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 6px #00ff88); }
+  @keyframes our-glyph-spin {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
   }
 
   .our-label {
@@ -119,6 +136,8 @@ class ConceptOuroboros extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>${ouroborosStyles}</style>
       <div class="our">
+        <div class="our-spark"></div>
+
         <div class="our-ring">
           <svg class="our-svg" viewBox="0 0 76 76">
             <!-- Serpent coiled circular torus body -->
@@ -136,10 +155,10 @@ class ConceptOuroboros extends HTMLElement {
         <div class="our-center-glyph">
           <svg viewBox="0 0 32 32" style="width: 100%; height: 100%;">
             <!-- Alchemical triangle in circle -->
-            <circle cx="16" cy="16" r="14" fill="none" stroke="rgba(0, 255, 136, 0.5)" stroke-width="1" stroke-dasharray="2 2" />
-            <polygon points="16,3 27,24 5,24" fill="none" stroke="#ffffff" stroke-width="1" />
-            <rect x="10" y="10" width="12" height="12" fill="none" stroke="#00ff88" stroke-width="1" />
-            <circle cx="16" cy="16" r="3" fill="#ffffff" />
+            <circle cx="16" cy="16" r="14" fill="none" stroke="rgba(0, 255, 136, 0.6)" stroke-width="1.2" stroke-dasharray="2 2" />
+            <polygon points="16,3 27,24 5,24" fill="none" stroke="#ffffff" stroke-width="1.2" />
+            <rect x="10" y="10" width="12" height="12" fill="none" stroke="#00ff88" stroke-width="1.2" />
+            <circle cx="16" cy="16" r="3.5" fill="#ffffff" />
           </svg>
         </div>
 

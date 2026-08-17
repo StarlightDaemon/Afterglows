@@ -39,7 +39,24 @@ const solitaireStyles = `
     position: absolute;
     inset: 3px;
     border-radius: 50%;
-    border: 1px dashed rgba(255, 183, 77, 0.3);
+    border: 1.5px dashed rgba(255, 183, 77, 0.4);
+  }
+
+  /* Orbiting captured marble in gutter */
+  .ps-gutter-marble {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffd54f;
+    box-shadow: 0 0 6px #ffd54f;
+    z-index: 6;
+    animation: ps-gutter-roll 3.6s linear infinite;
+  }
+
+  @keyframes ps-gutter-roll {
+    0% { transform: rotate(0deg) translate(34px) rotate(0deg); }
+    100% { transform: rotate(360deg) translate(34px) rotate(-360deg); }
   }
 
   /* 33-Hole Cross Grid */
@@ -75,21 +92,22 @@ const solitaireStyles = `
     box-shadow: 0 0 4px #00e5ff;
   }
 
-  /* Jumping peg performing a capture leap */
+  /* Jumping peg performing active capture leap */
   .ps-jump-peg {
     position: absolute;
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #ffd54f;
-    box-shadow: 0 0 6px #ffd54f;
-    animation: ps-leap-capture 3s ease-in-out infinite;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 12px #ffd54f;
+    z-index: 7;
+    animation: ps-leap-capture 2.4s ease-in-out infinite;
   }
 
   @keyframes ps-leap-capture {
-    0%, 30% { top: 22px; left: 12px; transform: scale(1); }
-    45% { top: 12px; left: 24px; transform: scale(1.3); }
-    60%, 100% { top: 22px; left: 36px; transform: scale(1); }
+    0%, 25% { top: 36px; left: 14px; transform: scale(1); }
+    50% { top: 22px; left: 26px; transform: scale(1.4); }
+    75%, 100% { top: 36px; left: 38px; transform: scale(1); }
   }
 
   .ps-label {
@@ -114,6 +132,7 @@ class ConceptPegSolitaire extends HTMLElement {
       <div class="ps-box">
         <div class="ps-stage">
           <div class="ps-gutter"></div>
+          <div class="ps-gutter-marble"></div>
 
           <div class="ps-cross-grid">
             <div class="ps-hole ps-empty"></div>

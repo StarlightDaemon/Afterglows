@@ -36,7 +36,7 @@ const radiolarianStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: rad-rot 14s linear infinite;
+    animation: rad-rot 3.8s linear infinite;
   }
 
   @keyframes rad-rot {
@@ -58,15 +58,21 @@ const radiolarianStyles = `
     justify-content: center;
   }
 
-  /* Inner concentric silica core capsule */
+  /* Counter-rotating inner concentric silica core capsule */
   .rad-inner-core {
     position: absolute;
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
-    border: 1.2px solid #ffffff;
+    border: 1.5px solid #ffffff;
     background: #0088cc;
-    box-shadow: 0 0 6px #ffffff;
+    box-shadow: 0 0 8px #ffffff;
+    animation: rad-core-spin 2.6s linear infinite;
+  }
+
+  @keyframes rad-core-spin {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
   }
 
   /* Radiating mineral needle spicules */
@@ -79,31 +85,34 @@ const radiolarianStyles = `
 
   .rad-spine {
     stroke: #ffffff;
-    stroke-width: 1.5;
+    stroke-width: 1.8;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 3px #00e5ff);
+    filter: drop-shadow(0 0 4px #00e5ff);
   }
 
   .rad-lattice-mesh {
     fill: none;
-    stroke: rgba(0, 229, 255, 0.6);
-    stroke-width: 0.8;
-    stroke-dasharray: 2 3;
+    stroke: rgba(0, 229, 255, 0.7);
+    stroke-width: 1;
   }
 
-  /* Pulsing protoplasmic axopodia */
-  .rad-axopod-pulse {
+  /* Mineral nutrient transport spark traveling along radial spicule */
+  .rad-mineral-spark {
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
-    background: radial-gradient(circle, #ffffff 0%, #00e5ff 60%, transparent 100%);
-    animation: rad-pulse 2s ease-in-out infinite alternate;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #00e5ff;
+    z-index: 7;
+    animation: rad-spark-traverse 2.4s linear infinite;
   }
 
-  @keyframes rad-pulse {
-    0% { transform: scale(0.8); opacity: 0.6; }
-    100% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 8px #00e5ff); }
+  @keyframes rad-spark-traverse {
+    0% { transform: rotate(45deg) translate(8px) rotate(-45deg); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: rotate(45deg) translate(36px) rotate(-45deg); opacity: 0; }
   }
 
   .rad-label {
@@ -129,6 +138,8 @@ class ConceptRadiolarian extends HTMLElement {
         <div class="rad-water"></div>
 
         <div class="rad-shell-rig">
+          <div class="rad-mineral-spark"></div>
+
           <svg class="rad-spicules-svg" viewBox="0 0 80 80">
             <!-- 8 Primary radiating octahedral spicules -->
             <line class="rad-spine" x1="40" y1="4" x2="40" y2="76" />
@@ -138,12 +149,11 @@ class ConceptRadiolarian extends HTMLElement {
 
             <!-- Hexagonal geodesic porous lattice ribs -->
             <polygon class="rad-lattice-mesh" points="40,16 60,28 60,52 40,64 20,52 20,28" />
-            <circle cx="40" cy="40" r="18" fill="none" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1" stroke-dasharray="3 2" />
+            <circle cx="40" cy="40" r="18" fill="none" stroke="rgba(255, 255, 255, 0.5)" stroke-width="1.2" />
           </svg>
 
           <div class="rad-outer-sphere">
             <div class="rad-inner-core"></div>
-            <div class="rad-axopod-pulse"></div>
           </div>
         </div>
 

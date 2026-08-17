@@ -35,16 +35,27 @@ const pitotPrandtlStyles = `
     height: 72px;
   }
 
-  /* Impinging airstream velocity vectors into total pressure impact port */
-  .pp-dynamic-air path {
-    stroke: #448aff;
-    stroke-width: 1;
-    fill: none;
-    animation: pp-air-impact 1s linear infinite;
+  /* Traveling high-velocity airstream packet impacting stagnation port */
+  .pp-airstream-packet {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #448aff;
+    z-index: 6;
+    animation: pp-air-shoot 1.6s linear infinite;
   }
 
-  @keyframes pp-air-impact {
-    to { stroke-dashoffset: -16; }
+  .air1 { top: 26px; animation-delay: 0s; }
+  .air2 { top: 34px; animation-delay: 0.5s; }
+  .air3 { top: 42px; animation-delay: 1.0s; }
+
+  @keyframes pp-air-shoot {
+    0% { transform: translateX(-32px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateX(8px) scale(1.3); opacity: 0; }
   }
 
   /* Static pressure side tap orifice inflow */
@@ -54,17 +65,26 @@ const pitotPrandtlStyles = `
 
   @keyframes pp-static-glow {
     0% { stroke: #ffd700; opacity: 0.5; }
-    100% { stroke: #ffff00; opacity: 1; filter: drop-shadow(0 0 2px #ffd700); }
+    100% { stroke: #ffff00; opacity: 1; filter: drop-shadow(0 0 3px #ffd700); }
   }
 
-  /* Differential U-tube liquid manometer height delta */
-  .pp-manometer-liquid {
-    animation: pp-differential-shift 2.2s ease-in-out infinite alternate;
+  /* Differential U-tube liquid manometer height delta with bold dynamic column surge */
+  .pp-manometer-left {
+    animation: pp-mano-left 2s ease-in-out infinite alternate;
   }
 
-  @keyframes pp-differential-shift {
-    0% { transform: translateY(-1.5px); }
-    100% { transform: translateY(1.5px); }
+  .pp-manometer-right {
+    animation: pp-mano-right 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pp-mano-left {
+    0% { transform: scaleY(0.7); transform-origin: 50px 62px; }
+    100% { transform: scaleY(1.4); transform-origin: 50px 62px; }
+  }
+
+  @keyframes pp-mano-right {
+    0% { transform: scaleY(1.4); transform-origin: 58px 62px; }
+    100% { transform: scaleY(0.7); transform-origin: 58px 62px; }
   }
 
   .pp-label {
@@ -88,9 +108,13 @@ class ConceptPitotPrandtlTube extends HTMLElement {
       <style>${pitotPrandtlStyles}</style>
       <div class="pp-box">
         <div class="pp-stage">
+          <div class="pp-airstream-packet air1"></div>
+          <div class="pp-airstream-packet air2"></div>
+          <div class="pp-airstream-packet air3"></div>
+
           <svg class="pp-svg" viewBox="0 0 76 72">
-            <!-- Incoming Relative Airflow Streamlines (Left) -->
-            <g class="pp-dynamic-air" stroke-dasharray="6 3">
+            <!-- Incoming Relative Airflow Streamlines -->
+            <g stroke="#448aff" stroke-width="1.2" stroke-dasharray="6 3" opacity="0.6">
               <path d="M 4 20 L 22 20" />
               <path d="M 4 28 L 22 28" />
               <path d="M 4 36 L 22 36" />
@@ -102,28 +126,26 @@ class ConceptPitotPrandtlTube extends HTMLElement {
             <path d="M 22 24 L 54 24 Q 58 24 58 28 L 58 48" fill="none" stroke="#151e28" stroke-width="4.2" stroke-linecap="round" />
 
             <!-- Inner Stagnation / Total Impact Pressure Tube (P₀) -->
-            <path d="M 20 24 L 54 24 Q 56 24 56 26 L 56 48" fill="none" stroke="#448aff" stroke-width="1.8" stroke-linecap="square" />
-            <!-- Total Pressure Stagnation Nose Port (Front Impact Hole) -->
-            <circle cx="20" cy="24" r="1.5" fill="#448aff" filter="drop-shadow(0 0 2px #448aff)" />
+            <path d="M 20 24 L 54 24 Q 56 24 56 26 L 56 48" fill="none" stroke="#448aff" stroke-width="2" stroke-linecap="square" />
+            <!-- Total Pressure Stagnation Nose Port -->
+            <circle cx="20" cy="24" r="1.8" fill="#448aff" filter="drop-shadow(0 0 3px #448aff)" />
 
-            <!-- Ring of Static Pressure Piezoelectric Piezometer Side Holes (P_s) -->
+            <!-- Ring of Static Pressure Piezoelectric Piezometer Side Holes -->
             <g class="pp-static-ports">
-              <circle cx="34" cy="21" r="0.8" fill="#ffff00" />
-              <circle cx="34" cy="27" r="0.8" fill="#ffff00" />
-              <circle cx="38" cy="21" r="0.8" fill="#ffff00" />
-              <circle cx="38" cy="27" r="0.8" fill="#ffff00" />
+              <circle cx="34" cy="21" r="1" fill="#ffff00" />
+              <circle cx="34" cy="27" r="1" fill="#ffff00" />
+              <circle cx="38" cy="21" r="1" fill="#ffff00" />
+              <circle cx="38" cy="27" r="1" fill="#ffff00" />
             </g>
 
-            <!-- Differential U-Tube Manometer (Bottom Center) -->
-            <!-- Glass U-Tube -->
-            <path d="M 50 48 L 50 62 Q 54 66 58 62 L 58 48" fill="none" stroke="#cfd8dc" stroke-width="2.5" />
-            <!-- Manometer Indicator Liquid (Red Fluid showing Dynamic Pressure ΔP = ½ρV²) -->
-            <g class="pp-manometer-liquid">
-              <rect x="49" y="55" width="2" height="8" fill="#ff5252" />
-              <rect x="57" y="51" width="2" height="12" fill="#ff5252" />
+            <!-- Differential U-Tube Manometer -->
+            <path d="M 50 48 L 50 62 Q 54 66 58 62 L 58 48" fill="none" stroke="#cfd8dc" stroke-width="2.8" />
+            <!-- Manometer Indicator Liquid (Dynamic Pressure ΔP = ½ρV²) -->
+            <g>
+              <rect class="pp-manometer-left" x="48.5" y="52" width="3" height="10" fill="#ff5252" rx="0.5" />
+              <rect class="pp-manometer-right" x="56.5" y="52" width="3" height="10" fill="#ff5252" rx="0.5" />
               <!-- Differential Δh marker line -->
-              <line x1="46" y1="55" x2="62" y2="55" stroke="#00e5ff" stroke-width="0.5" stroke-dasharray="1 1" />
-              <line x1="46" y1="51" x2="62" y2="51" stroke="#00e5ff" stroke-width="0.5" stroke-dasharray="1 1" />
+              <line x1="46" y1="54" x2="62" y2="54" stroke="#00e5ff" stroke-width="0.6" stroke-dasharray="1 1" />
             </g>
 
             <!-- Bernoulli Airspeed Velocity Equation -->
@@ -136,4 +158,6 @@ class ConceptPitotPrandtlTube extends HTMLElement {
   }
 }
 
-customElements.define('concept-pitot-prandtl-tube', ConceptPitotPrandtlTube);
+if (!customElements.get('concept-pitot-prandtl-tube')) {
+  customElements.define('concept-pitot-prandtl-tube', ConceptPitotPrandtlTube);
+}

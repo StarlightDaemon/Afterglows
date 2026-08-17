@@ -23,15 +23,15 @@ const penroseStyles = `
 
   .pt-stage {
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 84px;
+    height: 84px;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: pt-slow-turn 20s linear infinite;
+    animation: pt-fast-turn 4.2s linear infinite;
   }
 
-  @keyframes pt-slow-turn {
+  @keyframes pt-fast-turn {
     to { transform: rotate(360deg); }
   }
 
@@ -41,31 +41,49 @@ const penroseStyles = `
   }
 
   .pt-kite {
-    fill: rgba(255, 215, 0, 0.35);
+    fill: rgba(255, 215, 0, 0.4);
     stroke: #ffd700;
-    stroke-width: 0.8;
-    transition: fill 0.5s;
+    stroke-width: 1;
   }
 
   .pt-dart {
-    fill: rgba(224, 130, 255, 0.35);
+    fill: rgba(224, 130, 255, 0.4);
     stroke: #e082ff;
-    stroke-width: 0.8;
+    stroke-width: 1;
   }
 
+  /* Counter-rotating inner 5-fold star core */
   .pt-star-pulse {
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 10px #ffd700, 0 0 20px #e082ff;
-    animation: pt-center-glow 3s ease-in-out infinite alternate;
+    animation: pt-center-spin 3s linear infinite;
   }
 
-  @keyframes pt-center-glow {
-    0% { transform: scale(0.6); opacity: 0.6; }
-    100% { transform: scale(1.2); opacity: 1; }
+  @keyframes pt-center-spin {
+    from { transform: rotate(360deg) scale(0.8); }
+    50% { transform: rotate(180deg) scale(1.25); }
+    to { transform: rotate(0deg) scale(0.8); }
+  }
+
+  /* Orbiting vertex substitution spark hopping along 5-fold symmetry nodes */
+  .pt-vertex-spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #ffffff, 0 0 10px #ffd700;
+    z-index: 6;
+    animation: pt-spark-orbit 2.8s linear infinite;
+  }
+
+  @keyframes pt-spark-orbit {
+    0% { transform: rotate(0deg) translate(28px) rotate(0deg); }
+    100% { transform: rotate(-360deg) translate(28px) rotate(360deg); }
   }
 
   .pt-label {
@@ -89,6 +107,8 @@ class ConceptPenroseTiling extends HTMLElement {
       <style>${penroseStyles}</style>
       <div class="pt-box">
         <div class="pt-stage">
+          <div class="pt-vertex-spark"></div>
+
           <svg class="pt-tiling-svg" viewBox="-50 -50 100 100">
             <!-- 5-fold Sun / Star Penrose Tiling Pattern -->
             <g>

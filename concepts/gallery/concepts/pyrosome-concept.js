@@ -21,6 +21,7 @@ const pyrosomeStyles = `
     justify-content: center;
   }
 
+  /* Swimming pelagic propulsion undulation */
   .pyr-stage {
     position: relative;
     width: 96px;
@@ -28,12 +29,12 @@ const pyrosomeStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: pyr-undulate 5s ease-in-out infinite alternate;
+    animation: pyr-swim-drift 3.8s ease-in-out infinite alternate;
   }
 
-  @keyframes pyr-undulate {
-    0% { transform: translateY(-3px) rotate(-2deg); }
-    100% { transform: translateY(3px) rotate(2deg); }
+  @keyframes pyr-swim-drift {
+    0% { transform: translate(-10px, -4px) rotate(-6deg) scale(0.94); }
+    100% { transform: translate(10px, 4px) rotate(6deg) scale(1.06); }
   }
 
   /* Marine snow specks in deep sea */
@@ -59,14 +60,33 @@ const pyrosomeStyles = `
     filter: drop-shadow(0 0 8px rgba(0, 255, 204, 0.6));
   }
 
-  /* Bioluminescent zooid wave traveling down the tube */
-  .pyr-glow-wave {
-    animation: pyr-flash 2.5s ease-in-out infinite;
+  /* Bioluminescent zooid spark traveling down the colony tube */
+  .pyr-bio-spark {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff, 0 0 14px #00ffcc;
+    z-index: 6;
+    animation: pyr-spark-travel 2.2s linear infinite;
   }
 
-  @keyframes pyr-flash {
-    0%, 100% { opacity: 0.35; stroke: #00897b; }
-    50% { opacity: 1; stroke: #64ffda; }
+  .pyr-spk1 {
+    offset-path: path("M 15 24 Q 45 24 68 24");
+    animation-delay: 0s;
+  }
+
+  .pyr-spk2 {
+    offset-path: path("M 20 18 Q 45 16 65 14");
+    animation-delay: 1.1s;
+  }
+
+  @keyframes pyr-spark-travel {
+    0% { offset-distance: 0%; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
   }
 
   .pyr-label {
@@ -96,15 +116,18 @@ class ConceptPyrosome extends HTMLElement {
             <div class="pyr-speck" style="top: 20px; right: 12px;"></div>
           </div>
 
+          <div class="pyr-bio-spark pyr-spk1"></div>
+          <div class="pyr-bio-spark pyr-spk2"></div>
+
           <svg class="pyr-body-svg" viewBox="0 0 86 48">
             <!-- Transparent sheath -->
-            <path d="M 10 24 Q 25 10 70 8 Q 78 24 70 40 Q 25 38 10 24 Z" fill="rgba(0, 255, 204, 0.12)" stroke="#00ffcc" stroke-width="1.2" />
+            <path d="M 10 24 Q 25 10 70 8 Q 78 24 70 40 Q 25 38 10 24 Z" fill="rgba(0, 255, 204, 0.14)" stroke="#00ffcc" stroke-width="1.4" />
             <!-- Open cloacal aperture ring at right -->
-            <ellipse cx="70" cy="24" rx="4" ry="16" fill="rgba(0, 255, 204, 0.25)" stroke="#ffffff" stroke-width="1" />
-            <!-- Individual bioluminescent zooid rows pulsating -->
-            <path class="pyr-glow-wave" d="M 20 18 Q 45 16 65 14" fill="none" stroke-width="2.5" stroke-dasharray="3 4" style="animation-delay: 0s;" />
-            <path class="pyr-glow-wave" d="M 15 24 Q 45 24 68 24" fill="none" stroke-width="2.5" stroke-dasharray="3 4" style="animation-delay: 0.4s;" />
-            <path class="pyr-glow-wave" d="M 20 30 Q 45 32 65 34" fill="none" stroke-width="2.5" stroke-dasharray="3 4" style="animation-delay: 0.8s;" />
+            <ellipse cx="70" cy="24" rx="4" ry="16" fill="rgba(0, 255, 204, 0.3)" stroke="#ffffff" stroke-width="1.2" />
+            <!-- Individual bioluminescent zooid rows -->
+            <path d="M 20 18 Q 45 16 65 14" fill="none" stroke="#64ffda" stroke-width="2.5" stroke-dasharray="3 4" />
+            <path d="M 15 24 Q 45 24 68 24" fill="none" stroke="#64ffda" stroke-width="2.5" stroke-dasharray="3 4" />
+            <path d="M 20 30 Q 45 32 65 34" fill="none" stroke="#64ffda" stroke-width="2.5" stroke-dasharray="3 4" />
           </svg>
         </div>
 

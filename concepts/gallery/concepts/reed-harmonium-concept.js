@@ -59,12 +59,12 @@ const harmoniumStyles = `
   .hrm-key.active {
     background: #ffcc00;
     box-shadow: inset 0 0 4px #ff7700;
-    animation: hrm-key-press 1.5s ease-in-out infinite alternate;
+    animation: hrm-key-press 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes hrm-key-press {
     0% { transform: translateY(0); }
-    100% { transform: translateY(1.5px); }
+    100% { transform: translateY(4px); }
   }
 
   /* Tuned brass free-reed windchest */
@@ -77,6 +77,7 @@ const harmoniumStyles = `
     display: flex;
     justify-content: space-around;
     align-items: center;
+    position: relative;
   }
 
   .hrm-reed {
@@ -84,15 +85,27 @@ const harmoniumStyles = `
     height: 12px;
     background: linear-gradient(180deg, #ffcc00, #553300);
     border-radius: 1px;
-    animation: hrm-reed-vibrate 0.12s linear infinite alternate;
   }
 
-  @keyframes hrm-reed-vibrate {
-    0% { transform: scaleX(0.8); }
-    100% { transform: scaleX(1.2); filter: drop-shadow(0 0 3px #ffea00); }
+  /* Radiating acoustic tone wave rings */
+  .hrm-tone-ring {
+    position: absolute;
+    top: -4px;
+    left: 28px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid #ffd700;
+    pointer-events: none;
+    animation: hrm-tone-pulse 1.6s cubic-bezier(0.1, 0.7, 0.3, 1) infinite;
   }
 
-  /* Pumping foot treadle bellows at bottom */
+  @keyframes hrm-tone-pulse {
+    0% { transform: scale(0.3); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
+  /* Deep pumping foot treadle bellows */
   .hrm-bellows-row {
     width: 76px;
     height: 18px;
@@ -104,22 +117,22 @@ const harmoniumStyles = `
     width: 34px;
     height: 100%;
     background: #381f08;
-    border: 1px solid #ffaa00;
+    border: 1.2px solid #ffaa00;
     border-radius: 2px;
     transform-origin: 50% 100%;
   }
 
-  .hrm-pedal-left { animation: hrm-pump-l 2s ease-in-out infinite alternate; }
-  .hrm-pedal-right { animation: hrm-pump-r 2s ease-in-out infinite alternate; }
+  .hrm-pedal-left { animation: hrm-pump-l 1.8s ease-in-out infinite alternate; }
+  .hrm-pedal-right { animation: hrm-pump-r 1.8s ease-in-out infinite alternate; }
 
   @keyframes hrm-pump-l {
-    0% { transform: scaleY(0.6); }
-    100% { transform: scaleY(1); }
+    0% { transform: rotate(-14deg) translateY(3px) scaleY(0.7); }
+    100% { transform: rotate(14deg) translateY(-3px) scaleY(1.1); }
   }
 
   @keyframes hrm-pump-r {
-    0% { transform: scaleY(1); }
-    100% { transform: scaleY(0.6); }
+    0% { transform: rotate(14deg) translateY(-3px) scaleY(1.1); }
+    100% { transform: rotate(-14deg) translateY(3px) scaleY(0.7); }
   }
 
   .hrm-label {
@@ -154,6 +167,7 @@ class ConceptReedHarmonium extends HTMLElement {
           </div>
 
           <div class="hrm-windchest">
+            <div class="hrm-tone-ring"></div>
             <div class="hrm-reed"></div>
             <div class="hrm-reed"></div>
             <div class="hrm-reed" style="height: 14px;"></div>
