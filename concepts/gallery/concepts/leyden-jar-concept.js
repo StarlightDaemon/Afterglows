@@ -46,6 +46,13 @@ const leydenStyles = `
     border-top: 1.5px solid #00ffcc;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 0 6px rgba(0, 255, 204, 0.3);
+    animation: lyd-foil-charge 2.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes lyd-foil-charge {
+    0% { transform: scale(0.92); opacity: 0.7; }
+    85% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 6px #00ffcc); }
+    100% { transform: scale(0.92); opacity: 0.7; }
   }
 
   /* Cork stopper */
@@ -85,18 +92,18 @@ const leydenStyles = `
   /* Grounding discharge wand on right, brought toward the knob and back */
   .lyd-wand {
     position: absolute;
-    top: 18px;
-    right: 18px;
+    top: 16px;
+    right: 14px;
     width: 24px;
     height: 48px;
-    animation: lyd-approach 2.2s ease-in-out infinite;
+    animation: lyd-approach 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
 
   @keyframes lyd-approach {
-    0% { transform: translate(6px, -3px) rotate(6deg); }
-    42% { transform: translate(-12px, 2px) rotate(-4deg); }
-    56% { transform: translate(-12px, 2px) rotate(-4deg); }
-    100% { transform: translate(6px, -3px) rotate(6deg); }
+    0% { transform: translate(14px, -6px) rotate(14deg); }
+    40% { transform: translate(-18px, 4px) rotate(-10deg); }
+    55% { transform: translate(-18px, 4px) rotate(-10deg); }
+    100% { transform: translate(14px, -6px) rotate(14deg); }
   }
 
   .lyd-wand-knob {
@@ -111,23 +118,22 @@ const leydenStyles = `
   }
 
   /* Intense electrostatic spark discharge jumping at closest approach */
-  .lyd-spark {
+  .lyd-spark-svg {
     position: absolute;
-    top: 21px;
-    left: 55px;
-    width: 14px;
-    height: 2px;
-    background: #ffffff;
-    box-shadow: 0 0 8px #ffffff, 0 0 16px #00ffcc;
-    animation: lyd-spark-fire 2.2s steps(1) infinite;
+    top: 18px;
+    left: 54px;
+    width: 28px;
+    height: 16px;
+    pointer-events: none;
+    animation: lyd-spark-fire 2.2s ease-in-out infinite;
   }
 
   @keyframes lyd-spark-fire {
-    0%, 43% { opacity: 0; transform: scaleX(0); }
-    44% { opacity: 1; transform: scaleX(1) translateY(-1px); }
-    48% { opacity: 1; transform: scaleX(1) translateY(1px); }
-    52% { opacity: 1; transform: scaleX(1) translateY(-1px); }
-    55%, 100% { opacity: 0; transform: scaleX(0); }
+    0%, 40% { opacity: 0; transform: scale(0.2); }
+    43% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 8px #ffffff); }
+    48% { opacity: 0; }
+    50% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 12px #00ffcc); }
+    54%, 100% { opacity: 0; }
   }
 
   .lyd-label {
@@ -165,7 +171,10 @@ class ConceptLeydenJar extends HTMLElement {
           </svg>
         </div>
 
-        <div class="lyd-spark"></div>
+        <svg class="lyd-spark-svg" viewBox="0 0 28 16">
+          <polyline points="2,8 8,2 14,14 20,4 26,8" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <polyline points="8,2 12,0 18,6" stroke="#00ffcc" stroke-width="1.2" fill="none" />
+        </svg>
 
         <div class="lyd-label">LEYDEN JAR CONDENSER</div>
       </div>

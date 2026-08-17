@@ -43,8 +43,23 @@ const bowerbirdStyles = `
     align-items: center;
   }
 
-  .bwr-avenue-left { left: 28px; }
-  .bwr-avenue-right { right: 28px; }
+  .bwr-avenue-left {
+    left: 28px;
+    animation: bwr-twig-left 2.2s ease-in-out infinite alternate;
+  }
+  .bwr-avenue-right {
+    right: 28px;
+    animation: bwr-twig-right 2.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes bwr-twig-left {
+    0% { transform: rotate(-3deg); }
+    100% { transform: rotate(3deg); }
+  }
+  @keyframes bwr-twig-right {
+    0% { transform: rotate(3deg); }
+    100% { transform: rotate(-3deg); }
+  }
 
   .bwr-twig {
     width: 2px;
@@ -63,7 +78,6 @@ const bowerbirdStyles = `
     border-radius: 50%;
     background: #00e5ff;
     box-shadow: 0 0 6px #0088ff, 0 0 10px #ffffff;
-    animation: bwr-shimmer 2s ease-in-out infinite alternate;
   }
 
   .t-berry1 { width: 5px; height: 5px; bottom: 12px; left: 16px; background: #0088ff; }
@@ -80,12 +94,7 @@ const bowerbirdStyles = `
     transform: rotate(-15deg);
   }
 
-  @keyframes bwr-shimmer {
-    0% { filter: brightness(0.85); transform: scale(0.9); }
-    100% { filter: brightness(1.3); transform: scale(1.1); }
-  }
-
-  /* Satin bowerbird patrolling its avenue court */
+  /* Satin bowerbird dynamic courtship display dance */
   .bwr-bird {
     position: absolute;
     top: 8px;
@@ -96,21 +105,30 @@ const bowerbirdStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: bwr-patrol 3.6s ease-in-out infinite;
+    animation: bwr-dance 2.2s ease-in-out infinite;
   }
 
-  @keyframes bwr-patrol {
-    0%   { transform: translateX(-15px) translateY(0) scaleX(1); }
-    12%  { transform: translateX(-8px) translateY(-3px) scaleX(1); }
-    25%  { transform: translateX(0) translateY(0) scaleX(1); }
-    37%  { transform: translateX(8px) translateY(-3px) scaleX(1); }
-    49%  { transform: translateX(15px) translateY(0) scaleX(1); }
-    51%  { transform: translateX(15px) translateY(0) scaleX(-1); }
-    63%  { transform: translateX(8px) translateY(-3px) scaleX(-1); }
-    75%  { transform: translateX(0) translateY(0) scaleX(-1); }
-    87%  { transform: translateX(-8px) translateY(-3px) scaleX(-1); }
-    99%  { transform: translateX(-15px) translateY(0) scaleX(-1); }
-    100% { transform: translateX(-15px) translateY(0) scaleX(1); }
+  @keyframes bwr-dance {
+    0%   { transform: translateX(-18px) translateY(0) rotate(-12deg) scaleX(1); }
+    20%  { transform: translateX(-6px) translateY(-6px) rotate(8deg) scaleX(1); }
+    45%  { transform: translateX(18px) translateY(2px) rotate(15deg) scaleX(1); }
+    50%  { transform: translateX(18px) translateY(2px) rotate(15deg) scaleX(-1); }
+    70%  { transform: translateX(6px) translateY(-6px) rotate(-8deg) scaleX(-1); }
+    95%  { transform: translateX(-18px) translateY(0) rotate(-12deg) scaleX(-1); }
+    100% { transform: translateX(-18px) translateY(0) rotate(-12deg) scaleX(1); }
+  }
+
+  /* Courtship token held in beak */
+  .bwr-beak-token {
+    position: absolute;
+    left: -4px;
+    top: 6px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #00e5ff;
+    box-shadow: 0 0 6px #00e5ff;
+    z-index: 7;
   }
 
   .bwr-bird-body {
@@ -119,7 +137,7 @@ const bowerbirdStyles = `
     background: linear-gradient(180deg, #0d4066 0%, #041a2e 100%);
     border: 1.5px solid #00cdf2;
     border-radius: 60% 40% 40% 60%;
-    box-shadow: inset 0 0 4px #00e5ff, 0 0 5px rgba(0, 229, 255, 0.5);
+    box-shadow: inset 0 0 4px #00e5ff, 0 0 6px rgba(0, 229, 255, 0.6);
   }
 
   .bwr-bird-eye {
@@ -165,6 +183,7 @@ class ConceptBowerbird extends HTMLElement {
       <div class="bwr">
         <div class="bwr-court">
           <div class="bwr-bird">
+            <div class="bwr-beak-token"></div>
             <div class="bwr-bird-beak"></div>
             <div class="bwr-bird-body"></div>
             <div class="bwr-bird-eye"></div>

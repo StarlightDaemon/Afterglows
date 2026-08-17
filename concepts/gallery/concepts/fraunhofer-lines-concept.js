@@ -37,42 +37,54 @@ const fraunhoferLinesStyles = `
 
   /* Continuous prismatic rainbow dispersion ribbon */
   .fl-rainbow-band {
-    animation: fl-rainbow-shimmer 3s ease-in-out infinite alternate;
+    animation: fl-rainbow-shimmer 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes fl-rainbow-shimmer {
-    0% { filter: drop-shadow(0 0 1px #a855f7); opacity: 0.85; }
-    100% { filter: drop-shadow(0 0 3px #ec4899); opacity: 1; }
+    0% { filter: drop-shadow(0 0 2px #a855f7); opacity: 0.85; }
+    100% { filter: drop-shadow(0 0 6px #ec4899); opacity: 1; }
   }
 
-  /* Dark solar absorption Fraunhofer lines (A, B, C, D, E, b, F, G, H) */
+  /* Dark solar absorption Fraunhofer lines */
   .fl-dark-line {
-    animation: fl-line-pulse 2s ease-in-out infinite alternate;
+    animation: fl-line-pulse 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes fl-line-pulse {
-    0% { opacity: 0.7; }
-    100% { opacity: 1; stroke-width: 0.9; }
+    0% { opacity: 0.6; }
+    100% { opacity: 1; stroke-width: 1; }
   }
 
   /* Sodium D double-line split indicator */
   .fl-d-doublet {
-    animation: fl-doublet-gleam 2.4s ease-in-out infinite alternate;
+    animation: fl-doublet-gleam 2s ease-in-out infinite alternate;
   }
 
   @keyframes fl-doublet-gleam {
     0% { stroke: #fbbf24; opacity: 0.6; }
-    100% { stroke: #ffffff; opacity: 1; filter: drop-shadow(0 0 2px #f59e0b); }
+    100% { stroke: #ffffff; opacity: 1; filter: drop-shadow(0 0 4px #f59e0b); }
   }
 
-  /* Measuring reticle scanning the spectrum, line by line */
+  /* Measuring reticle actively scanning the spectrum line by line */
   .fl-scanner {
-    animation: fl-scan 4.5s ease-in-out infinite alternate;
+    animation: fl-scan 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes fl-scan {
-    0% { transform: translateX(-35px); }
-    100% { transform: translateX(15px); }
+    0% { transform: translateX(-36px); }
+    100% { transform: translateX(18px); }
+  }
+
+  /* Incident solar light beam */
+  .fl-solar-beam {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #ffffff, transparent);
+    box-shadow: 0 0 6px #ffffff;
+    opacity: 0.8;
   }
 
   .fl-label {
@@ -96,6 +108,8 @@ class ConceptFraunhoferLines extends HTMLElement {
       <style>${fraunhoferLinesStyles}</style>
       <div class="fl-box">
         <div class="fl-stage">
+          <div class="fl-solar-beam"></div>
+
           <svg class="fl-svg" viewBox="0 0 76 72">
             <!-- 1814 Joseph von Fraunhofer Solar Absorption Spectrum -->
             <defs>
@@ -119,25 +133,25 @@ class ConceptFraunhoferLines extends HTMLElement {
             <!-- Dark Fraunhofer Absorption Lines -->
             <g class="fl-dark-line" stroke="#030712" fill="none">
               <!-- Line A (Atmospheric O2 - Deep Red 759nm) -->
-              <line x1="63" y1="26" x2="63" y2="46" stroke-width="1.2" />
+              <line x1="63" y1="26" x2="63" y2="46" stroke-width="1.3" />
               <!-- Line B (O2 - 687nm) -->
-              <line x1="59" y1="26" x2="59" y2="46" stroke-width="0.8" />
+              <line x1="59" y1="26" x2="59" y2="46" stroke-width="0.9" />
               <!-- Line C (Hydrogen H-alpha - 656nm) -->
-              <line x1="55" y1="26" x2="55" y2="46" stroke-width="1" />
+              <line x1="55" y1="26" x2="55" y2="46" stroke-width="1.2" />
               <!-- Line D (Sodium D1 & D2 Doublet - 589nm) -->
-              <line x1="47" y1="26" x2="47" y2="46" stroke-width="0.7" />
-              <line x1="48" y1="26" x2="48" y2="46" stroke-width="0.7" />
+              <line x1="47" y1="26" x2="47" y2="46" stroke-width="0.8" />
+              <line x1="48" y1="26" x2="48" y2="46" stroke-width="0.8" />
               <!-- Line E (Iron Fe - 527nm) -->
-              <line x1="39" y1="26" x2="39" y2="46" stroke-width="0.8" />
+              <line x1="39" y1="26" x2="39" y2="46" stroke-width="0.9" />
               <!-- Line b (Magnesium triplet - 517nm) -->
-              <line x1="36" y1="26" x2="36" y2="46" stroke-width="1" />
+              <line x1="36" y1="26" x2="36" y2="46" stroke-width="1.2" />
               <!-- Line F (Hydrogen H-beta - 486nm) -->
-              <line x1="30" y1="26" x2="30" y2="46" stroke-width="1.1" />
+              <line x1="30" y1="26" x2="30" y2="46" stroke-width="1.3" />
               <!-- Line G (Calcium & Iron - 431nm) -->
-              <line x1="22" y1="26" x2="22" y2="46" stroke-width="0.9" />
+              <line x1="22" y1="26" x2="22" y2="46" stroke-width="1" />
               <!-- Line H & K (Calcium Ca II - 397nm & 393nm) -->
-              <line x1="14" y1="26" x2="14" y2="46" stroke-width="1.2" />
-              <line x1="12" y1="26" x2="12" y2="46" stroke-width="1.4" />
+              <line x1="14" y1="26" x2="14" y2="46" stroke-width="1.4" />
+              <line x1="12" y1="26" x2="12" y2="46" stroke-width="1.6" />
             </g>
 
             <!-- Letter Indicators above Spectrum Bar -->
@@ -153,7 +167,7 @@ class ConceptFraunhoferLines extends HTMLElement {
 
             <!-- Precision Sighting Crosshair Reticle scanning across the band -->
             <g class="fl-scanner">
-              <line class="fl-d-doublet" x1="47.5" y1="10" x2="47.5" y2="48" stroke-width="1.4" />
+              <line class="fl-d-doublet" x1="47.5" y1="10" x2="47.5" y2="48" stroke-width="1.6" />
               <polygon points="45,10 50,10 47.5,15" fill="#fbbf24" />
             </g>
           </svg>
@@ -164,4 +178,6 @@ class ConceptFraunhoferLines extends HTMLElement {
   }
 }
 
-customElements.define('concept-fraunhofer-lines', ConceptFraunhoferLines);
+if (!customElements.get('concept-fraunhofer-lines')) {
+  customElements.define('concept-fraunhofer-lines', ConceptFraunhoferLines);
+}
