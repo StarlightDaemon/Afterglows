@@ -40,7 +40,7 @@ fringe, vignette, curvature radii, sweep strength/speed, noise strength).
 Every knob defaults to the library's previous literal value, so existing
 consumers render pixel-identically without setting anything.
 
-On top of the knobs, `crt_tools.css` ships six **hardware archetypes** as
+On top of the knobs, `crt_tools.css` ships eleven **hardware archetypes** as
 `[data-crt-archetype="..."]` preset blocks — parameter sets modelled on
 real classes of CRT hardware, not invented "styles":
 
@@ -52,6 +52,11 @@ real classes of CRT hardware, not invented "styles":
 | `worn` | Worn Tube | End-of-life tube: fat beam spot (heavy bloom, soft focus), convergence drift (exaggerated fringing), power-supply ripple as a fast rolling hum bar, deep flicker, heavy edge darkening. |
 | `terminal` | Terminal | 70s/80s monochrome data terminal: ~350 non-interlaced non-overlapping lines (crisp "pixelly" scanlines), zero chromatic fringing (single beam, no mask), faceplate halation, faint mains-frequency flicker. |
 | `vector` | Vector | XY/oscilloscope display: no raster, so no scanlines at all; hard-driven phosphor halation, round-tube vignette, monochrome (no fringe). |
+| `arcade` | Arcade CRT | 15kHz 240p RGB coin-op chassis: progressive scan blank fields (wide black scanline gaps), punchy dark-room bloom, direct-RGB low fringe, stable 60Hz frame, bubble-tube curve. |
+| `hires` | High-Res PC | 90s/2000s multisync PC/workstation CRT (VGA/XGA): 31kHz+ ultra-fine pitch, 75-85Hz zero flicker, tight razor-sharp focus (low bloom), near-flat glass, shielded coax signal. |
+| `radar` | Radar Scope | Long-persistence PPI / avionics & sonar cascade tube: slow sweeping refresh trace, massive lingering halation/afterglow, spherical dome glass, hood vignette, receiver clutter noise. |
+| `surveillance` | Surveillance | 24/7 security CCTV monitor: long BNC coax AC ground-loop hum bar, high transmission snow, 60Hz field flicker, distinct industrial lines, security chassis bezel falloff. |
+| `portable` | Portable Unit | Miniature 3-5" field-service test CRT & viewfinder: steep apparent physical curvature ratio, optical hood vignette, compact high-drive bloom, battery voltage RF ripple. |
 
 Apply exactly like the phosphor themes — one attribute on `<html>`,
 `<body>`, or any container (the knobs inherit):
