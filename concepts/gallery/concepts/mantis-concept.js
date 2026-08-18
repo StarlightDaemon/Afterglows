@@ -41,12 +41,12 @@ const mantisStyles = {
     width: 66px;
     height: 60px;
     transform-origin: 50% 100%;
-    animation: mt-sway 3s ease-in-out infinite;
+    animation: mt-sway 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes mt-sway {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
+    0% { transform: rotate(-8deg) translateX(-4px); }
+    100% { transform: rotate(8deg) translateX(4px); }
   }
 
   /* Walking legs down to the twig. */
@@ -116,7 +116,7 @@ const mantisStyles = {
     clip-path: polygon(0 60%, 30% 0, 100% 20%, 78% 100%, 18% 100%);
     background: radial-gradient(circle at 55% 35%, #f2ffdd, #2a8a3e 75%);
     transform-origin: 60% 90%;
-    animation: mt-track 5s ease-in-out infinite;
+    animation: mt-track 1.6s ease-in-out infinite alternate;
   }
 
   /* Big compound eyes. */
@@ -145,16 +145,11 @@ const mantisStyles = {
   .mt-ant.a2 { left: 9px; top: -13px; transform: rotate(6deg); }
 
   @keyframes mt-track {
-    0%, 20% { transform: rotate(-10deg); }
-    /* Follows the fly in. */
-    46% { transform: rotate(8deg); }
-    /* Locks and strikes. */
-    54%, 62% { transform: rotate(12deg); }
-    80%, 100% { transform: rotate(-10deg); }
+    0% { transform: rotate(-18deg); }
+    100% { transform: rotate(18deg); }
   }
 
-  /* Raptorial forelegs: femur + folded tibia in the prayer pose,
-     snapping open toward the fly on the strike. */
+  /* Raptorial forelegs */
   .mt-arm {
     position: absolute;
     left: 10px;
@@ -162,7 +157,7 @@ const mantisStyles = {
     width: 20px;
     height: 16px;
     transform-origin: 60% 20%;
-    animation: mt-strike 5s ease-in-out infinite;
+    animation: mt-strike 1.6s ease-in-out infinite alternate;
   }
 
   .mt-arm.far {
@@ -183,7 +178,6 @@ const mantisStyles = {
     transform-origin: 100% 50%;
   }
 
-  /* The snap-trap tibia (spined), folded back against the femur. */
   .mt-tibia {
     position: absolute;
     left: -12px;
@@ -195,22 +189,20 @@ const mantisStyles = {
       rgba(214, 255, 224, 0.9) 0 2px,
       rgba(0, 130, 26, 0.8) 2px 3px);
     transform-origin: 100% 50%;
-    animation: mt-tibia 5s ease-in-out infinite;
+    animation: mt-tibia 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes mt-strike {
-    0%, 52% { transform: rotate(0deg) translate(0, 0); }
-    /* Lightning lunge toward the fly. */
-    57% { transform: rotate(16deg) translate(-7px, -3px); }
-    64% { transform: rotate(0deg) translate(0, 0); }
+    0% { transform: rotate(0deg) translate(0, 0); }
+    40% { transform: rotate(-12deg) translate(2px, 2px); }
+    70% { transform: rotate(24deg) translate(-12px, -6px); }
     100% { transform: rotate(0deg) translate(0, 0); }
   }
 
   @keyframes mt-tibia {
-    0%, 52% { transform: rotate(-140deg); }
-    /* Snaps open to grab. */
-    57% { transform: rotate(-25deg); }
-    64% { transform: rotate(-140deg); }
+    0% { transform: rotate(-140deg); }
+    40% { transform: rotate(-150deg); }
+    70% { transform: rotate(-20deg); }
     100% { transform: rotate(-140deg); }
   }
 
@@ -219,9 +211,9 @@ const mantisStyles = {
     position: absolute;
     top: 20px;
     left: 0;
-    width: 5px;
-    height: 4px;
-    animation: mt-fly 5s ease-in-out infinite;
+    width: 6px;
+    height: 5px;
+    animation: mt-fly 1.6s ease-in-out infinite alternate;
   }
 
   .mt-fly::before {
@@ -229,7 +221,8 @@ const mantisStyles = {
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background: rgba(190, 255, 205, 0.85);
+    background: #00ff66;
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .mt-fly::after {
@@ -240,7 +233,7 @@ const mantisStyles = {
     width: 8px;
     height: 3px;
     border-radius: 50%;
-    background: rgba(190, 255, 205, 0.4);
+    background: rgba(190, 255, 205, 0.8);
     animation: mt-flywing 0.08s steps(2) infinite;
   }
 
@@ -250,14 +243,10 @@ const mantisStyles = {
   }
 
   @keyframes mt-fly {
-    0% { transform: translate(0, -8px); opacity: 1; }
-    40% { transform: translate(26px, 8px); opacity: 1; }
-    /* Hovers into range... */
-    54% { transform: translate(38px, 15px); opacity: 1; }
-    /* ...snatched at the strike. */
-    58% { transform: translate(38px, 15px); opacity: 1; }
-    61% { transform: translate(38px, 15px); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translate(4px, -12px); opacity: 1; }
+    50% { transform: translate(32px, 12px); opacity: 1; }
+    70% { transform: translate(24px, 10px); opacity: 0.8; }
+    100% { transform: translate(8px, -4px); opacity: 1; }
   }
   `,
   v2: `
@@ -305,16 +294,13 @@ const mantisStyles = {
     bottom: 17px;
     width: 0;
     height: 0;
-    animation: mt-rock 7s ease-in-out infinite;
+    animation: mt-rock 1.6s ease-in-out infinite alternate;
     transform-origin: 14px 0;
   }
 
   @keyframes mt-rock {
-    0%, 38%, 100% { transform: rotate(0deg) translateX(0); }
-    12%, 30% { transform: rotate(2deg) translateX(1px); }
-    /* The lunge rides the strike window. */
-    46% { transform: rotate(-4deg) translateX(-4px); }
-    50% { transform: rotate(0deg) translateX(0); }
+    0% { transform: rotate(-8deg) translateX(-4px); }
+    100% { transform: rotate(8deg) translateX(4px); }
   }
 
   /* Walking legs: two visible pairs of thin struts to the branch. */
@@ -357,12 +343,12 @@ const mantisStyles = {
     border: 1px solid rgba(0, 204, 0, 0.55);
     transform: rotate(-18deg);
     transform-origin: 8% 60%;
-    animation: mt-breathe 7s ease-in-out infinite;
+    animation: mt-breathe 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes mt-breathe {
-    0%, 100% { transform: rotate(-18deg); }
-    50% { transform: rotate(-15deg); }
+    0% { transform: rotate(-22deg) scale(0.95); }
+    100% { transform: rotate(-14deg) scale(1.05); }
   }
 
   /* Prothorax: the long "neck", raised steeply forward. */
@@ -387,15 +373,13 @@ const mantisStyles = {
     height: 12px;
     clip-path: polygon(0 78%, 62% 0, 100% 55%, 55% 100%);
     background: linear-gradient(120deg, rgba(190, 255, 205, 0.95), rgba(0, 150, 30, 0.95));
-    animation: mt-head 7s ease-in-out infinite;
+    animation: mt-head 1.6s ease-in-out infinite alternate;
     transform-origin: 80% 60%;
   }
 
   @keyframes mt-head {
-    0%, 30%, 100% { transform: rotate(0deg); }
-    /* Tracks the fly in. */
-    36%, 44% { transform: rotate(-10deg); }
-    52%, 60% { transform: rotate(6deg); }
+    0% { transform: rotate(-14deg); }
+    100% { transform: rotate(14deg); }
   }
 
   .mt-eye {
@@ -417,30 +401,28 @@ const mantisStyles = {
     top: -55px;
     width: 16px;
     height: 12px;
-    border-left: 1.5px solid rgba(140, 255, 170, 0.65);
+    border-left: 1.5px solid rgba(190, 255, 205, 0.9);
     border-top: 1.5px solid transparent;
     border-radius: 60% 0 0 0 / 100% 0 0 0;
     transform: rotate(-14deg);
     transform-origin: 0 100%;
-    animation: mt-antenna 2.6s ease-in-out infinite;
+    animation: mt-antenna 1.6s ease-in-out infinite alternate;
   }
 
   .mt-antenna.a2 {
     transform: rotate(6deg);
-    animation-delay: -1.3s;
+    animation-delay: -0.8s;
   }
 
   @keyframes mt-antenna {
-    0%, 100% { transform: rotate(var(--wig, -14deg)); }
-    50% { transform: rotate(calc(var(--wig, -14deg) + 8deg)); }
+    0% { transform: rotate(var(--wig, -14deg)); }
+    100% { transform: rotate(calc(var(--wig, -14deg) + 12deg)); }
   }
 
   .mt-antenna.a1 { --wig: -14deg; }
   .mt-antenna.a2 { --wig: 6deg; }
 
-  /* Raptorial forelegs: femur folded up, tibia folded back against it —
-     the prayer pose. On the strike both segments whip open toward the
-     fly, then refold. Origin at the thorax's front. */
+  /* Raptor arms */
   .mt-arm {
     position: absolute;
     left: -24px;
@@ -450,7 +432,7 @@ const mantisStyles = {
     border-radius: 2px;
     background: rgba(170, 255, 190, 0.95);
     transform-origin: 100% 50%;
-    animation: mt-femur 7s infinite;
+    animation: mt-femur 1.6s ease-in-out infinite alternate;
     z-index: 1;
   }
 
@@ -466,38 +448,37 @@ const mantisStyles = {
         rgba(190, 255, 205, 0.95) 0 2px,
         rgba(120, 220, 145, 0.9) 2px 4px);
     transform-origin: 100% 50%;
-    animation: mt-tibia 7s infinite;
+    animation: mt-tibia 1.6s ease-in-out infinite alternate;
   }
 
   .mt-arm.b2 { top: -33px; opacity: 0.75; animation-delay: 0.04s; }
   .mt-arm.b2 .mt-forearm { animation-delay: 0.04s; }
 
-  /* Folded: femur ~-120deg (up-back), tibia folded ~150deg against it.
-     Strike at 45-49%: femur sweeps to -10deg, tibia flings to ~10deg. */
   @keyframes mt-femur {
-    0%, 42%, 100% { transform: rotate(-108deg); }
-    45%, 47% { transform: rotate(-15deg); }
-    54% { transform: rotate(-108deg); }
+    0% { transform: rotate(-108deg); }
+    40% { transform: rotate(-120deg); }
+    70% { transform: rotate(-15deg); }
+    100% { transform: rotate(-108deg); }
   }
 
   @keyframes mt-tibia {
-    0%, 42%, 100% { transform: rotate(-142deg); }
-    45%, 47% { transform: rotate(-15deg); }
-    54% { transform: rotate(-142deg); }
+    0% { transform: rotate(-142deg); }
+    40% { transform: rotate(-150deg); }
+    70% { transform: rotate(-15deg); }
+    100% { transform: rotate(-142deg); }
   }
 
-  /* The fly: buzzes in from the left, jinks, and is snatched at 46%. */
+  /* The fly: buzzes around actively */
   .mt-fly {
     position: absolute;
     left: 6px;
     top: 26px;
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #d8ffbb;
-    box-shadow: 0 0 5px rgba(216, 255, 187, 0.8);
-    opacity: 0;
-    animation: mt-fly 7s infinite;
+    box-shadow: 0 0 6px rgba(216, 255, 187, 0.9);
+    animation: mt-fly 1.6s ease-in-out infinite alternate;
   }
 
   .mt-fly::after {
@@ -508,19 +489,16 @@ const mantisStyles = {
     width: 6px;
     height: 3px;
     border-radius: 50%;
-    background: rgba(190, 255, 205, 0.4);
+    background: rgba(190, 255, 205, 0.6);
     filter: blur(0.5px);
   }
 
   @keyframes mt-fly {
-    0%, 18% { opacity: 0; transform: translate(0, 0); }
-    24% { opacity: 1; transform: translate(6px, -4px); }
-    30% { transform: translate(12px, 2px); }
-    36% { transform: translate(16px, -3px); }
-    42%, 45% { opacity: 1; transform: translate(19px, 0); }
-    /* Snatched. */
-    47%, 100% { opacity: 0; transform: translate(19px, 0); }
-  }
+    0% { transform: translate(0, -12px); opacity: 1; }
+    50% { transform: translate(22px, 4px); opacity: 1; }
+    70% { transform: translate(16px, 2px); opacity: 0.8; }
+    100% { transform: translate(4px, -6px); opacity: 1; }
+  } }
   `,
   v3: `
   :host {
@@ -575,15 +553,13 @@ const mantisStyles = {
     bottom: 17px;
     width: 0;
     height: 0;
-    animation: mtc-rock 7s ease-in-out infinite;
+    animation: mtc-rock 1.6s ease-in-out infinite alternate;
     transform-origin: 14px 0;
   }
 
   @keyframes mtc-rock {
-    0%, 38%, 100% { transform: rotate(0deg) translateX(0); }
-    12%, 30% { transform: rotate(2deg) translateX(1px); }
-    46% { transform: rotate(-4deg) translateX(-4px); }
-    50% { transform: rotate(0deg) translateX(0); }
+    0% { transform: rotate(-8deg) translateX(-4px); }
+    100% { transform: rotate(8deg) translateX(4px); }
   }
 
   /* Slender Green Walking Struts */
@@ -628,12 +604,12 @@ const mantisStyles = {
     box-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
     transform: rotate(-18deg);
     transform-origin: 8% 60%;
-    animation: mtc-breathe 7s ease-in-out infinite;
+    animation: mtc-breathe 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes mtc-breathe {
-    0%, 100% { transform: rotate(-18deg); }
-    50% { transform: rotate(-15deg); }
+    0% { transform: rotate(-22deg) scale(0.95); }
+    100% { transform: rotate(-14deg) scale(1.05); }
   }
 
   /* Elongated Prothorax Neck */
@@ -660,14 +636,13 @@ const mantisStyles = {
     clip-path: polygon(0 78%, 62% 0, 100% 55%, 55% 100%);
     background: linear-gradient(120deg, #bbf7d0 0%, #22c55e 60%, #15803d 100%);
     border: 0.5px solid #86efac;
-    animation: mtc-head 7s ease-in-out infinite;
+    animation: mtc-head 1.6s ease-in-out infinite alternate;
     transform-origin: 80% 60%;
   }
 
   @keyframes mtc-head {
-    0%, 30%, 100% { transform: rotate(0deg); }
-    36%, 44% { transform: rotate(-10deg); }
-    52%, 60% { transform: rotate(6deg); }
+    0% { transform: rotate(-14deg); }
+    100% { transform: rotate(14deg); }
   }
 
   /* Glistening Amber Compound Eye */
@@ -695,17 +670,17 @@ const mantisStyles = {
     border-radius: 60% 0 0 0 / 100% 0 0 0;
     transform: rotate(-14deg);
     transform-origin: 0 100%;
-    animation: mtc-antenna 2.6s ease-in-out infinite;
+    animation: mtc-antenna 1.6s ease-in-out infinite alternate;
   }
 
   .mtc-antenna.a2 {
     transform: rotate(6deg);
-    animation-delay: -1.3s;
+    animation-delay: -0.8s;
   }
 
   @keyframes mtc-antenna {
-    0%, 100% { transform: rotate(var(--wig, -14deg)); }
-    50% { transform: rotate(calc(var(--wig, -14deg) + 8deg)); }
+    0% { transform: rotate(var(--wig, -14deg)); }
+    100% { transform: rotate(calc(var(--wig, -14deg) + 12deg)); }
   }
 
   .mtc-antenna.a1 { --wig: -14deg; }
@@ -722,7 +697,7 @@ const mantisStyles = {
     background: linear-gradient(90deg, #fde047 0%, #22c55e 100%);
     border: 0.5px solid #facc15;
     transform-origin: 100% 50%;
-    animation: mtc-femur 7s infinite;
+    animation: mtc-femur 1.6s ease-in-out infinite alternate;
     z-index: 1;
   }
 
@@ -738,22 +713,24 @@ const mantisStyles = {
       #15803d 2px 4px);
     border: 0.5px solid #facc15;
     transform-origin: 100% 50%;
-    animation: mtc-tibia 7s infinite;
+    animation: mtc-tibia 1.6s ease-in-out infinite alternate;
   }
 
   .mtc-arm.b2 { top: -33px; opacity: 0.8; animation-delay: 0.04s; }
   .mtc-arm.b2 .mtc-forearm { animation-delay: 0.04s; }
 
   @keyframes mtc-femur {
-    0%, 42%, 100% { transform: rotate(-108deg); }
-    45%, 47% { transform: rotate(-15deg); }
-    54% { transform: rotate(-108deg); }
+    0% { transform: rotate(-108deg); }
+    40% { transform: rotate(-120deg); }
+    70% { transform: rotate(-15deg); }
+    100% { transform: rotate(-108deg); }
   }
 
   @keyframes mtc-tibia {
-    0%, 42%, 100% { transform: rotate(-142deg); }
-    45%, 47% { transform: rotate(-15deg); }
-    54% { transform: rotate(-142deg); }
+    0% { transform: rotate(-142deg); }
+    40% { transform: rotate(-150deg); }
+    70% { transform: rotate(-15deg); }
+    100% { transform: rotate(-142deg); }
   }
 
   /* Iridescent Metallic Cyan Bottle Fly */
@@ -761,13 +738,12 @@ const mantisStyles = {
     position: absolute;
     left: 6px;
     top: 26px;
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #00f0ff;
     box-shadow: 0 0 6px #38bdf8;
-    opacity: 0;
-    animation: mtc-fly 7s infinite;
+    animation: mtc-fly 1.6s ease-in-out infinite alternate;
   }
 
   .mtc-fly::after {
@@ -783,12 +759,10 @@ const mantisStyles = {
   }
 
   @keyframes mtc-fly {
-    0%, 18% { opacity: 0; transform: translate(0, 0); }
-    24% { opacity: 1; transform: translate(6px, -4px); }
-    30% { transform: translate(12px, 2px); }
-    36% { transform: translate(16px, -3px); }
-    42%, 45% { opacity: 1; transform: translate(19px, 0); }
-    47%, 100% { opacity: 0; transform: translate(19px, 0); }
+    0% { transform: translate(0, -12px); opacity: 1; }
+    50% { transform: translate(22px, 4px); opacity: 1; }
+    70% { transform: translate(16px, 2px); opacity: 0.8; }
+    100% { transform: translate(4px, -6px); opacity: 1; }
   }
   `,
 };

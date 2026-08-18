@@ -18,9 +18,9 @@ const lightningStyles = `
   .storm-flash {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 20%, rgba(190, 255, 190, 0.4), transparent 62%);
-    opacity: 0;
-    animation: storm-sheet 4.4s linear infinite;
+    background: radial-gradient(circle at 50% 20%, rgba(190, 255, 190, 0.6), transparent 62%);
+    opacity: 0.4;
+    animation: storm-sheet 0.9s linear infinite alternate;
   }
 
   .storm-cloud {
@@ -29,15 +29,21 @@ const lightningStyles = `
     left: 50%;
     width: 78px;
     height: 24px;
-    transform: translateX(-50%);
+    margin-left: -39px;
+    animation: storm-cloud-rumble 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes storm-cloud-rumble {
+    0% { transform: translate(-4px, 0) rotate(-2deg) scale(0.96); }
+    100% { transform: translate(4px, -2px) rotate(2deg) scale(1.06); }
   }
 
   .storm-cloud span {
     position: absolute;
     border-radius: 50%;
-    background: linear-gradient(180deg, #0a1c0a, #030903);
-    border: 1px solid rgba(0, 204, 0, 0.3);
-    box-shadow: inset 0 -4px 8px rgba(0, 204, 0, 0.1);
+    background: linear-gradient(180deg, #164e16, #030903);
+    border: 1.5px solid var(--accent, #00cc00);
+    box-shadow: inset 0 -4px 8px rgba(0, 204, 0, 0.4), 0 0 10px rgba(0, 255, 100, 0.3);
   }
 
   .storm-cloud .c1 { left: 0; bottom: 0; width: 30px; height: 20px; }
@@ -50,47 +56,39 @@ const lightningStyles = `
     width: 100%;
     height: 100%;
     overflow: visible;
-    opacity: 0;
-    animation: storm-strike 4.4s linear infinite;
+    transform-origin: 50% 30%;
+    animation: storm-strike 0.9s ease-in-out infinite;
   }
 
   .storm-bolt path {
     fill: none;
-    stroke: #dcffc9;
-    stroke-width: 2.5;
+    stroke: #ffffff;
+    stroke-width: 2.8;
     stroke-linejoin: miter;
     stroke-linecap: square;
-    filter: drop-shadow(0 0 5px rgba(170, 255, 170, 0.85));
+    filter: drop-shadow(0 0 6px #00ff66) drop-shadow(0 0 12px #00ff66);
   }
 
   .storm-bolt path.branch {
-    stroke-width: 1.5;
-    opacity: 0.7;
+    stroke-width: 1.8;
+    stroke: #bbf7d0;
   }
 
   @keyframes storm-strike {
-    0%, 40% { opacity: 0; }
-    41%, 43% { opacity: 1; }
-    44% { opacity: 0.15; }
-    46%, 49% { opacity: 1; }
-    52%, 74% { opacity: 0; }
-    75%, 77% { opacity: 0.75; }
-    79%, 100% { opacity: 0; }
+    0% { opacity: 0.9; transform: translate(0, 0) scale(0.95); }
+    25% { opacity: 1; transform: translate(-3px, 1px) scale(1.1); }
+    50% { opacity: 0.4; transform: translate(3px, -1px) scale(0.9); }
+    75% { opacity: 1; transform: translate(2px, 2px) scale(1.15); }
+    100% { opacity: 0.9; transform: translate(0, 0) scale(0.95); }
   }
 
   @keyframes storm-sheet {
-    0%, 40% { opacity: 0; }
-    42% { opacity: 0.9; }
-    45% { opacity: 0.2; }
-    48% { opacity: 1; }
-    54%, 74% { opacity: 0; }
-    76% { opacity: 0.55; }
-    80%, 100% { opacity: 0; }
+    0% { opacity: 0.2; }
+    50% { opacity: 0.9; }
+    100% { opacity: 0.3; }
   }
 
-  /* --- v2: Atmospheric plasma electrodynamics ---
-     Midnight slate storm cloud, electric blue-violet sky sheet flash,
-     and blinding white stepped-leader bolt with cyan ionization halo. */
+  /* --- v2: Atmospheric plasma electrodynamics --- */
   .stc {
     width: 104px;
     height: 104px;
@@ -101,9 +99,9 @@ const lightningStyles = `
   .stc-flash {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 30%, rgba(168, 85, 247, 0.6), rgba(56, 189, 248, 0.4) 45%, transparent 75%);
-    opacity: 0;
-    animation: storm-sheet 4.4s linear infinite;
+    background: radial-gradient(circle at 50% 30%, rgba(168, 85, 247, 0.7), rgba(56, 189, 248, 0.5) 45%, transparent 75%);
+    opacity: 0.4;
+    animation: storm-sheet 0.9s linear infinite alternate;
   }
 
   .stc-cloud {
@@ -112,15 +110,16 @@ const lightningStyles = `
     left: 50%;
     width: 78px;
     height: 24px;
-    transform: translateX(-50%);
+    margin-left: -39px;
+    animation: storm-cloud-rumble 1.4s ease-in-out infinite alternate;
   }
 
   .stc-cloud span {
     position: absolute;
     border-radius: 50%;
-    background: linear-gradient(180deg, #334155, #1e293b 60%, #0f172a);
-    border: 1px solid #475569;
-    box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(180deg, #475569, #1e293b 60%, #0f172a);
+    border: 1.5px solid #64748b;
+    box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.8), 0 0 10px rgba(56, 189, 248, 0.4);
   }
 
   .stc-cloud .c1 { left: 0; bottom: 0; width: 30px; height: 20px; }
@@ -133,24 +132,23 @@ const lightningStyles = `
     width: 100%;
     height: 100%;
     overflow: visible;
-    opacity: 0;
-    animation: storm-strike 4.4s linear infinite;
+    transform-origin: 50% 30%;
+    animation: storm-strike 0.9s ease-in-out infinite;
   }
 
   .stc-bolt path {
     fill: none;
     stroke: #ffffff;
-    stroke-width: 2.5;
+    stroke-width: 2.8;
     stroke-linejoin: miter;
     stroke-linecap: square;
-    filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 8px #00f0ff) drop-shadow(0 0 16px #a855f7);
+    filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 10px #00f0ff) drop-shadow(0 0 20px #a855f7);
   }
 
   .stc-bolt path.branch {
-    stroke-width: 1.5;
+    stroke-width: 1.8;
     stroke: #7dd3fc;
-    opacity: 0.85;
-    filter: drop-shadow(0 0 4px #00f0ff);
+    filter: drop-shadow(0 0 6px #00f0ff);
   }
 `;
 

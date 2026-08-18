@@ -28,17 +28,12 @@ const levelStyles = {
     border-radius: 4px;
     background: linear-gradient(180deg, rgba(0, 70, 14, 0.55), rgba(0, 30, 6, 0.8));
     transform-origin: 50% 50%;
-    animation: lvl-rock 7s ease-in-out infinite;
+    animation: lvl-rock 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes lvl-rock {
-    0% { transform: rotate(3.2deg); }
-    18% { transform: rotate(-2.4deg); }
-    34% { transform: rotate(1.4deg); }
-    46%, 62% { transform: rotate(0deg); }
-    76% { transform: rotate(-3deg); }
-    88% { transform: rotate(2deg); }
-    100% { transform: rotate(3.2deg); }
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(8deg); }
   }
 
   .lvl-body::before,
@@ -58,32 +53,26 @@ const levelStyles = {
     position: absolute;
     left: 50%;
     top: 4px;
-    width: 40px;
+    width: 44px;
     height: 12px;
-    margin-left: -20px;
-    border: 1px solid rgba(140, 255, 170, 0.8);
+    margin-left: -22px;
+    border: 1.5px solid rgba(140, 255, 170, 0.9);
     border-radius: 7px;
-    background: linear-gradient(180deg, rgba(0, 130, 26, 0.35), rgba(0, 60, 12, 0.5));
+    background: linear-gradient(180deg, rgba(0, 130, 26, 0.5), rgba(0, 60, 12, 0.7));
     overflow: hidden;
-    animation: lvl-vial 7s ease-in-out infinite;
-  }
-
-  @keyframes lvl-vial {
-    0%, 40% { box-shadow: none; }
-    48%, 60% { box-shadow: 0 0 10px rgba(0, 204, 0, 0.9), inset 0 0 6px rgba(0, 204, 0, 0.5); }
-    66%, 100% { box-shadow: none; }
+    box-shadow: 0 0 8px rgba(0, 255, 100, 0.4);
   }
 
   .lvl-mark {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 1px;
-    background: rgba(214, 255, 224, 0.8);
+    width: 1.5px;
+    background: rgba(214, 255, 224, 0.9);
   }
 
-  .lvl-mark.m1 { left: 14px; }
-  .lvl-mark.m2 { right: 14px; }
+  .lvl-mark.m1 { left: 16px; }
+  .lvl-mark.m2 { right: 16px; }
 
   .lvl-bubble {
     position: absolute;
@@ -93,19 +82,14 @@ const levelStyles = {
     height: 7px;
     margin-left: -5px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at 38% 32%, rgba(242, 255, 221, 0.95), rgba(140, 255, 170, 0.55) 70%);
-    box-shadow: 0 0 5px rgba(0, 204, 0, 0.7);
-    animation: lvl-bubble 7s ease-in-out infinite;
+    background: radial-gradient(ellipse at 38% 32%, #ffffff, rgba(140, 255, 170, 0.9) 70%);
+    box-shadow: 0 0 8px #00ff66;
+    animation: lvl-bubble 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes lvl-bubble {
-    0% { transform: translateX(-11px); }
-    18% { transform: translateX(9px); }
-    34% { transform: translateX(-5px); }
-    46%, 62% { transform: translateX(0); }
-    76% { transform: translateX(10px); }
-    88% { transform: translateX(-7px); }
-    100% { transform: translateX(-11px); }
+    0% { transform: translateX(15px); }
+    100% { transform: translateX(-15px); }
   }
 
   .lvl-read {
@@ -121,20 +105,7 @@ const levelStyles = {
   }
 
   .lvl-read::before {
-    content: '+3.2\\00B0';
-    animation: lvl-read 7s steps(1) infinite;
-  }
-
-  @keyframes lvl-read {
-    0% { content: '+3.2\\00B0'; }
-    10% { content: '-1.1\\00B0'; }
-    22% { content: '-2.4\\00B0'; }
-    30% { content: '+1.4\\00B0'; }
-    40% { content: '+0.3\\00B0'; }
-    46% { content: 'LEVEL \\2713'; }
-    64% { content: '-0.8\\00B0'; }
-    76% { content: '-3.0\\00B0'; }
-    88% { content: '+2.0\\00B0'; }
+    content: 'TILT \\00B1 8.0\\00B0';
   }
 
   .lvl-surface {
@@ -143,28 +114,26 @@ const levelStyles = {
     right: 10px;
     top: 54px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(0, 204, 0, 0.5), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 204, 0, 0.7), transparent);
     transform-origin: 50% 50%;
-    animation: lvl-rock 7s ease-in-out infinite;
+    animation: lvl-rock 1.8s ease-in-out infinite alternate;
   }
 
   .lvl-shim {
     position: absolute;
     left: 16px;
     top: 50px;
-    width: 12px;
-    height: 7px;
+    width: 14px;
+    height: 8px;
     clip-path: polygon(0 100%, 100% 0, 100% 100%);
-    background: rgba(140, 255, 170, 0.7);
-    opacity: 0;
-    animation: lvl-shim 7s infinite;
+    background: rgba(140, 255, 170, 0.85);
+    box-shadow: 0 0 6px #00ff66;
+    animation: lvl-shim 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes lvl-shim {
-    0%, 30% { transform: translateX(-26px); opacity: 0; }
-    38% { transform: translateX(0); opacity: 0.9; }
-    62% { transform: translateX(0); opacity: 0.9; }
-    70%, 100% { transform: translateX(-26px); opacity: 0; }
+    0% { transform: translateX(-18px); opacity: 0.3; }
+    100% { transform: translateX(4px); opacity: 1; }
   }
   `,
   v2: `
@@ -201,17 +170,12 @@ const levelStyles = {
     background: linear-gradient(180deg, #fde047 0%, #eab308 50%, #ca8a04 100%);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.8);
     transform-origin: 50% 50%;
-    animation: lvlc-rock 7s ease-in-out infinite;
+    animation: lvlc-rock 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes lvlc-rock {
-    0% { transform: rotate(3.2deg); }
-    18% { transform: rotate(-2.4deg); }
-    34% { transform: rotate(1.4deg); }
-    46%, 62% { transform: rotate(0deg); }
-    76% { transform: rotate(-3deg); }
-    88% { transform: rotate(2deg); }
-    100% { transform: rotate(3.2deg); }
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(8deg); }
   }
 
   /* Rubberized shock-absorbing black end caps */
@@ -234,21 +198,14 @@ const levelStyles = {
     position: absolute;
     left: 50%;
     top: 4px;
-    width: 40px;
+    width: 44px;
     height: 12px;
-    margin-left: -20px;
+    margin-left: -22px;
     border: 1px solid #18181b;
     border-radius: 7px;
     background: linear-gradient(180deg, #bef264 0%, #84cc16 50%, #65a30d 100%);
-    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.8), 0 0 4px rgba(132, 204, 22, 0.4);
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.8), 0 0 8px #84cc16;
     overflow: hidden;
-    animation: lvlc-vial 7s ease-in-out infinite;
-  }
-
-  @keyframes lvlc-vial {
-    0%, 40% { box-shadow: 0 0 4px rgba(132, 204, 22, 0.4); }
-    48%, 60% { box-shadow: 0 0 14px #84cc16, 0 0 24px rgba(190, 242, 100, 0.8); }
-    66%, 100% { box-shadow: 0 0 4px rgba(132, 204, 22, 0.4); }
   }
 
   /* Black graduation line marks */
@@ -256,12 +213,12 @@ const levelStyles = {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 1px;
+    width: 1.5px;
     background: #09090b;
   }
 
-  .lvlc-mark.m1 { left: 14px; }
-  .lvlc-mark.m2 { right: 14px; }
+  .lvlc-mark.m1 { left: 16px; }
+  .lvlc-mark.m2 { right: 16px; }
 
   /* Clear air bubble with glossy sheen */
   .lvlc-bubble {
@@ -272,20 +229,15 @@ const levelStyles = {
     height: 7px;
     margin-left: -5px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at 38% 32%, #ffffff 0%, rgba(255, 255, 255, 0.7) 60%, rgba(190, 242, 100, 0.4) 100%);
+    background: radial-gradient(ellipse at 38% 32%, #ffffff 0%, rgba(255, 255, 255, 0.9) 60%, rgba(190, 242, 100, 0.6) 100%);
     border: 0.5px solid rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
-    animation: lvlc-bubble 7s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+    animation: lvlc-bubble 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes lvlc-bubble {
-    0% { transform: translateX(-11px); }
-    18% { transform: translateX(9px); }
-    34% { transform: translateX(-5px); }
-    46%, 62% { transform: translateX(0); }
-    76% { transform: translateX(10px); }
-    88% { transform: translateX(-7px); }
-    100% { transform: translateX(-11px); }
+    0% { transform: translateX(15px); }
+    100% { transform: translateX(-15px); }
   }
 
   /* Digital readout */
@@ -302,23 +254,10 @@ const levelStyles = {
   }
 
   .lvlc-read::before {
-    content: '+3.2\\00B0';
-    animation: lvlc-read 7s steps(1) infinite;
+    content: 'TILT \\00B1 8.0\\00B0';
   }
 
-  @keyframes lvlc-read {
-    0% { content: '+3.2\\00B0'; color: #ef4444; text-shadow: 0 0 6px #ef4444; }
-    10% { content: '-1.1\\00B0'; color: #f97316; text-shadow: 0 0 6px #f97316; }
-    22% { content: '-2.4\\00B0'; color: #ef4444; text-shadow: 0 0 6px #ef4444; }
-    30% { content: '+1.4\\00B0'; color: #f97316; text-shadow: 0 0 6px #f97316; }
-    40% { content: '+0.3\\00B0'; color: #facc15; text-shadow: 0 0 6px #facc15; }
-    46% { content: 'LEVEL \\2713'; color: #22c55e; text-shadow: 0 0 8px #22c55e; }
-    64% { content: '-0.8\\00B0'; color: #facc15; text-shadow: 0 0 6px #facc15; }
-    76% { content: '-3.0\\00B0'; color: #ef4444; text-shadow: 0 0 6px #ef4444; }
-    88% { content: '+2.0\\00B0'; color: #f97316; text-shadow: 0 0 6px #f97316; }
-  }
-
-  /* Timber / marble reference surface */
+  /* Timber reference surface */
   .lvlc-surface {
     position: absolute;
     left: 10px;
@@ -327,7 +266,7 @@ const levelStyles = {
     height: 3px;
     background: linear-gradient(90deg, transparent, #78350f 30%, #b45309 50%, #78350f 70%, transparent);
     transform-origin: 50% 50%;
-    animation: lvlc-rock 7s ease-in-out infinite;
+    animation: lvlc-rock 1.8s ease-in-out infinite alternate;
   }
 
   /* Wooden leveling shim wedge */
@@ -335,20 +274,18 @@ const levelStyles = {
     position: absolute;
     left: 16px;
     top: 50px;
-    width: 12px;
-    height: 7px;
+    width: 14px;
+    height: 8px;
     clip-path: polygon(0 100%, 100% 0, 100% 100%);
     background: linear-gradient(135deg, #d97706, #92400e);
     border: 0.5px solid #f59e0b;
-    opacity: 0;
-    animation: lvlc-shim 7s infinite;
+    box-shadow: 0 0 6px #f59e0b;
+    animation: lvlc-shim 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes lvlc-shim {
-    0%, 30% { transform: translateX(-26px); opacity: 0; }
-    38% { transform: translateX(0); opacity: 1; }
-    62% { transform: translateX(0); opacity: 1; }
-    70%, 100% { transform: translateX(-26px); opacity: 0; }
+    0% { transform: translateX(-18px); opacity: 0.3; }
+    100% { transform: translateX(4px); opacity: 1; }
   }
   `,
 };

@@ -19,13 +19,21 @@ const moleculeStyles = {
     width: 96px;
     height: 96px;
     position: relative;
+    transform-origin: 50% 50%;
+    animation: molecule-tumble 4s linear infinite;
+  }
+
+  @keyframes molecule-tumble {
+    0% { transform: rotate(0deg) scale(0.9); }
+    50% { transform: rotate(180deg) scale(1.15); }
+    100% { transform: rotate(360deg) scale(0.9); }
   }
 
   .mol-bond {
     position: absolute;
-    height: 2px;
-    background: rgba(0, 204, 0, 0.7);
-    box-shadow: 0 0 4px rgba(0, 204, 0, 0.25);
+    height: 2.5px;
+    background: rgba(0, 255, 100, 0.9);
+    box-shadow: 0 0 6px rgba(0, 255, 100, 0.6);
     transform-origin: left center;
   }
 
@@ -35,22 +43,22 @@ const moleculeStyles = {
 
   .mol-node {
     position: absolute;
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #d8ffbb, var(--accent, #00cc00));
-    box-shadow: 0 0 8px rgba(170, 255, 170, 0.42);
-    animation: molecule-pulse 2.4s ease-in-out infinite;
+    background: radial-gradient(circle at 35% 35%, #ffffff, var(--accent, #00cc00));
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.9);
+    animation: molecule-pulse 1.2s ease-in-out infinite alternate;
   }
 
   .mn1 { top: 22px; left: 12px; }
-  .mn2 { top: 30px; left: 42px; animation-delay: -0.4s; }
-  .mn3 { top: 40px; left: 62px; animation-delay: -0.8s; }
-  .mn4 { top: 58px; left: 78px; animation-delay: -1.2s; }
+  .mn2 { top: 30px; left: 42px; animation-delay: -0.3s; }
+  .mn3 { top: 40px; left: 62px; animation-delay: -0.6s; }
+  .mn4 { top: 58px; left: 78px; animation-delay: -0.9s; }
 
   @keyframes molecule-pulse {
-    0%, 100% { transform: scale(0.82); opacity: 0.55; }
-    50% { transform: scale(1); opacity: 1; }
+    0% { transform: scale(0.8); }
+    100% { transform: scale(1.3); }
   }
 `,
   v2: `
@@ -68,17 +76,17 @@ const moleculeStyles = {
     position: relative;
   }
 
-  /* Whole-molecule tumble: bonds and nodes are children of this single
-     group, so bond endpoints and node centers can never drift apart. */
   .mol-rig {
     position: absolute;
     inset: 0;
-    animation: mol-tumble 6.5s ease-in-out infinite;
+    transform-origin: 50% 50%;
+    animation: mol-tumble 4s linear infinite;
   }
 
   @keyframes mol-tumble {
-    0%, 100% { transform: rotate(-2deg) scale(1); }
-    50% { transform: rotate(2.5deg) scale(1.02); }
+    0% { transform: rotate(0deg) scale(0.9); }
+    50% { transform: rotate(180deg) scale(1.15); }
+    100% { transform: rotate(360deg) scale(0.9); }
   }
 
   .mol-bonds {
@@ -88,53 +96,47 @@ const moleculeStyles = {
   }
 
   .mol-bond {
-    stroke: rgba(140, 255, 170, 0.7);
-    stroke-width: 2;
+    stroke: rgba(140, 255, 170, 0.95);
+    stroke-width: 2.5;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 2px rgba(0, 204, 0, 0.3));
+    filter: drop-shadow(0 0 4px #00ff66);
   }
 
   .mol-node {
     position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #eaffea, var(--accent, #00cc00) 65%, rgba(0, 120, 24, 0.9));
-    box-shadow: 0 0 8px rgba(170, 255, 170, 0.5);
-    animation: mol-breathe 2.6s ease-in-out infinite;
+    background: radial-gradient(circle at 35% 35%, #ffffff, var(--accent, #00cc00) 65%, rgba(0, 120, 24, 0.9));
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.8);
+    animation: mol-breathe 1.2s ease-in-out infinite alternate;
   }
 
-  /* Sizes vary along the backbone: small terminal atom, two larger
-     interior atoms, small terminal atom - reads as a real structure
-     rather than four repeats of the same dot. */
-  .mn1 { width: 10px; height: 10px; top: 34px; left: 6px; }
-  .mn2 { width: 16px; height: 16px; top: 20px; left: 29px; animation-delay: -0.5s; }
-  .mn3 { width: 16px; height: 16px; top: 40px; left: 55px; animation-delay: -1s; }
-  .mn4 { width: 9px; height: 9px; top: 21px; left: 82px; animation-delay: -1.5s; }
+  .mn1 { width: 12px; height: 12px; top: 34px; left: 6px; }
+  .mn2 { width: 18px; height: 18px; top: 20px; left: 29px; animation-delay: -0.3s; }
+  .mn3 { width: 18px; height: 18px; top: 40px; left: 55px; animation-delay: -0.6s; }
+  .mn4 { width: 11px; height: 11px; top: 21px; left: 82px; animation-delay: -0.9s; }
 
   @keyframes mol-breathe {
-    0%, 100% { transform: scale(0.88); opacity: 0.7; }
-    50% { transform: scale(1); opacity: 1; }
+    0% { transform: scale(0.85); }
+    100% { transform: scale(1.35); }
   }
 
-  /* Charge pulse: a bright dot sweeping node to node down the backbone,
-     its waypoints matching the bond endpoints exactly. */
+  /* Rapid electron / charge pulse travelling along bonds */
   .mol-pulse {
     position: absolute;
-    width: 5px;
-    height: 5px;
-    margin: -2.5px 0 0 -2.5px;
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 -3px;
     border-radius: 50%;
-    background: #f2ffe4;
-    box-shadow: 0 0 8px rgba(230, 255, 210, 0.95);
-    animation: mol-pulse-travel 3.6s ease-in-out infinite;
+    background: #ffffff;
+    box-shadow: 0 0 10px #00ff66, 0 0 16px #ffffff;
+    animation: mol-pulse-travel 1.4s ease-in-out infinite;
   }
 
   @keyframes mol-pulse-travel {
-    0%, 4% { top: 39px; left: 11px; opacity: 0; }
-    8% { opacity: 1; }
-    30% { top: 27px; left: 37px; }
-    55% { top: 47px; left: 63px; }
-    78%, 82% { top: 24px; left: 86px; opacity: 1; }
-    88%, 100% { opacity: 0; }
+    0% { top: 39px; left: 11px; opacity: 1; }
+    33% { top: 27px; left: 37px; opacity: 1; }
+    66% { top: 47px; left: 63px; opacity: 1; }
+    100% { top: 24px; left: 86px; opacity: 1; }
   }
 `,
 };

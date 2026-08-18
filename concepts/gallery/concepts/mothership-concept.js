@@ -20,7 +20,7 @@ const mothershipStyles = {
 
   .ms-ship {
     position: absolute;
-    top: -18px;
+    top: -10px;
     left: 50%;
     width: 150px;
     height: 52px;
@@ -28,13 +28,13 @@ const mothershipStyles = {
     border-radius: 50%;
     overflow: hidden;
     background: linear-gradient(180deg, #04180a 30%, rgba(0, 90, 20, 0.85) 60%, rgba(0, 190, 45, 0.5) 88%, rgba(150, 255, 180, 0.55));
-    box-shadow: 0 4px 14px rgba(0, 204, 0, 0.25);
-    animation: ms-loom 9s ease-in-out infinite;
+    box-shadow: 0 4px 14px rgba(0, 255, 100, 0.5);
+    animation: ms-loom 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes ms-loom {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(1.5px); }
+    0% { transform: translate(-14px, -4px) rotate(-4deg); }
+    100% { transform: translate(14px, 4px) rotate(4deg); }
   }
 
   .ms-ring {
@@ -65,17 +65,18 @@ const mothershipStyles = {
     height: 3px;
     border-radius: 50%;
     background: #b8ffc6;
-    animation: ms-rimlight 1.5s linear infinite;
+    box-shadow: 0 0 6px #00ff66;
+    animation: ms-rimlight 0.8s linear infinite;
   }
 
   .ms-rim.l1 { left: 15%; animation-delay: 0s; }
-  .ms-rim.l2 { left: 32%; bottom: 3px; animation-delay: -0.3s; }
-  .ms-rim.l3 { left: 49%; bottom: 2px; animation-delay: -0.6s; }
-  .ms-rim.l4 { left: 66%; bottom: 3px; animation-delay: -0.9s; }
-  .ms-rim.l5 { left: 83%; animation-delay: -1.2s; }
+  .ms-rim.l2 { left: 32%; bottom: 3px; animation-delay: -0.15s; }
+  .ms-rim.l3 { left: 49%; bottom: 2px; animation-delay: -0.3s; }
+  .ms-rim.l4 { left: 66%; bottom: 3px; animation-delay: -0.45s; }
+  .ms-rim.l5 { left: 83%; animation-delay: -0.6s; }
 
   @keyframes ms-rimlight {
-    0%, 100% { opacity: 0.2; }
+    0%, 100% { opacity: 0.3; }
     50% { opacity: 1; }
   }
 
@@ -87,64 +88,46 @@ const mothershipStyles = {
     height: 12px;
     margin-left: -7px;
     border-radius: 50%;
-    background: radial-gradient(circle at 50% 60%, #d6ffe0, rgba(0, 204, 0, 0.9) 55%, rgba(0, 204, 0, 0) 75%);
-    animation: ms-charge 8s linear infinite;
-  }
-
-  @keyframes ms-charge {
-    0% { opacity: 0.35; }
-    30% { opacity: 0.5; }
-    55% { opacity: 0.8; }
-    62%, 80% { opacity: 1; }
-    88% { opacity: 0.4; }
-    100% { opacity: 0.35; }
+    background: radial-gradient(circle at 50% 60%, #ffffff, rgba(0, 204, 0, 0.9) 55%, rgba(0, 204, 0, 0) 75%);
+    box-shadow: 0 0 14px #00ff66;
   }
 
   .ms-beam {
     position: absolute;
     left: 50%;
     top: 32px;
-    width: 10px;
-    height: 50px;
-    margin-left: -5px;
-    background: linear-gradient(180deg, rgba(214, 255, 224, 0.95), rgba(0, 204, 0, 0.2));
+    width: 14px;
+    height: 52px;
+    margin-left: -7px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(0, 255, 100, 0.7) 60%, rgba(0, 204, 0, 0.2));
+    box-shadow: 0 0 12px #00ff66;
     transform-origin: top center;
-    transform: scaleY(0);
-    opacity: 0;
     z-index: 1;
-    animation: ms-beam 8s linear infinite;
+    animation: ms-beam-sweep 1.6s ease-in-out infinite alternate;
   }
 
-  @keyframes ms-beam {
-    0%, 62% { transform: scaleY(0); opacity: 0; }
-    64% { transform: scaleY(1); opacity: 1; }
-    68% { transform: scaleY(1); opacity: 0.75; }
-    72% { transform: scaleY(1); opacity: 1; }
-    76% { transform: scaleY(1); opacity: 0.8; }
-    80% { transform: scaleY(1); opacity: 1; }
-    84%, 100% { transform: scaleY(0); opacity: 0; }
+  @keyframes ms-beam-sweep {
+    0% { transform: translateX(-16px) rotate(-8deg) scaleY(0.9); opacity: 0.8; }
+    100% { transform: translateX(16px) rotate(8deg) scaleY(1.05); opacity: 1; }
   }
 
   .ms-impact {
     position: absolute;
     left: 50%;
     bottom: 12px;
-    width: 34px;
-    height: 8px;
-    margin-left: -17px;
+    width: 36px;
+    height: 10px;
+    margin-left: -18px;
     border-radius: 50%;
-    background: radial-gradient(closest-side, rgba(214, 255, 224, 0.85), rgba(0, 204, 0, 0) 80%);
-    opacity: 0;
+    background: radial-gradient(closest-side, #ffffff, rgba(0, 255, 100, 0.8), rgba(0, 204, 0, 0) 80%);
+    box-shadow: 0 0 16px #00ff66;
     z-index: 3;
-    animation: ms-impact 8s linear infinite;
+    animation: ms-impact-sweep 1.6s ease-in-out infinite alternate;
   }
 
-  @keyframes ms-impact {
-    0%, 62% { opacity: 0; transform: scale(0.5); }
-    66% { opacity: 0.9; transform: scale(1); }
-    74% { opacity: 0.65; }
-    80% { opacity: 0.9; }
-    84%, 100% { opacity: 0; transform: scale(1.3); }
+  @keyframes ms-impact-sweep {
+    0% { transform: translateX(-16px) scale(0.8); opacity: 0.7; }
+    100% { transform: translateX(16px) scale(1.25); opacity: 1; }
   }
 
   .ms-city {
@@ -238,7 +221,7 @@ const mothershipStyles = {
   /* Colossal gunmetal dreadnought hull */
   .msc-ship {
     position: absolute;
-    top: -18px;
+    top: -10px;
     left: 50%;
     width: 150px;
     height: 52px;
@@ -248,12 +231,12 @@ const mothershipStyles = {
     background: linear-gradient(180deg, #09090b 20%, #1e293b 50%, #334155 80%, #94a3b8 100%);
     border: 1px solid #475569;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.9);
-    animation: msc-loom 9s ease-in-out infinite;
+    animation: msc-loom 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes msc-loom {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(1.5px); }
+    0% { transform: translate(-14px, -4px) rotate(-4deg); }
+    100% { transform: translate(14px, 4px) rotate(4deg); }
   }
 
   /* Hull armor rings */
@@ -287,21 +270,21 @@ const mothershipStyles = {
     border-radius: 50%;
     background: #38bdf8;
     box-shadow: 0 0 6px #00f0ff;
-    animation: msc-rimlight 1.5s linear infinite;
+    animation: msc-rimlight 0.8s linear infinite;
   }
 
   .msc-rim.l1 { left: 15%; animation-delay: 0s; }
-  .msc-rim.l2 { left: 32%; bottom: 3px; animation-delay: -0.3s; }
-  .msc-rim.l3 { left: 49%; bottom: 2px; animation-delay: -0.6s; }
-  .msc-rim.l4 { left: 66%; bottom: 3px; animation-delay: -0.9s; }
-  .msc-rim.l5 { left: 83%; animation-delay: -1.2s; }
+  .msc-rim.l2 { left: 32%; bottom: 3px; animation-delay: -0.15s; }
+  .msc-rim.l3 { left: 49%; bottom: 2px; animation-delay: -0.3s; }
+  .msc-rim.l4 { left: 66%; bottom: 3px; animation-delay: -0.45s; }
+  .msc-rim.l5 { left: 83%; animation-delay: -0.6s; }
 
   @keyframes msc-rimlight {
-    0%, 100% { opacity: 0.2; }
+    0%, 100% { opacity: 0.3; }
     50% { opacity: 1; }
   }
 
-  /* Superlaser charging aperture (orange to blazing blue-white) */
+  /* Superlaser charging aperture */
   .msc-core {
     position: absolute;
     left: 50%;
@@ -311,17 +294,7 @@ const mothershipStyles = {
     margin-left: -7px;
     border-radius: 50%;
     background: radial-gradient(circle at 50% 60%, #ffffff 0%, #38bdf8 40%, #ea580c 80%, transparent 100%);
-    box-shadow: 0 0 12px #facc15;
-    animation: msc-charge 8s linear infinite;
-  }
-
-  @keyframes msc-charge {
-    0% { opacity: 0.35; }
-    30% { opacity: 0.5; }
-    55% { opacity: 0.8; }
-    62%, 80% { opacity: 1; }
-    88% { opacity: 0.4; }
-    100% { opacity: 0.35; }
+    box-shadow: 0 0 16px #00f0ff;
   }
 
   /* Incandescent plasma superlaser beam */
@@ -329,26 +302,19 @@ const mothershipStyles = {
     position: absolute;
     left: 50%;
     top: 32px;
-    width: 10px;
-    height: 50px;
-    margin-left: -5px;
+    width: 14px;
+    height: 52px;
+    margin-left: -7px;
     background: linear-gradient(180deg, #ffffff 0%, #38bdf8 60%, rgba(56, 189, 248, 0.2) 100%);
-    box-shadow: 0 0 14px #00f0ff;
+    box-shadow: 0 0 16px #00f0ff;
     transform-origin: top center;
-    transform: scaleY(0);
-    opacity: 0;
     z-index: 1;
-    animation: msc-beam 8s linear infinite;
+    animation: msc-beam-sweep 1.6s ease-in-out infinite alternate;
   }
 
-  @keyframes msc-beam {
-    0%, 62% { transform: scaleY(0); opacity: 0; }
-    64% { transform: scaleY(1); opacity: 1; }
-    68% { transform: scaleY(1); opacity: 0.75; }
-    72% { transform: scaleY(1); opacity: 1; }
-    76% { transform: scaleY(1); opacity: 0.8; }
-    80% { transform: scaleY(1); opacity: 1; }
-    84%, 100% { transform: scaleY(0); opacity: 0; }
+  @keyframes msc-beam-sweep {
+    0% { transform: translateX(-16px) rotate(-8deg) scaleY(0.9); opacity: 0.85; }
+    100% { transform: translateX(16px) rotate(8deg) scaleY(1.05); opacity: 1; }
   }
 
   /* Superlaser impact explosion bloom */
@@ -356,23 +322,19 @@ const mothershipStyles = {
     position: absolute;
     left: 50%;
     bottom: 12px;
-    width: 34px;
-    height: 8px;
-    margin-left: -17px;
+    width: 36px;
+    height: 10px;
+    margin-left: -18px;
     border-radius: 50%;
     background: radial-gradient(closest-side, #ffffff 0%, #38bdf8 60%, transparent 90%);
-    box-shadow: 0 0 16px #00f0ff, 0 0 24px #ea580c;
-    opacity: 0;
+    box-shadow: 0 0 20px #00f0ff, 0 0 30px #ea580c;
     z-index: 3;
-    animation: msc-impact 8s linear infinite;
+    animation: msc-impact-sweep 1.6s ease-in-out infinite alternate;
   }
 
-  @keyframes msc-impact {
-    0%, 62% { opacity: 0; transform: scale(0.5); }
-    66% { opacity: 0.95; transform: scale(1); }
-    74% { opacity: 0.65; }
-    80% { opacity: 0.95; }
-    84%, 100% { opacity: 0; transform: scale(1.3); }
+  @keyframes msc-impact-sweep {
+    0% { transform: translateX(-16px) scale(0.8); opacity: 0.8; }
+    100% { transform: translateX(16px) scale(1.25); opacity: 1; }
   }
 
   /* Metropolis skyline */

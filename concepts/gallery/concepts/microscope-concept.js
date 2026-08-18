@@ -50,8 +50,10 @@ const microscopeStyles = {
     width: 8px;
     height: 26px;
     border-radius: 4px 4px 2px 2px;
-    background: linear-gradient(180deg, rgba(190, 255, 205, 0.9), rgba(0, 120, 24, 0.9));
+    background: linear-gradient(180deg, rgba(190, 255, 205, 0.95), rgba(0, 120, 24, 0.95));
+    box-shadow: 0 0 8px #00ff66;
     transform: rotate(24deg);
+    animation: mi-rack 1.6s ease-in-out infinite alternate;
   }
 
   .mi-turret {
@@ -61,7 +63,14 @@ const microscopeStyles = {
     width: 16px;
     height: 6px;
     border-radius: 3px;
-    background: rgba(140, 255, 170, 0.85);
+    background: rgba(140, 255, 170, 0.95);
+    box-shadow: 0 0 6px #00ff66;
+    animation: mi-rack 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes mi-rack {
+    0% { transform: translateY(-5px); }
+    100% { transform: translateY(4px); }
   }
 
   .mi-obj {
@@ -82,9 +91,8 @@ const microscopeStyles = {
     top: 52px;
     width: 42px;
     height: 4px;
-    background: rgba(0, 204, 0, 0.7);
+    background: rgba(0, 204, 0, 0.8);
     border-radius: 2px;
-    animation: mi-nudge 9s infinite;
   }
 
   .mi-slide {
@@ -93,16 +101,15 @@ const microscopeStyles = {
     top: 49px;
     width: 22px;
     height: 3px;
-    background: rgba(190, 255, 205, 0.6);
+    background: rgba(214, 255, 224, 0.9);
+    box-shadow: 0 0 6px #00ff66;
     border-radius: 1px;
-    animation: mi-nudge 9s infinite;
+    animation: mi-nudge 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes mi-nudge {
-    0%, 66% { transform: translateX(0); }
-    68% { transform: translateX(3px); }
-    70% { transform: translateX(2px); }
-    100% { transform: translateX(2px); }
+    0% { transform: translateX(-6px); }
+    100% { transform: translateX(6px); }
   }
 
   .mi-mirror {
@@ -112,14 +119,15 @@ const microscopeStyles = {
     width: 12px;
     height: 5px;
     border-radius: 50%;
-    background: linear-gradient(180deg, #d6ffe0, rgba(0, 140, 28, 0.9));
+    background: linear-gradient(180deg, #ffffff, rgba(0, 140, 28, 0.9));
+    box-shadow: 0 0 6px #00ff66;
     transform-origin: 50% 50%;
-    animation: mi-mirror 9s ease-in-out infinite;
+    animation: mi-mirror 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes mi-mirror {
-    0%, 100% { transform: rotate(-14deg); }
-    30%, 60% { transform: rotate(-24deg); }
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(-28deg); }
   }
 
   .mi-shaft {
@@ -129,13 +137,13 @@ const microscopeStyles = {
     width: 6px;
     height: 12px;
     clip-path: polygon(20% 100%, 80% 100%, 100% 0, 0 0);
-    background: linear-gradient(0deg, rgba(214, 255, 224, 0.6), rgba(140, 255, 170, 0.15));
-    animation: mi-shaft 9s ease-in-out infinite;
+    background: linear-gradient(0deg, rgba(214, 255, 224, 0.8), rgba(140, 255, 170, 0.2));
+    animation: mi-shaft 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes mi-shaft {
-    0%, 100% { opacity: 0.5; }
-    30%, 62% { opacity: 1; }
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
   }
 
   .mi-knob {
@@ -145,9 +153,10 @@ const microscopeStyles = {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    border: 2px solid rgba(140, 255, 170, 0.85);
+    border: 2px solid rgba(140, 255, 170, 0.95);
+    box-shadow: 0 0 6px #00ff66;
     box-sizing: border-box;
-    animation: mi-knob 9s infinite;
+    animation: mi-knob 1.6s linear infinite;
   }
 
   .mi-knob::after {
@@ -158,17 +167,12 @@ const microscopeStyles = {
     width: 1.5px;
     height: 3px;
     margin-left: -0.75px;
-    background: rgba(214, 255, 224, 0.95);
+    background: #ffffff;
   }
 
   @keyframes mi-knob {
     0% { transform: rotate(0deg); }
-    12% { transform: rotate(-70deg); }
-    26% { transform: rotate(40deg); }
-    38% { transform: rotate(-15deg); }
-    46%, 66% { transform: rotate(0deg); }
-    72% { transform: rotate(25deg); }
-    82%, 100% { transform: rotate(10deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .mi-view {
@@ -276,8 +280,10 @@ const microscopeStyles = {
     width: 8px;
     height: 26px;
     border-radius: 4px 4px 2px 2px;
-    background: linear-gradient(180deg, rgba(190, 255, 205, 0.9), rgba(0, 120, 24, 0.9));
+    background: linear-gradient(180deg, rgba(190, 255, 205, 0.95), rgba(0, 120, 24, 0.95));
+    box-shadow: 0 0 8px #00ff66;
     transform: rotate(24deg);
+    animation: mi2-rack 1.6s ease-in-out infinite alternate;
   }
 
   .mi2-turret {
@@ -287,14 +293,14 @@ const microscopeStyles = {
     width: 16px;
     height: 6px;
     border-radius: 3px;
-    background: rgba(140, 255, 170, 0.85);
-    animation: mi2-swap 9s infinite;
+    background: rgba(140, 255, 170, 0.95);
+    box-shadow: 0 0 6px #00ff66;
+    animation: mi2-rack 1.6s ease-in-out infinite alternate;
   }
 
-  @keyframes mi2-swap {
-    0%, 44% { transform: translateX(0); }
-    46%, 94% { transform: translateX(-6px); }
-    96%, 100% { transform: translateX(0); }
+  @keyframes mi2-rack {
+    0% { transform: translateY(-5px); }
+    100% { transform: translateY(4px); }
   }
 
   .mi2-obj {
@@ -305,20 +311,8 @@ const microscopeStyles = {
     border-radius: 0 0 2px 2px;
   }
 
-  .mi2-obj.o1 { left: 3px; height: 9px; animation: mi2-obj-a 9s infinite; }
-  .mi2-obj.o2 { left: 9px; height: 6px; animation: mi2-obj-b 9s infinite; }
-
-  @keyframes mi2-obj-a {
-    0%, 44% { opacity: 1; }
-    46%, 94% { opacity: 0.55; }
-    96%, 100% { opacity: 1; }
-  }
-
-  @keyframes mi2-obj-b {
-    0%, 44% { opacity: 0.55; }
-    46%, 94% { opacity: 1; }
-    96%, 100% { opacity: 0.55; }
-  }
+  .mi2-obj.o1 { left: 3px; height: 9px; }
+  .mi2-obj.o2 { left: 9px; height: 6px; }
 
   .mi2-stage {
     position: absolute;
@@ -326,9 +320,8 @@ const microscopeStyles = {
     top: 52px;
     width: 42px;
     height: 4px;
-    background: rgba(0, 204, 0, 0.7);
+    background: rgba(0, 204, 0, 0.8);
     border-radius: 2px;
-    animation: mi2-nudge 9s infinite;
   }
 
   .mi2-slide {
@@ -337,16 +330,15 @@ const microscopeStyles = {
     top: 49px;
     width: 22px;
     height: 3px;
-    background: rgba(190, 255, 205, 0.6);
+    background: rgba(214, 255, 224, 0.9);
+    box-shadow: 0 0 6px #00ff66;
     border-radius: 1px;
-    animation: mi2-nudge 9s infinite;
+    animation: mi2-nudge 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes mi2-nudge {
-    0%, 66% { transform: translateX(0); }
-    68% { transform: translateX(3px); }
-    70% { transform: translateX(2px); }
-    100% { transform: translateX(2px); }
+    0% { transform: translateX(-6px); }
+    100% { transform: translateX(6px); }
   }
 
   .mi2-mirror {
@@ -356,14 +348,15 @@ const microscopeStyles = {
     width: 12px;
     height: 5px;
     border-radius: 50%;
-    background: linear-gradient(180deg, #d6ffe0, rgba(0, 140, 28, 0.9));
+    background: linear-gradient(180deg, #ffffff, rgba(0, 140, 28, 0.9));
+    box-shadow: 0 0 6px #00ff66;
     transform-origin: 50% 50%;
-    animation: mi2-mirror 9s ease-in-out infinite;
+    animation: mi2-mirror 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes mi2-mirror {
-    0%, 100% { transform: rotate(-14deg); }
-    30%, 60% { transform: rotate(-24deg); }
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(-28deg); }
   }
 
   .mi2-shaft {
@@ -373,15 +366,13 @@ const microscopeStyles = {
     width: 6px;
     height: 12px;
     clip-path: polygon(20% 100%, 80% 100%, 100% 0, 0 0);
-    background: linear-gradient(0deg, rgba(214, 255, 224, 0.6), rgba(140, 255, 170, 0.15));
-    animation: mi2-shaft 9s ease-in-out infinite;
+    background: linear-gradient(0deg, rgba(214, 255, 224, 0.8), rgba(140, 255, 170, 0.2));
+    animation: mi2-shaft 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes mi2-shaft {
-    0%, 100% { opacity: 0.5; }
-    38%, 44% { opacity: 1; }
-    48% { opacity: 0.55; }
-    68%, 92% { opacity: 1; }
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
   }
 
   .mi2-knob {
@@ -391,9 +382,10 @@ const microscopeStyles = {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    border: 2px solid rgba(140, 255, 170, 0.85);
+    border: 2px solid rgba(140, 255, 170, 0.95);
+    box-shadow: 0 0 6px #00ff66;
     box-sizing: border-box;
-    animation: mi2-knob 9s infinite;
+    animation: mi2-knob 1.6s linear infinite;
   }
 
   .mi2-knob::after {
@@ -404,18 +396,12 @@ const microscopeStyles = {
     width: 1.5px;
     height: 3px;
     margin-left: -0.75px;
-    background: rgba(214, 255, 224, 0.95);
+    background: #ffffff;
   }
 
   @keyframes mi2-knob {
     0% { transform: rotate(0deg); }
-    10% { transform: rotate(-70deg); }
-    22% { transform: rotate(40deg); }
-    32% { transform: rotate(-12deg); }
-    38%, 46% { transform: rotate(0deg); }
-    54% { transform: rotate(-45deg); }
-    62% { transform: rotate(28deg); }
-    68%, 100% { transform: rotate(8deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .mi2-mag {
@@ -503,7 +489,9 @@ const microscopeStyles = {
     border-radius: 4px 4px 2px 2px;
     background: linear-gradient(90deg, #94a3b8, #f8fafc, #94a3b8);
     border: 1px solid #64748b;
+    box-shadow: 0 0 8px rgba(148, 163, 184, 0.6);
     transform: rotate(24deg);
+    animation: mic-rack 1.6s ease-in-out infinite alternate;
   }
 
   /* Polished brass revolving turret */
@@ -516,8 +504,13 @@ const microscopeStyles = {
     border-radius: 3px;
     background: linear-gradient(90deg, #d97706, #fbbf24, #b45309);
     border: 1px solid #f59e0b;
-    box-shadow: 0 0 4px rgba(245, 158, 11, 0.5);
-    animation: mi2-swap 9s infinite;
+    box-shadow: 0 0 6px rgba(245, 158, 11, 0.8);
+    animation: mic-rack 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes mic-rack {
+    0% { transform: translateY(-5px); }
+    100% { transform: translateY(4px); }
   }
 
   .mic-obj {
@@ -533,14 +526,12 @@ const microscopeStyles = {
     height: 9px;
     background: linear-gradient(180deg, #d97706, #3b82f6 40%, #e2e8f0);
     border: 1px solid #60a5fa;
-    animation: mi2-obj-a 9s infinite;
   }
   .mic-obj.o2 {
     left: 9px;
     height: 6px;
     background: linear-gradient(180deg, #d97706, #e11d48 40%, #e2e8f0);
     border: 1px solid #f43f5e;
-    animation: mi2-obj-b 9s infinite;
   }
 
   /* Mechanical stage */
@@ -553,7 +544,6 @@ const microscopeStyles = {
     background: #1e293b;
     border: 1px solid #475569;
     border-radius: 2px;
-    animation: mi2-nudge 9s infinite;
   }
 
   /* Specimen slide with stained blue biological culture */
@@ -563,10 +553,16 @@ const microscopeStyles = {
     top: 49px;
     width: 22px;
     height: 3px;
-    background: rgba(220, 240, 255, 0.7);
+    background: rgba(220, 240, 255, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 6px #60a5fa;
     border-radius: 1px;
-    animation: mi2-nudge 9s infinite;
+    animation: mic-nudge 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes mic-nudge {
+    0% { transform: translateX(-6px); }
+    100% { transform: translateX(6px); }
   }
 
   .mic-slide::after {
@@ -578,7 +574,7 @@ const microscopeStyles = {
     height: 3px;
     border-radius: 50%;
     background: #2563eb;
-    box-shadow: 0 0 3px #60a5fa;
+    box-shadow: 0 0 6px #60a5fa;
   }
 
   /* Sub-stage concave mirror */
@@ -591,8 +587,14 @@ const microscopeStyles = {
     border-radius: 50%;
     background: linear-gradient(180deg, #ffffff, #94a3b8);
     border: 1px solid #cbd5e1;
+    box-shadow: 0 0 6px rgba(254, 240, 138, 0.6);
     transform-origin: 50% 50%;
-    animation: mi2-mirror 9s ease-in-out infinite;
+    animation: mic-mirror 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes mic-mirror {
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(-28deg); }
   }
 
   /* Illuminated optical light path */
@@ -603,8 +605,13 @@ const microscopeStyles = {
     width: 6px;
     height: 12px;
     clip-path: polygon(20% 100%, 80% 100%, 100% 0, 0 0);
-    background: linear-gradient(0deg, rgba(254, 240, 138, 0.8), rgba(254, 240, 138, 0.15));
-    animation: mi2-shaft 9s ease-in-out infinite;
+    background: linear-gradient(0deg, rgba(254, 240, 138, 0.9), rgba(254, 240, 138, 0.2));
+    animation: mic-shaft 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes mic-shaft {
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
   }
 
   /* Brass fine-focus adjustment wheel */
@@ -618,8 +625,8 @@ const microscopeStyles = {
     border: 2px solid #f59e0b;
     background: #78350f;
     box-sizing: border-box;
-    box-shadow: 0 0 4px rgba(245, 158, 11, 0.4);
-    animation: mi2-knob 9s infinite;
+    box-shadow: 0 0 6px rgba(245, 158, 11, 0.8);
+    animation: mic-knob 1.6s linear infinite;
   }
 
   .mic-knob::after {
@@ -631,6 +638,11 @@ const microscopeStyles = {
     height: 3px;
     margin-left: -0.75px;
     background: #fde047;
+  }
+
+  @keyframes mic-knob {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Magnification indicator */
@@ -653,15 +665,6 @@ const microscopeStyles = {
     position: absolute;
     right: 0;
     top: 0;
-  }
-
-  .mic-mag .m100 { animation: mi2-mag-a 9s infinite; }
-  .mic-mag .m400 { animation: mi2-mag-b 9s infinite; }
-
-  @keyframes mi2-swap {
-    0%, 44% { transform: translateX(0); }
-    46%, 94% { transform: translateX(-6px); }
-    96%, 100% { transform: translateX(0); }
   }
 
   @keyframes mi2-obj-a {
