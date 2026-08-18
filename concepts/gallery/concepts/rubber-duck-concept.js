@@ -21,8 +21,9 @@ const rubberDuckStyles = {
     right: 0;
     top: 52px;
     bottom: 0;
-    background: linear-gradient(180deg, rgba(0, 110, 22, 0.35), rgba(0, 55, 11, 0.55));
-    border-top: 1px solid rgba(140, 255, 170, 0.5);
+    background: linear-gradient(180deg, rgba(0, 110, 22, 0.45), rgba(0, 55, 11, 0.75));
+    border-top: 1.5px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
   }
 
   .rd-shimmer {
@@ -32,14 +33,14 @@ const rubberDuckStyles = {
     top: 54px;
     height: 30px;
     background: repeating-linear-gradient(180deg,
-      rgba(140, 255, 170, 0.14) 0 1px,
+      rgba(140, 255, 170, 0.3) 0 1px,
       transparent 1px 7px);
-    animation: rd-shimmer 3s ease-in-out infinite;
+    animation: rd-shimmer 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes rd-shimmer {
-    0%, 100% { transform: translateX(0); opacity: 0.6; }
-    50% { transform: translateX(4px); opacity: 1; }
+    0% { transform: translateX(-8px); opacity: 0.6; }
+    100% { transform: translateX(8px); opacity: 1; }
   }
 
   .rd-ring {
@@ -49,17 +50,16 @@ const rubberDuckStyles = {
     width: 30px;
     height: 8px;
     margin-left: -15px;
-    border: 1px solid rgba(140, 255, 170, 0.6);
+    border: 1.5px solid #00ff66;
     border-radius: 50%;
-    opacity: 0;
-    animation: rd-ring 3s ease-out infinite;
+    animation: rd-ring 1.4s ease-out infinite;
   }
 
-  .rd-ring.r2 { animation-delay: 1.5s; }
+  .rd-ring.r2 { animation-delay: 0.7s; }
 
   @keyframes rd-ring {
-    0% { transform: scale(0.6); opacity: 0.8; }
-    100% { transform: scale(2.4); opacity: 0; }
+    0% { transform: scale(0.4); opacity: 1; }
+    100% { transform: scale(2.8); opacity: 0; }
   }
 
   .rd-duck {
@@ -69,13 +69,13 @@ const rubberDuckStyles = {
     width: 48px;
     height: 40px;
     margin-left: -24px;
-    animation: rd-bob 3s ease-in-out infinite;
+    transform-origin: 50% 80%;
+    animation: rd-bob 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes rd-bob {
-    0%, 100% { transform: translateY(0) rotate(-4deg); }
-    30% { transform: translateY(3px) rotate(3deg); }
-    60% { transform: translateY(-2px) rotate(-2deg); }
+    0% { transform: translateY(-8px) rotate(-16deg); }
+    100% { transform: translateY(8px) rotate(16deg); }
   }
 
   .rd-body {
@@ -86,10 +86,11 @@ const rubberDuckStyles = {
     height: 22px;
     border-radius: 60% 50% 50% 60% / 70% 60% 60% 80%;
     background: radial-gradient(ellipse at 35% 30%,
-      rgba(242, 255, 221, 0.9),
-      rgba(154, 222, 90, 0.85) 55%,
-      rgba(0, 150, 30, 0.85));
-    border: 1px solid rgba(0, 204, 0, 0.5);
+      #ffffff,
+      rgba(154, 222, 90, 0.95) 55%,
+      rgba(0, 150, 30, 0.95));
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
   }
 
   .rd-body::after {
@@ -100,7 +101,7 @@ const rubberDuckStyles = {
     width: 10px;
     height: 8px;
     clip-path: polygon(100% 50%, 0 0, 0 100%);
-    background: rgba(154, 222, 90, 0.85);
+    background: #00ff66;
   }
 
   .rd-head {
@@ -110,8 +111,8 @@ const rubberDuckStyles = {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: radial-gradient(circle at 40% 35%, #f2ffdd, #9ade5a 65%);
-    border: 1px solid rgba(0, 204, 0, 0.5);
+    background: radial-gradient(circle at 40% 35%, #ffffff, #00cc44 75%);
+    border: 1.5px solid #00ff66;
   }
 
   .rd-head::before {
@@ -132,27 +133,26 @@ const rubberDuckStyles = {
     width: 12px;
     height: 6px;
     border-radius: 40% 60% 60% 40%;
-    background: rgba(0, 200, 40, 0.9);
+    background: #ffffff;
+    border: 1px solid #00ff66;
   }
 
   .rd-bubble {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(190, 255, 205, 0.75);
-    background: radial-gradient(circle at 35% 30%, rgba(190, 255, 205, 0.3), transparent 60%);
-    animation: rd-bubble ease-in infinite;
+    border: 1px solid #00ff66;
+    background: radial-gradient(circle at 35% 30%, #ffffff, transparent 60%);
+    box-shadow: 0 0 6px #00ff66;
+    animation: rd-bubble 1.2s ease-in infinite;
   }
 
-  .rd-bubble.b1 { left: 20px; top: 64px; width: 6px; height: 6px; animation-duration: 3.4s; }
-  .rd-bubble.b2 { left: 78px; top: 68px; width: 8px; height: 8px; animation-duration: 4.2s; animation-delay: -2s; }
-  .rd-bubble.b3 { left: 64px; top: 72px; width: 4px; height: 4px; animation-duration: 3s; animation-delay: -1.2s; }
+  .rd-bubble.b1 { left: 16px; top: 64px; width: 6px; height: 6px; animation-delay: 0s; }
+  .rd-bubble.b2 { left: 80px; top: 68px; width: 8px; height: 8px; animation-delay: -0.4s; }
+  .rd-bubble.b3 { left: 66px; top: 72px; width: 5px; height: 5px; animation-delay: -0.8s; }
 
   @keyframes rd-bubble {
-    0% { transform: translateY(0) scale(0.7); opacity: 0; }
-    20% { opacity: 0.9; }
-    85% { transform: translateY(-40px) scale(1.1); opacity: 0.6; }
-    92% { transform: translateY(-44px) scale(1.3); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translateY(0) scale(0.6); opacity: 1; }
+    100% { transform: translateY(-46px) scale(1.4); opacity: 0; }
   }
   `,
 
@@ -165,8 +165,7 @@ const rubberDuckStyles = {
     height: 100%;
   }
 
-  /* v2: Classic canary-yellow rubber bath duck bobbing on clear azure bath water
-     with expanding ripple rings, orange beak, button eye, and iridescent soap bubbles. */
+  /* v2: Classic canary-yellow rubber bath duck bobbing on clear azure bath water */
   .rdc {
     width: 108px;
     height: 92px;
@@ -183,9 +182,9 @@ const rubberDuckStyles = {
     right: 0;
     top: 52px;
     bottom: 0;
-    background: linear-gradient(180deg, rgba(2, 132, 199, 0.6) 0%, rgba(3, 105, 161, 0.8) 50%, rgba(7, 89, 133, 0.95) 100%);
+    background: linear-gradient(180deg, rgba(2, 132, 199, 0.7) 0%, rgba(3, 105, 161, 0.85) 50%, rgba(7, 89, 133, 0.98) 100%);
     border-top: 1.5px solid #38bdf8;
-    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
   }
 
   .rdc-shimmer {
@@ -195,14 +194,14 @@ const rubberDuckStyles = {
     top: 54px;
     height: 30px;
     background: repeating-linear-gradient(180deg,
-      rgba(224, 242, 254, 0.25) 0 1px,
+      rgba(224, 242, 254, 0.35) 0 1px,
       transparent 1px 7px);
-    animation: rdc-shimmer 3s ease-in-out infinite;
+    animation: rdc-shimmer 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes rdc-shimmer {
-    0%, 100% { transform: translateX(0); opacity: 0.6; }
-    50% { transform: translateX(4px); opacity: 1; }
+    0% { transform: translateX(-8px); opacity: 0.6; }
+    100% { transform: translateX(8px); opacity: 1; }
   }
 
   /* Water ripple rings */
@@ -213,17 +212,16 @@ const rubberDuckStyles = {
     width: 30px;
     height: 8px;
     margin-left: -15px;
-    border: 1px solid rgba(186, 230, 253, 0.8);
+    border: 1.5px solid #38bdf8;
     border-radius: 50%;
-    opacity: 0;
-    animation: rdc-ring 3s ease-out infinite;
+    animation: rdc-ring 1.4s ease-out infinite;
   }
 
-  .rdc-ring.r2 { animation-delay: 1.5s; }
+  .rdc-ring.r2 { animation-delay: 0.7s; }
 
   @keyframes rdc-ring {
-    0% { transform: scale(0.6); opacity: 0.9; }
-    100% { transform: scale(2.4); opacity: 0; }
+    0% { transform: scale(0.4); opacity: 1; }
+    100% { transform: scale(2.8); opacity: 0; }
   }
 
   /* Rubber duck carrier */
@@ -234,13 +232,13 @@ const rubberDuckStyles = {
     width: 48px;
     height: 40px;
     margin-left: -24px;
-    animation: rdc-bob 3s ease-in-out infinite;
+    transform-origin: 50% 80%;
+    animation: rdc-bob 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes rdc-bob {
-    0%, 100% { transform: translateY(0) rotate(-4deg); }
-    30% { transform: translateY(3px) rotate(3deg); }
-    60% { transform: translateY(-2px) rotate(-2deg); }
+    0% { transform: translateY(-8px) rotate(-16deg); }
+    100% { transform: translateY(8px) rotate(16deg); }
   }
 
   /* Canary-yellow duck body */
@@ -251,9 +249,9 @@ const rubberDuckStyles = {
     width: 40px;
     height: 22px;
     border-radius: 60% 50% 50% 60% / 70% 60% 60% 80%;
-    background: radial-gradient(ellipse at 35% 30%, #fef08a 0%, #facc15 50%, #eab308 85%, #ca8a04 100%);
-    border: 1px solid #fde047;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+    background: radial-gradient(ellipse at 35% 30%, #ffffff 0%, #facc15 50%, #eab308 85%, #ca8a04 100%);
+    border: 1.5px solid #fde047;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.8);
   }
 
   /* Tail flip */
@@ -265,7 +263,7 @@ const rubberDuckStyles = {
     width: 10px;
     height: 8px;
     clip-path: polygon(100% 50%, 0 0, 0 100%);
-    background: #eab308;
+    background: #facc15;
   }
 
   /* Duck head */
@@ -277,8 +275,8 @@ const rubberDuckStyles = {
     height: 18px;
     border-radius: 50%;
     background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fef08a 25%, #facc15 70%, #ca8a04 100%);
-    border: 1px solid #fde047;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border: 1.5px solid #fde047;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
   }
 
   /* Glossy button eye with white glint */
@@ -303,29 +301,27 @@ const rubberDuckStyles = {
     height: 6px;
     border-radius: 40% 60% 60% 40%;
     background: linear-gradient(180deg, #fb923c 0%, #f97316 60%, #ea580c 100%);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    border: 1px solid #f97316;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   }
 
   /* Iridescent soap bubbles with rainbow edge */
   .rdc-bubble {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.7) 0%, rgba(186, 230, 253, 0.4) 40%, rgba(244, 114, 182, 0.3) 80%, transparent 100%);
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
-    animation: rdc-bubble ease-in infinite;
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+    background: radial-gradient(circle at 35% 30%, #ffffff 0%, rgba(186, 230, 253, 0.6) 40%, rgba(244, 114, 182, 0.5) 80%, transparent 100%);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: rdc-bubble 1.2s ease-in infinite;
   }
 
-  .rdc-bubble.b1 { left: 20px; top: 64px; width: 6px; height: 6px; animation-duration: 3.4s; }
-  .rdc-bubble.b2 { left: 78px; top: 68px; width: 8px; height: 8px; animation-duration: 4.2s; animation-delay: -2s; }
-  .rdc-bubble.b3 { left: 64px; top: 72px; width: 4px; height: 4px; animation-duration: 3s; animation-delay: -1.2s; }
+  .rdc-bubble.b1 { left: 16px; top: 64px; width: 6px; height: 6px; animation-delay: 0s; }
+  .rdc-bubble.b2 { left: 80px; top: 68px; width: 8px; height: 8px; animation-delay: -0.4s; }
+  .rdc-bubble.b3 { left: 66px; top: 72px; width: 5px; height: 5px; animation-delay: -0.8s; }
 
   @keyframes rdc-bubble {
-    0% { transform: translateY(0) scale(0.7); opacity: 0; }
-    20% { opacity: 0.95; }
-    85% { transform: translateY(-40px) scale(1.1); opacity: 0.7; }
-    92% { transform: translateY(-44px) scale(1.3); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translateY(0) scale(0.6); opacity: 1; }
+    100% { transform: translateY(-46px) scale(1.4); opacity: 0; }
   }
   `,
 };

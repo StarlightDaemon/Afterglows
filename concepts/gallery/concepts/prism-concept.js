@@ -21,8 +21,8 @@ const prismStyles = `
     width: 34px;
     height: 34px;
     clip-path: polygon(50% 0, 100% 100%, 0 100%);
-    background: linear-gradient(180deg, rgba(140, 255, 170, 0.28), rgba(0, 90, 18, 0.4));
-    animation: pr-glass 4s ease-in-out infinite;
+    background: linear-gradient(180deg, rgba(140, 255, 170, 0.4), rgba(0, 90, 18, 0.6));
+    animation: pr-glass 1.6s ease-in-out infinite alternate;
   }
 
   .pr-edge {
@@ -33,12 +33,14 @@ const prismStyles = `
     height: 34px;
     clip-path: polygon(50% 0, 100% 100%, 0 100%, 50% 0,
       50% 6.5%, 5.5% 96.5%, 94.5% 96.5%, 50% 6.5%);
-    background: rgba(190, 255, 205, 0.95);
+    background: #00ff66;
+    box-shadow: 0 0 8px #00ff66;
+    animation: pr-glass 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes pr-glass {
-    0%, 100% { filter: drop-shadow(0 0 4px rgba(0, 204, 0, 0.4)); }
-    45%, 60% { filter: drop-shadow(0 0 10px rgba(0, 204, 0, 0.8)); }
+    0% { transform: translateY(-3px) rotate(-6deg); }
+    100% { transform: translateY(3px) rotate(6deg); }
   }
 
   .pr-beam {
@@ -46,31 +48,34 @@ const prismStyles = `
     left: 0;
     top: 38px;
     width: 52px;
-    height: 3px;
+    height: 3.5px;
     border-radius: 2px;
-    background: linear-gradient(90deg, transparent, rgba(214, 255, 224, 0.95));
-    animation: pr-beam 4s ease-in-out infinite;
+    background: linear-gradient(90deg, transparent, #ffffff);
+    box-shadow: 0 0 8px #00ff66;
+    transform-origin: 0% 50%;
+    animation: pr-beam 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes pr-beam {
-    0%, 25%, 100% { opacity: 0.55; box-shadow: none; }
-    40%, 60% { opacity: 1; box-shadow: 0 0 8px rgba(214, 255, 224, 0.8); }
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(10deg); }
   }
 
   .pr-spark {
     position: absolute;
     left: 50px;
     top: 36px;
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: #f2ffdd;
-    animation: pr-spark 4s ease-in-out infinite;
+    background: #ffffff;
+    box-shadow: 0 0 10px #00ff66;
+    animation: pr-spark 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes pr-spark {
-    0%, 25%, 100% { transform: scale(0.5); opacity: 0.4; box-shadow: none; }
-    45%, 58% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 12px rgba(242, 255, 221, 1); }
+    0% { transform: scale(0.8) translateY(-2px); }
+    100% { transform: scale(1.3) translateY(2px); }
   }
 
   .pr-ray {
@@ -80,36 +85,35 @@ const prismStyles = `
     width: 50px;
     height: var(--w);
     border-radius: 2px;
-    background: linear-gradient(90deg, rgba(190, 255, 205, 0.95), transparent);
+    background: linear-gradient(90deg, #ffffff, rgba(0, 255, 100, 0.8) 50%, transparent);
+    box-shadow: 0 0 6px #00ff66;
     transform-origin: 0% 50%;
-    transform: rotate(var(--a));
-    animation: pr-ray 4s ease-in-out infinite var(--d);
-    opacity: 0.5;
+    animation: pr-ray-sweep 1.6s ease-in-out infinite alternate;
   }
 
-  .pr-ray.y1 { --a: -26deg; --w: 2px; --d: 0.10s; }
-  .pr-ray.y2 { --a: -13deg; --w: 2.5px; --d: 0.16s; }
-  .pr-ray.y3 { --a: 0deg; --w: 3px; --d: 0.22s; }
-  .pr-ray.y4 { --a: 13deg; --w: 2.5px; --d: 0.28s; }
-  .pr-ray.y5 { --a: 26deg; --w: 2px; --d: 0.34s; }
+  .pr-ray.y1 { --a: -26deg; --w: 2.5px; --d: 0s; }
+  .pr-ray.y2 { --a: -13deg; --w: 3px; --d: -0.1s; }
+  .pr-ray.y3 { --a: 0deg; --w: 3.5px; --d: -0.2s; }
+  .pr-ray.y4 { --a: 13deg; --w: 3px; --d: -0.3s; }
+  .pr-ray.y5 { --a: 26deg; --w: 2.5px; --d: -0.4s; }
 
-  @keyframes pr-ray {
-    0%, 25%, 100% { opacity: 0.35; box-shadow: none; }
-    45%, 62% { opacity: 1; box-shadow: 0 0 6px rgba(140, 255, 170, 0.7); }
+  @keyframes pr-ray-sweep {
+    0% { transform: rotate(calc(var(--a) - 12deg)) scaleX(0.9); }
+    100% { transform: rotate(calc(var(--a) + 12deg)) scaleX(1.1); }
   }
 
   .pr-tick {
     position: absolute;
-    left: 108px;
+    left: 106px;
     font-family: 'Courier New', monospace;
-    font-size: 7px;
-    color: rgba(140, 255, 170, 0.7);
-    animation: pr-ray 4s ease-in-out infinite 0.4s;
-    opacity: 0.4;
+    font-size: 8px;
+    font-weight: bold;
+    color: #00ff66;
+    animation: pr-glass 1.6s ease-in-out infinite alternate;
   }
 
-  .pr-tick.k1 { top: 12px; }
-  .pr-tick.k2 { top: 60px; }
+  .pr-tick.k1 { top: 8px; }
+  .pr-tick.k2 { top: 62px; }
 
   .pr-bench {
     position: absolute;
@@ -117,7 +121,7 @@ const prismStyles = `
     right: 8px;
     bottom: 8px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(0, 204, 0, 0.45), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 204, 0, 0.6), transparent);
   }
 
   .pr-bench::after {
@@ -128,14 +132,11 @@ const prismStyles = `
     width: 34px;
     height: 4px;
     background: repeating-linear-gradient(90deg,
-      rgba(0, 204, 0, 0.5) 0 2px,
+      rgba(0, 204, 0, 0.7) 0 2px,
       transparent 2px 8px);
   }
 
-  /* --- v2: Full-spectrum chromatic dispersion ---
-     A collimated white light beam refracts at the flint glass interface,
-     dispersing into violet (400nm, highest refraction), blue, cyan,
-     green, yellow, orange, and red (700nm, lowest refraction). */
+  /* --- v2: Full-spectrum chromatic dispersion --- */
   .prc {
     width: 116px;
     height: 88px;
@@ -149,8 +150,8 @@ const prismStyles = `
     width: 34px;
     height: 34px;
     clip-path: polygon(50% 0, 100% 100%, 0 100%);
-    background: linear-gradient(180deg, rgba(200, 240, 255, 0.22), rgba(60, 140, 220, 0.35));
-    animation: prc-glass 4s ease-in-out infinite;
+    background: linear-gradient(180deg, rgba(200, 240, 255, 0.35), rgba(60, 140, 220, 0.5));
+    animation: prc-glass 1.6s ease-in-out infinite alternate;
   }
 
   .prc-edge {
@@ -161,12 +162,14 @@ const prismStyles = `
     height: 34px;
     clip-path: polygon(50% 0, 100% 100%, 0 100%, 50% 0,
       50% 6.5%, 5.5% 96.5%, 94.5% 96.5%, 50% 6.5%);
-    background: rgba(220, 245, 255, 0.9);
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(100, 220, 255, 0.8);
+    animation: prc-glass 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes prc-glass {
-    0%, 100% { filter: drop-shadow(0 0 6px rgba(0, 180, 255, 0.35)); }
-    45%, 60% { filter: drop-shadow(0 0 12px rgba(100, 220, 255, 0.8)); }
+    0% { transform: translateY(-3px) rotate(-6deg); }
+    100% { transform: translateY(3px) rotate(6deg); }
   }
 
   /* Incident white light beam */
@@ -175,31 +178,34 @@ const prismStyles = `
     left: 0;
     top: 38px;
     width: 52px;
-    height: 3px;
+    height: 3.5px;
     border-radius: 2px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.98));
-    animation: prc-beam 4s ease-in-out infinite;
+    background: linear-gradient(90deg, transparent, #ffffff);
+    box-shadow: 0 0 10px #ffffff;
+    transform-origin: 0% 50%;
+    animation: prc-beam 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes prc-beam {
-    0%, 25%, 100% { opacity: 0.55; box-shadow: none; }
-    40%, 60% { opacity: 1; box-shadow: 0 0 8px rgba(255, 255, 255, 0.95), 0 0 14px rgba(180, 220, 255, 0.6); }
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(10deg); }
   }
 
   .prc-spark {
     position: absolute;
     left: 50px;
     top: 36px;
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #ffffff;
-    animation: prc-spark 4s ease-in-out infinite;
+    box-shadow: 0 0 12px #ffffff, 0 0 18px rgba(120, 200, 255, 0.9);
+    animation: prc-spark 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes prc-spark {
-    0%, 25%, 100% { transform: scale(0.5); opacity: 0.4; box-shadow: none; }
-    45%, 58% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 12px #ffffff, 0 0 18px rgba(120, 200, 255, 0.9); }
+    0% { transform: scale(0.8) translateY(-2px); }
+    100% { transform: scale(1.3) translateY(2px); }
   }
 
   /* Chromatic rays fanning out by real optical wavelength */
@@ -210,34 +216,32 @@ const prismStyles = `
     width: 50px;
     height: var(--w);
     border-radius: 2px;
-    background: linear-gradient(90deg, var(--col), transparent);
+    background: linear-gradient(90deg, #ffffff, var(--col) 40%, transparent);
+    box-shadow: 0 0 8px var(--col);
     transform-origin: 0% 50%;
-    transform: rotate(var(--a));
-    animation: prc-ray 4s ease-in-out infinite var(--d);
-    opacity: 0.5;
+    animation: prc-ray-sweep 1.6s ease-in-out infinite alternate;
   }
 
-  .prc-ray.r-violet { --a: -28deg; --w: 2px; --d: 0.08s; --col: #b84dff; }
-  .prc-ray.r-blue   { --a: -19deg; --w: 2.2px; --d: 0.14s; --col: #3877ff; }
-  .prc-ray.r-cyan   { --a: -10deg; --w: 2.2px; --d: 0.20s; --col: #00e5ff; }
-  .prc-ray.r-green  { --a: 0deg;   --w: 2.5px; --d: 0.25s; --col: #22e655; }
-  .prc-ray.r-yellow { --a: 10deg;  --w: 2.2px; --d: 0.30s; --col: #ffd600; }
-  .prc-ray.r-orange { --a: 19deg;  --w: 2.2px; --d: 0.35s; --col: #ff7700; }
-  .prc-ray.r-red    { --a: 28deg;  --w: 2px; --d: 0.40s; --col: #ff2a3a; }
+  .prc-ray.r-violet { --a: -28deg; --w: 2.2px; --col: #b84dff; animation-delay: 0s; }
+  .prc-ray.r-blue   { --a: -19deg; --w: 2.4px; --col: #3877ff; animation-delay: -0.07s; }
+  .prc-ray.r-cyan   { --a: -10deg; --w: 2.5px; --col: #00e5ff; animation-delay: -0.14s; }
+  .prc-ray.r-green  { --a: 0deg;   --w: 2.8px; --col: #22e655; animation-delay: -0.21s; }
+  .prc-ray.r-yellow { --a: 10deg;  --w: 2.5px; --col: #ffd600; animation-delay: -0.28s; }
+  .prc-ray.r-orange { --a: 19deg;  --w: 2.4px; --col: #ff7700; animation-delay: -0.35s; }
+  .prc-ray.r-red    { --a: 28deg;  --w: 2.2px; --col: #ff2a3a; animation-delay: -0.42s; }
 
-  @keyframes prc-ray {
-    0%, 25%, 100% { opacity: 0.35; box-shadow: none; }
-    45%, 62% { opacity: 1; box-shadow: 0 0 8px var(--col); }
+  @keyframes prc-ray-sweep {
+    0% { transform: rotate(calc(var(--a) - 12deg)) scaleX(0.9); }
+    100% { transform: rotate(calc(var(--a) + 12deg)) scaleX(1.1); }
   }
 
   .prc-tick {
     position: absolute;
-    left: 108px;
+    left: 106px;
     font-family: 'Courier New', monospace;
-    font-size: 7px;
+    font-size: 8px;
     font-weight: bold;
-    animation: prc-ray 4s ease-in-out infinite 0.4s;
-    opacity: 0.5;
+    animation: prc-glass 1.6s ease-in-out infinite alternate;
   }
 
   .prc-tick.k1 { top: 8px; color: #c86eff; }
@@ -249,7 +253,7 @@ const prismStyles = `
     right: 8px;
     bottom: 8px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(140, 180, 220, 0.45), transparent);
+    background: linear-gradient(90deg, transparent, rgba(140, 180, 220, 0.5), transparent);
   }
 
   .prc-bench::after {
@@ -260,7 +264,7 @@ const prismStyles = `
     width: 34px;
     height: 4px;
     background: repeating-linear-gradient(90deg,
-      rgba(140, 180, 220, 0.6) 0 2px,
+      rgba(140, 180, 220, 0.7) 0 2px,
       transparent 2px 8px);
   }
 `;

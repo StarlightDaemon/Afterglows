@@ -22,7 +22,8 @@ const ravenStyles = {
     right: 10px;
     height: 4px;
     border-radius: 2px;
-    background: linear-gradient(90deg, rgba(20, 70, 35, 0.9), rgba(60, 140, 80, 0.7) 55%, rgba(20, 70, 35, 0.8));
+    background: linear-gradient(90deg, rgba(20, 70, 35, 0.9), #00ff66 55%, rgba(20, 70, 35, 0.8));
+    box-shadow: 0 0 6px rgba(0, 255, 100, 0.4);
     transform: rotate(-4deg);
   }
 
@@ -45,7 +46,12 @@ const ravenStyles = {
     width: 34px;
     height: 40px;
     transform-origin: bottom center;
-    animation: raven-breathe 3.4s ease-in-out infinite, raven-ruffle 9s linear infinite;
+    animation: raven-breathe 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes raven-breathe {
+    0% { transform: translateY(-4px) rotate(-4deg); }
+    100% { transform: translateY(4px) rotate(4deg); }
   }
 
   .raven-tail {
@@ -55,10 +61,15 @@ const ravenStyles = {
     width: 26px;
     height: 10px;
     clip-path: polygon(0 0, 82% 12%, 100% 50%, 82% 88%, 0 100%);
-    background: linear-gradient(90deg, #0c2c14, rgba(60, 160, 90, 0.5) 96%, #071c0c);
-    transform: rotate(14deg);
+    background: linear-gradient(90deg, #0c2c14, #00ff66 96%, #071c0c);
+    box-shadow: 0 0 6px rgba(0, 255, 100, 0.4);
     transform-origin: left center;
-    animation: raven-tail 9s linear infinite;
+    animation: raven-tail 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes raven-tail {
+    0% { transform: rotate(-6deg); }
+    100% { transform: rotate(26deg); }
   }
 
   .raven-body {
@@ -69,8 +80,8 @@ const ravenStyles = {
     height: 30px;
     border-radius: 55% 45% 48% 52% / 60% 55% 45% 40%;
     background: radial-gradient(circle at 36% 28%, #1d5c2e 0%, #0c2c14 55%, #061607 100%);
-    border: 1px solid rgba(140, 255, 170, 0.4);
-    box-shadow: 0 0 8px rgba(0, 204, 0, 0.2);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
   }
 
   .raven-wing {
@@ -80,8 +91,15 @@ const ravenStyles = {
     width: 16px;
     height: 20px;
     border-radius: 60% 40% 50% 50% / 70% 50% 50% 30%;
-    background: linear-gradient(160deg, rgba(30, 110, 55, 0.5), transparent 70%);
-    border-left: 1px solid rgba(140, 255, 170, 0.25);
+    background: linear-gradient(160deg, rgba(0, 255, 100, 0.6), transparent 70%);
+    border-left: 1.5px solid #00ff66;
+    transform-origin: top left;
+    animation: raven-wing-flap 1.0s ease-in-out infinite alternate;
+  }
+
+  @keyframes raven-wing-flap {
+    0% { transform: rotate(-18deg) scaleX(0.85); }
+    100% { transform: rotate(18deg) scaleX(1.15); }
   }
 
   .raven-head {
@@ -91,15 +109,20 @@ const ravenStyles = {
     width: 18px;
     height: 16px;
     transform-origin: 60% 90%;
-    animation: raven-look 9s ease-in-out infinite;
+    animation: raven-look 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes raven-look {
+    0% { transform: rotate(-24deg) translateY(-2px); }
+    100% { transform: rotate(18deg) translateY(2px); }
   }
 
   .raven-skull {
     position: absolute;
     inset: 0;
     border-radius: 55% 45% 50% 50% / 60% 60% 42% 42%;
-    background: radial-gradient(circle at 38% 32%, #1d5c2e 0%, #0a2411 65%);
-    border: 1px solid rgba(140, 255, 170, 0.4);
+    background: radial-gradient(circle at 38% 32%, #ffffff, #0a2411 65%);
+    border: 1.5px solid #00ff66;
   }
 
   .raven-beak {
@@ -109,9 +132,8 @@ const ravenStyles = {
     width: 12px;
     height: 7px;
     clip-path: polygon(0 55%, 30% 10%, 100% 0, 100% 90%, 35% 100%);
-    background: linear-gradient(180deg, rgba(140, 255, 170, 0.55), #16482a 35%, #0a2411);
-    animation: raven-caw 9s linear infinite;
-    transform-origin: right center;
+    background: linear-gradient(180deg, #ffffff, #16482a 35%, #0a2411);
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .raven-hackle {
@@ -131,21 +153,25 @@ const ravenStyles = {
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background: #eaffd9;
-    box-shadow: 0 0 5px rgba(234, 255, 217, 0.8);
-    animation: raven-blink 4.5s linear infinite;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .raven-feather {
     position: absolute;
-    top: 40px;
-    left: 74px;
-    width: 7px;
-    height: 3px;
+    top: 30px;
+    left: 70px;
+    width: 8px;
+    height: 4px;
     border-radius: 50%;
-    background: rgba(30, 110, 55, 0.8);
-    opacity: 0;
-    animation: raven-feather 9s ease-in infinite;
+    background: #00ff66;
+    box-shadow: 0 0 6px #00ff66;
+    animation: raven-feather 1.4s ease-in infinite;
+  }
+
+  @keyframes raven-feather {
+    0% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+    100% { opacity: 0; transform: translate(-20px, 46px) rotate(180deg); }
   }
 
   .raven-moon {
@@ -155,60 +181,8 @@ const ravenStyles = {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: radial-gradient(circle at 40% 35%, #e6ffd2, #9bd88a 80%);
-    box-shadow: 0 0 14px rgba(216, 255, 187, 0.4);
-    animation: raven-moon 6s ease-in-out infinite;
-  }
-
-  @keyframes raven-breathe {
-    0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(1.03); }
-  }
-
-  @keyframes raven-look {
-    0%, 18% { transform: rotate(0deg); }
-    24%, 34% { transform: rotate(-14deg); }
-    40%, 58% { transform: rotate(0deg); }
-    63%, 74% { transform: rotate(17deg) translateX(2px); }
-    80%, 100% { transform: rotate(0deg); }
-  }
-
-  @keyframes raven-blink {
-    0%, 40%, 100% { transform: scaleY(1); }
-    43% { transform: scaleY(0.1); }
-    46% { transform: scaleY(1); }
-  }
-
-  @keyframes raven-caw {
-    0%, 48% { transform: scaleY(1); }
-    51%, 54% { transform: scaleY(1.9); }
-    57%, 100% { transform: scaleY(1); }
-  }
-
-  @keyframes raven-ruffle {
-    0%, 84% { filter: none; }
-    86% { transform: scaleY(1.05) rotate(-2deg); }
-    88% { transform: scaleY(0.97) rotate(2deg); }
-    90% { transform: scaleY(1.02) rotate(-1deg); }
-    92%, 100% { transform: none; }
-  }
-
-  @keyframes raven-tail {
-    0%, 84% { transform: rotate(14deg); }
-    87% { transform: rotate(26deg); }
-    90% { transform: rotate(8deg); }
-    93%, 100% { transform: rotate(14deg); }
-  }
-
-  @keyframes raven-feather {
-    0%, 85% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
-    88% { opacity: 0.9; }
-    100% { opacity: 0; transform: translate(-8px, 34px) rotate(140deg); }
-  }
-
-  @keyframes raven-moon {
-    0%, 100% { opacity: 0.75; }
-    50% { opacity: 1; }
+    background: radial-gradient(circle at 40% 35%, #ffffff, #9bd88a 80%);
+    box-shadow: 0 0 14px rgba(0, 255, 100, 0.6);
   }
   `,
   v2: `
@@ -220,8 +194,7 @@ const ravenStyles = {
     height: 100%;
   }
 
-  /* v2: Midnight raven with iridescent indigo/purple plumage, golden moon,
-     intelligent golden eye, and drifting raven feather */
+  /* v2: Midnight raven with iridescent indigo/purple plumage */
   .ravenc {
     width: 104px;
     height: 104px;
@@ -264,7 +237,12 @@ const ravenStyles = {
     width: 34px;
     height: 40px;
     transform-origin: bottom center;
-    animation: ravenc-breathe 3.4s ease-in-out infinite, ravenc-ruffle 9s linear infinite;
+    animation: ravenc-breathe 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes ravenc-breathe {
+    0% { transform: translateY(-4px) rotate(-4deg); }
+    100% { transform: translateY(4px) rotate(4deg); }
   }
 
   /* Long iridescent wedge tail */
@@ -276,10 +254,14 @@ const ravenStyles = {
     height: 10px;
     clip-path: polygon(0 0, 82% 12%, 100% 50%, 82% 88%, 0 100%);
     background: linear-gradient(90deg, #18181b 0%, #4338ca 70%, #09090b 100%);
-    box-shadow: 0 0 4px rgba(67, 56, 202, 0.5);
-    transform: rotate(14deg);
+    box-shadow: 0 0 6px rgba(99, 102, 241, 0.6);
     transform-origin: left center;
-    animation: ravenc-tail 9s linear infinite;
+    animation: ravenc-tail 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes ravenc-tail {
+    0% { transform: rotate(-6deg); }
+    100% { transform: rotate(26deg); }
   }
 
   /* Body with iridescent sheen */
@@ -291,8 +273,8 @@ const ravenStyles = {
     height: 30px;
     border-radius: 55% 45% 48% 52% / 60% 55% 45% 40%;
     background: radial-gradient(circle at 36% 28%, #4f46e5 0%, #1e1b4b 45%, #09090b 100%);
-    border: 1px solid #312e81;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    border: 1.5px solid #6366f1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 8px rgba(99, 102, 241, 0.5);
   }
 
   /* Wing with purple-blue iridescence */
@@ -304,7 +286,14 @@ const ravenStyles = {
     height: 20px;
     border-radius: 60% 40% 50% 50% / 70% 50% 50% 30%;
     background: linear-gradient(160deg, #7c3aed 0%, transparent 70%);
-    border-left: 1px solid #a855f7;
+    border-left: 1.5px solid #a855f7;
+    transform-origin: top left;
+    animation: ravenc-wing-flap 1.0s ease-in-out infinite alternate;
+  }
+
+  @keyframes ravenc-wing-flap {
+    0% { transform: rotate(-18deg) scaleX(0.85); }
+    100% { transform: rotate(18deg) scaleX(1.15); }
   }
 
   /* Head with look-around animation */
@@ -315,15 +304,20 @@ const ravenStyles = {
     width: 18px;
     height: 16px;
     transform-origin: 60% 90%;
-    animation: ravenc-look 9s ease-in-out infinite;
+    animation: ravenc-look 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes ravenc-look {
+    0% { transform: rotate(-24deg) translateY(-2px); }
+    100% { transform: rotate(18deg) translateY(2px); }
   }
 
   .ravenc-skull {
     position: absolute;
     inset: 0;
     border-radius: 55% 45% 50% 50% / 60% 60% 42% 42%;
-    background: radial-gradient(circle at 38% 32%, #4338ca 0%, #09090b 75%);
-    border: 1px solid #312e81;
+    background: radial-gradient(circle at 38% 32%, #818cf8 0%, #09090b 75%);
+    border: 1.5px solid #6366f1;
   }
 
   /* Heavy raven beak */
@@ -334,9 +328,8 @@ const ravenStyles = {
     width: 12px;
     height: 7px;
     clip-path: polygon(0 55%, 30% 10%, 100% 0, 100% 90%, 35% 100%);
-    background: linear-gradient(180deg, #52525b 0%, #18181b 60%, #09090b 100%);
-    animation: ravenc-caw 9s linear infinite;
-    transform-origin: right center;
+    background: linear-gradient(180deg, #e2e8f0 0%, #18181b 60%, #09090b 100%);
+    box-shadow: 0 0 4px #e2e8f0;
   }
 
   /* Throat hackles */
@@ -359,22 +352,25 @@ const ravenStyles = {
     height: 4px;
     border-radius: 50%;
     background: #fde047;
-    box-shadow: 0 0 5px #facc15;
-    animation: ravenc-blink 4.5s linear infinite;
+    box-shadow: 0 0 6px #facc15;
   }
 
   /* Falling glossy feather */
   .ravenc-feather {
     position: absolute;
-    top: 40px;
-    left: 74px;
-    width: 7px;
-    height: 3px;
+    top: 30px;
+    left: 70px;
+    width: 8px;
+    height: 4px;
     border-radius: 50%;
-    background: #312e81;
-    box-shadow: 0 0 3px #4f46e5;
-    opacity: 0;
-    animation: ravenc-feather 9s ease-in infinite;
+    background: #a855f7;
+    box-shadow: 0 0 6px #c084fc;
+    animation: ravenc-feather 1.4s ease-in infinite;
+  }
+
+  @keyframes ravenc-feather {
+    0% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+    100% { opacity: 0; transform: translate(-20px, 46px) rotate(180deg); }
   }
 
   /* Luminous golden full moon */
@@ -387,58 +383,6 @@ const ravenStyles = {
     border-radius: 50%;
     background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fef08a 40%, #facc15 80%, #ca8a04 100%);
     box-shadow: 0 0 16px rgba(250, 204, 21, 0.7);
-    animation: ravenc-moon 6s ease-in-out infinite;
-  }
-
-  @keyframes ravenc-breathe {
-    0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(1.03); }
-  }
-
-  @keyframes ravenc-look {
-    0%, 18% { transform: rotate(0deg); }
-    24%, 34% { transform: rotate(-14deg); }
-    40%, 58% { transform: rotate(0deg); }
-    63%, 74% { transform: rotate(17deg) translateX(2px); }
-    80%, 100% { transform: rotate(0deg); }
-  }
-
-  @keyframes ravenc-blink {
-    0%, 40%, 100% { transform: scaleY(1); }
-    43% { transform: scaleY(0.1); }
-    46% { transform: scaleY(1); }
-  }
-
-  @keyframes ravenc-caw {
-    0%, 48% { transform: scaleY(1); }
-    51%, 54% { transform: scaleY(1.9); }
-    57%, 100% { transform: scaleY(1); }
-  }
-
-  @keyframes ravenc-ruffle {
-    0%, 84% { filter: none; }
-    86% { transform: scaleY(1.05) rotate(-2deg); }
-    88% { transform: scaleY(0.97) rotate(2deg); }
-    90% { transform: scaleY(1.02) rotate(-1deg); }
-    92%, 100% { transform: none; }
-  }
-
-  @keyframes ravenc-tail {
-    0%, 84% { transform: rotate(14deg); }
-    87% { transform: rotate(26deg); }
-    90% { transform: rotate(8deg); }
-    93%, 100% { transform: rotate(14deg); }
-  }
-
-  @keyframes ravenc-feather {
-    0%, 85% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
-    88% { opacity: 0.95; }
-    100% { opacity: 0; transform: translate(-8px, 34px) rotate(140deg); }
-  }
-
-  @keyframes ravenc-moon {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; }
   }
   `,
 };

@@ -21,11 +21,11 @@ const saucerStyles = {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 12% 18%, rgba(215, 255, 220, 0.75) 0 1px, transparent 1.5px),
-      radial-gradient(circle at 84% 12%, rgba(215, 255, 220, 0.6) 0 1px, transparent 1.5px),
-      radial-gradient(circle at 68% 30%, rgba(215, 255, 220, 0.45) 0 1px, transparent 1.4px),
-      radial-gradient(circle at 26% 40%, rgba(215, 255, 220, 0.4) 0 1px, transparent 1.4px),
-      radial-gradient(circle at 92% 46%, rgba(215, 255, 220, 0.35) 0 1px, transparent 1.4px);
+      radial-gradient(circle at 12% 18%, #ffffff 0 1px, transparent 1.5px),
+      radial-gradient(circle at 84% 12%, #00ff66 0 1px, transparent 1.5px),
+      radial-gradient(circle at 68% 30%, #ffffff 0 1px, transparent 1.4px),
+      radial-gradient(circle at 26% 40%, #00ff66 0 1px, transparent 1.4px),
+      radial-gradient(circle at 92% 46%, #ffffff 0 1px, transparent 1.4px);
     pointer-events: none;
   }
 
@@ -36,7 +36,7 @@ const saucerStyles = {
     width: 72px;
     height: 30px;
     margin-left: -36px;
-    animation: saucer-hover 3.6s ease-in-out infinite;
+    animation: saucer-hover 1.8s ease-in-out infinite alternate;
   }
 
   .saucer-dome {
@@ -47,8 +47,9 @@ const saucerStyles = {
     height: 15px;
     margin-left: -15px;
     border-radius: 15px 15px 0 0;
-    background: linear-gradient(180deg, rgba(190, 255, 205, 0.55), rgba(0, 204, 0, 0.18));
-    box-shadow: inset 0 2px 4px rgba(230, 255, 235, 0.35);
+    background: linear-gradient(180deg, #ffffff, rgba(0, 204, 0, 0.4));
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 10px #00ff66;
   }
 
   .saucer-body {
@@ -58,71 +59,69 @@ const saucerStyles = {
     width: 72px;
     height: 16px;
     border-radius: 50%;
-    background: linear-gradient(180deg, rgba(120, 220, 130, 0.85) 0%, rgba(20, 80, 25, 0.95) 55%, rgba(5, 25, 8, 1) 100%);
-    box-shadow: 0 2px 8px rgba(0, 204, 0, 0.3);
+    background: linear-gradient(180deg, rgba(120, 220, 130, 0.95) 0%, rgba(20, 80, 25, 0.95) 55%, rgba(5, 25, 8, 1) 100%);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 12px rgba(0, 255, 100, 0.6);
   }
 
   .saucer-light {
     position: absolute;
     top: 18px;
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: #d8ffd0;
-    opacity: 0.2;
-    animation: saucer-blink 1.5s linear infinite;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
+    animation: saucer-blink 0.8s linear infinite alternate;
   }
 
   .saucer-light.l1 { left: 9px; animation-delay: 0s; }
-  .saucer-light.l2 { left: 24px; animation-delay: 0.3s; }
-  .saucer-light.l3 { left: 39px; animation-delay: 0.6s; }
-  .saucer-light.l4 { left: 54px; animation-delay: 0.9s; }
+  .saucer-light.l2 { left: 24px; animation-delay: -0.2s; }
+  .saucer-light.l3 { left: 39px; animation-delay: -0.4s; }
+  .saucer-light.l4 { left: 54px; animation-delay: -0.6s; }
 
   .saucer-glow {
     position: absolute;
-    bottom: 10px;
+    bottom: 8px;
     left: 50%;
-    width: 56px;
-    height: 12px;
-    margin-left: -28px;
+    width: 64px;
+    height: 16px;
+    margin-left: -32px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at center, rgba(0, 204, 0, 0.35), transparent 70%);
-    animation: saucer-ground 3.6s ease-in-out infinite;
+    background: radial-gradient(ellipse at center, rgba(0, 255, 100, 0.6), transparent 70%);
+    animation: saucer-ground 1.8s ease-in-out infinite alternate;
   }
 
   .saucer-trail {
     position: absolute;
     top: 44px;
     left: 50%;
-    width: 2px;
-    height: 14px;
-    margin-left: -1px;
-    background: linear-gradient(180deg, rgba(160, 255, 170, 0.5), transparent);
-    filter: blur(1px);
-    animation: saucer-trail 3.6s ease-in-out infinite;
+    width: 24px;
+    height: 36px;
+    margin-left: -12px;
+    clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%);
+    background: linear-gradient(180deg, rgba(0, 255, 100, 0.5), transparent);
+    animation: saucer-trail 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes saucer-hover {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    30% { transform: translateY(7px) rotate(1.5deg); }
-    65% { transform: translateY(2px) rotate(-1deg); }
+    0% { transform: translate(-18px, -10px) rotate(-14deg); }
+    100% { transform: translate(18px, 10px) rotate(14deg); }
   }
 
   @keyframes saucer-blink {
-    0%, 100% { opacity: 0.15; box-shadow: none; }
-    12% { opacity: 1; box-shadow: 0 0 6px rgba(216, 255, 208, 0.9); }
-    30% { opacity: 0.15; }
+    0% { transform: scale(0.6); opacity: 0.3; }
+    100% { transform: scale(1.3); opacity: 1; }
   }
 
   @keyframes saucer-ground {
-    0%, 100% { opacity: 0.35; transform: scaleX(0.85); }
-    30% { opacity: 0.85; transform: scaleX(1.1); }
-    65% { opacity: 0.5; transform: scaleX(0.95); }
+    0% { transform: translateX(-16px) scale(0.8); opacity: 0.4; }
+    100% { transform: translateX(16px) scale(1.2); opacity: 0.9; }
   }
 
   @keyframes saucer-trail {
-    0%, 100% { opacity: 0.15; transform: scaleY(0.6); }
-    30% { opacity: 0.7; transform: scaleY(1.15); }
+    0% { transform: translateX(-14px) skewX(-14deg) scaleY(0.8); }
+    100% { transform: translateX(14px) skewX(14deg) scaleY(1.2); }
   }
   `,
   v2: `
@@ -134,8 +133,7 @@ const saucerStyles = {
     height: 100%;
   }
 
-  /* v2: Extraterrestrial titanium flying saucer with chromatic perimeter beacon lights,
-     translucent cyan cockpit dome, and glowing anti-gravity repulsion core */
+  /* v2: Extraterrestrial titanium flying saucer */
   .saucerc-scene {
     position: relative;
     width: 104px;
@@ -166,7 +164,7 @@ const saucerStyles = {
     width: 72px;
     height: 30px;
     margin-left: -36px;
-    animation: saucerc-hover 3.6s ease-in-out infinite;
+    animation: saucerc-hover 1.8s ease-in-out infinite alternate;
   }
 
   /* Translucent cyan cockpit dome */
@@ -178,9 +176,9 @@ const saucerStyles = {
     height: 15px;
     margin-left: -15px;
     border-radius: 15px 15px 0 0;
-    background: linear-gradient(180deg, rgba(56, 189, 248, 0.75), rgba(14, 165, 233, 0.25));
-    border: 1px solid #38bdf8;
-    box-shadow: inset 0 2px 6px #ffffff, 0 0 10px #00f0ff;
+    background: linear-gradient(180deg, #ffffff, rgba(14, 165, 233, 0.4));
+    border: 1.5px solid #38bdf8;
+    box-shadow: inset 0 2px 6px #ffffff, 0 0 12px #00f0ff;
   }
 
   /* Titanium metallic disc body */
@@ -192,73 +190,69 @@ const saucerStyles = {
     height: 16px;
     border-radius: 50%;
     background: linear-gradient(180deg, #e2e8f0 0%, #64748b 55%, #1e293b 100%);
-    border: 1px solid #94a3b8;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), inset 0 1px 2px #ffffff;
+    border: 1.5px solid #38bdf8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 10px rgba(56, 189, 248, 0.5);
   }
 
   /* Chromatic perimeter lights */
   .saucerc-light {
     position: absolute;
     top: 18px;
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    opacity: 0.2;
-    animation: saucerc-blink 1.5s linear infinite;
+    animation: saucerc-blink 0.8s linear infinite alternate;
   }
 
-  .saucerc-light.l1 { left: 9px; background: #ef4444; box-shadow: 0 0 6px #dc2626; animation-delay: 0s; }
-  .saucerc-light.l2 { left: 24px; background: #facc15; box-shadow: 0 0 6px #eab308; animation-delay: 0.3s; }
-  .saucerc-light.l3 { left: 39px; background: #38bdf8; box-shadow: 0 0 6px #0284c7; animation-delay: 0.6s; }
-  .saucerc-light.l4 { left: 54px; background: #22c55e; box-shadow: 0 0 6px #16a34a; animation-delay: 0.9s; }
+  .saucerc-light.l1 { left: 9px; background: #ef4444; box-shadow: 0 0 8px #dc2626; animation-delay: 0s; }
+  .saucerc-light.l2 { left: 24px; background: #facc15; box-shadow: 0 0 8px #eab308; animation-delay: -0.2s; }
+  .saucerc-light.l3 { left: 39px; background: #38bdf8; box-shadow: 0 0 8px #0284c7; animation-delay: -0.4s; }
+  .saucerc-light.l4 { left: 54px; background: #22c55e; box-shadow: 0 0 8px #16a34a; animation-delay: -0.6s; }
 
   /* Anti-gravity cyan ground glow */
   .saucerc-glow {
     position: absolute;
-    bottom: 10px;
+    bottom: 8px;
     left: 50%;
-    width: 56px;
-    height: 12px;
-    margin-left: -28px;
+    width: 64px;
+    height: 16px;
+    margin-left: -32px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.6), transparent 70%);
-    box-shadow: 0 0 14px rgba(0, 240, 255, 0.5);
-    animation: saucerc-ground 3.6s ease-in-out infinite;
+    background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.8), transparent 70%);
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.7);
+    animation: saucerc-ground 1.8s ease-in-out infinite alternate;
   }
 
   .saucerc-trail {
     position: absolute;
     top: 44px;
     left: 50%;
-    width: 2px;
-    height: 14px;
-    margin-left: -1px;
-    background: linear-gradient(180deg, #38bdf8, transparent);
-    filter: blur(1px);
-    animation: saucerc-trail 3.6s ease-in-out infinite;
+    width: 24px;
+    height: 36px;
+    margin-left: -12px;
+    clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%);
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.6), transparent);
+    animation: saucerc-trail 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes saucerc-hover {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    30% { transform: translateY(7px) rotate(1.5deg); }
-    65% { transform: translateY(2px) rotate(-1deg); }
+    0% { transform: translate(-18px, -10px) rotate(-14deg); }
+    100% { transform: translate(18px, 10px) rotate(14deg); }
   }
 
   @keyframes saucerc-blink {
-    0%, 100% { opacity: 0.2; }
-    12% { opacity: 1; }
-    30% { opacity: 0.2; }
+    0% { transform: scale(0.6); opacity: 0.3; }
+    100% { transform: scale(1.3); opacity: 1; }
   }
 
   @keyframes saucerc-ground {
-    0%, 100% { opacity: 0.4; transform: scaleX(0.85); }
-    30% { opacity: 0.95; transform: scaleX(1.1); }
-    65% { opacity: 0.6; transform: scaleX(0.95); }
+    0% { transform: translateX(-16px) scale(0.8); opacity: 0.4; }
+    100% { transform: translateX(16px) scale(1.2); opacity: 0.9; }
   }
 
   @keyframes saucerc-trail {
-    0%, 100% { opacity: 0.2; transform: scaleY(0.6); }
-    30% { opacity: 0.85; transform: scaleY(1.15); }
+    0% { transform: translateX(-14px) skewX(-14deg) scaleY(0.8); }
+    100% { transform: translateX(14px) skewX(14deg) scaleY(1.2); }
   }
   `,
 };

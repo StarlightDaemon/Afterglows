@@ -5,48 +5,60 @@ const pulseStyles = `
     justify-content: center;
     width: 100%;
     height: 100%;
-  }
-
-  .pulse-bar {
-    width: 7px;
-    height: 24px;
-    background: linear-gradient(180deg, #b5ff9e, var(--accent, #00cc00));
-    animation: pulse 1.3s ease-in-out infinite;
-    box-shadow: 0 0 8px rgba(0, 204, 0, 0.35);
-  }
-
-  @keyframes pulse {
-    0%, 100% { height: 18%; opacity: 0.35 }
-    50% { height: 100%; opacity: 1 }
+    overflow: hidden;
   }
 
   .pulse-wrap {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 5px;
     width: 100%;
     height: 100%;
     padding: 12px 10px;
+    position: relative;
+    animation: pulse-stream 1.2s linear infinite;
+  }
+
+  @keyframes pulse-stream {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-24px); }
+  }
+
+  .pulse-bar {
+    width: 7px;
+    height: 38px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, #ffffff, #00ff66 60%, #006622);
+    border: 1px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.6);
+    animation: pulse-wave 1.0s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-wave {
+    0% { transform: translateY(-16px) scaleY(0.7); }
+    100% { transform: translateY(16px) scaleY(1.3); }
   }
 
   .pulse-basic-wrap {
     display: flex;
-    align-items: flex-end;
-    gap: 4px;
-    height: 50px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 60px;
+    width: 100%;
+    position: relative;
+    animation: pulse-stream 1.2s linear infinite;
   }
 
   .pulse-basic-bar {
-    width: 8px;
-    background: var(--accent, #00cc00);
-    animation: pulse-basic 1.2s infinite;
-    box-shadow: 0 0 5px rgba(0, 204, 0, 0.25);
-  }
-
-  @keyframes pulse-basic {
-    0%, 100% { height: 30%; opacity: 0.5 }
-    50% { height: 100%; opacity: 1 }
+    width: 10px;
+    height: 42px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #ffffff, #00ff66);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 12px rgba(0, 255, 100, 0.6);
+    animation: pulse-wave 1.0s ease-in-out infinite alternate;
   }
 `;
 
@@ -54,20 +66,24 @@ const pulseMarkup = {
   v1: `
     <div class="pulse-basic-wrap">
       <div class="pulse-basic-bar" style="animation-delay:0s"></div>
-      <div class="pulse-basic-bar" style="animation-delay:0.2s"></div>
-      <div class="pulse-basic-bar" style="animation-delay:0.4s"></div>
+      <div class="pulse-basic-bar" style="animation-delay:-0.2s"></div>
+      <div class="pulse-basic-bar" style="animation-delay:-0.4s"></div>
+      <div class="pulse-basic-bar" style="animation-delay:-0.6s"></div>
+      <div class="pulse-basic-bar" style="animation-delay:-0.8s"></div>
     </div>
   `,
   v2: `
     <div class="pulse-wrap">
       <div class="pulse-bar" style="animation-delay:0s"></div>
-      <div class="pulse-bar" style="animation-delay:0.1s"></div>
-      <div class="pulse-bar" style="animation-delay:0.2s"></div>
-      <div class="pulse-bar" style="animation-delay:0.3s"></div>
-      <div class="pulse-bar" style="animation-delay:0.4s"></div>
-      <div class="pulse-bar" style="animation-delay:0.5s"></div>
-      <div class="pulse-bar" style="animation-delay:0.6s"></div>
-      <div class="pulse-bar" style="animation-delay:0.7s"></div>
+      <div class="pulse-bar" style="animation-delay:-0.12s"></div>
+      <div class="pulse-bar" style="animation-delay:-0.24s"></div>
+      <div class="pulse-bar" style="animation-delay:-0.36s"></div>
+      <div class="pulse-bar" style="animation-delay:-0.48s"></div>
+      <div class="pulse-bar" style="animation-delay:-0.60s"></div>
+      <div class="pulse-bar" style="animation-delay:-0.72s"></div>
+      <div class="pulse-bar" style="animation-delay:-0.84s"></div>
+      <div class="pulse-bar" style="animation-delay:-0.96s"></div>
+      <div class="pulse-bar" style="animation-delay:-1.08s"></div>
     </div>
   `,
 };

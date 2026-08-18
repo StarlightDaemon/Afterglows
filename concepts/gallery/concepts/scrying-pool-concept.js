@@ -22,8 +22,8 @@ const scryingPoolStyles = {
     height: 72px;
     border-radius: 50%;
     background: radial-gradient(ellipse at 50% 40%, rgba(0, 50, 10, 0.95), rgba(0, 15, 3, 0.98));
-    border: 3px solid var(--accent, #00cc00);
-    box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.95), 0 0 10px rgba(0, 204, 0, 0.35);
+    border: 3px solid #00ff66;
+    box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.95), 0 0 12px rgba(0, 255, 100, 0.5);
     overflow: hidden;
   }
 
@@ -31,8 +31,14 @@ const scryingPoolStyles = {
     position: absolute;
     inset: 4px;
     border-radius: 50%;
-    border: 1px dashed rgba(140, 255, 170, 0.4);
+    border: 1.5px dashed #00ff66;
     pointer-events: none;
+    animation: scry-spin 2.0s linear infinite;
+  }
+
+  @keyframes scry-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .scry-drop {
@@ -42,16 +48,16 @@ const scryingPoolStyles = {
     width: 4px;
     height: 6px;
     border-radius: 50% 50% 20% 20%;
-    background: rgba(190, 255, 205, 1);
-    box-shadow: 0 0 6px rgba(140, 255, 170, 0.9);
-    animation: scry-drip 4.5s cubic-bezier(0.6, 0.1, 0.9, 0.3) infinite;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
+    animation: scry-drip 1.2s cubic-bezier(0.6, 0.1, 0.9, 0.3) infinite;
     z-index: 6;
   }
 
   @keyframes scry-drip {
     0% { top: -6px; opacity: 1; transform: scaleY(1.3); }
-    22% { top: 46px; opacity: 1; transform: scaleY(1); }
-    23% { top: 48px; opacity: 0; transform: scaleY(0.5); }
+    70% { top: 46px; opacity: 1; transform: scaleY(1); }
+    75% { top: 48px; opacity: 0; transform: scaleY(0.5); }
     100% { top: 48px; opacity: 0; }
   }
 
@@ -60,21 +66,19 @@ const scryingPoolStyles = {
     left: 50%;
     top: 50%;
     border-radius: 50%;
-    border: 1.5px solid rgba(140, 255, 170, 0.9);
+    border: 1.5px solid #00ff66;
     transform: translate(-50%, -50%);
-    animation: scry-wave 4.5s ease-out infinite;
+    animation: scry-wave 1.2s ease-out infinite;
     pointer-events: none;
   }
 
-  .scry-ripple.r1 { animation-delay: 1.0s; }
-  .scry-ripple.r2 { animation-delay: 1.3s; }
+  .scry-ripple.r1 { animation-delay: 0s; }
+  .scry-ripple.r2 { animation-delay: 0.6s; }
 
   @keyframes scry-wave {
-    0%, 22% { opacity: 0; width: 4px; height: 3px; }
-    24% { opacity: 1; width: 14px; height: 10px; }
-    60% { opacity: 0.8; width: 62px; height: 44px; }
-    85% { opacity: 0; width: 84px; height: 60px; }
-    100% { opacity: 0; }
+    0% { opacity: 1; width: 4px; height: 3px; }
+    80% { opacity: 0.8; width: 70px; height: 50px; }
+    100% { opacity: 0; width: 90px; height: 64px; }
   }
 
   .scry-eye {
@@ -86,19 +90,16 @@ const scryingPoolStyles = {
     margin-left: -19px;
     margin-top: -12px;
     border-radius: 50% 50% 50% 50% / 80% 80% 80% 80%;
-    border: 2px solid rgba(190, 255, 205, 1);
-    background: radial-gradient(circle, rgba(140, 255, 170, 0.6), transparent 70%);
-    box-shadow: 0 0 12px rgba(140, 255, 170, 1);
-    animation: scry-eye-vision 4.5s ease-in-out infinite;
+    border: 2px solid #ffffff;
+    background: radial-gradient(circle, rgba(0, 255, 100, 0.7), transparent 70%);
+    box-shadow: 0 0 14px #00ff66;
+    animation: scry-eye-vision 1.6s ease-in-out infinite alternate;
     z-index: 4;
   }
 
   @keyframes scry-eye-vision {
-    0%, 25% { opacity: 0; transform: scale(0.4); }
-    38% { opacity: 1; transform: scale(1.05); }
-    55% { opacity: 1; transform: scale(1); }
-    75% { opacity: 0.9; transform: scale(0.95); }
-    90%, 100% { opacity: 0; transform: scale(0.6); }
+    0% { transform: translate(-14px, -6px) scale(0.9); }
+    100% { transform: translate(14px, 6px) scale(1.1); }
   }
 
   .scry-pupil {
@@ -110,16 +111,14 @@ const scryingPoolStyles = {
     margin-left: -5px;
     margin-top: -5px;
     border-radius: 50%;
-    background: rgba(190, 255, 205, 1);
-    box-shadow: 0 0 6px rgba(190, 255, 205, 1);
-    animation: scry-pupil-gaze 4.5s ease-in-out infinite;
+    background: #ffffff;
+    box-shadow: 0 0 8px #00ff66;
+    animation: scry-pupil-gaze 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes scry-pupil-gaze {
-    0%, 25% { transform: scale(0.2); }
-    40% { transform: scale(1.3); }
-    60% { transform: scale(0.9); }
-    85%, 100% { transform: scale(0.2); }
+    0% { transform: translateX(-4px) scale(0.8); }
+    100% { transform: translateX(4px) scale(1.2); }
   }
   `,
   v2: `
@@ -131,8 +130,7 @@ const scryingPoolStyles = {
     height: 100%;
   }
 
-  /* v2: Obsidian scrying font with gold runes, cyan liquid drop,
-     expanding azure ripple waves, and cosmic violet/magenta all-seeing eye */
+  /* v2: Obsidian scrying font with gold runes and cosmic all-seeing eye */
   .scryc {
     width: 114px;
     height: 100px;
@@ -152,7 +150,7 @@ const scryingPoolStyles = {
     border-radius: 50%;
     background: radial-gradient(ellipse at 50% 40%, #1e1b4b 0%, #09090b 70%, #020617 100%);
     border: 3px solid #facc15;
-    box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.95), 0 0 12px rgba(250, 204, 21, 0.4);
+    box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.95), 0 0 14px rgba(250, 204, 21, 0.5);
     overflow: hidden;
   }
 
@@ -161,9 +159,15 @@ const scryingPoolStyles = {
     position: absolute;
     inset: 4px;
     border-radius: 50%;
-    border: 1.5px dashed rgba(250, 204, 21, 0.6);
-    box-shadow: 0 0 6px rgba(250, 204, 21, 0.4);
+    border: 1.5px dashed rgba(250, 204, 21, 0.8);
+    box-shadow: 0 0 8px rgba(250, 204, 21, 0.5);
     pointer-events: none;
+    animation: scryc-spin 2.0s linear infinite;
+  }
+
+  @keyframes scryc-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Cyan scrying water drop */
@@ -176,14 +180,14 @@ const scryingPoolStyles = {
     border-radius: 50% 50% 20% 20%;
     background: #38bdf8;
     box-shadow: 0 0 8px #00f0ff;
-    animation: scryc-drip 4.5s cubic-bezier(0.6, 0.1, 0.9, 0.3) infinite;
+    animation: scryc-drip 1.2s cubic-bezier(0.6, 0.1, 0.9, 0.3) infinite;
     z-index: 6;
   }
 
   @keyframes scryc-drip {
     0% { top: -6px; opacity: 1; transform: scaleY(1.3); }
-    22% { top: 46px; opacity: 1; transform: scaleY(1); }
-    23% { top: 48px; opacity: 0; transform: scaleY(0.5); }
+    70% { top: 46px; opacity: 1; transform: scaleY(1); }
+    75% { top: 48px; opacity: 0; transform: scaleY(0.5); }
     100% { top: 48px; opacity: 0; }
   }
 
@@ -194,21 +198,19 @@ const scryingPoolStyles = {
     top: 50%;
     border-radius: 50%;
     border: 1.5px solid #38bdf8;
-    box-shadow: 0 0 6px #00f0ff;
+    box-shadow: 0 0 8px #00f0ff;
     transform: translate(-50%, -50%);
-    animation: scryc-wave 4.5s ease-out infinite;
+    animation: scryc-wave 1.2s ease-out infinite;
     pointer-events: none;
   }
 
-  .scryc-ripple.r1 { animation-delay: 1.0s; }
-  .scryc-ripple.r2 { animation-delay: 1.3s; }
+  .scryc-ripple.r1 { animation-delay: 0s; }
+  .scryc-ripple.r2 { animation-delay: 0.6s; }
 
   @keyframes scryc-wave {
-    0%, 22% { opacity: 0; width: 4px; height: 3px; }
-    24% { opacity: 1; width: 14px; height: 10px; }
-    60% { opacity: 0.8; width: 62px; height: 44px; }
-    85% { opacity: 0; width: 84px; height: 60px; }
-    100% { opacity: 0; }
+    0% { opacity: 1; width: 4px; height: 3px; }
+    80% { opacity: 0.8; width: 70px; height: 50px; }
+    100% { opacity: 0; width: 90px; height: 64px; }
   }
 
   /* Manifesting cosmic all-seeing eye */
@@ -224,16 +226,13 @@ const scryingPoolStyles = {
     border: 2px solid #c084fc;
     background: radial-gradient(circle, #ec4899 0%, #a855f7 50%, transparent 80%);
     box-shadow: 0 0 16px #c084fc;
-    animation: scryc-eye-vision 4.5s ease-in-out infinite;
+    animation: scryc-eye-vision 1.6s ease-in-out infinite alternate;
     z-index: 4;
   }
 
   @keyframes scryc-eye-vision {
-    0%, 25% { opacity: 0; transform: scale(0.4); }
-    38% { opacity: 1; transform: scale(1.05); }
-    55% { opacity: 1; transform: scale(1); }
-    75% { opacity: 0.95; transform: scale(0.95); }
-    90%, 100% { opacity: 0; transform: scale(0.6); }
+    0% { transform: translate(-14px, -6px) scale(0.9); }
+    100% { transform: translate(14px, 6px) scale(1.1); }
   }
 
   /* Piercing golden iris and pupil */
@@ -247,15 +246,13 @@ const scryingPoolStyles = {
     margin-top: -5px;
     border-radius: 50%;
     background: #fde047;
-    box-shadow: 0 0 8px #facc15, inset 0 0 4px #ea580c;
-    animation: scryc-pupil-gaze 4.5s ease-in-out infinite;
+    box-shadow: 0 0 10px #facc15;
+    animation: scryc-pupil-gaze 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes scryc-pupil-gaze {
-    0%, 25% { transform: scale(0.2); }
-    40% { transform: scale(1.3); }
-    60% { transform: scale(0.9); }
-    85%, 100% { transform: scale(0.2); }
+    0% { transform: translateX(-4px) scale(0.8); }
+    100% { transform: translateX(4px) scale(1.2); }
   }
   `,
 };
