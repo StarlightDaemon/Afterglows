@@ -16,15 +16,13 @@ const asciiStyles = `
     white-space: pre;
     color: var(--accent, #00cc00);
     text-shadow: 0 0 3px var(--accent, #00cc00);
-    animation: ascii-wiggle-v1 0.1s infinite;
+    animation: ascii-float-v1 2.2s ease-in-out infinite;
     font-family: 'Courier New', monospace;
   }
 
-  @keyframes ascii-wiggle-v1 {
-    0%, 100% { transform: translate(0, 0); }
-    25% { transform: translate(1px, 0); }
-    50% { transform: translate(0, 1px); }
-    75% { transform: translate(-1px, 0); }
+  @keyframes ascii-float-v1 {
+    0%, 100% { transform: translateY(-7px) rotate(-5deg); }
+    50% { transform: translateY(7px) rotate(5deg); }
   }
 
   /* --- v2: rebuilt on <pre> with flush, correctly padded content --- */
@@ -34,17 +32,15 @@ const asciiStyles = `
     line-height: 1;
     white-space: pre;
     color: var(--accent, #00cc00);
-    text-shadow: 0 0 3px var(--accent, #00cc00);
-    animation: ascii-wiggle 0.18s steps(2) infinite;
+    text-shadow: 0 0 6px var(--accent, #00cc00), 0 0 12px rgba(0, 204, 0, 0.4);
+    animation: ascii-float 2.4s ease-in-out infinite;
     font-family: 'Courier New', monospace;
     letter-spacing: 0;
   }
 
-  @keyframes ascii-wiggle {
-    0%, 100% { transform: translate(0, 0); }
-    25% { transform: translate(1px, 0); }
-    50% { transform: translate(0, 1px); }
-    75% { transform: translate(-1px, 0); }
+  @keyframes ascii-float {
+    0%, 100% { transform: translateY(-9px) rotate(-7deg) scale(0.95); }
+    50% { transform: translateY(9px) rotate(7deg) scale(1.05); }
   }
 `;
 

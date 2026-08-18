@@ -27,8 +27,8 @@ const bubbleColumnStyles = {
   }
 
   @keyframes bcol-surface {
-    0%, 100% { transform: translateY(0) scaleX(1); opacity: 0.6; }
-    50% { transform: translateY(2px) scaleX(0.96); opacity: 0.9; }
+    0%, 100% { transform: translateY(-4px) scaleX(1); opacity: 0.7; }
+    50% { transform: translateY(4px) scaleX(1.1); opacity: 1; }
   }
 
   .bcol-floor {
@@ -78,32 +78,32 @@ const bubbleColumnStyles = {
   .bcol-bubble {
     display: block;
     border-radius: 50%;
-    border: 1px solid rgba(190, 255, 205, 0.85);
-    background: radial-gradient(circle at 34% 30%, rgba(190, 255, 205, 0.35), transparent 60%);
+    border: 1.5px solid rgba(190, 255, 205, 0.95);
+    background: radial-gradient(circle at 34% 30%, rgba(190, 255, 205, 0.4), transparent 60%);
     animation: bcol-wobble ease-in-out infinite;
   }
 
   .bcol-rise.b1 { animation-duration: 2.6s; }
-  .bcol-rise.b1 .bcol-bubble { width: 7px; height: 7px; animation-duration: 1.1s; }
+  .bcol-rise.b1 .bcol-bubble { width: 14px; height: 14px; animation-duration: 1.1s; }
   .bcol-rise.b2 { animation-duration: 3.1s; animation-delay: -1.2s; }
-  .bcol-rise.b2 .bcol-bubble { width: 5px; height: 5px; animation-duration: 0.9s; animation-delay: -0.3s; }
+  .bcol-rise.b2 .bcol-bubble { width: 11px; height: 11px; animation-duration: 0.9s; animation-delay: -0.3s; }
   .bcol-rise.b3 { animation-duration: 2.2s; animation-delay: -1.8s; }
-  .bcol-rise.b3 .bcol-bubble { width: 9px; height: 9px; animation-duration: 1.3s; animation-delay: -0.6s; }
+  .bcol-rise.b3 .bcol-bubble { width: 18px; height: 18px; animation-duration: 1.3s; animation-delay: -0.6s; }
   .bcol-rise.b4 { animation-duration: 3.4s; animation-delay: -0.5s; }
-  .bcol-rise.b4 .bcol-bubble { width: 4px; height: 4px; animation-duration: 0.8s; animation-delay: -0.2s; }
+  .bcol-rise.b4 .bcol-bubble { width: 12px; height: 12px; animation-duration: 0.8s; animation-delay: -0.2s; }
   .bcol-rise.b5 { animation-duration: 2.9s; animation-delay: -2.3s; }
-  .bcol-rise.b5 .bcol-bubble { width: 6px; height: 6px; animation-duration: 1s; animation-delay: -0.45s; }
+  .bcol-rise.b5 .bcol-bubble { width: 15px; height: 15px; animation-duration: 1s; animation-delay: -0.45s; }
 
   @keyframes bcol-rise {
-    0% { transform: translateY(0) scale(0.55); opacity: 0; }
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
     8% { opacity: 0.95; }
-    86% { transform: translateY(-66px) scale(1.15); opacity: 0.95; }
-    94%, 100% { transform: translateY(-70px) scale(1.5); opacity: 0; }
+    86% { transform: translateY(-68px) scale(1.15); opacity: 0.95; }
+    94%, 100% { transform: translateY(-74px) scale(1.6); opacity: 0; }
   }
 
   @keyframes bcol-wobble {
-    0%, 100% { transform: translateX(-4px); }
-    50% { transform: translateX(4px); }
+    0%, 100% { transform: translateX(-12px); }
+    50% { transform: translateX(12px); }
   }
 
   .bcol-burst {
@@ -179,8 +179,8 @@ const bubbleColumnStyles = {
   }
 
   @keyframes bcolc-surface {
-    0%, 100% { transform: translateY(0) scaleX(1); opacity: 0.7; }
-    50% { transform: translateY(2px) scaleX(0.96); opacity: 1; }
+    0%, 100% { transform: translateY(-4px) scaleX(1); opacity: 0.7; }
+    50% { transform: translateY(4px) scaleX(1.1); opacity: 1; }
   }
 
   /* Ocean floor bed */
@@ -243,26 +243,26 @@ const bubbleColumnStyles = {
   }
 
   .bcolc-rise.b1 { animation-duration: 2.6s; }
-  .bcolc-rise.b1 .bcolc-bubble { width: 7px; height: 7px; animation-duration: 1.1s; }
+  .bcolc-rise.b1 .bcolc-bubble { width: 15px; height: 15px; animation-duration: 1.1s; }
   .bcolc-rise.b2 { animation-duration: 3.1s; animation-delay: -1.2s; }
-  .bcolc-rise.b2 .bcolc-bubble { width: 5px; height: 5px; animation-duration: 0.9s; animation-delay: -0.3s; }
+  .bcolc-rise.b2 .bcolc-bubble { width: 12px; height: 12px; animation-duration: 0.9s; animation-delay: -0.3s; }
   .bcolc-rise.b3 { animation-duration: 2.2s; animation-delay: -1.8s; }
-  .bcolc-rise.b3 .bcolc-bubble { width: 9px; height: 9px; animation-duration: 1.3s; animation-delay: -0.6s; }
+  .bcolc-rise.b3 .bcolc-bubble { width: 20px; height: 20px; animation-duration: 1.3s; animation-delay: -0.6s; }
   .bcolc-rise.b4 { animation-duration: 3.4s; animation-delay: -0.5s; }
-  .bcolc-rise.b4 .bcolc-bubble { width: 4px; height: 4px; animation-duration: 0.8s; animation-delay: -0.2s; }
+  .bcolc-rise.b4 .bcolc-bubble { width: 13px; height: 13px; animation-duration: 0.8s; animation-delay: -0.2s; }
   .bcolc-rise.b5 { animation-duration: 2.9s; animation-delay: -2.3s; }
-  .bcolc-rise.b5 .bcolc-bubble { width: 6px; height: 6px; animation-duration: 1s; animation-delay: -0.45s; }
+  .bcolc-rise.b5 .bcolc-bubble { width: 16px; height: 16px; animation-duration: 1s; animation-delay: -0.45s; }
 
   @keyframes bcolc-rise {
-    0% { transform: translateY(0) scale(0.55); opacity: 0; }
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
     8% { opacity: 0.95; }
-    86% { transform: translateY(-66px) scale(1.15); opacity: 0.95; }
-    94%, 100% { transform: translateY(-70px) scale(1.5); opacity: 0; }
+    86% { transform: translateY(-68px) scale(1.15); opacity: 0.95; }
+    94%, 100% { transform: translateY(-74px) scale(1.6); opacity: 0; }
   }
 
   @keyframes bcolc-wobble {
-    0%, 100% { transform: translateX(-4px); }
-    50% { transform: translateX(4px); }
+    0%, 100% { transform: translateX(-12px); }
+    50% { transform: translateX(12px); }
   }
 
   /* Surface burst rings */

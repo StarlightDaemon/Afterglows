@@ -95,11 +95,11 @@ const alienSignalStyles = {
   }
 
   @keyframes asig-spike {
-    0%, 100% { opacity: 0.25; }
-    12% { opacity: 1; }
-    22% { opacity: 0.55; }
-    32% { opacity: 1; }
-    55% { opacity: 0.3; }
+    0% { transform: translateX(-24px); opacity: 0.4; }
+    25% { transform: translateX(8px); opacity: 1; }
+    50% { transform: translateX(24px); opacity: 0.7; }
+    75% { transform: translateX(-10px); opacity: 1; }
+    100% { transform: translateX(-24px); opacity: 0.4; }
   }
 
   @keyframes asig-blink {
@@ -212,11 +212,11 @@ const alienSignalStyles = {
   }
 
   @keyframes asigc-spike {
-    0%, 100% { opacity: 0.3; }
-    12% { opacity: 1; }
-    22% { opacity: 0.6; }
-    32% { opacity: 1; }
-    55% { opacity: 0.35; }
+    0% { transform: translateX(-24px); opacity: 0.5; }
+    25% { transform: translateX(8px); opacity: 1; }
+    50% { transform: translateX(24px); opacity: 0.8; }
+    75% { transform: translateX(-10px); opacity: 1; }
+    100% { transform: translateX(-24px); opacity: 0.5; }
   }
 
   @keyframes asigc-blink {

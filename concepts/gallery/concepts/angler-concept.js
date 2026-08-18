@@ -610,14 +610,15 @@ const anglerStyles = {
   .agc-fish {
     position: absolute;
     inset: 0;
-    animation: agc-lunge 6.4s infinite;
+    animation: agc-lunge 4.8s ease-in-out infinite;
   }
 
   @keyframes agc-lunge {
-    0%, 48% { transform: translateX(0); animation-timing-function: cubic-bezier(0.7, 0, 0.9, 1); }
-    53% { transform: translateX(-8px); animation-timing-function: ease-out; }
-    58% { transform: translateX(-6px); animation-timing-function: ease-in-out; }
-    78%, 100% { transform: translateX(0); }
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-8px, -4px) rotate(-3deg); }
+    50% { transform: translate(-20px, 2px) rotate(4deg); }
+    75% { transform: translate(-10px, 5px) rotate(1deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
   }
 
   /* Volumetric lure illumination beam */
@@ -633,11 +634,11 @@ const anglerStyles = {
   }
 
   @keyframes agc-light {
-    0%, 22% { opacity: 0.2; transform: scale(0.55); }
+    0%, 22% { opacity: 0.4; transform: scale(0.7); }
     36%, 50% { opacity: 0.9; transform: scale(1); }
     53% { opacity: 1; transform: scale(1.1); }
-    70% { opacity: 0.45; transform: scale(0.85); }
-    85%, 100% { opacity: 0.2; transform: scale(0.55); }
+    70% { opacity: 0.6; transform: scale(0.85); }
+    85%, 100% { opacity: 0.4; transform: scale(0.7); }
   }
 
   /* Body silhouette: abyssal charcoal-indigo */
@@ -655,9 +656,8 @@ const anglerStyles = {
   }
 
   @keyframes agc-reveal {
-    0%, 22% { opacity: 0.12; }
-    34%, 62% { opacity: 0.95; }
-    80%, 100% { opacity: 0.12; }
+    0%, 100% { opacity: 0.75; }
+    50% { opacity: 1; }
   }
 
   .agc-dorsal {
@@ -679,12 +679,13 @@ const anglerStyles = {
     height: 22px;
     clip-path: polygon(100% 0, 0 50%, 100% 100%, 72% 50%);
     background: linear-gradient(270deg, #0284c7, #1e293b);
-    animation: agc-reveal 6.4s ease-in-out infinite, agc-tailbeat 1.8s ease-in-out infinite;
+    transform-origin: 0% 50%;
+    animation: agc-reveal 6.4s ease-in-out infinite, agc-tailbeat 1.4s ease-in-out infinite;
   }
 
   @keyframes agc-tailbeat {
-    0%, 100% { transform: scaleX(1); }
-    50% { transform: scaleX(0.75); }
+    0%, 100% { transform: rotate(-20deg) scaleX(1); }
+    50% { transform: rotate(20deg) scaleX(0.85); }
   }
 
   .agc-fin {
@@ -700,8 +701,8 @@ const anglerStyles = {
   }
 
   @keyframes agc-finflick {
-    0%, 100% { rotate: -6deg; }
-    50% { rotate: 8deg; }
+    0%, 100% { rotate: -12deg; }
+    50% { rotate: 16deg; }
   }
 
   /* Bioluminescent flank photophores */
@@ -737,9 +738,9 @@ const anglerStyles = {
   }
 
   @keyframes agc-eye {
-    0%, 22% { opacity: 0.2; box-shadow: none; }
+    0%, 22% { opacity: 0.4; box-shadow: none; }
     34%, 62% { opacity: 1; box-shadow: 0 0 6px #fbbf24; }
-    80%, 100% { opacity: 0.2; box-shadow: none; }
+    80%, 100% { opacity: 0.4; box-shadow: none; }
   }
 
   /* Translucent needle fangs */
@@ -762,7 +763,7 @@ const anglerStyles = {
     width: 30px;
     height: 11px;
     transform-origin: 100% 20%;
-    animation: agc-jaw 6.4s infinite;
+    animation: agc-jaw 4.8s infinite;
   }
 
   .agc-jaw::before {
@@ -775,14 +776,14 @@ const anglerStyles = {
   }
 
   @keyframes agc-jaw {
-    0%, 26% { transform: rotate(14deg); opacity: 0.15; }
-    36%, 44% { transform: rotate(18deg); opacity: 0.95; }
-    50% { transform: rotate(22deg); }
+    0%, 26% { transform: rotate(14deg); }
+    36%, 44% { transform: rotate(24deg); }
+    50% { transform: rotate(26deg); }
     53% { transform: rotate(1deg); }
-    56% { transform: rotate(6deg); }
+    56% { transform: rotate(8deg); }
     59% { transform: rotate(2deg); }
-    72% { transform: rotate(7deg); opacity: 0.6; }
-    84%, 100% { transform: rotate(14deg); opacity: 0.15; }
+    72% { transform: rotate(10deg); }
+    84%, 100% { transform: rotate(14deg); }
   }
 
   .agc-stalk {
@@ -794,7 +795,13 @@ const anglerStyles = {
     border: 1.5px solid rgba(56, 189, 248, 0.8);
     border-bottom: none;
     border-radius: 100% 100% 0 0;
-    animation: agc-reveal 6.4s ease-in-out infinite;
+    transform-origin: 100% 100%;
+    animation: agc-stalk-sway 2.4s ease-in-out infinite;
+  }
+
+  @keyframes agc-stalk-sway {
+    0%, 100% { transform: rotate(-12deg); }
+    50% { transform: rotate(12deg); }
   }
 
   /* Bioluminescent Esca photophore bulb */
@@ -806,15 +813,20 @@ const anglerStyles = {
     height: 8px;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 35%, #ffffff 0%, #00f0ff 45%, #00e676 80%, #008f39 100%);
-    animation: agc-lure 6.4s ease-in-out infinite;
+    animation: agc-lure 6.4s ease-in-out infinite, agc-lure-bob 2.4s ease-in-out infinite;
+  }
+
+  @keyframes agc-lure-bob {
+    0%, 100% { transform: translate(-6px, -4px); }
+    50% { transform: translate(6px, 6px); }
   }
 
   @keyframes agc-lure {
-    0%, 20% { box-shadow: 0 0 10px #00f0ff; transform: scale(0.9); }
-    36%, 50% { box-shadow: 0 0 24px #00f0ff, 0 0 46px rgba(0, 230, 118, 0.8); transform: scale(1.3); }
-    53% { box-shadow: 0 0 32px #ffffff, 0 0 56px #00f0ff; transform: scale(1.4); }
-    72% { box-shadow: 0 0 12px #00f0ff; transform: scale(1); }
-    85%, 100% { box-shadow: 0 0 10px #00f0ff; transform: scale(0.9); }
+    0%, 20% { box-shadow: 0 0 10px #00f0ff; }
+    36%, 50% { box-shadow: 0 0 24px #00f0ff, 0 0 46px rgba(0, 230, 118, 0.8); }
+    53% { box-shadow: 0 0 32px #ffffff, 0 0 56px #00f0ff; }
+    72% { box-shadow: 0 0 12px #00f0ff; }
+    85%, 100% { box-shadow: 0 0 10px #00f0ff; }
   }
 
   /* Bioluminescent krill prey */

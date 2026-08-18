@@ -90,8 +90,11 @@ const bunsenStyles = {
   }
 
   @keyframes bn-outer {
-    0%, 100% { transform: scaleY(1.1) scaleX(1.15); opacity: 0.9; }
-    40%, 60% { transform: scaleY(1.35) scaleX(0.8); opacity: 1; }
+    0% { transform: scaleY(1.05) scaleX(1.1) rotate(-8deg) translateX(-4px); opacity: 0.9; }
+    25% { transform: scaleY(1.3) scaleX(0.9) rotate(6deg) translateX(3px); opacity: 1; }
+    50% { transform: scaleY(1.4) scaleX(0.8) rotate(-10deg) translateX(-5px); opacity: 1; }
+    75% { transform: scaleY(1.15) scaleX(1.05) rotate(8deg) translateX(4px); opacity: 0.95; }
+    100% { transform: scaleY(1.05) scaleX(1.1) rotate(-8deg) translateX(-4px); opacity: 0.9; }
   }
 
   .bn-flame-inner {
@@ -108,8 +111,11 @@ const bunsenStyles = {
   }
 
   @keyframes bn-inner {
-    0%, 100% { transform: scaleY(0.4); opacity: 0.3; }
-    40%, 60% { transform: scaleY(1.3); opacity: 1; }
+    0% { transform: scaleY(0.6) rotate(-5deg) translateX(-2px); opacity: 0.4; }
+    25% { transform: scaleY(1.2) rotate(4deg) translateX(2px); opacity: 0.9; }
+    50% { transform: scaleY(1.35) rotate(-6deg) translateX(-3px); opacity: 1; }
+    75% { transform: scaleY(0.9) rotate(5deg) translateX(2px); opacity: 0.7; }
+    100% { transform: scaleY(0.6) rotate(-5deg) translateX(-2px); opacity: 0.4; }
   }
 
   @keyframes bn-flicker {
@@ -133,9 +139,9 @@ const bunsenStyles = {
   .bn-haze.h3 { margin-left: 4px; animation-delay: -1.3s; }
 
   @keyframes bn-haze {
-    0% { transform: translateY(6px) skewX(0deg); opacity: 0; }
-    30% { opacity: 0.7; }
-    100% { transform: translateY(-8px) skewX(8deg); opacity: 0; }
+    0% { transform: translateY(6px) translateX(-3px) scale(0.6); opacity: 0; }
+    30% { opacity: 0.8; }
+    100% { transform: translateY(-24px) translateX(6px) scale(1.4); opacity: 0; }
   }
 
   .bn-read {
@@ -404,17 +410,33 @@ const bunsenStyles = {
   }
 
   @keyframes bnc-outer {
-    0%, 100% {
-      transform: scaleY(1.1) scaleX(1.15);
+    0% {
+      transform: scaleY(1.05) scaleX(1.1) rotate(-8deg) translateX(-4px);
       background: radial-gradient(ellipse at 50% 85%, #fff2a8, #ff9911 50%, rgba(230, 60, 0, 0.4) 80%, transparent);
       box-shadow: 0 0 16px rgba(255, 140, 0, 0.6);
       opacity: 0.92;
     }
-    40%, 60% {
-      transform: scaleY(1.35) scaleX(0.78);
+    25% {
+      transform: scaleY(1.25) scaleX(0.92) rotate(6deg) translateX(3px);
+      background: radial-gradient(ellipse at 50% 85%, #fff2a8, #ff9911 50%, rgba(230, 60, 0, 0.4) 80%, transparent);
+      opacity: 0.95;
+    }
+    50% {
+      transform: scaleY(1.45) scaleX(0.78) rotate(-10deg) translateX(-5px);
       background: radial-gradient(ellipse at 50% 85%, #d4f8ff, #00c3ff 45%, rgba(0, 80, 240, 0.6) 80%, transparent);
       box-shadow: 0 0 20px rgba(0, 180, 255, 0.85);
       opacity: 1;
+    }
+    75% {
+      transform: scaleY(1.3) scaleX(0.85) rotate(8deg) translateX(4px);
+      background: radial-gradient(ellipse at 50% 85%, #d4f8ff, #00c3ff 45%, rgba(0, 80, 240, 0.6) 80%, transparent);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleY(1.05) scaleX(1.1) rotate(-8deg) translateX(-4px);
+      background: radial-gradient(ellipse at 50% 85%, #fff2a8, #ff9911 50%, rgba(230, 60, 0, 0.4) 80%, transparent);
+      box-shadow: 0 0 16px rgba(255, 140, 0, 0.6);
+      opacity: 0.92;
     }
   }
 
@@ -432,16 +454,29 @@ const bunsenStyles = {
   }
 
   @keyframes bnc-inner {
-    0%, 100% {
-      transform: scaleY(0.4);
+    0% {
+      transform: scaleY(0.5) rotate(-5deg) translateX(-2px);
       background: radial-gradient(ellipse at 50% 80%, #ffffff, rgba(255, 200, 50, 0.6) 60%, transparent);
       opacity: 0.4;
     }
-    40%, 60% {
-      transform: scaleY(1.3);
+    25% {
+      transform: scaleY(0.9) rotate(4deg) translateX(2px);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scaleY(1.35) rotate(-6deg) translateX(-3px);
       background: radial-gradient(ellipse at 50% 80%, #ffffff, #72f2ff 65%, transparent);
       box-shadow: 0 0 10px #72f2ff;
       opacity: 1;
+    }
+    75% {
+      transform: scaleY(1.1) rotate(5deg) translateX(2px);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scaleY(0.5) rotate(-5deg) translateX(-2px);
+      background: radial-gradient(ellipse at 50% 80%, #ffffff, rgba(255, 200, 50, 0.6) 60%, transparent);
+      opacity: 0.4;
     }
   }
 
@@ -466,9 +501,9 @@ const bunsenStyles = {
   .bnc-haze.h3 { margin-left: 4px; animation-delay: -1.3s; }
 
   @keyframes bnc-haze {
-    0% { transform: translateY(6px) skewX(0deg); opacity: 0; }
-    30% { opacity: 0.7; }
-    100% { transform: translateY(-8px) skewX(8deg); opacity: 0; }
+    0% { transform: translateY(6px) translateX(-3px) scale(0.6); opacity: 0; }
+    30% { opacity: 0.8; }
+    100% { transform: translateY(-24px) translateX(6px) scale(1.4); opacity: 0; }
   }
 
   .bnc-read {

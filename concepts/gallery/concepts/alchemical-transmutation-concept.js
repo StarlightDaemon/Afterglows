@@ -33,6 +33,12 @@ const alchemicalTransmutationStyles = {
     height: 58px;
     border-radius: 50%;
     border: 1px dashed rgba(140, 255, 170, 0.5);
+    animation: alch-ring-spin 8s linear infinite;
+  }
+
+  @keyframes alch-ring-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .alch-channel {
@@ -74,10 +80,10 @@ const alchemicalTransmutationStyles = {
   }
 
   @keyframes alch-ingot-heat {
-    0%, 8% { opacity: 1; filter: brightness(0.7); }
-    16% { opacity: 1; filter: brightness(1.7) saturate(1.4); box-shadow: 0 0 10px rgba(190, 255, 205, 0.9); }
-    24%, 92% { opacity: 0; }
-    100% { opacity: 1; filter: brightness(0.7); }
+    0%, 8% { opacity: 1; transform: translateY(0) scale(1); filter: brightness(0.7); }
+    16% { opacity: 1; transform: translateY(-8px) scale(1.15); filter: brightness(1.7) saturate(1.4); box-shadow: 0 0 10px rgba(190, 255, 205, 0.9); }
+    24%, 92% { opacity: 0; transform: translateY(-16px) scale(0.8); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: brightness(0.7); }
   }
 
   .alch-shape {
@@ -99,31 +105,31 @@ const alchemicalTransmutationStyles = {
       opacity: 0;
       clip-path: polygon(50% 12%, 72% 19%, 86% 38%, 86% 62%, 72% 81%, 50% 88%, 28% 81%, 14% 62%, 14% 38%, 28% 19%);
       background: radial-gradient(circle at 40% 35%, rgba(190, 255, 205, 1), rgba(0, 204, 0, 0.85) 60%, rgba(0, 80, 16, 0.9));
-      transform: scale(0.75);
+      transform: translateY(8px) scale(0.6) rotate(0deg);
     }
     28% {
       opacity: 1;
-      transform: scale(1);
+      transform: translateY(0px) scale(1) rotate(90deg);
     }
     45% {
       opacity: 1;
       clip-path: polygon(50% 12%, 72% 19%, 86% 38%, 86% 62%, 72% 81%, 50% 88%, 28% 81%, 14% 62%, 14% 38%, 28% 19%);
       background: radial-gradient(circle at 40% 35%, rgba(190, 255, 205, 1), rgba(0, 204, 0, 0.85) 60%, rgba(0, 80, 16, 0.9));
-      transform: scale(1.05);
+      transform: translateY(-12px) scale(1.15) rotate(180deg);
     }
     70% {
       opacity: 1;
       clip-path: polygon(50% 4%, 61% 35%, 94% 36%, 67% 56%, 77% 87%, 50% 68%, 23% 87%, 33% 56%, 6% 36%, 39% 35%);
       background: radial-gradient(circle at 40% 35%, #fff7d6, #ffd84a 55%, #b8860b 100%);
-      transform: scale(1) rotate(18deg);
+      transform: translateY(-8px) scale(1.2) rotate(270deg);
     }
     88% {
       opacity: 1;
       clip-path: polygon(50% 4%, 61% 35%, 94% 36%, 67% 56%, 77% 87%, 50% 68%, 23% 87%, 33% 56%, 6% 36%, 39% 35%);
       background: radial-gradient(circle at 40% 35%, #fff7d6, #ffd84a 55%, #b8860b 100%);
-      transform: scale(1.1) rotate(18deg);
+      transform: translateY(-4px) scale(1.25) rotate(340deg);
     }
-    100% { opacity: 0; transform: scale(0.75) rotate(18deg); }
+    100% { opacity: 0; transform: translateY(8px) scale(0.6) rotate(360deg); }
   }
   `,
   v2: `
@@ -167,6 +173,12 @@ const alchemicalTransmutationStyles = {
     border-radius: 50%;
     border: 1px dashed #c084fc;
     box-shadow: 0 0 6px rgba(192, 132, 252, 0.4);
+    animation: alchc-ring-spin 6s linear infinite;
+  }
+
+  @keyframes alchc-ring-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Radiating purple energy channels */
@@ -212,10 +224,10 @@ const alchemicalTransmutationStyles = {
   }
 
   @keyframes alchc-ingot-heat {
-    0%, 8% { opacity: 1; filter: brightness(0.8); }
-    16% { opacity: 1; filter: brightness(2) saturate(2); box-shadow: 0 0 16px #ea580c, 0 0 24px #facc15; }
-    24%, 92% { opacity: 0; }
-    100% { opacity: 1; filter: brightness(0.8); }
+    0%, 8% { opacity: 1; transform: translateY(0) scale(1); filter: brightness(0.8); }
+    16% { opacity: 1; transform: translateY(-8px) scale(1.15); filter: brightness(2) saturate(2); box-shadow: 0 0 16px #ea580c, 0 0 24px #facc15; }
+    24%, 92% { opacity: 0; transform: translateY(-16px) scale(0.8); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: brightness(0.8); }
   }
 
   /* Molten mass morphing into faceted gold star */
@@ -238,33 +250,33 @@ const alchemicalTransmutationStyles = {
       opacity: 0;
       clip-path: polygon(50% 12%, 72% 19%, 86% 38%, 86% 62%, 72% 81%, 50% 88%, 28% 81%, 14% 62%, 14% 38%, 28% 19%);
       background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fde047 30%, #ea580c 70%, #991b1b 100%);
-      transform: scale(0.75);
+      transform: translateY(8px) scale(0.6) rotate(0deg);
     }
     28% {
       opacity: 1;
-      transform: scale(1);
+      transform: translateY(0px) scale(1) rotate(90deg);
     }
     45% {
       opacity: 1;
       clip-path: polygon(50% 12%, 72% 19%, 86% 38%, 86% 62%, 72% 81%, 50% 88%, 28% 81%, 14% 62%, 14% 38%, 28% 19%);
       background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fde047 30%, #ea580c 70%, #991b1b 100%);
-      transform: scale(1.05);
+      transform: translateY(-12px) scale(1.2) rotate(180deg);
     }
     70% {
       opacity: 1;
       clip-path: polygon(50% 4%, 61% 35%, 94% 36%, 67% 56%, 77% 87%, 50% 68%, 23% 87%, 33% 56%, 6% 36%, 39% 35%);
       background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fef08a 30%, #facc15 60%, #b45309 100%);
       box-shadow: 0 0 20px #facc15, 0 0 30px #fde047;
-      transform: scale(1) rotate(18deg);
+      transform: translateY(-8px) scale(1.2) rotate(270deg);
     }
     88% {
       opacity: 1;
       clip-path: polygon(50% 4%, 61% 35%, 94% 36%, 67% 56%, 77% 87%, 50% 68%, 23% 87%, 33% 56%, 6% 36%, 39% 35%);
       background: radial-gradient(circle at 40% 35%, #ffffff 0%, #fef08a 30%, #facc15 60%, #b45309 100%);
       box-shadow: 0 0 24px #facc15;
-      transform: scale(1.15) rotate(18deg);
+      transform: translateY(-4px) scale(1.25) rotate(340deg);
     }
-    100% { opacity: 0; transform: scale(0.75) rotate(18deg); }
+    100% { opacity: 0; transform: translateY(8px) scale(0.6) rotate(360deg); }
   }
   `,
 };

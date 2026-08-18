@@ -43,20 +43,20 @@ const bathysphereStyles = {
     top: -10px;
     width: 0;
     height: 0;
-    animation: bathy-sway 4.5s ease-in-out infinite;
+    animation: bathy-sway 4.2s ease-in-out infinite;
   }
 
   @keyframes bathy-sway {
-    0%, 100% { transform: rotate(-2.5deg); }
-    50% { transform: rotate(2.5deg); }
+    0%, 100% { transform: translateY(-12px) rotate(-9deg); }
+    50% { transform: translateY(14px) rotate(9deg); }
   }
 
   .bathy-cable {
     position: absolute;
     left: -1px;
-    top: 0;
+    top: -30px;
     width: 2px;
-    height: 38px;
+    height: 68px;
     background: linear-gradient(180deg, rgba(140, 255, 170, 0.4), rgba(0, 204, 0, 0.8));
   }
 
@@ -116,15 +116,13 @@ const bathysphereStyles = {
     clip-path: polygon(36% 0%, 64% 0%, 100% 100%, 0% 100%);
     background: linear-gradient(180deg, rgba(140, 255, 170, 0.4), rgba(0, 204, 0, 0.08) 70%, transparent);
     pointer-events: none;
-    animation: bathy-beam-flicker 3s ease-in-out infinite;
+    transform-origin: 50% 0%;
+    animation: bathy-beam-flicker 4.2s ease-in-out infinite;
   }
 
   @keyframes bathy-beam-flicker {
-    0%, 100% { opacity: 0.75; transform: scaleX(1); }
-    40% { opacity: 0.9; transform: scaleX(1.04); }
-    45% { opacity: 0.65; }
-    48% { opacity: 0.85; }
-    80% { opacity: 0.7; transform: scaleX(0.97); }
+    0%, 100% { opacity: 0.75; transform: rotate(-10deg) scaleX(1); }
+    50% { opacity: 0.95; transform: rotate(10deg) scaleX(1.15); }
   }
   `,
   v2: `
@@ -170,28 +168,28 @@ const bathysphereStyles = {
     100% { top: -4px; opacity: 0; transform: translateX(-4px); }
   }
 
-  /* Suspension rig swaying */
+  /* Suspension rig swaying & diving */
   .bathyc-rig {
     position: absolute;
     left: 50%;
     top: -10px;
     width: 0;
     height: 0;
-    animation: bathyc-sway 4.5s ease-in-out infinite;
+    animation: bathyc-sway 4.2s ease-in-out infinite;
   }
 
   @keyframes bathyc-sway {
-    0%, 100% { transform: rotate(-2.5deg); }
-    50% { transform: rotate(2.5deg); }
+    0%, 100% { transform: translateY(-12px) rotate(-9deg); }
+    50% { transform: translateY(14px) rotate(9deg); }
   }
 
   /* High-tensile steel cable */
   .bathyc-cable {
     position: absolute;
     left: -1px;
-    top: 0;
+    top: -30px;
     width: 2px;
-    height: 38px;
+    height: 68px;
     background: linear-gradient(180deg, #94a3b8 0%, #475569 100%);
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
   }
@@ -258,15 +256,13 @@ const bathysphereStyles = {
     clip-path: polygon(36% 0%, 64% 0%, 100% 100%, 0% 100%);
     background: linear-gradient(180deg, rgba(254, 240, 138, 0.7) 0%, rgba(56, 189, 248, 0.25) 60%, transparent 100%);
     pointer-events: none;
-    animation: bathyc-beam-flicker 3s ease-in-out infinite;
+    transform-origin: 50% 0%;
+    animation: bathyc-beam-flicker 4.2s ease-in-out infinite;
   }
 
   @keyframes bathyc-beam-flicker {
-    0%, 100% { opacity: 0.75; transform: scaleX(1); }
-    40% { opacity: 0.95; transform: scaleX(1.04); }
-    45% { opacity: 0.65; }
-    48% { opacity: 0.9; }
-    80% { opacity: 0.7; transform: scaleX(0.97); }
+    0%, 100% { opacity: 0.8; transform: rotate(-10deg) scaleX(1); }
+    50% { opacity: 1; transform: rotate(10deg) scaleX(1.15); }
   }
   `,
 };

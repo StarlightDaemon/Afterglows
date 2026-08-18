@@ -63,6 +63,27 @@ const binaryCounterStyles = `
   .bc2-cells {
     display: flex;
     gap: 2px;
+    position: relative;
+  }
+
+  /* Data bus scan cursor sweeping continuously across the 8-bit register */
+  .bc2-bus-cursor {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 14px;
+    height: 22px;
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 8px rgba(0, 255, 102, 0.9), inset 0 0 4px rgba(0, 255, 102, 0.5);
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 10;
+    animation: bc2-bus-sweep 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes bc2-bus-sweep {
+    0% { transform: translateX(0px); }
+    100% { transform: translateX(98px); }
   }
 
   .bc2-cell {
@@ -75,6 +96,7 @@ const binaryCounterStyles = `
     font-size: 11px;
     font-weight: bold;
     color: #baffc9;
+    overflow: hidden;
     /* Bit value and lit background share one timeline per cell:
        '0' for the first half of the period, '1' for the second. */
     animation: bc2-lit var(--period) linear infinite var(--phase);
@@ -82,7 +104,14 @@ const binaryCounterStyles = `
 
   .bc2-cell::before {
     content: '0';
-    animation: bc2-bit var(--period) steps(1) infinite var(--phase);
+    animation: bc2-bit var(--period) steps(1) infinite var(--phase), bc2-cell-flip var(--period) ease-in-out infinite var(--phase);
+  }
+
+  @keyframes bc2-cell-flip {
+    0%, 48% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.3); }
+    52%, 98% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(8px) scale(1.3); }
   }
 
   /* Bit N flips at half the rate of bit N+1 (LSB on the right).
@@ -158,6 +187,7 @@ const binaryCounterMarkup = {
         <span class="bc2-clk"></span>
       </div>
       <div class="bc2-cells">
+        <div class="bc2-bus-cursor"></div>
         <div class="bc2-cell b7"></div>
         <div class="bc2-cell b6"></div>
         <div class="bc2-cell b5"></div>
@@ -166,7 +196,6 @@ const binaryCounterMarkup = {
         <div class="bc2-cell b2"></div>
         <div class="bc2-cell b1"></div>
         <div class="bc2-cell b0"></div>
-      </div>
       <div class="bc2-foot"></div>
     </div>
   `,

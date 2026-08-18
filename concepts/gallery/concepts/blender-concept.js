@@ -20,17 +20,12 @@ const blenderStyles = {
     top: 8px;
     width: 48px;
     height: 52px;
-    animation: blender-shake 3.8s infinite;
+    animation: blender-shake 0.12s ease-in-out infinite alternate;
   }
 
   @keyframes blender-shake {
-    0%, 18%, 62%, 100% { transform: translate(0, 0); }
-    24% { transform: translate(-1px, 0.5px); }
-    30% { transform: translate(1px, -0.5px); }
-    36% { transform: translate(-1px, 0); }
-    42% { transform: translate(1px, 0.5px); }
-    48% { transform: translate(-0.5px, 0); }
-    54% { transform: translate(0.5px, 0); }
+    0% { transform: translate(-1.5px, 0.5px) rotate(-1deg); }
+    100% { transform: translate(1.5px, -0.5px) rotate(1deg); }
   }
 
   .blender-glass {
@@ -70,14 +65,12 @@ const blenderStyles = {
     height: 22px;
     background: linear-gradient(180deg, rgba(0, 140, 28, 0.5), rgba(0, 60, 12, 0.8));
     border-radius: 40% 40% 0 0 / 26% 26% 0 0;
-    animation: blender-liquid 3.8s ease-in-out infinite;
+    animation: blender-liquid 1.4s ease-in-out infinite;
   }
 
   @keyframes blender-liquid {
-    0%, 16%, 66%, 100% { border-radius: 40% 40% 0 0 / 10% 10% 0 0; height: 22px; }
-    30% { border-radius: 62% 58% 0 0 / 84% 78% 0 0; height: 28px; }
-    44% { border-radius: 55% 65% 0 0 / 74% 88% 0 0; height: 27px; }
-    56% { border-radius: 60% 56% 0 0 / 80% 72% 0 0; height: 28px; }
+    0%, 100% { border-radius: 40% 40% 0 0 / 10% 10% 0 0; height: 22px; transform: scaleY(0.9) skewY(-8deg); }
+    50% { border-radius: 60% 56% 0 0 / 80% 72% 0 0; height: 32px; transform: scaleY(1.3) skewY(8deg); }
   }
 
   .blender-ticks {
@@ -99,7 +92,7 @@ const blenderStyles = {
     width: 14px;
     height: 8px;
     margin-left: -7px;
-    animation: blender-blade 3.8s infinite;
+    animation: blender-blade 0.2s linear infinite;
   }
 
   .blender-blade::before,
@@ -118,11 +111,8 @@ const blenderStyles = {
   .blender-blade::after { transform: rotate(28deg); border-radius: 0 1px 1px 0; }
 
   @keyframes blender-blade {
-    0%, 14% { transform: rotate(0deg); filter: blur(0); }
-    20% { transform: rotate(340deg); filter: blur(0.5px); }
-    58% { transform: rotate(2900deg); filter: blur(1.5px); }
-    66% { transform: rotate(3060deg); filter: blur(0); }
-    100% { transform: rotate(3060deg); filter: blur(0); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .blender-bubble {
@@ -133,7 +123,7 @@ const blenderStyles = {
     border-radius: 50%;
     border: 1px solid rgba(190, 255, 205, 0.8);
     opacity: 0;
-    animation: blender-bubble 3.8s infinite;
+    animation: blender-bubble 1.2s ease-in infinite;
   }
 
   .blender-bubble.b1 { left: 12px; --by: -24px; }
@@ -141,10 +131,10 @@ const blenderStyles = {
   .blender-bubble.b3 { left: 22px; --by: -18px; animation-delay: 0.5s; }
 
   @keyframes blender-bubble {
-    0%, 22% { transform: translateY(0) scale(0.6); opacity: 0; }
-    30% { opacity: 0.9; }
-    52% { transform: translateY(var(--by)) scale(1.1); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    20% { opacity: 0.95; }
+    80% { opacity: 0.95; }
+    100% { transform: translateY(var(--by)) scale(1.2); opacity: 0; }
   }
 
   .blender-lid {
@@ -265,17 +255,12 @@ const blenderStyles = {
     top: 8px;
     width: 48px;
     height: 52px;
-    animation: blenderc-shake 3.8s infinite;
+    animation: blenderc-shake 0.12s ease-in-out infinite alternate;
   }
 
   @keyframes blenderc-shake {
-    0%, 18%, 62%, 100% { transform: translate(0, 0); }
-    24% { transform: translate(-1px, 0.5px); }
-    30% { transform: translate(1px, -0.5px); }
-    36% { transform: translate(-1px, 0); }
-    42% { transform: translate(1px, 0.5px); }
-    48% { transform: translate(-0.5px, 0); }
-    54% { transform: translate(0.5px, 0); }
+    0% { transform: translate(-1.5px, 0.5px) rotate(-1deg); }
+    100% { transform: translate(1.5px, -0.5px) rotate(1deg); }
   }
 
   /* Tapered transparent glass pitcher */
@@ -319,14 +304,12 @@ const blenderStyles = {
     background: linear-gradient(180deg, #fb7185 0%, #e11d48 50%, #881337 100%);
     box-shadow: 0 0 10px rgba(225, 29, 72, 0.8);
     border-radius: 40% 40% 0 0 / 26% 26% 0 0;
-    animation: blenderc-liquid 3.8s ease-in-out infinite;
+    animation: blenderc-liquid 1.4s ease-in-out infinite;
   }
 
   @keyframes blenderc-liquid {
-    0%, 16%, 66%, 100% { border-radius: 40% 40% 0 0 / 10% 10% 0 0; height: 22px; }
-    30% { border-radius: 62% 58% 0 0 / 84% 78% 0 0; height: 28px; }
-    44% { border-radius: 55% 65% 0 0 / 74% 88% 0 0; height: 27px; }
-    56% { border-radius: 60% 56% 0 0 / 80% 72% 0 0; height: 28px; }
+    0%, 100% { border-radius: 40% 40% 0 0 / 10% 10% 0 0; height: 22px; transform: scaleY(0.9) skewY(-8deg); }
+    50% { border-radius: 60% 56% 0 0 / 80% 72% 0 0; height: 32px; transform: scaleY(1.3) skewY(8deg); }
   }
 
   /* Pitcher volume scale ticks */
@@ -350,7 +333,7 @@ const blenderStyles = {
     width: 14px;
     height: 8px;
     margin-left: -7px;
-    animation: blenderc-blade 3.8s infinite;
+    animation: blenderc-blade 0.2s linear infinite;
   }
 
   .blenderc-blade::before,
@@ -369,11 +352,8 @@ const blenderStyles = {
   .blenderc-blade::after { transform: rotate(28deg); border-radius: 0 1px 1px 0; }
 
   @keyframes blenderc-blade {
-    0%, 14% { transform: rotate(0deg); filter: blur(0); }
-    20% { transform: rotate(340deg); filter: blur(0.5px); }
-    58% { transform: rotate(2900deg); filter: blur(1.5px); }
-    66% { transform: rotate(3060deg); filter: blur(0); }
-    100% { transform: rotate(3060deg); filter: blur(0); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Whipped smoothie bubbles */
@@ -387,7 +367,7 @@ const blenderStyles = {
     border: 1px solid #f43f5e;
     box-shadow: 0 0 4px #fb7185;
     opacity: 0;
-    animation: blenderc-bubble 3.8s infinite;
+    animation: blenderc-bubble 1.2s ease-in infinite;
   }
 
   .blenderc-bubble.b1 { left: 12px; --by: -24px; }
@@ -395,10 +375,10 @@ const blenderStyles = {
   .blenderc-bubble.b3 { left: 22px; --by: -18px; animation-delay: 0.5s; }
 
   @keyframes blenderc-bubble {
-    0%, 22% { transform: translateY(0) scale(0.6); opacity: 0; }
-    30% { opacity: 0.95; }
-    52% { transform: translateY(var(--by)) scale(1.1); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    20% { opacity: 0.95; }
+    80% { opacity: 0.95; }
+    100% { transform: translateY(var(--by)) scale(1.2); opacity: 0; }
   }
 
   /* Rubberized airtight lid with central plug */

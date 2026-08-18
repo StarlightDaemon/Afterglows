@@ -59,12 +59,17 @@ const beakerStyles = `
     bottom: 0;
     height: 34px;
     background: linear-gradient(180deg, rgba(0, 160, 32, 0.55), rgba(0, 90, 18, 0.8));
-    animation: bk-heat 7s ease-in-out infinite;
+    animation: bk-heat 7s ease-in-out infinite, bk-liquid-boil 1.2s ease-in-out infinite;
   }
 
   @keyframes bk-heat {
     0%, 100% { filter: brightness(0.8); }
     45%, 60% { filter: brightness(1.5); }
+  }
+
+  @keyframes bk-liquid-boil {
+    0%, 100% { transform: scaleY(0.92) skewY(-2deg); }
+    50% { transform: scaleY(1.12) skewY(2deg); }
   }
 
   .bk-surface {
@@ -78,31 +83,32 @@ const beakerStyles = `
   }
 
   @keyframes bk-roil {
-    0%, 100% { transform: scaleY(1) translateX(0); }
-    50% { transform: scaleY(1.6) translateX(2px); }
+    0%, 100% { transform: translateY(-3px) scaleY(1.6) rotate(-3deg); }
+    50% { transform: translateY(2px) scaleY(2.2) rotate(3deg); }
   }
 
   .bk-bubble {
     position: absolute;
     bottom: 2px;
-    width: 5px;
-    height: 5px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    border: 1px solid rgba(190, 255, 205, 0.85);
+    border: 1.5px solid rgba(190, 255, 205, 0.85);
+    background: rgba(190, 255, 205, 0.35);
     animation: bk-bubble ease-in infinite;
   }
 
-  .bk-bubble.b1 { left: 8px; animation-duration: 1.1s; }
-  .bk-bubble.b2 { left: 20px; animation-duration: 0.8s; animation-delay: -0.3s; width: 7px; height: 7px; }
-  .bk-bubble.b3 { left: 32px; animation-duration: 1s; animation-delay: -0.5s; }
-  .bk-bubble.b4 { left: 14px; animation-duration: 0.7s; animation-delay: -0.15s; width: 4px; height: 4px; }
-  .bk-bubble.b5 { left: 26px; animation-duration: 0.9s; animation-delay: -0.6s; }
+  .bk-bubble.b1 { left: 8px; animation-duration: 1.1s; width: 8px; height: 8px; }
+  .bk-bubble.b2 { left: 18px; animation-duration: 0.8s; animation-delay: -0.3s; width: 11px; height: 11px; }
+  .bk-bubble.b3 { left: 30px; animation-duration: 1s; animation-delay: -0.5s; width: 9px; height: 9px; }
+  .bk-bubble.b4 { left: 12px; animation-duration: 0.7s; animation-delay: -0.15s; width: 7px; height: 7px; }
+  .bk-bubble.b5 { left: 24px; animation-duration: 0.9s; animation-delay: -0.6s; width: 10px; height: 10px; }
 
   @keyframes bk-bubble {
     0% { transform: translateY(0) scale(0.5); opacity: 0; }
-    20% { opacity: 0.9; }
-    90% { transform: translateY(-30px) scale(1.1); opacity: 0; }
-    100% { opacity: 0; }
+    20% { opacity: 0.95; }
+    90% { transform: translateY(-34px) scale(1.25); opacity: 0.95; }
+    100% { transform: translateY(-38px) scale(1.5); opacity: 0; }
   }
 
   .bk-vapor {
@@ -233,7 +239,7 @@ const beakerStyles = `
     bottom: 0;
     height: 34px;
     background: linear-gradient(180deg, #ff7a18, #d63031);
-    animation: bkc-heat 7s ease-in-out infinite;
+    animation: bkc-heat 7s ease-in-out infinite, bkc-liquid-boil 1.2s ease-in-out infinite;
   }
 
   @keyframes bkc-heat {
@@ -247,6 +253,11 @@ const beakerStyles = `
     }
   }
 
+  @keyframes bkc-liquid-boil {
+    0%, 100% { transform: scaleY(0.92) skewY(-2deg); }
+    50% { transform: scaleY(1.12) skewY(2deg); }
+  }
+
   .bkc-surface {
     position: absolute;
     left: 0;
@@ -258,32 +269,33 @@ const beakerStyles = `
   }
 
   @keyframes bkc-roil {
-    0%, 100% { transform: scaleY(1) translateX(0); }
-    50% { transform: scaleY(1.6) translateX(2px); }
+    0%, 100% { transform: translateY(-3px) scaleY(1.6) rotate(-3deg); }
+    50% { transform: translateY(2px) scaleY(2.2) rotate(3deg); }
   }
 
   .bkc-bubble {
     position: absolute;
     bottom: 2px;
-    width: 5px;
-    height: 5px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    background: rgba(255, 235, 180, 0.4);
+    border: 1.5px solid rgba(255, 255, 255, 0.95);
+    background: rgba(255, 235, 180, 0.5);
+    box-shadow: 0 0 4px #ffa500;
     animation: bkc-bubble ease-in infinite;
   }
 
-  .bkc-bubble.b1 { left: 8px; animation-duration: 1.1s; }
-  .bkc-bubble.b2 { left: 20px; animation-duration: 0.8s; animation-delay: -0.3s; width: 7px; height: 7px; }
-  .bkc-bubble.b3 { left: 32px; animation-duration: 1s; animation-delay: -0.5s; }
-  .bkc-bubble.b4 { left: 14px; animation-duration: 0.7s; animation-delay: -0.15s; width: 4px; height: 4px; }
-  .bkc-bubble.b5 { left: 26px; animation-duration: 0.9s; animation-delay: -0.6s; }
+  .bkc-bubble.b1 { left: 8px; animation-duration: 1.1s; width: 8px; height: 8px; }
+  .bkc-bubble.b2 { left: 18px; animation-duration: 0.8s; animation-delay: -0.3s; width: 11px; height: 11px; }
+  .bkc-bubble.b3 { left: 30px; animation-duration: 1s; animation-delay: -0.5s; width: 9px; height: 9px; }
+  .bkc-bubble.b4 { left: 12px; animation-duration: 0.7s; animation-delay: -0.15s; width: 7px; height: 7px; }
+  .bkc-bubble.b5 { left: 24px; animation-duration: 0.9s; animation-delay: -0.6s; width: 10px; height: 10px; }
 
   @keyframes bkc-bubble {
     0% { transform: translateY(0) scale(0.5); opacity: 0; }
     20% { opacity: 0.95; }
-    90% { transform: translateY(-30px) scale(1.1); opacity: 0; }
-    100% { opacity: 0; }
+    90% { transform: translateY(-34px) scale(1.25); opacity: 0.95; }
+    100% { transform: translateY(-38px) scale(1.5); opacity: 0; }
   }
 
   .bkc-vapor {

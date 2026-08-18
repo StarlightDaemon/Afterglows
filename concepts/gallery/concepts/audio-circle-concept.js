@@ -47,19 +47,24 @@ const audioCircleStyles = `
 
   /* --- v2: circular spectrum analyser ---
      Sixteen radial bars dance around a beating speaker hub. Bars sit
-     on a dashed guide ring; each has its own phase and rate so the
-     ring shimmers like a live spectrum, and a soft ripple leaves the
-     hub on every beat. */
+     on a dashed guide ring; the entire spectrum ring rotates continuously
+     as the speaker cone pumps and acoustic waves propagate. */
   .ac2 {
     width: 104px;
     height: 104px;
     position: relative;
+    animation: ac2-spin 6s linear infinite;
+  }
+
+  @keyframes ac2-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .ac2-guide {
     position: absolute;
     inset: 24px;
-    border: 1px dashed rgba(0, 204, 0, 0.3);
+    border: 1px dashed rgba(0, 204, 0, 0.4);
     border-radius: 50%;
   }
 
@@ -69,8 +74,7 @@ const audioCircleStyles = `
     transform: rotate(var(--rot));
   }
 
-  /* Each bar grows outward from the guide ring. transform-origin at
-     the bottom keeps the inner end planted. */
+  /* Each bar grows outward from the guide ring with physical radial travel */
   .ac2-bar {
     position: absolute;
     top: 6px;
@@ -87,10 +91,10 @@ const audioCircleStyles = `
   }
 
   @keyframes ac2-dance {
-    0%, 100% { transform: scaleY(0.22); opacity: 0.55; }
-    35% { transform: scaleY(1); opacity: 1; }
-    55% { transform: scaleY(0.45); opacity: 0.8; }
-    75% { transform: scaleY(0.85); opacity: 1; }
+    0%, 100% { transform: scaleY(0.25) translateY(0); opacity: 0.6; }
+    35% { transform: scaleY(1.35) translateY(-5px); opacity: 1; }
+    55% { transform: scaleY(0.5) translateY(-1px); opacity: 0.8; }
+    75% { transform: scaleY(1.1) translateY(-3px); opacity: 1; }
   }
 
   .ac2-spoke.k0  { --rot: 0deg;     } .ac2-spoke.k0  .ac2-bar { --dur: 1.15s; --ph: -0.2s; }
@@ -110,7 +114,7 @@ const audioCircleStyles = `
   .ac2-spoke.k14 { --rot: 315deg;   } .ac2-spoke.k14 .ac2-bar { --dur: 1.22s; --ph: -0.45s; }
   .ac2-spoke.k15 { --rot: 337.5deg; } .ac2-spoke.k15 .ac2-bar { --dur: 1.52s; --ph: -1.25s; }
 
-  /* Speaker hub: cone dot beating, ripple ring on each beat. */
+  /* Speaker hub: cone dot beating with large punchy excursion */
   .ac2-hub {
     position: absolute;
     top: 50%;
@@ -126,9 +130,9 @@ const audioCircleStyles = `
   }
 
   @keyframes ac2-beat {
-    0%, 100% { transform: scale(1); }
-    18% { transform: scale(1.22); }
-    36% { transform: scale(0.96); }
+    0%, 100% { transform: scale(0.88); }
+    18% { transform: scale(1.35); }
+    36% { transform: scale(0.92); }
   }
 
   .ac2-ripple {
@@ -147,8 +151,8 @@ const audioCircleStyles = `
   .ac2-ripple.r2 { animation-delay: 0.65s; }
 
   @keyframes ac2-ripple {
-    0% { transform: scale(0.7); opacity: 0.9; }
-    100% { transform: scale(2.4); opacity: 0; }
+    0% { transform: scale(0.6); opacity: 0.95; }
+    100% { transform: scale(2.6); opacity: 0; }
   }
 `;
 
