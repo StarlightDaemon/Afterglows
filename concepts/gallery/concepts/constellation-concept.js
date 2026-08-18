@@ -15,23 +15,30 @@ const constellationStyles = `
     position: relative;
     width: 100px;
     height: 100px;
+    animation: star-field-orbit 14s linear infinite;
+  }
+
+  @keyframes star-field-orbit {
+    0% { transform: rotate(0deg) scale(0.95); }
+    50% { transform: rotate(180deg) scale(1.08); }
+    100% { transform: rotate(360deg) scale(0.95); }
   }
 
   .star-dot {
-    width: 4px;
-    height: 4px;
-    background: #00cc00;
+    width: 6px;
+    height: 6px;
+    background: #00ff66;
     border-radius: 50%;
     position: absolute;
-    box-shadow: 0 0 4px #00cc00;
+    box-shadow: 0 0 8px #00ff66;
     animation: twinkle 2s ease-in-out infinite;
   }
 
-  .star-dot:nth-child(2) { animation-delay: 0.3s; }
+  .star-dot:nth-child(2) { animation-delay: 0.3s; width: 8px; height: 8px; }
   .star-dot:nth-child(3) { animation-delay: 0.6s; }
-  .star-dot:nth-child(4) { animation-delay: 0.9s; }
+  .star-dot:nth-child(4) { animation-delay: 0.9s; width: 7px; height: 7px; }
   .star-dot:nth-child(5) { animation-delay: 1.2s; }
-  .star-dot:nth-child(6) { animation-delay: 1.5s; }
+  .star-dot:nth-child(6) { animation-delay: 1.5s; width: 8px; height: 8px; }
 
   .constellation-refined {
     position: relative;
@@ -73,7 +80,8 @@ const constellationStyles = `
   .constellation-network {
     position: absolute;
     inset: 0;
-    animation: constellation-drift 7s ease-in-out infinite;
+    transform-origin: 50% 50%;
+    animation: constellation-drift 14s linear infinite;
   }
 
   .constellation-lines {
@@ -129,14 +137,14 @@ const constellationStyles = `
   @keyframes twinkle {
     0%, 100% {
       opacity: 1;
-      transform: scale(1);
-      box-shadow: 0 0 4px #00cc00;
+      transform: scale(0.9) translateY(-3px);
+      box-shadow: 0 0 6px #00ff66;
     }
 
     50% {
-      opacity: 0.2;
-      transform: scale(0.6);
-      box-shadow: 0 0 2px #00cc00;
+      opacity: 0.7;
+      transform: scale(1.3) translateY(3px);
+      box-shadow: 0 0 12px #00ff66;
     }
   }
 
@@ -153,12 +161,16 @@ const constellationStyles = `
   }
 
   @keyframes constellation-drift {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
+    0% {
+      transform: rotate(0deg) scale(0.95);
     }
 
     50% {
-      transform: translate(1px, -2px) scale(1.01);
+      transform: rotate(180deg) scale(1.06);
+    }
+
+    100% {
+      transform: rotate(360deg) scale(0.95);
     }
   }
 
@@ -176,13 +188,13 @@ const constellationStyles = `
 
   @keyframes constellation-node {
     0%, 100% {
-      opacity: 0.65;
-      transform: translate(-50%, -50%) scale(0.9);
+      opacity: 0.75;
+      transform: translate(-50%, -50%) scale(0.85) translateY(-3px);
     }
 
     50% {
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1.16);
+      transform: translate(-50%, -50%) scale(1.35) translateY(3px);
     }
   }
 

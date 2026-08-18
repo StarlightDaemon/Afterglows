@@ -456,15 +456,13 @@ const chimesStyles = {
   }
 
   /* Tubes: cord + tube as one hinged unit. One shared keyframe set;
-     each tube's delay staggers it 0.15s behind its left neighbor, so
-     the gust kick travels down the rack left-to-right (and the calm
-     micro-sway desyncs naturally for free). */
+     each tube's delay staggers it 0.2s behind its left neighbor. */
   .wc-tube {
     position: absolute;
     top: 14px;
     width: 6px;
     transform-origin: 50% 0;
-    animation: wc-sway 7s ease-in-out infinite;
+    animation: wc-sway 2.4s ease-in-out infinite;
   }
 
   .wc-cord {
@@ -487,7 +485,7 @@ const chimesStyles = {
     background: linear-gradient(180deg, #9fe8ae, rgba(0, 130, 26, 0.85));
     border: 1px solid rgba(140, 255, 170, 0.55);
     box-sizing: border-box;
-    animation: wc-ring 7s infinite;
+    animation: wc-ring 2.4s infinite;
   }
 
   /* Hole detail near each tube top. */
@@ -509,45 +507,28 @@ const chimesStyles = {
   .wc-tube.u4 { left: 60px; --len: 50px; }
   .wc-tube.u5 { left: 71px; --len: 40px; }
 
-  .wc-tube.u2, .wc-tube.u2 .wc-pipe { animation-delay: -6.85s; }
-  .wc-tube.u3, .wc-tube.u3 .wc-pipe { animation-delay: -6.7s; }
-  .wc-tube.u4, .wc-tube.u4 .wc-pipe { animation-delay: -6.55s; }
-  .wc-tube.u5, .wc-tube.u5 .wc-pipe { animation-delay: -6.4s; }
+  .wc-tube.u2, .wc-tube.u2 .wc-pipe { animation-delay: -0.3s; }
+  .wc-tube.u3, .wc-tube.u3 .wc-pipe { animation-delay: -0.6s; }
+  .wc-tube.u4, .wc-tube.u4 .wc-pipe { animation-delay: -0.9s; }
+  .wc-tube.u5, .wc-tube.u5 .wc-pipe { animation-delay: -1.2s; }
 
-  /* Calm micro-sway, the gust kick (blown right = negative), a second
-     buffet, then decaying oscillation back to calm. */
   @keyframes wc-sway {
-    0% { transform: rotate(1.5deg); }
-    8% { transform: rotate(-1.5deg); }
-    16% { transform: rotate(1.5deg); }
-    24% { transform: rotate(-1deg); }
-    30% { transform: rotate(-2deg); }
-    34% { transform: rotate(-12deg); }
-    38% { transform: rotate(-3deg); }
-    43% { transform: rotate(-8.5deg); }
-    49% { transform: rotate(2deg); }
-    57% { transform: rotate(-4.5deg); }
-    65% { transform: rotate(2.5deg); }
-    75% { transform: rotate(-2deg); }
-    85% { transform: rotate(1.5deg); }
-    93% { transform: rotate(-1deg); }
-    100% { transform: rotate(1.5deg); }
+    0% { transform: rotate(-8deg); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(-12deg); }
+    75% { transform: rotate(9deg); }
+    100% { transform: rotate(-8deg); }
   }
 
-  /* Every tube rings as the front reaches it - main flare on the kick,
-     a smaller flicker on the buffet - sharing the tube's stagger. */
+  /* Every tube rings as the front reaches it - main flare on the kick */
   @keyframes wc-ring {
     0%, 32% { box-shadow: none; }
     35% { box-shadow: 0 0 12px rgba(0, 204, 0, 0.95); border-color: #d6ffe0; }
     40% { box-shadow: 0 0 5px rgba(0, 204, 0, 0.5); }
-    44% { box-shadow: 0 0 9px rgba(0, 204, 0, 0.8); border-color: #d6ffe0; }
-    52% { box-shadow: 0 0 3px rgba(0, 204, 0, 0.35); }
-    60%, 100% { box-shadow: none; }
+    50%, 100% { box-shadow: none; }
   }
 
-  /* Striker: lazy wander in the calm, whipped hard through the rack
-     by the gust (its sail catches first), clattering off the tubes
-     before settling. */
+  /* Striker: continuous harmonic wander clattering through the rack */
   .wc-striker {
     position: absolute;
     left: 49px;
@@ -555,7 +536,7 @@ const chimesStyles = {
     width: 2px;
     height: 38px;
     transform-origin: 50% 0;
-    animation: wc-striker 7s ease-in-out infinite;
+    animation: wc-striker 2.4s ease-in-out infinite;
   }
 
   .wc-striker::before {
@@ -568,21 +549,11 @@ const chimesStyles = {
   }
 
   @keyframes wc-striker {
-    0% { transform: rotate(3deg); }
-    10% { transform: rotate(-3deg); }
-    20% { transform: rotate(4deg); }
-    28% { transform: rotate(-2deg); }
-    33% { transform: rotate(-17deg); }
-    36% { transform: rotate(-11deg); }
-    40% { transform: rotate(-15deg); }
-    45% { transform: rotate(-5deg); }
-    50% { transform: rotate(8deg); }
-    55% { transform: rotate(1deg); }
-    62% { transform: rotate(-5deg); }
-    70% { transform: rotate(3deg); }
-    80% { transform: rotate(-2.5deg); }
-    90% { transform: rotate(1.5deg); }
-    100% { transform: rotate(3deg); }
+    0% { transform: rotate(15deg); }
+    30% { transform: rotate(-16deg); }
+    60% { transform: rotate(14deg); }
+    85% { transform: rotate(-15deg); }
+    100% { transform: rotate(15deg); }
   }
 
   .wc-disc {
@@ -710,7 +681,7 @@ const chimesStyles = {
     top: 14px;
     width: 6px;
     transform-origin: 50% 0;
-    animation: wcc-sway 7s ease-in-out infinite;
+    animation: wcc-sway 2.4s ease-in-out infinite;
   }
 
   .wcc-cord {
@@ -732,7 +703,7 @@ const chimesStyles = {
     border-radius: 3px;
     border: 0.5px solid rgba(255, 255, 255, 0.4);
     box-sizing: border-box;
-    animation: wcc-ring 7s infinite;
+    animation: wcc-ring 2.4s infinite;
   }
 
   /* Metallic Anodized Finishes: Bronze, Copper, Silver */
@@ -760,27 +731,17 @@ const chimesStyles = {
   .wcc-tube.u4 { left: 60px; --len: 50px; }
   .wcc-tube.u5 { left: 71px; --len: 40px; }
 
-  .wcc-tube.u2, .wcc-tube.u2 .wcc-pipe { animation-delay: -6.85s; }
-  .wcc-tube.u3, .wcc-tube.u3 .wcc-pipe { animation-delay: -6.7s; }
-  .wcc-tube.u4, .wcc-tube.u4 .wcc-pipe { animation-delay: -6.55s; }
-  .wcc-tube.u5, .wcc-tube.u5 .wcc-pipe { animation-delay: -6.4s; }
+  .wcc-tube.u2, .wcc-tube.u2 .wcc-pipe { animation-delay: -0.3s; }
+  .wcc-tube.u3, .wcc-tube.u3 .wcc-pipe { animation-delay: -0.6s; }
+  .wcc-tube.u4, .wcc-tube.u4 .wcc-pipe { animation-delay: -0.9s; }
+  .wcc-tube.u5, .wcc-tube.u5 .wcc-pipe { animation-delay: -1.2s; }
 
   @keyframes wcc-sway {
-    0% { transform: rotate(1.5deg); }
-    8% { transform: rotate(-1.5deg); }
-    16% { transform: rotate(1.5deg); }
-    24% { transform: rotate(-1deg); }
-    30% { transform: rotate(-2deg); }
-    34% { transform: rotate(-12deg); }
-    38% { transform: rotate(-3deg); }
-    43% { transform: rotate(-8.5deg); }
-    49% { transform: rotate(2deg); }
-    57% { transform: rotate(-4.5deg); }
-    65% { transform: rotate(2.5deg); }
-    75% { transform: rotate(-2deg); }
-    85% { transform: rotate(1.5deg); }
-    93% { transform: rotate(-1deg); }
-    100% { transform: rotate(1.5deg); }
+    0% { transform: rotate(-8deg); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(-12deg); }
+    75% { transform: rotate(9deg); }
+    100% { transform: rotate(-8deg); }
   }
 
   /* Golden Ring Flare Wave on Impact */
@@ -788,9 +749,7 @@ const chimesStyles = {
     0%, 32% { box-shadow: none; filter: none; }
     35% { box-shadow: 0 0 14px #fde047; border-color: #ffffff; filter: brightness(1.4); }
     40% { box-shadow: 0 0 6px #facc15; }
-    44% { box-shadow: 0 0 10px #fde047; border-color: #ffffff; filter: brightness(1.2); }
-    52% { box-shadow: 0 0 3px #eab308; }
-    60%, 100% { box-shadow: none; filter: none; }
+    50%, 100% { box-shadow: none; filter: none; }
   }
 
   /* Striker: Clapper Disc with Teak Core */
@@ -801,7 +760,7 @@ const chimesStyles = {
     width: 2px;
     height: 38px;
     transform-origin: 50% 0;
-    animation: wcc-striker 7s ease-in-out infinite;
+    animation: wcc-striker 2.4s ease-in-out infinite;
   }
 
   .wcc-striker::before {
@@ -814,21 +773,11 @@ const chimesStyles = {
   }
 
   @keyframes wcc-striker {
-    0% { transform: rotate(3deg); }
-    10% { transform: rotate(-3deg); }
-    20% { transform: rotate(4deg); }
-    28% { transform: rotate(-2deg); }
-    33% { transform: rotate(-17deg); }
-    36% { transform: rotate(-11deg); }
-    40% { transform: rotate(-15deg); }
-    45% { transform: rotate(-5deg); }
-    50% { transform: rotate(8deg); }
-    55% { transform: rotate(1deg); }
-    62% { transform: rotate(-5deg); }
-    70% { transform: rotate(3deg); }
-    80% { transform: rotate(-2.5deg); }
-    90% { transform: rotate(1.5deg); }
-    100% { transform: rotate(3deg); }
+    0% { transform: rotate(15deg); }
+    30% { transform: rotate(-16deg); }
+    60% { transform: rotate(14deg); }
+    85% { transform: rotate(-15deg); }
+    100% { transform: rotate(15deg); }
   }
 
   .wcc-disc {

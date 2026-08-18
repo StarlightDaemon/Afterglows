@@ -101,29 +101,20 @@ const candleStyles = {
   }
 
   @keyframes candle-flame {
-    0%, 26% { transform: rotate(0deg) scale(1, 1); }
-    8% { transform: rotate(-2deg) scale(0.98, 1.03); }
-    18% { transform: rotate(2deg) scale(1.02, 0.97); }
-    34% { transform: rotate(-14deg) scale(0.9, 0.8) translateX(-2px); }
-    42% { transform: rotate(-18deg) scale(0.85, 0.55) translateX(-3px); }
-    50% { transform: rotate(6deg) scale(0.95, 0.75); }
-    60% { transform: rotate(0deg) scale(1.05, 1.22); }
-    68% { transform: rotate(-1.5deg) scale(1, 1.05); }
-    82% { transform: rotate(1.5deg) scale(1.01, 0.99); }
-    100% { transform: rotate(0deg) scale(1, 1); }
+    0% { transform: translateY(0) rotate(-12deg) scale(0.92, 1.2) translateX(-4px); }
+    50% { transform: translateY(-2px) rotate(4deg) scale(1.05, 0.95) translateX(2px); }
+    100% { transform: translateY(1px) rotate(14deg) scale(0.88, 1.25) translateX(5px); }
   }
 
   @keyframes candle-halo {
-    0%, 26%, 100% { opacity: 0.85; transform: scale(1); }
-    42% { opacity: 0.25; transform: scale(0.7); }
-    60% { opacity: 1; transform: scale(1.15); }
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.15); }
   }
 
   @keyframes candle-smoke {
-    0%, 36% { opacity: 0; transform: translateY(0) skewX(0deg); }
-    46% { opacity: 0.8; }
-    62% { opacity: 0.3; transform: translateY(-12px) skewX(10deg); }
-    74%, 100% { opacity: 0; transform: translateY(-20px) skewX(-8deg); }
+    0% { opacity: 0; transform: translateY(0) translateX(0) scale(0.6); }
+    30% { opacity: 0.8; }
+    100% { opacity: 0; transform: translateY(-28px) translateX(8px) scale(1.6) rotate(15deg); }
   }
 
   @keyframes candle-drip {
@@ -247,29 +238,20 @@ const candleStyles = {
   }
 
   @keyframes candlec-flame {
-    0%, 26% { transform: rotate(0deg) scale(1, 1); }
-    8% { transform: rotate(-2deg) scale(0.98, 1.03); }
-    18% { transform: rotate(2deg) scale(1.02, 0.97); }
-    34% { transform: rotate(-14deg) scale(0.9, 0.8) translateX(-2px); }
-    42% { transform: rotate(-18deg) scale(0.85, 0.55) translateX(-3px); }
-    50% { transform: rotate(6deg) scale(0.95, 0.75); }
-    60% { transform: rotate(0deg) scale(1.05, 1.22); }
-    68% { transform: rotate(-1.5deg) scale(1, 1.05); }
-    82% { transform: rotate(1.5deg) scale(1.01, 0.99); }
-    100% { transform: rotate(0deg) scale(1, 1); }
+    0% { transform: translateY(0) rotate(-12deg) scale(0.92, 1.2) translateX(-4px); }
+    50% { transform: translateY(-2px) rotate(4deg) scale(1.05, 0.95) translateX(2px); }
+    100% { transform: translateY(1px) rotate(14deg) scale(0.88, 1.25) translateX(5px); }
   }
 
   @keyframes candlec-halo {
-    0%, 26%, 100% { opacity: 0.9; transform: scale(1); }
-    42% { opacity: 0.3; transform: scale(0.7); }
-    60% { opacity: 1; transform: scale(1.15); }
+    0%, 100% { opacity: 0.9; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.15); }
   }
 
   @keyframes candlec-smoke {
-    0%, 36% { opacity: 0; transform: translateY(0) skewX(0deg); }
-    46% { opacity: 0.8; }
-    62% { opacity: 0.3; transform: translateY(-12px) skewX(10deg); }
-    74%, 100% { opacity: 0; transform: translateY(-20px) skewX(-8deg); }
+    0% { opacity: 0; transform: translateY(0) translateX(0) scale(0.6); }
+    30% { opacity: 0.85; }
+    100% { opacity: 0; transform: translateY(-28px) translateX(8px) scale(1.6) rotate(15deg); }
   }
 
   @keyframes candlec-drip {

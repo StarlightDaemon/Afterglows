@@ -42,12 +42,12 @@ const crosswalkStyles = `
     top: 16px;
     width: 24px;
     height: 46px;
-    animation: cw-walk-gate 9s steps(1) infinite;
+    animation: cw-walk-across 3.2s linear infinite;
   }
 
-  @keyframes cw-walk-gate {
-    0% { opacity: 1; }
-    44% { opacity: 0.12; }
+  @keyframes cw-walk-across {
+    0% { transform: translateX(-14px); opacity: 1; }
+    100% { transform: translateX(22px); opacity: 1; }
   }
 
   .cw-head {
@@ -59,12 +59,12 @@ const crosswalkStyles = `
     border-radius: 50%;
     background: #baffc9;
     box-shadow: 0 0 6px rgba(0, 204, 0, 0.8);
-    animation: cw-headbob 0.9s ease-in-out infinite;
+    animation: cw-headbob 0.8s ease-in-out infinite;
   }
 
   @keyframes cw-headbob {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(1.5px); }
+    50% { transform: translateY(2px); }
   }
 
   .cw-torso {
@@ -89,17 +89,17 @@ const crosswalkStyles = `
     transform-origin: top center;
   }
 
-  .cw-leg.front { animation: cw-leg-front 0.9s ease-in-out infinite; }
-  .cw-leg.back { animation: cw-leg-back 0.9s ease-in-out infinite; }
+  .cw-leg.front { animation: cw-leg-front 0.8s ease-in-out infinite; }
+  .cw-leg.back { animation: cw-leg-back 0.8s ease-in-out infinite; }
 
   @keyframes cw-leg-front {
-    0%, 100% { transform: rotate(24deg); }
-    50% { transform: rotate(-20deg); }
+    0%, 100% { transform: rotate(28deg); }
+    50% { transform: rotate(-24deg); }
   }
 
   @keyframes cw-leg-back {
-    0%, 100% { transform: rotate(-22deg); }
-    50% { transform: rotate(26deg); }
+    0%, 100% { transform: rotate(-24deg); }
+    50% { transform: rotate(28deg); }
   }
 
   .cw-arm {
@@ -111,12 +111,12 @@ const crosswalkStyles = `
     border-radius: 2px;
     background: #7bd88f;
     transform-origin: top center;
-    animation: cw-arm 0.9s ease-in-out infinite;
+    animation: cw-arm 0.8s ease-in-out infinite;
   }
 
   @keyframes cw-arm {
-    0%, 100% { transform: rotate(-24deg); }
-    50% { transform: rotate(22deg); }
+    0%, 100% { transform: rotate(-28deg); }
+    50% { transform: rotate(26deg); }
   }
 
   .cw-hand {
@@ -130,20 +130,14 @@ const crosswalkStyles = `
       44% 2%, 54% 2%, 56% 30%, 62% 4%, 72% 6%, 72% 32%, 82% 14%, 92% 20%,
       84% 48%, 84% 100%);
     background: rgba(140, 255, 170, 0.9);
-    opacity: 0.12;
-    animation: cw-hand 9s steps(1) infinite;
+    box-shadow: 0 0 8px rgba(0, 204, 0, 0.8);
+    opacity: 0.8;
+    animation: cw-hand-wave 1.2s ease-in-out infinite;
   }
 
-  @keyframes cw-hand {
-    0% { opacity: 0.12; }
-    44% { opacity: 1; }
-    48% { opacity: 0.15; }
-    52% { opacity: 1; }
-    56% { opacity: 0.15; }
-    60% { opacity: 1; }
-    64% { opacity: 0.15; }
-    68% { opacity: 1; }
-    72% { opacity: 1; }
+  @keyframes cw-hand-wave {
+    0%, 100% { transform: rotate(-8deg) scale(0.95); }
+    50% { transform: rotate(8deg) scale(1.1); }
   }
 
   .cw-count {
@@ -237,12 +231,12 @@ const crosswalkStyles = `
     top: 16px;
     width: 24px;
     height: 46px;
-    animation: cwc-walk-gate 9s steps(1) infinite;
+    animation: cwc-walk-across 3.2s linear infinite;
   }
 
-  @keyframes cwc-walk-gate {
-    0% { opacity: 1; }
-    44% { opacity: 0.08; }
+  @keyframes cwc-walk-across {
+    0% { transform: translateX(-14px); opacity: 1; }
+    100% { transform: translateX(22px); opacity: 1; }
   }
 
   .cwc-head {
@@ -254,12 +248,12 @@ const crosswalkStyles = `
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
-    animation: cwc-headbob 0.9s ease-in-out infinite;
+    animation: cwc-headbob 0.8s ease-in-out infinite;
   }
 
   @keyframes cwc-headbob {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(1.5px); }
+    50% { transform: translateY(2px); }
   }
 
   .cwc-torso {
@@ -284,17 +278,17 @@ const crosswalkStyles = `
     transform-origin: top center;
   }
 
-  .cwc-leg.front { animation: cwc-leg-front 0.9s ease-in-out infinite; }
-  .cwc-leg.back { animation: cwc-leg-back 0.9s ease-in-out infinite; }
+  .cwc-leg.front { animation: cwc-leg-front 0.8s ease-in-out infinite; }
+  .cwc-leg.back { animation: cwc-leg-back 0.8s ease-in-out infinite; }
 
   @keyframes cwc-leg-front {
-    0%, 100% { transform: rotate(24deg); }
-    50% { transform: rotate(-20deg); }
+    0%, 100% { transform: rotate(28deg); }
+    50% { transform: rotate(-24deg); }
   }
 
   @keyframes cwc-leg-back {
-    0%, 100% { transform: rotate(-22deg); }
-    50% { transform: rotate(26deg); }
+    0%, 100% { transform: rotate(-24deg); }
+    50% { transform: rotate(28deg); }
   }
 
   .cwc-arm {
@@ -306,12 +300,12 @@ const crosswalkStyles = `
     border-radius: 2px;
     background: #d0d7de;
     transform-origin: top center;
-    animation: cwc-arm 0.9s ease-in-out infinite;
+    animation: cwc-arm 0.8s ease-in-out infinite;
   }
 
   @keyframes cwc-arm {
-    0%, 100% { transform: rotate(-24deg); }
-    50% { transform: rotate(22deg); }
+    0%, 100% { transform: rotate(-28deg); }
+    50% { transform: rotate(26deg); }
   }
 
   /* Raised Hand: Radiant Portland Orange */
@@ -326,21 +320,14 @@ const crosswalkStyles = `
       44% 2%, 54% 2%, 56% 30%, 62% 4%, 72% 6%, 72% 32%, 82% 14%, 92% 20%,
       84% 48%, 84% 100%);
     background: #ff5e00;
-    box-shadow: 0 0 10px rgba(255, 94, 0, 0.9);
-    opacity: 0.08;
-    animation: cwc-hand 9s steps(1) infinite;
+    box-shadow: 0 0 12px rgba(255, 94, 0, 0.95);
+    opacity: 0.9;
+    animation: cwc-hand-wave 1.2s ease-in-out infinite;
   }
 
-  @keyframes cwc-hand {
-    0% { opacity: 0.08; }
-    44% { opacity: 1; filter: drop-shadow(0 0 6px #ff5e00); }
-    48% { opacity: 0.1; filter: none; }
-    52% { opacity: 1; filter: drop-shadow(0 0 6px #ff5e00); }
-    56% { opacity: 0.1; filter: none; }
-    60% { opacity: 1; filter: drop-shadow(0 0 6px #ff5e00); }
-    64% { opacity: 0.1; filter: none; }
-    68% { opacity: 1; filter: drop-shadow(0 0 6px #ff5e00); }
-    72% { opacity: 1; filter: drop-shadow(0 0 8px #ff5e00); }
+  @keyframes cwc-hand-wave {
+    0%, 100% { transform: rotate(-8deg) scale(0.95); }
+    50% { transform: rotate(8deg) scale(1.1); }
   }
 
   /* Countdown Readout: Safety Amber / Orange */

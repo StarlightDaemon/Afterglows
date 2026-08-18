@@ -44,13 +44,23 @@ const cellClusterStyles = {
     background: rgba(170, 255, 170, 0.35);
   }
 
-  .co1 { width: 34px; height: 34px; top: 22px; left: 18px; }
-  .co2 { width: 28px; height: 28px; top: 16px; left: 48px; animation-delay: -0.8s; }
-  .co3 { width: 40px; height: 40px; top: 44px; left: 42px; animation-delay: -1.6s; }
+  .co1 { width: 34px; height: 34px; top: 22px; left: 18px; animation: cell-drift-1 3.2s ease-in-out infinite alternate; }
+  .co2 { width: 28px; height: 28px; top: 16px; left: 48px; animation: cell-drift-2 3.6s ease-in-out infinite alternate; }
+  .co3 { width: 40px; height: 40px; top: 44px; left: 42px; animation: cell-drift-3 4s ease-in-out infinite alternate; }
 
-  @keyframes cell-float {
-    0%, 100% { transform: translate(0, 0) scale(0.95); }
-    50% { transform: translate(2px, -3px) scale(1.03); }
+  @keyframes cell-drift-1 {
+    0% { transform: translate(-10px, -6px) scale(0.92); }
+    100% { transform: translate(12px, 8px) scale(1.12); }
+  }
+
+  @keyframes cell-drift-2 {
+    0% { transform: translate(10px, 8px) scale(1.1); }
+    100% { transform: translate(-12px, -8px) scale(0.9); }
+  }
+
+  @keyframes cell-drift-3 {
+    0% { transform: translate(-8px, 10px) scale(1.05); }
+    100% { transform: translate(10px, -10px) scale(0.92); }
   }
 `,
   v2: `
@@ -74,7 +84,6 @@ const cellClusterStyles = {
     border: 1.5px solid rgba(140, 255, 170, 0.6);
     background: radial-gradient(circle at 38% 32%, rgba(190, 255, 205, 0.35), rgba(0, 130, 26, 0.15) 70%);
     box-shadow: inset 0 0 10px rgba(0, 204, 0, 0.12), 0 0 8px rgba(0, 204, 0, 0.12);
-    animation: cell-float 3.8s ease-in-out infinite;
   }
 
   .cell-orb::before {
@@ -99,13 +108,8 @@ const cellClusterStyles = {
       radial-gradient(circle at 68% 74%, rgba(180, 255, 195, 0.35) 0 1.5px, transparent 2.5px);
   }
 
-  .co1 { width: 32px; height: 32px; top: 8px; left: 6px; }
-  .co3 { width: 38px; height: 38px; top: 46px; left: 40px; animation-delay: -1.9s; }
-
-  @keyframes cell-float {
-    0%, 100% { transform: translate(0, 0) scale(0.96); }
-    50% { transform: translate(2px, -3px) scale(1.02); }
-  }
+  .co1 { width: 32px; height: 32px; top: 8px; left: 6px; animation: cell-drift-1 3.2s ease-in-out infinite alternate; }
+  .co3 { width: 38px; height: 38px; top: 46px; left: 40px; animation: cell-drift-3 4s ease-in-out infinite alternate; }
 
   .cell-mitotic {
     position: absolute;
@@ -121,20 +125,25 @@ const cellClusterStyles = {
     border: 1.5px solid rgba(160, 255, 185, 0.75);
     background: radial-gradient(circle at 38% 32%, rgba(190, 255, 205, 0.4), rgba(0, 140, 28, 0.18) 70%);
     box-shadow: inset 0 0 12px rgba(0, 204, 0, 0.15), 0 0 10px rgba(0, 204, 0, 0.18);
-    animation: mitosis-shape 9s ease-in-out infinite;
+    animation: mitosis-shape 3.6s ease-in-out infinite;
   }
 
   @keyframes mitosis-shape {
-    0%, 22% {
+    0%, 20% {
       border-radius: 48% 52% 50% 50%;
       clip-path: inset(0);
+      opacity: 1;
+      transform: scale(1);
     }
-    50% {
+    45% {
       border-radius: 50%;
       clip-path: polygon(0 0, 100% 0, 100% 42%, 66% 50%, 100% 58%, 100% 100%, 0 100%, 0 58%, 34% 50%, 0 42%);
+      opacity: 1;
+      transform: scale(1.1);
     }
-    64%, 100% {
+    55%, 100% {
       opacity: 0;
+      transform: scale(1.2);
     }
   }
 
@@ -147,13 +156,13 @@ const cellClusterStyles = {
     margin-left: -20%;
     border-radius: 50%;
     background: radial-gradient(circle at 40% 35%, rgba(210, 255, 220, 0.75), rgba(0, 160, 32, 0.5));
-    animation: mitosis-nucleus 9s ease-in-out infinite;
+    animation: mitosis-nucleus 3.6s ease-in-out infinite;
   }
 
   @keyframes mitosis-nucleus {
-    0%, 18% { transform: scaleX(1) translateY(30%); opacity: 1; }
-    40% { transform: scaleX(1.9) translateY(30%); opacity: 1; }
-    58%, 100% { opacity: 0; }
+    0%, 15% { transform: scaleX(1) translateY(30%); opacity: 1; }
+    40% { transform: scaleX(2.2) translateY(30%); opacity: 1; }
+    50%, 100% { opacity: 0; }
   }
 
   .cell-daughter {
@@ -179,19 +188,19 @@ const cellClusterStyles = {
     background: radial-gradient(circle at 40% 35%, rgba(200, 255, 215, 0.6), rgba(0, 150, 30, 0.4));
   }
 
-  .cell-daughter.left { left: 2px; animation: daughter-left 9s ease-in-out infinite; }
-  .cell-daughter.right { left: 18px; animation: daughter-right 9s ease-in-out infinite; }
+  .cell-daughter.left { left: 2px; animation: daughter-left 3.6s ease-in-out infinite; }
+  .cell-daughter.right { left: 18px; animation: daughter-right 3.6s ease-in-out infinite; }
 
   @keyframes daughter-left {
-    0%, 60% { opacity: 0; transform: translate(0, 0); }
-    64% { opacity: 1; transform: translate(0, 0); }
-    92%, 100% { opacity: 1; transform: translate(-9px, 4px); }
+    0%, 40% { opacity: 0; transform: translate(0, 0) scale(0.7); }
+    48% { opacity: 1; transform: translate(0, 0) scale(0.85); }
+    85%, 100% { opacity: 1; transform: translate(-20px, 8px) scale(1.08); }
   }
 
   @keyframes daughter-right {
-    0%, 60% { opacity: 0; transform: translate(0, 0); }
-    64% { opacity: 1; transform: translate(0, 0); }
-    92%, 100% { opacity: 1; transform: translate(9px, 4px); }
+    0%, 40% { opacity: 0; transform: translate(0, 0) scale(0.7); }
+    48% { opacity: 1; transform: translate(0, 0) scale(0.85); }
+    85%, 100% { opacity: 1; transform: translate(20px, -8px) scale(1.08); }
   }
 `,
   v3: `
@@ -243,8 +252,8 @@ const cellClusterStyles = {
       radial-gradient(circle at 68% 74%, #fbbf24 0 1.5px, transparent 2.5px);
   }
 
-  .co1 { width: 32px; height: 32px; top: 8px; left: 6px; }
-  .co3 { width: 38px; height: 38px; top: 46px; left: 40px; animation-delay: -1.9s; }
+  .co1 { width: 32px; height: 32px; top: 8px; left: 6px; animation: cell-drift-1 3.2s ease-in-out infinite alternate; }
+  .co3 { width: 38px; height: 38px; top: 46px; left: 40px; animation: cell-drift-3 4s ease-in-out infinite alternate; }
 
   .cellc-mitotic {
     position: absolute;
@@ -260,7 +269,7 @@ const cellClusterStyles = {
     border: 1.5px solid #38bdf8;
     background: radial-gradient(circle at 38% 32%, rgba(56, 189, 248, 0.4), rgba(3, 105, 161, 0.25) 70%);
     box-shadow: inset 0 0 12px rgba(14, 165, 233, 0.3), 0 0 12px rgba(14, 165, 233, 0.35);
-    animation: mitosis-shape 9s ease-in-out infinite;
+    animation: mitosisc-shape 3.6s ease-in-out infinite;
   }
 
   /* Dividing purple chromatin */
@@ -274,7 +283,7 @@ const cellClusterStyles = {
     border-radius: 50%;
     background: radial-gradient(circle at 40% 35%, #d8b4fe, #7e22ce);
     box-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
-    animation: mitosis-nucleus 9s ease-in-out infinite;
+    animation: mitosisc-nucleus 3.6s ease-in-out infinite;
   }
 
   .cellc-daughter {
@@ -301,44 +310,44 @@ const cellClusterStyles = {
     box-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
   }
 
-  .cellc-daughter.left { left: 2px; animation: daughter-left 9s ease-in-out infinite; }
-  .cellc-daughter.right { left: 18px; animation: daughter-right 9s ease-in-out infinite; }
+  .cellc-daughter.left { left: 2px; animation: daughterc-left 3.6s ease-in-out infinite; }
+  .cellc-daughter.right { left: 18px; animation: daughterc-right 3.6s ease-in-out infinite; }
 
-  @keyframes cell-float {
-    0%, 100% { transform: translate(0, 0) scale(0.96); }
-    50% { transform: translate(2px, -3px) scale(1.02); }
-  }
-
-  @keyframes mitosis-shape {
-    0%, 22% {
+  @keyframes mitosisc-shape {
+    0%, 20% {
       border-radius: 48% 52% 50% 50%;
       clip-path: inset(0);
+      opacity: 1;
+      transform: scale(1);
     }
-    50% {
+    45% {
       border-radius: 50%;
       clip-path: polygon(0 0, 100% 0, 100% 42%, 66% 50%, 100% 58%, 100% 100%, 0 100%, 0 58%, 34% 50%, 0 42%);
+      opacity: 1;
+      transform: scale(1.1);
     }
-    64%, 100% {
+    55%, 100% {
       opacity: 0;
+      transform: scale(1.2);
     }
   }
 
-  @keyframes mitosis-nucleus {
-    0%, 18% { transform: scaleX(1) translateY(30%); opacity: 1; }
-    40% { transform: scaleX(1.9) translateY(30%); opacity: 1; }
-    58%, 100% { opacity: 0; }
+  @keyframes mitosisc-nucleus {
+    0%, 15% { transform: scaleX(1) translateY(30%); opacity: 1; }
+    40% { transform: scaleX(2.2) translateY(30%); opacity: 1; }
+    50%, 100% { opacity: 0; }
   }
 
-  @keyframes daughter-left {
-    0%, 60% { opacity: 0; transform: translate(0, 0); }
-    64% { opacity: 1; transform: translate(0, 0); }
-    92%, 100% { opacity: 1; transform: translate(-9px, 4px); }
+  @keyframes daughterc-left {
+    0%, 40% { opacity: 0; transform: translate(0, 0) scale(0.7); }
+    48% { opacity: 1; transform: translate(0, 0) scale(0.85); }
+    85%, 100% { opacity: 1; transform: translate(-20px, 8px) scale(1.08); }
   }
 
-  @keyframes daughter-right {
-    0%, 60% { opacity: 0; transform: translate(0, 0); }
-    64% { opacity: 1; transform: translate(0, 0); }
-    92%, 100% { opacity: 1; transform: translate(9px, 4px); }
+  @keyframes daughterc-right {
+    0%, 40% { opacity: 0; transform: translate(0, 0) scale(0.7); }
+    48% { opacity: 1; transform: translate(0, 0) scale(0.85); }
+    85%, 100% { opacity: 1; transform: translate(20px, -8px) scale(1.08); }
   }
 `,
 };

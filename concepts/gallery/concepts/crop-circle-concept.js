@@ -23,82 +23,63 @@ const cropCircleStyles = {
     inset: 0;
     width: 100%;
     height: 100%;
+    transform-origin: 50% 50%;
+    animation: crop-rotate 14s linear infinite;
+  }
+
+  @keyframes crop-rotate {
+    0% { transform: rotate(0deg) scale(0.95); }
+    50% { transform: rotate(180deg) scale(1.06); }
+    100% { transform: rotate(360deg) scale(0.95); }
   }
 
   .crop-ring {
     fill: none;
-    stroke: rgba(150, 255, 170, 0.75);
-    stroke-width: 2;
+    stroke: rgba(150, 255, 170, 0.85);
+    stroke-width: 2.2;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 3px rgba(0, 204, 0, 0.5));
-    stroke-dasharray: 400;
-    stroke-dashoffset: 400;
-    animation: crop-draw 9s ease-in-out infinite;
+    filter: drop-shadow(0 0 4px rgba(0, 204, 0, 0.7));
   }
-
-  .crop-ring.r1 { animation-delay: 0s; }
-  .crop-ring.r2 { animation-delay: 0.9s; }
-  .crop-ring.r3 { animation-delay: 1.8s; }
-  .crop-ring.r4 { animation-delay: 2.5s; }
-  .crop-ring.r5 { animation-delay: 3.1s; }
 
   .crop-link {
     fill: none;
-    stroke: rgba(110, 255, 140, 0.5);
-    stroke-width: 1.4;
-    stroke-dasharray: 60;
-    stroke-dashoffset: 60;
-    animation: crop-draw-link 9s ease-in-out infinite;
-    animation-delay: 3.7s;
+    stroke: rgba(110, 255, 140, 0.75);
+    stroke-width: 1.6;
+    filter: drop-shadow(0 0 3px rgba(0, 204, 0, 0.5));
   }
 
   .crop-flare {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 46%, rgba(140, 255, 165, 0.22), transparent 62%);
-    opacity: 0;
-    animation: crop-flare 9s ease-in-out infinite;
+    background: radial-gradient(circle at 50% 46%, rgba(140, 255, 165, 0.35), transparent 62%);
+    opacity: 0.8;
+    animation: crop-flare 3.4s ease-in-out infinite alternate;
   }
 
   .crop-scan {
     position: absolute;
     top: 46%;
     left: 50%;
-    width: 3px;
-    height: 3px;
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
     border-radius: 50%;
     background: #e0ffe4;
-    box-shadow: 0 0 8px 2px rgba(190, 255, 205, 0.8);
-    animation: crop-orb 9s ease-in-out infinite;
-  }
-
-  @keyframes crop-draw {
-    0% { stroke-dashoffset: 400; opacity: 0.9; }
-    38%, 78% { stroke-dashoffset: 0; opacity: 0.9; }
-    92%, 100% { stroke-dashoffset: 400; opacity: 0; }
-  }
-
-  @keyframes crop-draw-link {
-    0% { stroke-dashoffset: 60; opacity: 0.8; }
-    22%, 46% { stroke-dashoffset: 0; opacity: 0.8; }
-    58%, 100% { stroke-dashoffset: 60; opacity: 0; }
+    box-shadow: 0 0 12px 3px rgba(190, 255, 205, 0.95);
+    animation: crop-orb 5.2s ease-in-out infinite;
   }
 
   @keyframes crop-flare {
-    0%, 44% { opacity: 0; }
-    52%, 66% { opacity: 1; }
-    80%, 100% { opacity: 0; }
+    0% { opacity: 0.4; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1.15); }
   }
 
   @keyframes crop-orb {
-    0% { transform: translate(-2px, -2px); opacity: 0; }
-    6% { opacity: 1; }
-    20% { transform: translate(-34px, -26px); }
-    38% { transform: translate(28px, -30px); }
-    56% { transform: translate(30px, 26px); }
-    72% { transform: translate(-28px, 24px); }
-    84% { transform: translate(-2px, -2px); opacity: 1; }
-    92%, 100% { transform: translate(-2px, -2px); opacity: 0; }
+    0% { transform: translate(-34px, -26px) scale(0.9); opacity: 1; }
+    25% { transform: translate(32px, -28px) scale(1.25); }
+    50% { transform: translate(30px, 30px) scale(0.95); }
+    75% { transform: translate(-32px, 28px) scale(1.3); }
+    100% { transform: translate(-34px, -26px) scale(0.9); opacity: 1; }
   }
   `,
   v2: `
@@ -130,6 +111,14 @@ const cropCircleStyles = {
     inset: 0;
     width: 100%;
     height: 100%;
+    transform-origin: 50% 50%;
+    animation: cropc-rotate 14s linear infinite;
+  }
+
+  @keyframes cropc-rotate {
+    0% { transform: rotate(0deg) scale(0.95); }
+    50% { transform: rotate(180deg) scale(1.06); }
+    100% { transform: rotate(360deg) scale(0.95); }
   }
 
   /* Golden etched geometric rings */
@@ -138,38 +127,31 @@ const cropCircleStyles = {
     stroke: #fde047;
     stroke-width: 2.2;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 5px #facc15);
-    stroke-dasharray: 400;
-    stroke-dashoffset: 400;
-    animation: cropc-draw 9s ease-in-out infinite;
+    filter: drop-shadow(0 0 6px #facc15);
   }
 
-  .cropc-ring.r1 { animation-delay: 0s; stroke: #fef08a; }
-  .cropc-ring.r2 { animation-delay: 0.9s; stroke: #fde047; }
-  .cropc-ring.r3 { animation-delay: 1.8s; stroke: #facc15; }
-  .cropc-ring.r4 { animation-delay: 2.5s; stroke: #38bdf8; }
-  .cropc-ring.r5 { animation-delay: 3.1s; stroke: #4ade80; }
+  .cropc-ring.r1 { stroke: #fef08a; }
+  .cropc-ring.r2 { stroke: #fde047; }
+  .cropc-ring.r3 { stroke: #facc15; }
+  .cropc-ring.r4 { stroke: #38bdf8; }
+  .cropc-ring.r5 { stroke: #4ade80; }
 
   /* Connecting pathways */
   .cropc-link {
     fill: none;
     stroke: #facc15;
     stroke-width: 1.8;
-    stroke-dasharray: 60;
-    stroke-dashoffset: 60;
     filter: drop-shadow(0 0 4px #eab308);
-    animation: cropc-draw-link 9s ease-in-out infinite;
-    animation-delay: 3.7s;
   }
 
   /* Mysterious twilight luminescence flare */
   .cropc-flare {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 46%, rgba(250, 204, 21, 0.35), transparent 62%);
+    background: radial-gradient(circle at 50% 46%, rgba(250, 204, 21, 0.45), transparent 62%);
     box-shadow: inset 0 0 14px rgba(56, 189, 248, 0.3);
-    opacity: 0;
-    animation: cropc-flare 9s ease-in-out infinite;
+    opacity: 0.8;
+    animation: cropc-flare 3.4s ease-in-out infinite alternate;
   }
 
   /* Plasma survey tracer orb */
@@ -177,41 +159,26 @@ const cropCircleStyles = {
     position: absolute;
     top: 46%;
     left: 50%;
-    width: 4px;
-    height: 4px;
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 10px #00f0ff, 0 0 16px #38bdf8;
-    animation: cropc-orb 9s ease-in-out infinite;
-  }
-
-  @keyframes cropc-draw {
-    0% { stroke-dashoffset: 400; opacity: 0.95; }
-    38%, 78% { stroke-dashoffset: 0; opacity: 0.95; }
-    92%, 100% { stroke-dashoffset: 400; opacity: 0; }
-  }
-
-  @keyframes cropc-draw-link {
-    0% { stroke-dashoffset: 60; opacity: 0.9; }
-    22%, 46% { stroke-dashoffset: 0; opacity: 0.9; }
-    58%, 100% { stroke-dashoffset: 60; opacity: 0; }
+    box-shadow: 0 0 12px #00f0ff, 0 0 18px #38bdf8;
+    animation: cropc-orb 5.2s ease-in-out infinite;
   }
 
   @keyframes cropc-flare {
-    0%, 44% { opacity: 0; }
-    52%, 66% { opacity: 1; }
-    80%, 100% { opacity: 0; }
+    0% { opacity: 0.4; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1.15); }
   }
 
   @keyframes cropc-orb {
-    0% { transform: translate(-2px, -2px); opacity: 0; }
-    6% { opacity: 1; }
-    20% { transform: translate(-34px, -26px); }
-    38% { transform: translate(28px, -30px); }
-    56% { transform: translate(30px, 26px); }
-    72% { transform: translate(-28px, 24px); }
-    84% { transform: translate(-2px, -2px); opacity: 1; }
-    92%, 100% { transform: translate(-2px, -2px); opacity: 0; }
+    0% { transform: translate(-34px, -26px) scale(0.9); opacity: 1; }
+    25% { transform: translate(32px, -28px) scale(1.25); }
+    50% { transform: translate(30px, 30px) scale(0.95); }
+    75% { transform: translate(-32px, 28px) scale(1.3); }
+    100% { transform: translate(-34px, -26px) scale(0.9); opacity: 1; }
   }
   `,
 };

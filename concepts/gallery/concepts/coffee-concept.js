@@ -35,6 +35,12 @@ const coffeeStyles = {
     border-radius: 50%;
     background: radial-gradient(ellipse at 50% 50%, rgba(0, 150, 30, 0.7), rgba(0, 60, 12, 0.9));
     overflow: hidden;
+    animation: coffee-slosh 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes coffee-slosh {
+    0% { transform: translateY(-2px) scaleX(0.92) rotate(-3deg); }
+    100% { transform: translateY(2px) scaleX(1.08) rotate(3deg); }
   }
 
   .coffee-sheen {
@@ -42,16 +48,17 @@ const coffeeStyles = {
     top: 1px;
     left: 6px;
     width: 14px;
-    height: 3px;
+    height: 4px;
     border-radius: 50%;
-    background: rgba(190, 255, 205, 0.55);
-    filter: blur(1px);
-    animation: coffee-sheen 6s ease-in-out infinite;
+    background: rgba(190, 255, 205, 0.75);
+    box-shadow: 0 0 6px rgba(190, 255, 205, 0.8);
+    filter: blur(0.8px);
+    animation: coffee-sheen 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes coffee-sheen {
-    0%, 100% { transform: translateX(0); opacity: 0.5; }
-    50% { transform: translateX(18px); opacity: 0.9; }
+    0% { transform: translateX(-6px) scaleX(0.7); opacity: 0.4; }
+    100% { transform: translateX(18px) scaleX(1.3); opacity: 1; }
   }
 
   .coffee-handle {
@@ -79,27 +86,26 @@ const coffeeStyles = {
   .coffee-steam {
     position: absolute;
     bottom: 56px;
-    width: 3px;
-    height: 26px;
-    border-radius: 2px;
+    width: 7px;
+    height: 28px;
+    border-radius: 4px;
     background: linear-gradient(180deg,
       transparent,
-      rgba(190, 255, 205, 0.5) 35%,
-      rgba(190, 255, 205, 0.25) 70%,
+      rgba(190, 255, 205, 0.6) 35%,
+      rgba(190, 255, 205, 0.3) 70%,
       transparent);
-    filter: blur(0.6px);
-    animation: coffee-steam ease-in-out infinite;
+    filter: blur(1px);
+    animation: coffee-steam ease-out infinite;
   }
 
-  .coffee-steam.s1 { left: 40px; animation-duration: 3.2s; }
-  .coffee-steam.s2 { left: 50px; animation-duration: 4.1s; animation-delay: -1.3s; height: 32px; }
-  .coffee-steam.s3 { left: 60px; animation-duration: 3.6s; animation-delay: -2.2s; height: 22px; }
+  .coffee-steam.s1 { left: 38px; animation-duration: 2.4s; }
+  .coffee-steam.s2 { left: 48px; animation-duration: 3.1s; animation-delay: -0.9s; width: 9px; height: 34px; }
+  .coffee-steam.s3 { left: 58px; animation-duration: 2.7s; animation-delay: -1.7s; width: 8px; height: 26px; }
 
   @keyframes coffee-steam {
-    0%, 100% { transform: translateY(0) skewX(0deg) scaleY(1); opacity: 0.4; }
-    25% { transform: translateY(-4px) skewX(7deg) scaleY(1.08); opacity: 0.85; }
-    50% { transform: translateY(-7px) skewX(-6deg) scaleY(1.16); opacity: 0.65; }
-    75% { transform: translateY(-4px) skewX(5deg) scaleY(1.06); opacity: 0.85; }
+    0% { transform: translateY(4px) translateX(0) scale(0.6); opacity: 0; }
+    25% { opacity: 0.95; }
+    100% { transform: translateY(-40px) translateX(12px) scale(1.6) rotate(14deg); opacity: 0; }
   }
   `,
   v2: `
@@ -135,7 +141,7 @@ const coffeeStyles = {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.2);
   }
 
-  /* Liquid espresso surface */
+  /* Liquid espresso surface with sloshing */
   .coffeec-surface {
     position: absolute;
     left: 28px;
@@ -146,6 +152,12 @@ const coffeeStyles = {
     background: radial-gradient(ellipse at 40% 50%, #d97706 0%, #78350f 45%, #451a03 100%);
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
     overflow: hidden;
+    animation: coffeec-slosh 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes coffeec-slosh {
+    0% { transform: translateY(-2px) scaleX(0.92) rotate(-3deg); }
+    100% { transform: translateY(2px) scaleX(1.08) rotate(3deg); }
   }
 
   /* Crema sheen reflection */
@@ -154,16 +166,17 @@ const coffeeStyles = {
     top: 1px;
     left: 6px;
     width: 14px;
-    height: 3px;
+    height: 4px;
     border-radius: 50%;
-    background: rgba(254, 240, 138, 0.7);
-    filter: blur(0.8px);
-    animation: coffeec-sheen 6s ease-in-out infinite;
+    background: rgba(254, 240, 138, 0.9);
+    box-shadow: 0 0 6px #facc15;
+    filter: blur(0.6px);
+    animation: coffeec-sheen 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes coffeec-sheen {
-    0%, 100% { transform: translateX(0); opacity: 0.5; }
-    50% { transform: translateX(18px); opacity: 0.9; }
+    0% { transform: translateX(-6px) scaleX(0.7); opacity: 0.4; }
+    100% { transform: translateX(18px) scaleX(1.3); opacity: 1; }
   }
 
   /* Ceramic cup handle */
@@ -196,27 +209,26 @@ const coffeeStyles = {
   .coffeec-steam {
     position: absolute;
     bottom: 56px;
-    width: 3px;
-    height: 26px;
-    border-radius: 2px;
+    width: 7px;
+    height: 28px;
+    border-radius: 4px;
     background: linear-gradient(180deg,
       transparent,
-      rgba(255, 255, 255, 0.4) 35%,
-      rgba(255, 255, 255, 0.15) 70%,
+      rgba(255, 255, 255, 0.6) 35%,
+      rgba(255, 255, 255, 0.25) 70%,
       transparent);
-    filter: blur(0.8px);
-    animation: coffeec-steam ease-in-out infinite;
+    filter: blur(1px);
+    animation: coffeec-steam ease-out infinite;
   }
 
-  .coffeec-steam.s1 { left: 40px; animation-duration: 3.2s; }
-  .coffeec-steam.s2 { left: 50px; animation-duration: 4.1s; animation-delay: -1.3s; height: 32px; }
-  .coffeec-steam.s3 { left: 60px; animation-duration: 3.6s; animation-delay: -2.2s; height: 22px; }
+  .coffeec-steam.s1 { left: 38px; animation-duration: 2.4s; }
+  .coffeec-steam.s2 { left: 48px; animation-duration: 3.1s; animation-delay: -0.9s; width: 9px; height: 34px; }
+  .coffeec-steam.s3 { left: 58px; animation-duration: 2.7s; animation-delay: -1.7s; width: 8px; height: 26px; }
 
   @keyframes coffeec-steam {
-    0%, 100% { transform: translateY(0) skewX(0deg) scaleY(1); opacity: 0.3; }
-    25% { transform: translateY(-4px) skewX(7deg) scaleY(1.08); opacity: 0.8; }
-    50% { transform: translateY(-7px) skewX(-6deg) scaleY(1.16); opacity: 0.55; }
-    75% { transform: translateY(-4px) skewX(5deg) scaleY(1.06); opacity: 0.8; }
+    0% { transform: translateY(4px) translateX(0) scale(0.6); opacity: 0; }
+    25% { opacity: 0.95; }
+    100% { transform: translateY(-40px) translateX(12px) scale(1.6) rotate(14deg); opacity: 0; }
   }
   `,
 };

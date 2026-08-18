@@ -12,6 +12,12 @@ const cryopodStyles = {
     position: relative;
     width: 60px;
     height: 104px;
+    animation: cryo-hum 3.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes cryo-hum {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-3px); }
   }
 
   .cryo-pod {
@@ -47,7 +53,7 @@ const cryopodStyles = {
       radial-gradient(circle at 90% 22%, rgba(210, 255, 222, 0.3) 0 18%, transparent 40%),
       radial-gradient(circle at 16% 90%, rgba(210, 255, 222, 0.35) 0 24%, transparent 46%),
       radial-gradient(circle at 88% 84%, rgba(210, 255, 222, 0.3) 0 20%, transparent 42%);
-    animation: cryo-frost 6.8s ease-in-out infinite;
+    animation: cryo-frost 3.6s ease-in-out infinite alternate;
   }
 
   .cryo-sleeper {
@@ -60,7 +66,7 @@ const cryopodStyles = {
     border-radius: 9px 9px 5px 5px;
     background: linear-gradient(180deg, rgba(60, 160, 85, 0.55) 0%, rgba(30, 90, 45, 0.5) 100%);
     filter: blur(1px);
-    animation: cryo-breathe 6.8s ease-in-out infinite;
+    animation: cryo-breathe 2.8s ease-in-out infinite alternate;
   }
 
   .cryo-sleeper::before {
@@ -126,25 +132,25 @@ const cryopodStyles = {
     position: absolute;
     top: 30px;
     width: 8px;
-    height: 3px;
+    height: 4px;
     border-radius: 2px;
-    background: rgba(200, 255, 212, 0.35);
-    filter: blur(1.5px);
+    background: rgba(200, 255, 212, 0.55);
+    filter: blur(1.2px);
     opacity: 0;
-    animation: cryo-vent 6.8s ease-out infinite;
+    animation: cryo-vent 2.2s ease-out infinite;
   }
 
-  .cryo-vent.left { left: -9px; }
-  .cryo-vent.right { right: -9px; animation-delay: -3.4s; }
+  .cryo-vent.left { left: -9px; --vent-x: -16px; --vent-rot: -14deg; }
+  .cryo-vent.right { right: -9px; animation-delay: -1.1s; --vent-x: 16px; --vent-rot: 14deg; }
 
   @keyframes cryo-breathe {
-    0%, 100% { transform: scaleX(1) scaleY(1); opacity: 0.7; }
-    50% { transform: scaleX(1.2) scaleY(1.06); opacity: 1; }
+    0% { transform: translateY(-3px) scale(0.92, 1.05); opacity: 0.7; }
+    100% { transform: translateY(4px) scale(1.08, 0.95); opacity: 1; }
   }
 
   @keyframes cryo-frost {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
+    0% { transform: scale(0.85); opacity: 0.4; }
+    100% { transform: scale(1.25); opacity: 1; }
   }
 
   @keyframes cryo-sparkle {
@@ -159,13 +165,10 @@ const cryopodStyles = {
   }
 
   @keyframes cryo-vent {
-    0%, 62% { opacity: 0; transform: translate(0, 0) scale(1); }
-    68% { opacity: 0.8; }
-    86%, 100% { opacity: 0; transform: translate(var(--vent-x, -8px), -10px) scale(1.8); }
+    0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+    30% { opacity: 0.95; }
+    100% { opacity: 0; transform: translate(var(--vent-x, -16px), -24px) scale(2.2) rotate(var(--vent-rot, -12deg)); }
   }
-
-  .cryo-vent.left { --vent-x: -8px; }
-  .cryo-vent.right { --vent-x: 8px; }
   `,
   v2: `
   :host {
@@ -185,6 +188,12 @@ const cryopodStyles = {
     border-radius: 28px 28px 10px 10px;
     background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    animation: cryoc-hum 3.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes cryoc-hum {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-3px); }
   }
 
   /* Titanium outer chassis */
@@ -224,7 +233,7 @@ const cryopodStyles = {
       radial-gradient(circle at 90% 22%, rgba(224, 242, 254, 0.5) 0 18%, transparent 40%),
       radial-gradient(circle at 16% 90%, rgba(255, 255, 255, 0.55) 0 24%, transparent 46%),
       radial-gradient(circle at 88% 84%, rgba(224, 242, 254, 0.5) 0 20%, transparent 42%);
-    animation: cryoc-frost 6.8s ease-in-out infinite;
+    animation: cryoc-frost 3.6s ease-in-out infinite alternate;
   }
 
   /* Hibernating sleeper silhouette */
@@ -238,7 +247,7 @@ const cryopodStyles = {
     border-radius: 9px 9px 5px 5px;
     background: linear-gradient(180deg, rgba(148, 163, 184, 0.6) 0%, rgba(71, 85, 105, 0.6) 100%);
     filter: blur(1px);
-    animation: cryoc-breathe 6.8s ease-in-out infinite;
+    animation: cryoc-breathe 2.8s ease-in-out infinite alternate;
   }
 
   .cryoc-sleeper::before {
@@ -313,25 +322,25 @@ const cryopodStyles = {
     position: absolute;
     top: 30px;
     width: 8px;
-    height: 3px;
+    height: 4px;
     border-radius: 2px;
-    background: rgba(224, 242, 254, 0.6);
-    filter: blur(1.5px);
+    background: rgba(224, 242, 254, 0.75);
+    filter: blur(1.2px);
     opacity: 0;
-    animation: cryoc-vent 6.8s ease-out infinite;
+    animation: cryoc-vent 2.2s ease-out infinite;
   }
 
-  .cryoc-vent.left { left: -9px; }
-  .cryoc-vent.right { right: -9px; animation-delay: -3.4s; }
+  .cryoc-vent.left { left: -9px; --vent-x: -16px; --vent-rot: -14deg; }
+  .cryoc-vent.right { right: -9px; animation-delay: -1.1s; --vent-x: 16px; --vent-rot: 14deg; }
 
   @keyframes cryoc-breathe {
-    0%, 100% { transform: scaleX(1) scaleY(1); opacity: 0.7; }
-    50% { transform: scaleX(1.2) scaleY(1.06); opacity: 1; }
+    0% { transform: translateY(-3px) scale(0.92, 1.05); opacity: 0.7; }
+    100% { transform: translateY(4px) scale(1.08, 0.95); opacity: 1; }
   }
 
   @keyframes cryoc-frost {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
+    0% { transform: scale(0.85); opacity: 0.4; }
+    100% { transform: scale(1.25); opacity: 1; }
   }
 
   @keyframes cryoc-sparkle {
@@ -346,13 +355,10 @@ const cryopodStyles = {
   }
 
   @keyframes cryoc-vent {
-    0%, 62% { opacity: 0; transform: translate(0, 0) scale(1); }
-    68% { opacity: 0.85; }
-    86%, 100% { opacity: 0; transform: translate(var(--vent-x, -8px), -10px) scale(1.8); }
+    0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+    30% { opacity: 0.95; }
+    100% { opacity: 0; transform: translate(var(--vent-x, -16px), -24px) scale(2.2) rotate(var(--vent-rot, -12deg)); }
   }
-
-  .cryoc-vent.left { --vent-x: -8px; }
-  .cryoc-vent.right { --vent-x: 8px; }
   `,
 };
 

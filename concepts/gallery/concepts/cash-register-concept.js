@@ -22,7 +22,7 @@ const cashRegisterStyles = {
     font-family: 'Courier New', monospace;
   }
 
-  /* Body. */
+  /* Body with recoil punch */
   .cr-body {
     position: absolute;
     left: 12px;
@@ -32,6 +32,13 @@ const cashRegisterStyles = {
     border-radius: 4px 4px 3px 3px;
     background: linear-gradient(180deg, rgba(0, 130, 26, 0.7), rgba(0, 70, 14, 0.9));
     border: 2px solid var(--accent, #00cc00);
+    animation: cr-body-punch 2.4s ease-in-out infinite;
+  }
+
+  @keyframes cr-body-punch {
+    0%, 20% { transform: translateY(0); }
+    26% { transform: translateY(-4px) rotate(-1.5deg); }
+    34% { transform: translateY(0); }
   }
 
   /* Display panel raised on the back. */
@@ -85,7 +92,7 @@ const cashRegisterStyles = {
       radial-gradient(circle 2.5px, rgba(140, 255, 170, 0.7) 90%, transparent) 0 0 / 10px 8px;
   }
 
-  /* The cash drawer: kicks out the bottom-front, then closes. */
+  /* The cash drawer: kicks out 28px at the bottom-front, then closes. */
   .cr-drawer {
     position: absolute;
     left: 12px;
@@ -97,13 +104,12 @@ const cashRegisterStyles = {
     border: 2px solid var(--accent, #00cc00);
     border-top: none;
     overflow: hidden;
-    animation: cr-drawer 5s ease-out infinite;
+    animation: cr-drawer 2.4s cubic-bezier(0.2, 1.2, 0.4, 1) infinite;
   }
 
   @keyframes cr-drawer {
-    0%, 38% { transform: translateY(0); }
-    46% { transform: translateY(18px); }
-    82% { transform: translateY(18px); }
+    0%, 20% { transform: translateY(0); }
+    35%, 75% { transform: translateY(26px); }
     90%, 100% { transform: translateY(0); }
   }
 
@@ -124,21 +130,19 @@ const cashRegisterStyles = {
     left: 30px;
     top: 4px;
     width: 22px;
-    height: 0;
+    height: 26px;
     background:
       linear-gradient(180deg, rgba(214, 255, 224, 0.85), rgba(140, 255, 170, 0.5)),
       repeating-linear-gradient(180deg, rgba(0, 90, 18, 0.3) 0 3px, transparent 3px 5px);
     border: 1px solid rgba(140, 255, 170, 0.6);
     border-bottom: none;
-    animation: cr-receipt 5s ease-out infinite;
+    animation: cr-receipt 2.4s ease-out infinite;
   }
 
   @keyframes cr-receipt {
-    0%, 50% { height: 0; opacity: 0; }
-    58% { height: 20px; opacity: 1; }
-    82% { height: 26px; opacity: 1; }
-    90% { height: 26px; opacity: 0; }
-    100% { height: 0; opacity: 0; }
+    0%, 20% { transform: translateY(18px) scaleY(0); opacity: 0; }
+    35%, 75% { transform: translateY(-16px) scaleY(1); opacity: 1; }
+    90%, 100% { transform: translateY(18px) scaleY(0); opacity: 0; }
   }
 
   /* Ka-ching sparkle at the drawer pop. */
@@ -151,15 +155,14 @@ const cashRegisterStyles = {
     color: #f2ffdd;
     text-shadow: 0 0 6px rgba(0, 204, 0, 0.9);
     opacity: 0;
-    animation: cr-ching 5s infinite;
+    animation: cr-ching 2.4s infinite;
   }
 
   @keyframes cr-ching {
-    0%, 44% { opacity: 0; transform: scale(0.6); }
-    50% { opacity: 1; transform: scale(1.1); }
-    56% { transform: scale(1); }
-    70% { opacity: 1; }
-    76%, 100% { opacity: 0; }
+    0%, 25% { opacity: 0; transform: scale(0.6); }
+    35% { opacity: 1; transform: scale(1.3) translateY(-6px); }
+    55% { opacity: 1; transform: scale(1) translateY(-8px); }
+    75%, 100% { opacity: 0; transform: scale(0.8) translateY(-10px); }
   }
   `,
   v2: `
@@ -255,6 +258,7 @@ const cashRegisterStyles = {
     border-radius: 3px 8px 2px 2px;
     background: linear-gradient(180deg, rgba(0, 140, 28, 0.75), rgba(0, 70, 14, 0.9));
     border: 2px solid var(--accent, #00cc00);
+    animation: cr-body-punch 2.4s ease-in-out infinite;
   }
 
   /* Keypad: a 4x3 grid of key dots, individual keys blink as the
@@ -297,17 +301,17 @@ const cashRegisterStyles = {
     border-radius: 2px;
     background: rgba(190, 255, 205, 0.85);
     transform-origin: 50% 100%;
-    animation: cr-lever 6s ease-in-out infinite;
+    animation: cr-lever 2.4s ease-in-out infinite;
   }
 
   @keyframes cr-lever {
-    0%, 30% { transform: rotate(0deg); }
-    33% { transform: rotate(-50deg); }
-    38% { transform: rotate(0deg); }
+    0%, 15% { transform: rotate(0deg); }
+    25% { transform: rotate(-75deg); }
+    40% { transform: rotate(0deg); }
     100% { transform: rotate(0deg); }
   }
 
-  /* Drawer: kicks open at the ring-up, revealing the tray, slams at the
+  /* Drawer: kicks open 28px at the ring-up, revealing the tray, slams at the
      end. It slides out of the body's base. */
   .cr-drawer {
     position: absolute;
@@ -319,15 +323,13 @@ const cashRegisterStyles = {
     background: linear-gradient(180deg, rgba(0, 120, 24, 0.85), rgba(0, 60, 12, 0.95));
     border: 2px solid var(--accent, #00cc00);
     overflow: hidden;
-    animation: cr-drawer 6s cubic-bezier(0.2, 1.4, 0.4, 1) infinite;
+    animation: cr-drawer 2.4s cubic-bezier(0.2, 1.2, 0.4, 1) infinite;
   }
 
   @keyframes cr-drawer {
-    0%, 34% { transform: translateX(0); }
-    /* Kick open. */
-    38%, 78% { transform: translateX(14px); }
-    /* Slam. */
-    84%, 100% { transform: translateX(0); }
+    0%, 20% { transform: translateX(0); }
+    35%, 75% { transform: translateX(28px); }
+    90%, 100% { transform: translateX(0); }
   }
 
   /* Cash tray inside the drawer: bill slots + coin dots, visible only
@@ -369,13 +371,13 @@ const cashRegisterStyles = {
     border: 1.5px solid rgba(190, 255, 205, 0.9);
     border-radius: 50%;
     opacity: 0;
-    animation: cr-ring 6s ease-out infinite;
+    animation: cr-ring 2.4s ease-out infinite;
   }
 
   @keyframes cr-ring {
-    0%, 34% { transform: scale(0.4); opacity: 0; }
-    38% { opacity: 0.9; }
-    50% { transform: scale(1.8); opacity: 0; }
+    0%, 20% { transform: scale(0.3); opacity: 0; }
+    35% { opacity: 0.95; transform: scale(1); }
+    50% { transform: scale(2.4); opacity: 0; }
     100% { opacity: 0; }
   }
 
@@ -495,6 +497,13 @@ const cashRegisterStyles = {
     background: linear-gradient(180deg, #d97706 0%, #b45309 50%, #78350f 100%);
     border: 2px solid #facc15;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    animation: crc-body-punch 2.4s ease-in-out infinite;
+  }
+
+  @keyframes crc-body-punch {
+    0%, 20% { transform: translateY(0); }
+    26% { transform: translateY(-4px) rotate(-1.5deg); }
+    34% { transform: translateY(0); }
   }
 
   /* Colorful Tactile Cashier Keypad */
@@ -542,13 +551,13 @@ const cashRegisterStyles = {
     background: linear-gradient(180deg, #fde047, #ca8a04);
     box-shadow: 0 0 3px #facc15;
     transform-origin: 50% 100%;
-    animation: crc-lever 6s ease-in-out infinite;
+    animation: crc-lever 2.4s ease-in-out infinite;
   }
 
   @keyframes crc-lever {
-    0%, 30% { transform: rotate(0deg); }
-    33% { transform: rotate(-50deg); }
-    38% { transform: rotate(0deg); }
+    0%, 15% { transform: rotate(0deg); }
+    25% { transform: rotate(-75deg); }
+    40% { transform: rotate(0deg); }
     100% { transform: rotate(0deg); }
   }
 
@@ -563,12 +572,12 @@ const cashRegisterStyles = {
     background: linear-gradient(180deg, #78350f 0%, #451a03 100%);
     border: 2px solid #facc15;
     overflow: hidden;
-    animation: crc-drawer 6s cubic-bezier(0.2, 1.4, 0.4, 1) infinite;
+    animation: crc-drawer 2.4s cubic-bezier(0.2, 1.2, 0.4, 1) infinite;
   }
 
   @keyframes crc-drawer {
-    0%, 34% { transform: translateX(0); }
-    38%, 78% { transform: translateX(14px); }
+    0%, 20% { transform: translateX(0); }
+    35%, 75% { transform: translateX(28px); }
     84%, 100% { transform: translateX(0); }
   }
 
@@ -615,13 +624,13 @@ const cashRegisterStyles = {
     box-shadow: 0 0 10px #facc15;
     border-radius: 50%;
     opacity: 0;
-    animation: crc-ring 6s ease-out infinite;
+    animation: crc-ring 2.4s ease-out infinite;
   }
 
   @keyframes crc-ring {
-    0%, 34% { transform: scale(0.4); opacity: 0; }
-    38% { opacity: 1; }
-    50% { transform: scale(1.8); opacity: 0; }
+    0%, 20% { transform: scale(0.3); opacity: 0; }
+    35% { opacity: 1; transform: scale(1); }
+    50% { transform: scale(2.4); opacity: 0; }
     100% { opacity: 0; }
   }
 

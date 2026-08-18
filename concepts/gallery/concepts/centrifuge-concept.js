@@ -18,7 +18,7 @@ const centrifugeStyles = {
     font-family: 'Courier New', monospace;
   }
 
-  /* Casing. */
+  /* Casing with high-RPM vibration */
   .cf-case {
     position: absolute;
     left: 8px;
@@ -29,23 +29,27 @@ const centrifugeStyles = {
     border: 2px solid var(--accent, #00cc00);
     background: radial-gradient(circle at 50% 40%, rgba(0, 55, 11, 0.5), rgba(0, 20, 4, 0.8));
     box-shadow: inset 0 0 12px rgba(0, 204, 0, 0.2);
+    animation: cf-vibe 0.08s ease-in-out infinite alternate;
   }
 
-  /* The rotor: four arms holding swinging buckets. Spins up/down. */
+  @keyframes cf-vibe {
+    0% { transform: translate(-1px, 0.5px); }
+    100% { transform: translate(1px, -0.5px); }
+  }
+
+  /* The rotor: four arms holding swinging buckets. Spins continuously at high speed. */
   .cf-rotor {
     position: absolute;
     left: 50%;
     top: 49px;
     width: 0;
     height: 0;
-    animation: cf-spin 8s cubic-bezier(0.3, 0, 0.5, 1) infinite;
+    animation: cf-spin 0.4s linear infinite;
   }
 
   @keyframes cf-spin {
     0% { transform: rotate(0deg); }
-    18% { transform: rotate(720deg); }
-    70% { transform: rotate(5400deg); }
-    88%, 100% { transform: rotate(5760deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .cf-arm {
@@ -75,12 +79,12 @@ const centrifugeStyles = {
     background: rgba(0, 60, 12, 0.7);
     overflow: hidden;
     transform-origin: 50% 0;
-    animation: cf-swing 8s ease-in-out infinite;
+    animation: cf-swing 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes cf-swing {
-    0%, 100% { transform: rotate(0deg); }
-    18%, 70% { transform: rotate(78deg); }
+    0% { transform: rotate(20deg); }
+    100% { transform: rotate(78deg); }
   }
 
   /* Sample separating into layers as the run completes. */
@@ -90,16 +94,10 @@ const centrifugeStyles = {
     right: 0;
     bottom: 0;
     height: 11px;
-    background: rgba(0, 130, 26, 0.7);
-    animation: cf-separate 8s steps(1) infinite;
-  }
-
-  @keyframes cf-separate {
-    0%, 60% { background: rgba(0, 130, 26, 0.7); }
-    72%, 100% { background: linear-gradient(180deg,
-      rgba(190, 255, 205, 0.55) 0 45%,
-      rgba(0, 150, 30, 0.7) 45% 72%,
-      rgba(214, 255, 224, 0.85) 72% 100%); }
+    background: linear-gradient(180deg,
+      rgba(190, 255, 205, 0.7) 0 45%,
+      rgba(0, 150, 30, 0.8) 45% 72%,
+      rgba(214, 255, 224, 0.95) 72% 100%);
   }
 
   /* Blur ring while spinning fast. */
@@ -111,16 +109,15 @@ const centrifugeStyles = {
     height: 62px;
     margin: -31px 0 0 -31px;
     border-radius: 50%;
-    border: 7px solid rgba(140, 255, 170, 0.16);
+    border: 7px solid rgba(140, 255, 170, 0.25);
     box-sizing: border-box;
-    opacity: 0;
-    animation: cf-blur 8s ease-in-out infinite;
+    opacity: 0.8;
+    animation: cf-blur 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes cf-blur {
-    0%, 12% { opacity: 0; }
-    24%, 66% { opacity: 1; }
-    78%, 100% { opacity: 0; }
+    0% { transform: scale(0.92); opacity: 0.5; }
+    100% { transform: scale(1.08); opacity: 0.9; }
   }
 
   /* Spindle cap. */
@@ -137,7 +134,7 @@ const centrifugeStyles = {
     z-index: 3;
   }
 
-  /* Lid that closes over the top before spin. */
+  /* Transparent viewing lid. */
   .cf-lid {
     position: absolute;
     left: 8px;
@@ -145,10 +142,10 @@ const centrifugeStyles = {
     width: 88px;
     height: 66px;
     border-radius: 50%;
-    background: linear-gradient(180deg, rgba(0, 90, 18, 0.85), rgba(0, 45, 9, 0.9));
+    background: linear-gradient(180deg, rgba(0, 90, 18, 0.25), rgba(0, 45, 9, 0.35));
     border: 2px solid var(--accent, #00cc00);
     transform-origin: 50% 0;
-    animation: cf-lid 8s ease-in-out infinite;
+    pointer-events: none;
     z-index: 4;
   }
 
@@ -162,12 +159,6 @@ const centrifugeStyles = {
     margin-left: -10px;
     border-radius: 2px;
     background: rgba(140, 255, 170, 0.7);
-  }
-
-  @keyframes cf-lid {
-    0% { transform: perspective(120px) rotateX(-82deg); }
-    10%, 82% { transform: perspective(120px) rotateX(0deg); }
-    94%, 100% { transform: perspective(120px) rotateX(-82deg); }
   }
 
   /* Speed readout. */
@@ -184,17 +175,7 @@ const centrifugeStyles = {
   }
 
   .cf-read::before {
-    content: '0 rpm';
-    animation: cf-read 8s steps(1) infinite;
-  }
-
-  @keyframes cf-read {
-    0% { content: '0 rpm'; }
-    18% { content: '4k rpm'; }
-    40% { content: '12k rpm'; }
-    70% { content: '13k rpm'; }
-    84% { content: '3k rpm'; }
-    94% { content: '0 rpm'; }
+    content: '12k rpm';
   }
   `,
   v2: `
@@ -228,6 +209,12 @@ const centrifugeStyles = {
     border: 2px solid #64748b;
     background: radial-gradient(circle at 50% 40%, #1e293b 0%, #0f172a 80%);
     box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.8), 0 4px 10px rgba(0, 0, 0, 0.6);
+    animation: cfc-vibe 0.08s ease-in-out infinite alternate;
+  }
+
+  @keyframes cfc-vibe {
+    0% { transform: translate(-1px, 0.5px); }
+    100% { transform: translate(1px, -0.5px); }
   }
 
   /* Rotor assembly */
@@ -237,14 +224,12 @@ const centrifugeStyles = {
     top: 49px;
     width: 0;
     height: 0;
-    animation: cfc-spin 8s cubic-bezier(0.3, 0, 0.5, 1) infinite;
+    animation: cfc-spin 0.4s linear infinite;
   }
 
   @keyframes cfc-spin {
     0% { transform: rotate(0deg); }
-    18% { transform: rotate(720deg); }
-    70% { transform: rotate(5400deg); }
-    88%, 100% { transform: rotate(5760deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .cfc-arm {
@@ -275,12 +260,12 @@ const centrifugeStyles = {
     background: rgba(30, 41, 59, 0.85);
     overflow: hidden;
     transform-origin: 50% 0;
-    animation: cfc-swing 8s ease-in-out infinite;
+    animation: cfc-swing 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes cfc-swing {
-    0%, 100% { transform: rotate(0deg); }
-    18%, 70% { transform: rotate(78deg); }
+    0% { transform: rotate(20deg); }
+    100% { transform: rotate(78deg); }
   }
 
   /* Centrifugal fractionation of whole blood */
@@ -290,19 +275,10 @@ const centrifugeStyles = {
     right: 0;
     bottom: 0;
     height: 11px;
-    background: #8b0000;
-    animation: cfc-separate 8s steps(1) infinite;
-  }
-
-  @keyframes cfc-separate {
-    0%, 60% { background: #8b0000; }
-    /* Golden plasma (top), white buffy coat (mid), packed erythrocytes (bottom) */
-    72%, 100% {
-      background: linear-gradient(180deg,
-        #fef08a 0%, #fbbf24 45%,
-        #ffffff 45.1%, #ffffff 52%,
-        #991b1b 52.1%, #450a0a 100%);
-    }
+    background: linear-gradient(180deg,
+      #fef08a 0%, #fbbf24 45%,
+      #ffffff 45.1%, #ffffff 52%,
+      #991b1b 52.1%, #450a0a 100%);
   }
 
   /* High-RPM motion blur vortex ring */
@@ -314,16 +290,15 @@ const centrifugeStyles = {
     height: 62px;
     margin: -31px 0 0 -31px;
     border-radius: 50%;
-    border: 7px solid rgba(56, 189, 248, 0.25);
+    border: 7px solid rgba(56, 189, 248, 0.35);
     box-sizing: border-box;
-    opacity: 0;
-    animation: cfc-blur 8s ease-in-out infinite;
+    opacity: 0.8;
+    animation: cfc-blur 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes cfc-blur {
-    0%, 12% { opacity: 0; }
-    24%, 66% { opacity: 1; }
-    78%, 100% { opacity: 0; }
+    0% { transform: scale(0.92); opacity: 0.5; }
+    100% { transform: scale(1.08); opacity: 0.9; }
   }
 
   /* Anodized cobalt center spindle cap */
@@ -340,7 +315,7 @@ const centrifugeStyles = {
     z-index: 3;
   }
 
-  /* Smoke acrylic safety lid */
+  /* Transparent smoke acrylic safety lid */
   .cfc-lid {
     position: absolute;
     left: 8px;
@@ -348,10 +323,10 @@ const centrifugeStyles = {
     width: 88px;
     height: 66px;
     border-radius: 50%;
-    background: linear-gradient(180deg, rgba(51, 65, 85, 0.85), rgba(15, 23, 42, 0.95));
+    background: linear-gradient(180deg, rgba(51, 65, 85, 0.25), rgba(15, 23, 42, 0.35));
     border: 2px solid #94a3b8;
     transform-origin: 50% 0;
-    animation: cfc-lid 8s ease-in-out infinite;
+    pointer-events: none;
     z-index: 4;
   }
 
@@ -366,12 +341,6 @@ const centrifugeStyles = {
     border-radius: 2px;
     background: #38bdf8;
     box-shadow: 0 0 4px rgba(56, 189, 248, 0.6);
-  }
-
-  @keyframes cfc-lid {
-    0% { transform: perspective(120px) rotateX(-82deg); }
-    10%, 82% { transform: perspective(120px) rotateX(0deg); }
-    94%, 100% { transform: perspective(120px) rotateX(-82deg); }
   }
 
   /* Digital tachometer display */
@@ -389,17 +358,7 @@ const centrifugeStyles = {
   }
 
   .cfc-read::before {
-    content: '0 rpm';
-    animation: cfc-read 8s steps(1) infinite;
-  }
-
-  @keyframes cfc-read {
-    0% { content: '0 rpm'; }
-    18% { content: '4k rpm'; }
-    40% { content: '12k rpm'; }
-    70% { content: '13k rpm'; }
-    84% { content: '3k rpm'; }
-    94% { content: '0 rpm'; }
+    content: '13k rpm';
   }
   `,
 };
