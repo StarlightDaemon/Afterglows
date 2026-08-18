@@ -40,6 +40,13 @@ const trafficLightStyles = {
     border-radius: 8px;
     background: linear-gradient(180deg, rgba(0, 45, 9, 0.6), rgba(0, 20, 4, 0.85));
     box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
+    transform-origin: top center;
+    animation: tl-swing 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes tl-swing {
+    0% { transform: rotate(-12deg) translateX(-4px); }
+    100% { transform: rotate(12deg) translateX(4px); }
   }
 
   .tl-hood {
@@ -150,6 +157,13 @@ const trafficLightStyles = {
     border-radius: 8px;
     background: linear-gradient(180deg, rgba(0, 45, 9, 0.6), rgba(0, 20, 4, 0.85));
     box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
+    transform-origin: top center;
+    animation: tl-swing 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes tl-swing {
+    0% { transform: rotate(-12deg) translateX(-4px); }
+    100% { transform: rotate(12deg) translateX(4px); }
   }
 
   .tl-hood {
@@ -258,6 +272,13 @@ const trafficLightStyles = {
     border-radius: 8px;
     background: linear-gradient(180deg, rgba(0, 45, 9, 0.6), rgba(0, 20, 4, 0.85));
     box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
+    transform-origin: top center;
+    animation: tli-swing 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes tli-swing {
+    0% { transform: rotate(-12deg) translateX(-4px); }
+    100% { transform: rotate(12deg) translateX(4px); }
   }
 
   .tli-hood {
@@ -409,6 +430,13 @@ const trafficLightStyles = {
     border-radius: 10px;
     background: linear-gradient(180deg, rgba(0, 45, 9, 0.6), rgba(0, 20, 4, 0.85));
     box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
+    transform-origin: top center;
+    animation: tlc-swing 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes tlc-swing {
+    0% { transform: rotate(-12deg) translateX(-4px); }
+    100% { transform: rotate(12deg) translateX(4px); }
   }
 
   .tlc-hood {
@@ -575,6 +603,13 @@ const trafficLightStyles = {
     border-radius: 10px;
     background: linear-gradient(180deg, rgba(0, 45, 9, 0.6), rgba(0, 20, 4, 0.85));
     box-shadow: inset 0 0 8px rgba(0, 204, 0, 0.15);
+    transform-origin: top center;
+    animation: tlc-swing 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes tlc-swing {
+    0% { transform: rotate(-12deg) translateX(-4px); }
+    100% { transform: rotate(12deg) translateX(4px); }
   }
 
   .tlc-hood {
@@ -671,10 +706,7 @@ const trafficLightStyles = {
     height: 100%;
   }
 
-  /* v6: Complete MUTCD municipal signal installation: matte black housing with
-     high-vis yellow retroreflective backplate border, galvanized steel mast, faceted LED
-     matrix lenses (Portland Red, Solar Amber, Signal Green), intense colored halos,
-     and wet asphalt light reflection. */
+  /* v6: Complete MUTCD municipal signal installation */
   .tl-full {
     width: 104px;
     height: 100px;
@@ -749,6 +781,13 @@ const trafficLightStyles = {
     border-radius: 10px;
     background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), inset 0 0 6px rgba(0, 0, 0, 0.9);
+    transform-origin: top center;
+    animation: tl-full-swing 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes tl-full-swing {
+    0% { transform: rotate(-12deg) translateX(-4px); }
+    100% { transform: rotate(12deg) translateX(4px); }
   }
 
   /* Tunnel visors */
@@ -839,7 +878,7 @@ const trafficLightStyles = {
     50% { background: radial-gradient(ellipse, rgba(255, 179, 0, 0.5), transparent 70%); }
     62.5%, 100% { background: radial-gradient(ellipse, rgba(255, 32, 32, 0.55), transparent 70%); }
   }
-  `,
+`,
 };
 
 const trafficLightMarkup = {

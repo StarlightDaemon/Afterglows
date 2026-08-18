@@ -14,25 +14,25 @@ const tidepoolStyles = {
     position: relative;
     overflow: hidden;
     border-radius: 50% 46% 52% 48% / 48% 52% 46% 54%;
-    background: radial-gradient(circle at 45% 45%, rgba(0, 70, 16, 0.9), rgba(0, 25, 6, 0.98));
-    border: 2px solid var(--accent, #00cc00);
-    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 204, 0, 0.2);
+    background: radial-gradient(circle at 45% 45%, rgba(0, 70, 16, 0.95), rgba(0, 25, 6, 0.98));
+    border: 2.5px solid #00ff66;
+    box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.9), 0 0 12px rgba(0, 255, 100, 0.4);
   }
 
   .tp-surge {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60px 40px at 30% 30%, rgba(140, 255, 170, 0.25), transparent 70%),
-      radial-gradient(ellipse 50px 30px at 70% 60%, rgba(140, 255, 170, 0.2), transparent 60%);
-    animation: tp-caustic 4s ease-in-out infinite;
+      radial-gradient(ellipse 60px 40px at 30% 30%, rgba(0, 255, 100, 0.35), transparent 70%),
+      radial-gradient(ellipse 50px 30px at 70% 60%, rgba(0, 255, 100, 0.3), transparent 60%);
+    animation: tp-caustic 1.6s ease-in-out infinite alternate;
     pointer-events: none;
     z-index: 5;
   }
 
   @keyframes tp-caustic {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
-    50% { transform: scale(1.15) rotate(6deg); opacity: 0.85; }
+    0% { transform: scale(0.9) rotate(-8deg); opacity: 0.5; }
+    100% { transform: scale(1.2) rotate(8deg); opacity: 0.95; }
   }
 
   .tp-anemone {
@@ -50,33 +50,34 @@ const tidepoolStyles = {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(190, 255, 205, 0.95), rgba(0, 140, 30, 0.8));
-    border: 1px solid var(--accent, #00cc00);
-    box-shadow: 0 0 6px rgba(140, 255, 170, 0.8);
+    background: radial-gradient(circle, #ffffff, #00ff66 70%);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 8px #00ff66;
     z-index: 2;
   }
 
   .tp-tentacle-ring {
     position: absolute;
     inset: 0;
-    animation: tp-anemone-pulse 4s ease-in-out infinite;
+    transform-origin: center center;
+    animation: tp-anemone-pulse 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes tp-anemone-pulse {
-    0%, 100% { transform: scale(0.85) rotate(0deg); }
-    40% { transform: scale(1.15) rotate(8deg); }
-    70% { transform: scale(0.95) rotate(-4deg); }
+    0% { transform: scale(0.8) rotate(-16deg); }
+    100% { transform: scale(1.3) rotate(20deg); }
   }
 
   .tp-arm {
     position: absolute;
     left: 17px;
     top: 0;
-    width: 2px;
-    height: 13px;
-    background: linear-gradient(180deg, rgba(140, 255, 170, 0.9), rgba(0, 204, 0, 0.4));
-    border-radius: 1px;
+    width: 3px;
+    height: 14px;
+    background: linear-gradient(180deg, #ffffff, #00ff66 70%, transparent);
+    border-radius: 1.5px;
     transform-origin: center 18px;
+    box-shadow: 0 0 4px #00ff66;
   }
 
   .tp-arm.a1 { transform: rotate(0deg); }
@@ -103,8 +104,8 @@ const tidepoolStyles = {
     width: 20px;
     height: 18px;
     border-radius: 50% 30% 60% 40%;
-    background: radial-gradient(circle at 40% 40%, rgba(0, 150, 30, 0.9), rgba(0, 40, 8, 0.95));
-    border: 1.5px solid var(--accent, #00cc00);
+    background: radial-gradient(circle at 40% 40%, rgba(0, 204, 0, 0.9), rgba(0, 40, 8, 0.95));
+    border: 1.5px solid #00ff66;
     box-shadow: inset -2px -2px 6px rgba(0, 0, 0, 0.8);
     z-index: 3;
   }
@@ -115,23 +116,13 @@ const tidepoolStyles = {
     top: 4px;
     width: 18px;
     height: 18px;
-    animation: tp-crab-creep 6s ease-in-out infinite;
+    animation: tp-crab-creep 1.4s ease-in-out infinite alternate;
     z-index: 2;
   }
 
   @keyframes tp-crab-creep {
-    0%, 15%, 85%, 100% {
-      transform: translate(12px, 8px) scale(0.6);
-      opacity: 0;
-    }
-    30%, 70% {
-      transform: translate(-4px, -4px) scale(1);
-      opacity: 1;
-    }
-    45%, 55% {
-      transform: translate(-6px, -6px) scale(1) rotate(-8deg);
-      opacity: 1;
-    }
+    0% { transform: translate(6px, 6px) rotate(-12deg); }
+    100% { transform: translate(-10px, -8px) rotate(14deg); }
   }
 
   .tp-crab-claw {
@@ -139,8 +130,9 @@ const tidepoolStyles = {
     width: 6px;
     height: 5px;
     border-radius: 50% 50% 10% 50%;
-    background: rgba(140, 255, 170, 0.95);
-    border: 1px solid var(--accent, #00cc00);
+    background: #ffffff;
+    border: 1px solid #00ff66;
+    box-shadow: 0 0 4px #00ff66;
   }
 
   .tp-crab-claw.l { left: 0; top: 0; transform: rotate(-25deg); }
@@ -153,8 +145,8 @@ const tidepoolStyles = {
     width: 6px;
     height: 3px;
     border-radius: 2px;
-    background: rgba(190, 255, 205, 1);
-    box-shadow: 0 0 3px rgba(140, 255, 170, 0.9);
+    background: #ffffff;
+    box-shadow: 0 0 4px #00ff66;
   }
   `,
   v2: `
@@ -166,8 +158,7 @@ const tidepoolStyles = {
     height: 100%;
   }
 
-  /* v2: Intertidal coastal tidepool with magenta sea anemone, orange hermit crab in shell,
-     emerald seaweed, and refracting turquoise wave caustics */
+  /* v2: Intertidal coastal tidepool with magenta sea anemone */
   .tpc {
     width: 110px;
     height: 100px;
@@ -175,8 +166,8 @@ const tidepoolStyles = {
     overflow: hidden;
     border-radius: 50% 46% 52% 48% / 48% 52% 46% 54%;
     background: radial-gradient(circle at 45% 45%, #0e7490 0%, #0369a1 40%, #0f172a 100%);
-    border: 2px solid #38bdf8;
-    box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.9), 0 0 10px rgba(56, 189, 248, 0.4);
+    border: 2.5px solid #38bdf8;
+    box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.9), 0 0 12px rgba(56, 189, 248, 0.5);
   }
 
   /* Refracting turquoise sunlight caustics */
@@ -184,16 +175,16 @@ const tidepoolStyles = {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60px 40px at 30% 30%, rgba(103, 232, 249, 0.35), transparent 70%),
-      radial-gradient(ellipse 50px 30px at 70% 60%, rgba(56, 189, 248, 0.3), transparent 60%);
-    animation: tpc-caustic 4s ease-in-out infinite;
+      radial-gradient(ellipse 60px 40px at 30% 30%, rgba(103, 232, 249, 0.4), transparent 70%),
+      radial-gradient(ellipse 50px 30px at 70% 60%, rgba(56, 189, 248, 0.35), transparent 60%);
+    animation: tpc-caustic 1.6s ease-in-out infinite alternate;
     pointer-events: none;
     z-index: 5;
   }
 
   @keyframes tpc-caustic {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.6; }
-    50% { transform: scale(1.15) rotate(6deg); opacity: 0.95; }
+    0% { transform: scale(0.9) rotate(-8deg); opacity: 0.6; }
+    100% { transform: scale(1.2) rotate(8deg); opacity: 0.95; }
   }
 
   /* Magenta-purple sea anemone */
@@ -213,21 +204,21 @@ const tidepoolStyles = {
     height: 14px;
     border-radius: 50%;
     background: radial-gradient(circle, #fde047 0%, #ec4899 60%, #9d174d 100%);
-    border: 1px solid #f43f5e;
-    box-shadow: 0 0 8px #f43f5e;
+    border: 1.5px solid #f43f5e;
+    box-shadow: 0 0 10px #f43f5e;
     z-index: 2;
   }
 
   .tpc-tentacle-ring {
     position: absolute;
     inset: 0;
-    animation: tpc-anemone-pulse 4s ease-in-out infinite;
+    transform-origin: center center;
+    animation: tpc-anemone-pulse 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes tpc-anemone-pulse {
-    0%, 100% { transform: scale(0.85) rotate(0deg); }
-    40% { transform: scale(1.15) rotate(8deg); }
-    70% { transform: scale(0.95) rotate(-4deg); }
+    0% { transform: scale(0.8) rotate(-16deg); }
+    100% { transform: scale(1.3) rotate(20deg); }
   }
 
   /* Radial tentacles with magenta tips */
@@ -235,12 +226,12 @@ const tidepoolStyles = {
     position: absolute;
     left: 17px;
     top: 0;
-    width: 2px;
-    height: 13px;
+    width: 3px;
+    height: 14px;
     background: linear-gradient(180deg, #f43f5e 0%, #c084fc 60%, transparent 100%);
-    border-radius: 1px;
+    border-radius: 1.5px;
     transform-origin: center 18px;
-    box-shadow: 0 0 3px #ec4899;
+    box-shadow: 0 0 4px #ec4899;
   }
 
   .tpc-arm.a1 { transform: rotate(0deg); }
@@ -271,7 +262,7 @@ const tidepoolStyles = {
     border-radius: 50% 30% 60% 40%;
     background: radial-gradient(circle at 40% 40%, #fef08a 0%, #ca8a04 60%, #78350f 100%);
     border: 1.5px solid #ca8a04;
-    box-shadow: inset -2px -2px 6px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+    box-shadow: inset -2px -2px 6px rgba(0, 0, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.6);
     z-index: 3;
   }
 
@@ -282,23 +273,13 @@ const tidepoolStyles = {
     top: 4px;
     width: 18px;
     height: 18px;
-    animation: tpc-crab-creep 6s ease-in-out infinite;
+    animation: tpc-crab-creep 1.4s ease-in-out infinite alternate;
     z-index: 2;
   }
 
   @keyframes tpc-crab-creep {
-    0%, 15%, 85%, 100% {
-      transform: translate(12px, 8px) scale(0.6);
-      opacity: 0;
-    }
-    30%, 70% {
-      transform: translate(-4px, -4px) scale(1);
-      opacity: 1;
-    }
-    45%, 55% {
-      transform: translate(-6px, -6px) scale(1) rotate(-8deg);
-      opacity: 1;
-    }
+    0% { transform: translate(6px, 6px) rotate(-12deg); }
+    100% { transform: translate(-10px, -8px) rotate(14deg); }
   }
 
   .tpc-crab-claw {
@@ -308,7 +289,7 @@ const tidepoolStyles = {
     border-radius: 50% 50% 10% 50%;
     background: linear-gradient(180deg, #fb923c, #ea580c);
     border: 1px solid #c2410c;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 4px #fb923c;
   }
 
   .tpc-crab-claw.l { left: 0; top: 0; transform: rotate(-25deg); }

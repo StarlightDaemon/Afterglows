@@ -25,8 +25,9 @@ const swanStyles = {
     right: 0;
     top: 50%;
     height: 50%;
-    background: linear-gradient(180deg, rgba(0, 90, 18, 0.4), rgba(0, 45, 9, 0.6));
-    border-top: 1px solid rgba(140, 255, 170, 0.5);
+    background: linear-gradient(180deg, rgba(0, 90, 18, 0.6), rgba(0, 45, 9, 0.8));
+    border-top: 1.5px solid #00ff66;
+    box-shadow: 0 0 8px rgba(0, 255, 100, 0.4);
   }
 
   .sw-shimmer {
@@ -36,28 +37,28 @@ const swanStyles = {
     top: 54%;
     height: 40%;
     background: repeating-linear-gradient(180deg,
-      rgba(140, 255, 170, 0.14) 0 1px,
+      rgba(0, 255, 100, 0.2) 0 1px,
       transparent 1px 7px);
-    animation: sw-shimmer 4s ease-in-out infinite;
+    animation: sw-shimmer 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes sw-shimmer {
-    0%, 100% { opacity: 0.6; transform: translateX(0); }
-    50% { opacity: 1; transform: translateX(3px); }
+    0% { transform: translateX(-6px); }
+    100% { transform: translateX(6px); }
   }
 
   .sw-swan {
     position: absolute;
-    left: 0;
+    left: 32px;
     top: 20px;
     width: 46px;
     height: 40px;
-    animation: sw-glide 9s ease-in-out infinite;
+    animation: sw-glide 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes sw-glide {
-    0% { transform: translateX(-8px); }
-    100% { transform: translateX(78px); }
+    0% { transform: translate(-14px, 4px) rotate(-3deg); }
+    100% { transform: translate(14px, -3px) rotate(3deg); }
   }
 
   .sw-body {
@@ -67,8 +68,9 @@ const swanStyles = {
     width: 40px;
     height: 16px;
     border-radius: 60% 40% 50% 50% / 80% 60% 40% 60%;
-    background: radial-gradient(ellipse at 40% 30%, rgba(214, 255, 224, 0.9), rgba(140, 255, 170, 0.6) 70%);
-    border: 1px solid rgba(0, 204, 0, 0.4);
+    background: radial-gradient(ellipse at 40% 30%, #ffffff, #00ff66 70%);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
   }
 
   .sw-wing {
@@ -78,7 +80,15 @@ const swanStyles = {
     width: 24px;
     height: 14px;
     border-radius: 60% 40% 50% 80%;
-    background: linear-gradient(180deg, rgba(190, 255, 205, 0.7), rgba(0, 150, 30, 0.4));
+    background: linear-gradient(180deg, #ffffff, rgba(0, 204, 0, 0.6));
+    border: 1px solid #00ff66;
+    transform-origin: bottom left;
+    animation: sw-wing-flutter 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes sw-wing-flutter {
+    0% { transform: rotate(0deg) translateY(0); }
+    100% { transform: rotate(-12deg) translateY(-3px); }
   }
 
   .sw-neck {
@@ -88,7 +98,7 @@ const swanStyles = {
     width: 20px;
     height: 30px;
     transform-origin: 20% 100%;
-    animation: sw-preen 9s ease-in-out infinite;
+    animation: sw-preen 1.6s ease-in-out infinite alternate;
   }
 
   .sw-neck-curve {
@@ -97,10 +107,11 @@ const swanStyles = {
     top: 0;
     width: 16px;
     height: 26px;
-    border: 3px solid rgba(214, 255, 224, 0.9);
+    border: 3.5px solid #ffffff;
     border-left: none;
     border-bottom: none;
     border-radius: 0 60% 0 0;
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .sw-head {
@@ -110,7 +121,8 @@ const swanStyles = {
     width: 8px;
     height: 7px;
     border-radius: 50%;
-    background: rgba(214, 255, 224, 0.95);
+    background: #ffffff;
+    box-shadow: 0 0 4px #00ff66;
   }
 
   .sw-head::after {
@@ -121,64 +133,55 @@ const swanStyles = {
     width: 5px;
     height: 2px;
     clip-path: polygon(0 0, 100% 40%, 100% 60%, 0 100%);
-    background: rgba(0, 200, 40, 0.9);
+    background: #00ff66;
   }
 
   @keyframes sw-preen {
-    0%, 34%, 100% { transform: rotate(0deg); }
-    44% { transform: rotate(84deg); }
-    56% { transform: rotate(84deg); }
-    66% { transform: rotate(0deg); }
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(26deg); }
   }
 
   .sw-reflection {
     position: absolute;
-    left: 0;
+    left: 32px;
     top: 44px;
     width: 46px;
     height: 24px;
-    opacity: 0.3;
+    opacity: 0.35;
     transform: scaleY(-1);
-    animation: sw-glide 9s ease-in-out infinite, sw-waver 2s ease-in-out infinite;
+    animation: sw-glide 1.6s ease-in-out infinite alternate;
   }
 
   .sw-reflection .sw-body {
     top: 0;
   }
 
-  @keyframes sw-waver {
-    0%, 100% { filter: blur(0.6px); transform: scaleY(-1) skewX(0deg); }
-    50% { filter: blur(1.2px); transform: scaleY(-1) skewX(4deg); }
-  }
-
   .sw-wake {
     position: absolute;
     top: 42px;
-    left: 0;
-    width: 20px;
+    left: 12px;
+    width: 28px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(190, 255, 205, 0.5));
-    animation: sw-glide 9s ease-in-out infinite;
+    background: linear-gradient(90deg, transparent, #00ff66);
+    animation: sw-glide 1.6s ease-in-out infinite alternate;
   }
 
   .sw-drop {
     position: absolute;
-    width: 2px;
-    height: 3px;
-    border-radius: 0 0 50% 50%;
-    background: rgba(214, 255, 224, 0.9);
-    opacity: 0;
-    animation: sw-drop 9s infinite;
+    width: 3px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
+    animation: sw-drop 1.2s linear infinite;
   }
 
   .sw-drop.d1 { left: 44px; top: 34px; }
-  .sw-drop.d2 { left: 48px; top: 32px; animation-delay: 0.1s; }
+  .sw-drop.d2 { left: 48px; top: 32px; animation-delay: 0.6s; }
 
   @keyframes sw-drop {
-    0%, 60% { transform: translateY(0); opacity: 0; }
-    64% { opacity: 1; }
-    72% { transform: translateY(14px); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(18px); opacity: 0; }
   }
   `,
   v2: `
@@ -203,8 +206,8 @@ const swanStyles = {
     right: 0;
     top: 58px;
     bottom: 0;
-    background: linear-gradient(180deg, rgba(0, 204, 0, 0.22), rgba(0, 40, 8, 0.35) 60%, transparent);
-    border-top: 1px solid rgba(140, 255, 170, 0.5);
+    background: linear-gradient(180deg, rgba(0, 204, 0, 0.4), rgba(0, 40, 8, 0.6) 60%, transparent);
+    border-top: 1.5px solid #00ff66;
   }
 
   .sw-bird {
@@ -213,13 +216,12 @@ const swanStyles = {
     top: 20px;
     width: 52px;
     height: 40px;
-    animation: sw-glide 9s ease-in-out infinite;
+    animation: sw-glide 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes sw-glide {
-    0%, 100% { transform: translate(-8px, 0); }
-    45% { transform: translate(8px, -1px); }
-    70% { transform: translate(2px, 0.5px); }
+    0% { transform: translate(-14px, 4px) rotate(-3deg); }
+    100% { transform: translate(14px, -3px) rotate(3deg); }
   }
 
   .sw-hull {
@@ -229,9 +231,9 @@ const swanStyles = {
     width: 42px;
     height: 16px;
     border-radius: 55% 40% 45% 60% / 80% 55% 45% 60%;
-    background: linear-gradient(180deg, #eaffea, rgba(160, 255, 185, 0.9) 55%, rgba(0, 150, 30, 0.7));
-    border: 1.5px solid rgba(190, 255, 205, 0.9);
-    box-shadow: 0 0 8px rgba(0, 204, 0, 0.35);
+    background: linear-gradient(180deg, #ffffff, #00ff66 70%);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
   }
 
   .sw-tail {
@@ -241,7 +243,7 @@ const swanStyles = {
     width: 10px;
     height: 8px;
     clip-path: polygon(0 20%, 100% 55%, 55% 100%);
-    background: #d6ffe0;
+    background: #ffffff;
   }
 
   .sw-wing {
@@ -251,8 +253,14 @@ const swanStyles = {
     width: 24px;
     height: 10px;
     border-radius: 60% 40% 30% 60%;
-    background: linear-gradient(180deg, rgba(214, 255, 224, 0.9), rgba(140, 255, 170, 0.5));
-    opacity: 0.9;
+    background: linear-gradient(180deg, #ffffff, #00ff66);
+    transform-origin: bottom left;
+    animation: sw-wing-flutter 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes sw-wing-flutter {
+    0% { transform: rotate(0deg) translateY(0); }
+    100% { transform: rotate(-12deg) translateY(-3px); }
   }
 
   .sw-neckset {
@@ -262,14 +270,12 @@ const swanStyles = {
     width: 26px;
     height: 30px;
     transform-origin: 6px 28px;
-    animation: sw-dip 9s ease-in-out infinite;
+    animation: sw-preen 1.6s ease-in-out infinite alternate;
   }
 
-  @keyframes sw-dip {
-    0%, 46%, 100% { transform: rotate(0deg); }
-    54%, 62% { transform: rotate(52deg); }
-    70% { transform: rotate(-4deg); }
-    76% { transform: rotate(0deg); }
+  @keyframes sw-preen {
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(26deg); }
   }
 
   .sw-neck {
@@ -278,10 +284,10 @@ const swanStyles = {
     top: 4px;
     width: 18px;
     height: 26px;
-    border-left: 4.5px solid #eaffea;
-    border-top: 4.5px solid #eaffea;
+    border-left: 4.5px solid #ffffff;
+    border-top: 4.5px solid #ffffff;
     border-radius: 100% 0 0 0;
-    filter: drop-shadow(0 0 3px rgba(0, 204, 0, 0.4));
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .sw-head {
@@ -291,7 +297,7 @@ const swanStyles = {
     width: 12px;
     height: 8px;
     border-radius: 60% 50% 50% 40%;
-    background: #eaffea;
+    background: #ffffff;
   }
 
   .sw-eye {
@@ -301,7 +307,7 @@ const swanStyles = {
     width: 2px;
     height: 2px;
     border-radius: 50%;
-    background: #041a0a;
+    background: #000000;
   }
 
   .sw-beak {
@@ -311,7 +317,7 @@ const swanStyles = {
     width: 8px;
     height: 4px;
     clip-path: polygon(0 0, 100% 45%, 0 100%);
-    background: rgba(0, 110, 22, 0.95);
+    background: #00ff66;
   }
 
   .sw-reflection {
@@ -321,19 +327,12 @@ const swanStyles = {
     width: 52px;
     height: 26px;
     transform: scaleY(-1);
-    opacity: 0.22;
-    filter: blur(1px);
-    animation: sw-glide 9s ease-in-out infinite, sw-shimmer 2.2s ease-in-out infinite;
-  }
-
-  @keyframes sw-shimmer {
-    0%, 100% { opacity: 0.22; }
-    50% { opacity: 0.13; }
+    opacity: 0.3;
+    animation: sw-glide 1.6s ease-in-out infinite alternate;
   }
 
   .sw-reflection .sw-hull {
     top: 8px;
-    box-shadow: none;
   }
 
   .sw-reflection .sw-neck {
@@ -346,21 +345,20 @@ const swanStyles = {
   .sw-ripple {
     position: absolute;
     top: 56px;
-    width: 18px;
-    height: 5px;
+    width: 20px;
+    height: 6px;
     border-radius: 50%;
-    border: 1px solid rgba(140, 255, 170, 0.6);
+    border: 1.5px solid #00ff66;
     border-top-color: transparent;
-    opacity: 0;
-    animation: sw-ripple 3s linear infinite;
+    animation: sw-ripple 1.2s ease-out infinite;
   }
 
   .sw-ripple.r1 { left: 60px; }
-  .sw-ripple.r2 { left: 40px; animation-delay: -1.5s; }
+  .sw-ripple.r2 { left: 40px; animation-delay: -0.6s; }
 
   @keyframes sw-ripple {
-    0% { transform: scale(0.4); opacity: 0.8; }
-    100% { transform: scale(1.9); opacity: 0; }
+    0% { transform: scale(0.4); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
   }
 
   .sw-drop {
@@ -370,16 +368,9 @@ const swanStyles = {
     width: 3px;
     height: 3px;
     border-radius: 50%;
-    background: #eaffea;
-    box-shadow: 0 0 4px rgba(190, 255, 205, 0.9);
-    opacity: 0;
-    animation: sw-drop 9s infinite;
-  }
-
-  @keyframes sw-drop {
-    0%, 66% { opacity: 0; transform: translateY(0); }
-    69% { opacity: 1; transform: translateY(-6px); }
-    74%, 100% { opacity: 0; transform: translateY(6px); }
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
+    animation: sw-drop 1.2s ease-out infinite;
   }
   `,
   v3: `
@@ -391,7 +382,7 @@ const swanStyles = {
     height: 100%;
   }
 
-  /* v3: Pure snow-white mute swan on tranquil sapphire lake with orange bill and black mask */
+  /* v3: Pure snow-white mute swan on tranquil sapphire lake */
   .swc {
     width: 112px;
     height: 92px;
@@ -408,8 +399,9 @@ const swanStyles = {
     right: 0;
     top: 58px;
     bottom: 0;
-    background: linear-gradient(180deg, rgba(14, 165, 233, 0.3) 0%, rgba(2, 6, 23, 0.8) 100%);
-    border-top: 1px solid rgba(56, 189, 248, 0.5);
+    background: linear-gradient(180deg, rgba(14, 165, 233, 0.4) 0%, rgba(2, 6, 23, 0.8) 100%);
+    border-top: 1.5px solid #38bdf8;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
   }
 
   .swc-bird {
@@ -418,13 +410,12 @@ const swanStyles = {
     top: 20px;
     width: 52px;
     height: 40px;
-    animation: swc-glide 9s ease-in-out infinite;
+    animation: swc-glide 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes swc-glide {
-    0%, 100% { transform: translate(-8px, 0); }
-    45% { transform: translate(8px, -1px); }
-    70% { transform: translate(2px, 0.5px); }
+    0% { transform: translate(-14px, 4px) rotate(-3deg); }
+    100% { transform: translate(14px, -3px) rotate(3deg); }
   }
 
   /* Pure white swan hull */
@@ -436,8 +427,8 @@ const swanStyles = {
     height: 16px;
     border-radius: 55% 40% 45% 60% / 80% 55% 45% 60%;
     background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 60%, #cbd5e1 100%);
-    border: 1px solid #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    border: 1.5px solid #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
   }
 
   /* Tail feathers */
@@ -460,8 +451,14 @@ const swanStyles = {
     height: 10px;
     border-radius: 60% 40% 30% 60%;
     background: linear-gradient(180deg, #ffffff, #e2e8f0);
-    opacity: 0.95;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ffffff;
+    transform-origin: bottom left;
+    animation: swc-wing-flutter 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes swc-wing-flutter {
+    0% { transform: rotate(0deg) translateY(0); }
+    100% { transform: rotate(-12deg) translateY(-3px); }
   }
 
   /* Neck assembly */
@@ -472,14 +469,12 @@ const swanStyles = {
     width: 26px;
     height: 30px;
     transform-origin: 6px 28px;
-    animation: swc-dip 9s ease-in-out infinite;
+    animation: swc-preen 1.6s ease-in-out infinite alternate;
   }
 
-  @keyframes swc-dip {
-    0%, 46%, 100% { transform: rotate(0deg); }
-    54%, 62% { transform: rotate(52deg); }
-    70% { transform: rotate(-4deg); }
-    76% { transform: rotate(0deg); }
+  @keyframes swc-preen {
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(26deg); }
   }
 
   /* Graceful white S-neck */
@@ -492,7 +487,7 @@ const swanStyles = {
     border-left: 4.5px solid #ffffff;
     border-top: 4.5px solid #ffffff;
     border-radius: 100% 0 0 0;
-    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
   }
 
   /* White swan head */
@@ -527,7 +522,7 @@ const swanStyles = {
     height: 4px;
     clip-path: polygon(0 0, 100% 45%, 0 100%);
     background: #ea580c;
-    box-shadow: 0 0 2px #f97316;
+    box-shadow: 0 0 4px #f97316;
   }
 
   /* Soft reflected copy */
@@ -538,19 +533,12 @@ const swanStyles = {
     width: 52px;
     height: 26px;
     transform: scaleY(-1);
-    opacity: 0.28;
-    filter: blur(1px);
-    animation: swc-glide 9s ease-in-out infinite, swc-shimmer 2.2s ease-in-out infinite;
-  }
-
-  @keyframes swc-shimmer {
-    0%, 100% { opacity: 0.28; }
-    50% { opacity: 0.16; }
+    opacity: 0.35;
+    animation: swc-glide 1.6s ease-in-out infinite alternate;
   }
 
   .swc-reflection .swc-hull {
     top: 8px;
-    box-shadow: none;
   }
 
   .swc-reflection .swc-neck {
@@ -564,21 +552,20 @@ const swanStyles = {
   .swc-ripple {
     position: absolute;
     top: 56px;
-    width: 18px;
-    height: 5px;
+    width: 20px;
+    height: 6px;
     border-radius: 50%;
-    border: 1px solid rgba(56, 189, 248, 0.7);
+    border: 1.5px solid #38bdf8;
     border-top-color: transparent;
-    opacity: 0;
-    animation: swc-ripple 3s linear infinite;
+    animation: swc-ripple 1.2s ease-out infinite;
   }
 
   .swc-ripple.r1 { left: 60px; }
-  .swc-ripple.r2 { left: 40px; animation-delay: -1.5s; }
+  .swc-ripple.r2 { left: 40px; animation-delay: -0.6s; }
 
   @keyframes swc-ripple {
-    0% { transform: scale(0.4); opacity: 0.9; }
-    100% { transform: scale(1.9); opacity: 0; }
+    0% { transform: scale(0.4); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
   }
 
   /* Water droplet sparkle */
@@ -591,14 +578,12 @@ const swanStyles = {
     border-radius: 50%;
     background: #38bdf8;
     box-shadow: 0 0 6px #ffffff;
-    opacity: 0;
-    animation: swc-drop 9s infinite;
+    animation: swc-drop 1.2s ease-out infinite;
   }
 
   @keyframes swc-drop {
-    0%, 66% { opacity: 0; transform: translateY(0); }
-    69% { opacity: 1; transform: translateY(-6px); }
-    74%, 100% { opacity: 0; transform: translateY(6px); }
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(18px); opacity: 0; }
   }
   `,
 };

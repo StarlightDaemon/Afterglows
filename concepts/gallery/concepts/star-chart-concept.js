@@ -1,7 +1,3 @@
-// Extracted from Constellation v3/v4 in the 2026-08-01 split: the technical
-// HUD-style map now lives here so Constellation can keep its natural
-// night-sky identity. v1 is the plain chart (old Constellation v3); v2 adds
-// the brighter twinkle pass and mapping flares (old Constellation v4).
 const starChartStyles = `
   :host {
     display: flex;
@@ -17,12 +13,13 @@ const starChartStyles = `
     position: relative;
     width: 104px;
     height: 104px;
-    border: 1px solid rgba(120, 255, 160, 0.18);
+    border: 1.5px solid #00ff66;
+    border-radius: 6px;
     background:
       radial-gradient(circle at center, rgba(8, 18, 10, 0.94) 0 62%, rgba(0, 0, 0, 0.98) 100%),
-      linear-gradient(0deg, transparent 49.5%, rgba(120, 255, 160, 0.08) 50%, transparent 50.5%),
-      linear-gradient(90deg, transparent 49.5%, rgba(120, 255, 160, 0.08) 50%, transparent 50.5%);
-    box-shadow: inset 0 0 0 1px rgba(120, 255, 160, 0.06);
+      linear-gradient(0deg, transparent 49.5%, rgba(0, 255, 100, 0.15) 50%, transparent 50.5%),
+      linear-gradient(90deg, transparent 49.5%, rgba(0, 255, 100, 0.15) 50%, transparent 50.5%);
+    box-shadow: inset 0 0 14px rgba(0, 255, 100, 0.25), 0 0 10px rgba(0, 255, 100, 0.3);
     overflow: hidden;
   }
 
@@ -32,31 +29,37 @@ const starChartStyles = `
     position: absolute;
     top: 50%;
     left: 50%;
-    border: 1px solid rgba(120, 255, 160, 0.1);
+    border: 1px dashed #00ff66;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
+    animation: schart-ring 3.0s linear infinite;
   }
 
   .schart::before { width: 46px; height: 46px; }
-  .schart::after { width: 82px; height: 82px; }
+  .schart::after { width: 82px; height: 82px; animation-direction: reverse; }
+
+  @keyframes schart-ring {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
 
   .schart-grid {
     position: absolute;
     inset: 0;
-    opacity: 0.55;
+    opacity: 0.65;
     pointer-events: none;
   }
 
   .schart-grid span {
     position: absolute;
-    background: rgba(120, 255, 160, 0.14);
+    background: rgba(0, 255, 100, 0.3);
   }
 
   .schart-grid .g1,
   .schart-grid .g2 {
-    top: 12px;
-    bottom: 12px;
+    top: 10px;
+    bottom: 10px;
     width: 1px;
   }
 
@@ -65,8 +68,8 @@ const starChartStyles = `
 
   .schart-grid .g3,
   .schart-grid .g4 {
-    left: 12px;
-    right: 12px;
+    left: 10px;
+    right: 10px;
     height: 1px;
   }
 
@@ -76,6 +79,13 @@ const starChartStyles = `
   .schart-map {
     position: absolute;
     inset: 0;
+    transform-origin: 50% 50%;
+    animation: schart-rotate 2.4s linear infinite;
+  }
+
+  @keyframes schart-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .schart-lines {
@@ -87,81 +97,83 @@ const starChartStyles = `
   }
 
   .schart-line {
-    stroke: rgba(160, 255, 180, 0.5);
-    stroke-width: 1.1;
+    stroke: #00ff66;
+    stroke-width: 1.5;
     stroke-linecap: round;
-    opacity: 0.8;
-    animation: schart-line-fade 6s ease-in-out infinite;
+    opacity: 0.9;
   }
-
-  .schart-line.c2 { animation-delay: -1s; }
-  .schart-line.c3 { animation-delay: -2s; }
-  .schart-line.c4 { animation-delay: -3s; }
-  .schart-line.c5 { animation-delay: -4s; }
 
   .schart-node {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: rgba(225, 255, 225, 0.95);
+    background: #ffffff;
+    border: 1px solid #00ff66;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 4px rgba(140, 255, 170, 0.35);
-    animation: schart-star 4.5s ease-in-out infinite;
+    box-shadow: 0 0 8px #00ff66;
+    animation: schart-star 1.2s ease-in-out infinite alternate;
   }
 
   .schart-node.major {
-    width: 6px;
-    height: 6px;
-    box-shadow: 0 0 6px rgba(160, 255, 180, 0.45);
+    width: 9px;
+    height: 9px;
+    box-shadow: 0 0 10px #00ff66, 0 0 14px #ffffff;
   }
 
-  .schart-node.p1 { top: 22%; left: 19%; animation-delay: -0.4s; }
-  .schart-node.p2 { top: 17%; left: 38%; animation-delay: -1.2s; }
-  .schart-node.p3 { top: 29%; left: 66%; animation-delay: -2.1s; }
-  .schart-node.p4 { top: 48%; left: 56%; animation-delay: -0.9s; }
-  .schart-node.p5 { top: 61%; left: 31%; animation-delay: -2.8s; }
-  .schart-node.p6 { top: 74%; left: 74%; animation-delay: -1.7s; }
-  .schart-node.p7 { top: 82%; left: 21%; animation-delay: -3.3s; }
-  .schart-node.p8 { top: 41%; left: 81%; animation-delay: -2.4s; }
+  .schart-node.p1 { top: 22%; left: 19%; animation-delay: -0.2s; }
+  .schart-node.p2 { top: 17%; left: 38%; animation-delay: -0.5s; }
+  .schart-node.p3 { top: 29%; left: 66%; animation-delay: -0.8s; }
+  .schart-node.p4 { top: 48%; left: 56%; animation-delay: -0.3s; }
+  .schart-node.p5 { top: 61%; left: 31%; animation-delay: -0.9s; }
+  .schart-node.p6 { top: 74%; left: 74%; animation-delay: -0.6s; }
+  .schart-node.p7 { top: 82%; left: 21%; animation-delay: -1.1s; }
+  .schart-node.p8 { top: 41%; left: 81%; animation-delay: -0.4s; }
 
   .schart-label {
     position: absolute;
     font-size: 8px;
+    font-weight: bold;
     line-height: 1;
     letter-spacing: 0.14em;
-    color: rgba(165, 255, 185, 0.5);
+    color: #00ff66;
+    text-shadow: 0 0 4px #00ff66;
     text-transform: uppercase;
   }
 
   .schart-label.top { top: 8px; left: 10px; }
   .schart-label.bottom { right: 10px; bottom: 8px; }
 
-  /* v2: everything a notch brighter and livelier. */
+  /* v2: cyan theme */
+  .schart.twinkle-more {
+    border-color: #38bdf8;
+    box-shadow: inset 0 0 14px rgba(56, 189, 248, 0.3), 0 0 12px rgba(56, 189, 248, 0.4);
+  }
+
   .schart.twinkle-more::before,
   .schart.twinkle-more::after {
-    border-color: rgba(120, 255, 160, 0.14);
+    border-color: #38bdf8;
   }
 
   .schart.twinkle-more .schart-line {
-    opacity: 0.7;
+    stroke: #38bdf8;
   }
 
   .schart.twinkle-more .schart-node {
-    box-shadow: 0 0 6px rgba(140, 255, 170, 0.48);
-    animation-duration: 2.8s;
+    border-color: #38bdf8;
+    box-shadow: 0 0 8px #00f0ff;
   }
 
   .schart.twinkle-more .schart-node.major {
-    box-shadow: 0 0 9px rgba(170, 255, 190, 0.58);
-    animation-duration: 2.3s;
+    box-shadow: 0 0 12px #00f0ff, 0 0 16px #38bdf8;
   }
 
   .schart.twinkle-more .schart-label {
-    color: rgba(175, 255, 195, 0.6);
+    color: #38bdf8;
+    text-shadow: 0 0 4px #00f0ff;
   }
 
-  /* v2 only: mapping flares popping at survey points. */
+  /* v2 only: mapping flares */
   .schart-flares {
     position: absolute;
     inset: 0;
@@ -170,51 +182,27 @@ const starChartStyles = `
 
   .schart-flares span {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    background: rgba(235, 255, 235, 0.95);
-    box-shadow: 0 0 7px rgba(170, 255, 190, 0.58);
-    animation: schart-flare 2.1s ease-in-out infinite;
+    background: #ffffff;
+    box-shadow: 0 0 8px #00f0ff;
+    animation: schart-flare 1.0s ease-in-out infinite alternate;
   }
 
   .schart-flares .f1 { top: 12%; left: 24%; animation-delay: -0.2s; }
-  .schart-flares .f2 { top: 24%; left: 79%; animation-delay: -1.1s; }
+  .schart-flares .f2 { top: 24%; left: 79%; animation-delay: -0.5s; }
   .schart-flares .f3 { top: 68%; left: 15%; animation-delay: -0.8s; }
-  .schart-flares .f4 { top: 86%; left: 58%; animation-delay: -1.6s; }
-
-  @keyframes schart-line-fade {
-    0%, 100% { opacity: 0.45; }
-    50% { opacity: 0.85; }
-  }
+  .schart-flares .f4 { top: 86%; left: 58%; animation-delay: -0.3s; }
 
   @keyframes schart-star {
-    0%, 100% {
-      opacity: 0.72;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    50% {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.08);
-    }
+    0% { transform: translate(-50%, -50%) scale(0.8); }
+    100% { transform: translate(-50%, -50%) scale(1.3); }
   }
 
   @keyframes schart-flare {
-    0%, 100% {
-      opacity: 0.18;
-      transform: scale(0.7);
-    }
-
-    40% {
-      opacity: 0.95;
-      transform: scale(1.35);
-    }
-
-    60% {
-      opacity: 0.45;
-      transform: scale(0.92);
-    }
+    0% { transform: scale(0.6); opacity: 0.4; }
+    100% { transform: scale(1.4); opacity: 1; }
   }
 `;
 

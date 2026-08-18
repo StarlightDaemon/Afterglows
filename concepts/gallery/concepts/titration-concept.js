@@ -8,10 +8,6 @@ const titrationStyles = {
     height: 100%;
   }
 
-  /* A titration to the endpoint: titrant drips from the burette, the
-     swirled flask stays clear through most of the run, then flushes
-     to a held colour at the endpoint - the drip stops and the level
-     mark is read. */
   .ti {
     width: 100px;
     height: 100px;
@@ -26,7 +22,8 @@ const titrationStyles = {
     top: 6px;
     width: 3px;
     height: 84px;
-    background: linear-gradient(180deg, rgba(140, 255, 170, 0.6), rgba(0, 90, 18, 0.7));
+    background: linear-gradient(180deg, #ffffff, #00ff66 70%);
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .ti-clamp {
@@ -35,20 +32,21 @@ const titrationStyles = {
     top: 24px;
     width: 30px;
     height: 4px;
-    background: rgba(140, 255, 170, 0.8);
+    background: #00ff66;
+    border-radius: 1px;
   }
 
-  /* Burette: tall graduated tube; the titrant level falls as it
-     dispenses. */
+  /* Burette */
   .ti-burette {
     position: absolute;
     left: 40px;
     top: 6px;
     width: 12px;
     height: 54px;
-    border: 2px solid var(--accent, #00cc00);
+    border: 2px solid #00ff66;
     border-radius: 3px 3px 0 0;
-    background: rgba(0, 20, 4, 0.4);
+    background: rgba(0, 20, 4, 0.6);
+    box-shadow: 0 0 8px rgba(0, 255, 100, 0.3);
     overflow: hidden;
   }
 
@@ -58,16 +56,13 @@ const titrationStyles = {
     right: 0;
     top: 0;
     height: 44px;
-    background: linear-gradient(180deg, rgba(140, 255, 170, 0.5), rgba(0, 130, 26, 0.65));
-    animation: ti-dispense 8s linear infinite;
+    background: linear-gradient(180deg, #ffffff, #00ff66 70%);
+    animation: ti-dispense 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes ti-dispense {
     0% { height: 46px; }
-    /* Falls steadily until the endpoint at ~66%. */
-    66% { height: 20px; }
-    72%, 92% { height: 20px; }
-    96%, 100% { height: 46px; }
+    100% { height: 18px; }
   }
 
   /* Graduation ticks. */
@@ -78,7 +73,7 @@ const titrationStyles = {
     width: 6px;
     height: 48px;
     background: repeating-linear-gradient(180deg,
-      rgba(140, 255, 170, 0.6) 0 1px,
+      #00ff66 0 1px,
       transparent 1px 5px);
     z-index: 2;
   }
@@ -91,7 +86,8 @@ const titrationStyles = {
     width: 8px;
     height: 6px;
     border-radius: 2px;
-    background: rgba(140, 255, 170, 0.85);
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .ti-tip {
@@ -100,33 +96,28 @@ const titrationStyles = {
     top: 66px;
     width: 2px;
     height: 6px;
-    background: rgba(0, 204, 0, 0.7);
+    background: #00ff66;
   }
 
-  /* Drops falling until the endpoint. */
+  /* Drops falling continuously */
   .ti-drop {
     position: absolute;
-    left: 45px;
+    left: 44px;
     top: 72px;
-    width: 3px;
-    height: 5px;
-    border-radius: 0 0 50% 50%;
-    background: rgba(190, 255, 205, 0.9);
-    animation: ti-drop 0.9s ease-in infinite, ti-dropgate 8s steps(1) infinite;
+    width: 4px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
+    animation: ti-drop 0.6s linear infinite;
   }
 
   @keyframes ti-drop {
-    0% { transform: translateY(0); opacity: 0; }
-    15% { opacity: 1; }
-    100% { transform: translateY(12px); opacity: 0.3; }
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(18px); opacity: 0; }
   }
 
-  @keyframes ti-dropgate {
-    0%, 66% { visibility: visible; }
-    68%, 100% { visibility: hidden; }
-  }
-
-  /* Erlenmeyer flask, swirling. */
+  /* Erlenmeyer flask, swirling dynamically */
   .ti-flask {
     position: absolute;
     left: 30px;
@@ -134,60 +125,49 @@ const titrationStyles = {
     width: 40px;
     height: 30px;
     clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%);
-    background: rgba(0, 20, 4, 0.3);
-    border-bottom: 2px solid var(--accent, #00cc00);
-    animation: ti-swirl 1.4s ease-in-out infinite;
+    background: rgba(0, 20, 4, 0.5);
+    border-bottom: 2.5px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
+    animation: ti-swirl 1.2s ease-in-out infinite alternate;
     transform-origin: 50% 100%;
     overflow: hidden;
   }
 
   @keyframes ti-swirl {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
+    0% { transform: rotate(-10deg) translateX(-4px); }
+    100% { transform: rotate(10deg) translateX(4px); }
   }
 
-  /* Flask contents: clear -> endpoint colour. */
+  /* Flask contents: sloshing */
   .ti-contents {
     position: absolute;
     left: -20px;
     right: -20px;
     bottom: 0;
-    height: 16px;
-    animation: ti-color 8s steps(1) infinite;
+    height: 18px;
+    background: linear-gradient(180deg, #ffffff, #00ff66 70%);
+    box-shadow: 0 0 8px #00ff66;
+    animation: ti-contents-slosh 1.2s ease-in-out infinite alternate;
   }
 
-  @keyframes ti-color {
-    0%, 60% { background: linear-gradient(180deg, rgba(0, 90, 18, 0.35), rgba(0, 60, 12, 0.55)); }
-    /* Flashes of pink at each near-endpoint drop, then holds. */
-    62% { background: linear-gradient(180deg, rgba(190, 255, 205, 0.4), rgba(0, 120, 24, 0.6)); }
-    64% { background: linear-gradient(180deg, rgba(0, 90, 18, 0.35), rgba(0, 60, 12, 0.55)); }
-    66%, 92% { background: linear-gradient(180deg, rgba(214, 255, 224, 0.6), rgba(0, 150, 30, 0.75)); }
-    96%, 100% { background: linear-gradient(180deg, rgba(0, 90, 18, 0.35), rgba(0, 60, 12, 0.55)); }
+  @keyframes ti-contents-slosh {
+    0% { transform: skewX(-14deg) scaleY(0.85); }
+    100% { transform: skewX(14deg) scaleY(1.15); }
   }
 
-  /* Endpoint label. */
   .ti-read {
     position: absolute;
     right: 0;
     top: 40px;
     font-size: 8px;
+    font-weight: bold;
     letter-spacing: 1px;
-    color: #c8ffd6;
-    text-shadow: 0 0 4px rgba(0, 204, 0, 0.7);
+    color: #00ff66;
+    text-shadow: 0 0 4px #00ff66;
   }
 
   .ti-read::before {
-    content: '24.0 mL';
-    animation: ti-read 8s steps(1) infinite;
-  }
-
-  @keyframes ti-read {
-    0% { content: '24.0 mL'; }
-    33% { content: '19.5 mL'; }
-    55% { content: '17.2 mL'; }
-    66% { content: 'END 16.8'; }
-    92% { content: 'END 16.8'; }
-    96% { content: '24.0 mL'; }
+    content: 'END 16.8';
   }
   `,
   v2: `
@@ -199,10 +179,7 @@ const titrationStyles = {
     height: 100%;
   }
 
-  /* v2: Analytical chemistry titration: clear alkaline titrant dispensing from
-     a precision graduated borosilicate burette into a swirled Erlenmeyer flask,
-     triggering a classic phenolphthalein colorimetric shift to vivid hot pink/magenta
-     at the equivalence endpoint. */
+  /* v2: Analytical chemistry titration */
   .tic {
     width: 100px;
     height: 100px;
@@ -229,7 +206,6 @@ const titrationStyles = {
     height: 4px;
     background: #334155;
     border-radius: 1px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   }
 
   /* Clear borosilicate glass burette */
@@ -252,15 +228,13 @@ const titrationStyles = {
     right: 0;
     top: 0;
     height: 44px;
-    background: linear-gradient(180deg, rgba(224, 242, 254, 0.6), rgba(186, 230, 253, 0.75));
-    animation: tic-dispense 8s linear infinite;
+    background: linear-gradient(180deg, rgba(224, 242, 254, 0.8), rgba(186, 230, 253, 0.9));
+    animation: tic-dispense 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes tic-dispense {
     0% { height: 46px; }
-    66% { height: 20px; }
-    72%, 92% { height: 20px; }
-    96%, 100% { height: 46px; }
+    100% { height: 18px; }
   }
 
   /* Enamel graduation scale */
@@ -301,25 +275,19 @@ const titrationStyles = {
   /* Titrant droplet delivery */
   .tic-drop {
     position: absolute;
-    left: 45px;
+    left: 44px;
     top: 72px;
-    width: 3px;
-    height: 5px;
-    border-radius: 0 0 50% 50%;
+    width: 4px;
+    height: 6px;
+    border-radius: 50%;
     background: #e0f2fe;
-    box-shadow: 0 0 4px rgba(186, 230, 253, 0.8);
-    animation: tic-drop 0.9s ease-in infinite, tic-dropgate 8s steps(1) infinite;
+    box-shadow: 0 0 6px rgba(186, 230, 253, 0.9);
+    animation: tic-drop 0.6s linear infinite;
   }
 
   @keyframes tic-drop {
-    0% { transform: translateY(0); opacity: 0; }
-    15% { opacity: 1; }
-    100% { transform: translateY(12px); opacity: 0.3; }
-  }
-
-  @keyframes tic-dropgate {
-    0%, 66% { visibility: visible; }
-    68%, 100% { visibility: hidden; }
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(18px); opacity: 0; }
   }
 
   /* Conical Erlenmeyer flask */
@@ -330,17 +298,17 @@ const titrationStyles = {
     width: 40px;
     height: 30px;
     clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%);
-    background: rgba(15, 23, 42, 0.4);
-    border-bottom: 2px solid rgba(200, 230, 255, 0.85);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-    animation: tic-swirl 1.4s ease-in-out infinite;
+    background: rgba(15, 23, 42, 0.5);
+    border-bottom: 2.5px solid rgba(200, 230, 255, 0.85);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    animation: tic-swirl 1.2s ease-in-out infinite alternate;
     transform-origin: 50% 100%;
     overflow: hidden;
   }
 
   @keyframes tic-swirl {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(2deg); }
+    0% { transform: rotate(-10deg) translateX(-4px); }
+    100% { transform: rotate(10deg) translateX(4px); }
   }
 
   /* Phenolphthalein pH indicator transition */
@@ -349,31 +317,15 @@ const titrationStyles = {
     left: -20px;
     right: -20px;
     bottom: 0;
-    height: 16px;
-    animation: tic-color 8s steps(1) infinite;
+    height: 18px;
+    background: linear-gradient(180deg, #ff2d87 0%, #e11d48 65%, #9f1239 100%);
+    box-shadow: 0 0 12px rgba(255, 45, 135, 0.9);
+    animation: tic-contents-slosh 1.2s ease-in-out infinite alternate;
   }
 
-  @keyframes tic-color {
-    0%, 60% {
-      background: linear-gradient(180deg, rgba(224, 242, 254, 0.35), rgba(186, 230, 253, 0.5));
-      box-shadow: none;
-    }
-    62% {
-      background: linear-gradient(180deg, rgba(251, 113, 133, 0.6), rgba(244, 63, 94, 0.7));
-      box-shadow: 0 0 6px rgba(244, 63, 94, 0.4);
-    }
-    64% {
-      background: linear-gradient(180deg, rgba(224, 242, 254, 0.35), rgba(186, 230, 253, 0.5));
-      box-shadow: none;
-    }
-    66%, 92% {
-      background: linear-gradient(180deg, #ff2d87 0%, #e11d48 65%, #9f1239 100%);
-      box-shadow: 0 0 12px rgba(255, 45, 135, 0.85);
-    }
-    96%, 100% {
-      background: linear-gradient(180deg, rgba(224, 242, 254, 0.35), rgba(186, 230, 253, 0.5));
-      box-shadow: none;
-    }
+  @keyframes tic-contents-slosh {
+    0% { transform: skewX(-14deg) scaleY(0.85); }
+    100% { transform: skewX(14deg) scaleY(1.15); }
   }
 
   /* Titration volume readout */
@@ -384,27 +336,12 @@ const titrationStyles = {
     font-size: 8px;
     font-weight: bold;
     letter-spacing: 1px;
-    animation: tic-read-col 8s steps(1) infinite;
+    color: #ff66aa;
+    text-shadow: 0 0 6px rgba(255, 45, 135, 0.9);
   }
 
   .tic-read::before {
-    content: '24.0 mL';
-    animation: tic-read-txt 8s steps(1) infinite;
-  }
-
-  @keyframes tic-read-txt {
-    0% { content: '24.0 mL'; }
-    33% { content: '19.5 mL'; }
-    55% { content: '17.2 mL'; }
-    66% { content: 'END 16.8'; }
-    92% { content: 'END 16.8'; }
-    96% { content: '24.0 mL'; }
-  }
-
-  @keyframes tic-read-col {
-    0%, 65% { color: #bae6fd; text-shadow: 0 0 4px rgba(56, 189, 248, 0.8); }
-    66%, 92% { color: #ff66aa; text-shadow: 0 0 6px rgba(255, 45, 135, 0.9); }
-    96%, 100% { color: #bae6fd; text-shadow: 0 0 4px rgba(56, 189, 248, 0.8); }
+    content: 'END 16.8';
   }
   `,
 };
