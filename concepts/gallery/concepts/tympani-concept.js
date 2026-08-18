@@ -20,9 +20,10 @@ const tympaniStyles = {
     bottom: 4px;
     width: 44px;
     height: 14px;
-    border-bottom: 2px solid var(--accent, #00cc00);
-    border-left: 2px solid var(--accent, #00cc00);
-    border-right: 2px solid var(--accent, #00cc00);
+    border-bottom: 2.5px solid #00ff66;
+    border-left: 2.5px solid #00ff66;
+    border-right: 2.5px solid #00ff66;
+    box-shadow: 0 0 6px rgba(0, 255, 100, 0.3);
   }
 
   .tym-bowl {
@@ -32,9 +33,9 @@ const tympaniStyles = {
     width: 76px;
     height: 52px;
     border-radius: 6px 6px 50% 50% / 4px 4px 60% 60%;
-    background: radial-gradient(circle at 50% 40%, rgba(0, 140, 30, 0.85), rgba(0, 35, 8, 0.98));
-    border: 2px solid var(--accent, #00cc00);
-    box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 204, 0, 0.25);
+    background: radial-gradient(circle at 50% 40%, rgba(0, 140, 30, 0.9), rgba(0, 35, 8, 0.98));
+    border: 2px solid #00ff66;
+    box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 255, 100, 0.4);
     z-index: 2;
   }
 
@@ -44,8 +45,9 @@ const tympaniStyles = {
     width: 5px;
     height: 8px;
     border-radius: 1px;
-    background: rgba(140, 255, 170, 0.9);
-    border: 1px solid var(--accent, #00cc00);
+    background: #ffffff;
+    border: 1px solid #00ff66;
+    box-shadow: 0 0 4px #00ff66;
     z-index: 4;
   }
 
@@ -60,19 +62,16 @@ const tympaniStyles = {
     width: 80px;
     height: 18px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at center, rgba(190, 255, 205, 0.9), rgba(0, 110, 24, 0.9) 60%, rgba(0, 40, 8, 0.95));
-    border: 2px solid var(--accent, #00cc00);
-    box-shadow: 0 0 6px rgba(0, 204, 0, 0.4);
+    background: radial-gradient(ellipse at center, #ffffff, #00ff66 60%, rgba(0, 40, 8, 0.95));
+    border: 2px solid #00ff66;
+    box-shadow: 0 0 8px #00ff66;
     z-index: 3;
-    animation: tym-head-deform 2.4s cubic-bezier(0.1, 0.9, 0.2, 1) infinite;
+    animation: tym-head-deform 0.6s ease-in-out infinite alternate;
   }
 
   @keyframes tym-head-deform {
-    0%, 15% { transform: scale(1); filter: brightness(1); }
-    18% { transform: scale(0.97, 0.94) translateY(2px); filter: brightness(1.3); }
-    28% { transform: scale(1.02, 1.04) translateY(-1px); }
-    40% { transform: scale(1); }
-    100% { transform: scale(1); }
+    0% { transform: scale(1.04, 1.06) translateY(-2px); }
+    100% { transform: scale(0.96, 0.94) translateY(3px); }
   }
 
   .tym-ripple {
@@ -80,21 +79,19 @@ const tympaniStyles = {
     left: 50%;
     top: 50%;
     border-radius: 50%;
-    border: 1.5px solid rgba(140, 255, 170, 0.9);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 6px #00ff66;
     transform: translate(-50%, -50%);
-    animation: tym-ripple-expand 2.4s ease-out infinite;
+    animation: tym-ripple-expand 0.8s ease-out infinite;
     pointer-events: none;
   }
 
-  .tym-ripple.r1 { animation-delay: 0.4s; }
-  .tym-ripple.r2 { animation-delay: 0.65s; }
+  .tym-ripple.r1 { animation-delay: 0s; }
+  .tym-ripple.r2 { animation-delay: -0.4s; }
 
   @keyframes tym-ripple-expand {
-    0%, 15% { opacity: 0; width: 4px; height: 2px; }
-    18% { opacity: 1; width: 12px; height: 5px; }
-    45% { opacity: 0.8; width: 46px; height: 12px; }
-    70% { opacity: 0; width: 68px; height: 16px; }
-    100% { opacity: 0; }
+    0% { opacity: 1; width: 6px; height: 3px; }
+    100% { opacity: 0; width: 72px; height: 18px; }
   }
 
   .tym-mallet {
@@ -104,7 +101,7 @@ const tympaniStyles = {
     width: 28px;
     height: 30px;
     transform-origin: right top;
-    animation: tym-mallet-strike 2.4s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+    animation: tym-mallet-strike 0.6s ease-in-out infinite alternate;
     z-index: 5;
   }
 
@@ -112,9 +109,10 @@ const tympaniStyles = {
     position: absolute;
     right: 0;
     top: 0;
-    width: 2px;
+    width: 2.5px;
     height: 24px;
-    background: rgba(140, 255, 170, 0.9);
+    background: #ffffff;
+    box-shadow: 0 0 4px #00ff66;
     transform: rotate(25deg);
   }
 
@@ -125,16 +123,14 @@ const tympaniStyles = {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: radial-gradient(circle at 40% 40%, rgba(190, 255, 205, 1), rgba(0, 180, 40, 0.9));
-    border: 1px solid var(--accent, #00cc00);
-    box-shadow: 0 0 6px rgba(140, 255, 170, 0.8);
+    background: radial-gradient(circle at 40% 40%, #ffffff, #00ff66 90%);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 8px #00ff66;
   }
 
   @keyframes tym-mallet-strike {
-    0%, 10% { transform: translate(0, -6px) rotate(-20deg); }
-    18% { transform: translate(-8px, 14px) rotate(5deg); }
-    26% { transform: translate(-4px, 0px) rotate(-15deg); }
-    50%, 100% { transform: translate(0, -6px) rotate(-20deg); }
+    0% { transform: translate(0, -12px) rotate(-28deg); }
+    100% { transform: translate(-10px, 14px) rotate(8deg); }
   }
 
   .tym-gauge {
@@ -145,7 +141,8 @@ const tympaniStyles = {
     height: 24px;
     border-radius: 2px;
     background: rgba(0, 40, 8, 0.95);
-    border: 1px solid var(--accent, #00cc00);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 6px rgba(0, 255, 100, 0.3);
     z-index: 4;
   }
 
@@ -155,17 +152,15 @@ const tympaniStyles = {
     top: 11px;
     width: 10px;
     height: 2px;
-    background: rgba(190, 255, 205, 0.95);
+    background: #ffffff;
+    box-shadow: 0 0 4px #00ff66;
     transform-origin: left center;
-    animation: tym-gauge-jump 2.4s ease-out infinite;
+    animation: tym-gauge-jump 0.6s ease-in-out infinite alternate;
   }
 
   @keyframes tym-gauge-jump {
-    0%, 15% { transform: rotate(-10deg); }
-    18% { transform: rotate(25deg); }
-    30% { transform: rotate(5deg); }
-    45% { transform: rotate(-5deg); }
-    60%, 100% { transform: rotate(-10deg); }
+    0% { transform: rotate(-15deg); }
+    100% { transform: rotate(30deg); }
   }
   `,
   v2: `
@@ -177,8 +172,7 @@ const tympaniStyles = {
     height: 100%;
   }
 
-  /* v2: Hammered copper kettle drum tympani with calfskin head,
-     golden acoustic ripples, felt mallet strike, and tension gauge needle */
+  /* v2: Hammered copper kettle drum tympani */
   .tymc {
     width: 116px;
     height: 98px;
@@ -242,17 +236,14 @@ const tympaniStyles = {
     border-radius: 50%;
     background: radial-gradient(ellipse at center, #fef3c7 0%, #fde68a 50%, #d97706 90%, #78350f 100%);
     border: 2px solid #ca8a04;
-    box-shadow: 0 0 6px rgba(202, 138, 4, 0.5);
+    box-shadow: 0 0 8px rgba(202, 138, 4, 0.6);
     z-index: 3;
-    animation: tymc-head-deform 2.4s cubic-bezier(0.1, 0.9, 0.2, 1) infinite;
+    animation: tymc-head-deform 0.6s ease-in-out infinite alternate;
   }
 
   @keyframes tymc-head-deform {
-    0%, 15% { transform: scale(1); filter: brightness(1); }
-    18% { transform: scale(0.97, 0.94) translateY(2px); filter: brightness(1.3); }
-    28% { transform: scale(1.02, 1.04) translateY(-1px); }
-    40% { transform: scale(1); }
-    100% { transform: scale(1); }
+    0% { transform: scale(1.04, 1.06) translateY(-2px); }
+    100% { transform: scale(0.96, 0.94) translateY(3px); }
   }
 
   /* Concentric acoustic resonance shockwave ripples */
@@ -262,21 +253,18 @@ const tympaniStyles = {
     top: 50%;
     border-radius: 50%;
     border: 1.5px solid #facc15;
-    box-shadow: 0 0 4px #fde047;
+    box-shadow: 0 0 6px #fde047;
     transform: translate(-50%, -50%);
-    animation: tymc-ripple-expand 2.4s ease-out infinite;
+    animation: tymc-ripple-expand 0.8s ease-out infinite;
     pointer-events: none;
   }
 
-  .tymc-ripple.r1 { animation-delay: 0.4s; }
-  .tymc-ripple.r2 { animation-delay: 0.65s; }
+  .tymc-ripple.r1 { animation-delay: 0s; }
+  .tymc-ripple.r2 { animation-delay: -0.4s; }
 
   @keyframes tymc-ripple-expand {
-    0%, 15% { opacity: 0; width: 4px; height: 2px; }
-    18% { opacity: 1; width: 12px; height: 5px; }
-    45% { opacity: 0.85; width: 46px; height: 12px; }
-    70% { opacity: 0; width: 68px; height: 16px; }
-    100% { opacity: 0; }
+    0% { opacity: 1; width: 6px; height: 3px; }
+    100% { opacity: 0; width: 72px; height: 18px; }
   }
 
   /* Mallet strike animation */
@@ -287,7 +275,7 @@ const tympaniStyles = {
     width: 28px;
     height: 30px;
     transform-origin: right top;
-    animation: tymc-mallet-strike 2.4s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+    animation: tymc-mallet-strike 0.6s ease-in-out infinite alternate;
     z-index: 5;
   }
 
@@ -295,7 +283,7 @@ const tympaniStyles = {
     position: absolute;
     right: 0;
     top: 0;
-    width: 2px;
+    width: 2.5px;
     height: 24px;
     background: #b45309;
     transform: rotate(25deg);
@@ -310,14 +298,12 @@ const tympaniStyles = {
     border-radius: 50%;
     background: radial-gradient(circle at 40% 40%, #ffffff 0%, #f1f5f9 60%, #cbd5e1 100%);
     border: 1px solid #ffffff;
-    box-shadow: 0 0 6px #ffffff;
+    box-shadow: 0 0 8px #ffffff;
   }
 
   @keyframes tymc-mallet-strike {
-    0%, 10% { transform: translate(0, -6px) rotate(-20deg); }
-    18% { transform: translate(-8px, 14px) rotate(5deg); }
-    26% { transform: translate(-4px, 0px) rotate(-15deg); }
-    50%, 100% { transform: translate(0, -6px) rotate(-20deg); }
+    0% { transform: translate(0, -12px) rotate(-28deg); }
+    100% { transform: translate(-10px, 14px) rotate(8deg); }
   }
 
   /* Pitch tension gauge */
@@ -341,17 +327,14 @@ const tympaniStyles = {
     width: 10px;
     height: 2px;
     background: #f43f5e;
-    box-shadow: 0 0 4px #ef4444;
+    box-shadow: 0 0 6px #ef4444;
     transform-origin: left center;
-    animation: tymc-gauge-jump 2.4s ease-out infinite;
+    animation: tymc-gauge-jump 0.6s ease-in-out infinite alternate;
   }
 
   @keyframes tymc-gauge-jump {
-    0%, 15% { transform: rotate(-10deg); }
-    18% { transform: rotate(25deg); }
-    30% { transform: rotate(5deg); }
-    45% { transform: rotate(-5deg); }
-    60%, 100% { transform: rotate(-10deg); }
+    0% { transform: rotate(-15deg); }
+    100% { transform: rotate(30deg); }
   }
   `,
 };

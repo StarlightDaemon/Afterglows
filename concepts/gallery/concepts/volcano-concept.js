@@ -24,7 +24,13 @@ const volcanoStyles = `
     margin-left: -38px;
     clip-path: polygon(50% 0%, 62% 4%, 100% 100%, 0% 100%, 38% 4%);
     background: linear-gradient(180deg, #123c1e 0%, #0a2411 55%, #051206 100%);
-    box-shadow: inset 0 4px 8px rgba(140, 255, 165, 0.12);
+    box-shadow: inset 0 4px 8px rgba(0, 255, 100, 0.2);
+    animation: volcano-tremor 0.3s ease-in-out infinite alternate;
+  }
+
+  @keyframes volcano-tremor {
+    0% { transform: translate(-1px, 0) rotate(-0.5deg); }
+    100% { transform: translate(1px, -1px) rotate(0.5deg); }
   }
 
   .volcano-cone::after {
@@ -34,7 +40,7 @@ const volcanoStyles = `
     right: 0;
     bottom: 0;
     height: 2px;
-    background: rgba(0, 204, 0, 0.4);
+    background: #00ff66;
   }
 
   .volcano-glow {
@@ -45,56 +51,56 @@ const volcanoStyles = `
     height: 10px;
     margin-left: -13px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at center, rgba(190, 255, 160, 0.9), rgba(0, 204, 0, 0.25) 70%, transparent);
+    background: radial-gradient(ellipse at center, #ffffff, #00ff66 70%, transparent);
     filter: blur(1px);
-    animation: volcano-glow 4.8s ease-in-out infinite;
+    box-shadow: 0 0 12px #00ff66;
+    animation: volcano-glow 0.8s ease-in-out infinite alternate;
   }
 
   .volcano-bomb {
     position: absolute;
     bottom: 60px;
     left: 50%;
-    width: 4px;
-    height: 4px;
-    margin-left: -2px;
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
     border-radius: 50%;
-    background: #d8ffbb;
-    box-shadow: 0 0 7px rgba(200, 255, 170, 0.8);
-    opacity: 0;
-    animation: volcano-bomb 4.8s cubic-bezier(0.25, 0.6, 0.6, 1) infinite;
+    background: #ffffff;
+    box-shadow: 0 0 8px #00ff66;
+    animation: volcano-bomb 0.8s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
   }
 
-  .volcano-bomb.v1 { --arc-x: -26px; --arc-peak: -34px; }
-  .volcano-bomb.v2 { --arc-x: 22px;  --arc-peak: -40px; animation-delay: 0.12s; }
-  .volcano-bomb.v3 { --arc-x: -9px;  --arc-peak: -46px; animation-delay: 0.22s; width: 3px; height: 3px; }
-  .volcano-bomb.v4 { --arc-x: 13px;  --arc-peak: -30px; animation-delay: 0.3s;  width: 3px; height: 3px; }
+  .volcano-bomb.v1 { --arc-x: -24px; --arc-peak: -36px; animation-delay: 0s; }
+  .volcano-bomb.v2 { --arc-x: 20px;  --arc-peak: -42px; animation-delay: -0.2s; }
+  .volcano-bomb.v3 { --arc-x: -8px;  --arc-peak: -48px; animation-delay: -0.4s; width: 5px; height: 5px; }
+  .volcano-bomb.v4 { --arc-x: 12px;  --arc-peak: -32px; animation-delay: -0.6s; width: 5px; height: 5px; }
 
   .volcano-lava {
     position: absolute;
     bottom: 26px;
     left: 50%;
-    width: 4px;
+    width: 5px;
     height: 34px;
     margin-left: -6px;
     border-radius: 0 0 3px 3px;
-    background: linear-gradient(180deg, rgba(216, 255, 187, 0.95), rgba(120, 230, 110, 0.55));
-    box-shadow: 0 0 6px rgba(160, 255, 130, 0.5);
+    background: linear-gradient(180deg, #ffffff, #00ff66 80%);
+    box-shadow: 0 0 8px #00ff66;
     transform-origin: top center;
     transform: rotate(14deg);
-    animation: volcano-lava 4.8s ease-out infinite;
+    animation: volcano-lava 0.8s ease-in-out infinite alternate;
   }
 
   .volcano-ash {
     position: absolute;
     bottom: 64px;
     left: 50%;
-    width: 14px;
-    height: 14px;
-    margin-left: -7px;
+    width: 16px;
+    height: 16px;
+    margin-left: -8px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(120, 200, 140, 0.4), transparent 70%);
+    background: radial-gradient(circle, rgba(0, 255, 100, 0.6), transparent 70%);
     filter: blur(1.5px);
-    animation: volcano-ash 4.8s ease-out infinite;
+    animation: volcano-ash 1.0s ease-out infinite;
   }
 
   .volcano-ground {
@@ -103,42 +109,31 @@ const volcanoStyles = `
     right: 8px;
     bottom: 8px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(0, 204, 0, 0.45), transparent);
+    background: linear-gradient(90deg, transparent, #00ff66, transparent);
   }
 
   @keyframes volcano-glow {
-    0%, 4% { opacity: 0.25; transform: scale(0.8); }
-    10% { opacity: 1; transform: scale(1.25); }
-    14% { opacity: 0.9; }
-    38% { opacity: 0.55; transform: scale(1); }
-    70%, 100% { opacity: 0.25; transform: scale(0.8); }
+    0% { opacity: 0.5; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.3); }
   }
 
   @keyframes volcano-bomb {
-    0%, 10% { opacity: 0; transform: translate(0, 0) scale(1); }
-    13% { opacity: 1; }
-    24% { transform: translate(calc(var(--arc-x, 20px) * 0.6), var(--arc-peak, -38px)) scale(1); opacity: 1; }
-    38% { transform: translate(var(--arc-x, 20px), 12px) scale(0.5); opacity: 0; }
-    100% { opacity: 0; transform: translate(var(--arc-x, 20px), 12px) scale(0.5); }
+    0% { opacity: 1; transform: translate(0, 0) scale(1); }
+    50% { transform: translate(calc(var(--arc-x, 20px) * 0.6), var(--arc-peak, -38px)) scale(1.2); opacity: 1; }
+    100% { transform: translate(var(--arc-x, 20px), 16px) scale(0.4); opacity: 0; }
   }
 
   @keyframes volcano-lava {
-    0%, 14% { transform: rotate(14deg) scaleY(0); opacity: 0; }
-    22% { opacity: 1; }
-    42% { transform: rotate(14deg) scaleY(1); opacity: 0.95; }
-    62% { opacity: 0.55; }
-    78%, 100% { transform: rotate(14deg) scaleY(1); opacity: 0; }
+    0% { transform: rotate(14deg) scaleY(0.4); }
+    100% { transform: rotate(14deg) scaleY(1.1); }
   }
 
   @keyframes volcano-ash {
-    0%, 50% { opacity: 0; transform: translateY(0) scale(0.6); }
-    60% { opacity: 0.85; }
-    92%, 100% { opacity: 0; transform: translateY(-34px) scale(1.7); }
+    0% { opacity: 1; transform: translateY(0) scale(0.6); }
+    100% { opacity: 0; transform: translateY(-40px) scale(2.2); }
   }
 
-  /* --- v2: Igneous volcanology & basalt eruption physics ---
-     Dark obsidian/basalt stratocone mountain, incandescent golden/orange magma glow,
-     blazing molten lava bombs, and billowing volcanic ash plume. */
+  /* --- v2: Igneous volcanology & basalt eruption physics --- */
   .voc {
     width: 104px;
     height: 104px;
@@ -156,6 +151,12 @@ const volcanoStyles = `
     clip-path: polygon(50% 0%, 62% 4%, 100% 100%, 0% 100%, 38% 4%);
     background: linear-gradient(180deg, #44403c 0%, #292524 55%, #1c1917 100%);
     box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.7);
+    animation: voc-tremor 0.3s ease-in-out infinite alternate;
+  }
+
+  @keyframes voc-tremor {
+    0% { transform: translate(-1px, 0) rotate(-0.5deg); }
+    100% { transform: translate(1px, -1px) rotate(0.5deg); }
   }
 
   .voc-cone::after {
@@ -165,7 +166,8 @@ const volcanoStyles = `
     right: 0;
     bottom: 0;
     height: 2px;
-    background: #57534e;
+    background: #ea580c;
+    box-shadow: 0 0 6px #ea580c;
   }
 
   /* Incandescent magma caldera glow */
@@ -178,9 +180,14 @@ const volcanoStyles = `
     margin-left: -13px;
     border-radius: 50%;
     background: radial-gradient(ellipse at center, #ffffff 0%, #fef08a 25%, #f59e0b 60%, #ea580c 85%, transparent);
-    filter: blur(1.5px);
+    filter: blur(1px);
     box-shadow: 0 0 16px #f97316, 0 0 24px #ef4444;
-    animation: volcano-glow 4.8s ease-in-out infinite;
+    animation: voc-glow 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes voc-glow {
+    0% { opacity: 0.6; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.3); }
   }
 
   /* Molten incandescent pyroclastic bombs */
@@ -188,35 +195,45 @@ const volcanoStyles = `
     position: absolute;
     bottom: 60px;
     left: 50%;
-    width: 4px;
-    height: 4px;
-    margin-left: -2px;
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
     border-radius: 50%;
-    background: #fef08a;
-    box-shadow: 0 0 8px #f97316, 0 0 12px #ef4444;
-    opacity: 0;
-    animation: volcano-bomb 4.8s cubic-bezier(0.25, 0.6, 0.6, 1) infinite;
+    background: #ffffff;
+    box-shadow: 0 0 10px #f97316, 0 0 16px #ef4444;
+    animation: voc-bomb 0.8s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
   }
 
-  .voc-bomb.v1 { --arc-x: -26px; --arc-peak: -34px; }
-  .voc-bomb.v2 { --arc-x: 22px;  --arc-peak: -40px; animation-delay: 0.12s; }
-  .voc-bomb.v3 { --arc-x: -9px;  --arc-peak: -46px; animation-delay: 0.22s; width: 3px; height: 3px; }
-  .voc-bomb.v4 { --arc-x: 13px;  --arc-peak: -30px; animation-delay: 0.3s;  width: 3px; height: 3px; }
+  .voc-bomb.v1 { --arc-x: -24px; --arc-peak: -36px; animation-delay: 0s; }
+  .voc-bomb.v2 { --arc-x: 20px;  --arc-peak: -42px; animation-delay: -0.2s; }
+  .voc-bomb.v3 { --arc-x: -8px;  --arc-peak: -48px; animation-delay: -0.4s; width: 5px; height: 5px; }
+  .voc-bomb.v4 { --arc-x: 12px;  --arc-peak: -32px; animation-delay: -0.6s; width: 5px; height: 5px; }
+
+  @keyframes voc-bomb {
+    0% { opacity: 1; transform: translate(0, 0) scale(1); }
+    50% { transform: translate(calc(var(--arc-x, 20px) * 0.6), var(--arc-peak, -38px)) scale(1.2); opacity: 1; }
+    100% { transform: translate(var(--arc-x, 20px), 16px) scale(0.4); opacity: 0; }
+  }
 
   /* Molten lava river */
   .voc-lava {
     position: absolute;
     bottom: 26px;
     left: 50%;
-    width: 4px;
+    width: 5px;
     height: 34px;
     margin-left: -6px;
     border-radius: 0 0 3px 3px;
-    background: linear-gradient(180deg, #fef08a, #f59e0b 45%, #dc2626);
-    box-shadow: 0 0 8px #ea580c;
+    background: linear-gradient(180deg, #ffffff, #f59e0b 45%, #dc2626);
+    box-shadow: 0 0 10px #ea580c;
     transform-origin: top center;
     transform: rotate(14deg);
-    animation: volcano-lava 4.8s ease-out infinite;
+    animation: voc-lava 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes voc-lava {
+    0% { transform: rotate(14deg) scaleY(0.4); }
+    100% { transform: rotate(14deg) scaleY(1.1); }
   }
 
   /* Volcanic ash and tephra plume */
@@ -224,13 +241,18 @@ const volcanoStyles = `
     position: absolute;
     bottom: 64px;
     left: 50%;
-    width: 16px;
-    height: 16px;
-    margin-left: -8px;
+    width: 18px;
+    height: 18px;
+    margin-left: -9px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(168, 162, 158, 0.6), rgba(87, 83, 78, 0.4) 60%, transparent 75%);
+    background: radial-gradient(circle, rgba(251, 146, 60, 0.7), rgba(87, 83, 78, 0.5) 60%, transparent 75%);
     filter: blur(1.5px);
-    animation: volcano-ash 4.8s ease-out infinite;
+    animation: voc-ash 1.0s ease-out infinite;
+  }
+
+  @keyframes voc-ash {
+    0% { opacity: 1; transform: translateY(0) scale(0.6); }
+    100% { opacity: 0; transform: translateY(-40px) scale(2.2); }
   }
 
   .voc-ground {
@@ -239,7 +261,7 @@ const volcanoStyles = `
     right: 8px;
     bottom: 8px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #44403c, transparent);
+    background: linear-gradient(90deg, transparent, #ea580c, transparent);
   }
 `;
 

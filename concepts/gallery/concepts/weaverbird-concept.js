@@ -22,14 +22,14 @@ const weaverbirdStyles = {
     height: 6px;
     border-radius: 3px;
     background: linear-gradient(90deg, rgba(0, 140, 30, 0.9), rgba(0, 50, 12, 0.8));
-    border: 1px solid var(--accent, #00cc00);
+    border: 1.5px solid #00ff66;
     transform-origin: left center;
-    animation: weav-branch-sway 4s ease-in-out infinite;
+    animation: weav-branch-sway 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes weav-branch-sway {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(2deg); }
+    0% { transform: rotate(-3deg); }
+    100% { transform: rotate(3deg); }
   }
 
   .weav-rig {
@@ -39,12 +39,12 @@ const weaverbirdStyles = {
     width: 44px;
     height: 78px;
     transform-origin: top center;
-    animation: weav-nest-sway 4s ease-in-out infinite;
+    animation: weav-nest-sway 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes weav-nest-sway {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(3deg); }
+    0% { transform: rotate(-8deg) translateX(-4px); }
+    100% { transform: rotate(8deg) translateX(4px); }
   }
 
   .weav-stalk {
@@ -53,8 +53,8 @@ const weaverbirdStyles = {
     top: 0;
     width: 4px;
     height: 16px;
-    background: repeating-linear-gradient(180deg, rgba(140, 255, 170, 0.8) 0 2px, rgba(0, 80, 16, 0.9) 2px 4px);
-    border: 1px solid var(--accent, #00cc00);
+    background: repeating-linear-gradient(180deg, #ffffff 0 2px, #00ff66 2px 4px);
+    border: 1px solid #00ff66;
   }
 
   .weav-nest {
@@ -65,11 +65,11 @@ const weaverbirdStyles = {
     height: 42px;
     border-radius: 50% 50% 45% 45%;
     background:
-      repeating-linear-gradient(45deg, rgba(140, 255, 170, 0.5) 0 2px, transparent 2px 6px),
-      repeating-linear-gradient(-45deg, rgba(140, 255, 170, 0.5) 0 2px, transparent 2px 6px),
-      radial-gradient(circle at 40% 40%, rgba(0, 120, 24, 0.8), rgba(0, 30, 6, 0.98));
-    border: 1.5px solid var(--accent, #00cc00);
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8), 0 0 6px rgba(0, 204, 0, 0.3);
+      repeating-linear-gradient(45deg, rgba(0, 255, 100, 0.6) 0 2px, transparent 2px 6px),
+      repeating-linear-gradient(-45deg, rgba(0, 255, 100, 0.6) 0 2px, transparent 2px 6px),
+      radial-gradient(circle at 40% 40%, rgba(0, 120, 24, 0.9), rgba(0, 30, 6, 0.98));
+    border: 1.5px solid #00ff66;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 255, 100, 0.4);
   }
 
   .weav-nest-density {
@@ -77,17 +77,15 @@ const weaverbirdStyles = {
     inset: 0;
     border-radius: inherit;
     background:
-      repeating-linear-gradient(45deg, rgba(190, 255, 205, 0.55) 0 1.5px, transparent 1.5px 5px),
-      repeating-linear-gradient(-45deg, rgba(190, 255, 205, 0.55) 0 1.5px, transparent 1.5px 5px);
-    opacity: 0;
-    animation: weav-density-grow 8s ease-in-out infinite;
+      repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.6) 0 1.5px, transparent 1.5px 5px),
+      repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.6) 0 1.5px, transparent 1.5px 5px);
+    animation: weav-density-grow 1.4s ease-in-out infinite alternate;
     pointer-events: none;
   }
 
   @keyframes weav-density-grow {
-    0%, 55% { opacity: 0; }
-    85% { opacity: 0.9; }
-    100% { opacity: 0; }
+    0% { opacity: 0.2; }
+    100% { opacity: 0.9; }
   }
 
   .weav-opening {
@@ -98,7 +96,7 @@ const weaverbirdStyles = {
     height: 16px;
     border-radius: 50%;
     background: rgba(0, 20, 4, 0.95);
-    border: 1.5px solid rgba(140, 255, 170, 0.9);
+    border: 1.5px solid #00ff66;
   }
 
   .weav-bird {
@@ -107,14 +105,13 @@ const weaverbirdStyles = {
     bottom: 0;
     width: 32px;
     height: 32px;
-    transform: rotate(140deg);
-    animation: weav-bird-work 2.4s ease-in-out infinite;
+    transform-origin: center center;
+    animation: weav-bird-work 1.0s ease-in-out infinite alternate;
   }
 
   @keyframes weav-bird-work {
-    0%, 100% { transform: rotate(140deg) translate(0, 0); }
-    30% { transform: rotate(155deg) translate(-2px, -3px); }
-    70% { transform: rotate(130deg) translate(3px, 2px); }
+    0% { transform: rotate(115deg) translate(-10px, -6px) scale(0.92); }
+    100% { transform: rotate(165deg) translate(10px, 6px) scale(1.08); }
   }
 
   .weav-bird-body {
@@ -124,8 +121,9 @@ const weaverbirdStyles = {
     width: 18px;
     height: 14px;
     border-radius: 50% 60% 40% 50%;
-    background: radial-gradient(circle at 40% 40%, rgba(190, 255, 205, 1), rgba(0, 140, 30, 0.9));
-    border: 1px solid var(--accent, #00cc00);
+    background: radial-gradient(circle at 40% 40%, #ffffff, #00ff66 80%);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .weav-bird-head {
@@ -135,8 +133,8 @@ const weaverbirdStyles = {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(190, 255, 205, 1);
-    box-shadow: 0 0 4px rgba(140, 255, 170, 0.8);
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .weav-beak {
@@ -146,7 +144,7 @@ const weaverbirdStyles = {
     width: 7px;
     height: 4px;
     clip-path: polygon(100% 0, 0 50%, 100% 100%);
-    background: rgba(140, 255, 170, 0.95);
+    background: #ffffff;
   }
 
   .weav-blade {
@@ -155,16 +153,18 @@ const weaverbirdStyles = {
     bottom: 12px;
     width: 24px;
     height: 18px;
-    border: 1.5px solid rgba(140, 255, 170, 0.9);
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 6px #00ff66;
     border-top: none;
     border-left: none;
     border-radius: 0 0 12px 0;
-    animation: weav-thread-loop 2.4s ease-in-out infinite;
+    transform-origin: top left;
+    animation: weav-thread-loop 1.0s ease-in-out infinite alternate;
   }
 
   @keyframes weav-thread-loop {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.9; }
-    50% { transform: scale(0.65) rotate(-20deg); opacity: 1; border-color: rgba(190, 255, 205, 1); }
+    0% { transform: scale(0.6, 1.4) rotate(-30deg); }
+    100% { transform: scale(1.4, 0.7) rotate(30deg); }
   }
   `,
   v2: `
@@ -176,8 +176,7 @@ const weaverbirdStyles = {
     height: 100%;
   }
 
-  /* v2: Golden weaverbird weaving hanging grass nest with chartreuse reeds,
-     acacia branch, and flexible green grass loop */
+  /* v2: Golden weaverbird weaving hanging grass nest */
   .weavc {
     width: 114px;
     height: 100px;
@@ -199,12 +198,12 @@ const weaverbirdStyles = {
     border: 1px solid #92400e;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     transform-origin: left center;
-    animation: weavc-branch-sway 4s ease-in-out infinite;
+    animation: weavc-branch-sway 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes weavc-branch-sway {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(2deg); }
+    0% { transform: rotate(-3deg); }
+    100% { transform: rotate(3deg); }
   }
 
   /* Nest suspension rig */
@@ -215,12 +214,12 @@ const weaverbirdStyles = {
     width: 44px;
     height: 78px;
     transform-origin: top center;
-    animation: weavc-nest-sway 4s ease-in-out infinite;
+    animation: weavc-nest-sway 1.4s ease-in-out infinite alternate;
   }
 
   @keyframes weavc-nest-sway {
-    0%, 100% { transform: rotate(-2deg); }
-    50% { transform: rotate(3deg); }
+    0% { transform: rotate(-8deg) translateX(-4px); }
+    100% { transform: rotate(8deg) translateX(4px); }
   }
 
   /* Woven suspension stalk */
@@ -258,15 +257,13 @@ const weaverbirdStyles = {
     background:
       repeating-linear-gradient(45deg, #fde047 0 1.5px, transparent 1.5px 5px),
       repeating-linear-gradient(-45deg, #84cc16 0 1.5px, transparent 1.5px 5px);
-    opacity: 0;
-    animation: weavc-density-grow 8s ease-in-out infinite;
+    animation: weavc-density-grow 1.4s ease-in-out infinite alternate;
     pointer-events: none;
   }
 
   @keyframes weavc-density-grow {
-    0%, 55% { opacity: 0; }
-    85% { opacity: 0.95; }
-    100% { opacity: 0; }
+    0% { opacity: 0.2; }
+    100% { opacity: 0.95; }
   }
 
   /* Nest chamber entrance opening */
@@ -289,14 +286,13 @@ const weaverbirdStyles = {
     bottom: 0;
     width: 32px;
     height: 32px;
-    transform: rotate(140deg);
-    animation: weavc-bird-work 2.4s ease-in-out infinite;
+    transform-origin: center center;
+    animation: weavc-bird-work 1.0s ease-in-out infinite alternate;
   }
 
   @keyframes weavc-bird-work {
-    0%, 100% { transform: rotate(140deg) translate(0, 0); }
-    30% { transform: rotate(155deg) translate(-2px, -3px); }
-    70% { transform: rotate(130deg) translate(3px, 2px); }
+    0% { transform: rotate(115deg) translate(-10px, -6px) scale(0.92); }
+    100% { transform: rotate(165deg) translate(10px, 6px) scale(1.08); }
   }
 
   /* Yellow & black weaver body */
@@ -342,17 +338,18 @@ const weaverbirdStyles = {
     bottom: 12px;
     width: 24px;
     height: 18px;
-    border: 2px solid #22c55e;
-    box-shadow: 0 0 6px #4ade80;
+    border: 2.5px solid #22c55e;
+    box-shadow: 0 0 8px #4ade80;
     border-top: none;
     border-left: none;
     border-radius: 0 0 12px 0;
-    animation: weavc-thread-loop 2.4s ease-in-out infinite;
+    transform-origin: top left;
+    animation: weavc-thread-loop 1.0s ease-in-out infinite alternate;
   }
 
   @keyframes weavc-thread-loop {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.9; }
-    50% { transform: scale(0.65) rotate(-20deg); opacity: 1; border-color: #86efac; }
+    0% { transform: scale(0.6, 1.4) rotate(-30deg); }
+    100% { transform: scale(1.4, 0.7) rotate(30deg); }
   }
   `,
 };

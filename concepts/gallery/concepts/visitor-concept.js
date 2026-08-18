@@ -25,8 +25,14 @@ const visitorStyles = {
     height: 88px;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(0, 204, 0, 0.14) 0 40%, transparent 70%);
-    animation: visitor-aura 4.5s ease-in-out infinite;
+    background: radial-gradient(circle, rgba(0, 255, 100, 0.25) 0 40%, transparent 70%);
+    box-shadow: 0 0 16px rgba(0, 255, 100, 0.4);
+    animation: visitor-aura 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes visitor-aura {
+    0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.85); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
   }
 
   .visitor-head {
@@ -35,41 +41,55 @@ const visitorStyles = {
     height: 70px;
     border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
     background: linear-gradient(180deg, #0c2410 0%, #071a0b 55%, #041106 100%);
+    border: 2px solid #00ff66;
     box-shadow:
-      inset 0 6px 10px rgba(140, 255, 165, 0.18),
-      0 0 14px rgba(0, 204, 0, 0.2);
+      inset 0 6px 10px rgba(0, 255, 100, 0.4),
+      0 0 16px rgba(0, 255, 100, 0.4);
     transform-origin: center 80%;
-    animation: visitor-tilt 6.5s ease-in-out infinite;
+    animation: visitor-hover 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes visitor-hover {
+    0% { transform: translateY(-8px) rotate(-10deg) scale(0.94); }
+    100% { transform: translateY(8px) rotate(10deg) scale(1.06); }
   }
 
   .visitor-eye {
     position: absolute;
     top: 26px;
-    width: 19px;
+    width: 20px;
     height: 30px;
     border-radius: 52% 48% 50% 50% / 68% 68% 32% 32%;
-    background: radial-gradient(circle at 34% 28%, rgba(220, 255, 228, 0.85) 0 12%, rgba(10, 20, 12, 0.98) 40%);
-    box-shadow: inset 0 0 5px rgba(160, 255, 180, 0.4), 0 0 6px rgba(0, 204, 0, 0.35);
-    animation: visitor-blink 4.8s ease-in-out infinite;
+    background: radial-gradient(circle at 34% 28%, #ffffff 0 15%, #00ff66 35%, #041106 70%);
+    box-shadow: inset 0 0 5px #00ff66, 0 0 8px #00ff66;
+    animation: visitor-eye-scan 1.0s ease-in-out infinite alternate;
   }
 
   .visitor-eye.left {
     left: 5px;
-    transform: rotate(24deg);
+    --eye-rot: 24deg;
   }
 
   .visitor-eye.right {
     right: 5px;
-    transform: rotate(-24deg);
+    --eye-rot: -24deg;
+  }
+
+  @keyframes visitor-eye-scan {
+    0% { transform: rotate(var(--eye-rot)) translateX(-3px) scaleY(1); }
+    50% { transform: rotate(var(--eye-rot)) translateX(3px) scaleY(1); }
+    90% { transform: rotate(var(--eye-rot)) translateX(0px) scaleY(0.1); }
+    100% { transform: rotate(var(--eye-rot)) translateX(0px) scaleY(1); }
   }
 
   .visitor-nostril {
     position: absolute;
     bottom: 12px;
-    width: 2px;
-    height: 3px;
+    width: 2.5px;
+    height: 3.5px;
     border-radius: 50%;
-    background: rgba(140, 255, 165, 0.35);
+    background: #00ff66;
+    box-shadow: 0 0 3px #00ff66;
   }
 
   .visitor-nostril.n1 { left: 26px; }
@@ -79,41 +99,18 @@ const visitorStyles = {
     position: absolute;
     top: 6px;
     left: 50%;
-    width: 3px;
-    height: 3px;
-    margin-left: -1.5px;
+    width: 5px;
+    height: 5px;
+    margin-left: -2.5px;
     border-radius: 50%;
-    background: rgba(190, 255, 205, 0.9);
-    box-shadow: 0 0 6px rgba(190, 255, 205, 0.8);
-    animation: visitor-third 4.5s ease-in-out infinite;
+    background: #ffffff;
+    box-shadow: 0 0 8px #00ff66;
+    animation: visitor-third 0.8s ease-in-out infinite alternate;
   }
-
-  @keyframes visitor-aura {
-    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.94); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
-  }
-
-  @keyframes visitor-tilt {
-    0%, 100% { transform: rotate(-4deg); }
-    45% { transform: rotate(5deg); }
-    70% { transform: rotate(2deg); }
-  }
-
-  @keyframes visitor-blink {
-    0%, 40%, 100% { transform: rotate(var(--eye-rot, 24deg)) scaleY(1); }
-    43% { transform: rotate(var(--eye-rot, 24deg)) scaleY(0.06); }
-    46% { transform: rotate(var(--eye-rot, 24deg)) scaleY(1); }
-    72% { transform: rotate(var(--eye-rot, 24deg)) scaleY(1); }
-    75% { transform: rotate(var(--eye-rot, 24deg)) scaleY(0.06); }
-    78% { transform: rotate(var(--eye-rot, 24deg)) scaleY(1); }
-  }
-
-  .visitor-eye.left { --eye-rot: 24deg; }
-  .visitor-eye.right { --eye-rot: -24deg; }
 
   @keyframes visitor-third {
-    0%, 100% { opacity: 0.25; }
-    50% { opacity: 1; }
+    0% { transform: scale(0.6); opacity: 0.3; }
+    100% { transform: scale(1.6); opacity: 1; }
   }
   `,
   v2: `
@@ -125,8 +122,7 @@ const visitorStyles = {
     height: 100%;
   }
 
-  /* v2: Classic Roswell Grey alien with smooth pearlescent silver skin,
-     giant star-reflecting obsidian eyes, glowing cyan telepathy node, and cosmic aura */
+  /* v2: Classic Roswell Grey alien */
   .visitorc {
     position: relative;
     width: 104px;
@@ -148,9 +144,14 @@ const visitorStyles = {
     height: 88px;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0 40%, transparent 70%);
-    box-shadow: 0 0 16px rgba(0, 240, 255, 0.3);
-    animation: visitorc-aura 4.5s ease-in-out infinite;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0 40%, transparent 70%);
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.5);
+    animation: visitorc-aura 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes visitorc-aura {
+    0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.85); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
   }
 
   /* Pearlescent grey-silver head */
@@ -160,42 +161,54 @@ const visitorStyles = {
     height: 70px;
     border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
     background: linear-gradient(180deg, #e2e8f0 0%, #94a3b8 50%, #475569 100%);
-    border: 1px solid #cbd5e1;
+    border: 1.5px solid #cbd5e1;
     box-shadow:
-      inset 0 6px 10px rgba(255, 255, 255, 0.6),
-      0 4px 14px rgba(0, 0, 0, 0.8);
+      inset 0 6px 10px rgba(255, 255, 255, 0.8),
+      0 4px 14px rgba(0, 0, 0, 0.9);
     transform-origin: center 80%;
-    animation: visitorc-tilt 6.5s ease-in-out infinite;
+    animation: visitorc-hover 1.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes visitorc-hover {
+    0% { transform: translateY(-8px) rotate(-10deg) scale(0.94); }
+    100% { transform: translateY(8px) rotate(10deg) scale(1.06); }
   }
 
   /* Deep glossy obsidian almond eyes with specular starfield */
   .visitorc-eye {
     position: absolute;
     top: 26px;
-    width: 19px;
+    width: 20px;
     height: 30px;
     border-radius: 52% 48% 50% 50% / 68% 68% 32% 32%;
-    background: radial-gradient(circle at 34% 28%, #ffffff 0 12%, #38bdf8 20%, #09090b 45%);
-    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.4), 0 0 8px rgba(0, 0, 0, 0.9);
-    animation: visitorc-blink 4.8s ease-in-out infinite;
+    background: radial-gradient(circle at 34% 28%, #ffffff 0 15%, #38bdf8 30%, #09090b 55%);
+    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.5), 0 0 8px #00f0ff;
+    animation: visitorc-eye-scan 1.0s ease-in-out infinite alternate;
   }
 
   .visitorc-eye.left {
     left: 5px;
-    transform: rotate(24deg);
+    --eye-rot: 24deg;
   }
 
   .visitorc-eye.right {
     right: 5px;
-    transform: rotate(-24deg);
+    --eye-rot: -24deg;
+  }
+
+  @keyframes visitorc-eye-scan {
+    0% { transform: rotate(var(--eye-rot)) translateX(-3px) scaleY(1); }
+    50% { transform: rotate(var(--eye-rot)) translateX(3px) scaleY(1); }
+    90% { transform: rotate(var(--eye-rot)) translateX(0px) scaleY(0.1); }
+    100% { transform: rotate(var(--eye-rot)) translateX(0px) scaleY(1); }
   }
 
   /* Slit nostrils */
   .visitorc-nostril {
     position: absolute;
     bottom: 12px;
-    width: 2px;
-    height: 3px;
+    width: 2.5px;
+    height: 3.5px;
     border-radius: 50%;
     background: #334155;
   }
@@ -208,41 +221,18 @@ const visitorStyles = {
     position: absolute;
     top: 6px;
     left: 50%;
-    width: 3px;
-    height: 3px;
-    margin-left: -1.5px;
+    width: 5px;
+    height: 5px;
+    margin-left: -2.5px;
     border-radius: 50%;
     background: #38bdf8;
-    box-shadow: 0 0 8px #00f0ff, 0 0 12px #38bdf8;
-    animation: visitorc-third 4.5s ease-in-out infinite;
+    box-shadow: 0 0 10px #00f0ff, 0 0 16px #38bdf8;
+    animation: visitorc-third 0.8s ease-in-out infinite alternate;
   }
-
-  @keyframes visitorc-aura {
-    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.94); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
-  }
-
-  @keyframes visitorc-tilt {
-    0%, 100% { transform: rotate(-4deg); }
-    45% { transform: rotate(5deg); }
-    70% { transform: rotate(2deg); }
-  }
-
-  @keyframes visitorc-blink {
-    0%, 40%, 100% { transform: rotate(var(--eye-rot, 24deg)) scaleY(1); }
-    43% { transform: rotate(var(--eye-rot, 24deg)) scaleY(0.06); }
-    46% { transform: rotate(var(--eye-rot, 24deg)) scaleY(1); }
-    72% { transform: rotate(var(--eye-rot, 24deg)) scaleY(1); }
-    75% { transform: rotate(var(--eye-rot, 24deg)) scaleY(0.06); }
-    78% { transform: rotate(var(--eye-rot, 24deg)) scaleY(1); }
-  }
-
-  .visitorc-eye.left { --eye-rot: 24deg; }
-  .visitorc-eye.right { --eye-rot: -24deg; }
 
   @keyframes visitorc-third {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
+    0% { transform: scale(0.6); opacity: 0.3; }
+    100% { transform: scale(1.6); opacity: 1; }
   }
   `,
 };

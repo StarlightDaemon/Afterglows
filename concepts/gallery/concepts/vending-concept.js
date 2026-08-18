@@ -18,8 +18,9 @@ const vendingStyles = {
     position: absolute;
     inset: 2px;
     border-radius: 5px;
-    background: linear-gradient(180deg, rgba(0, 90, 18, 0.6), rgba(0, 45, 9, 0.85));
-    border: 2px solid var(--accent, #00cc00);
+    background: linear-gradient(180deg, rgba(0, 90, 18, 0.7), rgba(0, 45, 9, 0.9));
+    border: 2px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.3);
   }
 
   .vn-window {
@@ -28,9 +29,10 @@ const vendingStyles = {
     top: 8px;
     width: 46px;
     height: 62px;
-    border: 1px solid rgba(140, 255, 170, 0.7);
+    border: 1.5px solid #00ff66;
     border-radius: 2px;
-    background: rgba(0, 25, 5, 0.5);
+    background: rgba(0, 25, 5, 0.6);
+    box-shadow: inset 0 0 8px rgba(0, 255, 100, 0.2);
     overflow: hidden;
   }
 
@@ -38,8 +40,8 @@ const vendingStyles = {
     position: absolute;
     left: 2px;
     right: 2px;
-    height: 1px;
-    background: rgba(0, 204, 0, 0.4);
+    height: 1.5px;
+    background: #00ff66;
   }
 
   .vn-shelf.s1 { top: 20px; }
@@ -50,8 +52,9 @@ const vendingStyles = {
     width: 8px;
     height: 12px;
     border-radius: 2px;
-    background: linear-gradient(180deg, rgba(190, 255, 205, 0.75), rgba(0, 130, 26, 0.7));
-    border: 1px solid rgba(0, 204, 0, 0.4);
+    background: linear-gradient(180deg, #ffffff, #00ff66 70%);
+    border: 1px solid #00ff66;
+    box-shadow: 0 0 4px rgba(0, 255, 100, 0.4);
   }
 
   .vn-snack.a { left: 4px; top: 6px; }
@@ -67,38 +70,36 @@ const vendingStyles = {
     top: 44px;
     width: 12px;
     height: 12px;
-    background: repeating-linear-gradient(90deg,
-      rgba(140, 255, 170, 0.8) 0 2px,
-      transparent 2px 4px);
-    animation: vn-coil 5s steps(1) infinite;
+    border: 1.5px solid #00ff66;
+    border-radius: 50%;
+    border-top-color: transparent;
+    box-shadow: 0 0 4px #00ff66;
+    animation: vn-coil 1.2s linear infinite;
   }
 
   @keyframes vn-coil {
-    0%, 30% { background-position: 0 0; }
-    36% { background-position: -4px 0; }
-    42% { background-position: -8px 0; }
-    48% { background-position: -12px 0; }
-    54%, 100% { background-position: -12px 0; }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   .vn-item {
     position: absolute;
-    left: 30px;
-    top: 44px;
-    width: 8px;
-    height: 12px;
+    left: 24px;
+    top: 42px;
+    width: 9px;
+    height: 13px;
     border-radius: 2px;
-    background: linear-gradient(180deg, rgba(214, 255, 224, 0.85), rgba(0, 150, 30, 0.75));
-    border: 1px solid rgba(140, 255, 170, 0.6);
-    animation: vn-item 5s ease-in infinite;
+    background: linear-gradient(180deg, #ffffff, #00ff66 70%);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 8px #00ff66;
+    animation: vn-item 1.2s ease-in infinite;
   }
 
   @keyframes vn-item {
-    0%, 42% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-    50% { transform: translate(4px, 2px) rotate(40deg); }
-    62% { transform: translate(-8px, 22px) rotate(120deg); opacity: 1; }
-    68% { transform: translate(-14px, 32px) rotate(160deg); opacity: 0; }
-    100% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    50% { transform: translate(-6px, 16px) rotate(60deg); opacity: 1; }
+    90% { transform: translate(-14px, 32px) rotate(140deg); opacity: 1; }
+    100% { transform: translate(-14px, 36px) rotate(160deg); opacity: 0; }
   }
 
   .vn-panel {
@@ -114,17 +115,22 @@ const vendingStyles = {
     width: 12px;
     height: 5px;
     border-radius: 2px;
-    background: rgba(0, 204, 0, 0.35);
+    background: rgba(0, 204, 0, 0.4);
+    border: 1px solid #00ff66;
   }
 
   .vn-btn.b1 { top: 4px; }
   .vn-btn.b2 { top: 12px; }
-  .vn-btn.b3 { top: 20px; background: rgba(140, 255, 170, 0.85); animation: vn-select 5s steps(1) infinite; }
+  .vn-btn.b3 {
+    top: 20px;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
+    animation: vn-select 0.6s ease-in-out infinite alternate;
+  }
 
   @keyframes vn-select {
-    0%, 24% { box-shadow: none; opacity: 0.5; }
-    28%, 60% { box-shadow: 0 0 8px rgba(0, 204, 0, 0.9); opacity: 1; }
-    64%, 100% { box-shadow: none; opacity: 0.5; }
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
   }
 
   .vn-slot {
@@ -135,26 +141,25 @@ const vendingStyles = {
     height: 3px;
     border-radius: 2px;
     background: rgba(0, 30, 6, 0.9);
-    border: 1px solid rgba(140, 255, 170, 0.7);
+    border: 1px solid #00ff66;
   }
 
   .vn-coin {
     position: absolute;
-    right: 10px;
-    top: 30px;
+    right: 9.5px;
+    top: 26px;
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: radial-gradient(circle at 38% 32%, #f2ffdd, #9ade5a 70%);
-    animation: vn-coin 5s ease-in infinite;
+    background: #ffffff;
+    box-shadow: 0 0 4px #00ff66;
+    animation: vn-coin 1.2s linear infinite;
   }
 
   @keyframes vn-coin {
-    0% { transform: translateY(0); opacity: 0; }
-    4% { opacity: 1; }
-    14% { transform: translateY(12px); opacity: 1; }
-    18% { transform: translateY(14px); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translateY(0); opacity: 1; }
+    80% { transform: translateY(14px); opacity: 1; }
+    100% { transform: translateY(18px); opacity: 0; }
   }
 
   .vn-tray {
@@ -164,8 +169,8 @@ const vendingStyles = {
     width: 40px;
     height: 12px;
     border-radius: 2px;
-    background: rgba(0, 25, 5, 0.85);
-    border: 1px solid rgba(140, 255, 170, 0.6);
+    background: rgba(0, 25, 5, 0.9);
+    border: 1.5px solid #00ff66;
   }
 
   .vn-flap {
@@ -175,17 +180,15 @@ const vendingStyles = {
     width: 22px;
     height: 8px;
     border-radius: 2px 2px 0 0;
-    background: rgba(0, 120, 24, 0.7);
-    border: 1px solid rgba(0, 204, 0, 0.5);
+    background: rgba(0, 120, 24, 0.8);
+    border: 1px solid #00ff66;
     transform-origin: 50% 100%;
-    animation: vn-flap 5s ease-out infinite;
+    animation: vn-flap 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes vn-flap {
-    0%, 64% { transform: rotate(0deg); }
-    70% { transform: rotate(-38deg); }
-    82% { transform: rotate(4deg); }
-    88%, 100% { transform: rotate(0deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-35deg); }
   }
   `,
   v2: `
@@ -197,8 +200,7 @@ const vendingStyles = {
     height: 100%;
   }
 
-  /* v2: Illuminated Japanese beverage vending machine with cobalt & white cabinet,
-     multi-color drink cans, rotating coil, gold coin, and dropped drink delivery flap */
+  /* v2: Illuminated Japanese beverage vending machine */
   .vnc {
     width: 84px;
     height: 100px;
@@ -269,40 +271,37 @@ const vendingStyles = {
     top: 44px;
     width: 12px;
     height: 12px;
-    background: repeating-linear-gradient(90deg,
-      #cbd5e1 0 2px,
-      transparent 2px 4px);
-    animation: vnc-coil 5s steps(1) infinite;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 50%;
+    border-top-color: transparent;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+    animation: vnc-coil 1.2s linear infinite;
   }
 
   @keyframes vnc-coil {
-    0%, 30% { background-position: 0 0; }
-    36% { background-position: -4px 0; }
-    42% { background-position: -8px 0; }
-    48% { background-position: -12px 0; }
-    54%, 100% { background-position: -12px 0; }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   /* Selected orange citrus drink dropping */
   .vnc-item {
     position: absolute;
-    left: 30px;
-    top: 44px;
-    width: 8px;
-    height: 12px;
+    left: 24px;
+    top: 42px;
+    width: 9px;
+    height: 13px;
     border-radius: 2px;
     background: linear-gradient(180deg, #fdba74, #ea580c);
-    border: 1px solid #f97316;
-    box-shadow: 0 0 6px #ea580c;
-    animation: vnc-item 5s ease-in infinite;
+    border: 1.5px solid #f97316;
+    box-shadow: 0 0 8px #ea580c;
+    animation: vnc-item 1.2s ease-in infinite;
   }
 
   @keyframes vnc-item {
-    0%, 42% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-    50% { transform: translate(4px, 2px) rotate(40deg); }
-    62% { transform: translate(-8px, 22px) rotate(120deg); opacity: 1; }
-    68% { transform: translate(-14px, 32px) rotate(160deg); opacity: 0; }
-    100% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    50% { transform: translate(-6px, 16px) rotate(60deg); opacity: 1; }
+    90% { transform: translate(-14px, 32px) rotate(140deg); opacity: 1; }
+    100% { transform: translate(-14px, 36px) rotate(160deg); opacity: 0; }
   }
 
   /* Selection buttons panel */
@@ -329,13 +328,12 @@ const vendingStyles = {
     top: 20px;
     background: #38bdf8;
     box-shadow: 0 0 8px #00f0ff;
-    animation: vnc-select 5s steps(1) infinite;
+    animation: vnc-select 0.6s ease-in-out infinite alternate;
   }
 
   @keyframes vnc-select {
-    0%, 24% { box-shadow: none; opacity: 0.5; }
-    28%, 60% { box-shadow: 0 0 10px #00f0ff, 0 0 16px #38bdf8; opacity: 1; }
-    64%, 100% { box-shadow: none; opacity: 0.5; }
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
   }
 
   /* Coin insert slot */
@@ -353,22 +351,20 @@ const vendingStyles = {
   /* Gold coin dropping */
   .vnc-coin {
     position: absolute;
-    right: 10px;
-    top: 30px;
+    right: 9.5px;
+    top: 26px;
     width: 5px;
     height: 5px;
     border-radius: 50%;
     background: radial-gradient(circle at 38% 32%, #fef08a, #ca8a04 70%);
-    box-shadow: 0 0 4px #facc15;
-    animation: vnc-coin 5s ease-in infinite;
+    box-shadow: 0 0 6px #facc15;
+    animation: vnc-coin 1.2s linear infinite;
   }
 
   @keyframes vnc-coin {
-    0% { transform: translateY(0); opacity: 0; }
-    4% { opacity: 1; }
-    14% { transform: translateY(12px); opacity: 1; }
-    18% { transform: translateY(14px); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translateY(0); opacity: 1; }
+    80% { transform: translateY(14px); opacity: 1; }
+    100% { transform: translateY(18px); opacity: 0; }
   }
 
   /* Bottom collection tray & swinging flap */
@@ -393,14 +389,12 @@ const vendingStyles = {
     background: linear-gradient(180deg, #64748b, #334155);
     border: 1px solid #94a3b8;
     transform-origin: 50% 100%;
-    animation: vnc-flap 5s ease-out infinite;
+    animation: vnc-flap 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes vnc-flap {
-    0%, 64% { transform: rotate(0deg); }
-    70% { transform: rotate(-38deg); }
-    82% { transform: rotate(4deg); }
-    88%, 100% { transform: rotate(0deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-35deg); }
   }
   `,
 };

@@ -12,6 +12,12 @@ const vacuumRadioStyles = {
     width: 114px;
     height: 100px;
     position: relative;
+    animation: vrad-acoustic-vibe 0.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes vrad-acoustic-vibe {
+    0% { transform: translateY(0) rotate(-0.5deg); }
+    100% { transform: translateY(-2px) rotate(0.5deg); }
   }
 
   .vrad-cabinet {
@@ -22,8 +28,8 @@ const vacuumRadioStyles = {
     height: 88px;
     border-radius: 45px 45px 4px 4px;
     background: radial-gradient(circle at 50% 30%, rgba(0, 110, 24, 0.9), rgba(0, 30, 6, 0.98));
-    border: 2px solid var(--accent, #00cc00);
-    box-shadow: 0 0 10px rgba(0, 204, 0, 0.35);
+    border: 2px solid #00ff66;
+    box-shadow: 0 0 12px rgba(0, 255, 100, 0.4);
     overflow: hidden;
   }
 
@@ -42,19 +48,19 @@ const vacuumRadioStyles = {
     width: 10px;
     height: 18px;
     border-radius: 5px 5px 2px 2px;
-    background: radial-gradient(circle at 50% 40%, rgba(190, 255, 205, 1), rgba(0, 160, 35, 0.8) 60%, rgba(0, 40, 8, 0.9));
-    border: 1px solid rgba(140, 255, 170, 0.9);
-    box-shadow: 0 0 8px rgba(140, 255, 170, 0.9);
-    animation: vrad-tube-glow 2.5s ease-in-out infinite alternate;
+    background: radial-gradient(circle at 50% 40%, #ffffff, #00ff66 70%, rgba(0, 40, 8, 0.9));
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 8px #00ff66;
+    animation: vrad-tube-vibe 0.4s ease-in-out infinite alternate;
   }
 
   .vrad-tube.t1 { animation-delay: 0s; }
-  .vrad-tube.t2 { height: 22px; animation-delay: -0.8s; }
-  .vrad-tube.t3 { animation-delay: -1.6s; }
+  .vrad-tube.t2 { height: 22px; animation-delay: -0.15s; }
+  .vrad-tube.t3 { animation-delay: -0.3s; }
 
-  @keyframes vrad-tube-glow {
-    0% { filter: brightness(0.85); box-shadow: 0 0 4px rgba(140, 255, 170, 0.6); }
-    100% { filter: brightness(1.3); box-shadow: 0 0 10px rgba(190, 255, 205, 1); }
+  @keyframes vrad-tube-vibe {
+    0% { transform: translateY(0) rotate(-2deg); }
+    100% { transform: translateY(-2px) rotate(2deg); }
   }
 
   .vrad-eye {
@@ -64,9 +70,9 @@ const vacuumRadioStyles = {
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(190, 255, 205, 1), rgba(0, 180, 40, 0.9) 70%, rgba(0, 40, 8, 1));
-    border: 1.5px solid var(--accent, #00cc00);
-    box-shadow: 0 0 8px rgba(140, 255, 170, 0.9);
+    background: radial-gradient(circle, #ffffff, #00ff66 70%, rgba(0, 40, 8, 1));
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 8px #00ff66;
     overflow: hidden;
   }
 
@@ -75,12 +81,12 @@ const vacuumRadioStyles = {
     inset: 0;
     clip-path: polygon(50% 50%, 0 0, 100% 0);
     background: rgba(0, 30, 6, 0.95);
-    animation: vrad-eye-tune 4.2s ease-in-out infinite;
+    animation: vrad-eye-tune 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes vrad-eye-tune {
-    0%, 100% { transform: scaleX(1.4); }
-    50% { transform: scaleX(0.2); }
+    0% { transform: scaleX(1.4); }
+    100% { transform: scaleX(0.2); }
   }
 
   .vrad-dial {
@@ -91,24 +97,24 @@ const vacuumRadioStyles = {
     height: 10px;
     border-radius: 2px;
     background: rgba(0, 20, 4, 0.95);
-    border: 1px solid rgba(140, 255, 170, 0.8);
+    border: 1.5px solid #00ff66;
     overflow: hidden;
   }
 
   .vrad-ticks {
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(90deg, rgba(140, 255, 170, 0.6) 0 1px, transparent 1px 6px);
+    background: repeating-linear-gradient(90deg, #00ff66 0 1px, transparent 1px 6px);
   }
 
   .vrad-needle {
     position: absolute;
     top: 0;
-    width: 2px;
+    width: 3px;
     height: 100%;
-    background: rgba(190, 255, 205, 1);
-    box-shadow: 0 0 4px rgba(140, 255, 170, 1);
-    animation: vrad-dial-sweep 4.2s ease-in-out infinite alternate;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
+    animation: vrad-dial-sweep 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes vrad-dial-sweep {
@@ -122,12 +128,19 @@ const vacuumRadioStyles = {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: radial-gradient(circle at 40% 40%, rgba(140, 255, 170, 0.95), rgba(0, 80, 16, 0.9));
-    border: 1px solid var(--accent, #00cc00);
+    background: radial-gradient(circle at 40% 40%, #ffffff, #00ff66 80%);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 4px #00ff66;
+    animation: vrad-knob-turn 1.2s ease-in-out infinite alternate;
   }
 
   .vrad-knob.kl { left: 18px; }
-  .vrad-knob.kr { right: 18px; }
+  .vrad-knob.kr { right: 18px; animation-delay: -0.6s; }
+
+  @keyframes vrad-knob-turn {
+    0% { transform: rotate(-45deg); }
+    100% { transform: rotate(45deg); }
+  }
   `,
   v2: `
   :host {
@@ -138,8 +151,7 @@ const vacuumRadioStyles = {
     height: 100%;
   }
 
-  /* v2: Antique 1930s cathedral vacuum tube radio with burled walnut wood cabinet,
-     glowing orange/amber triode filaments, emerald green 6E5 magic-eye indicator, and brass tuning dials */
+  /* v2: Antique 1930s cathedral vacuum tube radio */
   .vradc {
     width: 114px;
     height: 100px;
@@ -147,6 +159,12 @@ const vacuumRadioStyles = {
     background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
     border-radius: 6px;
     overflow: hidden;
+    animation: vradc-acoustic-vibe 0.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes vradc-acoustic-vibe {
+    0% { transform: translateY(0) rotate(-0.5deg); }
+    100% { transform: translateY(-2px) rotate(0.5deg); }
   }
 
   /* Rich polished walnut arch cathedral radio cabinet */
@@ -183,16 +201,16 @@ const vacuumRadioStyles = {
     background: radial-gradient(circle at 50% 40%, #ffffff 0%, #fde047 30%, #ea580c 70%, rgba(30, 20, 10, 0.8) 100%);
     border: 1px solid #fed7aa;
     box-shadow: 0 0 10px #ea580c, 0 0 16px #facc15;
-    animation: vradc-tube-glow 2.5s ease-in-out infinite alternate;
+    animation: vradc-tube-vibe 0.4s ease-in-out infinite alternate;
   }
 
   .vradc-tube.t1 { animation-delay: 0s; }
-  .vradc-tube.t2 { height: 22px; animation-delay: -0.8s; }
-  .vradc-tube.t3 { animation-delay: -1.6s; }
+  .vradc-tube.t2 { height: 22px; animation-delay: -0.15s; }
+  .vradc-tube.t3 { animation-delay: -0.3s; }
 
-  @keyframes vradc-tube-glow {
-    0% { filter: brightness(0.85); box-shadow: 0 0 6px #ea580c; }
-    100% { filter: brightness(1.3); box-shadow: 0 0 14px #ea580c, 0 0 22px #fde047; }
+  @keyframes vradc-tube-vibe {
+    0% { transform: translateY(0) rotate(-2deg); }
+    100% { transform: translateY(-2px) rotate(2deg); }
   }
 
   /* Magic-eye 6E5 phosphor green tuning cathode target */
@@ -215,12 +233,12 @@ const vacuumRadioStyles = {
     inset: 0;
     clip-path: polygon(50% 50%, 0 0, 100% 0);
     background: #052e16;
-    animation: vradc-eye-tune 4.2s ease-in-out infinite;
+    animation: vradc-eye-tune 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes vradc-eye-tune {
-    0%, 100% { transform: scaleX(1.4); }
-    50% { transform: scaleX(0.2); }
+    0% { transform: scaleX(1.4); }
+    100% { transform: scaleX(0.2); }
   }
 
   /* Amber illuminated shortwave tuning glass dial */
@@ -247,11 +265,11 @@ const vacuumRadioStyles = {
   .vradc-needle {
     position: absolute;
     top: 0;
-    width: 2px;
+    width: 3px;
     height: 100%;
     background: #ef4444;
-    box-shadow: 0 0 4px #dc2626;
-    animation: vradc-dial-sweep 4.2s ease-in-out infinite alternate;
+    box-shadow: 0 0 6px #dc2626;
+    animation: vradc-dial-sweep 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes vradc-dial-sweep {
@@ -269,10 +287,16 @@ const vacuumRadioStyles = {
     background: radial-gradient(circle at 40% 40%, #fef08a 0%, #facc15 50%, #ca8a04 100%);
     border: 1px solid #78350f;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    animation: vradc-knob-turn 1.2s ease-in-out infinite alternate;
   }
 
   .vradc-knob.kl { left: 18px; }
-  .vradc-knob.kr { right: 18px; }
+  .vradc-knob.kr { right: 18px; animation-delay: -0.6s; }
+
+  @keyframes vradc-knob-turn {
+    0% { transform: rotate(-45deg); }
+    100% { transform: rotate(45deg); }
+  }
   `,
 };
 

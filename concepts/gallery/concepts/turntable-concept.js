@@ -19,8 +19,8 @@ const turntableStyles = `
     inset: 10px;
     border-radius: 8px;
     background: linear-gradient(160deg, #0c2c14 0%, #071c0c 60%, #041106 100%);
-    border: 1px solid rgba(140, 255, 170, 0.4);
-    box-shadow: 0 0 10px rgba(0, 204, 0, 0.2);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.3);
   }
 
   .tt-platter {
@@ -31,46 +31,48 @@ const turntableStyles = `
     height: 60px;
     border-radius: 50%;
     background:
-      repeating-radial-gradient(circle at 50% 50%,
-        rgba(140, 255, 170, 0.16) 0 1px, transparent 1px 5px),
+      conic-gradient(from 0deg, rgba(0, 255, 100, 0.3) 0deg, transparent 60deg, rgba(0, 255, 100, 0.3) 120deg, transparent 180deg, rgba(0, 255, 100, 0.3) 240deg, transparent 300deg, rgba(0, 255, 100, 0.3) 360deg),
+      repeating-radial-gradient(circle at 50% 50%, rgba(140, 255, 170, 0.3) 0 2px, transparent 2px 6px),
       radial-gradient(circle at 50% 50%, #061607 0 28%, #0a2411 90%);
-    border: 2px solid rgba(140, 255, 170, 0.5);
+    border: 2px solid #00ff66;
     box-sizing: border-box;
-    animation: tt-spin 3.2s linear infinite;
+    box-shadow: 0 0 8px rgba(0, 255, 100, 0.4);
+    animation: tt-spin 1.2s linear infinite;
   }
 
   .tt-label {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 18px;
-    height: 18px;
-    margin: -9px 0 0 -9px;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
     border-radius: 50%;
-    background: radial-gradient(circle at 40% 32%, #2a8a3e, #123c1e 75%);
-    border: 1px solid rgba(190, 255, 205, 0.6);
+    background: linear-gradient(135deg, #ffffff 0%, #00ff66 70%);
+    border: 1.5px solid #ffffff;
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .tt-label::after {
     content: '';
     position: absolute;
     top: 2px;
-    left: 50%;
-    width: 3px;
-    height: 3px;
-    margin-left: -1.5px;
+    left: 4px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    background: #d8ffbb;
+    background: #041106;
   }
 
   .tt-spindle {
     position: absolute;
     top: 49px;
     left: 45px;
-    width: 2px;
-    height: 2px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
-    background: #e6ffd2;
+    background: #ffffff;
+    box-shadow: 0 0 4px #00ff66;
     z-index: 3;
   }
 
@@ -81,9 +83,10 @@ const turntableStyles = `
     width: 3px;
     height: 46px;
     border-radius: 2px;
-    background: linear-gradient(180deg, rgba(190, 255, 205, 0.9), rgba(90, 220, 130, 0.6));
+    background: linear-gradient(180deg, #ffffff, #00ff66);
     transform-origin: top center;
-    animation: tt-track 9s ease-in-out infinite;
+    box-shadow: 0 0 6px #00ff66;
+    animation: tt-track 1.4s ease-in-out infinite alternate;
   }
 
   .tt-arm::before {
@@ -96,7 +99,7 @@ const turntableStyles = `
     margin-left: -4.5px;
     border-radius: 50%;
     background: #0c2c14;
-    border: 1px solid rgba(190, 255, 205, 0.7);
+    border: 1.5px solid #00ff66;
   }
 
   .tt-arm::after {
@@ -107,33 +110,35 @@ const turntableStyles = `
     width: 7px;
     height: 4px;
     border-radius: 2px;
-    background: #d8ffbb;
-    box-shadow: 0 0 5px rgba(216, 255, 187, 0.6);
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .tt-note {
     position: absolute;
-    top: 58px;
+    top: 54px;
     left: 62px;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    border: 1px solid rgba(160, 255, 185, 0.7);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 6px #00ff66;
     opacity: 0;
-    animation: tt-note 1.6s ease-out infinite;
+    animation: tt-note 1.0s ease-out infinite;
   }
 
-  .tt-note.n2 { animation-delay: -0.8s; }
+  .tt-note.n2 { animation-delay: -0.5s; }
 
   .tt-pip {
     position: absolute;
     bottom: 15px;
     left: 20px;
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    background: rgba(140, 255, 170, 0.9);
-    animation: tt-pip 1.6s ease-in-out infinite;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
+    animation: tt-pip 0.6s ease-in-out infinite alternate;
   }
 
   .tt-rpm {
@@ -142,7 +147,8 @@ const turntableStyles = `
     left: 28px;
     font-family: monospace;
     font-size: 8px;
-    color: rgba(140, 255, 170, 0.6);
+    font-weight: bold;
+    color: #00ff66;
   }
 
   @keyframes tt-spin {
@@ -151,25 +157,21 @@ const turntableStyles = `
   }
 
   @keyframes tt-track {
-    0%, 6% { transform: rotate(0deg); }
-    14% { transform: rotate(24deg); }
-    82% { transform: rotate(38deg); }
-    92%, 100% { transform: rotate(0deg); }
+    0% { transform: rotate(14deg); }
+    100% { transform: rotate(34deg); }
   }
 
   @keyframes tt-note {
-    0% { opacity: 0.8; transform: scale(0.4); }
-    100% { opacity: 0; transform: scale(2); }
+    0% { opacity: 1; transform: scale(0.3) translate(0, 0); }
+    100% { opacity: 0; transform: scale(2.4) translate(-14px, -18px); }
   }
 
   @keyframes tt-pip {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; box-shadow: 0 0 5px rgba(140, 255, 170, 0.7); }
+    0% { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(1.3); opacity: 1; }
   }
 
-  /* --- v2: Vintage Hi-Fi Audiophile Turntable ---
-     Oiled walnut wood plinth, deep black grooved vinyl with scarlet red center label,
-     polished chrome tonearm with gold cartridge headshell, and amber neon strobe. */
+  /* --- v2: Vintage Hi-Fi Audiophile Turntable --- */
   .ttc {
     width: 104px;
     height: 104px;
@@ -193,13 +195,13 @@ const turntableStyles = `
     height: 60px;
     border-radius: 50%;
     background:
-      repeating-radial-gradient(circle at 50% 50%,
-        rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 4px),
+      conic-gradient(from 0deg, rgba(255, 255, 255, 0.2) 0deg, transparent 60deg, rgba(255, 255, 255, 0.2) 120deg, transparent 180deg, rgba(255, 255, 255, 0.2) 240deg, transparent 300deg, rgba(255, 255, 255, 0.2) 360deg),
+      repeating-radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 0 2px, transparent 2px 5px),
       radial-gradient(circle at 50% 50%, #09090b 0 28%, #18181b 90%);
     border: 2px solid #71717a;
     box-sizing: border-box;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
-    animation: tt-spin 3.2s linear infinite;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+    animation: tt-spin 1.2s linear infinite;
   }
 
   /* Scarlet red vinyl center label */
@@ -207,22 +209,22 @@ const turntableStyles = `
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 18px;
-    height: 18px;
-    margin: -9px 0 0 -9px;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
     border-radius: 50%;
     background: radial-gradient(circle at 40% 32%, #ef4444, #b91c1c 75%);
-    border: 1px solid #fca5a5;
+    border: 1.5px solid #fca5a5;
+    box-shadow: 0 0 6px #ef4444;
   }
 
   .ttc-label::after {
     content: '';
     position: absolute;
     top: 2px;
-    left: 50%;
-    width: 3px;
-    height: 3px;
-    margin-left: -1.5px;
+    left: 4px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #ffffff;
   }
@@ -231,10 +233,11 @@ const turntableStyles = `
     position: absolute;
     top: 49px;
     left: 45px;
-    width: 2px;
-    height: 2px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background: #ffffff;
+    box-shadow: 0 0 4px #ffffff;
     z-index: 3;
   }
 
@@ -248,8 +251,8 @@ const turntableStyles = `
     border-radius: 2px;
     background: linear-gradient(180deg, #f8fafc, #94a3b8);
     transform-origin: top center;
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
-    animation: tt-track 9s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+    animation: tt-track 1.4s ease-in-out infinite alternate;
   }
 
   .ttc-arm::before {
@@ -281,29 +284,30 @@ const turntableStyles = `
   /* Acoustic note pulse */
   .ttc-note {
     position: absolute;
-    top: 58px;
+    top: 54px;
     left: 62px;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    border: 1px solid #38bdf8;
+    border: 1.5px solid #38bdf8;
+    box-shadow: 0 0 6px #38bdf8;
     opacity: 0;
-    animation: tt-note 1.6s ease-out infinite;
+    animation: tt-note 1.0s ease-out infinite;
   }
 
-  .ttc-note.n2 { animation-delay: -0.8s; }
+  .ttc-note.n2 { animation-delay: -0.5s; }
 
   /* Warm amber strobe pip */
   .ttc-pip {
     position: absolute;
     bottom: 15px;
     left: 20px;
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #f59e0b;
-    box-shadow: 0 0 4px #fbbf24;
-    animation: ttc-pip 1.6s ease-in-out infinite;
+    box-shadow: 0 0 6px #fbbf24;
+    animation: ttc-pip 0.6s ease-in-out infinite alternate;
   }
 
   .ttc-rpm {
@@ -317,8 +321,8 @@ const turntableStyles = `
   }
 
   @keyframes ttc-pip {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; box-shadow: 0 0 8px #f59e0b; }
+    0% { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(1.3); opacity: 1; }
   }
 `;
 

@@ -12,22 +12,22 @@ const virusStyles = `
     width: 104px;
     height: 96px;
     position: relative;
-    animation: vx-float 9s ease-in-out infinite;
+    animation: vx-float 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes vx-float {
-    0%, 100% { transform: translate(0, 0); }
-    30% { transform: translate(2px, -3px); }
-    65% { transform: translate(-2px, 2px); }
+    0% { transform: translate(-8px, -6px) scale(0.88); }
+    100% { transform: translate(8px, 6px) scale(1.12); }
   }
 
   .vx-rot {
     position: absolute;
     inset: 0;
-    animation: vx-tumble 26s linear infinite;
+    animation: vx-tumble 2.4s linear infinite;
   }
 
   @keyframes vx-tumble {
+    from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
 
@@ -39,9 +39,9 @@ const virusStyles = `
     height: 40px;
     margin: -20px 0 0 -20px;
     border-radius: 50%;
-    border: 2px solid rgba(140, 255, 170, 0.85);
-    background: radial-gradient(circle at 40% 35%, rgba(120, 235, 150, 0.5), rgba(0, 70, 14, 0.85) 72%);
-    box-shadow: 0 0 12px rgba(0, 204, 0, 0.4), inset 0 0 8px rgba(0, 204, 0, 0.25);
+    border: 2px solid #00ff66;
+    background: radial-gradient(circle at 40% 35%, #ffffff, #00ff66 60%, rgba(0, 70, 14, 0.9) 100%);
+    box-shadow: 0 0 12px rgba(0, 255, 100, 0.5), inset 0 0 8px rgba(0, 204, 0, 0.3);
   }
 
   .vx-core {
@@ -52,14 +52,14 @@ const virusStyles = `
     height: 16px;
     margin: -8px 0 0 -9px;
     border-radius: 46% 54% 52% 48%;
-    background: radial-gradient(circle at 42% 38%, rgba(200, 255, 210, 0.75), rgba(0, 130, 26, 0.7));
-    animation: vx-core 5s ease-in-out infinite;
+    background: radial-gradient(circle at 42% 38%, #ffffff, #00ff66 70%);
+    box-shadow: 0 0 8px #00ff66;
+    animation: vx-core 0.8s ease-in-out infinite alternate;
   }
 
   @keyframes vx-core {
-    0%, 100% { border-radius: 46% 54% 52% 48%; transform: rotate(0deg) scale(1); }
-    33% { border-radius: 55% 45% 48% 52%; transform: rotate(10deg) scale(1.08); }
-    66% { border-radius: 48% 52% 56% 44%; transform: rotate(-8deg) scale(0.94); }
+    0% { transform: scale(0.75) rotate(-15deg); }
+    100% { transform: scale(1.25) rotate(15deg); }
   }
 
   .vx-spoke {
@@ -72,12 +72,12 @@ const virusStyles = `
     position: absolute;
     top: 15px;
     left: 50%;
-    width: 2px;
+    width: 2.5px;
     height: 13px;
-    margin-left: -1px;
-    background: linear-gradient(0deg, rgba(140, 255, 170, 0.9), rgba(190, 255, 205, 0.7));
+    margin-left: -1.25px;
+    background: linear-gradient(0deg, #ffffff, #00ff66);
     transform-origin: 50% 100%;
-    animation: vx-reach var(--dur, 2.6s) ease-in-out infinite var(--ph, 0s);
+    animation: vx-reach 0.8s ease-in-out infinite alternate;
   }
 
   .vx-spike::after {
@@ -85,29 +85,29 @@ const virusStyles = `
     position: absolute;
     top: -4px;
     left: 50%;
-    width: 6px;
-    height: 6px;
-    margin-left: -3px;
+    width: 7px;
+    height: 7px;
+    margin-left: -3.5px;
     border-radius: 50%;
-    background: radial-gradient(circle at 40% 35%, #d8ffbb, rgba(0, 150, 30, 0.9));
-    box-shadow: 0 0 5px rgba(190, 255, 205, 0.6);
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
   }
 
   @keyframes vx-reach {
-    0%, 100% { transform: scaleY(0.82); }
-    50% { transform: scaleY(1.12); }
+    0% { transform: scaleY(0.7) translateY(2px); }
+    100% { transform: scaleY(1.3) translateY(-4px); }
   }
 
-  .vx-spoke.s0 { --rot: 0deg; }   .vx-spoke.s0 .vx-spike { --dur: 2.3s; --ph: -0.4s; }
-  .vx-spoke.s1 { --rot: 36deg; }  .vx-spoke.s1 .vx-spike { --dur: 2.9s; --ph: -1.6s; }
-  .vx-spoke.s2 { --rot: 72deg; }  .vx-spoke.s2 .vx-spike { --dur: 2.5s; --ph: -0.9s; }
-  .vx-spoke.s3 { --rot: 108deg; } .vx-spoke.s3 .vx-spike { --dur: 3.1s; --ph: -2.2s; }
-  .vx-spoke.s4 { --rot: 144deg; } .vx-spoke.s4 .vx-spike { --dur: 2.4s; --ph: -1.2s; }
-  .vx-spoke.s5 { --rot: 180deg; } .vx-spoke.s5 .vx-spike { --dur: 2.8s; --ph: -0.2s; }
-  .vx-spoke.s6 { --rot: 216deg; } .vx-spoke.s6 .vx-spike { --dur: 2.6s; --ph: -1.9s; }
-  .vx-spoke.s7 { --rot: 252deg; } .vx-spoke.s7 .vx-spike { --dur: 3s;   --ph: -0.7s; }
-  .vx-spoke.s8 { --rot: 288deg; } .vx-spoke.s8 .vx-spike { --dur: 2.35s; --ph: -1.4s; }
-  .vx-spoke.s9 { --rot: 324deg; } .vx-spoke.s9 .vx-spike { --dur: 2.75s; --ph: -2.5s; }
+  .vx-spoke.s0 { --rot: 0deg; }
+  .vx-spoke.s1 { --rot: 36deg; }
+  .vx-spoke.s2 { --rot: 72deg; }
+  .vx-spoke.s3 { --rot: 108deg; }
+  .vx-spoke.s4 { --rot: 144deg; }
+  .vx-spoke.s5 { --rot: 180deg; }
+  .vx-spoke.s6 { --rot: 216deg; }
+  .vx-spoke.s7 { --rot: 252deg; }
+  .vx-spoke.s8 { --rot: 288deg; }
+  .vx-spoke.s9 { --rot: 324deg; }
 
   .vx-halo {
     position: absolute;
@@ -116,30 +116,39 @@ const virusStyles = `
     width: 74px;
     height: 74px;
     margin: -37px 0 0 -37px;
-    border: 1px dashed rgba(0, 204, 0, 0.22);
+    border: 1.5px dashed #00ff66;
+    box-shadow: 0 0 8px rgba(0, 255, 100, 0.4);
     border-radius: 50%;
-    animation: vx-halo 4.5s ease-in-out infinite;
+    animation: vx-halo 1.6s ease-in-out infinite alternate;
   }
 
   @keyframes vx-halo {
-    0%, 100% { transform: scale(0.96); opacity: 0.4; }
-    50% { transform: scale(1.03); opacity: 0.85; }
+    0% { transform: scale(0.9); opacity: 0.4; }
+    100% { transform: scale(1.2); opacity: 0.95; }
   }
 
-  /* --- v2: Structural virology palette ---
-     Deep violet/indigo viral membrane envelope, scarlet glycoprotein spikes,
-     glowing electric-cyan nucleocapsid RNA core, and soft UV corona. */
+  /* --- v2: Structural virology palette --- */
   .vxc {
     width: 104px;
     height: 96px;
     position: relative;
-    animation: vx-float 9s ease-in-out infinite;
+    animation: vxc-float 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes vxc-float {
+    0% { transform: translate(-8px, -6px) scale(0.88); }
+    100% { transform: translate(8px, 6px) scale(1.12); }
   }
 
   .vxc-rot {
     position: absolute;
     inset: 0;
-    animation: vx-tumble 26s linear infinite;
+    animation: vxc-tumble 2.4s linear infinite;
+  }
+
+  @keyframes vxc-tumble {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   .vxc-body {
@@ -151,8 +160,8 @@ const virusStyles = `
     margin: -20px 0 0 -20px;
     border-radius: 50%;
     border: 1.5px solid #a855f7;
-    background: radial-gradient(circle at 40% 35%, #7e22ce, #3b0764 72%);
-    box-shadow: 0 0 14px rgba(168, 85, 247, 0.5), inset 0 0 8px rgba(0, 0, 0, 0.6);
+    background: radial-gradient(circle at 40% 35%, #c084fc, #7e22ce 60%, #3b0764 100%);
+    box-shadow: 0 0 14px rgba(168, 85, 247, 0.6), inset 0 0 8px rgba(0, 0, 0, 0.6);
   }
 
   /* Glowing cyan viral RNA/DNA nucleocapsid */
@@ -165,8 +174,13 @@ const virusStyles = `
     margin: -8px 0 0 -9px;
     border-radius: 46% 54% 52% 48%;
     background: radial-gradient(circle at 42% 38%, #67e8f9, #0891b2 70%);
-    box-shadow: 0 0 8px #06b6d4;
-    animation: vx-core 5s ease-in-out infinite;
+    box-shadow: 0 0 10px #06b6d4;
+    animation: vxc-core 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes vxc-core {
+    0% { transform: scale(0.75) rotate(-15deg); }
+    100% { transform: scale(1.25) rotate(15deg); }
   }
 
   .vxc-spoke {
@@ -180,12 +194,12 @@ const virusStyles = `
     position: absolute;
     top: 15px;
     left: 50%;
-    width: 2px;
+    width: 2.5px;
     height: 13px;
-    margin-left: -1px;
+    margin-left: -1.25px;
     background: linear-gradient(0deg, #dc2626, #ef4444);
     transform-origin: 50% 100%;
-    animation: vx-reach var(--dur, 2.6s) ease-in-out infinite var(--ph, 0s);
+    animation: vxc-reach 0.8s ease-in-out infinite alternate;
   }
 
   .vxc-spike::after {
@@ -193,24 +207,29 @@ const virusStyles = `
     position: absolute;
     top: -4px;
     left: 50%;
-    width: 6px;
-    height: 6px;
-    margin-left: -3px;
+    width: 7px;
+    height: 7px;
+    margin-left: -3.5px;
     border-radius: 50%;
-    background: radial-gradient(circle at 40% 35%, #fca5a5, #b91c1c 90%);
-    box-shadow: 0 0 6px #ef4444;
+    background: radial-gradient(circle at 40% 35%, #ffffff, #ef4444 80%);
+    box-shadow: 0 0 8px #ef4444;
   }
 
-  .vxc-spoke.s0 { --rot: 0deg; }   .vxc-spoke.s0 .vxc-spike { --dur: 2.3s; --ph: -0.4s; }
-  .vxc-spoke.s1 { --rot: 36deg; }  .vxc-spoke.s1 .vxc-spike { --dur: 2.9s; --ph: -1.6s; }
-  .vxc-spoke.s2 { --rot: 72deg; }  .vxc-spoke.s2 .vxc-spike { --dur: 2.5s; --ph: -0.9s; }
-  .vxc-spoke.s3 { --rot: 108deg; } .vxc-spoke.s3 .vxc-spike { --dur: 3.1s; --ph: -2.2s; }
-  .vxc-spoke.s4 { --rot: 144deg; } .vxc-spoke.s4 .vxc-spike { --dur: 2.4s; --ph: -1.2s; }
-  .vxc-spoke.s5 { --rot: 180deg; } .vxc-spoke.s5 .vxc-spike { --dur: 2.8s; --ph: -0.2s; }
-  .vxc-spoke.s6 { --rot: 216deg; } .vxc-spoke.s6 .vxc-spike { --dur: 2.6s; --ph: -1.9s; }
-  .vxc-spoke.s7 { --rot: 252deg; } .vxc-spoke.s7 .vxc-spike { --dur: 3s;   --ph: -0.7s; }
-  .vxc-spoke.s8 { --rot: 288deg; } .vxc-spoke.s8 .vxc-spike { --dur: 2.35s; --ph: -1.4s; }
-  .vxc-spoke.s9 { --rot: 324deg; } .vxc-spoke.s9 .vxc-spike { --dur: 2.75s; --ph: -2.5s; }
+  @keyframes vxc-reach {
+    0% { transform: scaleY(0.7) translateY(2px); }
+    100% { transform: scaleY(1.3) translateY(-4px); }
+  }
+
+  .vxc-spoke.s0 { --rot: 0deg; }
+  .vxc-spoke.s1 { --rot: 36deg; }
+  .vxc-spoke.s2 { --rot: 72deg; }
+  .vxc-spoke.s3 { --rot: 108deg; }
+  .vxc-spoke.s4 { --rot: 144deg; }
+  .vxc-spoke.s5 { --rot: 180deg; }
+  .vxc-spoke.s6 { --rot: 216deg; }
+  .vxc-spoke.s7 { --rot: 252deg; }
+  .vxc-spoke.s8 { --rot: 288deg; }
+  .vxc-spoke.s9 { --rot: 324deg; }
 
   .vxc-halo {
     position: absolute;
@@ -219,9 +238,15 @@ const virusStyles = `
     width: 74px;
     height: 74px;
     margin: -37px 0 0 -37px;
-    border: 1px dashed rgba(239, 68, 68, 0.35);
+    border: 1.5px dashed rgba(239, 68, 68, 0.6);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
     border-radius: 50%;
-    animation: vx-halo 4.5s ease-in-out infinite;
+    animation: vxc-halo 1.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes vxc-halo {
+    0% { transform: scale(0.9); opacity: 0.4; }
+    100% { transform: scale(1.2); opacity: 0.95; }
   }
 `;
 
