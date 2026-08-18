@@ -26,7 +26,14 @@ const kettleStyles = {
     border: 2px solid var(--accent, #00cc00);
     border-radius: 8px 8px 22px 22px;
     background: linear-gradient(180deg, rgba(0, 60, 12, 0.45), rgba(0, 30, 6, 0.7));
-    box-shadow: inset 0 -6px 10px rgba(0, 204, 0, 0.18);
+    box-shadow: inset 0 -6px 10px rgba(0, 204, 0, 0.18), 0 0 10px rgba(0, 204, 0, 0.3);
+    transform-origin: 50% 100%;
+    animation: kettle-heave 0.28s ease-in-out infinite alternate;
+  }
+
+  @keyframes kettle-heave {
+    0% { transform: translateY(0) rotate(-1.5deg); }
+    100% { transform: translateY(-2px) rotate(1.5deg); }
   }
 
   .kettle-handle {
@@ -38,6 +45,8 @@ const kettleStyles = {
     border: 2px solid rgba(140, 255, 170, 0.85);
     border-bottom: none;
     border-radius: 16px 16px 0 0;
+    transform-origin: 50% 100%;
+    animation: kettle-heave 0.28s ease-in-out infinite alternate;
   }
 
   .kettle-lid {
@@ -47,18 +56,14 @@ const kettleStyles = {
     width: 16px;
     height: 5px;
     border-radius: 2px;
-    background: rgba(140, 255, 170, 0.9);
-    animation: kettle-rattle 5s infinite;
+    background: rgba(140, 255, 170, 0.95);
+    box-shadow: 0 0 6px #00ff66;
+    animation: kettle-rattle 0.2s ease-in-out infinite alternate;
   }
 
   @keyframes kettle-rattle {
-    0%, 55% { transform: translateY(0); }
-    58% { transform: translateY(-2px); }
-    60% { transform: translateY(0); }
-    63% { transform: translateY(-2.5px) rotate(2deg); }
-    65% { transform: translateY(0) rotate(0deg); }
-    70% { transform: translateY(-2px); }
-    72%, 100% { transform: translateY(0); }
+    0% { transform: translateY(0) rotate(-4deg); }
+    100% { transform: translateY(-4px) rotate(4deg); }
   }
 
   .kettle-spout {
@@ -78,47 +83,45 @@ const kettleStyles = {
     position: absolute;
     left: 14px;
     bottom: 52px;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(190, 255, 205, 0.55), transparent 70%);
-    filter: blur(1px);
+    background: radial-gradient(circle, rgba(214, 255, 224, 0.95), rgba(0, 204, 0, 0.6) 50%, transparent 75%);
+    box-shadow: 0 0 8px #00ff66;
+    filter: blur(0.5px);
     opacity: 0;
-    animation: kettle-steam 2.5s ease-out infinite;
+    animation: kettle-steam 1.4s ease-out infinite;
   }
 
-  .kettle-steam.p2 { animation-delay: -0.8s; left: 10px; }
-  .kettle-steam.p3 { animation-delay: -1.6s; left: 18px; }
+  .kettle-steam.p2 { animation-delay: -0.45s; left: 10px; width: 15px; height: 15px; }
+  .kettle-steam.p3 { animation-delay: -0.9s; left: 18px; width: 18px; height: 18px; }
 
   @keyframes kettle-steam {
-    0% { transform: translate(0, 0) scale(0.6) skewX(0deg); opacity: 0; }
-    15% { opacity: 0.9; }
-    60% { transform: translate(-7px, -22px) scale(1.3) skewX(-8deg); opacity: 0.5; }
-    100% { transform: translate(3px, -38px) scale(1.9) skewX(6deg); opacity: 0; }
+    0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+    20% { opacity: 1; }
+    60% { transform: translate(-10px, -24px) scale(1.6); opacity: 0.7; }
+    100% { transform: translate(-4px, -46px) scale(2.4); opacity: 0; }
   }
 
   .kettle-whistle {
     position: absolute;
     left: 6px;
     bottom: 50px;
-    width: 2px;
-    height: 8px;
-    border-radius: 1px;
-    background: #d6ffe0;
-    opacity: 0;
+    width: 3px;
+    height: 10px;
+    border-radius: 1.5px;
+    background: #ffffff;
+    box-shadow: 0 0 8px #00ff66;
     transform-origin: 50% 100%;
-    animation: kettle-whistle 5s infinite;
+    animation: kettle-whistle 0.6s ease-in-out infinite alternate;
   }
 
-  .kettle-whistle.w2 { transform: rotate(-32deg); animation-delay: 0.05s; }
-  .kettle-whistle.w3 { transform: rotate(30deg); animation-delay: 0.1s; }
+  .kettle-whistle.w2 { transform: rotate(-32deg); animation-delay: 0.1s; }
+  .kettle-whistle.w3 { transform: rotate(30deg); animation-delay: 0.2s; }
 
   @keyframes kettle-whistle {
-    0%, 54% { opacity: 0; }
-    58%, 62% { opacity: 1; }
-    64% { opacity: 0.3; }
-    66%, 70% { opacity: 1; }
-    74%, 100% { opacity: 0; }
+    0% { transform: scaleY(0.6); opacity: 0.5; }
+    100% { transform: scaleY(1.4); opacity: 1; }
   }
 
   .kettle-burner {
@@ -126,17 +129,18 @@ const kettleStyles = {
     left: 24px;
     right: 24px;
     bottom: 6px;
-    height: 4px;
-    border-radius: 2px;
+    height: 6px;
+    border-radius: 3px;
     background: repeating-linear-gradient(90deg,
-      var(--accent, #00cc00) 0 5px,
+      #00ff66 0 5px,
       transparent 5px 10px);
-    animation: kettle-burner 0.9s ease-in-out infinite;
+    box-shadow: 0 0 10px #00ff66;
+    animation: kettle-burner 0.5s ease-in-out infinite alternate;
   }
 
   @keyframes kettle-burner {
-    0%, 100% { opacity: 0.5; box-shadow: 0 0 4px rgba(0, 204, 0, 0.4); }
-    50% { opacity: 1; box-shadow: 0 0 9px rgba(0, 204, 0, 0.8); }
+    0% { opacity: 0.6; transform: scaleY(0.85); }
+    100% { opacity: 1; transform: scaleY(1.25); }
   }
   `,
   v2: `
@@ -169,7 +173,14 @@ const kettleStyles = {
     border: 2px solid #ef4444;
     border-radius: 8px 8px 22px 22px;
     background: linear-gradient(180deg, #f87171 0%, #dc2626 45%, #991b1b 85%, #64748b 100%);
-    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6), 0 4px 10px rgba(0, 0, 0, 0.8);
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6), 0 4px 10px rgba(0, 0, 0, 0.8), 0 0 10px rgba(239, 68, 68, 0.4);
+    transform-origin: 50% 100%;
+    animation: kettlec-heave 0.28s ease-in-out infinite alternate;
+  }
+
+  @keyframes kettlec-heave {
+    0% { transform: translateY(0) rotate(-1.5deg); }
+    100% { transform: translateY(-2px) rotate(1.5deg); }
   }
 
   /* Black heat-resistant arched handle with chrome mounts */
@@ -183,6 +194,8 @@ const kettleStyles = {
     border-bottom: none;
     border-radius: 16px 16px 0 0;
     box-shadow: 0 -1px 2px #94a3b8;
+    transform-origin: 50% 100%;
+    animation: kettlec-heave 0.28s ease-in-out infinite alternate;
   }
 
   /* Chrome lid with black bakelite knob */
@@ -195,18 +208,13 @@ const kettleStyles = {
     border-radius: 2px;
     background: linear-gradient(180deg, #ffffff, #cbd5e1);
     border: 1px solid #94a3b8;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-    animation: kettlec-rattle 5s infinite;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 6px rgba(255, 255, 255, 0.8);
+    animation: kettlec-rattle 0.2s ease-in-out infinite alternate;
   }
 
   @keyframes kettlec-rattle {
-    0%, 55% { transform: translateY(0); }
-    58% { transform: translateY(-2px); }
-    60% { transform: translateY(0); }
-    63% { transform: translateY(-2.5px) rotate(2deg); }
-    65% { transform: translateY(0) rotate(0deg); }
-    70% { transform: translateY(-2px); }
-    72%, 100% { transform: translateY(0); }
+    0% { transform: translateY(0) rotate(-4deg); }
+    100% { transform: translateY(-4px) rotate(4deg); }
   }
 
   /* Chrome whistling spout */
@@ -229,23 +237,24 @@ const kettleStyles = {
     position: absolute;
     left: 14px;
     bottom: 52px;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(224, 242, 254, 0.5) 50%, transparent 70%);
-    filter: blur(1px);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(224, 242, 254, 0.6) 50%, transparent 75%);
+    box-shadow: 0 0 8px #ffffff;
+    filter: blur(0.5px);
     opacity: 0;
-    animation: kettlec-steam 2.5s ease-out infinite;
+    animation: kettlec-steam 1.4s ease-out infinite;
   }
 
-  .kettlec-steam.p2 { animation-delay: -0.8s; left: 10px; }
-  .kettlec-steam.p3 { animation-delay: -1.6s; left: 18px; }
+  .kettlec-steam.p2 { animation-delay: -0.45s; left: 10px; width: 15px; height: 15px; }
+  .kettlec-steam.p3 { animation-delay: -0.9s; left: 18px; width: 18px; height: 18px; }
 
   @keyframes kettlec-steam {
-    0% { transform: translate(0, 0) scale(0.6) skewX(0deg); opacity: 0; }
-    15% { opacity: 0.95; }
-    60% { transform: translate(-7px, -22px) scale(1.3) skewX(-8deg); opacity: 0.6; }
-    100% { transform: translate(3px, -38px) scale(1.9) skewX(6deg); opacity: 0; }
+    0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+    20% { opacity: 1; }
+    60% { transform: translate(-10px, -24px) scale(1.6); opacity: 0.75; }
+    100% { transform: translate(-4px, -46px) scale(2.4); opacity: 0; }
   }
 
   /* Golden whistle music resonance rays */
@@ -253,25 +262,21 @@ const kettleStyles = {
     position: absolute;
     left: 6px;
     bottom: 50px;
-    width: 2px;
-    height: 8px;
-    border-radius: 1px;
+    width: 3px;
+    height: 10px;
+    border-radius: 1.5px;
     background: #facc15;
-    box-shadow: 0 0 6px #fde047;
-    opacity: 0;
+    box-shadow: 0 0 8px #fde047;
     transform-origin: 50% 100%;
-    animation: kettlec-whistle 5s infinite;
+    animation: kettlec-whistle 0.6s ease-in-out infinite alternate;
   }
 
-  .kettlec-whistle.w2 { transform: rotate(-32deg); animation-delay: 0.05s; }
-  .kettlec-whistle.w3 { transform: rotate(30deg); animation-delay: 0.1s; }
+  .kettlec-whistle.w2 { transform: rotate(-32deg); animation-delay: 0.1s; }
+  .kettlec-whistle.w3 { transform: rotate(30deg); animation-delay: 0.2s; }
 
   @keyframes kettlec-whistle {
-    0%, 54% { opacity: 0; }
-    58%, 62% { opacity: 1; }
-    64% { opacity: 0.3; }
-    66%, 70% { opacity: 1; }
-    74%, 100% { opacity: 0; }
+    0% { transform: scaleY(0.6); opacity: 0.5; }
+    100% { transform: scaleY(1.4); opacity: 1; }
   }
 
   /* Electric blue gas flame burner ring */
@@ -280,18 +285,18 @@ const kettleStyles = {
     left: 24px;
     right: 24px;
     bottom: 6px;
-    height: 4px;
-    border-radius: 2px;
+    height: 6px;
+    border-radius: 3px;
     background: repeating-linear-gradient(90deg,
       #38bdf8 0 5px,
       transparent 5px 10px);
-    box-shadow: 0 0 6px #0284c7;
-    animation: kettlec-burner 0.9s ease-in-out infinite;
+    box-shadow: 0 0 10px #00f0ff, 0 0 16px #38bdf8;
+    animation: kettlec-burner 0.5s ease-in-out infinite alternate;
   }
 
   @keyframes kettlec-burner {
-    0%, 100% { opacity: 0.6; box-shadow: 0 0 4px #0284c7; }
-    50% { opacity: 1; box-shadow: 0 0 10px #00f0ff, 0 0 16px #38bdf8; }
+    0% { opacity: 0.6; transform: scaleY(0.85); }
+    100% { opacity: 1; transform: scaleY(1.25); }
   }
   `,
 };

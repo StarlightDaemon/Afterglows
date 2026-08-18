@@ -11,17 +11,23 @@ const hexStyles = `
   .hex-v1 {
     width: 100px;
     height: 100px;
-    background-image: radial-gradient(var(--accent, #00cc00) 1px, transparent 1px);
+    background-image: radial-gradient(var(--accent, #00cc00) 1.5px, transparent 1.5px);
     background-size: 10px 10px;
-    mask-image: linear-gradient(0deg, transparent, #000 50%, transparent);
-    animation: scan 3s infinite;
+    mask-image: radial-gradient(circle, #000 60%, transparent 100%);
+    animation: hex-v1-spin 6s linear infinite, hex-v1-zoom 2.4s ease-in-out infinite alternate;
   }
 
-  @keyframes scan {
-    to { background-position: 0 100% }
+  @keyframes hex-v1-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
-  /* --- v2: a true honeycomb with a travelling luminance wave --- */
+  @keyframes hex-v1-zoom {
+    0% { transform: scale(0.85); }
+    100% { transform: scale(1.2); }
+  }
+
+  /* --- v2: a true honeycomb with geometric scaling & lattice rotation --- */
   .hexgrid {
     position: relative;
     width: 104px;
@@ -35,36 +41,50 @@ const hexStyles = `
     inset: 0;
     width: 100%;
     height: 100%;
+    transform-origin: 50% 50%;
+    animation: hex-lattice-spin 14s linear infinite;
+  }
+
+  @keyframes hex-lattice-spin {
+    0% { transform: rotate(0deg) scale(0.95); }
+    50% { transform: rotate(180deg) scale(1.15); }
+    100% { transform: rotate(360deg) scale(0.95); }
   }
 
   .hexgrid polygon {
-    fill: rgba(0, 204, 0, 0.03);
-    stroke: rgba(0, 204, 0, 0.4);
-    stroke-width: 1;
-    animation: hex-wave 3.6s ease-in-out infinite;
+    fill: rgba(0, 204, 0, 0.08);
+    stroke: rgba(0, 204, 0, 0.6);
+    stroke-width: 1.2;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: hex-wave 2.4s ease-in-out infinite;
   }
 
   /* Diagonal wavefront: delay grows along x+y. */
   .hexgrid polygon.w0 { animation-delay: 0s; }
-  .hexgrid polygon.w1 { animation-delay: 0.24s; }
-  .hexgrid polygon.w2 { animation-delay: 0.48s; }
-  .hexgrid polygon.w3 { animation-delay: 0.72s; }
-  .hexgrid polygon.w4 { animation-delay: 0.96s; }
-  .hexgrid polygon.w5 { animation-delay: 1.2s; }
-  .hexgrid polygon.w6 { animation-delay: 1.44s; }
+  .hexgrid polygon.w1 { animation-delay: 0.16s; }
+  .hexgrid polygon.w2 { animation-delay: 0.32s; }
+  .hexgrid polygon.w3 { animation-delay: 0.48s; }
+  .hexgrid polygon.w4 { animation-delay: 0.64s; }
+  .hexgrid polygon.w5 { animation-delay: 0.8s; }
+  .hexgrid polygon.w6 { animation-delay: 0.96s; }
 
   @keyframes hex-wave {
-    0%, 40%, 100% {
-      fill: rgba(0, 204, 0, 0.03);
-      stroke: rgba(0, 204, 0, 0.4);
-    }
-    12% {
-      fill: rgba(140, 255, 170, 0.32);
-      stroke: rgba(200, 255, 212, 0.95);
-    }
-    24% {
+    0%, 50%, 100% {
       fill: rgba(0, 204, 0, 0.08);
-      stroke: rgba(0, 204, 0, 0.55);
+      stroke: rgba(0, 204, 0, 0.6);
+      transform: scale(0.85);
+    }
+    18% {
+      fill: rgba(140, 255, 170, 0.45);
+      stroke: #00ff66;
+      filter: drop-shadow(0 0 6px #00ff66);
+      transform: scale(1.35);
+    }
+    32% {
+      fill: rgba(0, 204, 0, 0.15);
+      stroke: rgba(0, 204, 0, 0.7);
+      transform: scale(1);
     }
   }
 `;

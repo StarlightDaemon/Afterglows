@@ -21,14 +21,19 @@ const forceFieldStyles = {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 18px;
-    height: 18px;
-    margin: -9px 0 0 -9px;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
     border-radius: 4px;
-    background: linear-gradient(135deg, rgba(160, 255, 185, 0.9), rgba(30, 120, 45, 0.9));
-    box-shadow: 0 0 10px rgba(120, 255, 150, 0.5);
-    transform: rotate(45deg);
-    animation: ffield-core 3.6s ease-in-out infinite;
+    background: linear-gradient(135deg, rgba(160, 255, 185, 0.95), rgba(30, 120, 45, 0.95));
+    box-shadow: 0 0 14px rgba(0, 255, 100, 0.8);
+    animation: ffield-core-spin 4s linear infinite;
+  }
+
+  @keyframes ffield-core-spin {
+    0% { transform: rotate(0deg) scale(0.9); }
+    50% { transform: rotate(180deg) scale(1.25); }
+    100% { transform: rotate(360deg) scale(0.9); }
   }
 
   .ffield-svg {
@@ -36,76 +41,79 @@ const forceFieldStyles = {
     inset: 0;
     width: 100%;
     height: 100%;
+    transform-origin: 50% 50%;
+    animation: ffield-mesh-spin 16s linear infinite;
+  }
+
+  @keyframes ffield-mesh-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .ffield-hex {
-    fill: rgba(0, 204, 0, 0.04);
-    stroke: rgba(0, 204, 0, 0.35);
-    stroke-width: 1;
-    animation: ffield-hex 5.4s ease-in-out infinite;
+    fill: rgba(0, 204, 0, 0.08);
+    stroke: rgba(0, 204, 0, 0.5);
+    stroke-width: 1.2;
+    animation: ffield-hex 1.8s ease-in-out infinite;
   }
 
   .ffield-hex.h0 { animation-delay: 0s; }
-  .ffield-hex.h1 { animation-delay: 0.14s; }
-  .ffield-hex.h2 { animation-delay: 0.28s; }
-  .ffield-hex.h3 { animation-delay: 0.42s; }
+  .ffield-hex.h1 { animation-delay: 0.2s; }
+  .ffield-hex.h2 { animation-delay: 0.4s; }
+  .ffield-hex.h3 { animation-delay: 0.6s; }
 
   .ffield-bolt {
     position: absolute;
-    top: -6px;
-    right: 2px;
-    width: 3px;
-    height: 3px;
+    top: 2px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: #e6ffe9;
-    box-shadow: 0 0 8px 2px rgba(220, 255, 228, 0.9);
+    background: #ffffff;
+    box-shadow: 0 0 10px 3px #00ff66;
     opacity: 0;
-    animation: ffield-bolt 5.4s ease-in infinite;
+    animation: ffield-bolt 1.8s ease-in infinite;
   }
 
   .ffield-impact {
     position: absolute;
-    top: 26px;
-    left: 66px;
-    width: 6px;
-    height: 6px;
+    top: 28px;
+    left: 64px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(240, 255, 244, 1), rgba(160, 255, 185, 0.4) 70%);
+    background: radial-gradient(circle, #ffffff, rgba(0, 255, 100, 0.6) 60%, transparent);
     opacity: 0;
-    animation: ffield-impact 5.4s ease-out infinite;
-  }
-
-  @keyframes ffield-core {
-    0%, 100% { transform: rotate(45deg) scale(0.95); }
-    50% { transform: rotate(45deg) scale(1.08); }
+    animation: ffield-impact 1.8s ease-out infinite;
   }
 
   @keyframes ffield-hex {
-    0%, 20% {
-      fill: rgba(0, 204, 0, 0.04);
-      stroke: rgba(0, 204, 0, 0.35);
+    0%, 30% {
+      fill: rgba(0, 204, 0, 0.08);
+      stroke: rgba(0, 204, 0, 0.5);
     }
-    26% {
-      fill: rgba(140, 255, 170, 0.3);
-      stroke: rgba(190, 255, 205, 0.95);
+    45% {
+      fill: rgba(140, 255, 170, 0.45);
+      stroke: #00ff66;
+      filter: drop-shadow(0 0 4px #00ff66);
     }
-    38%, 100% {
-      fill: rgba(0, 204, 0, 0.04);
-      stroke: rgba(0, 204, 0, 0.35);
+    60%, 100% {
+      fill: rgba(0, 204, 0, 0.08);
+      stroke: rgba(0, 204, 0, 0.5);
     }
   }
 
   @keyframes ffield-bolt {
-    0%, 8% { opacity: 0; transform: translate(0, 0); }
-    12% { opacity: 1; }
-    20% { opacity: 1; transform: translate(-30px, 30px); }
-    22%, 100% { opacity: 0; transform: translate(-32px, 32px); }
+    0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+    15% { opacity: 1; }
+    45% { opacity: 1; transform: translate(-36px, 36px) scale(1.2); }
+    50%, 100% { opacity: 0; transform: translate(-42px, 42px) scale(1.4); }
   }
 
   @keyframes ffield-impact {
-    0%, 20% { opacity: 0; transform: scale(0.4); }
-    24% { opacity: 1; transform: scale(1.6); }
-    34%, 100% { opacity: 0; transform: scale(2.6); }
+    0%, 45% { opacity: 0; transform: scale(0.3); }
+    52% { opacity: 1; transform: scale(1.8); }
+    75%, 100% { opacity: 0; transform: scale(3.2); }
   }
   `,
   v2: `
@@ -136,14 +144,19 @@ const forceFieldStyles = {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 18px;
-    height: 18px;
-    margin: -9px 0 0 -9px;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
     border-radius: 4px;
     background: linear-gradient(135deg, #f472b6 0%, #c084fc 50%, #7e22ce 100%);
     box-shadow: 0 0 14px #c084fc, 0 0 24px #ec4899;
-    transform: rotate(45deg);
-    animation: ffieldc-core 3.6s ease-in-out infinite;
+    animation: ffieldc-core-spin 4s linear infinite;
+  }
+
+  @keyframes ffieldc-core-spin {
+    0% { transform: rotate(0deg) scale(0.9); }
+    50% { transform: rotate(180deg) scale(1.25); }
+    100% { transform: rotate(360deg) scale(0.9); }
   }
 
   .ffieldc-svg {
@@ -151,82 +164,83 @@ const forceFieldStyles = {
     inset: 0;
     width: 100%;
     height: 100%;
+    transform-origin: 50% 50%;
+    animation: ffieldc-mesh-spin 16s linear infinite;
+  }
+
+  @keyframes ffieldc-mesh-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Cyan hexagonal forcefield mesh */
   .ffieldc-hex {
-    fill: rgba(6, 182, 212, 0.05);
-    stroke: rgba(56, 189, 248, 0.4);
-    stroke-width: 1;
-    animation: ffieldc-hex 5.4s ease-in-out infinite;
+    fill: rgba(6, 182, 212, 0.08);
+    stroke: rgba(56, 189, 248, 0.5);
+    stroke-width: 1.2;
+    animation: ffieldc-hex 1.8s ease-in-out infinite;
   }
 
   .ffieldc-hex.h0 { animation-delay: 0s; }
-  .ffieldc-hex.h1 { animation-delay: 0.14s; }
-  .ffieldc-hex.h2 { animation-delay: 0.28s; }
-  .ffieldc-hex.h3 { animation-delay: 0.42s; }
+  .ffieldc-hex.h1 { animation-delay: 0.2s; }
+  .ffieldc-hex.h2 { animation-delay: 0.4s; }
+  .ffieldc-hex.h3 { animation-delay: 0.6s; }
 
   /* Red/Orange plasma projectile bolt */
   .ffieldc-bolt {
     position: absolute;
-    top: -6px;
-    right: 2px;
-    width: 4px;
-    height: 4px;
+    top: 2px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 8px 3px #f97316, 0 0 14px #ef4444;
+    box-shadow: 0 0 10px 3px #f97316, 0 0 16px #ef4444;
     opacity: 0;
-    animation: ffieldc-bolt 5.4s ease-in infinite;
+    animation: ffieldc-bolt 1.8s ease-in infinite;
   }
 
   /* Deflection flare impact */
   .ffieldc-impact {
     position: absolute;
-    top: 26px;
-    left: 66px;
-    width: 8px;
-    height: 8px;
+    top: 28px;
+    left: 64px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: radial-gradient(circle, #ffffff 0%, #fde047 40%, #ea580c 80%);
-    box-shadow: 0 0 14px #facc15, 0 0 20px #f97316;
+    box-shadow: 0 0 14px #facc15, 0 0 24px #f97316;
     opacity: 0;
-    animation: ffieldc-impact 5.4s ease-out infinite;
-  }
-
-  @keyframes ffieldc-core {
-    0%, 100% { transform: rotate(45deg) scale(0.95); }
-    50% { transform: rotate(45deg) scale(1.12); }
+    animation: ffieldc-impact 1.8s ease-out infinite;
   }
 
   @keyframes ffieldc-hex {
-    0%, 20% {
-      fill: rgba(6, 182, 212, 0.05);
-      stroke: rgba(56, 189, 248, 0.4);
+    0%, 30% {
+      fill: rgba(6, 182, 212, 0.08);
+      stroke: rgba(56, 189, 248, 0.5);
     }
-    26% {
-      fill: rgba(56, 189, 248, 0.4);
+    45% {
+      fill: rgba(56, 189, 248, 0.5);
       stroke: #00f0ff;
-      filter: drop-shadow(0 0 4px #00f0ff);
+      filter: drop-shadow(0 0 6px #00f0ff);
     }
-    38%, 100% {
-      fill: rgba(6, 182, 212, 0.05);
-      stroke: rgba(56, 189, 248, 0.4);
-      filter: none;
+    60%, 100% {
+      fill: rgba(6, 182, 212, 0.08);
+      stroke: rgba(56, 189, 248, 0.5);
     }
   }
 
   @keyframes ffieldc-bolt {
-    0%, 8% { opacity: 0; transform: translate(0, 0); }
-    12% { opacity: 1; }
-    20% { opacity: 1; transform: translate(-30px, 30px); }
-    22%, 100% { opacity: 0; transform: translate(-32px, 32px); }
+    0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+    15% { opacity: 1; }
+    45% { opacity: 1; transform: translate(-36px, 36px) scale(1.2); }
+    50%, 100% { opacity: 0; transform: translate(-42px, 42px) scale(1.4); }
   }
 
   @keyframes ffieldc-impact {
-    0%, 20% { opacity: 0; transform: scale(0.4); }
-    24% { opacity: 1; transform: scale(1.8); }
-    34%, 100% { opacity: 0; transform: scale(3); }
+    0%, 45% { opacity: 0; transform: scale(0.3); }
+    52% { opacity: 1; transform: scale(1.8); }
+    75%, 100% { opacity: 0; transform: scale(3.2); }
   }
   `,
 };

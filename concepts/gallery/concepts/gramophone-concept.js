@@ -77,18 +77,18 @@ const gramophoneStyles = {
     position: absolute;
     left: 48px;
     bottom: 22px;
-    width: 18px;
-    height: 12px;
-    border-top: 2px solid rgba(140, 255, 170, 0.9);
-    border-left: 2px solid rgba(140, 255, 170, 0.9);
+    width: 22px;
+    height: 14px;
+    border-top: 2.5px solid rgba(140, 255, 170, 0.95);
+    border-left: 2.5px solid rgba(140, 255, 170, 0.95);
     border-radius: 4px 0 0 0;
     transform-origin: right bottom;
-    animation: gram-needle-jitter 0.15s ease-in-out infinite alternate;
+    animation: gram-needle-track 3.2s ease-in-out infinite alternate;
   }
 
-  @keyframes gram-needle-jitter {
-    0% { transform: rotate(-1.5deg); }
-    100% { transform: rotate(2.5deg) translateY(-1.5px); }
+  @keyframes gram-needle-track {
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(14deg); }
   }
 
   .gram-horn-rig {
@@ -97,12 +97,13 @@ const gramophoneStyles = {
     top: 10px;
     width: 68px;
     height: 58px;
-    animation: gram-horn-vibe 0.3s ease-in-out infinite alternate;
+    transform-origin: 10px 48px;
+    animation: gram-horn-vibe 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes gram-horn-vibe {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(1.5px, -1.5px) rotate(1.5deg); }
+    0% { transform: scale(0.92) rotate(-6deg); }
+    100% { transform: scale(1.18) rotate(6deg); }
   }
 
   .gram-neck {
@@ -132,31 +133,28 @@ const gramophoneStyles = {
   .gram-wave {
     position: absolute;
     right: -4px;
-    top: 6px;
-    width: 14px;
-    height: 36px;
-    border-right: 3.5px solid rgba(140, 255, 170, 0.95);
-    border-radius: 0 18px 18px 0;
-    box-shadow: 2px 0 6px rgba(140, 255, 170, 0.5);
-    animation: gram-wave-radiate 1.8s cubic-bezier(0.2, 0.7, 0.4, 1) infinite;
+    top: 4px;
+    width: 18px;
+    height: 40px;
+    border-right: 4px solid rgba(140, 255, 170, 0.95);
+    border-radius: 0 20px 20px 0;
+    box-shadow: 2px 0 8px rgba(140, 255, 170, 0.8);
+    animation: gram-wave-radiate 1.4s cubic-bezier(0.2, 0.7, 0.4, 1) infinite;
     pointer-events: none;
   }
 
   .gram-wave.w1 { animation-delay: 0s; }
-  .gram-wave.w2 { animation-delay: -0.6s; }
-  .gram-wave.w3 { animation-delay: -1.2s; }
+  .gram-wave.w2 { animation-delay: -0.45s; }
+  .gram-wave.w3 { animation-delay: -0.9s; }
 
   @keyframes gram-wave-radiate {
     0% {
-      opacity: 0.95;
-      transform: translate(-10px, 0) scale(0.5);
-    }
-    60% {
-      opacity: 0.7;
+      opacity: 1;
+      transform: translate(-10px, 0) scale(0.4);
     }
     100% {
       opacity: 0;
-      transform: translate(22px, 0) scale(1.6);
+      transform: translate(32px, 0) scale(2);
     }
   }
   `,
@@ -249,18 +247,18 @@ const gramophoneStyles = {
     position: absolute;
     left: 48px;
     bottom: 22px;
-    width: 18px;
-    height: 12px;
-    border-top: 2px solid #facc15;
-    border-left: 2px solid #facc15;
+    width: 22px;
+    height: 14px;
+    border-top: 2.5px solid #facc15;
+    border-left: 2.5px solid #facc15;
     border-radius: 4px 0 0 0;
     transform-origin: right bottom;
-    animation: gramc-needle-jitter 0.15s ease-in-out infinite alternate;
+    animation: gramc-needle-track 3.2s ease-in-out infinite alternate;
   }
 
-  @keyframes gramc-needle-jitter {
-    0% { transform: rotate(-1.5deg); }
-    100% { transform: rotate(2.5deg) translateY(-1.5px); }
+  @keyframes gramc-needle-track {
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(14deg); }
   }
 
   /* Brass horn assembly with acoustic shudder */
@@ -270,12 +268,13 @@ const gramophoneStyles = {
     top: 10px;
     width: 68px;
     height: 58px;
-    animation: gramc-horn-vibe 0.3s ease-in-out infinite alternate;
+    transform-origin: 10px 48px;
+    animation: gramc-horn-vibe 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes gramc-horn-vibe {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(1.5px, -1.5px) rotate(1.5deg); }
+    0% { transform: scale(0.92) rotate(-6deg); }
+    100% { transform: scale(1.18) rotate(6deg); }
   }
 
   /* Curved brass conduit neck */
@@ -307,31 +306,28 @@ const gramophoneStyles = {
   .gramc-wave {
     position: absolute;
     right: -4px;
-    top: 6px;
-    width: 14px;
-    height: 36px;
-    border-right: 3.5px solid #fde047;
-    border-radius: 0 18px 18px 0;
-    box-shadow: 2px 0 8px rgba(250, 204, 21, 0.7);
-    animation: gramc-wave-radiate 1.8s cubic-bezier(0.2, 0.7, 0.4, 1) infinite;
+    top: 4px;
+    width: 18px;
+    height: 40px;
+    border-right: 4px solid #fde047;
+    border-radius: 0 20px 20px 0;
+    box-shadow: 2px 0 10px rgba(250, 204, 21, 0.9);
+    animation: gramc-wave-radiate 1.4s cubic-bezier(0.2, 0.7, 0.4, 1) infinite;
     pointer-events: none;
   }
 
   .gramc-wave.w1 { animation-delay: 0s; }
-  .gramc-wave.w2 { animation-delay: -0.6s; }
-  .gramc-wave.w3 { animation-delay: -1.2s; }
+  .gramc-wave.w2 { animation-delay: -0.45s; }
+  .gramc-wave.w3 { animation-delay: -0.9s; }
 
   @keyframes gramc-wave-radiate {
     0% {
-      opacity: 0.95;
-      transform: translate(-10px, 0) scale(0.5);
-    }
-    60% {
-      opacity: 0.7;
+      opacity: 1;
+      transform: translate(-10px, 0) scale(0.4);
     }
     100% {
       opacity: 0;
-      transform: translate(22px, 0) scale(1.6);
+      transform: translate(32px, 0) scale(2);
     }
   }
   `,

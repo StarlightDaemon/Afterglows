@@ -25,21 +25,21 @@ const flamingosStyles = {
 
   .flam-ripple {
     position: absolute;
-    left: 48px;
+    left: 40px;
     bottom: 8px;
-    width: 28px;
-    height: 6px;
+    width: 36px;
+    height: 8px;
     border-radius: 50%;
-    border: 1px solid rgba(140, 255, 170, 0.8);
-    animation: flam-ripple-wash 3.8s ease-out infinite;
+    border: 1.5px solid rgba(140, 255, 170, 0.9);
+    animation: flam-ripple-wash 2.4s ease-out infinite;
     pointer-events: none;
   }
 
   @keyframes flam-ripple-wash {
-    0%, 40% { opacity: 0; transform: scale(0.2); }
-    55% { opacity: 0.9; transform: scale(1); }
-    80% { opacity: 0; transform: scale(1.8); }
-    100% { opacity: 0; }
+    0% { opacity: 0; transform: scale(0.2); }
+    30% { opacity: 1; transform: scale(0.8); }
+    70% { opacity: 0.5; transform: scale(1.8); }
+    100% { opacity: 0; transform: scale(2.4); }
   }
 
   .flam-leg-stand {
@@ -71,14 +71,12 @@ const flamingosStyles = {
     width: 50px;
     height: 52px;
     transform-origin: 21px 48px;
-    animation: flam-balance 3.8s ease-in-out infinite;
+    animation: flam-balance 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes flam-balance {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-3.5deg); }
-    50% { transform: rotate(2deg); }
-    75% { transform: rotate(-1.5deg); }
+    0% { transform: rotate(-12deg) translateY(-2px); }
+    100% { transform: rotate(12deg) translateY(2px); }
   }
 
   .flam-torso {
@@ -110,13 +108,14 @@ const flamingosStyles = {
     width: 26px;
     height: 36px;
     transform-origin: 18px 30px;
-    animation: flam-neck-dip 3.8s ease-in-out infinite;
+    animation: flam-neck-dip 2.4s ease-in-out infinite;
   }
 
   @keyframes flam-neck-dip {
-    0%, 100% { transform: rotate(0deg); }
-    45%, 60% { transform: rotate(18deg) translate(-2px, 8px); }
-    80% { transform: rotate(-4deg); }
+    0% { transform: rotate(0deg) translate(0, 0); }
+    35% { transform: rotate(38deg) translate(-10px, 24px); }
+    70% { transform: rotate(-12deg) translate(4px, -6px); }
+    100% { transform: rotate(0deg) translate(0, 0); }
   }
 
   .flam-neck {
@@ -187,22 +186,22 @@ const flamingosStyles = {
   /* Lagoon dipping ripples */
   .flamc-ripple {
     position: absolute;
-    left: 48px;
+    left: 40px;
     bottom: 8px;
-    width: 28px;
-    height: 6px;
+    width: 36px;
+    height: 8px;
     border-radius: 50%;
-    border: 1px solid rgba(244, 114, 182, 0.8);
-    box-shadow: 0 0 4px rgba(56, 189, 248, 0.6);
-    animation: flamc-ripple-wash 3.8s ease-out infinite;
+    border: 1.5px solid rgba(244, 114, 182, 0.9);
+    box-shadow: 0 0 6px rgba(56, 189, 248, 0.8);
+    animation: flamc-ripple-wash 2.4s ease-out infinite;
     pointer-events: none;
   }
 
   @keyframes flamc-ripple-wash {
-    0%, 40% { opacity: 0; transform: scale(0.2); }
-    55% { opacity: 0.9; transform: scale(1); }
-    80% { opacity: 0; transform: scale(1.8); }
-    100% { opacity: 0; }
+    0% { opacity: 0; transform: scale(0.2); }
+    30% { opacity: 1; transform: scale(0.8); }
+    70% { opacity: 0.5; transform: scale(1.8); }
+    100% { opacity: 0; transform: scale(2.4); }
   }
 
   /* Standing stilt leg */
@@ -237,14 +236,12 @@ const flamingosStyles = {
     width: 50px;
     height: 52px;
     transform-origin: 21px 48px;
-    animation: flamc-balance 3.8s ease-in-out infinite;
+    animation: flamc-balance 2.4s ease-in-out infinite alternate;
   }
 
   @keyframes flamc-balance {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-3.5deg); }
-    50% { transform: rotate(2deg); }
-    75% { transform: rotate(-1.5deg); }
+    0% { transform: rotate(-12deg) translateY(-2px); }
+    100% { transform: rotate(12deg) translateY(2px); }
   }
 
   /* Coral-salmon torso body */
@@ -279,13 +276,14 @@ const flamingosStyles = {
     width: 26px;
     height: 36px;
     transform-origin: 18px 30px;
-    animation: flamc-neck-dip 3.8s ease-in-out infinite;
+    animation: flamc-neck-dip 2.4s ease-in-out infinite;
   }
 
   @keyframes flamc-neck-dip {
-    0%, 100% { transform: rotate(0deg); }
-    45%, 60% { transform: rotate(18deg) translate(-2px, 8px); }
-    80% { transform: rotate(-4deg); }
+    0% { transform: rotate(0deg) translate(0, 0); }
+    35% { transform: rotate(38deg) translate(-10px, 24px); }
+    70% { transform: rotate(-12deg) translate(4px, -6px); }
+    100% { transform: rotate(0deg) translate(0, 0); }
   }
 
   /* S-curve neck arch */

@@ -21,15 +21,15 @@ const ghostStyles = {
     position: relative;
     width: 46px;
     height: 58px;
-    animation: ghost-float 4.2s ease-in-out infinite, ghost-phase 8.4s ease-in-out infinite;
+    animation: ghost-float 2.4s ease-in-out infinite;
   }
 
   .ghost-body {
     position: absolute;
     inset: 0;
     border-radius: 23px 23px 0 0;
-    background: linear-gradient(180deg, rgba(210, 255, 220, 0.55) 0%, rgba(140, 255, 170, 0.3) 70%, rgba(120, 255, 150, 0.12) 100%);
-    box-shadow: inset 0 0 12px rgba(220, 255, 228, 0.35), 0 0 16px rgba(0, 204, 0, 0.2);
+    background: linear-gradient(180deg, rgba(210, 255, 220, 0.7) 0%, rgba(140, 255, 170, 0.45) 70%, rgba(120, 255, 150, 0.25) 100%);
+    box-shadow: inset 0 0 12px rgba(220, 255, 228, 0.5), 0 0 18px rgba(0, 255, 100, 0.45);
     filter: blur(0.4px);
   }
 
@@ -39,14 +39,14 @@ const ghostStyles = {
     width: 15px;
     height: 14px;
     border-radius: 0 0 50% 50%;
-    background: rgba(140, 255, 170, 0.22);
+    background: rgba(140, 255, 170, 0.4);
     transform-origin: top center;
-    animation: ghost-tail 2.6s ease-in-out infinite;
+    animation: ghost-tail 1.4s ease-in-out infinite alternate;
   }
 
   .ghost-tail.t1 { left: 0; animation-delay: 0s; }
-  .ghost-tail.t2 { left: 15px; animation-delay: -0.9s; height: 17px; }
-  .ghost-tail.t3 { left: 31px; animation-delay: -1.7s; }
+  .ghost-tail.t2 { left: 15px; animation-delay: -0.4s; height: 17px; }
+  .ghost-tail.t3 { left: 31px; animation-delay: -0.8s; }
 
   .ghost-eye {
     position: absolute;
@@ -56,7 +56,7 @@ const ghostStyles = {
     border-radius: 50%;
     background: #020a04;
     box-shadow: inset 0 0 3px rgba(0, 204, 0, 0.6);
-    animation: ghost-eyes 8.4s ease-in-out infinite;
+    animation: ghost-eyes 2.4s ease-in-out infinite;
   }
 
   .ghost-eye.left { left: 11px; }
@@ -71,59 +71,53 @@ const ghostStyles = {
     margin-left: -3px;
     border-radius: 50%;
     background: #020a04;
-    animation: ghost-mouth 4.2s ease-in-out infinite;
+    animation: ghost-mouth 2.4s ease-in-out infinite alternate;
   }
 
   .ghost-wisp {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background: rgba(190, 255, 205, 0.7);
-    filter: blur(0.5px);
+    background: rgba(190, 255, 205, 0.9);
+    box-shadow: 0 0 8px #00ff66;
     opacity: 0;
-    animation: ghost-wisp 3.4s ease-out infinite;
+    animation: ghost-wisp 2.2s ease-out infinite;
   }
 
   .ghost-wisp.w1 { left: 22px; bottom: 30px; animation-delay: 0s; }
-  .ghost-wisp.w2 { left: 74px; bottom: 40px; animation-delay: -1.2s; }
-  .ghost-wisp.w3 { left: 50px; bottom: 22px; animation-delay: -2.3s; }
+  .ghost-wisp.w2 { left: 74px; bottom: 40px; animation-delay: -0.7s; }
+  .ghost-wisp.w3 { left: 50px; bottom: 22px; animation-delay: -1.4s; }
 
   @keyframes ghost-float {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-9px) rotate(2.5deg); }
-  }
-
-  @keyframes ghost-phase {
-    0%, 34%, 100% { opacity: 1; }
-    46% { opacity: 0.25; }
-    52% { opacity: 0.55; }
-    58% { opacity: 0.2; }
-    72% { opacity: 1; }
+    0% { transform: translate(-14px, 12px) rotate(-8deg) scale(0.95); }
+    25% { transform: translate(12px, -14px) rotate(6deg) scale(1.08); }
+    50% { transform: translate(16px, 8px) rotate(-6deg) scale(0.98); }
+    75% { transform: translate(-10px, -12px) rotate(8deg) scale(1.05); }
+    100% { transform: translate(-14px, 12px) rotate(-8deg) scale(0.95); }
   }
 
   @keyframes ghost-tail {
-    0%, 100% { transform: skewX(-8deg) scaleY(1); }
-    50% { transform: skewX(9deg) scaleY(1.18); }
+    0% { transform: skewX(-24deg) scaleY(0.85); }
+    100% { transform: skewX(24deg) scaleY(1.4); }
   }
 
   @keyframes ghost-eyes {
-    0%, 40%, 100% { transform: translateX(0); }
-    12% { transform: translateX(-2.5px); }
-    26% { transform: translateX(2.5px); }
-    46% { transform: scaleY(0.1); }
-    49% { transform: scaleY(1); }
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: scaleY(0.2); }
   }
 
   @keyframes ghost-mouth {
-    0%, 100% { transform: scaleY(0.55); }
-    50% { transform: scaleY(1.25); }
+    0% { transform: scaleY(0.6); }
+    100% { transform: scaleY(1.4); }
   }
 
   @keyframes ghost-wisp {
-    0% { opacity: 0; transform: translate(0, 0) scale(1); }
-    18% { opacity: 0.85; }
-    100% { opacity: 0; transform: translate(4px, -26px) scale(0.4); }
+    0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+    20% { opacity: 1; transform: translate(2px, -8px) scale(1.2); }
+    100% { opacity: 0; transform: translate(8px, -36px) scale(0.4); }
   }
   `,
   v2: `
@@ -153,7 +147,7 @@ const ghostStyles = {
     position: relative;
     width: 46px;
     height: 58px;
-    animation: ghostc-float 4.2s ease-in-out infinite, ghostc-phase 8.4s ease-in-out infinite;
+    animation: ghostc-float 2.4s ease-in-out infinite;
   }
 
   /* Ectoplasmic glowing body */
@@ -176,12 +170,12 @@ const ghostStyles = {
     background: rgba(103, 232, 249, 0.4);
     box-shadow: 0 0 8px #38bdf8;
     transform-origin: top center;
-    animation: ghostc-tail 2.6s ease-in-out infinite;
+    animation: ghostc-tail 1.4s ease-in-out infinite alternate;
   }
 
   .ghostc-tail.t1 { left: 0; animation-delay: 0s; }
-  .ghostc-tail.t2 { left: 15px; animation-delay: -0.9s; height: 17px; }
-  .ghostc-tail.t3 { left: 31px; animation-delay: -1.7s; }
+  .ghostc-tail.t2 { left: 15px; animation-delay: -0.4s; height: 17px; }
+  .ghostc-tail.t3 { left: 31px; animation-delay: -0.8s; }
 
   /* Dark hollow eyes with glowing cyan rims */
   .ghostc-eye {
@@ -192,7 +186,7 @@ const ghostStyles = {
     border-radius: 50%;
     background: #020617;
     box-shadow: inset 0 0 4px #00f0ff, 0 0 6px #38bdf8;
-    animation: ghostc-eyes 8.4s ease-in-out infinite;
+    animation: ghostc-eyes 2.4s ease-in-out infinite;
   }
 
   .ghostc-eye.left { left: 11px; }
@@ -209,61 +203,54 @@ const ghostStyles = {
     border-radius: 50%;
     background: #020617;
     box-shadow: inset 0 0 3px #00f0ff;
-    animation: ghostc-mouth 4.2s ease-in-out infinite;
+    animation: ghostc-mouth 2.4s ease-in-out infinite alternate;
   }
 
   /* Drifting spirit dust wisps */
   .ghostc-wisp {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: #67e8f9;
-    box-shadow: 0 0 6px #00f0ff;
-    filter: blur(0.5px);
+    box-shadow: 0 0 10px #00f0ff, 0 0 16px #38bdf8;
     opacity: 0;
-    animation: ghostc-wisp 3.4s ease-out infinite;
+    animation: ghostc-wisp 2.2s ease-out infinite;
   }
 
   .ghostc-wisp.w1 { left: 22px; bottom: 30px; animation-delay: 0s; }
-  .ghostc-wisp.w2 { left: 74px; bottom: 40px; animation-delay: -1.2s; }
-  .ghostc-wisp.w3 { left: 50px; bottom: 22px; animation-delay: -2.3s; }
+  .ghostc-wisp.w2 { left: 74px; bottom: 40px; animation-delay: -0.7s; }
+  .ghostc-wisp.w3 { left: 50px; bottom: 22px; animation-delay: -1.4s; }
 
   @keyframes ghostc-float {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-9px) rotate(2.5deg); }
-  }
-
-  @keyframes ghostc-phase {
-    0%, 34%, 100% { opacity: 0.95; }
-    46% { opacity: 0.25; }
-    52% { opacity: 0.65; }
-    58% { opacity: 0.2; }
-    72% { opacity: 0.95; }
+    0% { transform: translate(-14px, 12px) rotate(-8deg) scale(0.95); }
+    25% { transform: translate(12px, -14px) rotate(6deg) scale(1.08); }
+    50% { transform: translate(16px, 8px) rotate(-6deg) scale(0.98); }
+    75% { transform: translate(-10px, -12px) rotate(8deg) scale(1.05); }
+    100% { transform: translate(-14px, 12px) rotate(-8deg) scale(0.95); }
   }
 
   @keyframes ghostc-tail {
-    0%, 100% { transform: skewX(-8deg) scaleY(1); }
-    50% { transform: skewX(9deg) scaleY(1.18); }
+    0% { transform: skewX(-24deg) scaleY(0.85); }
+    100% { transform: skewX(24deg) scaleY(1.4); }
   }
 
   @keyframes ghostc-eyes {
-    0%, 40%, 100% { transform: translateX(0); }
-    12% { transform: translateX(-2.5px); }
-    26% { transform: translateX(2.5px); }
-    46% { transform: scaleY(0.1); }
-    49% { transform: scaleY(1); }
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: scaleY(0.2); }
   }
 
   @keyframes ghostc-mouth {
-    0%, 100% { transform: scaleY(0.55); }
-    50% { transform: scaleY(1.25); }
+    0% { transform: scaleY(0.6); }
+    100% { transform: scaleY(1.4); }
   }
 
   @keyframes ghostc-wisp {
-    0% { opacity: 0; transform: translate(0, 0) scale(1); }
-    18% { opacity: 0.95; }
-    100% { opacity: 0; transform: translate(4px, -26px) scale(0.4); }
+    0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+    20% { opacity: 1; transform: translate(2px, -8px) scale(1.2); }
+    100% { opacity: 0; transform: translate(8px, -36px) scale(0.4); }
   }
   `,
 };

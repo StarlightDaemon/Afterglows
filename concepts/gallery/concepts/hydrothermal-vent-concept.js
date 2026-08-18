@@ -33,9 +33,16 @@ const hydrothermalVentStyles = {
     width: 28px;
     height: 48px;
     clip-path: polygon(18% 0%, 82% 0%, 94% 28%, 84% 54%, 100% 100%, 0% 100%, 14% 58%, 6% 24%);
-    background: linear-gradient(180deg, rgba(0, 150, 30, 0.9), rgba(0, 60, 12, 0.95));
+    background: linear-gradient(180deg, rgba(0, 150, 30, 0.95), rgba(0, 60, 12, 0.98));
     border: 1px solid var(--accent, #00cc00);
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 255, 100, 0.3);
+    transform-origin: bottom center;
+    animation: vent-chimney-quake 0.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes vent-chimney-quake {
+    0% { transform: rotate(-1.5deg) translateY(0); }
+    100% { transform: rotate(1.5deg) translateY(-2px); }
   }
 
   .vent-throat {
@@ -45,15 +52,15 @@ const hydrothermalVentStyles = {
     width: 22px;
     height: 6px;
     border-radius: 50%;
-    background: radial-gradient(ellipse at center, rgba(190, 255, 205, 0.95), rgba(0, 204, 0, 0.8) 60%, transparent);
-    box-shadow: 0 0 10px rgba(140, 255, 170, 0.8);
+    background: radial-gradient(ellipse at center, #ffffff, rgba(0, 255, 100, 0.9) 60%, transparent);
+    box-shadow: 0 0 12px #00ff66;
     z-index: 3;
-    animation: vent-glow 1.8s ease-in-out infinite;
+    animation: vent-glow 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes vent-glow {
-    0%, 100% { opacity: 0.8; transform: scaleX(1); }
-    50% { opacity: 1; transform: scaleX(1.15); filter: drop-shadow(0 0 6px rgba(140, 255, 170, 1)); }
+    0% { opacity: 0.8; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1.25); filter: drop-shadow(0 0 8px #00ff66); }
   }
 
   .vent-puff {
@@ -61,30 +68,29 @@ const hydrothermalVentStyles = {
     left: 48px;
     top: 34px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(140, 255, 170, 0.85), rgba(0, 140, 30, 0.6) 40%, rgba(0, 40, 8, 0.9) 70%, transparent);
-    border: 1px solid rgba(140, 255, 170, 0.4);
-    animation: vent-billow 2.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+    background: radial-gradient(circle, rgba(214, 255, 224, 0.95), rgba(0, 204, 0, 0.75) 45%, rgba(0, 40, 8, 0.9) 75%, transparent);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 10px #00ff66;
+    animation: vent-billow 1.6s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
   }
 
   .vent-puff.p1 { width: 14px; height: 14px; animation-delay: 0s; }
-  .vent-puff.p2 { width: 18px; height: 18px; animation-delay: -0.7s; }
-  .vent-puff.p3 { width: 22px; height: 22px; animation-delay: -1.4s; }
-  .vent-puff.p4 { width: 26px; height: 26px; animation-delay: -2.1s; }
+  .vent-puff.p2 { width: 18px; height: 18px; animation-delay: -0.4s; }
+  .vent-puff.p3 { width: 22px; height: 22px; animation-delay: -0.8s; }
+  .vent-puff.p4 { width: 26px; height: 26px; animation-delay: -1.2s; }
 
   @keyframes vent-billow {
     0% {
-      opacity: 0.95;
+      opacity: 1;
       transform: translate(0, 0) scale(0.6);
-      filter: blur(0);
     }
     50% {
-      opacity: 0.8;
-      transform: translate(calc(-8px + var(--shift, 4px)), -22px) scale(1.6);
+      opacity: 0.85;
+      transform: translate(calc(-10px + var(--shift, 4px)), -26px) scale(1.6);
     }
     100% {
       opacity: 0;
-      transform: translate(calc(-14px + var(--shift, 8px)), -42px) scale(2.6);
-      filter: blur(2px);
+      transform: translate(calc(-18px + var(--shift, 8px)), -50px) scale(2.8);
     }
   }
 
@@ -95,38 +101,38 @@ const hydrothermalVentStyles = {
 
   .vent-shrimp {
     position: absolute;
-    width: 6px;
-    height: 3px;
-    border-radius: 2px 4px 4px 1px;
-    background: rgba(190, 255, 205, 0.95);
-    box-shadow: 0 0 4px rgba(140, 255, 170, 0.8);
+    width: 10px;
+    height: 5px;
+    border-radius: 3px 6px 6px 2px;
+    background: rgba(214, 255, 224, 1);
+    box-shadow: 0 0 8px rgba(0, 255, 100, 0.9);
     z-index: 4;
   }
 
   .vent-shrimp.s1 {
-    left: 32px;
+    left: 28px;
     bottom: 22px;
-    animation: vent-scuttle-1 3.5s ease-in-out infinite;
+    animation: vent-scuttle-1 2.4s ease-in-out infinite;
   }
 
   .vent-shrimp.s2 {
-    left: 74px;
+    left: 76px;
     bottom: 18px;
-    animation: vent-scuttle-2 4.2s ease-in-out infinite;
+    animation: vent-scuttle-2 2.8s ease-in-out infinite;
   }
 
   @keyframes vent-scuttle-1 {
     0%, 100% { transform: translate(0, 0) scaleX(1); }
-    25% { transform: translate(6px, -4px) scaleX(1); }
-    50% { transform: translate(10px, -2px) scaleX(-1); }
-    75% { transform: translate(2px, 0) scaleX(-1); }
+    25% { transform: translate(14px, -8px) scaleX(1); }
+    50% { transform: translate(22px, -4px) scaleX(-1); }
+    75% { transform: translate(6px, 0) scaleX(-1); }
   }
 
   @keyframes vent-scuttle-2 {
     0%, 100% { transform: translate(0, 0) scaleX(-1); }
-    30% { transform: translate(-8px, -3px) scaleX(-1); }
-    60% { transform: translate(-4px, 2px) scaleX(1); }
-    85% { transform: translate(4px, 0) scaleX(1); }
+    30% { transform: translate(-16px, -6px) scaleX(-1); }
+    60% { transform: translate(-8px, 4px) scaleX(1); }
+    85% { transform: translate(10px, 0) scaleX(1); }
   }
   `,
   v2: `
@@ -172,7 +178,14 @@ const hydrothermalVentStyles = {
     clip-path: polygon(18% 0%, 82% 0%, 94% 28%, 84% 54%, 100% 100%, 0% 100%, 14% 58%, 6% 24%);
     background: linear-gradient(180deg, #78350f 0%, #451a03 40%, #18181b 100%);
     border: 1px solid #a16207;
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.9);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.9), 0 0 10px rgba(234, 88, 12, 0.4);
+    transform-origin: bottom center;
+    animation: ventc-chimney-quake 0.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes ventc-chimney-quake {
+    0% { transform: rotate(-1.5deg) translateY(0); }
+    100% { transform: rotate(1.5deg) translateY(-2px); }
   }
 
   /* Superheated geothermal magma throat orifice */
@@ -184,14 +197,14 @@ const hydrothermalVentStyles = {
     height: 6px;
     border-radius: 50%;
     background: radial-gradient(ellipse at center, #ffffff 0%, #facc15 30%, #ea580c 70%, transparent 100%);
-    box-shadow: 0 0 12px #ea580c, 0 0 18px #facc15;
+    box-shadow: 0 0 14px #ea580c, 0 0 20px #facc15;
     z-index: 3;
-    animation: ventc-glow 1.8s ease-in-out infinite;
+    animation: ventc-glow 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes ventc-glow {
-    0%, 100% { opacity: 0.85; transform: scaleX(1); }
-    50% { opacity: 1; transform: scaleX(1.15); filter: drop-shadow(0 0 8px #f97316); }
+    0% { opacity: 0.85; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1.25); filter: drop-shadow(0 0 10px #f97316); }
   }
 
   /* Billowing dark sulfide & mineral smoke plume */
@@ -200,31 +213,29 @@ const hydrothermalVentStyles = {
     left: 48px;
     top: 34px;
     border-radius: 50%;
-    background: radial-gradient(circle, #334155 0%, #1e293b 40%, #09090b 70%, transparent 100%);
-    border: 1px solid rgba(148, 163, 184, 0.3);
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
-    animation: ventc-billow 2.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+    background: radial-gradient(circle, #f97316 0%, #ea580c 25%, #334155 55%, #09090b 80%, transparent 100%);
+    border: 1px solid rgba(249, 115, 22, 0.6);
+    box-shadow: 0 0 10px rgba(234, 88, 12, 0.6);
+    animation: ventc-billow 1.6s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
   }
 
   .ventc-puff.p1 { width: 14px; height: 14px; animation-delay: 0s; }
-  .ventc-puff.p2 { width: 18px; height: 18px; animation-delay: -0.7s; }
-  .ventc-puff.p3 { width: 22px; height: 22px; animation-delay: -1.4s; }
-  .ventc-puff.p4 { width: 26px; height: 26px; animation-delay: -2.1s; }
+  .ventc-puff.p2 { width: 18px; height: 18px; animation-delay: -0.4s; }
+  .ventc-puff.p3 { width: 22px; height: 22px; animation-delay: -0.8s; }
+  .ventc-puff.p4 { width: 26px; height: 26px; animation-delay: -1.2s; }
 
   @keyframes ventc-billow {
     0% {
-      opacity: 0.95;
+      opacity: 1;
       transform: translate(0, 0) scale(0.6);
-      filter: blur(0);
     }
     50% {
       opacity: 0.85;
-      transform: translate(calc(-8px + var(--shift, 4px)), -22px) scale(1.6);
+      transform: translate(calc(-10px + var(--shift, 4px)), -26px) scale(1.6);
     }
     100% {
       opacity: 0;
-      transform: translate(calc(-14px + var(--shift, 8px)), -42px) scale(2.6);
-      filter: blur(2px);
+      transform: translate(calc(-18px + var(--shift, 8px)), -50px) scale(2.8);
     }
   }
 
@@ -236,38 +247,38 @@ const hydrothermalVentStyles = {
   /* Pale bioluminescent hydrothermal shrimp */
   .ventc-shrimp {
     position: absolute;
-    width: 6px;
-    height: 3px;
-    border-radius: 2px 4px 4px 1px;
-    background: #ffedd5;
-    box-shadow: 0 0 4px #fdba74;
+    width: 10px;
+    height: 5px;
+    border-radius: 3px 6px 6px 2px;
+    background: #ffffff;
+    box-shadow: 0 0 8px #fdba74, 0 0 12px #f97316;
     z-index: 4;
   }
 
   .ventc-shrimp.s1 {
-    left: 32px;
+    left: 28px;
     bottom: 22px;
-    animation: ventc-scuttle-1 3.5s ease-in-out infinite;
+    animation: ventc-scuttle-1 2.4s ease-in-out infinite;
   }
 
   .ventc-shrimp.s2 {
-    left: 74px;
+    left: 76px;
     bottom: 18px;
-    animation: ventc-scuttle-2 4.2s ease-in-out infinite;
+    animation: ventc-scuttle-2 2.8s ease-in-out infinite;
   }
 
   @keyframes ventc-scuttle-1 {
     0%, 100% { transform: translate(0, 0) scaleX(1); }
-    25% { transform: translate(6px, -4px) scaleX(1); }
-    50% { transform: translate(10px, -2px) scaleX(-1); }
-    75% { transform: translate(2px, 0) scaleX(-1); }
+    25% { transform: translate(14px, -8px) scaleX(1); }
+    50% { transform: translate(22px, -4px) scaleX(-1); }
+    75% { transform: translate(6px, 0) scaleX(-1); }
   }
 
   @keyframes ventc-scuttle-2 {
     0%, 100% { transform: translate(0, 0) scaleX(-1); }
-    30% { transform: translate(-8px, -3px) scaleX(-1); }
-    60% { transform: translate(-4px, 2px) scaleX(1); }
-    85% { transform: translate(4px, 0) scaleX(1); }
+    30% { transform: translate(-16px, -6px) scaleX(-1); }
+    60% { transform: translate(-8px, 4px) scaleX(1); }
+    85% { transform: translate(10px, 0) scaleX(1); }
   }
   `,
 };

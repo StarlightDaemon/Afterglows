@@ -126,9 +126,9 @@ const graveyardStyles = {
     position: absolute;
     top: 0;
     left: 0;
-    width: 10px;
-    height: 4px;
-    animation: gy-bat 7s linear infinite;
+    width: 18px;
+    height: 8px;
+    animation: gy-bat 2.8s ease-in-out infinite;
   }
 
   .gy-bat::before,
@@ -136,10 +136,11 @@ const graveyardStyles = {
     content: '';
     position: absolute;
     top: 0;
-    width: 5px;
-    height: 4px;
-    background: #164722;
-    animation: gy-flap 0.34s ease-in-out infinite alternate;
+    width: 9px;
+    height: 8px;
+    background: #00ff66;
+    box-shadow: 0 0 6px #00ff66;
+    animation: gy-flap 0.22s ease-in-out infinite alternate;
   }
 
   .gy-bat::before {
@@ -162,42 +163,41 @@ const graveyardStyles = {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: radial-gradient(circle at 42% 36%, #e6ffd2 0%, #9bd88a 75%);
-    box-shadow: 0 0 16px rgba(216, 255, 187, 0.35);
-    animation: gy-moon 8s ease-in-out infinite;
+    background: radial-gradient(circle at 42% 36%, #ffffff 0%, #a7f3d0 75%);
+    box-shadow: 0 0 16px rgba(0, 255, 100, 0.6);
+    animation: gy-moon 3.2s ease-in-out infinite alternate;
   }
 
   @keyframes gy-fog-a {
-    0% { transform: translate(-60px, 0); }
-    100% { transform: translate(120px, -4px); }
+    0% { transform: translate(-40px, 0); }
+    100% { transform: translate(110px, -4px); }
   }
 
   @keyframes gy-fog-b {
-    0% { transform: translate(110px, 0); }
-    100% { transform: translate(-60px, -5px); }
+    0% { transform: translate(100px, 0); }
+    100% { transform: translate(-40px, -5px); }
   }
 
   @keyframes gy-bat {
-    0% { transform: translate(-12px, 34px); }
-    22% { transform: translate(26px, 20px); }
-    44% { transform: translate(52px, 30px); }
-    66% { transform: translate(74px, 16px); }
-    100% { transform: translate(116px, 26px); }
+    0% { transform: translate(-20px, 14px) rotate(15deg); }
+    30% { transform: translate(24px, 40px) rotate(-10deg) scale(1.2); }
+    60% { transform: translate(68px, 10px) rotate(18deg) scale(0.9); }
+    100% { transform: translate(118px, 28px) rotate(-12deg); }
   }
 
   @keyframes gy-flap {
-    from { transform: rotate(-24deg); }
-    to { transform: rotate(26deg); }
+    from { transform: rotate(-35deg); }
+    to { transform: rotate(38deg); }
   }
 
   @keyframes gy-flap-r {
-    from { transform: rotate(24deg); }
-    to { transform: rotate(-26deg); }
+    from { transform: rotate(35deg); }
+    to { transform: rotate(-38deg); }
   }
 
   @keyframes gy-moon {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; }
+    0% { transform: translateY(-2px) scale(0.95); }
+    100% { transform: translateY(2px) scale(1.1); }
   }
   `,
   v2: `
@@ -340,9 +340,9 @@ const graveyardStyles = {
     position: absolute;
     top: 0;
     left: 0;
-    width: 10px;
-    height: 4px;
-    animation: gyc-bat 7s linear infinite;
+    width: 18px;
+    height: 8px;
+    animation: gyc-bat 2.8s ease-in-out infinite;
   }
 
   .gyc-bat::before,
@@ -350,11 +350,11 @@ const graveyardStyles = {
     content: '';
     position: absolute;
     top: 0;
-    width: 5px;
-    height: 4px;
-    background: #020617;
-    box-shadow: 0 0 2px #38bdf8;
-    animation: gyc-flap 0.34s ease-in-out infinite alternate;
+    width: 9px;
+    height: 8px;
+    background: #00f0ff;
+    box-shadow: 0 0 8px #00f0ff;
+    animation: gyc-flap 0.22s ease-in-out infinite alternate;
   }
 
   .gyc-bat::before {
@@ -380,40 +380,39 @@ const graveyardStyles = {
     border-radius: 50%;
     background: radial-gradient(circle at 42% 36%, #fffbeb 0%, #fde047 50%, #eab308 100%);
     box-shadow: 0 0 16px #facc15, 0 0 24px #eab308;
-    animation: gyc-moon 8s ease-in-out infinite;
+    animation: gyc-moon 3.2s ease-in-out infinite alternate;
   }
 
   @keyframes gyc-fog-a {
-    0% { transform: translate(-60px, 0); }
-    100% { transform: translate(120px, -4px); }
+    0% { transform: translate(-40px, 0); }
+    100% { transform: translate(110px, -4px); }
   }
 
   @keyframes gyc-fog-b {
-    0% { transform: translate(110px, 0); }
-    100% { transform: translate(-60px, -5px); }
+    0% { transform: translate(100px, 0); }
+    100% { transform: translate(-40px, -5px); }
   }
 
   @keyframes gyc-bat {
-    0% { transform: translate(-12px, 34px); }
-    22% { transform: translate(26px, 20px); }
-    44% { transform: translate(52px, 30px); }
-    66% { transform: translate(74px, 16px); }
-    100% { transform: translate(116px, 26px); }
+    0% { transform: translate(-20px, 14px) rotate(15deg); }
+    30% { transform: translate(24px, 40px) rotate(-10deg) scale(1.2); }
+    60% { transform: translate(68px, 10px) rotate(18deg) scale(0.9); }
+    100% { transform: translate(118px, 28px) rotate(-12deg); }
   }
 
   @keyframes gyc-flap {
-    from { transform: rotate(-24deg); }
-    to { transform: rotate(26deg); }
+    from { transform: rotate(-35deg); }
+    to { transform: rotate(38deg); }
   }
 
   @keyframes gyc-flap-r {
-    from { transform: rotate(24deg); }
-    to { transform: rotate(-26deg); }
+    from { transform: rotate(35deg); }
+    to { transform: rotate(-38deg); }
   }
 
   @keyframes gyc-moon {
-    0%, 100% { opacity: 0.85; }
-    50% { opacity: 1; }
+    0% { transform: translateY(-2px) scale(0.95); }
+    100% { transform: translateY(2px) scale(1.1); }
   }
   `,
 };

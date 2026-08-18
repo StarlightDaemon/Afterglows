@@ -12,8 +12,8 @@ const invaderStyles = {
     width: 66px;
     height: 48px;
     position: relative;
-    filter: drop-shadow(0 0 6px rgba(0, 204, 0, 0.35));
-    animation: invader-shuffle 3.2s steps(1) infinite;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 100, 0.8));
+    animation: invader-march 2.2s ease-in-out infinite;
   }
 
   .invader-frame {
@@ -23,7 +23,7 @@ const invaderStyles = {
     width: 6px;
     height: 6px;
     background: transparent;
-    animation: invader-swap 0.8s steps(1) infinite;
+    animation: invader-swap 0.36s steps(1) infinite;
   }
 
   .invader-frame.a {
@@ -39,7 +39,7 @@ const invaderStyles = {
   }
 
   .invader-frame.b {
-    animation-delay: -0.4s;
+    animation-delay: -0.18s;
     box-shadow:
       12px 0 var(--accent, #00cc00), 48px 0 var(--accent, #00cc00),
       0 6px var(--accent, #00cc00), 18px 6px var(--accent, #00cc00), 42px 6px var(--accent, #00cc00), 60px 6px var(--accent, #00cc00),
@@ -56,12 +56,12 @@ const invaderStyles = {
     50%, 100% { opacity: 0; }
   }
 
-  @keyframes invader-shuffle {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(6px); }
-    50% { transform: translateX(0); }
-    75% { transform: translateX(-6px); }
-    100% { transform: translateX(0); }
+  @keyframes invader-march {
+    0% { transform: translate(-22px, -8px); }
+    25% { transform: translate(22px, -8px); }
+    50% { transform: translate(22px, 8px); }
+    75% { transform: translate(-22px, 8px); }
+    100% { transform: translate(-22px, -8px); }
   }
   `,
   v2: `
@@ -101,8 +101,8 @@ const invaderStyles = {
     width: 66px;
     height: 48px;
     position: relative;
-    filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.9));
-    animation: invaderc-shuffle 3.2s steps(1) infinite;
+    filter: drop-shadow(0 0 10px #00f0ff);
+    animation: invaderc-march 2.2s ease-in-out infinite;
   }
 
   .invaderc-frame {
@@ -112,7 +112,7 @@ const invaderStyles = {
     width: 6px;
     height: 6px;
     background: transparent;
-    animation: invaderc-swap 0.8s steps(1) infinite;
+    animation: invaderc-swap 0.36s steps(1) infinite;
   }
 
   /* Frame A in vivid electric cyan phosphor pixels */
@@ -130,7 +130,7 @@ const invaderStyles = {
 
   /* Frame B in electric cyan phosphor pixels */
   .invaderc-frame.b {
-    animation-delay: -0.4s;
+    animation-delay: -0.18s;
     box-shadow:
       12px 0 #00f0ff, 48px 0 #00f0ff,
       0 6px #00f0ff, 18px 6px #00f0ff, 42px 6px #00f0ff, 60px 6px #00f0ff,
@@ -147,12 +147,12 @@ const invaderStyles = {
     50%, 100% { opacity: 0; }
   }
 
-  @keyframes invaderc-shuffle {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(6px); }
-    50% { transform: translateX(0); }
-    75% { transform: translateX(-6px); }
-    100% { transform: translateX(0); }
+  @keyframes invaderc-march {
+    0% { transform: translate(-22px, -8px); }
+    25% { transform: translate(22px, -8px); }
+    50% { transform: translate(22px, 8px); }
+    75% { transform: translate(-22px, 8px); }
+    100% { transform: translate(-22px, -8px); }
   }
   `,
 };
