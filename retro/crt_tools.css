@@ -21,7 +21,7 @@
              --crt-fringe --crt-vignette --crt-curve-x --crt-curve-y
              --crt-sweep  --crt-sweep-speed  --crt-noise
      Archetypes [data-crt-archetype=
-             "default|studio|consumer|worn|terminal|vector"]
+             "default|studio|consumer|worn|terminal|vector|arcade|hires|radar|surveillance|portable"]
      Every knob defaults to the previous literal value — omit them all
      and the rendering is pixel-identical to the prior revision.
    ========================================= */
@@ -227,6 +227,111 @@
     --crt-sweep: 0.4;
     --crt-sweep-speed: 8s;
     --crt-noise: 0.3;
+}
+
+/* Arcade — 15kHz standard-resolution (240p) coin-op RGB chassis.
+   Progressive scanning with blank alternate fields creates wide, deep
+   black gaps between scanlines. Driven at high luminance for dark arcade
+   rooms (punchy bloom). Direct RGB wiring yields minimal composite fringe,
+   steady 60Hz frame rate, low noise, and spherical bubble-tube geometry. */
+[data-crt-archetype="arcade"] {
+    --crt-scanline-gap: 6px;
+    --crt-scanline-dark: rgba(0, 0, 0, 0.42);
+    --crt-flicker-gap: 3px;
+    --crt-flicker-speed: 0.16s;
+    --crt-flicker-depth: 0.02;
+    --crt-bloom: 1.55;
+    --crt-fringe: 0.65;
+    --crt-vignette: 1.25;
+    --crt-curve-x: 14px;
+    --crt-curve-y: 18px;
+    --crt-sweep: 0.5;
+    --crt-sweep-speed: 6s;
+    --crt-noise: 0.25;
+}
+
+/* High-Res PC — 90s/2000s multisync workstation & desktop CRT (VGA/XGA).
+   High horizontal scan rates (31kHz+) produce an ultra-fine, barely visible
+   raster pitch. Non-interlaced high refresh (75-85Hz) gives virtually zero
+   flicker. Precision beam gun and shadow mask/grille ensure tight, razor-sharp
+   focus with minimal halation. Near-flat glass faceplate and clean shielded signal. */
+[data-crt-archetype="hires"] {
+    --crt-scanline-gap: 2px;
+    --crt-scanline-dark: rgba(0, 0, 0, 0.10);
+    --crt-flicker-gap: 2px;
+    --crt-flicker-speed: 0.06s;
+    --crt-flicker-depth: 0.006;
+    --crt-bloom: 0.42;
+    --crt-fringe: 0.15;
+    --crt-vignette: 0.35;
+    --crt-curve-x: 2px;
+    --crt-curve-y: 2px;
+    --crt-sweep: 0.15;
+    --crt-sweep-speed: 10s;
+    --crt-noise: 0.08;
+}
+
+/* Radar — long-persistence PPI / avionics & sonar cascade tube.
+   Slow rotating radial/raster sweep creates a massive, drifting refresh trace.
+   Dual-layer cascade phosphor exhibits deep lingering halation and afterglow.
+   Single-color beam has zero chromatic aberration. Deeply curved circular dome
+   glass with heavy hood vignette, accompanied by receiver RF clutter/noise. */
+[data-crt-archetype="radar"] {
+    --crt-scanline-gap: 4px;
+    --crt-scanline-dark: rgba(0, 0, 0, 0.35);
+    --crt-flicker-gap: 3px;
+    --crt-flicker-speed: 0.25s;
+    --crt-flicker-depth: 0.04;
+    --crt-bloom: 2.2;
+    --crt-fringe: 0;
+    --crt-vignette: 1.85;
+    --crt-curve-x: 24px;
+    --crt-curve-y: 28px;
+    --crt-sweep: 3.0;
+    --crt-sweep-speed: 9.5s;
+    --crt-noise: 0.95;
+}
+
+/* Surveillance — 24/7 security CCTV installation monitor.
+   Long analog BNC composite coax cable runs suffer AC ground-loop hum
+   (a fast rolling sweep bar) and high transmission noise/snow. Continuous duty
+   produces moderate phosphor aging bloom. 60Hz field flicker, distinct industrial
+   scanlines, low chroma fringing, and heavy security chassis bezel falloff. */
+[data-crt-archetype="surveillance"] {
+    --crt-scanline-gap: 4px;
+    --crt-scanline-dark: rgba(0, 0, 0, 0.30);
+    --crt-flicker-gap: 3px;
+    --crt-flicker-speed: 0.10s;
+    --crt-flicker-depth: 0.065;
+    --crt-bloom: 1.1;
+    --crt-fringe: 0.1;
+    --crt-vignette: 1.45;
+    --crt-curve-x: 15px;
+    --crt-curve-y: 20px;
+    --crt-sweep: 1.8;
+    --crt-sweep-speed: 1.8s;
+    --crt-noise: 1.15;
+}
+
+/* Portable — miniature 3-5" field-service test CRT & camcorder viewfinder.
+   Small screen diagonal produces a steep apparent physical curvature ratio and
+   deep optical hood vignette. High beam drive current for outdoor readability
+   causes dense phosphor bloom. Battery voltage ripple creates noticeable RF static,
+   periodic sweep drift, and slight line-rate jitter. */
+[data-crt-archetype="portable"] {
+    --crt-scanline-gap: 3px;
+    --crt-scanline-dark: rgba(0, 0, 0, 0.38);
+    --crt-flicker-gap: 2px;
+    --crt-flicker-speed: 0.13s;
+    --crt-flicker-depth: 0.055;
+    --crt-bloom: 1.45;
+    --crt-fringe: 0.2;
+    --crt-vignette: 1.6;
+    --crt-curve-x: 18px;
+    --crt-curve-y: 18px;
+    --crt-sweep: 1.4;
+    --crt-sweep-speed: 3.0s;
+    --crt-noise: 1.1;
 }
 
 /* --- 1. SCANLINES --- */
