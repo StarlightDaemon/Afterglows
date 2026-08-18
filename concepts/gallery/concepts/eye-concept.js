@@ -61,7 +61,7 @@ const eyeStyles = {
     border: 1.5px solid rgba(160, 255, 185, 0.75);
     box-shadow: 0 0 10px rgba(0, 204, 0, 0.55);
     box-sizing: border-box;
-    animation: eye-saccade 5.5s ease-in-out infinite;
+    animation: eye-saccade 2.4s ease-in-out infinite;
   }
 
   .eye-pupil {
@@ -74,7 +74,7 @@ const eyeStyles = {
     border-radius: 50%;
     background: #010803;
     box-shadow: inset 0 0 4px rgba(0, 204, 0, 0.6);
-    animation: eye-dilate 5.5s ease-in-out infinite;
+    animation: eye-dilate 2.4s ease-in-out infinite;
   }
 
   .eye-glint {
@@ -101,37 +101,40 @@ const eyeStyles = {
     top: -56%;
     border-radius: 0 0 50% 50% / 0 0 100% 100%;
     border-bottom: 1px solid rgba(140, 255, 170, 0.55);
-    animation: eye-blink-top 5.5s ease-in-out infinite;
+    animation: eye-blink-top 2.4s ease-in-out infinite;
   }
 
   .eye-lid.bottom {
     bottom: -56%;
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     border-top: 1px solid rgba(140, 255, 170, 0.45);
-    animation: eye-blink-bottom 5.5s ease-in-out infinite;
+    animation: eye-blink-bottom 2.4s ease-in-out infinite;
   }
 
   @keyframes eye-saccade {
-    0%, 18%, 100% { transform: translate(0, 0); }
-    24%, 38% { transform: translate(-17px, 2px); }
-    44%, 60% { transform: translate(15px, -2px); }
-    66%, 90% { transform: translate(0, 0); }
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-20px, 4px); }
+    40% { transform: translate(18px, -4px); }
+    60% { transform: translate(-14px, -6px); }
+    80% { transform: translate(16px, 6px); }
+    100% { transform: translate(0, 0); }
   }
 
   @keyframes eye-dilate {
-    0%, 20%, 100% { transform: scale(1); }
-    30%, 44% { transform: scale(0.7); }
-    58%, 74% { transform: scale(1.25); }
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(0.65); }
+    50% { transform: scale(1.35); }
+    75% { transform: scale(0.7); }
   }
 
   @keyframes eye-blink-top {
-    0%, 74%, 84%, 100% { transform: translateY(0); }
-    78%, 80% { transform: translateY(100%); }
+    0%, 42%, 48%, 88%, 94%, 100% { transform: translateY(0); }
+    45%, 91% { transform: translateY(100%); }
   }
 
   @keyframes eye-blink-bottom {
-    0%, 74%, 84%, 100% { transform: translateY(0); }
-    78%, 80% { transform: translateY(-100%); }
+    0%, 42%, 48%, 88%, 94%, 100% { transform: translateY(0); }
+    45%, 91% { transform: translateY(-100%); }
   }
   `,
 
@@ -179,7 +182,7 @@ const eyeStyles = {
     border: 1.5px solid rgba(160, 255, 185, 0.75);
     box-shadow: 0 0 10px rgba(0, 204, 0, 0.55);
     box-sizing: border-box;
-    animation: eye-saccade 5.5s ease-in-out infinite;
+    animation: eye-saccade 2.4s ease-in-out infinite;
   }
 
   .eye-pupil {
@@ -192,7 +195,7 @@ const eyeStyles = {
     border-radius: 50%;
     background: #010803;
     box-shadow: inset 0 0 4px rgba(0, 204, 0, 0.6);
-    animation: eye-dilate 5.5s ease-in-out infinite;
+    animation: eye-dilate 2.4s ease-in-out infinite;
   }
 
   .eye-glint {
@@ -219,14 +222,14 @@ const eyeStyles = {
     top: -56%;
     border-radius: 0 0 50% 50% / 0 0 100% 100%;
     border-bottom: 1px solid rgba(140, 255, 170, 0.55);
-    animation: eye-blink-top 5.5s ease-in-out infinite;
+    animation: eye-blink-top 2.4s ease-in-out infinite;
   }
 
   .eye-lid.bottom {
     bottom: -56%;
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     border-top: 1px solid rgba(140, 255, 170, 0.45);
-    animation: eye-blink-bottom 5.5s ease-in-out infinite;
+    animation: eye-blink-bottom 2.4s ease-in-out infinite;
   }
 
   /* The crease curve eats into the lid's own corners faster than the
@@ -251,26 +254,29 @@ const eyeStyles = {
   }
 
   @keyframes eye-saccade {
-    0%, 18%, 100% { transform: translate(0, 0); }
-    24%, 38% { transform: translate(-14px, 2px); }
-    44%, 60% { transform: translate(14px, -2px); }
-    66%, 90% { transform: translate(0, 0); }
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-20px, 4px); }
+    40% { transform: translate(18px, -4px); }
+    60% { transform: translate(-14px, -6px); }
+    80% { transform: translate(16px, 6px); }
+    100% { transform: translate(0, 0); }
   }
 
   @keyframes eye-dilate {
-    0%, 20%, 100% { transform: scale(1); }
-    30%, 44% { transform: scale(0.7); }
-    58%, 74% { transform: scale(1.25); }
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(0.65); }
+    50% { transform: scale(1.35); }
+    75% { transform: scale(0.7); }
   }
 
   @keyframes eye-blink-top {
-    0%, 74%, 84%, 100% { transform: translateY(0); }
-    78%, 80% { transform: translateY(100%); }
+    0%, 42%, 48%, 88%, 94%, 100% { transform: translateY(0); }
+    45%, 91% { transform: translateY(100%); }
   }
 
   @keyframes eye-blink-bottom {
-    0%, 74%, 84%, 100% { transform: translateY(0); }
-    78%, 80% { transform: translateY(-100%); }
+    0%, 42%, 48%, 88%, 94%, 100% { transform: translateY(0); }
+    45%, 91% { transform: translateY(-100%); }
   }
   `,
 };

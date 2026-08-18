@@ -21,17 +21,16 @@ const etchASketchStyles = {
     background: linear-gradient(180deg, rgba(0, 140, 30, 0.9), rgba(0, 45, 10, 0.98));
     border: 2px solid var(--accent, #00cc00);
     box-shadow: 0 0 10px rgba(0, 204, 0, 0.35);
-    animation: eas-shake 5.5s ease-in-out infinite;
+    animation: eas-shake 2.4s ease-in-out infinite;
   }
 
   @keyframes eas-shake {
-    0%, 75% { transform: translate(0, 0) rotate(0deg); }
-    78% { transform: translate(-6px, 0) rotate(-3deg); }
-    81% { transform: translate(6px, 0) rotate(3deg); }
-    84% { transform: translate(-6px, 0) rotate(-3deg); }
-    87% { transform: translate(6px, 0) rotate(3deg); }
-    90% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
+    0%, 48% { transform: translate(0, 0) rotate(0deg); }
+    54% { transform: translate(-8px, -3px) rotate(-5deg); }
+    62% { transform: translate(8px, 3px) rotate(5deg); }
+    70% { transform: translate(-8px, 3px) rotate(-5deg); }
+    78% { transform: translate(8px, -3px) rotate(5deg); }
+    86%, 100% { transform: translate(0, 0) rotate(0deg); }
   }
 
   .eas-screen {
@@ -50,13 +49,13 @@ const etchASketchStyles = {
   .eas-path {
     position: absolute;
     inset: 0;
-    animation: eas-erase 5.5s ease-in-out infinite;
+    animation: eas-erase 2.4s ease-in-out infinite;
   }
 
   @keyframes eas-erase {
-    0%, 75% { opacity: 1; }
-    85%, 95% { opacity: 0; }
-    100% { opacity: 1; }
+    0%, 50% { opacity: 1; }
+    65%, 85% { opacity: 0; }
+    95%, 100% { opacity: 1; }
   }
 
   .eas-seg {
@@ -65,65 +64,64 @@ const etchASketchStyles = {
     box-shadow: 0 0 4px rgba(140, 255, 170, 0.9);
   }
 
-  .eas-seg.h1 { left: 10px; top: 14px; width: 24px; height: 2px; animation: eas-draw-h1 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
-  .eas-seg.v1 { left: 32px; top: 14px; width: 2px; height: 18px; animation: eas-draw-v1 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
-  .eas-seg.h2 { left: 32px; top: 30px; width: 28px; height: 2px; animation: eas-draw-h2 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
-  .eas-seg.v2 { left: 58px; bottom: 20px; width: 2px; height: 10px; animation: eas-draw-v2 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
-  .eas-seg.h3 { left: 58px; top: 22px; width: 18px; height: 2px; animation: eas-draw-h3 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+  .eas-seg.h1 { left: 10px; top: 14px; width: 24px; height: 2px; animation: eas-draw-h1 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+  .eas-seg.v1 { left: 32px; top: 14px; width: 2px; height: 18px; animation: eas-draw-v1 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+  .eas-seg.h2 { left: 32px; top: 30px; width: 28px; height: 2px; animation: eas-draw-h2 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+  .eas-seg.v2 { left: 58px; bottom: 20px; width: 2px; height: 10px; animation: eas-draw-v2 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+  .eas-seg.h3 { left: 58px; top: 22px; width: 18px; height: 2px; animation: eas-draw-h3 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
 
   @keyframes eas-draw-h1 {
     0% { width: 0; }
-    15% { width: 24px; }
-    75% { width: 24px; }
-    85%, 100% { width: 0; }
+    12% { width: 24px; }
+    50% { width: 24px; }
+    60%, 100% { width: 0; }
   }
 
   @keyframes eas-draw-v1 {
-    0%, 15% { height: 0; }
-    30% { height: 18px; }
-    75% { height: 18px; }
-    85%, 100% { height: 0; }
+    0%, 12% { height: 0; }
+    22% { height: 18px; }
+    50% { height: 18px; }
+    60%, 100% { height: 0; }
   }
 
   @keyframes eas-draw-h2 {
-    0%, 30% { width: 0; }
-    45% { width: 28px; }
-    75% { width: 28px; }
-    85%, 100% { width: 0; }
+    0%, 22% { width: 0; }
+    34% { width: 28px; }
+    50% { width: 28px; }
+    60%, 100% { width: 0; }
   }
 
   @keyframes eas-draw-v2 {
-    0%, 45% { height: 0; }
-    60% { height: 10px; }
-    75% { height: 10px; }
-    85%, 100% { height: 0; }
+    0%, 34% { height: 0; }
+    42% { height: 10px; }
+    50% { height: 10px; }
+    60%, 100% { height: 0; }
   }
 
   @keyframes eas-draw-h3 {
-    0%, 60% { width: 0; }
-    70% { width: 18px; }
-    75% { width: 18px; }
-    85%, 100% { width: 0; }
+    0%, 42% { width: 0; }
+    50% { width: 18px; }
+    60%, 100% { width: 0; }
   }
 
   .eas-stylus {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: rgba(190, 255, 205, 1);
-    box-shadow: 0 0 6px rgba(140, 255, 170, 1);
-    animation: eas-trace 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    box-shadow: 0 0 8px rgba(140, 255, 170, 1);
+    animation: eas-trace 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
   }
 
   @keyframes eas-trace {
     0% { left: 10px; top: 13px; }
-    15% { left: 32px; top: 13px; }
-    30% { left: 32px; top: 29px; }
-    45% { left: 58px; top: 29px; }
-    60% { left: 58px; top: 21px; }
-    70%, 75% { left: 74px; top: 21px; opacity: 1; }
-    85%, 95% { opacity: 0; }
+    12% { left: 32px; top: 13px; }
+    22% { left: 32px; top: 29px; }
+    34% { left: 58px; top: 29px; }
+    42% { left: 58px; top: 21px; }
+    50% { left: 74px; top: 21px; opacity: 1; }
+    60%, 85% { opacity: 0; }
     100% { left: 10px; top: 13px; opacity: 1; }
   }
 
@@ -140,30 +138,29 @@ const etchASketchStyles = {
 
   .eas-knob.kl {
     left: 10px;
-    animation: eas-knob-spin-l 5.5s linear infinite;
+    animation: eas-knob-spin-l 2.4s linear infinite;
   }
 
   .eas-knob.kr {
     right: 10px;
-    animation: eas-knob-spin-r 5.5s linear infinite;
+    animation: eas-knob-spin-r 2.4s linear infinite;
   }
 
   @keyframes eas-knob-spin-l {
     0% { transform: rotate(0deg); }
-    15% { transform: rotate(180deg); }
-    30% { transform: rotate(180deg); }
-    45% { transform: rotate(360deg); }
-    60% { transform: rotate(360deg); }
-    70%, 100% { transform: rotate(540deg); }
+    12% { transform: rotate(180deg); }
+    22% { transform: rotate(180deg); }
+    34% { transform: rotate(360deg); }
+    50%, 100% { transform: rotate(540deg); }
   }
 
   @keyframes eas-knob-spin-r {
     0% { transform: rotate(0deg); }
-    15% { transform: rotate(0deg); }
-    30% { transform: rotate(180deg); }
-    45% { transform: rotate(180deg); }
-    60% { transform: rotate(-90deg); }
-    70%, 100% { transform: rotate(-90deg); }
+    12% { transform: rotate(0deg); }
+    22% { transform: rotate(180deg); }
+    34% { transform: rotate(180deg); }
+    42% { transform: rotate(-90deg); }
+    50%, 100% { transform: rotate(-90deg); }
   }
   `,
   v2: `
@@ -194,17 +191,16 @@ const etchASketchStyles = {
     background: linear-gradient(180deg, #ef4444 0%, #dc2626 60%, #991b1b 100%);
     border: 2px solid #f87171;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8), inset 0 1px 2px #fecaca;
-    animation: easc-shake 5.5s ease-in-out infinite;
+    animation: easc-shake 2.4s ease-in-out infinite;
   }
 
   @keyframes easc-shake {
-    0%, 75% { transform: translate(0, 0) rotate(0deg); }
-    78% { transform: translate(-6px, 0) rotate(-3deg); }
-    81% { transform: translate(6px, 0) rotate(3deg); }
-    84% { transform: translate(-6px, 0) rotate(-3deg); }
-    87% { transform: translate(6px, 0) rotate(3deg); }
-    90% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
+    0%, 48% { transform: translate(0, 0) rotate(0deg); }
+    54% { transform: translate(-8px, -3px) rotate(-5deg); }
+    62% { transform: translate(8px, 3px) rotate(5deg); }
+    70% { transform: translate(-8px, 3px) rotate(-5deg); }
+    78% { transform: translate(8px, -3px) rotate(5deg); }
+    86%, 100% { transform: translate(0, 0) rotate(0deg); }
   }
 
   /* Aluminum powder screen with gold border */
@@ -225,13 +221,13 @@ const etchASketchStyles = {
   .easc-path {
     position: absolute;
     inset: 0;
-    animation: easc-erase 5.5s ease-in-out infinite;
+    animation: easc-erase 2.4s ease-in-out infinite;
   }
 
   @keyframes easc-erase {
-    0%, 75% { opacity: 1; }
-    85%, 95% { opacity: 0; }
-    100% { opacity: 1; }
+    0%, 50% { opacity: 1; }
+    65%, 85% { opacity: 0; }
+    95%, 100% { opacity: 1; }
   }
 
   /* Glowing silver/cyan drawn lines */
@@ -241,66 +237,65 @@ const etchASketchStyles = {
     box-shadow: 0 0 4px #38bdf8;
   }
 
-  .easc-seg.h1 { left: 10px; top: 14px; width: 24px; height: 2px; animation: easc-draw-h1 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
-  .easc-seg.v1 { left: 32px; top: 14px; width: 2px; height: 18px; animation: easc-draw-v1 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
-  .easc-seg.h2 { left: 32px; top: 30px; width: 28px; height: 2px; animation: easc-draw-h2 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
-  .easc-seg.v2 { left: 58px; bottom: 20px; width: 2px; height: 10px; animation: easc-draw-v2 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
-  .easc-seg.h3 { left: 58px; top: 22px; width: 18px; height: 2px; animation: easc-draw-h3 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+  .easc-seg.h1 { left: 10px; top: 14px; width: 24px; height: 2px; animation: easc-draw-h1 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+  .easc-seg.v1 { left: 32px; top: 14px; width: 2px; height: 18px; animation: easc-draw-v1 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+  .easc-seg.h2 { left: 32px; top: 30px; width: 28px; height: 2px; animation: easc-draw-h2 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+  .easc-seg.v2 { left: 58px; bottom: 20px; width: 2px; height: 10px; animation: easc-draw-v2 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+  .easc-seg.h3 { left: 58px; top: 22px; width: 18px; height: 2px; animation: easc-draw-h3 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
 
   @keyframes easc-draw-h1 {
     0% { width: 0; }
-    15% { width: 24px; }
-    75% { width: 24px; }
-    85%, 100% { width: 0; }
+    12% { width: 24px; }
+    50% { width: 24px; }
+    60%, 100% { width: 0; }
   }
 
   @keyframes easc-draw-v1 {
-    0%, 15% { height: 0; }
-    30% { height: 18px; }
-    75% { height: 18px; }
-    85%, 100% { height: 0; }
+    0%, 12% { height: 0; }
+    22% { height: 18px; }
+    50% { height: 18px; }
+    60%, 100% { height: 0; }
   }
 
   @keyframes easc-draw-h2 {
-    0%, 30% { width: 0; }
-    45% { width: 28px; }
-    75% { width: 28px; }
-    85%, 100% { width: 0; }
+    0%, 22% { width: 0; }
+    34% { width: 28px; }
+    50% { width: 28px; }
+    60%, 100% { width: 0; }
   }
 
   @keyframes easc-draw-v2 {
-    0%, 45% { height: 0; }
-    60% { height: 10px; }
-    75% { height: 10px; }
-    85%, 100% { height: 0; }
+    0%, 34% { height: 0; }
+    42% { height: 10px; }
+    50% { height: 10px; }
+    60%, 100% { height: 0; }
   }
 
   @keyframes easc-draw-h3 {
-    0%, 60% { width: 0; }
-    70% { width: 18px; }
-    75% { width: 18px; }
-    85%, 100% { width: 0; }
+    0%, 42% { width: 0; }
+    50% { width: 18px; }
+    60%, 100% { width: 0; }
   }
 
   /* Stylus cursor */
   .easc-stylus {
     position: absolute;
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #38bdf8;
     box-shadow: 0 0 6px #00f0ff, 0 0 10px #ffffff;
-    animation: easc-trace 5.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    animation: easc-trace 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
   }
 
   @keyframes easc-trace {
     0% { left: 10px; top: 13px; }
-    15% { left: 32px; top: 13px; }
-    30% { left: 32px; top: 29px; }
-    45% { left: 58px; top: 29px; }
-    60% { left: 58px; top: 21px; }
-    70%, 75% { left: 74px; top: 21px; opacity: 1; }
-    85%, 95% { opacity: 0; }
+    12% { left: 32px; top: 13px; }
+    22% { left: 32px; top: 29px; }
+    34% { left: 58px; top: 29px; }
+    42% { left: 58px; top: 21px; }
+    50% { left: 74px; top: 21px; opacity: 1; }
+    60%, 85% { opacity: 0; }
     100% { left: 10px; top: 13px; opacity: 1; }
   }
 
@@ -318,30 +313,29 @@ const etchASketchStyles = {
 
   .easc-knob.kl {
     left: 10px;
-    animation: easc-knob-spin-l 5.5s linear infinite;
+    animation: easc-knob-spin-l 2.4s linear infinite;
   }
 
   .easc-knob.kr {
     right: 10px;
-    animation: easc-knob-spin-r 5.5s linear infinite;
+    animation: easc-knob-spin-r 2.4s linear infinite;
   }
 
   @keyframes easc-knob-spin-l {
     0% { transform: rotate(0deg); }
-    15% { transform: rotate(180deg); }
-    30% { transform: rotate(180deg); }
-    45% { transform: rotate(360deg); }
-    60% { transform: rotate(360deg); }
-    70%, 100% { transform: rotate(540deg); }
+    12% { transform: rotate(180deg); }
+    22% { transform: rotate(180deg); }
+    34% { transform: rotate(360deg); }
+    50%, 100% { transform: rotate(540deg); }
   }
 
   @keyframes easc-knob-spin-r {
     0% { transform: rotate(0deg); }
-    15% { transform: rotate(0deg); }
-    30% { transform: rotate(180deg); }
-    45% { transform: rotate(180deg); }
-    60% { transform: rotate(-90deg); }
-    70%, 100% { transform: rotate(-90deg); }
+    12% { transform: rotate(0deg); }
+    22% { transform: rotate(180deg); }
+    34% { transform: rotate(180deg); }
+    42% { transform: rotate(-90deg); }
+    50%, 100% { transform: rotate(-90deg); }
   }
   `,
 };

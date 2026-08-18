@@ -32,32 +32,33 @@ const distillationStyles = `
     right: 0;
     bottom: 0;
     height: 16px;
-    background: linear-gradient(180deg, rgba(0, 170, 34, 0.6), rgba(0, 90, 18, 0.8));
-    animation: ds-heat 6s ease-in-out infinite;
+    background: linear-gradient(180deg, rgba(0, 170, 34, 0.8), rgba(0, 90, 18, 0.95));
+    animation: ds-liquid-roil 0.8s ease-in-out infinite alternate;
   }
 
-  @keyframes ds-heat {
-    0%, 100% { filter: brightness(0.85); }
-    50% { filter: brightness(1.4); }
+  @keyframes ds-liquid-roil {
+    0% { transform: translateY(-2px) scaleY(1.3) rotate(-3deg); }
+    100% { transform: translateY(2px) scaleY(0.85) rotate(3deg); }
   }
 
   .ds-boil-bubble {
     position: absolute;
     bottom: 2px;
-    width: 3px;
-    height: 3px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background: rgba(214, 255, 224, 0.85);
-    animation: ds-bubble 0.9s ease-in infinite;
+    background: rgba(214, 255, 224, 0.95);
+    box-shadow: 0 0 6px #00ff66;
+    animation: ds-bubble 0.8s ease-in infinite;
   }
 
-  .ds-boil-bubble.b2 { left: 12px; animation-delay: -0.4s; }
-  .ds-boil-bubble.b3 { left: 20px; animation-delay: -0.6s; }
+  .ds-boil-bubble.b2 { left: 10px; animation-delay: -0.28s; width: 8px; height: 8px; }
+  .ds-boil-bubble.b3 { left: 18px; animation-delay: -0.55s; width: 6px; height: 6px; }
 
   @keyframes ds-bubble {
-    0% { transform: translateY(0); opacity: 0; }
-    20% { opacity: 0.9; }
-    100% { transform: translateY(-14px); opacity: 0; }
+    0% { transform: translateY(0) scale(0.4); opacity: 0; }
+    25% { opacity: 1; transform: translateY(-4px) scale(0.8); }
+    100% { transform: translateY(-18px) scale(1.4); opacity: 0; }
   }
 
   .ds-neck {
@@ -88,9 +89,9 @@ const distillationStyles = `
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(90deg,
-      rgba(140, 255, 170, 0.5) 0 6px,
-      rgba(0, 110, 22, 0.5) 6px 12px);
-    animation: ds-coolant 0.8s linear infinite;
+      rgba(140, 255, 170, 0.65) 0 6px,
+      rgba(0, 110, 22, 0.65) 6px 12px);
+    animation: ds-coolant 0.6s linear infinite;
   }
 
   @keyframes ds-coolant {
@@ -102,9 +103,10 @@ const distillationStyles = `
     left: 2px;
     right: 2px;
     top: 50%;
-    height: 2px;
-    margin-top: -1px;
-    background: rgba(214, 255, 224, 0.7);
+    height: 3px;
+    margin-top: -1.5px;
+    background: rgba(214, 255, 224, 0.9);
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .ds-hose {
@@ -135,57 +137,46 @@ const distillationStyles = `
     left: 0;
     right: 0;
     bottom: 0;
-    height: 4px;
-    background: linear-gradient(180deg, rgba(190, 255, 205, 0.5), rgba(0, 130, 26, 0.7));
-    animation: ds-collect 6s linear infinite;
-  }
-
-  @keyframes ds-collect {
-    0% { height: 3px; }
-    92% { height: 22px; }
-    96% { height: 22px; }
-    100% { height: 3px; }
+    height: 8px;
+    background: linear-gradient(180deg, rgba(190, 255, 205, 0.8), rgba(0, 130, 26, 0.9));
+    animation: ds-liquid-roil 1s ease-in-out infinite alternate;
   }
 
   .ds-droplet {
     position: absolute;
     right: 16px;
-    top: 52px;
-    width: 3px;
-    height: 5px;
+    top: 50px;
+    width: 5px;
+    height: 8px;
     border-radius: 0 0 50% 50%;
-    background: rgba(214, 255, 224, 0.9);
-    animation: ds-drip 1.2s ease-in infinite;
+    background: rgba(214, 255, 224, 0.95);
+    box-shadow: 0 0 6px #00ff66;
+    animation: ds-drip 0.7s ease-in infinite;
   }
 
-  .ds-droplet.d2 { animation-delay: -0.6s; }
+  .ds-droplet.d2 { animation-delay: -0.35s; }
 
   @keyframes ds-drip {
-    0% { transform: translateY(0); opacity: 0; }
-    15% { opacity: 1; }
-    100% { transform: translateY(16px); opacity: 0.3; }
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { transform: translateY(24px) scale(1.1); opacity: 0; }
   }
 
   .ds-flame {
     position: absolute;
     left: 18px;
-    bottom: 10px;
+    bottom: 8px;
     width: 10px;
-    height: 12px;
+    height: 14px;
     border-radius: 50% 50% 40% 40% / 70% 70% 30% 30%;
-    background: radial-gradient(ellipse at 50% 80%, #f2ffdd, rgba(140, 255, 170, 0.6) 55%, transparent);
+    background: radial-gradient(ellipse at 50% 80%, #f2ffdd, rgba(140, 255, 170, 0.8) 55%, transparent);
     transform-origin: 50% 100%;
-    animation: ds-flame 6s ease-in-out infinite, ds-flick 0.16s steps(2) infinite;
+    animation: ds-flame 0.6s ease-in-out infinite alternate;
   }
 
   @keyframes ds-flame {
-    0%, 100% { transform: scaleY(0.75); }
-    50% { transform: scaleY(1.2); }
-  }
-
-  @keyframes ds-flick {
-    0% { transform: scaleX(1); }
-    100% { transform: scaleX(0.85); }
+    0% { transform: scaleY(0.85) rotate(-8deg); }
+    100% { transform: scaleY(1.3) rotate(8deg); }
   }
 
   /* --- v2: Chemical fractional distillation rig ---
@@ -217,32 +208,32 @@ const distillationStyles = `
     bottom: 0;
     height: 16px;
     background: linear-gradient(180deg, #f59e0b, #b91c1c);
-    animation: dsc-heat 6s ease-in-out infinite;
+    animation: dsc-liquid-roil 0.8s ease-in-out infinite alternate;
   }
 
-  @keyframes dsc-heat {
-    0%, 100% { filter: brightness(0.9); }
-    50% { filter: brightness(1.35) drop-shadow(0 0 6px rgba(245, 158, 11, 0.7)); }
+  @keyframes dsc-liquid-roil {
+    0% { transform: translateY(-2px) scaleY(1.3) rotate(-3deg); }
+    100% { transform: translateY(2px) scaleY(0.85) rotate(3deg); }
   }
 
   .dsc-boil-bubble {
     position: absolute;
     bottom: 2px;
-    width: 3px;
-    height: 3px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 0 2px #fff;
-    animation: dsc-bubble 0.9s ease-in infinite;
+    box-shadow: 0 0 6px #facc15;
+    animation: dsc-bubble 0.8s ease-in infinite;
   }
 
-  .dsc-boil-bubble.b2 { left: 12px; animation-delay: -0.4s; }
-  .dsc-boil-bubble.b3 { left: 20px; animation-delay: -0.6s; }
+  .dsc-boil-bubble.b2 { left: 10px; animation-delay: -0.28s; width: 8px; height: 8px; }
+  .dsc-boil-bubble.b3 { left: 18px; animation-delay: -0.55s; width: 6px; height: 6px; }
 
   @keyframes dsc-bubble {
-    0% { transform: translateY(0); opacity: 0; }
-    20% { opacity: 0.95; }
-    100% { transform: translateY(-14px); opacity: 0; }
+    0% { transform: translateY(0) scale(0.4); opacity: 0; }
+    25% { opacity: 1; transform: translateY(-4px) scale(0.8); }
+    100% { transform: translateY(-18px) scale(1.4); opacity: 0; }
   }
 
   .dsc-neck {
@@ -274,9 +265,9 @@ const distillationStyles = `
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(90deg,
-      rgba(56, 189, 248, 0.5) 0 6px,
-      rgba(3, 105, 161, 0.6) 6px 12px);
-    animation: dsc-coolant 0.8s linear infinite;
+      rgba(56, 189, 248, 0.65) 0 6px,
+      rgba(3, 105, 161, 0.75) 6px 12px);
+    animation: dsc-coolant 0.6s linear infinite;
   }
 
   @keyframes dsc-coolant {
@@ -288,10 +279,10 @@ const distillationStyles = `
     left: 2px;
     right: 2px;
     top: 50%;
-    height: 2px;
-    margin-top: -1px;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 4px #bae6fd;
+    height: 3px;
+    margin-top: -1.5px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 6px #38bdf8;
   }
 
   .dsc-hose {
@@ -323,60 +314,48 @@ const distillationStyles = `
     left: 0;
     right: 0;
     bottom: 0;
-    height: 4px;
+    height: 8px;
     background: linear-gradient(180deg, #7dd3fc, #0284c7);
     box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
-    animation: dsc-collect 6s linear infinite;
-  }
-
-  @keyframes dsc-collect {
-    0% { height: 3px; }
-    92% { height: 22px; }
-    96% { height: 22px; }
-    100% { height: 3px; }
+    animation: dsc-liquid-roil 1s ease-in-out infinite alternate;
   }
 
   .dsc-droplet {
     position: absolute;
     right: 16px;
-    top: 52px;
-    width: 3px;
-    height: 5px;
+    top: 50px;
+    width: 5px;
+    height: 8px;
     border-radius: 0 0 50% 50%;
     background: #38bdf8;
-    box-shadow: 0 0 4px #7dd3fc;
-    animation: dsc-drip 1.2s ease-in infinite;
+    box-shadow: 0 0 6px #7dd3fc;
+    animation: dsc-drip 0.7s ease-in infinite;
   }
 
-  .dsc-droplet.d2 { animation-delay: -0.6s; }
+  .dsc-droplet.d2 { animation-delay: -0.35s; }
 
   @keyframes dsc-drip {
-    0% { transform: translateY(0); opacity: 0; }
-    15% { opacity: 1; }
-    100% { transform: translateY(16px); opacity: 0.3; }
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { transform: translateY(24px) scale(1.1); opacity: 0; }
   }
 
   /* Dual-zone gas heating flame */
   .dsc-flame {
     position: absolute;
     left: 18px;
-    bottom: 10px;
+    bottom: 8px;
     width: 10px;
-    height: 12px;
+    height: 14px;
     border-radius: 50% 50% 40% 40% / 70% 70% 30% 30%;
     background: radial-gradient(ellipse at 50% 80%, #ffffff, #00d2ff 45%, #ff7700 80%, transparent);
     transform-origin: 50% 100%;
-    animation: dsc-flame 6s ease-in-out infinite, dsc-flick 0.16s steps(2) infinite;
+    animation: dsc-flame 0.6s ease-in-out infinite alternate;
   }
 
   @keyframes dsc-flame {
-    0%, 100% { transform: scaleY(0.75); box-shadow: 0 0 8px rgba(0, 210, 255, 0.5); }
-    50% { transform: scaleY(1.2); box-shadow: 0 0 14px rgba(255, 119, 0, 0.8); }
-  }
-
-  @keyframes dsc-flick {
-    0% { transform: scaleX(1); }
-    100% { transform: scaleX(0.85); }
+    0% { transform: scaleY(0.85) rotate(-8deg); box-shadow: 0 0 8px rgba(0, 210, 255, 0.5); }
+    100% { transform: scaleY(1.3) rotate(8deg); box-shadow: 0 0 14px rgba(255, 119, 0, 0.8); }
   }
 `;
 

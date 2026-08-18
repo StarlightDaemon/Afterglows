@@ -15,21 +15,30 @@ const cursorPromptStyles = {
     color: var(--accent, #00cc00);
     font-size: 16px;
     text-shadow: 0 0 5px rgba(0, 204, 0, 0.35);
+    position: relative;
+    width: 90px;
+    animation: prompt-float 2.8s ease-in-out infinite alternate;
   }
 
-  .prompt-text { opacity: 0.75; }
+  @keyframes prompt-float {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px); }
+  }
+
+  .prompt-text { opacity: 0.85; }
 
   .cursor-block {
     width: 12px;
     height: 18px;
     background: var(--accent, #00cc00);
-    box-shadow: 0 0 8px rgba(0, 204, 0, 0.4);
-    animation: cursor-blink 1s steps(1) infinite;
+    box-shadow: 0 0 8px rgba(0, 204, 0, 0.7);
+    animation: cursor-type-travel 2.4s steps(6) infinite;
   }
 
-  @keyframes cursor-blink {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
+  @keyframes cursor-type-travel {
+    0% { transform: translateX(0); }
+    75% { transform: translateX(48px); }
+    88%, 100% { transform: translateX(0); }
   }
   `,
   v2: `
@@ -42,11 +51,12 @@ const cursorPromptStyles = {
   }
 
   /* v2: Vintage amber CRT terminal prompt with phosphor scanlines,
-     blinking amber block cursor, and retro warm glow */
+     mechanical translating amber block cursor, and CRT electron beam sweep */
   .cursor-promptc {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-left: 14px;
     gap: 8px;
     width: 104px;
     height: 84px;
@@ -61,6 +71,7 @@ const cursorPromptStyles = {
     font-weight: bold;
     color: #fbbf24;
     text-shadow: 0 0 8px #f59e0b, 0 0 14px #d97706;
+    animation: prompt-float 2.8s ease-in-out infinite alternate;
   }
 
   /* Horizontal CRT scanline overlay */
@@ -73,24 +84,43 @@ const cursorPromptStyles = {
     z-index: 2;
   }
 
+  /* Traveling cathode ray scanline beam */
+  .cursor-promptc::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: linear-gradient(180deg, transparent, rgba(251, 191, 36, 0.25), transparent);
+    animation: crt-scan-beam 1.8s linear infinite;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  @keyframes crt-scan-beam {
+    0% { transform: translateY(-44px); }
+    100% { transform: translateY(44px); }
+  }
+
   .promptc-text {
     opacity: 0.9;
     z-index: 1;
   }
 
-  /* Solid blinking phosphor amber block */
+  /* Solid phosphor amber block with carriage advance */
   .cursor-blockc {
     width: 11px;
     height: 18px;
     background: #fde047;
     box-shadow: 0 0 10px #f59e0b, 0 0 16px #d97706;
-    animation: cursorc-blink 1s steps(1) infinite;
+    animation: cursorc-type-travel 2.4s steps(6) infinite;
     z-index: 1;
   }
 
-  @keyframes cursorc-blink {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
+  @keyframes cursorc-type-travel {
+    0% { transform: translateX(0); }
+    75% { transform: translateX(46px); }
+    88%, 100% { transform: translateX(0); }
   }
   `,
 };

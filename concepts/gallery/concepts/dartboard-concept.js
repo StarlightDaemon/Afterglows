@@ -32,6 +32,13 @@ const dartboardStyles = {
         rgba(0, 40, 8, 0.7) 44% 70%,
         rgba(0, 150, 30, 0.5) 70% 78%,
         rgba(0, 40, 8, 0.7) 78% 100%);
+    animation: db-board-recoil 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes db-board-recoil {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(-1px, 1px) rotate(-1.5deg); }
+    100% { transform: translate(1px, -1px) rotate(1.5deg); }
   }
 
   .db-board::after {
@@ -48,12 +55,12 @@ const dartboardStyles = {
     position: absolute;
     width: 26px;
     height: 4px;
-    animation: db-throw 6s infinite;
+    transform-origin: left center;
   }
 
-  .db-dart.d1 { left: 40px; top: 30px; animation-delay: 0s; }
-  .db-dart.d2 { left: 54px; top: 50px; animation-delay: 2s; }
-  .db-dart.d3 { left: 46px; top: 46px; animation-delay: 4s; }
+  .db-dart.d1 { left: 40px; top: 30px; animation: db-throw 2.4s ease-out infinite; animation-delay: 0s; }
+  .db-dart.d2 { left: 54px; top: 50px; animation: db-throw 2.4s ease-out infinite; animation-delay: -0.8s; }
+  .db-dart.d3 { left: 46px; top: 46px; animation: db-throw 2.4s ease-out infinite; animation-delay: -1.6s; }
 
   .db-dart-shaft {
     position: absolute;
@@ -85,12 +92,15 @@ const dartboardStyles = {
   }
 
   @keyframes db-throw {
-    0% { transform: translateX(90px) scale(1.2); opacity: 0; }
-    3% { opacity: 1; }
-    8% { transform: translateX(0) scale(1); opacity: 1; }
-    10% { transform: translateX(-2px) scale(1); }
-    12% { transform: translateX(0) scale(1); }
-    100% { transform: translateX(0) scale(1); opacity: 1; }
+    0% { transform: translate(75px, -25px) rotate(-24deg) scale(1.5); opacity: 0; }
+    18% { opacity: 1; }
+    34% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+    40% { transform: translate(-2px, 0) rotate(8deg); }
+    48% { transform: translate(0, 0) rotate(-6deg); }
+    56% { transform: translate(0, 0) rotate(3deg); }
+    85% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    94% { transform: translate(75px, -25px) rotate(-24deg); opacity: 0; }
+    100% { opacity: 0; }
   }
 
   .db-ripple {
@@ -100,17 +110,17 @@ const dartboardStyles = {
     border: 1px solid rgba(214, 255, 224, 0.9);
     border-radius: 50%;
     opacity: 0;
-    animation: db-ripple 6s infinite;
+    animation: db-ripple 2.4s ease-out infinite;
   }
 
   .db-ripple.r1 { left: 42px; top: 30px; animation-delay: 0s; }
-  .db-ripple.r2 { left: 56px; top: 50px; animation-delay: 2s; }
-  .db-ripple.r3 { left: 44px; top: 44px; animation-delay: 4s; }
+  .db-ripple.r2 { left: 56px; top: 50px; animation-delay: -0.8s; }
+  .db-ripple.r3 { left: 44px; top: 44px; animation-delay: -1.6s; }
 
   @keyframes db-ripple {
-    0%, 7% { transform: scale(0.4); opacity: 0; }
-    9% { opacity: 0.95; }
-    16% { transform: scale(2.4); opacity: 0; }
+    0%, 30% { transform: scale(0.3); opacity: 0; }
+    36% { opacity: 0.95; }
+    60% { transform: scale(2.6); opacity: 0; }
     100% { opacity: 0; }
   }
 
@@ -123,14 +133,15 @@ const dartboardStyles = {
     border-radius: 50%;
     background: radial-gradient(circle, #f2ffdd, transparent 70%);
     opacity: 0;
-    animation: db-bull 6s infinite;
+    animation: db-bull 2.4s ease-out infinite;
+    animation-delay: -1.6s;
   }
 
   @keyframes db-bull {
-    0%, 67% { opacity: 0; transform: scale(0.5); }
-    70% { opacity: 1; transform: scale(1.6); }
-    78% { opacity: 0.6; }
-    84%, 100% { opacity: 0; }
+    0%, 30% { opacity: 0; transform: scale(0.5); }
+    36% { opacity: 1; transform: scale(2); }
+    50% { opacity: 0.6; }
+    65%, 100% { opacity: 0; }
   }
 
   .db-score {
@@ -146,16 +157,7 @@ const dartboardStyles = {
   }
 
   .db-score::before {
-    content: '0';
-    animation: db-score 6s steps(1) infinite;
-  }
-
-  @keyframes db-score {
-    0% { content: '0'; }
-    9% { content: '20'; }
-    42% { content: '45'; }
-    70% { content: 'BULL 95'; }
-    96% { content: '0'; }
+    content: 'BULL 95';
   }
   `,
   v2: `
@@ -198,6 +200,13 @@ const dartboardStyles = {
         #15803d 70% 78%,
         #18181b 78% 100%);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    animation: dbc-board-recoil 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes dbc-board-recoil {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(-1px, 1px) rotate(-1.5deg); }
+    100% { transform: translate(1px, -1px) rotate(1.5deg); }
   }
 
   /* Radial wire spider segments */
@@ -216,12 +225,12 @@ const dartboardStyles = {
     position: absolute;
     width: 26px;
     height: 4px;
-    animation: dbc-throw 6s infinite;
+    transform-origin: left center;
   }
 
-  .dbc-dart.d1 { left: 40px; top: 30px; animation-delay: 0s; }
-  .dbc-dart.d2 { left: 54px; top: 50px; animation-delay: 2s; }
-  .dbc-dart.d3 { left: 46px; top: 46px; animation-delay: 4s; }
+  .dbc-dart.d1 { left: 40px; top: 30px; animation: dbc-throw 2.4s ease-out infinite; animation-delay: 0s; }
+  .dbc-dart.d2 { left: 54px; top: 50px; animation: dbc-throw 2.4s ease-out infinite; animation-delay: -0.8s; }
+  .dbc-dart.d3 { left: 46px; top: 46px; animation: dbc-throw 2.4s ease-out infinite; animation-delay: -1.6s; }
 
   .dbc-dart-shaft {
     position: absolute;
@@ -255,12 +264,15 @@ const dartboardStyles = {
   }
 
   @keyframes dbc-throw {
-    0% { transform: translateX(90px) scale(1.2); opacity: 0; }
-    3% { opacity: 1; }
-    8% { transform: translateX(0) scale(1); opacity: 1; }
-    10% { transform: translateX(-2px) scale(1); }
-    12% { transform: translateX(0) scale(1); }
-    100% { transform: translateX(0) scale(1); opacity: 1; }
+    0% { transform: translate(75px, -25px) rotate(-24deg) scale(1.5); opacity: 0; }
+    18% { opacity: 1; }
+    34% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+    40% { transform: translate(-2px, 0) rotate(8deg); }
+    48% { transform: translate(0, 0) rotate(-6deg); }
+    56% { transform: translate(0, 0) rotate(3deg); }
+    85% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    94% { transform: translate(75px, -25px) rotate(-24deg); opacity: 0; }
+    100% { opacity: 0; }
   }
 
   /* Impact hit ripples */
@@ -271,17 +283,17 @@ const dartboardStyles = {
     border: 1.5px solid #fde047;
     border-radius: 50%;
     opacity: 0;
-    animation: dbc-ripple 6s infinite;
+    animation: dbc-ripple 2.4s ease-out infinite;
   }
 
   .dbc-ripple.r1 { left: 42px; top: 30px; animation-delay: 0s; }
-  .dbc-ripple.r2 { left: 56px; top: 50px; animation-delay: 2s; }
-  .dbc-ripple.r3 { left: 44px; top: 44px; animation-delay: 4s; }
+  .dbc-ripple.r2 { left: 56px; top: 50px; animation-delay: -0.8s; }
+  .dbc-ripple.r3 { left: 44px; top: 44px; animation-delay: -1.6s; }
 
   @keyframes dbc-ripple {
-    0%, 7% { transform: scale(0.4); opacity: 0; }
-    9% { opacity: 0.95; }
-    16% { transform: scale(2.4); opacity: 0; }
+    0%, 30% { transform: scale(0.3); opacity: 0; }
+    36% { opacity: 0.95; }
+    60% { transform: scale(2.6); opacity: 0; }
     100% { opacity: 0; }
   }
 
@@ -296,14 +308,15 @@ const dartboardStyles = {
     background: radial-gradient(circle, #fde047 0%, #ef4444 60%, transparent 70%);
     box-shadow: 0 0 12px #facc15;
     opacity: 0;
-    animation: dbc-bull 6s infinite;
+    animation: dbc-bull 2.4s ease-out infinite;
+    animation-delay: -1.6s;
   }
 
   @keyframes dbc-bull {
-    0%, 67% { opacity: 0; transform: scale(0.5); }
-    70% { opacity: 1; transform: scale(1.8); }
-    78% { opacity: 0.7; }
-    84%, 100% { opacity: 0; }
+    0%, 30% { opacity: 0; transform: scale(0.5); }
+    36% { opacity: 1; transform: scale(2); }
+    50% { opacity: 0.7; }
+    65%, 100% { opacity: 0; }
   }
 
   /* Match score ticker */
@@ -321,16 +334,7 @@ const dartboardStyles = {
   }
 
   .dbc-score::before {
-    content: '0';
-    animation: dbc-score 6s steps(1) infinite;
-  }
-
-  @keyframes dbc-score {
-    0% { content: '0'; }
-    9% { content: '20'; }
-    42% { content: '45'; }
-    70% { content: 'BULL 95!'; }
-    96% { content: '0'; }
+    content: 'BULL 95!';
   }
   `,
 };

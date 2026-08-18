@@ -46,48 +46,57 @@ const crystalBallStyles = {
     height: 62px;
     margin-left: -31px;
     border-radius: 50%;
-    background: radial-gradient(circle at 32% 26%, rgba(220, 255, 228, 0.24) 0 12%, rgba(30, 90, 45, 0.24) 40%, rgba(6, 18, 10, 0.85) 100%);
-    border: 1px solid rgba(140, 255, 170, 0.35);
+    background: radial-gradient(circle at 32% 26%, rgba(220, 255, 228, 0.3) 0 12%, rgba(30, 90, 45, 0.3) 40%, rgba(6, 18, 10, 0.9) 100%);
+    border: 1.5px solid rgba(140, 255, 170, 0.7);
     box-shadow:
-      inset 0 0 18px rgba(0, 204, 0, 0.25),
-      0 0 16px rgba(0, 204, 0, 0.25);
+      inset 0 0 18px rgba(0, 204, 0, 0.4),
+      0 0 16px rgba(0, 204, 0, 0.4);
     overflow: hidden;
     box-sizing: border-box;
+    animation: cball-levitate 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes cball-levitate {
+    0% { transform: translateY(0) rotate(-3deg); }
+    100% { transform: translateY(-7px) rotate(3deg); }
   }
 
   .cball-mist {
     position: absolute;
-    width: 34px;
-    height: 26px;
+    width: 44px;
+    height: 36px;
     border-radius: 50%;
-    filter: blur(6px);
+    filter: blur(2.5px);
   }
 
   .cball-mist.m1 {
-    top: 14px;
-    left: 4px;
-    background: rgba(120, 255, 150, 0.5);
-    animation: cball-mist1 6.5s ease-in-out infinite;
+    top: 10px;
+    left: 8px;
+    background: rgba(140, 255, 170, 0.75);
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.8);
+    animation: cball-mist1 3.2s linear infinite;
   }
 
   .cball-mist.m2 {
-    top: 26px;
-    left: 22px;
-    background: rgba(60, 220, 120, 0.4);
-    animation: cball-mist2 8s ease-in-out infinite;
+    top: 16px;
+    left: 10px;
+    background: rgba(40, 220, 100, 0.65);
+    box-shadow: 0 0 8px rgba(0, 204, 0, 0.6);
+    animation: cball-mist2 3.8s linear infinite;
   }
 
   .cball-glimpse {
     position: absolute;
     top: 24px;
     left: 50%;
-    width: 22px;
-    height: 12px;
-    margin-left: -11px;
+    width: 24px;
+    height: 14px;
+    margin-left: -12px;
     border-radius: 50%;
-    background: radial-gradient(circle at center, #041006 0 24%, rgba(220, 255, 228, 0.9) 30% 46%, transparent 72%);
-    opacity: 0;
-    animation: cball-glimpse 9s ease-in-out infinite;
+    background: radial-gradient(circle at center, #041006 0 24%, rgba(220, 255, 228, 0.95) 30% 50%, transparent 72%);
+    box-shadow: 0 0 8px rgba(180, 255, 200, 0.8);
+    opacity: 0.9;
+    animation: cball-glimpse 2.6s ease-in-out infinite alternate;
   }
 
   .cball-shine {
@@ -97,47 +106,43 @@ const crystalBallStyles = {
     width: 14px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(235, 255, 240, 0.5);
+    background: rgba(235, 255, 240, 0.7);
     transform: rotate(-24deg);
-    filter: blur(1px);
+    filter: blur(0.8px);
   }
 
   .cball-spark {
     position: absolute;
-    width: 2px;
-    height: 2px;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
     background: rgba(220, 255, 228, 0.95);
-    opacity: 0;
-    animation: cball-spark 4.5s linear infinite;
+    box-shadow: 0 0 4px #00ff66;
+    animation: cball-spark 2.4s ease-in-out infinite alternate;
   }
 
   .cball-spark.k1 { top: 38px; left: 16px; animation-delay: 0s; }
-  .cball-spark.k2 { top: 20px; left: 42px; animation-delay: -1.6s; }
-  .cball-spark.k3 { top: 44px; left: 36px; animation-delay: -3.1s; }
+  .cball-spark.k2 { top: 20px; left: 42px; animation-delay: -0.8s; }
+  .cball-spark.k3 { top: 44px; left: 36px; animation-delay: -1.6s; }
 
   @keyframes cball-mist1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    30% { transform: translate(16px, 8px) scale(1.15); }
-    62% { transform: translate(6px, 14px) scale(0.85); }
+    0% { transform: rotate(0deg) translateX(12px) rotate(0deg) scale(0.9); }
+    100% { transform: rotate(360deg) translateX(12px) rotate(-360deg) scale(1.15); }
   }
 
   @keyframes cball-mist2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    36% { transform: translate(-14px, -10px) scale(1.2); }
-    70% { transform: translate(-4px, -16px) scale(0.9); }
+    0% { transform: rotate(0deg) translateX(-12px) rotate(0deg) scale(1.15); }
+    100% { transform: rotate(-360deg) translateX(-12px) rotate(360deg) scale(0.85); }
   }
 
   @keyframes cball-glimpse {
-    0%, 52% { opacity: 0; transform: scale(0.6); }
-    60%, 70% { opacity: 0.95; transform: scale(1); }
-    78%, 100% { opacity: 0; transform: scale(0.7); }
+    0% { transform: translateY(-4px) scale(0.7); opacity: 0.4; }
+    100% { transform: translateY(4px) scale(1.35); opacity: 1; }
   }
 
   @keyframes cball-spark {
-    0%, 78%, 100% { opacity: 0; }
-    84% { opacity: 1; }
-    92% { opacity: 0.2; }
+    0% { transform: translate(-6px, -4px) scale(0.5); opacity: 0.3; }
+    100% { transform: translate(6px, 4px) scale(1.4); opacity: 1; }
   }
   `,
   v2: `
@@ -195,36 +200,44 @@ const crystalBallStyles = {
     height: 62px;
     margin-left: -31px;
     border-radius: 50%;
-    background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.6) 0 12%, rgba(147, 51, 234, 0.4) 40%, rgba(15, 23, 42, 0.95) 100%);
-    border: 1.5px solid rgba(216, 180, 254, 0.8);
+    background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.7) 0 12%, rgba(147, 51, 234, 0.4) 40%, rgba(15, 23, 42, 0.95) 100%);
+    border: 1.5px solid rgba(216, 180, 254, 0.9);
     box-shadow:
-      inset 0 0 20px rgba(168, 85, 247, 0.6),
-      0 0 18px rgba(147, 51, 234, 0.7);
+      inset 0 0 20px rgba(168, 85, 247, 0.7),
+      0 0 18px rgba(147, 51, 234, 0.8);
     overflow: hidden;
     box-sizing: border-box;
+    animation: cballc-levitate 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes cballc-levitate {
+    0% { transform: translateY(0) rotate(-3deg); }
+    100% { transform: translateY(-7px) rotate(3deg); }
   }
 
   /* Cosmic nebula mist blobs */
   .cballc-mist {
     position: absolute;
-    width: 34px;
-    height: 26px;
+    width: 44px;
+    height: 36px;
     border-radius: 50%;
-    filter: blur(6px);
+    filter: blur(2.5px);
   }
 
   .cballc-mist.m1 {
-    top: 14px;
-    left: 4px;
-    background: rgba(236, 72, 153, 0.75);
-    animation: cballc-mist1 6.5s ease-in-out infinite;
+    top: 10px;
+    left: 8px;
+    background: rgba(236, 72, 153, 0.85);
+    box-shadow: 0 0 12px #ec4899;
+    animation: cballc-mist1 3.2s linear infinite;
   }
 
   .cballc-mist.m2 {
-    top: 26px;
-    left: 22px;
-    background: rgba(6, 182, 212, 0.75);
-    animation: cballc-mist2 8s ease-in-out infinite;
+    top: 16px;
+    left: 10px;
+    background: rgba(6, 182, 212, 0.85);
+    box-shadow: 0 0 12px #06b6d4;
+    animation: cballc-mist2 3.8s linear infinite;
   }
 
   /* Golden divination eye glimpse */
@@ -232,14 +245,14 @@ const crystalBallStyles = {
     position: absolute;
     top: 24px;
     left: 50%;
-    width: 22px;
-    height: 12px;
-    margin-left: -11px;
+    width: 24px;
+    height: 14px;
+    margin-left: -12px;
     border-radius: 50%;
     background: radial-gradient(circle at center, #020617 0 24%, #fde047 30% 50%, transparent 72%);
-    box-shadow: 0 0 10px #facc15;
-    opacity: 0;
-    animation: cballc-glimpse 9s ease-in-out infinite;
+    box-shadow: 0 0 12px #facc15;
+    opacity: 0.9;
+    animation: cballc-glimpse 2.6s ease-in-out infinite alternate;
   }
 
   /* Glass reflection shine */
@@ -252,7 +265,7 @@ const crystalBallStyles = {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.8);
     transform: rotate(-24deg);
-    filter: blur(1px);
+    filter: blur(0.8px);
   }
 
   /* Stellar sparkles */
@@ -263,36 +276,31 @@ const crystalBallStyles = {
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 6px #38bdf8;
-    opacity: 0;
-    animation: cballc-spark 4.5s linear infinite;
+    animation: cballc-spark 2.4s ease-in-out infinite alternate;
   }
 
   .cballc-spark.k1 { top: 38px; left: 16px; animation-delay: 0s; }
-  .cballc-spark.k2 { top: 20px; left: 42px; background: #fde047; box-shadow: 0 0 6px #facc15; animation-delay: -1.6s; }
-  .cballc-spark.k3 { top: 44px; left: 36px; animation-delay: -3.1s; }
+  .cballc-spark.k2 { top: 20px; left: 42px; background: #fde047; box-shadow: 0 0 6px #facc15; animation-delay: -0.8s; }
+  .cballc-spark.k3 { top: 44px; left: 36px; animation-delay: -1.6s; }
 
   @keyframes cballc-mist1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    30% { transform: translate(16px, 8px) scale(1.15); }
-    62% { transform: translate(6px, 14px) scale(0.85); }
+    0% { transform: rotate(0deg) translateX(12px) rotate(0deg) scale(0.9); }
+    100% { transform: rotate(360deg) translateX(12px) rotate(-360deg) scale(1.15); }
   }
 
   @keyframes cballc-mist2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    36% { transform: translate(-14px, -10px) scale(1.2); }
-    70% { transform: translate(-4px, -16px) scale(0.9); }
+    0% { transform: rotate(0deg) translateX(-12px) rotate(0deg) scale(1.15); }
+    100% { transform: rotate(-360deg) translateX(-12px) rotate(360deg) scale(0.85); }
   }
 
   @keyframes cballc-glimpse {
-    0%, 52% { opacity: 0; transform: scale(0.6); }
-    60%, 70% { opacity: 0.95; transform: scale(1.1); }
-    78%, 100% { opacity: 0; transform: scale(0.7); }
+    0% { transform: translateY(-4px) scale(0.7); opacity: 0.4; }
+    100% { transform: translateY(4px) scale(1.35); opacity: 1; }
   }
 
   @keyframes cballc-spark {
-    0%, 78%, 100% { opacity: 0; }
-    84% { opacity: 1; }
-    92% { opacity: 0.2; }
+    0% { transform: translate(-6px, -4px) scale(0.5); opacity: 0.3; }
+    100% { transform: translate(6px, 4px) scale(1.4); opacity: 1; }
   }
   `,
 };
