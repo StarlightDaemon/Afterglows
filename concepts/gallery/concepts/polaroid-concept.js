@@ -26,7 +26,8 @@ const polaroidStyles = {
     margin-left: -37px;
     border-radius: 3px;
     background: #010401;
-    border: 1px solid rgba(140, 255, 170, 0.5);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 6px #00ff66;
     z-index: 3;
   }
 
@@ -37,10 +38,11 @@ const polaroidStyles = {
     width: 58px;
     height: 68px;
     margin-left: -29px;
-    background: linear-gradient(180deg, #cfe8cf 0%, #b7d6b9 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #b7d6b9 100%);
+    border: 1px solid #00ff66;
     border-radius: 2px;
-    box-shadow: 0 0 8px rgba(0, 204, 0, 0.25);
-    animation: pol-eject 8s ease-out infinite;
+    box-shadow: 0 0 12px rgba(0, 255, 100, 0.4);
+    animation: pol-eject 1.6s ease-in-out infinite alternate;
   }
 
   .pol-photo {
@@ -56,8 +58,7 @@ const polaroidStyles = {
   .pol-image {
     position: absolute;
     inset: 0;
-    opacity: 0;
-    animation: pol-develop 8s ease-in-out infinite;
+    opacity: 1;
   }
 
   .pol-moon {
@@ -67,8 +68,8 @@ const polaroidStyles = {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #e6ffd2;
-    box-shadow: 0 0 8px rgba(216, 255, 187, 0.8);
+    background: #ffffff;
+    box-shadow: 0 0 8px #00ff66;
   }
 
   .pol-hill {
@@ -88,7 +89,7 @@ const polaroidStyles = {
     width: 2px;
     height: 2px;
     border-radius: 50%;
-    background: rgba(220, 255, 228, 0.9);
+    background: #ffffff;
   }
 
   .pol-star.s1 { top: 8px; left: 8px; }
@@ -99,9 +100,9 @@ const polaroidStyles = {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 14px;
-    background: linear-gradient(90deg, transparent, rgba(200, 255, 210, 0.28), transparent);
-    animation: pol-sheen 8s linear infinite;
+    width: 18px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: pol-sheen 1.2s linear infinite;
   }
 
   .pol-caption {
@@ -111,52 +112,30 @@ const polaroidStyles = {
     right: 0;
     text-align: center;
     font-family: monospace;
-    font-size: 7px;
-    color: rgba(20, 60, 30, 0.9);
-    animation: pol-caption 8s linear infinite;
+    font-size: 8px;
+    font-weight: bold;
+    color: #041a0a;
   }
 
   .pol-wobble {
     position: absolute;
     inset: 0;
-    animation: pol-wobble 8s ease-in-out infinite;
+    animation: pol-wobble 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes pol-eject {
-    0% { transform: translateY(-54px); }
-    16% { transform: translateY(0); }
-    88% { transform: translateY(0); opacity: 1; }
-    94%, 97% { transform: translateY(0); opacity: 0; }
-    98%, 100% { transform: translateY(-54px); opacity: 1; }
-  }
-
-  @keyframes pol-develop {
-    0%, 18% { opacity: 0; filter: blur(2px) brightness(0.4); }
-    40% { opacity: 0.45; filter: blur(1.2px) brightness(0.6); }
-    62% { opacity: 0.8; filter: blur(0.4px) brightness(0.85); }
-    72%, 90% { opacity: 1; filter: blur(0) brightness(1); }
-    94%, 100% { opacity: 0; filter: blur(2px) brightness(0.4); }
+    0% { transform: translateY(-40px) scale(0.92); }
+    100% { transform: translateY(14px) scale(1.04); }
   }
 
   @keyframes pol-sheen {
-    0%, 18% { transform: translateX(-16px); opacity: 0; }
-    24% { opacity: 1; }
-    38% { transform: translateX(50px); opacity: 1; }
-    44%, 100% { transform: translateX(50px); opacity: 0; }
-  }
-
-  @keyframes pol-caption {
-    0%, 68% { opacity: 0; }
-    76%, 90% { opacity: 1; }
-    94%, 100% { opacity: 0; }
+    0% { transform: translateX(-16px); }
+    100% { transform: translateX(60px); }
   }
 
   @keyframes pol-wobble {
-    0%, 16%, 60%, 100% { transform: rotate(0deg); }
-    24% { transform: rotate(-2.5deg); }
-    32% { transform: rotate(2deg); }
-    40% { transform: rotate(-1.5deg); }
-    48% { transform: rotate(1deg); }
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(8deg); }
   }
   `,
   v2: `
@@ -192,8 +171,8 @@ const polaroidStyles = {
     margin-left: -37px;
     border-radius: 3px;
     background: #09090b;
-    border: 1px solid #475569;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 6px rgba(239, 68, 68, 0.4);
+    border: 1.5px solid #38bdf8;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8), 0 0 8px rgba(56, 189, 248, 0.6);
     z-index: 3;
   }
 
@@ -207,8 +186,8 @@ const polaroidStyles = {
     margin-left: -29px;
     background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
     border-radius: 2px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-    animation: polc-eject 8s ease-out infinite;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+    animation: polc-eject 1.6s ease-in-out infinite alternate;
   }
 
   /* Dark camera film window */
@@ -228,8 +207,7 @@ const polaroidStyles = {
     position: absolute;
     inset: 0;
     background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 60%, #064e3b 100%);
-    opacity: 0;
-    animation: polc-develop 8s ease-in-out infinite;
+    opacity: 1;
   }
 
   /* Radiant golden moon */
@@ -277,9 +255,9 @@ const polaroidStyles = {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 14px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
-    animation: polc-sheen 8s linear infinite;
+    width: 18px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    animation: polc-sheen 1.2s linear infinite;
   }
 
   /* Chin nostalgic handwriting date stamp */
@@ -290,54 +268,31 @@ const polaroidStyles = {
     right: 0;
     text-align: center;
     font-family: 'Courier New', monospace;
-    font-size: 7px;
+    font-size: 8px;
     font-weight: bold;
-    color: #475569;
+    color: #334155;
     letter-spacing: 0.5px;
-    animation: polc-caption 8s linear infinite;
   }
 
   .polc-wobble {
     position: absolute;
     inset: 0;
-    animation: polc-wobble 8s ease-in-out infinite;
+    animation: polc-wobble 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes polc-eject {
-    0% { transform: translateY(-54px); }
-    16% { transform: translateY(0); }
-    88% { transform: translateY(0); opacity: 1; }
-    94%, 97% { transform: translateY(0); opacity: 0; }
-    98%, 100% { transform: translateY(-54px); opacity: 1; }
-  }
-
-  @keyframes polc-develop {
-    0%, 18% { opacity: 0; filter: blur(2px) brightness(0.2) saturate(0.2); }
-    40% { opacity: 0.45; filter: blur(1.2px) brightness(0.6) saturate(0.6); }
-    62% { opacity: 0.8; filter: blur(0.4px) brightness(0.9) saturate(0.9); }
-    72%, 90% { opacity: 1; filter: blur(0) brightness(1) saturate(1.2); }
-    94%, 100% { opacity: 0; filter: blur(2px) brightness(0.2); }
+    0% { transform: translateY(-40px) scale(0.92); }
+    100% { transform: translateY(14px) scale(1.04); }
   }
 
   @keyframes polc-sheen {
-    0%, 18% { transform: translateX(-16px); opacity: 0; }
-    24% { opacity: 1; }
-    38% { transform: translateX(50px); opacity: 1; }
-    44%, 100% { transform: translateX(50px); opacity: 0; }
-  }
-
-  @keyframes polc-caption {
-    0%, 68% { opacity: 0; }
-    76%, 90% { opacity: 1; }
-    94%, 100% { opacity: 0; }
+    0% { transform: translateX(-16px); }
+    100% { transform: translateX(60px); }
   }
 
   @keyframes polc-wobble {
-    0%, 16%, 60%, 100% { transform: rotate(0deg); }
-    24% { transform: rotate(-2.5deg); }
-    32% { transform: rotate(2deg); }
-    40% { transform: rotate(-1.5deg); }
-    48% { transform: rotate(1deg); }
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(8deg); }
   }
   `,
 };

@@ -44,6 +44,12 @@ const musicBoxStyles = {
     background: rgba(0, 40, 8, 0.35);
     transform: skewX(-24deg) scaleY(0.9);
     transform-origin: bottom left;
+    animation: mb-lid-rock 1.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes mb-lid-rock {
+    0% { transform: skewX(-24deg) rotate(-6deg) scaleY(0.9); }
+    100% { transform: skewX(-24deg) rotate(4deg) scaleY(0.95); }
   }
 
   /* Inner lid mirror glint. */
@@ -52,15 +58,15 @@ const musicBoxStyles = {
     position: absolute;
     inset: 3px;
     background: linear-gradient(115deg, transparent 30%, rgba(140, 255, 170, 0.25) 45%, transparent 60%);
-    animation: mb-glint 6s ease-in-out infinite;
+    animation: mb-glint 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes mb-glint {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
   }
 
-  /* The cylinder: pins rendered as a dot grid scrolling horizontally. */
+  /* The cylinder */
   .mb-cyl {
     position: absolute;
     left: 16px;
@@ -73,7 +79,7 @@ const musicBoxStyles = {
       radial-gradient(circle 1.5px, rgba(214, 255, 224, 0.95) 98%, transparent) 0 0 / 9px 5px,
       linear-gradient(180deg, rgba(0, 130, 26, 0.7), rgba(0, 60, 12, 0.85));
     background-repeat: repeat;
-    animation: mb-cyl 2.4s linear infinite;
+    animation: mb-cyl 1.2s linear infinite;
     overflow: hidden;
   }
 
@@ -94,47 +100,44 @@ const musicBoxStyles = {
   .mb-cap.c1 { left: 13px; }
   .mb-cap.c2 { left: 77px; }
 
-  /* Comb: five teeth pointing at the cylinder, each plucking in a
-     repeating pattern that matches the 2.4s pin pass. */
+  /* Comb */
   .mb-tooth {
     position: absolute;
     bottom: 24px;
     width: 3px;
-    background: linear-gradient(180deg, #baffc9, rgba(0, 204, 0, 0.65));
+    background: linear-gradient(180deg, #ffffff, rgba(0, 204, 0, 0.85));
     border-radius: 1px;
     transform-origin: bottom center;
-    animation: mb-pluck 2.4s infinite;
+    animation: mb-pluck 1.2s ease-in-out infinite alternate;
   }
 
   .mb-tooth.t1 { left: 86px; height: 15px; animation-delay: 0s; }
-  .mb-tooth.t2 { left: 91px; height: 13px; animation-delay: -0.9s; }
-  .mb-tooth.t3 { left: 96px; height: 11px; animation-delay: -1.5s; }
-  .mb-tooth.t4 { left: 100px; height: 9px; animation-delay: -0.4s; }
-  .mb-tooth.t5 { left: 104px; height: 8px; animation-delay: -1.9s; }
+  .mb-tooth.t2 { left: 91px; height: 13px; animation-delay: -0.25s; }
+  .mb-tooth.t3 { left: 96px; height: 11px; animation-delay: -0.5s; }
+  .mb-tooth.t4 { left: 100px; height: 9px; animation-delay: -0.75s; }
+  .mb-tooth.t5 { left: 104px; height: 8px; animation-delay: -1.0s; }
 
   @keyframes mb-pluck {
-    0%, 78% { transform: rotate(0deg); box-shadow: none; }
-    82% { transform: rotate(-9deg); box-shadow: 0 0 6px rgba(0, 204, 0, 0.9); }
-    86% { transform: rotate(3deg); }
-    90% { transform: rotate(-1.5deg); }
-    94%, 100% { transform: rotate(0deg); }
+    0% { transform: rotate(-14deg); box-shadow: 0 0 8px #00ff66; }
+    100% { transform: rotate(14deg); box-shadow: none; }
   }
 
-  /* Winding key on the case side, turning slowly with pauses. */
+  /* Winding key */
   .mb-key {
     position: absolute;
     right: -2px;
     bottom: 20px;
     width: 12px;
     height: 12px;
-    animation: mb-key 4.8s ease-in-out infinite;
+    animation: mb-key 1.4s linear infinite;
   }
 
   .mb-key::before,
   .mb-key::after {
     content: '';
     position: absolute;
-    background: rgba(140, 255, 170, 0.85);
+    background: rgba(140, 255, 170, 0.95);
+    box-shadow: 0 0 6px #00ff66;
     border-radius: 2px;
   }
 
@@ -142,32 +145,29 @@ const musicBoxStyles = {
   .mb-key::after { left: 0; top: 5px; width: 12px; height: 2px; }
 
   @keyframes mb-key {
-    0%, 12% { transform: rotate(0deg); }
-    38%, 62% { transform: rotate(180deg); }
-    88%, 100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
-  /* Note sparks drifting up from the comb. */
+  /* Note sparks drifting up from the comb */
   .mb-note {
     position: absolute;
     bottom: 44px;
     font-family: 'Courier New', monospace;
-    font-size: 11px;
-    color: #baffc9;
-    text-shadow: 0 0 6px rgba(0, 204, 0, 0.9);
-    opacity: 0;
-    animation: mb-note 2.4s infinite;
+    font-size: 13px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 8px #00ff66, 0 0 14px #00ff66;
+    animation: mb-note 1.4s ease-out infinite;
   }
 
-  .mb-note.n1 { left: 88px; }
-  .mb-note.n2 { left: 96px; animation-delay: -0.9s; }
-  .mb-note.n3 { left: 82px; animation-delay: -1.5s; }
+  .mb-note.n1 { left: 88px; animation-delay: 0s; }
+  .mb-note.n2 { left: 96px; animation-delay: -0.45s; }
+  .mb-note.n3 { left: 82px; animation-delay: -0.9s; }
 
   @keyframes mb-note {
-    0%, 78% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    82% { opacity: 1; }
-    96% { transform: translateY(-16px) rotate(-10deg); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translateY(0) rotate(-15deg); opacity: 1; }
+    100% { transform: translateY(-30px) rotate(15deg); opacity: 0.1; }
   }
   `,
   v2: `
@@ -202,8 +202,7 @@ const musicBoxStyles = {
     background: linear-gradient(180deg, rgba(0, 50, 10, 0.55), rgba(0, 22, 4, 0.8));
   }
 
-  /* Open lid, propped backward. A centered skew keeps both top corners
-     inside the tile instead of shearing the whole panel off one edge. */
+  /* Open lid, propped backward */
   .mb-lid {
     position: absolute;
     left: 16px;
@@ -215,6 +214,7 @@ const musicBoxStyles = {
     background: rgba(0, 40, 8, 0.35);
     transform: skewX(-16deg);
     transform-origin: bottom center;
+    animation: mb-lid-rock 1.8s ease-in-out infinite alternate;
   }
 
   /* Inner lid mirror glint. */
@@ -223,17 +223,10 @@ const musicBoxStyles = {
     position: absolute;
     inset: 3px;
     background: linear-gradient(115deg, transparent 30%, rgba(140, 255, 170, 0.25) 45%, transparent 60%);
-    animation: mb-glint 6s ease-in-out infinite;
+    animation: mb-glint 1.8s ease-in-out infinite alternate;
   }
 
-  @keyframes mb-glint {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
-
-  /* The cylinder: pins rendered as a dot grid scrolling horizontally,
-     spanning most of the case width so the comb reads as sitting above
-     it rather than crammed off to one side. */
+  /* The cylinder */
   .mb-cyl {
     position: absolute;
     left: 12px;
@@ -246,12 +239,8 @@ const musicBoxStyles = {
       radial-gradient(circle 1.5px, rgba(214, 255, 224, 0.95) 98%, transparent) 0 0 / 9px 5px,
       linear-gradient(180deg, rgba(0, 130, 26, 0.7), rgba(0, 60, 12, 0.85));
     background-repeat: repeat;
-    animation: mb-cyl 2.4s linear infinite;
+    animation: mb-cyl 1.2s linear infinite;
     overflow: hidden;
-  }
-
-  @keyframes mb-cyl {
-    to { background-position: -36px 0, 0 0; }
   }
 
   /* End caps. */
@@ -267,36 +256,24 @@ const musicBoxStyles = {
   .mb-cap.c1 { left: 9px; }
   .mb-cap.c2 { left: 71px; }
 
-  /* Comb: five teeth mounted from a shared bar near the case top,
-     graduated shortest-to-longest left to right like a real comb's
-     bass-to-treble taper, tips resting just above the cylinder. Each
-     flicks at the tip (top-anchored) as its pin passes. */
+  /* Comb */
   .mb-tooth {
     position: absolute;
     top: 46px;
     width: 3px;
-    background: linear-gradient(180deg, #baffc9, rgba(0, 204, 0, 0.65));
+    background: linear-gradient(180deg, #ffffff, rgba(0, 204, 0, 0.85));
     border-radius: 1px;
     transform-origin: top center;
-    animation: mb-pluck 2.4s infinite;
+    animation: mb-pluck 1.2s ease-in-out infinite alternate;
   }
 
-  .mb-tooth.t1 { left: 16px; height: 16px; animation-delay: -1.9s; }
-  .mb-tooth.t2 { left: 30px; height: 14px; animation-delay: -0.4s; }
-  .mb-tooth.t3 { left: 44px; height: 12px; animation-delay: -1.5s; }
-  .mb-tooth.t4 { left: 58px; height: 10px; animation-delay: -0.9s; }
+  .mb-tooth.t1 { left: 16px; height: 16px; animation-delay: -1.0s; }
+  .mb-tooth.t2 { left: 30px; height: 14px; animation-delay: -0.25s; }
+  .mb-tooth.t3 { left: 44px; height: 12px; animation-delay: -0.75s; }
+  .mb-tooth.t4 { left: 58px; height: 10px; animation-delay: -0.5s; }
   .mb-tooth.t5 { left: 68px; height: 8px; animation-delay: 0s; }
 
-  @keyframes mb-pluck {
-    0%, 78% { transform: rotate(0deg); box-shadow: none; }
-    82% { transform: rotate(9deg); box-shadow: 0 0 6px rgba(0, 204, 0, 0.9); }
-    86% { transform: rotate(-3deg); }
-    90% { transform: rotate(1.5deg); }
-    94%, 100% { transform: rotate(0deg); }
-  }
-
-  /* Winding key, seated in the case's clear right end-cap where it
-     can't overlap the comb or cylinder. */
+  /* Winding key */
   .mb-key-mount {
     position: absolute;
     left: 87px;
@@ -314,48 +291,36 @@ const musicBoxStyles = {
     bottom: 17px;
     width: 12px;
     height: 12px;
-    animation: mb-key 4.8s ease-in-out infinite;
+    animation: mb-key 1.4s linear infinite;
   }
 
   .mb-key::before,
   .mb-key::after {
     content: '';
     position: absolute;
-    background: rgba(140, 255, 170, 0.85);
+    background: rgba(140, 255, 170, 0.95);
+    box-shadow: 0 0 6px #00ff66;
     border-radius: 2px;
   }
 
   .mb-key::before { left: 5px; top: 0; width: 2px; height: 12px; }
   .mb-key::after { left: 0; top: 5px; width: 12px; height: 2px; }
 
-  @keyframes mb-key {
-    0%, 12% { transform: rotate(0deg); }
-    38%, 62% { transform: rotate(180deg); }
-    88%, 100% { transform: rotate(360deg); }
-  }
-
-  /* Note sparks lifting off the comb, staying clear of the lid's edge. */
+  /* Note sparks lifting off the comb */
   .mb-note {
     position: absolute;
     bottom: 50px;
     font-family: 'Courier New', monospace;
-    font-size: 11px;
-    color: #baffc9;
-    text-shadow: 0 0 6px rgba(0, 204, 0, 0.9);
-    opacity: 0;
-    animation: mb-note 2.4s infinite;
+    font-size: 13px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 8px #00ff66, 0 0 14px #00ff66;
+    animation: mb-note 1.4s ease-out infinite;
   }
 
-  .mb-note.n1 { left: 34px; animation-delay: -1.9s; }
-  .mb-note.n2 { left: 48px; animation-delay: -0.9s; }
+  .mb-note.n1 { left: 34px; animation-delay: -1.0s; }
+  .mb-note.n2 { left: 48px; animation-delay: -0.5s; }
   .mb-note.n3 { left: 60px; animation-delay: 0s; }
-
-  @keyframes mb-note {
-    0%, 78% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    82% { opacity: 1; }
-    96% { transform: translateY(-16px) rotate(10deg); opacity: 0; }
-    100% { opacity: 0; }
-  }
   `,
   v3: `
   :host {
@@ -401,6 +366,12 @@ const musicBoxStyles = {
     background: linear-gradient(135deg, rgba(69, 26, 3, 0.9), rgba(124, 45, 18, 0.9));
     transform: skewX(-16deg);
     transform-origin: bottom center;
+    animation: mbc-lid-rock 1.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes mbc-lid-rock {
+    0% { transform: skewX(-16deg) rotate(-6deg); }
+    100% { transform: skewX(-16deg) rotate(4deg); }
   }
 
   /* Inner Mirror Silver Glint */
@@ -409,12 +380,12 @@ const musicBoxStyles = {
     position: absolute;
     inset: 3px;
     background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.6) 45%, transparent 60%);
-    animation: mbc-glint 6s ease-in-out infinite;
+    animation: mbc-glint 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes mbc-glint {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
   }
 
   /* Rotating 24k Brass Pinned Cylinder */
@@ -431,7 +402,7 @@ const musicBoxStyles = {
       linear-gradient(180deg, #fde047 0%, #eab308 50%, #ca8a04 100%);
     background-repeat: repeat;
     box-shadow: 0 0 6px rgba(250, 204, 21, 0.6);
-    animation: mbc-cyl 2.4s linear infinite;
+    animation: mbc-cyl 1.2s linear infinite;
     overflow: hidden;
   }
 
@@ -458,24 +429,21 @@ const musicBoxStyles = {
     position: absolute;
     top: 46px;
     width: 3px;
-    background: linear-gradient(180deg, #f8fafc 0%, #94a3b8 60%, #475569 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #94a3b8 60%, #475569 100%);
     border-radius: 1px;
     transform-origin: top center;
-    animation: mbc-pluck 2.4s infinite;
+    animation: mbc-pluck 1.2s ease-in-out infinite alternate;
   }
 
-  .mbc-tooth.t1 { left: 16px; height: 16px; animation-delay: -1.9s; }
-  .mbc-tooth.t2 { left: 30px; height: 14px; animation-delay: -0.4s; }
-  .mbc-tooth.t3 { left: 44px; height: 12px; animation-delay: -1.5s; }
-  .mbc-tooth.t4 { left: 58px; height: 10px; animation-delay: -0.9s; }
+  .mbc-tooth.t1 { left: 16px; height: 16px; animation-delay: -1.0s; }
+  .mbc-tooth.t2 { left: 30px; height: 14px; animation-delay: -0.25s; }
+  .mbc-tooth.t3 { left: 44px; height: 12px; animation-delay: -0.75s; }
+  .mbc-tooth.t4 { left: 58px; height: 10px; animation-delay: -0.5s; }
   .mbc-tooth.t5 { left: 68px; height: 8px; animation-delay: 0s; }
 
   @keyframes mbc-pluck {
-    0%, 78% { transform: rotate(0deg); box-shadow: none; }
-    82% { transform: rotate(9deg); box-shadow: 0 0 8px #fde047; background: #ffffff; }
-    86% { transform: rotate(-3deg); }
-    90% { transform: rotate(1.5deg); }
-    94%, 100% { transform: rotate(0deg); }
+    0% { transform: rotate(-14deg); box-shadow: 0 0 8px #fde047; }
+    100% { transform: rotate(14deg); box-shadow: none; }
   }
 
   /* Brass Winding Key Mount */
@@ -496,7 +464,7 @@ const musicBoxStyles = {
     bottom: 17px;
     width: 12px;
     height: 12px;
-    animation: mbc-key 4.8s ease-in-out infinite;
+    animation: mbc-key 1.4s linear infinite;
   }
 
   .mbc-key::before,
@@ -504,7 +472,7 @@ const musicBoxStyles = {
     content: '';
     position: absolute;
     background: #facc15;
-    box-shadow: 0 0 3px #eab308;
+    box-shadow: 0 0 6px #eab308;
     border-radius: 2px;
   }
 
@@ -512,9 +480,8 @@ const musicBoxStyles = {
   .mbc-key::after { left: 0; top: 5px; width: 12px; height: 2px; }
 
   @keyframes mbc-key {
-    0%, 12% { transform: rotate(0deg); }
-    38%, 62% { transform: rotate(180deg); }
-    88%, 100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   /* Floating Golden Notes (♪ ♫ ♪) */
@@ -522,22 +489,20 @@ const musicBoxStyles = {
     position: absolute;
     bottom: 50px;
     font-family: 'Courier New', monospace;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: bold;
     color: #fde047;
-    text-shadow: 0 0 8px #facc15, 0 0 14px #f59e0b;
-    opacity: 0;
-    animation: mbc-note 2.4s infinite;
+    text-shadow: 0 0 8px #facc15, 0 0 16px #f59e0b;
+    animation: mbc-note 1.4s ease-out infinite;
   }
 
-  .mbc-note.n1 { left: 34px; animation-delay: -1.9s; }
-  .mbc-note.n2 { left: 48px; animation-delay: -0.9s; }
+  .mbc-note.n1 { left: 34px; animation-delay: -1.0s; }
+  .mbc-note.n2 { left: 48px; animation-delay: -0.5s; }
   .mbc-note.n3 { left: 60px; animation-delay: 0s; }
 
   @keyframes mbc-note {
-    0%, 78% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    82% { opacity: 1; }
-    96% { transform: translateY(-16px) rotate(10deg); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translateY(0) rotate(-15deg); opacity: 1; }
+    100% { transform: translateY(-30px) rotate(15deg); opacity: 0.1; }
   }
   `,
 };

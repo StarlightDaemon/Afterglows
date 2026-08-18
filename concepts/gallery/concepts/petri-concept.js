@@ -13,6 +13,12 @@ const petriStyles = `
     height: 96px;
     position: relative;
     font-family: 'Courier New', monospace;
+    animation: pt-orbit-shake 1.8s linear infinite;
+  }
+
+  @keyframes pt-orbit-shake {
+    0% { transform: rotate(0deg) translate(4px) rotate(0deg); }
+    100% { transform: rotate(360deg) translate(4px) rotate(-360deg); }
   }
 
   .pt-dish {
@@ -23,12 +29,12 @@ const petriStyles = `
     height: 70px;
     margin-left: -44px;
     border-radius: 50%;
-    border: 2px solid var(--accent, #00cc00);
+    border: 2px solid var(--accent, #00ff66);
     background: radial-gradient(ellipse at 42% 36%,
-      rgba(0, 90, 18, 0.4),
-      rgba(0, 45, 9, 0.55) 60%,
-      rgba(0, 25, 5, 0.7));
-    box-shadow: inset 0 0 14px rgba(0, 204, 0, 0.2);
+      rgba(0, 90, 18, 0.6),
+      rgba(0, 45, 9, 0.75) 60%,
+      rgba(0, 25, 5, 0.9));
+    box-shadow: inset 0 0 14px rgba(0, 255, 100, 0.3), 0 0 8px rgba(0, 255, 100, 0.2);
   }
 
   .pt-dish::after {
@@ -36,56 +42,50 @@ const petriStyles = `
     position: absolute;
     inset: 5px;
     border-radius: 50%;
-    border: 1px solid rgba(0, 204, 0, 0.35);
+    border: 1px solid rgba(0, 255, 100, 0.4);
   }
 
   .pt-col {
     position: absolute;
     border-radius: 50%;
     background: radial-gradient(circle at 40% 35%,
-      rgba(190, 255, 205, 0.9),
-      rgba(0, 140, 28, 0.8) 55%,
-      rgba(0, 90, 18, 0.5));
-    border: 1px solid rgba(140, 255, 170, 0.7);
-    transform: scale(0);
-    animation: pt-grow 10s infinite var(--seed);
+      #ffffff,
+      rgba(0, 204, 50, 0.9) 55%,
+      rgba(0, 90, 18, 0.7));
+    border: 1px solid #00ff66;
+    box-shadow: 0 0 6px #00ff66;
+    animation: pt-motility 2.0s ease-in-out infinite alternate var(--seed);
     box-sizing: border-box;
   }
 
   .pt-col.c1 { left: 34px; top: 30px; width: 12px; height: 10px; --seed: 0s; }
-  .pt-col.c2 { left: 58px; top: 42px; width: 9px; height: 8px; --seed: 0.7s; }
-  .pt-col.c3 { left: 44px; top: 56px; width: 11px; height: 9px; --seed: 1.4s; }
-  .pt-col.c4 { left: 66px; top: 26px; width: 8px; height: 7px; --seed: 2.1s; }
-  .pt-col.c5 { left: 26px; top: 48px; width: 8px; height: 7px; --seed: 2.8s; }
-  .pt-col.c6 { left: 56px; top: 60px; width: 7px; height: 6px; --seed: 3.5s; }
-  .pt-col.c7 { left: 38px; top: 18px; width: 7px; height: 6px; --seed: 4.2s; }
+  .pt-col.c2 { left: 58px; top: 42px; width: 9px; height: 8px; --seed: -0.3s; }
+  .pt-col.c3 { left: 44px; top: 56px; width: 11px; height: 9px; --seed: -0.6s; }
+  .pt-col.c4 { left: 66px; top: 26px; width: 8px; height: 7px; --seed: -0.9s; }
+  .pt-col.c5 { left: 26px; top: 48px; width: 8px; height: 7px; --seed: -1.2s; }
+  .pt-col.c6 { left: 56px; top: 60px; width: 7px; height: 6px; --seed: -1.5s; }
+  .pt-col.c7 { left: 38px; top: 18px; width: 7px; height: 6px; --seed: -1.8s; }
 
-  @keyframes pt-grow {
-    0%, 8% { transform: scale(0); opacity: 0; }
-    12% { transform: scale(0.4); opacity: 1; }
-    30% { transform: scale(1); }
-    55% { transform: scale(1.06); box-shadow: 0 0 6px rgba(0, 204, 0, 0.5); }
-    78% { transform: scale(1.1); opacity: 1; }
-    86%, 100% { transform: scale(0); opacity: 0; }
+  @keyframes pt-motility {
+    0% { transform: translate(-4px, -3px) scale(0.85); }
+    100% { transform: translate(5px, 4px) scale(1.2); }
   }
 
   .pt-halo {
     position: absolute;
-    left: 40px;
-    top: 35px;
-    width: 0;
-    height: 0;
+    left: 44px;
+    top: 36px;
+    width: 32px;
+    height: 26px;
+    margin: -13px 0 0 -16px;
     border-radius: 50%;
-    border: 1px dashed rgba(140, 255, 170, 0.5);
-    animation: pt-halo 10s infinite;
+    border: 1.5px dashed #00ff66;
+    animation: pt-halo 1.8s ease-in-out infinite alternate;
   }
 
   @keyframes pt-halo {
-    0%, 10% { width: 0; height: 0; margin: 0; opacity: 0; }
-    20% { opacity: 0.8; }
-    60% { width: 34px; height: 28px; margin: -14px 0 0 -17px; opacity: 0.5; }
-    80% { width: 40px; height: 34px; margin: -17px 0 0 -20px; opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: scale(0.7) rotate(0deg); opacity: 0.4; }
+    100% { transform: scale(1.3) rotate(180deg); opacity: 1; }
   }
 
   .pt-sweep {
@@ -93,18 +93,16 @@ const petriStyles = `
     left: 50%;
     top: 45px;
     width: 44px;
-    height: 1.5px;
-    background: linear-gradient(90deg, rgba(190, 255, 205, 0.9), transparent);
+    height: 2px;
+    background: linear-gradient(90deg, #ffffff, #00ff66, transparent);
+    box-shadow: 0 0 8px #00ff66;
     transform-origin: 0% 50%;
-    animation: pt-sweep 10s linear infinite;
-    opacity: 0;
+    animation: pt-sweep 1.4s linear infinite;
   }
 
   @keyframes pt-sweep {
-    0%, 46% { transform: rotate(0deg); opacity: 0; }
-    50% { opacity: 0.9; }
-    78% { transform: rotate(360deg); opacity: 0.9; }
-    82%, 100% { transform: rotate(360deg); opacity: 0; }
+    0% { transform: rotate(0deg); opacity: 1; }
+    100% { transform: rotate(360deg); opacity: 1; }
   }
 
   .pt-count {
@@ -114,58 +112,27 @@ const petriStyles = `
     bottom: 0;
     text-align: center;
     font-size: 8px;
+    font-weight: bold;
     letter-spacing: 2px;
     color: #c8ffd6;
     text-shadow: 0 0 5px rgba(0, 204, 0, 0.7);
   }
 
   .pt-count::before {
-    content: 'CFU: 0';
-    animation: pt-count 10s steps(1) infinite;
-  }
-
-  @keyframes pt-count {
-    0% { content: 'CFU: 0'; }
-    12% { content: 'CFU: 1'; }
-    19% { content: 'CFU: 2'; }
-    26% { content: 'CFU: 3'; }
-    33% { content: 'CFU: 4'; }
-    40% { content: 'CFU: 5'; }
-    47% { content: 'CFU: 6'; }
-    54% { content: 'CFU: 7'; }
-    78% { content: 'CFU: 7 \\2713'; }
-    86% { content: 'STERILE'; }
-    97% { content: 'CFU: 0'; }
+    content: 'CFU: ACTIVE';
   }
 
   .pt-flash {
-    position: absolute;
-    left: 50%;
-    top: 10px;
-    width: 88px;
-    height: 70px;
-    margin-left: -44px;
-    border-radius: 50%;
-    background: rgba(190, 255, 205, 0.35);
-    opacity: 0;
-    animation: pt-flash 10s steps(1) infinite;
+    display: none;
   }
 
-  @keyframes pt-flash {
-    0%, 83% { opacity: 0; }
-    84%, 86% { opacity: 1; }
-    87%, 100% { opacity: 0; }
-  }
-
-  /* --- v2: Chromatic microbiological agar culture ---
-     Warm golden agar medium in clear borosilicate glass dish;
-     Staph aureus (gold), Serratia (magenta), Pseudomonas (turquoise);
-     UV laser scanning sweep and germicidal sterilisation flash. */
+  /* --- v2: Chromatic microbiological agar culture --- */
   .ptc {
     width: 104px;
     height: 96px;
     position: relative;
     font-family: 'Courier New', monospace;
+    animation: pt-orbit-shake 1.8s linear infinite;
   }
 
   .ptc-dish {
@@ -176,12 +143,12 @@ const petriStyles = `
     height: 70px;
     margin-left: -44px;
     border-radius: 50%;
-    border: 2px solid rgba(220, 240, 255, 0.85);
+    border: 2px solid rgba(220, 240, 255, 0.9);
     background: radial-gradient(ellipse at 42% 36%,
       #b45309,
       #78350f 60%,
       #451a03);
-    box-shadow: inset 0 0 14px rgba(254, 215, 170, 0.3), 0 0 8px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 0 14px rgba(254, 215, 170, 0.4), 0 0 10px rgba(0, 0, 0, 0.7);
   }
 
   .ptc-dish::after {
@@ -189,68 +156,75 @@ const petriStyles = `
     position: absolute;
     inset: 5px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.35);
   }
 
   /* Multi-strain bacterial colonies */
   .ptc-col {
     position: absolute;
     border-radius: 50%;
-    transform: scale(0);
-    animation: pt-grow 10s infinite var(--seed);
+    animation: pt-motility 2.0s ease-in-out infinite alternate var(--seed);
     box-sizing: border-box;
   }
 
   /* Staph aureus (Golden) */
   .ptc-col.c1 {
     left: 34px; top: 30px; width: 12px; height: 10px; --seed: 0s;
-    background: radial-gradient(circle at 40% 35%, #fde047, #d97706);
-    border: 1px solid #fef08a;
+    background: radial-gradient(circle at 40% 35%, #ffffff, #facc15 60%, #d97706);
+    border: 1.5px solid #fef08a;
+    box-shadow: 0 0 8px #facc15;
   }
   .ptc-col.c5 {
-    left: 26px; top: 48px; width: 8px; height: 7px; --seed: 2.8s;
-    background: radial-gradient(circle at 40% 35%, #fde047, #d97706);
-    border: 1px solid #fef08a;
+    left: 26px; top: 48px; width: 8px; height: 7px; --seed: -1.2s;
+    background: radial-gradient(circle at 40% 35%, #ffffff, #facc15 60%, #d97706);
+    border: 1.5px solid #fef08a;
+    box-shadow: 0 0 6px #facc15;
   }
 
   /* Serratia marcescens (Magenta/Crimson) */
   .ptc-col.c2 {
-    left: 58px; top: 42px; width: 9px; height: 8px; --seed: 0.7s;
-    background: radial-gradient(circle at 40% 35%, #f43f5e, #9f1239);
-    border: 1px solid #fda4af;
+    left: 58px; top: 42px; width: 9px; height: 8px; --seed: -0.3s;
+    background: radial-gradient(circle at 40% 35%, #ffffff, #f43f5e 60%, #9f1239);
+    border: 1.5px solid #fda4af;
+    box-shadow: 0 0 8px #f43f5e;
   }
   .ptc-col.c4 {
-    left: 66px; top: 26px; width: 8px; height: 7px; --seed: 2.1s;
-    background: radial-gradient(circle at 40% 35%, #f43f5e, #9f1239);
-    border: 1px solid #fda4af;
+    left: 66px; top: 26px; width: 8px; height: 7px; --seed: -0.9s;
+    background: radial-gradient(circle at 40% 35%, #ffffff, #f43f5e 60%, #9f1239);
+    border: 1.5px solid #fda4af;
+    box-shadow: 0 0 6px #f43f5e;
   }
 
   /* Pseudomonas aeruginosa (Turquoise/Cyan) */
   .ptc-col.c3 {
-    left: 44px; top: 56px; width: 11px; height: 9px; --seed: 1.4s;
-    background: radial-gradient(circle at 40% 35%, #22d3ee, #0e7490);
-    border: 1px solid #a5f3fc;
+    left: 44px; top: 56px; width: 11px; height: 9px; --seed: -0.6s;
+    background: radial-gradient(circle at 40% 35%, #ffffff, #22d3ee 60%, #0e7490);
+    border: 1.5px solid #a5f3fc;
+    box-shadow: 0 0 8px #22d3ee;
   }
   .ptc-col.c6 {
-    left: 56px; top: 60px; width: 7px; height: 6px; --seed: 3.5s;
-    background: radial-gradient(circle at 40% 35%, #22d3ee, #0e7490);
-    border: 1px solid #a5f3fc;
+    left: 56px; top: 60px; width: 7px; height: 6px; --seed: -1.5s;
+    background: radial-gradient(circle at 40% 35%, #ffffff, #22d3ee 60%, #0e7490);
+    border: 1.5px solid #a5f3fc;
+    box-shadow: 0 0 6px #22d3ee;
   }
   .ptc-col.c7 {
-    left: 38px; top: 18px; width: 7px; height: 6px; --seed: 4.2s;
-    background: radial-gradient(circle at 40% 35%, #22d3ee, #0e7490);
-    border: 1px solid #a5f3fc;
+    left: 38px; top: 18px; width: 7px; height: 6px; --seed: -1.8s;
+    background: radial-gradient(circle at 40% 35%, #ffffff, #22d3ee 60%, #0e7490);
+    border: 1.5px solid #a5f3fc;
+    box-shadow: 0 0 6px #22d3ee;
   }
 
   .ptc-halo {
     position: absolute;
-    left: 40px;
-    top: 35px;
-    width: 0;
-    height: 0;
+    left: 44px;
+    top: 36px;
+    width: 32px;
+    height: 26px;
+    margin: -13px 0 0 -16px;
     border-radius: 50%;
-    border: 1px dashed rgba(254, 240, 138, 0.7);
-    animation: pt-halo 10s infinite;
+    border: 1.5px dashed #38bdf8;
+    animation: pt-halo 1.8s ease-in-out infinite alternate;
   }
 
   /* Ultraviolet laser counting sweep */
@@ -259,12 +233,11 @@ const petriStyles = `
     left: 50%;
     top: 45px;
     width: 44px;
-    height: 1.5px;
-    background: linear-gradient(90deg, #c084fc, #38bdf8, transparent);
-    box-shadow: 0 0 6px #a855f7;
+    height: 2px;
+    background: linear-gradient(90deg, #ffffff, #c084fc, #38bdf8, transparent);
+    box-shadow: 0 0 8px #a855f7;
     transform-origin: 0% 50%;
-    animation: pt-sweep 10s linear infinite;
-    opacity: 0;
+    animation: pt-sweep 1.4s linear infinite;
   }
 
   .ptc-count {
@@ -281,23 +254,11 @@ const petriStyles = `
   }
 
   .ptc-count::before {
-    content: 'CFU: 0';
-    animation: pt-count 10s steps(1) infinite;
+    content: 'CFU: ACTIVE';
   }
 
-  /* Germicidal UV-C flash */
   .ptc-flash {
-    position: absolute;
-    left: 50%;
-    top: 10px;
-    width: 88px;
-    height: 70px;
-    margin-left: -44px;
-    border-radius: 50%;
-    background: rgba(192, 132, 252, 0.65);
-    box-shadow: 0 0 20px #a855f7;
-    opacity: 0;
-    animation: pt-flash 10s steps(1) infinite;
+    display: none;
   }
 `;
 

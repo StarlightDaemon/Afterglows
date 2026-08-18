@@ -21,37 +21,37 @@ const neuronStyles = `
     width: 22px;
     height: 20px;
     border-radius: 46% 54% 52% 48%;
-    background: radial-gradient(circle at 40% 35%, rgba(190, 255, 205, 0.8), rgba(0, 110, 22, 0.85));
-    border: 1px solid rgba(140, 255, 170, 0.7);
-    animation: nr-soma 3.8s infinite;
+    background: radial-gradient(circle at 40% 35%, #ffffff, rgba(0, 110, 22, 0.95));
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.6);
+    transform-origin: 50% 50%;
+    animation: nr-soma 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes nr-soma {
-    0%, 18% { box-shadow: 0 0 4px rgba(0, 204, 0, 0.3); }
-    24%, 30% { box-shadow: 0 0 16px rgba(0, 204, 0, 1); }
-    40%, 100% { box-shadow: 0 0 4px rgba(0, 204, 0, 0.3); }
+    0% { transform: scale(0.85); box-shadow: 0 0 6px rgba(0, 204, 0, 0.4); }
+    100% { transform: scale(1.25); box-shadow: 0 0 16px rgba(0, 255, 100, 1); }
   }
 
   .nr-dend {
     position: absolute;
     width: 16px;
-    height: 1.5px;
+    height: 2px;
     border-radius: 1px;
-    background: rgba(140, 255, 170, 0.6);
+    background: rgba(140, 255, 170, 0.9);
     transform-origin: 100% 50%;
-    animation: nr-dend 3.8s infinite;
+    animation: nr-dend 1.2s ease-in-out infinite alternate;
   }
 
   .nr-dend.d1 { left: 2px; top: 30px; transform: rotate(30deg); animation-delay: 0s; }
-  .nr-dend.d2 { left: 0; top: 42px; transform: rotate(0deg); animation-delay: 0.12s; }
-  .nr-dend.d3 { left: 2px; top: 54px; transform: rotate(-28deg); animation-delay: 0.24s; }
-  .nr-dend.d4 { left: 10px; top: 22px; transform: rotate(58deg); animation-delay: 0.06s; }
-  .nr-dend.d5 { left: 10px; top: 62px; transform: rotate(-54deg); animation-delay: 0.18s; }
+  .nr-dend.d2 { left: 0; top: 42px; transform: rotate(0deg); animation-delay: -0.2s; }
+  .nr-dend.d3 { left: 2px; top: 54px; transform: rotate(-28deg); animation-delay: -0.4s; }
+  .nr-dend.d4 { left: 10px; top: 22px; transform: rotate(58deg); animation-delay: -0.6s; }
+  .nr-dend.d5 { left: 10px; top: 62px; transform: rotate(-54deg); animation-delay: -0.8s; }
 
   @keyframes nr-dend {
-    0% { opacity: 0.4; box-shadow: none; }
-    8% { opacity: 1; box-shadow: 0 0 5px rgba(0, 204, 0, 0.8); }
-    16%, 100% { opacity: 0.4; box-shadow: none; }
+    0% { opacity: 0.5; transform: scaleX(0.8); }
+    100% { opacity: 1; transform: scaleX(1.2); }
   }
 
   .nr-axon {
@@ -59,37 +59,28 @@ const neuronStyles = `
     left: 38px;
     top: 43px;
     width: 56px;
-    height: 3px;
+    height: 3.5px;
     background: repeating-linear-gradient(90deg,
-      rgba(0, 204, 0, 0.55) 0 10px,
-      rgba(140, 255, 170, 0.9) 10px 12px);
+      rgba(0, 204, 0, 0.7) 0 10px,
+      rgba(140, 255, 170, 0.95) 10px 12px);
     border-radius: 2px;
   }
 
   .nr-spike {
     position: absolute;
     left: 34px;
-    top: 40px;
-    width: 9px;
-    height: 9px;
+    top: 39px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
-    background: radial-gradient(circle, #f2ffdd, rgba(0, 204, 0, 0.4) 70%);
-    box-shadow: 0 0 10px rgba(0, 204, 0, 1);
-    opacity: 0;
-    animation: nr-spike 3.8s infinite;
+    background: radial-gradient(circle, #ffffff, #00ff66 70%);
+    box-shadow: 0 0 12px #00ff66;
+    animation: nr-spike 1.0s linear infinite;
   }
 
   @keyframes nr-spike {
-    0%, 24% { transform: translateX(0); opacity: 0; }
-    28% { opacity: 1; }
-    32% { transform: translateX(14px); }
-    34% { transform: translateX(15px); }
-    38% { transform: translateX(29px); }
-    40% { transform: translateX(30px); }
-    44% { transform: translateX(44px); }
-    46% { transform: translateX(45px); }
-    50% { transform: translateX(56px); opacity: 1; }
-    54%, 100% { transform: translateX(56px); opacity: 0; }
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(58px); opacity: 1; }
   }
 
   .nr-term {
@@ -105,8 +96,8 @@ const neuronStyles = `
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: radial-gradient(circle at 40% 35%, rgba(190, 255, 205, 0.85), rgba(0, 110, 22, 0.9));
-    animation: nr-bouton 3.8s infinite;
+    background: radial-gradient(circle at 40% 35%, #ffffff, rgba(0, 110, 22, 0.9));
+    animation: nr-bouton 1.0s ease-in-out infinite alternate;
   }
 
   .nr-bouton.b1 { left: 0; top: 0; }
@@ -114,31 +105,28 @@ const neuronStyles = `
   .nr-bouton.b3 { left: 0; top: 12px; }
 
   @keyframes nr-bouton {
-    0%, 48% { box-shadow: none; }
-    52%, 58% { box-shadow: 0 0 12px rgba(0, 204, 0, 1); }
-    66%, 100% { box-shadow: none; }
+    0% { transform: scale(0.8); box-shadow: none; }
+    100% { transform: scale(1.3); box-shadow: 0 0 10px #00ff66; }
   }
 
   .nr-vesicle {
     position: absolute;
     left: 102px;
     top: 42px;
-    width: 3px;
-    height: 3px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
-    background: #d6ffe0;
-    opacity: 0;
-    animation: nr-vesicle 3.8s infinite;
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
+    animation: nr-vesicle 1.0s linear infinite;
   }
 
-  .nr-vesicle.v2 { top: 38px; animation-delay: 0.1s; }
-  .nr-vesicle.v3 { top: 48px; animation-delay: 0.18s; }
+  .nr-vesicle.v2 { top: 38px; animation-delay: -0.33s; }
+  .nr-vesicle.v3 { top: 48px; animation-delay: -0.66s; }
 
   @keyframes nr-vesicle {
-    0%, 52% { transform: translateX(0); opacity: 0; }
-    56% { opacity: 1; }
-    64% { transform: translateX(8px); opacity: 0.9; }
-    70%, 100% { transform: translateX(10px); opacity: 0; }
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(10px); opacity: 0; }
   }
 
   .nr-target {
@@ -148,15 +136,14 @@ const neuronStyles = `
     width: 6px;
     height: 24px;
     border-radius: 4px 0 0 4px;
-    background: rgba(0, 130, 26, 0.6);
-    border: 1px solid rgba(0, 204, 0, 0.5);
-    animation: nr-target 3.8s infinite;
+    background: rgba(0, 130, 26, 0.8);
+    border: 1px solid #00ff66;
+    animation: nr-target 1.0s ease-in-out infinite alternate;
   }
 
   @keyframes nr-target {
-    0%, 62% { box-shadow: none; }
-    68%, 76% { box-shadow: 0 0 10px rgba(0, 204, 0, 0.9); }
-    84%, 100% { box-shadow: none; }
+    0% { transform: scaleY(0.9); box-shadow: none; }
+    100% { transform: scaleY(1.15); box-shadow: 0 0 12px #00ff66; }
   }
 
   .nr-trace {
@@ -165,7 +152,7 @@ const neuronStyles = `
     right: 8px;
     bottom: 4px;
     height: 14px;
-    border-bottom: 1px solid rgba(0, 204, 0, 0.35);
+    border-bottom: 1.5px solid rgba(0, 204, 0, 0.5);
   }
 
   .nr-blip {
@@ -175,21 +162,17 @@ const neuronStyles = `
     width: 8px;
     height: 12px;
     clip-path: polygon(0 100%, 30% 100%, 50% 0, 70% 100%, 100% 100%);
-    background: rgba(140, 255, 170, 0.9);
-    opacity: 0;
-    animation: nr-blip 3.8s linear infinite;
+    background: #00ff66;
+    box-shadow: 0 0 8px #00ff66;
+    animation: nr-blip 1.0s linear infinite;
   }
 
   @keyframes nr-blip {
-    0%, 24% { transform: translateX(0); opacity: 0; }
-    28% { opacity: 1; }
-    52% { transform: translateX(84px); opacity: 1; }
-    56%, 100% { transform: translateX(92px); opacity: 0; }
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(92px); opacity: 1; }
   }
 
-  /* --- v2: Neurophysiological action potential signaling ---
-     Violet-magenta soma and dendrites, golden myelinated axon sheaths,
-     electric cyan saltatory action potential pulse, and glowing neurotransmitter vesicles. */
+  /* --- v2: Neurophysiological action potential signaling --- */
   .nrc {
     width: 116px;
     height: 88px;
@@ -203,37 +186,36 @@ const neuronStyles = `
     width: 22px;
     height: 20px;
     border-radius: 46% 54% 52% 48%;
-    background: radial-gradient(circle at 40% 35%, #c084fc, #7e22ce 60%, #4c1d95);
+    background: radial-gradient(circle at 40% 35%, #ffffff, #7e22ce 60%, #4c1d95);
     border: 1.5px solid #d8b4fe;
-    animation: nrc-soma 3.8s infinite;
+    transform-origin: 50% 50%;
+    animation: nrc-soma 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes nrc-soma {
-    0%, 18% { box-shadow: 0 0 6px rgba(168, 85, 247, 0.4); }
-    24%, 30% { box-shadow: 0 0 18px #c084fc, 0 0 24px #a855f7; }
-    40%, 100% { box-shadow: 0 0 6px rgba(168, 85, 247, 0.4); }
+    0% { transform: scale(0.85); box-shadow: 0 0 6px rgba(168, 85, 247, 0.4); }
+    100% { transform: scale(1.25); box-shadow: 0 0 18px #c084fc, 0 0 24px #a855f7; }
   }
 
   .nrc-dend {
     position: absolute;
     width: 16px;
-    height: 1.5px;
+    height: 2px;
     border-radius: 1px;
-    background: #a855f7;
+    background: #c084fc;
     transform-origin: 100% 50%;
-    animation: nrc-dend 3.8s infinite;
+    animation: nrc-dend 1.2s ease-in-out infinite alternate;
   }
 
   .nrc-dend.d1 { left: 2px; top: 30px; transform: rotate(30deg); animation-delay: 0s; }
-  .nrc-dend.d2 { left: 0; top: 42px; transform: rotate(0deg); animation-delay: 0.12s; }
-  .nrc-dend.d3 { left: 2px; top: 54px; transform: rotate(-28deg); animation-delay: 0.24s; }
-  .nrc-dend.d4 { left: 10px; top: 22px; transform: rotate(58deg); animation-delay: 0.06s; }
-  .nrc-dend.d5 { left: 10px; top: 62px; transform: rotate(-54deg); animation-delay: 0.18s; }
+  .nrc-dend.d2 { left: 0; top: 42px; transform: rotate(0deg); animation-delay: -0.2s; }
+  .nrc-dend.d3 { left: 2px; top: 54px; transform: rotate(-28deg); animation-delay: -0.4s; }
+  .nrc-dend.d4 { left: 10px; top: 22px; transform: rotate(58deg); animation-delay: -0.6s; }
+  .nrc-dend.d5 { left: 10px; top: 62px; transform: rotate(-54deg); animation-delay: -0.8s; }
 
   @keyframes nrc-dend {
-    0% { opacity: 0.4; box-shadow: none; }
-    8% { opacity: 1; box-shadow: 0 0 6px #c084fc; background: #e9d5ff; }
-    16%, 100% { opacity: 0.4; box-shadow: none; background: #a855f7; }
+    0% { opacity: 0.5; transform: scaleX(0.8); }
+    100% { opacity: 1; transform: scaleX(1.2); }
   }
 
   .nrc-axon {
@@ -241,25 +223,24 @@ const neuronStyles = `
     left: 38px;
     top: 43px;
     width: 56px;
-    height: 3px;
+    height: 3.5px;
     background: repeating-linear-gradient(90deg,
       #f59e0b 0 10px,
       #38bdf8 10px 12px);
     border-radius: 2px;
-    box-shadow: 0 0 4px rgba(245, 158, 11, 0.4);
+    box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
   }
 
   .nrc-spike {
     position: absolute;
     left: 34px;
-    top: 40px;
-    width: 9px;
-    height: 9px;
+    top: 39px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
     background: radial-gradient(circle, #ffffff, #00f0ff 60%);
-    box-shadow: 0 0 12px #00f0ff, 0 0 20px #0284c7;
-    opacity: 0;
-    animation: nr-spike 3.8s infinite;
+    box-shadow: 0 0 14px #00f0ff, 0 0 24px #0284c7;
+    animation: nr-spike 1.0s linear infinite;
   }
 
   .nrc-term {
@@ -275,9 +256,9 @@ const neuronStyles = `
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: radial-gradient(circle at 40% 35%, #c084fc, #6b21a8);
+    background: radial-gradient(circle at 40% 35%, #ffffff, #6b21a8);
     border: 1px solid #d8b4fe;
-    animation: nrc-bouton 3.8s infinite;
+    animation: nrc-bouton 1.0s ease-in-out infinite alternate;
   }
 
   .nrc-bouton.b1 { left: 0; top: 0; }
@@ -285,26 +266,24 @@ const neuronStyles = `
   .nrc-bouton.b3 { left: 0; top: 12px; }
 
   @keyframes nrc-bouton {
-    0%, 48% { box-shadow: none; }
-    52%, 58% { box-shadow: 0 0 12px #00f0ff; background: #38bdf8; }
-    66%, 100% { box-shadow: none; }
+    0% { transform: scale(0.8); box-shadow: none; }
+    100% { transform: scale(1.3); box-shadow: 0 0 12px #00f0ff; background: #38bdf8; }
   }
 
   .nrc-vesicle {
     position: absolute;
     left: 102px;
     top: 42px;
-    width: 3px;
-    height: 3px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background: #38bdf8;
-    box-shadow: 0 0 4px #00f0ff;
-    opacity: 0;
-    animation: nr-vesicle 3.8s infinite;
+    box-shadow: 0 0 6px #00f0ff;
+    animation: nr-vesicle 1.0s linear infinite;
   }
 
-  .nrc-vesicle.v2 { top: 38px; animation-delay: 0.1s; }
-  .nrc-vesicle.v3 { top: 48px; animation-delay: 0.18s; }
+  .nrc-vesicle.v2 { top: 38px; animation-delay: -0.33s; }
+  .nrc-vesicle.v3 { top: 48px; animation-delay: -0.66s; }
 
   .nrc-target {
     position: absolute;
@@ -314,14 +293,13 @@ const neuronStyles = `
     height: 24px;
     border-radius: 4px 0 0 4px;
     background: #ec4899;
-    border: 1px solid #f472b6;
-    animation: nrc-target 3.8s infinite;
+    border: 1.5px solid #f472b6;
+    animation: nrc-target 1.0s ease-in-out infinite alternate;
   }
 
   @keyframes nrc-target {
-    0%, 62% { box-shadow: none; opacity: 0.7; }
-    68%, 76% { box-shadow: 0 0 12px #ec4899; opacity: 1; }
-    84%, 100% { box-shadow: none; opacity: 0.7; }
+    0% { transform: scaleY(0.9); box-shadow: none; opacity: 0.7; }
+    100% { transform: scaleY(1.15); box-shadow: 0 0 14px #ec4899; opacity: 1; }
   }
 
   .nrc-trace {
@@ -330,7 +308,7 @@ const neuronStyles = `
     right: 8px;
     bottom: 4px;
     height: 14px;
-    border-bottom: 1px solid #334155;
+    border-bottom: 1.5px solid #64748b;
   }
 
   .nrc-blip {
@@ -341,9 +319,8 @@ const neuronStyles = `
     height: 12px;
     clip-path: polygon(0 100%, 30% 100%, 50% 0, 70% 100%, 100% 100%);
     background: #00f0ff;
-    box-shadow: 0 0 6px #00f0ff;
-    opacity: 0;
-    animation: nr-blip 3.8s linear infinite;
+    box-shadow: 0 0 8px #00f0ff;
+    animation: nr-blip 1.0s linear infinite;
   }
 `;
 

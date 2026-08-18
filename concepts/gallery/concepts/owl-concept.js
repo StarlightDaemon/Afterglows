@@ -46,11 +46,12 @@ const owlStyles = {
     margin-left: -22px;
     border-radius: 50% 50% 45% 45%;
     background: radial-gradient(ellipse at 50% 35%,
-      rgba(190, 255, 205, 0.55),
-      rgba(0, 130, 26, 0.7) 60%,
-      rgba(0, 80, 16, 0.85));
-    border: 1px solid rgba(0, 204, 0, 0.5);
-    animation: ow-breathe 3.4s ease-in-out infinite;
+      rgba(190, 255, 205, 0.75),
+      rgba(0, 130, 26, 0.85) 60%,
+      rgba(0, 80, 16, 0.95));
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
+    animation: ow-breathe 1.8s ease-in-out infinite alternate;
   }
 
   .ow-body::after {
@@ -63,13 +64,13 @@ const owlStyles = {
     background:
       repeating-linear-gradient(180deg,
         transparent 0 3px,
-        rgba(0, 90, 18, 0.4) 3px 4px);
+        rgba(0, 90, 18, 0.6) 3px 4px);
     border-radius: 0 0 45% 45%;
   }
 
   @keyframes ow-breathe {
-    0%, 100% { transform: scaleX(1) scaleY(1); }
-    50% { transform: scaleX(1.03) scaleY(0.98); }
+    0% { transform: translateY(-3px) scale(0.96); }
+    100% { transform: translateY(3px) scale(1.04); }
   }
 
   .ow-wing {
@@ -78,17 +79,22 @@ const owlStyles = {
     width: 14px;
     height: 34px;
     border-radius: 40% 40% 50% 50%;
-    background: linear-gradient(180deg, rgba(0, 150, 30, 0.65), rgba(0, 80, 16, 0.85));
-    border: 1px solid rgba(0, 204, 0, 0.4);
+    background: linear-gradient(180deg, rgba(0, 200, 50, 0.85), rgba(0, 80, 16, 0.95));
+    border: 1px solid #00ff66;
+    box-shadow: 0 0 6px rgba(0, 255, 100, 0.3);
   }
 
-  .ow-wing.left { left: 20px; transform-origin: top center; animation: ow-shrug 6s ease-in-out infinite; }
-  .ow-wing.right { right: 20px; transform-origin: top center; animation: ow-shrug 6s ease-in-out infinite; animation-delay: -0.1s; }
+  .ow-wing.left { left: 20px; transform-origin: top center; animation: ow-wing-l 1.8s ease-in-out infinite alternate; }
+  .ow-wing.right { right: 20px; transform-origin: top center; animation: ow-wing-r 1.8s ease-in-out infinite alternate; }
 
-  @keyframes ow-shrug {
-    0%, 70%, 100% { transform: rotate(0deg); }
-    78% { transform: rotate(-4deg) translateY(-2px); }
-    86% { transform: rotate(2deg); }
+  @keyframes ow-wing-l {
+    0% { transform: rotate(-14deg) translateY(-2px); }
+    100% { transform: rotate(10deg) translateY(2px); }
+  }
+
+  @keyframes ow-wing-r {
+    0% { transform: rotate(14deg) translateY(-2px); }
+    100% { transform: rotate(-10deg) translateY(2px); }
   }
 
   .ow-head {
@@ -100,11 +106,12 @@ const owlStyles = {
     margin-left: -21px;
     border-radius: 50% 50% 40% 40%;
     background: radial-gradient(ellipse at 50% 40%,
-      rgba(190, 255, 205, 0.6),
-      rgba(0, 140, 28, 0.75) 65%);
-    border: 1px solid rgba(0, 204, 0, 0.5);
+      rgba(214, 255, 224, 0.95),
+      rgba(0, 140, 28, 0.9) 65%);
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 12px rgba(0, 255, 100, 0.5);
     transform-origin: 50% 90%;
-    animation: ow-swivel 5s ease-in-out infinite;
+    animation: ow-swivel 1.8s ease-in-out infinite alternate;
   }
 
   .ow-head::before,
@@ -115,17 +122,16 @@ const owlStyles = {
     width: 8px;
     height: 10px;
     clip-path: polygon(50% 0, 100% 100%, 0 100%);
-    background: rgba(0, 130, 26, 0.85);
+    background: #00cc00;
   }
 
   .ow-head::before { left: 4px; transform: rotate(-12deg); }
   .ow-head::after { right: 4px; transform: rotate(12deg); }
 
   @keyframes ow-swivel {
-    0%, 100% { transform: rotate(0deg); }
-    20% { transform: rotate(-14deg); }
-    50% { transform: rotate(0deg); }
-    75% { transform: rotate(16deg); }
+    0% { transform: rotate(-32deg) translateY(-2px); }
+    50% { transform: rotate(0deg) translateY(2px); }
+    100% { transform: rotate(32deg) translateY(-2px); }
   }
 
   .ow-eye {
@@ -134,8 +140,8 @@ const owlStyles = {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: radial-gradient(circle at 45% 40%, #f2ffdd 0 25%, #2a8a3e 26% 55%, #041a0a 56%);
-    border: 2px solid rgba(140, 255, 170, 0.8);
+    background: radial-gradient(circle at 45% 40%, #ffffff 0 25%, #2a8a3e 26% 55%, #041a0a 56%);
+    border: 2px solid #00ff66;
     box-sizing: border-box;
     overflow: hidden;
   }
@@ -151,16 +157,13 @@ const owlStyles = {
     height: 16px;
     background: rgba(0, 120, 24, 0.95);
     border-radius: 0 0 50% 50%;
-    animation: ow-blink 5s ease-in-out infinite;
+    animation: ow-blink 2.2s ease-in-out infinite;
   }
 
   @keyframes ow-blink {
-    0%, 40%, 100% { transform: translateY(0); }
-    46% { transform: translateY(16px); }
-    52% { transform: translateY(0); }
-    84% { transform: translateY(0); }
-    89% { transform: translateY(16px); }
-    94% { transform: translateY(0); }
+    0%, 75%, 100% { transform: translateY(0); }
+    85% { transform: translateY(16px); }
+    92% { transform: translateY(0); }
   }
 
   .ow-beak {
@@ -171,7 +174,8 @@ const owlStyles = {
     height: 8px;
     margin-left: -2.5px;
     clip-path: polygon(50% 0, 100% 30%, 50% 100%, 0 30%);
-    background: rgba(214, 255, 224, 0.9);
+    background: #ffffff;
+    box-shadow: 0 0 4px #00ff66;
   }
   `,
   v2: `
@@ -237,7 +241,7 @@ const owlStyles = {
       #451a03 100%);
     border: 1.5px solid #ca8a04;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-    animation: owc-breathe 3.4s ease-in-out infinite;
+    animation: owc-breathe 1.8s ease-in-out infinite alternate;
   }
 
   /* Chest feather chevron marks */
@@ -256,8 +260,8 @@ const owlStyles = {
   }
 
   @keyframes owc-breathe {
-    0%, 100% { transform: scaleX(1) scaleY(1); }
-    50% { transform: scaleX(1.03) scaleY(0.98); }
+    0% { transform: translateY(-3px) scale(0.96); }
+    100% { transform: translateY(3px) scale(1.04); }
   }
 
   /* Wings */
@@ -272,13 +276,17 @@ const owlStyles = {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   }
 
-  .owc-wing.left { left: 20px; transform-origin: top center; animation: owc-shrug 6s ease-in-out infinite; }
-  .owc-wing.right { right: 20px; transform-origin: top center; animation: owc-shrug 6s ease-in-out infinite; animation-delay: -0.1s; }
+  .owc-wing.left { left: 20px; transform-origin: top center; animation: owc-wing-l 1.8s ease-in-out infinite alternate; }
+  .owc-wing.right { right: 20px; transform-origin: top center; animation: owc-wing-r 1.8s ease-in-out infinite alternate; }
 
-  @keyframes owc-shrug {
-    0%, 70%, 100% { transform: rotate(0deg); }
-    78% { transform: rotate(-4deg) translateY(-2px); }
-    86% { transform: rotate(2deg); }
+  @keyframes owc-wing-l {
+    0% { transform: rotate(-14deg) translateY(-2px); }
+    100% { transform: rotate(10deg) translateY(2px); }
+  }
+
+  @keyframes owc-wing-r {
+    0% { transform: rotate(14deg) translateY(-2px); }
+    100% { transform: rotate(-10deg) translateY(2px); }
   }
 
   /* Head with swiveling motion */
@@ -297,7 +305,7 @@ const owlStyles = {
     border: 1.5px solid #ca8a04;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
     transform-origin: 50% 90%;
-    animation: owc-swivel 5s ease-in-out infinite;
+    animation: owc-swivel 1.8s ease-in-out infinite alternate;
   }
 
   /* Ear tufts */
@@ -316,10 +324,9 @@ const owlStyles = {
   .owc-head::after { right: 4px; transform: rotate(12deg); }
 
   @keyframes owc-swivel {
-    0%, 100% { transform: rotate(0deg); }
-    20% { transform: rotate(-14deg); }
-    50% { transform: rotate(0deg); }
-    75% { transform: rotate(16deg); }
+    0% { transform: rotate(-32deg) translateY(-2px); }
+    50% { transform: rotate(0deg) translateY(2px); }
+    100% { transform: rotate(32deg) translateY(-2px); }
   }
 
   /* Glowing amber predatory eyes */
@@ -348,16 +355,13 @@ const owlStyles = {
     height: 16px;
     background: #78350f;
     border-radius: 0 0 50% 50%;
-    animation: owc-blink 5s ease-in-out infinite;
+    animation: owc-blink 2.2s ease-in-out infinite;
   }
 
   @keyframes owc-blink {
-    0%, 40%, 100% { transform: translateY(0); }
-    46% { transform: translateY(16px); }
-    52% { transform: translateY(0); }
-    84% { transform: translateY(0); }
-    89% { transform: translateY(16px); }
-    94% { transform: translateY(0); }
+    0%, 75%, 100% { transform: translateY(0); }
+    85% { transform: translateY(16px); }
+    92% { transform: translateY(0); }
   }
 
   /* Curved raptor beak */
@@ -370,7 +374,7 @@ const owlStyles = {
     margin-left: -2.5px;
     clip-path: polygon(50% 0, 100% 30%, 50% 100%, 0 30%);
     background: #facc15;
-    box-shadow: 0 0 2px #ca8a04;
+    box-shadow: 0 0 4px #ca8a04;
   }
   `,
 };

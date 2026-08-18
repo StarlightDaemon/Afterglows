@@ -21,7 +21,7 @@ const piggybankStyles = {
     position: relative;
   }
 
-  /* Coins falling into the slot, in sequence. */
+  /* Coins falling into the slot */
   .pg-coin {
     position: absolute;
     left: 50%;
@@ -30,25 +30,22 @@ const piggybankStyles = {
     height: 10px;
     margin-left: -5px;
     border-radius: 50%;
-    background: radial-gradient(circle at 38% 32%, #f2ffdd, #9ade5a 65%, rgba(0, 150, 30, 0.9));
-    border: 1px solid rgba(0, 204, 0, 0.5);
-    animation: pg-coin 2.2s ease-in infinite;
+    background: radial-gradient(circle at 38% 32%, #ffffff, #9ade5a 65%, rgba(0, 150, 30, 0.9));
+    border: 1.5px solid #00ff66;
+    box-shadow: 0 0 6px #00ff66;
+    animation: pg-coin 1.0s linear infinite;
   }
 
-  .pg-coin.c2 { animation-delay: 0.73s; }
-  .pg-coin.c3 { animation-delay: 1.46s; }
+  .pg-coin.c2 { animation-delay: -0.33s; }
+  .pg-coin.c3 { animation-delay: -0.66s; }
 
   @keyframes pg-coin {
-    0% { transform: translateY(0) scaleY(1); opacity: 0; }
-    10% { opacity: 1; }
-    /* Fall to the slot. */
-    40% { transform: translateY(24px) scaleY(1); opacity: 1; }
-    /* Slip in (edge-on) and vanish. */
-    50% { transform: translateY(30px) scaleY(0.2); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translateY(-8px) scaleY(1); opacity: 1; }
+    80% { transform: translateY(24px) scaleY(1); opacity: 1; }
+    100% { transform: translateY(32px) scaleY(0.2); opacity: 0; }
   }
 
-  /* The pig body: wiggles on each coin drop. */
+  /* The pig body: energetic bouncing and rocking */
   .pg-pig {
     position: absolute;
     left: 50%;
@@ -56,15 +53,12 @@ const piggybankStyles = {
     width: 72px;
     height: 50px;
     margin-left: -36px;
-    animation: pg-wiggle 2.2s ease-in-out infinite;
+    animation: pg-wiggle 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes pg-wiggle {
-    0%, 44% { transform: rotate(0deg) translateY(0); }
-    52% { transform: rotate(-2deg) translateY(-2px); }
-    58% { transform: rotate(2deg); }
-    64% { transform: rotate(0deg) translateY(0); }
-    100% { transform: rotate(0deg); }
+    0% { transform: rotate(-5deg) translateY(-5px); }
+    100% { transform: rotate(5deg) translateY(3px); }
   }
 
   .pg-body {
@@ -75,10 +69,11 @@ const piggybankStyles = {
     height: 40px;
     border-radius: 50% 50% 45% 45%;
     background: radial-gradient(ellipse at 38% 32%,
-      rgba(214, 255, 224, 0.85),
-      rgba(0, 170, 34, 0.7) 60%,
-      rgba(0, 110, 22, 0.85));
-    border: 2px solid var(--accent, #00cc00);
+      rgba(214, 255, 224, 0.95),
+      rgba(0, 170, 34, 0.85) 60%,
+      rgba(0, 110, 22, 0.95));
+    border: 2px solid var(--accent, #00ff66);
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
     overflow: hidden;
   }
 
@@ -88,22 +83,11 @@ const piggybankStyles = {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 6px;
+    height: 16px;
     background:
       repeating-linear-gradient(180deg,
-        rgba(242, 255, 221, 0.8) 0 2px,
-        rgba(0, 150, 30, 0.7) 2px 4px);
-    animation: pg-fill 6.6s steps(1) infinite;
-  }
-
-  @keyframes pg-fill {
-    0% { height: 6px; }
-    24% { height: 14px; }
-    48% { height: 22px; }
-    72% { height: 30px; }
-    /* Emptied (spent). */
-    88% { height: 30px; }
-    92% { height: 6px; }
+        rgba(242, 255, 221, 0.9) 0 2px,
+        rgba(0, 150, 30, 0.8) 2px 4px);
   }
 
   /* Snout. */
@@ -114,8 +98,8 @@ const piggybankStyles = {
     width: 14px;
     height: 12px;
     border-radius: 40%;
-    background: radial-gradient(circle at 40% 35%, rgba(190, 255, 205, 0.8), rgba(0, 130, 26, 0.85));
-    border: 1px solid rgba(0, 204, 0, 0.5);
+    background: radial-gradient(circle at 40% 35%, rgba(190, 255, 205, 0.9), rgba(0, 130, 26, 0.95));
+    border: 1.5px solid #00ff66;
     z-index: 2;
   }
 
@@ -142,6 +126,7 @@ const piggybankStyles = {
     height: 4px;
     border-radius: 50%;
     background: #041a0a;
+    box-shadow: 0 0 2px #00ff66;
     z-index: 3;
   }
 
@@ -153,16 +138,14 @@ const piggybankStyles = {
     width: 10px;
     height: 10px;
     clip-path: polygon(0 100%, 40% 0, 100% 60%);
-    background: rgba(0, 150, 30, 0.85);
+    background: rgba(0, 200, 50, 0.95);
     transform-origin: 50% 100%;
-    animation: pg-ear 2.2s ease-in-out infinite;
+    animation: pg-ear 1.0s ease-in-out infinite alternate;
   }
 
   @keyframes pg-ear {
-    0%, 46% { transform: rotate(0deg); }
-    54% { transform: rotate(-14deg); }
-    62% { transform: rotate(0deg); }
-    100% { transform: rotate(0deg); }
+    0% { transform: rotate(-16deg); }
+    100% { transform: rotate(8deg); }
   }
 
   /* Coin slot on the back. */
@@ -174,7 +157,7 @@ const piggybankStyles = {
     height: 3px;
     border-radius: 2px;
     background: rgba(0, 30, 6, 0.9);
-    border: 1px solid rgba(140, 255, 170, 0.7);
+    border: 1px solid #00ff66;
     z-index: 3;
   }
 
@@ -185,50 +168,46 @@ const piggybankStyles = {
     top: 20px;
     width: 8px;
     height: 8px;
-    border: 1.5px solid rgba(140, 255, 170, 0.8);
+    border: 2px solid #00ff66;
     border-radius: 50%;
     border-left-color: transparent;
-    animation: pg-tail 2.2s ease-in-out infinite;
+    animation: pg-tail 1.0s ease-in-out infinite alternate;
   }
 
   @keyframes pg-tail {
-    0%, 46% { transform: rotate(0deg); }
-    56% { transform: rotate(40deg); }
-    64% { transform: rotate(0deg); }
-    100% { transform: rotate(0deg); }
+    0% { transform: rotate(-20deg) scale(0.9); }
+    100% { transform: rotate(50deg) scale(1.2); }
   }
 
-  /* Legs: extend past the body so the pig stands rather than floats. */
+  /* Legs */
   .pg-leg {
     position: absolute;
     bottom: 0;
     width: 8px;
     height: 10px;
     border-radius: 0 0 2px 2px;
-    background: rgba(0, 130, 26, 0.8);
+    background: rgba(0, 130, 26, 0.9);
   }
 
   .pg-leg.l1 { left: 12px; }
   .pg-leg.l2 { left: 46px; }
 
-  /* Clink note. */
+  /* Clink note */
   .pg-note {
     position: absolute;
     right: 4px;
     top: 20px;
     font-family: 'Courier New', monospace;
-    font-size: 9px;
-    color: #baffc9;
-    text-shadow: 0 0 5px rgba(0, 204, 0, 0.8);
-    opacity: 0;
-    animation: pg-note 2.2s infinite;
+    font-size: 11px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 6px #00ff66;
+    animation: pg-note 1.0s ease-out infinite;
   }
 
   @keyframes pg-note {
-    0%, 44% { transform: translateY(0); opacity: 0; }
-    50% { opacity: 1; }
-    68% { transform: translateY(-10px); opacity: 0; }
-    100% { opacity: 0; }
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-16px); opacity: 0; }
   }
   `,
   v2: `
@@ -254,14 +233,12 @@ const piggybankStyles = {
     width: 88px;
     height: 56px;
     transform-origin: 50% 90%;
-    animation: pg-wiggle 3.5s ease-in-out infinite;
+    animation: pg-wiggle 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes pg-wiggle {
-    0%, 42%, 100% { transform: rotate(0deg) scale(1); }
-    48% { transform: rotate(-2.5deg) scale(1.03, 0.97); }
-    54% { transform: rotate(2deg) scale(0.98, 1.02); }
-    60% { transform: rotate(0deg) scale(1); }
+    0% { transform: rotate(-5deg) translateY(-5px); }
+    100% { transform: rotate(5deg) translateY(3px); }
   }
 
   /* Body. */
@@ -273,7 +250,8 @@ const piggybankStyles = {
     height: 44px;
     border-radius: 50% 46% 48% 50%;
     background: radial-gradient(circle at 38% 32%, rgba(160, 255, 185, 0.85), rgba(0, 130, 26, 0.9) 70%, rgba(0, 80, 16, 0.95));
-    border: 2px solid var(--accent, #00cc00);
+    border: 2px solid var(--accent, #00ff66);
+    box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
   }
 
   /* Coin slot on the back. */
@@ -285,7 +263,7 @@ const piggybankStyles = {
     height: 3px;
     border-radius: 2px;
     background: #041a0a;
-    box-shadow: 0 0 4px rgba(0, 204, 0, 0.6);
+    box-shadow: 0 0 4px rgba(0, 255, 100, 0.6);
     z-index: 2;
   }
 
@@ -298,7 +276,7 @@ const piggybankStyles = {
     height: 26px;
     border-radius: 50% 45% 45% 50%;
     background: radial-gradient(circle at 40% 34%, rgba(170, 255, 195, 0.9), rgba(0, 140, 28, 0.9) 72%);
-    border: 2px solid var(--accent, #00cc00);
+    border: 2px solid var(--accent, #00ff66);
     z-index: 2;
   }
 
@@ -311,7 +289,7 @@ const piggybankStyles = {
     height: 10px;
     border-radius: 50%;
     background: linear-gradient(135deg, rgba(200, 255, 215, 0.95), rgba(0, 150, 30, 0.9));
-    border: 1.5px solid rgba(0, 204, 0, 0.7);
+    border: 1.5px solid #00ff66;
     z-index: 3;
   }
 
@@ -338,6 +316,7 @@ const piggybankStyles = {
     height: 3px;
     border-radius: 50%;
     background: #041a0a;
+    box-shadow: 0 0 2px #00ff66;
     z-index: 3;
   }
 
@@ -351,15 +330,13 @@ const piggybankStyles = {
     clip-path: polygon(10% 100%, 0 0, 100% 55%);
     background: linear-gradient(160deg, rgba(160, 255, 185, 0.95), rgba(0, 120, 24, 0.9));
     transform-origin: 20% 90%;
-    animation: pg-ear 3.5s ease-in-out infinite;
+    animation: pg-ear 1.0s ease-in-out infinite alternate;
     z-index: 2;
   }
 
   @keyframes pg-ear {
-    0%, 44%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(-14deg); }
-    58% { transform: rotate(4deg); }
-    64% { transform: rotate(0deg); }
+    0% { transform: rotate(-16deg); }
+    100% { transform: rotate(8deg); }
   }
 
   /* Curly tail: nested border arcs on the rump, springing on the clink. */
@@ -369,13 +346,13 @@ const piggybankStyles = {
     top: 16px;
     width: 12px;
     height: 12px;
-    border: 2px solid rgba(140, 255, 170, 0.9);
+    border: 2px solid #00ff66;
     border-left-color: transparent;
     border-bottom-color: transparent;
     border-radius: 50%;
     transform: rotate(-30deg);
     transform-origin: 10% 60%;
-    animation: pg-tail 3.5s ease-in-out infinite;
+    animation: pg-tail 1.0s ease-in-out infinite alternate;
   }
 
   .pg-tail::after {
@@ -392,10 +369,8 @@ const piggybankStyles = {
   }
 
   @keyframes pg-tail {
-    0%, 44%, 100% { transform: rotate(-30deg); }
-    50% { transform: rotate(-70deg); }
-    56% { transform: rotate(-12deg); }
-    62% { transform: rotate(-30deg); }
+    0% { transform: rotate(-70deg); }
+    100% { transform: rotate(20deg); }
   }
 
   /* Legs. */
@@ -415,7 +390,7 @@ const piggybankStyles = {
   .pg-leg.l3 { right: 26px; }
   .pg-leg.l4 { right: 12px; }
 
-  /* The coin: drops from above into the slot, vanishing as it enters. */
+  /* The coin */
   .pg-coin {
     position: absolute;
     left: 52px;
@@ -423,8 +398,9 @@ const piggybankStyles = {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    border: 2px solid var(--accent, #00cc00);
-    background: radial-gradient(circle at 40% 35%, #eaffea, rgba(0, 160, 32, 0.9) 65%);
+    border: 2px solid #00ff66;
+    background: radial-gradient(circle at 40% 35%, #ffffff, rgba(0, 160, 32, 0.9) 65%);
+    box-shadow: 0 0 8px #00ff66;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -433,18 +409,16 @@ const piggybankStyles = {
     font-size: 8px;
     font-weight: bold;
     color: #041a0a;
-    animation: pg-coin 3.5s cubic-bezier(0.5, 0, 0.9, 0.4) infinite;
+    animation: pg-coin 1.0s linear infinite;
   }
 
   @keyframes pg-coin {
-    0%, 10% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    14% { opacity: 1; }
-    40% { transform: translateY(24px) rotate(50deg) scaleX(0.7); opacity: 1; }
-    46% { transform: translateY(31px) rotate(85deg) scaleX(0.25); opacity: 1; }
-    48%, 100% { transform: translateY(32px) rotate(90deg) scaleX(0.2); opacity: 0; }
+    0% { transform: translateY(-8px) rotate(0deg); opacity: 1; }
+    75% { transform: translateY(24px) rotate(50deg) scaleX(0.7); opacity: 1; }
+    100% { transform: translateY(32px) rotate(90deg) scaleX(0.2); opacity: 0; }
   }
 
-  /* Clink sparkle at the slot when the coin drops in. */
+  /* Clink sparkle */
   .pg-clink {
     position: absolute;
     left: 56px;
@@ -452,7 +426,7 @@ const piggybankStyles = {
     width: 8px;
     height: 8px;
     opacity: 0;
-    animation: pg-clink 3.5s infinite;
+    animation: pg-clink 1.0s infinite;
   }
 
   .pg-clink::before,
@@ -462,16 +436,16 @@ const piggybankStyles = {
     left: 50%;
     top: 50%;
     background: #eaffea;
-    box-shadow: 0 0 5px rgba(190, 255, 205, 0.9);
+    box-shadow: 0 0 5px #00ff66;
   }
 
   .pg-clink::before { width: 8px; height: 1.5px; margin: -0.75px 0 0 -4px; }
   .pg-clink::after { width: 1.5px; height: 8px; margin: -4px 0 0 -0.75px; }
 
   @keyframes pg-clink {
-    0%, 44% { opacity: 0; transform: scale(0.4) rotate(0deg); }
-    47% { opacity: 1; transform: scale(1.15) rotate(20deg); }
-    54%, 100% { opacity: 0; transform: scale(0.5) rotate(40deg); }
+    0%, 65% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+    75% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+    100% { opacity: 0; transform: scale(0.5) rotate(40deg); }
   }
 
   /* Ground shadow. */
@@ -513,14 +487,12 @@ const piggybankStyles = {
     width: 88px;
     height: 56px;
     transform-origin: 50% 90%;
-    animation: pgc-wiggle 3.5s ease-in-out infinite;
+    animation: pgc-wiggle 1.2s ease-in-out infinite alternate;
   }
 
   @keyframes pgc-wiggle {
-    0%, 42%, 100% { transform: rotate(0deg) scale(1); }
-    48% { transform: rotate(-2.5deg) scale(1.03, 0.97); }
-    54% { transform: rotate(2deg) scale(0.98, 1.02); }
-    60% { transform: rotate(0deg) scale(1); }
+    0% { transform: rotate(-5deg) translateY(-5px); }
+    100% { transform: rotate(5deg) translateY(3px); }
   }
 
   /* Glossy Bubblegum Pink Body */
@@ -614,15 +586,13 @@ const piggybankStyles = {
     clip-path: polygon(10% 100%, 0 0, 100% 55%);
     background: linear-gradient(160deg, #fbcfe8, #ec4899);
     transform-origin: 20% 90%;
-    animation: pgc-ear 3.5s ease-in-out infinite;
+    animation: pgc-ear 1.0s ease-in-out infinite alternate;
     z-index: 2;
   }
 
   @keyframes pgc-ear {
-    0%, 44%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(-14deg); }
-    58% { transform: rotate(4deg); }
-    64% { transform: rotate(0deg); }
+    0% { transform: rotate(-16deg); }
+    100% { transform: rotate(8deg); }
   }
 
   /* Curly Pink Spring Tail */
@@ -638,7 +608,7 @@ const piggybankStyles = {
     border-radius: 50%;
     transform: rotate(-30deg);
     transform-origin: 10% 60%;
-    animation: pgc-tail 3.5s ease-in-out infinite;
+    animation: pgc-tail 1.0s ease-in-out infinite alternate;
   }
 
   .pgc-tail::after {
@@ -655,10 +625,8 @@ const piggybankStyles = {
   }
 
   @keyframes pgc-tail {
-    0%, 44%, 100% { transform: rotate(-30deg); }
-    50% { transform: rotate(-70deg); }
-    56% { transform: rotate(-12deg); }
-    62% { transform: rotate(-30deg); }
+    0% { transform: rotate(-70deg); }
+    100% { transform: rotate(20deg); }
   }
 
   /* Ceramic Stumpy Legs */
@@ -688,7 +656,7 @@ const piggybankStyles = {
     border-radius: 50%;
     border: 2px solid #fde047;
     background: radial-gradient(circle at 40% 35%, #ffffff 0%, #facc15 50%, #ca8a04 100%);
-    box-shadow: 0 0 8px #facc15;
+    box-shadow: 0 0 10px #facc15;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -697,15 +665,13 @@ const piggybankStyles = {
     font-size: 9px;
     font-weight: 900;
     color: #713f12;
-    animation: pgc-coin 3.5s cubic-bezier(0.5, 0, 0.9, 0.4) infinite;
+    animation: pgc-coin 1.0s linear infinite;
   }
 
   @keyframes pgc-coin {
-    0%, 10% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    14% { opacity: 1; }
-    40% { transform: translateY(24px) rotate(50deg) scaleX(0.7); opacity: 1; }
-    46% { transform: translateY(31px) rotate(85deg) scaleX(0.25); opacity: 1; }
-    48%, 100% { transform: translateY(32px) rotate(90deg) scaleX(0.2); opacity: 0; }
+    0% { transform: translateY(-8px) rotate(0deg); opacity: 1; }
+    75% { transform: translateY(24px) rotate(50deg) scaleX(0.7); opacity: 1; }
+    100% { transform: translateY(32px) rotate(90deg) scaleX(0.2); opacity: 0; }
   }
 
   /* Golden Starburst Clink Sparkle */
@@ -716,7 +682,7 @@ const piggybankStyles = {
     width: 8px;
     height: 8px;
     opacity: 0;
-    animation: pgc-clink 3.5s infinite;
+    animation: pgc-clink 1.0s infinite;
   }
 
   .pgc-clink::before,
@@ -733,9 +699,9 @@ const piggybankStyles = {
   .pgc-clink::after { width: 2px; height: 10px; margin: -5px 0 0 -1px; }
 
   @keyframes pgc-clink {
-    0%, 44% { opacity: 0; transform: scale(0.4) rotate(0deg); }
-    47% { opacity: 1; transform: scale(1.2) rotate(20deg); }
-    54%, 100% { opacity: 0; transform: scale(0.5) rotate(40deg); }
+    0%, 65% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+    75% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+    100% { opacity: 0; transform: scale(0.5) rotate(40deg); }
   }
 
   /* Soft Ambient Ground Shadow */

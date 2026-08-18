@@ -12,15 +12,22 @@ const neonStyles = `
     width: 112px;
     height: 88px;
     position: relative;
+    transform-origin: 50% 0;
+    animation: neon-swing 1.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes neon-swing {
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(8deg); }
   }
 
   .neon-chain {
     position: absolute;
     top: 0;
-    width: 1.5px;
+    width: 2px;
     height: 14px;
     background: repeating-linear-gradient(180deg,
-      rgba(140, 255, 170, 0.8) 0 2px,
+      rgba(140, 255, 170, 0.9) 0 2px,
       transparent 2px 4px);
   }
 
@@ -33,17 +40,10 @@ const neonStyles = `
     right: 8px;
     top: 14px;
     height: 44px;
-    border: 2px solid rgba(0, 204, 0, 0.6);
+    border: 2px solid #00ff66;
     border-radius: 8px;
-    background: rgba(0, 18, 4, 0.85);
-    box-shadow: inset 0 0 12px rgba(0, 204, 0, 0.15);
-    animation: neon-splash 5.5s infinite;
-  }
-
-  @keyframes neon-splash {
-    0%, 34% { box-shadow: inset 0 0 14px rgba(0, 204, 0, 0.3); }
-    38%, 55% { box-shadow: inset 0 0 7px rgba(0, 204, 0, 0.12); }
-    62%, 100% { box-shadow: inset 0 0 14px rgba(0, 204, 0, 0.3); }
+    background: rgba(0, 18, 4, 0.9);
+    box-shadow: 0 0 12px rgba(0, 255, 100, 0.5), inset 0 0 14px rgba(0, 255, 100, 0.3);
   }
 
   .neon-word {
@@ -56,42 +56,28 @@ const neonStyles = `
     font-size: 24px;
     font-weight: bold;
     letter-spacing: 5px;
-    color: #baffc9;
+    color: #ffffff;
   }
 
   .neon-letter {
     text-shadow:
-      0 0 6px rgba(0, 204, 0, 0.95),
-      0 0 14px rgba(0, 204, 0, 0.55),
-      0 0 26px rgba(0, 204, 0, 0.3);
-    animation: neon-hum 2.2s ease-in-out infinite;
+      0 0 4px #ffffff,
+      0 0 10px #00ff66,
+      0 0 20px #00ff66;
+    animation: neon-hum 1.2s ease-in-out infinite alternate;
   }
 
-  .neon-letter.l2 { animation-delay: -0.7s; }
-  .neon-letter.l3 { animation-delay: -1.3s; }
-  .neon-letter.l4 { animation-delay: -1.8s; }
+  .neon-letter.l2 { animation-delay: -0.3s; }
+  .neon-letter.l3 { animation-delay: -0.6s; }
+  .neon-letter.l4 { animation-delay: -0.9s; }
 
   @keyframes neon-hum {
-    0%, 100% { opacity: 0.92; }
-    50% { opacity: 1; }
+    0% { transform: scale(0.95); opacity: 0.9; }
+    100% { transform: scale(1.05); opacity: 1; }
   }
 
   .neon-letter.flicker {
-    animation: neon-flicker 5.5s steps(1) infinite;
-  }
-
-  @keyframes neon-flicker {
-    0%, 33% { opacity: 1; }
-    34% { opacity: 0.25; }
-    35% { opacity: 1; }
-    36% { opacity: 0.15; }
-    38% { opacity: 0.6; }
-    39%, 54% { opacity: 0.12; text-shadow: none; }
-    55% { opacity: 0.7; }
-    56% { opacity: 0.2; }
-    58% { opacity: 0.9; }
-    59% { opacity: 0.3; }
-    61%, 100% { opacity: 1; }
+    animation: neon-hum 1.2s ease-in-out infinite alternate;
   }
 
   .neon-cable {
@@ -100,10 +86,16 @@ const neonStyles = `
     top: 58px;
     width: 22px;
     height: 22px;
-    border: 1.5px solid rgba(0, 204, 0, 0.5);
+    border: 2px solid rgba(0, 255, 100, 0.7);
     border-top: none;
     border-left: none;
     border-radius: 0 0 14px 0;
+    animation: neon-cable-vibe 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes neon-cable-vibe {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(2px); }
   }
 
   .neon-moth-orbit {
@@ -112,20 +104,22 @@ const neonStyles = `
     top: 36px;
     width: 0;
     height: 0;
-    animation: neon-moth-orbit 4.2s linear infinite;
+    animation: neon-moth-orbit 2.4s linear infinite;
   }
 
   @keyframes neon-moth-orbit {
-    to { transform: rotate(-360deg); }
+    0% { transform: rotate(0deg) scale(0.9); }
+    50% { transform: rotate(180deg) scale(1.15); }
+    100% { transform: rotate(360deg) scale(0.9); }
   }
 
   .neon-moth {
     position: absolute;
-    left: 46px;
+    left: 42px;
     top: 0;
-    width: 6px;
-    height: 4px;
-    animation: neon-moth 0.24s steps(2) infinite;
+    width: 7px;
+    height: 5px;
+    animation: neon-moth 0.15s steps(2) infinite;
   }
 
   .neon-moth::before,
@@ -133,10 +127,11 @@ const neonStyles = `
     content: '';
     position: absolute;
     top: 0;
-    width: 3px;
-    height: 4px;
+    width: 4px;
+    height: 5px;
     border-radius: 50% 50% 40% 40%;
-    background: rgba(214, 255, 224, 0.85);
+    background: #ffffff;
+    box-shadow: 0 0 6px #00ff66;
   }
 
   .neon-moth::before { left: 0; transform-origin: right center; transform: rotate(24deg); }
@@ -144,7 +139,7 @@ const neonStyles = `
 
   @keyframes neon-moth {
     0% { transform: scaleX(1); }
-    100% { transform: scaleX(0.55); }
+    100% { transform: scaleX(0.5); }
   }
 
   .neon-legend {
@@ -156,7 +151,7 @@ const neonStyles = `
     font-family: 'Courier New', monospace;
     font-size: 7px;
     letter-spacing: 3px;
-    color: rgba(140, 255, 170, 0.55);
+    color: #00ff66;
   }
 
   /* --- v2: Multi-gas dual neon (Hot Pink letters + Electric Cyan border) --- */
@@ -164,12 +159,19 @@ const neonStyles = `
     width: 112px;
     height: 88px;
     position: relative;
+    transform-origin: 50% 0;
+    animation: neonc-swing 1.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes neonc-swing {
+    0% { transform: rotate(-8deg); }
+    100% { transform: rotate(8deg); }
   }
 
   .neonc-chain {
     position: absolute;
     top: 0;
-    width: 1.5px;
+    width: 2px;
     height: 14px;
     background: repeating-linear-gradient(180deg,
       #94a3b8 0 2px,
@@ -188,14 +190,7 @@ const neonStyles = `
     border: 2px solid #00e5ff;
     border-radius: 8px;
     background: rgba(10, 12, 22, 0.9);
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.7), inset 0 0 14px rgba(0, 229, 255, 0.25);
-    animation: neonc-splash 5.5s infinite;
-  }
-
-  @keyframes neonc-splash {
-    0%, 34% { box-shadow: 0 0 12px rgba(0, 229, 255, 0.8), inset 0 0 14px rgba(255, 20, 147, 0.4); }
-    38%, 55% { box-shadow: 0 0 8px rgba(0, 229, 255, 0.5), inset 0 0 8px rgba(255, 20, 147, 0.15); }
-    62%, 100% { box-shadow: 0 0 12px rgba(0, 229, 255, 0.8), inset 0 0 14px rgba(255, 20, 147, 0.4); }
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.8), inset 0 0 14px rgba(255, 20, 147, 0.4);
   }
 
   .neonc-word {
@@ -208,7 +203,7 @@ const neonStyles = `
     font-size: 24px;
     font-weight: bold;
     letter-spacing: 5px;
-    color: #fff0f6;
+    color: #ffffff;
   }
 
   .neonc-letter {
@@ -216,36 +211,21 @@ const neonStyles = `
     text-shadow:
       0 0 4px #ffffff,
       0 0 10px #ff2a8d,
-      0 0 20px #ff0055,
-      0 0 32px rgba(255, 0, 85, 0.7);
-    animation: neonc-hum 2.2s ease-in-out infinite;
+      0 0 20px #ff0055;
+    animation: neonc-hum 1.2s ease-in-out infinite alternate;
   }
 
-  .neonc-letter.l2 { animation-delay: -0.7s; }
-  .neonc-letter.l3 { animation-delay: -1.3s; }
-  .neonc-letter.l4 { animation-delay: -1.8s; }
+  .neonc-letter.l2 { animation-delay: -0.3s; }
+  .neonc-letter.l3 { animation-delay: -0.6s; }
+  .neonc-letter.l4 { animation-delay: -0.9s; }
 
   @keyframes neonc-hum {
-    0%, 100% { opacity: 0.95; }
-    50% { opacity: 1; text-shadow: 0 0 4px #ffffff, 0 0 12px #ff2a8d, 0 0 24px #ff0055, 0 0 36px rgba(255, 0, 85, 0.8); }
+    0% { transform: scale(0.95); opacity: 0.95; }
+    100% { transform: scale(1.05); opacity: 1; }
   }
 
   .neonc-letter.flicker {
-    animation: neonc-flicker 5.5s steps(1) infinite;
-  }
-
-  @keyframes neonc-flicker {
-    0%, 33% { opacity: 1; text-shadow: 0 0 4px #ffffff, 0 0 10px #ff2a8d, 0 0 20px #ff0055; }
-    34% { opacity: 0.3; text-shadow: none; color: #5a2035; }
-    35% { opacity: 1; text-shadow: 0 0 4px #ffffff, 0 0 10px #ff2a8d; }
-    36% { opacity: 0.2; text-shadow: none; color: #5a2035; }
-    38% { opacity: 0.7; text-shadow: 0 0 8px #ff2a8d; }
-    39%, 54% { opacity: 0.15; text-shadow: none; color: #401525; }
-    55% { opacity: 0.8; text-shadow: 0 0 8px #ff2a8d; }
-    56% { opacity: 0.25; text-shadow: none; }
-    58% { opacity: 0.95; text-shadow: 0 0 10px #ff2a8d; }
-    59% { opacity: 0.35; text-shadow: none; }
-    61%, 100% { opacity: 1; text-shadow: 0 0 4px #ffffff, 0 0 10px #ff2a8d, 0 0 20px #ff0055; }
+    animation: neonc-hum 1.2s ease-in-out infinite alternate;
   }
 
   .neonc-cable {
@@ -254,10 +234,11 @@ const neonStyles = `
     top: 58px;
     width: 22px;
     height: 22px;
-    border: 1.5px solid #475569;
+    border: 2px solid #38bdf8;
     border-top: none;
     border-left: none;
     border-radius: 0 0 14px 0;
+    animation: neon-cable-vibe 0.8s ease-in-out infinite alternate;
   }
 
   .neonc-moth-orbit {
@@ -266,20 +247,22 @@ const neonStyles = `
     top: 36px;
     width: 0;
     height: 0;
-    animation: neonc-moth-orbit 4.2s linear infinite;
+    animation: neonc-moth-orbit 2.4s linear infinite;
   }
 
   @keyframes neonc-moth-orbit {
-    to { transform: rotate(-360deg); }
+    0% { transform: rotate(0deg) scale(0.9); }
+    50% { transform: rotate(180deg) scale(1.15); }
+    100% { transform: rotate(360deg) scale(0.9); }
   }
 
   .neonc-moth {
     position: absolute;
-    left: 46px;
+    left: 42px;
     top: 0;
-    width: 6px;
-    height: 4px;
-    animation: neonc-moth 0.24s steps(2) infinite;
+    width: 7px;
+    height: 5px;
+    animation: neonc-moth 0.15s steps(2) infinite;
   }
 
   .neonc-moth::before,
@@ -287,11 +270,11 @@ const neonStyles = `
     content: '';
     position: absolute;
     top: 0;
-    width: 3px;
-    height: 4px;
+    width: 4px;
+    height: 5px;
     border-radius: 50% 50% 40% 40%;
     background: #ffd699;
-    box-shadow: 0 0 4px rgba(255, 214, 153, 0.8);
+    box-shadow: 0 0 8px rgba(255, 214, 153, 0.9);
   }
 
   .neonc-moth::before { left: 0; transform-origin: right center; transform: rotate(24deg); }
@@ -299,7 +282,7 @@ const neonStyles = `
 
   @keyframes neonc-moth {
     0% { transform: scaleX(1); }
-    100% { transform: scaleX(0.55); }
+    100% { transform: scaleX(0.5); }
   }
 
   .neonc-legend {
@@ -311,7 +294,7 @@ const neonStyles = `
     font-family: 'Courier New', monospace;
     font-size: 7px;
     letter-spacing: 3px;
-    color: #94a3b8;
+    color: #38bdf8;
   }
 `;
 
