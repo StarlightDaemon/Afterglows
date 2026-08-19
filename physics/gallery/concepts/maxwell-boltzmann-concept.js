@@ -93,6 +93,21 @@ const mbStyles = `
   @keyframes mb-glow { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
   @keyframes mb-peak { from { opacity: 0.55; } to { opacity: 1; } }
 
+  /* Most-probable-speed marker physically slides between the three peaks as
+     temperature steps through 100 K -> 300 K -> 900 K. */
+  .vmp-tracker {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 5px #ffaa00);
+    animation: mb-vmp 3.9s ease-in-out infinite;
+  }
+
+  @keyframes mb-vmp {
+    0%   { transform: translate(32px, 25px); }
+    33%  { transform: translate(52px, 50px); }
+    66%  { transform: translate(75px, 72px); }
+    100% { transform: translate(32px, 25px); }
+  }
+
 `;
 
 class PhysicsMaxwellBoltzmann extends HTMLElement {
@@ -125,6 +140,9 @@ class PhysicsMaxwellBoltzmann extends HTMLElement {
           <line x1="32" y1="25" x2="32" y2="108" stroke="#00e5ff" class="peak-marker" />
           <line x1="52" y1="50" x2="52" y2="108" stroke="#00ff66" class="peak-marker" />
           <line x1="75" y1="72" x2="75" y2="108" stroke="#ff5577" class="peak-marker" />
+
+          <!-- Sliding v_mp marker -->
+          <circle cx="0" cy="0" r="3" class="vmp-tracker" />
 
           <!-- Curve Labels -->
           <text x="36" y="24" class="lbl lbl-cold">T₁ = 100 K</text>

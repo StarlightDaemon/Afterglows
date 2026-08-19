@@ -76,8 +76,38 @@ const becStyles = `
   /* Below T_c the condensate fraction breathes as the thermal cloud drains */
   .condensate-peak { transform-box: fill-box; transform-origin: 50% 100%; animation: bec-breathe 2.8s ease-in-out infinite alternate; }
   .thermal-cloud { animation: bec-drain 2.8s ease-in-out infinite alternate; }
-  @keyframes bec-breathe { from { transform: scaleY(0.86); opacity: 0.85; } to { transform: scaleY(1.06); opacity: 1; filter: drop-shadow(0 0 5px currentColor); } }
+  @keyframes bec-breathe { from { transform: scaleY(0.45); opacity: 0.8; } to { transform: scaleY(1.05); opacity: 1; filter: drop-shadow(0 0 5px currentColor); } }
   @keyframes bec-drain { from { opacity: 0.9; } to { opacity: 0.45; } }
+
+  /* Thermal atoms condensing: they fall from the cloud into the ground-state
+     peak each cooling cycle. */
+  .cooling-atom {
+    fill: #7deeff;
+    filter: drop-shadow(0 0 4px #00e5ff);
+  }
+
+  .ca-1 { animation: bec-fall-1 2.8s ease-in infinite; }
+  .ca-2 { animation: bec-fall-2 2.8s ease-in infinite; animation-delay: -0.9s; }
+  .ca-3 { animation: bec-fall-3 2.8s ease-in infinite; animation-delay: -1.8s; }
+
+  @keyframes bec-fall-1 {
+    0%   { transform: translate(35px, 72px); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { transform: translate(60px, 82px); opacity: 1; }
+    100% { transform: translate(63px, 84px); opacity: 0; }
+  }
+  @keyframes bec-fall-2 {
+    0%   { transform: translate(96px, 74px); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { transform: translate(71px, 82px); opacity: 1; }
+    100% { transform: translate(68px, 84px); opacity: 0; }
+  }
+  @keyframes bec-fall-3 {
+    0%   { transform: translate(84px, 62px); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { transform: translate(68px, 78px); opacity: 1; }
+    100% { transform: translate(66px, 82px); opacity: 0; }
+  }
 
 `;
 
@@ -103,6 +133,11 @@ class PhysicsBoseEinsteinCondensate extends HTMLElement {
           <!-- Sharp Macroscopic Ground State Peak (N₀/N ~ 1, p=0) -->
           <path d="M 46 86 Q 60 84 63 36 Q 65 24 67 36 Q 70 84 84 86 Z" class="condensate-peak" />
           <text x="46" y="18" class="lbl lbl-bec">BEC PEAK (p = 0)</text>
+
+          <!-- Atoms condensing into the ground state -->
+          <circle cx="0" cy="0" r="2.2" class="cooling-atom ca-1" />
+          <circle cx="0" cy="0" r="2.2" class="cooling-atom ca-2" />
+          <circle cx="0" cy="0" r="2" class="cooling-atom ca-3" />
         </svg>
 
         <div class="hud">

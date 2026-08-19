@@ -93,6 +93,29 @@ const heatStyles = `
   @keyframes heat-seq { 0%, 28% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } 38%, 90% { opacity: 0.35; filter: none; } 100% { opacity: 1; } }
   @keyframes heat-rod { from { opacity: 0.7; } to { opacity: 1; } }
 
+  /* Heat packets conducted outward along the rod from the hot spot. */
+  .heat-packet {
+    fill: #ffcf80;
+    filter: drop-shadow(0 0 4px #ffaa00);
+  }
+
+  .hpk-l { animation: heat-spread-l 2.7s ease-out infinite; }
+  .hpk-r { animation: heat-spread-r 2.7s ease-out infinite; animation-delay: -1.35s; }
+
+  @keyframes heat-spread-l {
+    0%   { transform: translate(65px, 104px); opacity: 0; }
+    10%  { opacity: 1; }
+    88%  { transform: translate(22px, 104px); opacity: 1; }
+    100% { transform: translate(17px, 104px); opacity: 0; }
+  }
+
+  @keyframes heat-spread-r {
+    0%   { transform: translate(65px, 104px); opacity: 0; }
+    10%  { opacity: 1; }
+    88%  { transform: translate(108px, 104px); opacity: 1; }
+    100% { transform: translate(113px, 104px); opacity: 0; }
+  }
+
 `;
 
 class PhysicsHeatDiffusion extends HTMLElement {
@@ -123,6 +146,10 @@ class PhysicsHeatDiffusion extends HTMLElement {
 
           <!-- Initial Sharp Hot Spot Profile (t=0) -->
           <path d="M 45,100 Q 58,95 65,24 Q 72,95 85,100" class="profile-t0" />
+
+          <!-- Heat packets spreading along the rod -->
+          <circle cx="0" cy="0" r="2.6" class="heat-packet hpk-l" />
+          <circle cx="0" cy="0" r="2.6" class="heat-packet hpk-r" />
 
           <!-- Labels -->
           <text x="70" y="26" class="lbl lbl-t0">t = 0 (HOT SPOT)</text>

@@ -93,6 +93,23 @@ const stirlingStyles = `
   @keyframes stc-circulate { to { stroke-dashoffset: -24; } }
   @keyframes stc-state { 0%, 100% { opacity: 0.6; } 25% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } 50% { opacity: 0.6; } }
 
+  /* Working-fluid state runner circulating the PV loop. */
+  .cycle-runner {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 6px #ffaa00);
+    animation: stc-runner 3.2s linear infinite;
+  }
+
+  @keyframes stc-runner {
+    0%   { transform: translate(38px, 34px); }
+    20%  { transform: translate(66px, 44px); }
+    33%  { transform: translate(94px, 62px); }
+    45%  { transform: translate(94px, 92px); }
+    60%  { transform: translate(78px, 87px); }
+    75%  { transform: translate(38px, 72px); }
+    100% { transform: translate(38px, 34px); }
+  }
+
 `;
 
 class PhysicsStirlingEngineCycle extends HTMLElement {
@@ -125,6 +142,9 @@ class PhysicsStirlingEngineCycle extends HTMLElement {
             Q 65 80 38 72
             Z
           " class="cycle-loop" />
+
+          <!-- Circulating working-fluid state runner -->
+          <circle cx="0" cy="0" r="2.8" class="cycle-runner" />
 
           <!-- State points -->
           <circle cx="38" cy="34" r="2" class="state-pt" />

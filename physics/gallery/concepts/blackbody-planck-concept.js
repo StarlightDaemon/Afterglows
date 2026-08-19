@@ -96,6 +96,19 @@ const planckStyles = `
   @keyframes bb-glow { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
   @keyframes bb-wien { to { stroke-dashoffset: -12; } }
 
+  /* Wien peak marker rides the displacement locus as T sweeps. */
+  .wien-tracker {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 5px #00e5ff);
+    animation: bb-tracker 3.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes bb-tracker {
+    0%   { transform: translate(38px, 25px); }
+    50%  { transform: translate(52px, 50px); }
+    100% { transform: translate(68px, 82px); }
+  }
+
 `;
 
 class PhysicsBlackbodyPlanck extends HTMLElement {
@@ -126,6 +139,7 @@ class PhysicsBlackbodyPlanck extends HTMLElement {
 
           <!-- Wien Peak Locus Curve (λ_max · T = b) -->
           <path d="M 38 25 Q 52 50 68 82" class="wien-locus" />
+          <circle cx="0" cy="0" r="2.8" class="wien-tracker" />
 
           <!-- Labels -->
           <text x="44" y="22" class="lbl lbl-5500">5500 K (Sun)</text>

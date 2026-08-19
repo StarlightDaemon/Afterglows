@@ -19,6 +19,7 @@ const percStyles = `
   }
 
   .grid-box {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(8, 10px);
     grid-template-rows: repeat(8, 10px);
@@ -71,6 +72,34 @@ const percStyles = `
   @keyframes perc-flood { from { opacity: 0.65; filter: none; } to { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
   @keyframes perc-iso { from { opacity: 0.9; } to { opacity: 0.55; } }
 
+  /* Percolating probe particle walking the spanning cluster top to bottom. */
+  .flood-runner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 -3px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #00ff66, 0 0 12px #ffffff;
+    z-index: 5;
+    animation: perc-walk 2.8s linear infinite;
+  }
+
+  @keyframes perc-walk {
+    0%   { transform: translate(34px, 10px); opacity: 0; }
+    6%   { opacity: 1; }
+    14%  { transform: translate(46px, 22px); }
+    28%  { transform: translate(58px, 34px); }
+    42%  { transform: translate(70px, 46px); }
+    56%  { transform: translate(82px, 58px); }
+    70%  { transform: translate(70px, 70px); }
+    84%  { transform: translate(58px, 82px); }
+    96%  { transform: translate(46px, 94px); opacity: 1; }
+    100% { transform: translate(46px, 98px); opacity: 0; }
+  }
+
 `;
 
 class PhysicsPercolationLattice extends HTMLElement {
@@ -105,6 +134,7 @@ class PhysicsPercolationLattice extends HTMLElement {
       <div class="canvas-box">
         <div class="grid-box">
           ${cells}
+          <div class="flood-runner"></div>
         </div>
 
         <div class="hud">

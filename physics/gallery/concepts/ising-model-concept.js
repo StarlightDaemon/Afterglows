@@ -77,6 +77,22 @@ const isingStyles = `
   .spin:nth-child(4n+2) { animation-delay: -2.4s; }
   @keyframes ise-flicker { 0%, 88%, 100% { opacity: 1; } 94% { opacity: 0.35; } }
 
+  /* Domain-wall spins physically flip: the arrow glyph rotates through 180
+     degrees and back, swelling mid-flip. Staggered so one is always turning. */
+  .spin:nth-child(5), .spin:nth-child(12), .spin:nth-child(20),
+  .spin:nth-child(23), .spin:nth-child(29), .spin:nth-child(36),
+  .spin:nth-child(41), .spin:nth-child(45) {
+    animation: ise-flip 1.9s ease-in-out infinite alternate;
+  }
+  .spin:nth-child(12), .spin:nth-child(29), .spin:nth-child(45) { animation-delay: -0.63s; }
+  .spin:nth-child(20), .spin:nth-child(36) { animation-delay: -1.26s; }
+
+  @keyframes ise-flip {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(90deg) scale(1.3); }
+    100% { transform: rotate(180deg) scale(1); }
+  }
+
 `;
 
 class PhysicsIsingModel extends HTMLElement {

@@ -53,6 +53,43 @@ const peltierStyles = `
     animation: pt-current-pulse 2s ease-in-out infinite alternate;
   }
 
+  /* Charge carriers pumped downward through the p-n pellets, hauling heat
+     from the cold plate to the hot plate. */
+  .pump-carrier {
+    fill: #ffd9a0;
+    filter: drop-shadow(0 0 4px #f97316);
+  }
+
+  .pc-1 { animation: pt-pump-1 1.6s linear infinite; }
+  .pc-2 { animation: pt-pump-2 1.6s linear infinite; animation-delay: -0.4s; }
+  .pc-3 { animation: pt-pump-3 1.6s linear infinite; animation-delay: -0.8s; }
+  .pc-4 { animation: pt-pump-4 1.6s linear infinite; animation-delay: -1.2s; }
+
+  @keyframes pt-pump-1 {
+    0% { transform: translate(34px, 38px); opacity: 0; }
+    12% { opacity: 1; }
+    88% { transform: translate(34px, 72px); opacity: 1; }
+    100% { transform: translate(34px, 75px); opacity: 0; }
+  }
+  @keyframes pt-pump-2 {
+    0% { transform: translate(52px, 38px); opacity: 0; }
+    12% { opacity: 1; }
+    88% { transform: translate(52px, 72px); opacity: 1; }
+    100% { transform: translate(52px, 75px); opacity: 0; }
+  }
+  @keyframes pt-pump-3 {
+    0% { transform: translate(78px, 38px); opacity: 0; }
+    12% { opacity: 1; }
+    88% { transform: translate(78px, 72px); opacity: 1; }
+    100% { transform: translate(78px, 75px); opacity: 0; }
+  }
+  @keyframes pt-pump-4 {
+    0% { transform: translate(96px, 38px); opacity: 0; }
+    12% { opacity: 1; }
+    88% { transform: translate(96px, 72px); opacity: 1; }
+    100% { transform: translate(96px, 75px); opacity: 0; }
+  }
+
   @keyframes pt-current-pulse {
     0% { stroke: #fbbf24; }
     100% { stroke: #fef08a; filter: drop-shadow(0 0 2px #f59e0b); }
@@ -125,6 +162,12 @@ class PhysicsPeltierThermoelectric extends HTMLElement {
             <line x1="78" y1="38" x2="78" y2="72" />
             <line x1="96" y1="38" x2="96" y2="72" />
           </g>
+
+          <!-- Pumped charge carriers in the pellets -->
+          <circle cx="0" cy="0" r="2.2" class="pump-carrier pc-1" />
+          <circle cx="0" cy="0" r="2.2" class="pump-carrier pc-2" />
+          <circle cx="0" cy="0" r="2.2" class="pump-carrier pc-3" />
+          <circle cx="0" cy="0" r="2.2" class="pump-carrier pc-4" />
 
           <!-- Bottom Copper Interconnect Tabs -->
           <rect x="48" y="75" width="34" height="4" fill="#d97706" stroke="#fbbf24" stroke-width="0.5" />
