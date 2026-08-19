@@ -71,7 +71,7 @@ const candleStyles = {
     background: linear-gradient(180deg, rgba(230, 255, 236, 0.95) 0%, rgba(160, 255, 185, 0.85) 45%, rgba(0, 204, 0, 0.5) 100%);
     box-shadow: 0 0 14px rgba(170, 255, 190, 0.7);
     transform-origin: bottom center;
-    animation: candle-flame 5.6s ease-in-out infinite;
+    animation: candle-flame 1.7s ease-in-out infinite;
   }
 
   .candle-flame::before {
@@ -102,8 +102,10 @@ const candleStyles = {
 
   @keyframes candle-flame {
     0% { transform: translateY(0) rotate(-12deg) scale(0.92, 1.2) translateX(-4px); }
-    50% { transform: translateY(-2px) rotate(4deg) scale(1.05, 0.95) translateX(2px); }
-    100% { transform: translateY(1px) rotate(14deg) scale(0.88, 1.25) translateX(5px); }
+    25% { transform: translateY(-2px) rotate(9deg) scale(1.06, 0.9) translateX(4px); }
+    45% { transform: translateY(1px) rotate(-6deg) scale(0.9, 1.22) translateX(-3px); }
+    70% { transform: translateY(-1px) rotate(14deg) scale(1.02, 1) translateX(5px); }
+    100% { transform: translateY(0) rotate(-12deg) scale(0.92, 1.2) translateX(-4px); }
   }
 
   @keyframes candle-halo {
@@ -206,7 +208,7 @@ const candleStyles = {
     background: linear-gradient(180deg, #ffffff 0%, #fde047 30%, #f97316 75%, #2563eb 100%);
     box-shadow: 0 0 16px rgba(245, 158, 11, 0.9), 0 0 28px rgba(251, 191, 36, 0.5);
     transform-origin: bottom center;
-    animation: candlec-flame 5.6s ease-in-out infinite;
+    animation: candlec-flame 1.7s ease-in-out infinite;
   }
 
   .candlec-flame::before {
@@ -239,8 +241,10 @@ const candleStyles = {
 
   @keyframes candlec-flame {
     0% { transform: translateY(0) rotate(-12deg) scale(0.92, 1.2) translateX(-4px); }
-    50% { transform: translateY(-2px) rotate(4deg) scale(1.05, 0.95) translateX(2px); }
-    100% { transform: translateY(1px) rotate(14deg) scale(0.88, 1.25) translateX(5px); }
+    25% { transform: translateY(-2px) rotate(9deg) scale(1.06, 0.9) translateX(4px); }
+    45% { transform: translateY(1px) rotate(-6deg) scale(0.9, 1.22) translateX(-3px); }
+    70% { transform: translateY(-1px) rotate(14deg) scale(1.02, 1) translateX(5px); }
+    100% { transform: translateY(0) rotate(-12deg) scale(0.92, 1.2) translateX(-4px); }
   }
 
   @keyframes candlec-halo {
