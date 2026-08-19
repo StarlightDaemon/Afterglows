@@ -79,6 +79,34 @@ const tcStyles = `
   @keyframes tcv-spin { to { stroke-dashoffset: -20; } }
   @keyframes tcv-inner { from { opacity: 0.75; } to { opacity: 1; } }
 
+  /* Fluid parcels circulating the toroidal cells — counter-rotating pairs. */
+  .cell-dot {
+    fill: #ffd9a0;
+    filter: drop-shadow(0 0 4px #ffaa00);
+  }
+
+  .cd-1 { animation: tcv-orbit-1 1.8s linear infinite; }
+  .cd-2 { animation: tcv-orbit-2 1.8s linear infinite reverse; animation-delay: -0.6s; }
+  .cd-3 { animation: tcv-orbit-3 1.8s linear infinite; animation-delay: -1.2s; }
+  .cd-4 { animation: tcv-orbit-4 1.8s linear infinite reverse; animation-delay: -0.3s; }
+
+  @keyframes tcv-orbit-1 {
+    0% { transform: translate(35px, 35px) rotate(0deg) translate(8px, 0); }
+    100% { transform: translate(35px, 35px) rotate(360deg) translate(8px, 0); }
+  }
+  @keyframes tcv-orbit-2 {
+    0% { transform: translate(35px, 75px) rotate(0deg) translate(8px, 0); }
+    100% { transform: translate(35px, 75px) rotate(360deg) translate(8px, 0); }
+  }
+  @keyframes tcv-orbit-3 {
+    0% { transform: translate(95px, 55px) rotate(0deg) translate(8px, 0); }
+    100% { transform: translate(95px, 55px) rotate(360deg) translate(8px, 0); }
+  }
+  @keyframes tcv-orbit-4 {
+    0% { transform: translate(95px, 95px) rotate(0deg) translate(8px, 0); }
+    100% { transform: translate(95px, 95px) rotate(360deg) translate(8px, 0); }
+  }
+
 `;
 
 class PhysicsTaylorCouette extends HTMLElement {
@@ -111,6 +139,12 @@ class PhysicsTaylorCouette extends HTMLElement {
           <ellipse cx="95" cy="55" rx="10" ry="8" class="vortex-cell" />
           <ellipse cx="95" cy="75" rx="10" ry="8" class="vortex-cell" />
           <ellipse cx="95" cy="95" rx="10" ry="8" class="vortex-cell" />
+
+          <!-- Circulating fluid parcels -->
+          <circle cx="0" cy="0" r="2.4" class="cell-dot cd-1" />
+          <circle cx="0" cy="0" r="2.4" class="cell-dot cd-2" />
+          <circle cx="0" cy="0" r="2.4" class="cell-dot cd-3" />
+          <circle cx="0" cy="0" r="2.4" class="cell-dot cd-4" />
 
           <!-- Labels -->
           <text x="14" y="116" class="lbl lbl-taylor">Ta = 4Ω₁²d⁴/ν² &gt; Ta_c</text>

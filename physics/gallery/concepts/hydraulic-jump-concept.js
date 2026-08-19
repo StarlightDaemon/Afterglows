@@ -124,6 +124,25 @@ const hydraulicStyles = `
     100% { transform: translateY(-3px) scale(1.06); }
   }
 
+  /* Surface tracer particles: fast and shallow upstream, decelerating and
+     rising through the jump into the deep subcritical flow. */
+  .tracer-dot {
+    fill: #aaffee;
+    filter: drop-shadow(0 0 4px #00ffcc);
+    animation: tracer-ride 2.4s linear infinite;
+  }
+
+  .tracer-2 { animation-delay: -1.2s; }
+
+  @keyframes tracer-ride {
+    0%   { transform: translate(28px, 95px); opacity: 0; }
+    6%   { opacity: 1; }
+    38%  { transform: translate(58px, 93px); }
+    55%  { transform: translate(72px, 76px); }
+    94%  { transform: translate(117px, 73px); opacity: 1; }
+    100% { transform: translate(120px, 73px); opacity: 0; }
+  }
+
   @keyframes flow-fast {
     0% { stroke-dashoffset: 0; }
     100% { stroke-dashoffset: -18; }
@@ -162,6 +181,10 @@ class PhysicsHydraulicJump extends HTMLElement {
           <polygon points="78,102 78,62 120,62 120,102" class="subcritical-water" />
           <line x1="78" y1="74" x2="120" y2="74" class="stream-slow" />
           <line x1="78" y1="88" x2="120" y2="88" class="stream-slow" />
+
+          <!-- Surface tracer particles riding the flow through the jump -->
+          <circle cx="0" cy="0" r="2.6" class="tracer-dot" />
+          <circle cx="0" cy="0" r="2.2" class="tracer-dot tracer-2" />
         </svg>
 
         <span class="label-fr1">Fr₁ > 1 (Supercritical)</span>

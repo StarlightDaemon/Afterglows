@@ -84,6 +84,36 @@ const poiseuilleStyles = `
   @keyframes hp-center { to { stroke-dashoffset: -18; } }
   @keyframes hp-profile { from { opacity: 0.7; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
 
+  /* Tracer parcels: the centerline one outruns the off-axis ones, tracing the
+     parabolic velocity profile. */
+  .hp-tracer {
+    fill: #ccffdd;
+    filter: drop-shadow(0 0 4px #00ff66);
+  }
+
+  .hpt-mid { animation: hp-run-mid 1.6s linear infinite; }
+  .hpt-up { animation: hp-run-up 2.6s linear infinite; animation-delay: -0.9s; }
+  .hpt-down { animation: hp-run-down 2.6s linear infinite; animation-delay: -1.7s; }
+
+  @keyframes hp-run-mid {
+    0% { transform: translate(32px, 65px); opacity: 0; }
+    8% { opacity: 1; }
+    92% { transform: translate(112px, 65px); opacity: 1; }
+    100% { transform: translate(116px, 65px); opacity: 0; }
+  }
+  @keyframes hp-run-up {
+    0% { transform: translate(32px, 45px); opacity: 0; }
+    8% { opacity: 1; }
+    92% { transform: translate(92px, 45px); opacity: 1; }
+    100% { transform: translate(96px, 45px); opacity: 0; }
+  }
+  @keyframes hp-run-down {
+    0% { transform: translate(32px, 85px); opacity: 0; }
+    8% { opacity: 1; }
+    92% { transform: translate(92px, 85px); opacity: 1; }
+    100% { transform: translate(96px, 85px); opacity: 0; }
+  }
+
 `;
 
 class PhysicsPoiseuillePipeFlow extends HTMLElement {
@@ -127,6 +157,11 @@ class PhysicsPoiseuillePipeFlow extends HTMLElement {
 
           <line x1="30" y1="88" x2="68" y2="88" class="flow-arrow" />
           <polygon points="70,88 66,86 66,90" fill="#00ff66" />
+
+          <!-- Tracer parcels demonstrating the velocity profile -->
+          <circle cx="0" cy="0" r="2.4" class="hp-tracer hpt-mid" />
+          <circle cx="0" cy="0" r="2" class="hp-tracer hpt-up" />
+          <circle cx="0" cy="0" r="2" class="hp-tracer hpt-down" />
 
           <!-- Labels -->
           <text x="98" y="62" class="lbl lbl-vmax">v_max</text>

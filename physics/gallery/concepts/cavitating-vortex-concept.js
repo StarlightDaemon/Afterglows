@@ -117,12 +117,18 @@ class PhysicsCavitatingVortex extends HTMLElement {
           <circle class="cavity-core" cx="65" cy="65" r="7" />
           <text x="50" y="80" class="lbl lbl-core">P &lt; P_vap</text>
 
-          <!-- Microbubbles shedding and collapsing -->
-          <g class="cavity-bubbles" fill="#ffffff">
-            <circle cx="54" cy="56" r="1.2" />
-            <circle cx="76" cy="58" r="1.4" />
-            <circle cx="60" cy="74" r="1.1" />
-            <circle cx="71" cy="72" r="1.3" />
+          <!-- Microbubbles shedding and collapsing: placed inside the rotating
+               streamline frame so they visibly orbit the cavity core (the
+               streamline circles themselves are rotation-invariant). -->
+          <g class="vortex-streamlines">
+            <g class="cavity-bubbles" fill="#ffffff">
+              <circle cx="54" cy="56" r="2" />
+              <circle cx="76" cy="58" r="2.3" />
+              <circle cx="60" cy="74" r="1.8" />
+              <circle cx="71" cy="72" r="2.1" />
+              <circle cx="88" cy="70" r="1.8" />
+              <circle cx="42" cy="62" r="1.7" />
+            </g>
           </g>
         </svg>
         <div class="hud">

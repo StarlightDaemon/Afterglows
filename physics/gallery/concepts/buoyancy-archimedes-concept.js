@@ -145,8 +145,8 @@ const buoyancyStyles = `
   }
 
   @keyframes hull-bob {
-    0% { transform: translateY(-6px); }
-    100% { transform: translateY(6px); }
+    0% { transform: translateY(-10px) rotate(-2.5deg); }
+    100% { transform: translateY(8px) rotate(2.5deg); }
   }
 
   @keyframes water-wave {

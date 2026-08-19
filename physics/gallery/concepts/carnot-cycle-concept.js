@@ -58,16 +58,19 @@ const carnotStyles = `
     fill: rgba(255, 204, 0, 0.12);
   }
 
-  /* Thermodynamic State Runner */
+  /* Thermodynamic State Runner. Waypoint translate keyframes rather than
+     offset-path: offset-distance was observed frozen in real rendering
+     (runner parked at one corner), so the loop is traced explicitly. */
   .state-runner {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 6px;
     height: 6px;
     margin: -3px 0 0 -3px;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 8px #ffcc00, 0 0 12px #ffffff;
-    offset-path: path("M 35 30 C 50 34, 65 42, 80 50 C 88 65, 96 82, 102 92 C 85 96, 68 98, 52 92 C 45 74, 38 52, 35 30");
     animation: carnot-cycle-travel 4s linear infinite;
     z-index: 8;
   }
@@ -135,8 +138,15 @@ const carnotStyles = `
   }
 
   @keyframes carnot-cycle-travel {
-    from { offset-distance: 0%; }
-    to { offset-distance: 100%; }
+    0%   { transform: translate(35px, 30px); }
+    12%  { transform: translate(58px, 38px); }
+    25%  { transform: translate(80px, 50px); }
+    37%  { transform: translate(92px, 72px); }
+    45%  { transform: translate(102px, 92px); }
+    60%  { transform: translate(77px, 97px); }
+    70%  { transform: translate(52px, 92px); }
+    85%  { transform: translate(43px, 62px); }
+    100% { transform: translate(35px, 30px); }
   }
 `;
 

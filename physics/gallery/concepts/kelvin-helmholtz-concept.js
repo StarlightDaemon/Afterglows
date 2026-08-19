@@ -75,6 +75,25 @@ const khStyles = `
   @keyframes kh-roll { to { stroke-dashoffset: -24; } }
   @keyframes kh-shimmer { from { opacity: 0.35; } to { opacity: 1; } }
 
+  /* Tracer parcels orbiting the two billow cores — the roll-up made visible. */
+  .eddy-dot {
+    fill: #baffd9;
+    filter: drop-shadow(0 0 4px #00ff66);
+  }
+
+  .eddy-1 { animation: kh-eddy-1 1.7s linear infinite; }
+  .eddy-2 { animation: kh-eddy-2 1.7s linear infinite; animation-delay: -0.85s; }
+
+  @keyframes kh-eddy-1 {
+    0% { transform: translate(48px, 58px) rotate(0deg) translate(10px, 0); }
+    100% { transform: translate(48px, 58px) rotate(360deg) translate(10px, 0); }
+  }
+
+  @keyframes kh-eddy-2 {
+    0% { transform: translate(103px, 58px) rotate(0deg) translate(10px, 0); }
+    100% { transform: translate(103px, 58px) rotate(360deg) translate(10px, 0); }
+  }
+
 `;
 
 class PhysicsKelvinHelmholtz extends HTMLElement {
@@ -112,6 +131,10 @@ class PhysicsKelvinHelmholtz extends HTMLElement {
           <!-- Vortex Core Indicators -->
           <circle cx="48" cy="58" r="2" fill="#00ff66" />
           <circle cx="103" cy="58" r="2" fill="#00ff66" />
+
+          <!-- Orbiting tracer parcels -->
+          <circle cx="0" cy="0" r="2.4" class="eddy-dot eddy-1" />
+          <circle cx="0" cy="0" r="2.4" class="eddy-dot eddy-2" />
 
           <text x="56" y="82" class="lbl lbl-vort">VORTEX BILLOWS</text>
           <text x="14" y="116" class="lbl" fill="rgba(255,255,255,0.6)">Ri &lt; 0.25 (UNSTABLE)</text>
