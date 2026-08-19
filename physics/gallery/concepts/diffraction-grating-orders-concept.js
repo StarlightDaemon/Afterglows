@@ -92,6 +92,29 @@ const gratingStyles = `
   @keyframes grat-run { to { stroke-dashoffset: -16; } }
   @keyframes grat-slit { from { opacity: 0.7; } to { opacity: 1; } }
 
+  /* Photon pulses: one packet rides the incident beam, then the three order
+     pulses diverge from the grating along m = 0, +1, -1. */
+  .order-dot { filter: drop-shadow(0 0 4px currentColor); }
+  .dot-m0 { fill: #ffffff; color: #ffffff; animation: grat-dot-m0 2s linear infinite; }
+  .dot-mp { fill: #00ff66; color: #00ff66; animation: grat-dot-mp 2s linear infinite; }
+  .dot-mn { fill: #ff3344; color: #ff3344; animation: grat-dot-mn 2s linear infinite; }
+
+  @keyframes grat-dot-m0 {
+    0% { transform: translate(10px, 65px); }
+    35% { transform: translate(50px, 65px); }
+    100% { transform: translate(115px, 65px); }
+  }
+  @keyframes grat-dot-mp {
+    0% { transform: translate(10px, 65px); }
+    35% { transform: translate(50px, 65px); }
+    100% { transform: translate(115px, 35px); }
+  }
+  @keyframes grat-dot-mn {
+    0% { transform: translate(10px, 65px); }
+    35% { transform: translate(50px, 65px); }
+    100% { transform: translate(115px, 102px); }
+  }
+
 `;
 
 class PhysicsDiffractionGratingOrders extends HTMLElement {
@@ -134,6 +157,11 @@ class PhysicsDiffractionGratingOrders extends HTMLElement {
           <line x1="50" y1="65" x2="115" y2="95" class="spectrum-green-neg" />
           <line x1="50" y1="65" x2="115" y2="102" class="spectrum-red-neg" />
           <text x="96" y="110" class="lbl lbl-m1">m = -1</text>
+
+          <!-- Travelling order pulses -->
+          <circle cx="0" cy="0" r="2.6" class="order-dot dot-m0" />
+          <circle cx="0" cy="0" r="2.6" class="order-dot dot-mp" />
+          <circle cx="0" cy="0" r="2.6" class="order-dot dot-mn" />
         </svg>
 
         <div class="hud">

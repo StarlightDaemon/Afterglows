@@ -139,6 +139,24 @@ const michelsonStyles = `
     0% { transform: scale(0.6); transform-origin: center; opacity: 0.4; }
     100% { transform: scale(1.3); transform-origin: center; opacity: 1; }
   }
+
+  /* Photon pulse walking the full interferometer path: source -> splitter ->
+     arm 1 -> splitter -> arm 2 -> splitter -> detector. */
+  .photon-dot {
+    fill: #ffccdd;
+    filter: drop-shadow(0 0 5px #ff5577);
+    animation: ml-photon 3.4s linear infinite;
+  }
+
+  @keyframes ml-photon {
+    0%   { transform: translate(24px, 55px); }
+    15%  { transform: translate(63px, 55px); }
+    30%  { transform: translate(63px, 18px); }
+    45%  { transform: translate(63px, 55px); }
+    64%  { transform: translate(112px, 55px); }
+    83%  { transform: translate(63px, 55px); }
+    100% { transform: translate(63px, 98px); }
+  }
 `;
 
 class PhysicsMichelsonInterferometer extends HTMLElement {
@@ -165,6 +183,9 @@ class PhysicsMichelsonInterferometer extends HTMLElement {
           <line x1="63" y1="55" x2="112" y2="55" class="beam-line" />
           <!-- Combined Beam: Splitter to Detector -->
           <line x1="63" y1="55" x2="63" y2="98" class="beam-line" />
+
+          <!-- Travelling photon pulse -->
+          <circle cx="0" cy="0" r="2.8" class="photon-dot" />
         </svg>
 
         <div class="detector-screen">

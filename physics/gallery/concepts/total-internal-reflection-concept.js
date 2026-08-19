@@ -122,6 +122,20 @@ const tirStyles = `
     0% { opacity: 0.3; transform: translateY(0); }
     100% { opacity: 0.9; transform: translateY(-1px); }
   }
+
+  /* Bright photon pulse riding the beam: in along the incident leg, reflecting
+     off the interface, out along the reflected leg. */
+  .tir-photon {
+    fill: #aaffcc;
+    filter: drop-shadow(0 0 5px #00ff66);
+    animation: tir-photon-run 2.2s linear infinite;
+  }
+
+  @keyframes tir-photon-run {
+    0% { transform: translate(22px, 108px); }
+    50% { transform: translate(65px, 66px); }
+    100% { transform: translate(108px, 108px); }
+  }
 `;
 
 class PhysicsTotalInternalReflection extends HTMLElement {
@@ -151,6 +165,9 @@ class PhysicsTotalInternalReflection extends HTMLElement {
           <!-- Incident & Reflected Angle Arcs -->
           <path d="M 55 78 A 15 15 0 0 1 65 81" fill="none" stroke="#00ff66" stroke-width="1" />
           <path d="M 65 81 A 15 15 0 0 1 75 78" fill="none" stroke="#00ff66" stroke-width="1" />
+
+          <!-- Travelling photon pulse on the beam -->
+          <circle cx="0" cy="0" r="3" class="tir-photon" />
         </svg>
 
         <span class="label-n2">n₂ = 1.00 (Air)</span>

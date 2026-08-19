@@ -120,6 +120,18 @@ const fabryStyles = `
     z-index: 10;
   }
 
+  /* Photon pulse bouncing between the two partial mirrors. */
+  .cavity-photon {
+    fill: #ccffdd;
+    filter: drop-shadow(0 0 5px #00ff66);
+    animation: fp-bounce 1.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes fp-bounce {
+    0% { transform: translate(34px, 54px); }
+    100% { transform: translate(96px, 54px); }
+  }
+
   @keyframes wave-resonate {
     0% {
       transform: scaleY(0.7);
@@ -160,6 +172,9 @@ class PhysicsFabryPerotCavity extends HTMLElement {
 
           <!-- Output Transmitted Beam -->
           <line x1="102" y1="54" x2="122" y2="54" class="transmitted-beam" />
+
+          <!-- Intracavity photon pulse -->
+          <circle cx="0" cy="0" r="3" class="cavity-photon" />
         </svg>
 
         <!-- Airy Function Transmission Peaks -->

@@ -103,6 +103,42 @@ const blackHoleStyles = `
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+  /* Doppler-beamed hot spot orbiting in the accretion disk plane; it passes
+     behind the horizon (lower z-index) on the far side of each orbit. */
+  .disk-orbit {
+    position: absolute;
+    width: 100px;
+    height: 38px;
+    transform: rotate(-18deg);
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .hot-spot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    margin: -4.5px 0 0 -4.5px;
+    border-radius: 50%;
+    background: #ffdd88;
+    box-shadow: 0 0 8px #ffcc55, 0 0 14px rgba(255, 170, 60, 0.7);
+    animation: hot-spot-orbit 3.2s linear infinite;
+  }
+
+  @keyframes hot-spot-orbit {
+    0%    { transform: translate(44px, 0); }
+    12.5% { transform: translate(31px, 11px); }
+    25%   { transform: translate(0, 15px); }
+    37.5% { transform: translate(-31px, 11px); }
+    50%   { transform: translate(-44px, 0); }
+    62.5% { transform: translate(-31px, -11px); }
+    75%   { transform: translate(0, -15px); }
+    87.5% { transform: translate(31px, -11px); }
+    100%  { transform: translate(44px, 0); }
+  }
 `;
 
 class PhysicsBlackHoleLensing extends HTMLElement {
@@ -123,6 +159,7 @@ class PhysicsBlackHoleLensing extends HTMLElement {
 
         <div class="lensed-arc"></div>
         <div class="accretion-disk-tilt"></div>
+        <div class="disk-orbit"><div class="hot-spot"></div></div>
         <div class="photon-sphere"></div>
         <div class="event-horizon"></div>
 

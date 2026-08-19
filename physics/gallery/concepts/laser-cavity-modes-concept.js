@@ -79,6 +79,18 @@ const temStyles = `
   @keyframes lcm-lobe { from { opacity: 0.6; transform: scale(0.94); } to { opacity: 1; transform: scale(1.05); } }
   @keyframes lcm-mirror { from { opacity: 0.8; } to { opacity: 1; } }
 
+  /* Photon pulse bouncing along the cavity axis between R1 and R2. */
+  .cavity-photon {
+    fill: #ffd5e0;
+    filter: drop-shadow(0 0 5px #ff5577);
+    animation: lcm-bounce 1.9s ease-in-out infinite alternate;
+  }
+
+  @keyframes lcm-bounce {
+    0% { transform: translate(18px, 65px); }
+    100% { transform: translate(112px, 65px); }
+  }
+
 `;
 
 class PhysicsLaserCavityModes extends HTMLElement {
@@ -110,6 +122,9 @@ class PhysicsLaserCavityModes extends HTMLElement {
           <!-- Beam Waist Center Indicator w₀ -->
           <line x1="65" y1="58" x2="65" y2="72" stroke="#ffaa00" stroke-width="1.2" />
           <text x="58" y="54" class="lbl" fill="#ffaa00">2w₀</text>
+
+          <!-- Intracavity photon pulse -->
+          <circle cx="0" cy="0" r="3" class="cavity-photon" />
 
           <!-- Inset: Transverse Mode Cross-Sections -->
           <!-- TEM₀₀ Spot -->

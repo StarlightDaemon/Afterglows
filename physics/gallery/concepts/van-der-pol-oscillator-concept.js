@@ -86,10 +86,20 @@ const vdpStyles = `
   /* Motion pass */
   /* The state orbits the self-sustained limit cycle */
   .limit-cycle { stroke-width: 2.6; stroke-dasharray: 7 5; animation: vdp-orbit 1.9s linear infinite; }
-  .orbiting-state { animation: vdp-state 1.9s ease-in-out infinite alternate; }
+  .orbiting-state { animation: vdp-trace 1.9s linear infinite; }
   .spiral-in, .spiral-out { animation: vdp-spiral 3.2s ease-in-out infinite alternate; }
   @keyframes vdp-orbit { to { stroke-dashoffset: -20; } }
-  @keyframes vdp-state { from { opacity: 0.6; transform: scale(0.9); } to { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 4px currentColor); } }
+  /* State point physically circulates the limit cycle (waypoints on the path,
+     relative to its rest position at (98, 65)). */
+  @keyframes vdp-trace {
+    0%   { transform: translate(0, 0); }
+    15%  { transform: translate(-25px, 26px); }
+    30%  { transform: translate(-48px, 17px); }
+    45%  { transform: translate(-66px, 0); }
+    60%  { transform: translate(-43px, -26px); }
+    75%  { transform: translate(-18px, -17px); }
+    100% { transform: translate(0, 0); }
+  }
   @keyframes vdp-spiral { from { opacity: 0.35; } to { opacity: 0.8; } }
 
 `;

@@ -108,6 +108,28 @@ const chladniStyles = `
     z-index: 10;
   }
 
+  /* Sand grains migrate across the plate toward the nodal lines, the physical
+     mechanism a Chladni plate demonstrates. */
+  .sand-grain {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.9);
+    z-index: 5;
+  }
+
+  .grain-1 { left: 48px; top: 40px; animation: grain-walk-1 2.4s ease-in-out infinite alternate; }
+  .grain-2 { left: 40px; top: 50px; animation: grain-walk-2 2.8s ease-in-out infinite alternate; animation-delay: -0.9s; }
+  .grain-3 { left: 55px; top: 55px; animation: grain-walk-3 2.2s ease-in-out infinite alternate; animation-delay: -1.5s; }
+  .grain-4 { left: 38px; top: 38px; animation: grain-walk-4 2.6s ease-in-out infinite alternate; animation-delay: -0.4s; }
+
+  @keyframes grain-walk-1 { 0% { transform: translate(0, 0); } 100% { transform: translate(25px, -5px); } }
+  @keyframes grain-walk-2 { 0% { transform: translate(0, 0); } 100% { transform: translate(-20px, 8px); } }
+  @keyframes grain-walk-3 { 0% { transform: translate(0, 0); } 100% { transform: translate(11px, 13px); } }
+  @keyframes grain-walk-4 { 0% { transform: translate(0, 0); } 100% { transform: translate(-13px, -16px); } }
+
   @keyframes pulse-transducer {
     0% { transform: scale(0.9); opacity: 0.8; }
     100% { transform: scale(1.15); opacity: 1; }
@@ -163,6 +185,10 @@ class PhysicsChladniPlate extends HTMLElement {
             </g>
           </svg>
           <div class="center-driver"></div>
+          <div class="sand-grain grain-1"></div>
+          <div class="sand-grain grain-2"></div>
+          <div class="sand-grain grain-3"></div>
+          <div class="sand-grain grain-4"></div>
         </div>
 
         <div class="hud">

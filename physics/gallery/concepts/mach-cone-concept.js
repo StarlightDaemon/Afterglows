@@ -75,7 +75,23 @@ const machStyles = `
     clip-path: polygon(0% 50%, 100% 0%, 80% 50%, 100% 100%);
     box-shadow: 0 0 8px #ffaa00;
     z-index: 8;
-    animation: jitter-flight 0.15s infinite alternate;
+    animation: craft-advance 2.8s ease-in-out infinite alternate;
+  }
+
+  /* Craft and its attached shock cone sweep along the flight axis together,
+     the wavefront circles lagging behind. */
+  .cone-group {
+    animation: cone-advance 2.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes cone-advance {
+    0% { transform: translateX(-12px); }
+    100% { transform: translateX(12px); }
+  }
+
+  @keyframes craft-advance {
+    0% { transform: translateY(-50%) translateX(-12px); }
+    100% { transform: translateY(-50%) translateX(12px); }
   }
 
   /* Supersonic shock diamond plume */
@@ -87,6 +103,7 @@ const machStyles = `
     display: flex;
     gap: 3px;
     z-index: 7;
+    animation: craft-advance 2.8s ease-in-out infinite alternate;
   }
 
   .diamond {
@@ -129,10 +146,6 @@ const machStyles = `
     z-index: 10;
   }
 
-  @keyframes jitter-flight {
-    0% { transform: translateY(-50%) translateY(-1.5px); }
-    100% { transform: translateY(-50%) translateY(1.5px); }
-  }
 `;
 
 class PhysicsMachCone extends HTMLElement {
@@ -150,9 +163,11 @@ class PhysicsMachCone extends HTMLElement {
           <line x1="10" y1="65" x2="120" y2="65" class="flight-path" />
 
           <!-- Shock Wave Envelope (Mach angle sin(μ) = 1/1.6 = 0.625 -> μ ≈ 38.7°) -->
-          <polygon points="110,65 15,14 15,116" class="shock-fill" />
-          <line x1="110" y1="65" x2="15" y2="14" class="shock-envelope" />
-          <line x1="110" y1="65" x2="15" y2="116" class="shock-envelope" />
+          <g class="cone-group">
+            <polygon points="110,65 15,14 15,116" class="shock-fill" />
+            <line x1="110" y1="65" x2="15" y2="14" class="shock-envelope" />
+            <line x1="110" y1="65" x2="15" y2="116" class="shock-envelope" />
+          </g>
 
           <!-- Expanding Spherical Wavefronts -->
           <circle cx="88" cy="65" r="14" class="sound-wave" />

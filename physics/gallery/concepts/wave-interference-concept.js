@@ -97,6 +97,34 @@ const interferenceStyles = `
     z-index: 10;
   }
 
+  /* Plunger bob on each source: the emitters dip in antiphase like ripple-tank
+     dippers, and a floating cork rides the central antinode. */
+  .source-1 { animation: plunger-dip 1.5s ease-in-out infinite alternate; }
+  .source-2 { animation: plunger-dip 1.5s ease-in-out infinite alternate; animation-delay: -0.75s; }
+
+  .probe-cork {
+    position: absolute;
+    top: 28px;
+    left: 61px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #00ffaa;
+    box-shadow: 0 0 8px #00ffaa, 0 0 14px rgba(0, 255, 170, 0.6);
+    z-index: 7;
+    animation: cork-bob 1.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes plunger-dip {
+    0% { transform: translateY(-5px); }
+    100% { transform: translateY(5px); }
+  }
+
+  @keyframes cork-bob {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(22px); }
+  }
+
   @keyframes ripple-spread {
     0% {
       width: 0;
@@ -134,6 +162,7 @@ class PhysicsWaveInterference extends HTMLElement {
 
         <div class="source-emitter source-1"></div>
         <div class="source-emitter source-2"></div>
+        <div class="probe-cork"></div>
 
         <div class="wave-pulse w1-1"></div>
         <div class="wave-pulse w1-2"></div>
