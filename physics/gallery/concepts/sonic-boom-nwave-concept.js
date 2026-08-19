@@ -79,10 +79,13 @@ const sonicStyles = `
   /* Shock fronts trail the jet; the N-wave signature sweeps the ground */
   .mach-cone { stroke-dasharray: 6 4; animation: nw-cone 1.5s linear infinite; }
   .n-wave { stroke-dasharray: 7 4; animation: nw-sig 1.2s linear infinite; }
-  .jet { animation: nw-jet 1.8s ease-in-out infinite alternate; }
   @keyframes nw-cone { to { stroke-dashoffset: -20; } }
   @keyframes nw-sig { to { stroke-dashoffset: -22; } }
-  @keyframes nw-jet { from { transform: translateX(-1.5px); } to { transform: translateX(1.5px); } }
+
+  /* Jet, shock cone and ground N-wave signature all sweep along the flight
+     direction together — the boom carpet tracking the aircraft. */
+  .boom-frame { animation: nw-sweep 2.4s ease-in-out infinite alternate; }
+  @keyframes nw-sweep { from { transform: translateX(-11px); } to { transform: translateX(11px); } }
 
 `;
 
@@ -97,28 +100,31 @@ class PhysicsSonicBoomNwave extends HTMLElement {
       <style>${sonicStyles}</style>
       <div class="canvas-box">
         <svg class="sonic-svg" viewBox="0 0 130 130">
-          <!-- Supersonic Aircraft at (x=100, y=30) M = 2.0 -->
-          <polygon points="100,30 85,25 88,30 85,35" class="jet" />
-          <text x="76" y="20" class="lbl lbl-mach">M = 2.0 (v &gt; c)</text>
-
-          <!-- Mach Shock Cone Envelope -->
-          <line x1="100" y1="30" x2="20" y2="70" class="mach-cone" />
-          <line x1="100" y1="30" x2="60" y2="10" class="mach-cone" />
-          <text x="32" y="60" class="lbl lbl-bow">SHOCK CONE</text>
-
           <!-- Ground Baseline P_0 -->
           <line x1="10" y1="95" x2="120" y2="95" class="ground-line" />
           <text x="12" y="104" class="lbl" fill="rgba(255,255,255,0.5)">P₀ AMBIENT</text>
 
-          <!-- N-Wave Overpressure Profile: Bow Shock (+ΔP) -> Expansion -> Tail Shock -->
-          <path d="
-            M 25 95
-            L 40 95
-            L 40 76
-            L 80 114
-            L 80 95
-            L 115 95
-          " class="n-wave" />
+          <g class="boom-frame">
+            <!-- Supersonic Aircraft at (x=100, y=30) M = 2.0 -->
+            <polygon points="100,30 85,25 88,30 85,35" class="jet" />
+
+            <!-- Mach Shock Cone Envelope -->
+            <line x1="100" y1="30" x2="20" y2="70" class="mach-cone" />
+            <line x1="100" y1="30" x2="60" y2="10" class="mach-cone" />
+
+            <!-- N-Wave Overpressure Profile: Bow Shock (+ΔP) -> Expansion -> Tail Shock -->
+            <path d="
+              M 25 95
+              L 40 95
+              L 40 76
+              L 80 114
+              L 80 95
+              L 115 95
+            " class="n-wave" />
+          </g>
+
+          <text x="76" y="20" class="lbl lbl-mach">M = 2.0 (v &gt; c)</text>
+          <text x="32" y="60" class="lbl lbl-bow">SHOCK CONE</text>
 
           <text x="36" y="72" class="lbl lbl-nwave">+ΔP BOW</text>
           <text x="82" y="118" class="lbl lbl-nwave">-ΔP TAIL</text>

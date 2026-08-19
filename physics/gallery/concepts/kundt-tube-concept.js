@@ -84,7 +84,21 @@ const kundtStyles = `
   .piston { animation: kt-drive 0.55s ease-in-out infinite alternate; }
   @keyframes kt-breathe { from { opacity: 0.35; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
   @keyframes kt-dance { from { transform: scaleY(0.9); } to { transform: scaleY(1.15); filter: drop-shadow(0 0 3px currentColor); } }
-  @keyframes kt-drive { from { transform: translateX(-0.8px); } to { transform: translateX(0.8px); } }
+  @keyframes kt-drive { from { transform: translateX(-4px); } to { transform: translateX(4px); } }
+
+  /* Lycopodium grains kicked up above the heaps, dancing at the nodes. */
+  .dancing-grain {
+    fill: #ffcf70;
+    filter: drop-shadow(0 0 3px #ffaa00);
+  }
+
+  .dg-1 { animation: kt-hop-1 0.55s ease-in-out infinite alternate; }
+  .dg-2 { animation: kt-hop-2 0.6s ease-in-out infinite alternate; animation-delay: -0.2s; }
+  .dg-3 { animation: kt-hop-3 0.5s ease-in-out infinite alternate; animation-delay: -0.35s; }
+
+  @keyframes kt-hop-1 { from { transform: translate(50px, 72px); } to { transform: translate(52px, 58px); } }
+  @keyframes kt-hop-2 { from { transform: translate(80px, 72px); } to { transform: translate(78px, 57px); } }
+  @keyframes kt-hop-3 { from { transform: translate(110px, 72px); } to { transform: translate(112px, 59px); } }
 
 `;
 
@@ -114,6 +128,11 @@ class PhysicsKundtTube extends HTMLElement {
           <polygon points="46,84 50,75 54,84" class="dust-heap" />
           <polygon points="76,84 80,75 84,84" class="dust-heap" />
           <polygon points="106,84 110,75 114,84" class="dust-heap" />
+
+          <!-- Dancing dust grains above the heaps -->
+          <circle cx="0" cy="0" r="1.8" class="dancing-grain dg-1" />
+          <circle cx="0" cy="0" r="1.8" class="dancing-grain dg-2" />
+          <circle cx="0" cy="0" r="1.8" class="dancing-grain dg-3" />
 
           <!-- Node Labels -->
           <text x="44" y="94" class="lbl lbl-node">NODE</text>

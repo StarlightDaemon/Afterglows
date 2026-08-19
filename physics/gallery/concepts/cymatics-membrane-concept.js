@@ -83,6 +83,23 @@ const cymaStyles = `
     0% { opacity: 1; }
     100% { opacity: 0.05; }
   }
+
+  /* Sand grains shaken off the antinodal sectors, migrating to the nodal
+     lines where they come to rest. */
+  .cyma-grain {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.9));
+  }
+
+  .cg-1 { animation: cyma-walk-1 1.8s ease-in-out infinite alternate; }
+  .cg-2 { animation: cyma-walk-2 2.1s ease-in-out infinite alternate; animation-delay: -0.7s; }
+  .cg-3 { animation: cyma-walk-3 1.9s ease-in-out infinite alternate; animation-delay: -1.2s; }
+  .cg-4 { animation: cyma-walk-4 2.2s ease-in-out infinite alternate; animation-delay: -0.35s; }
+
+  @keyframes cyma-walk-1 { from { transform: translate(86px, 44px); } to { transform: translate(68px, 51px); } }
+  @keyframes cyma-walk-2 { from { transform: translate(44px, 86px); } to { transform: translate(61px, 79px); } }
+  @keyframes cyma-walk-3 { from { transform: translate(45px, 46px); } to { transform: translate(56px, 62px); } }
+  @keyframes cyma-walk-4 { from { transform: translate(85px, 85px); } to { transform: translate(73px, 70px); } }
 `;
 
 class PhysicsCymaticsMembrane extends HTMLElement {
@@ -114,6 +131,12 @@ class PhysicsCymaticsMembrane extends HTMLElement {
 
           <!-- Circular Nodal Ring (m=2, n=1) -->
           <circle cx="65" cy="65" r="26" class="nodal-line" stroke-dasharray="3 2" />
+
+          <!-- Migrating sand grains -->
+          <circle cx="0" cy="0" r="1.9" class="cyma-grain cg-1" />
+          <circle cx="0" cy="0" r="1.9" class="cyma-grain cg-2" />
+          <circle cx="0" cy="0" r="1.7" class="cyma-grain cg-3" />
+          <circle cx="0" cy="0" r="1.7" class="cyma-grain cg-4" />
 
           <!-- Labels -->
           <text x="12" y="14" class="lbl lbl-mode">MODE (m=2, n=1)</text>

@@ -126,11 +126,15 @@ class PhysicsAcousticStreamingVortex extends HTMLElement {
           <!-- Upper Recirculating Eckart Streaming Vortex -->
           <g class="streaming-vortex-top" fill="none" stroke="#0ea5e9" stroke-width="1">
             <path d="M 60 42 A 20 14 0 1 1 100 42 A 20 14 0 1 1 60 42" stroke-dasharray="8 4" />
+            <circle cx="60" cy="42" r="2.4" fill="#bae6fd" stroke="none" style="filter: drop-shadow(0 0 4px #38bdf8)" />
+            <circle cx="100" cy="42" r="2" fill="#bae6fd" stroke="none" style="filter: drop-shadow(0 0 4px #38bdf8)" />
           </g>
 
           <!-- Lower Recirculating Eckart Streaming Vortex -->
           <g class="streaming-vortex-bot" fill="none" stroke="#0ea5e9" stroke-width="1">
             <path d="M 60 88 A 20 14 0 1 1 100 88 A 20 14 0 1 1 60 88" stroke-dasharray="8 4" />
+            <circle cx="60" cy="88" r="2.4" fill="#bae6fd" stroke="none" style="filter: drop-shadow(0 0 4px #38bdf8)" />
+            <circle cx="100" cy="88" r="2" fill="#bae6fd" stroke="none" style="filter: drop-shadow(0 0 4px #38bdf8)" />
           </g>
         </svg>
         <div class="hud">

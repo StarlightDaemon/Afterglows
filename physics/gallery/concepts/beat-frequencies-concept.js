@@ -90,6 +90,21 @@ const beatStyles = `
   @keyframes beat-run2 { to { stroke-dashoffset: -16; } }
   @keyframes beat-swell { from { opacity: 0.55; } to { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
 
+  /* Signal tracer riding the beat envelope across the superposition trace. */
+  .beat-tracer {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 5px #00ff66);
+    animation: beat-ride 2.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes beat-ride {
+    0%   { transform: translate(12px, 80px); }
+    25%  { transform: translate(40px, 71px); }
+    50%  { transform: translate(65px, 80px); }
+    75%  { transform: translate(90px, 89px); }
+    100% { transform: translate(118px, 80px); }
+  }
+
 `;
 
 class PhysicsBeatFrequencies extends HTMLElement {
@@ -124,6 +139,9 @@ class PhysicsBeatFrequencies extends HTMLElement {
             Q 18 70 24 80 T 36 80 T 48 80 T 56 80 T 65 80
             T 74 80 T 82 80 T 94 80 T 106 80 T 118 80
           " class="sum-signal" />
+
+          <!-- Envelope-riding signal tracer -->
+          <circle cx="0" cy="0" r="2.6" class="beat-tracer" />
 
           <!-- Beat Period Indicator -->
           <text x="50" y="104" class="lbl lbl-beat">T_beat = 1/|f₁ - f₂| = 0.25 s</text>

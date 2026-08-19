@@ -79,8 +79,8 @@ const leviaStyles = `
   }
 
   @keyframes jitter-drop {
-    0% { transform: translateY(-1.5px); }
-    100% { transform: translateY(1.5px); }
+    0% { transform: translateY(-6px); }
+    100% { transform: translateY(6px); }
   }
 `;
 
