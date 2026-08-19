@@ -90,6 +90,41 @@ const reconStyles = `
     0% { stroke-dashoffset: 0; }
     100% { stroke-dashoffset: -20; }
   }
+
+  /* Plasma parcels: inflow feeds the X-point from above and below, and
+     reconnected plasmoids are ejected left and right at v_A. */
+  .plasmoid { fill: #9dffc4; filter: drop-shadow(0 0 4px #00ff66); }
+  .inflow-parcel { fill: #8ef2ff; filter: drop-shadow(0 0 4px #00e5ff); }
+
+  .pl-l { animation: rec-eject-l 1.6s linear infinite; }
+  .pl-r { animation: rec-eject-r 1.6s linear infinite; animation-delay: -0.8s; }
+  .in-t { animation: rec-in-t 1.6s linear infinite; }
+  .in-b { animation: rec-in-b 1.6s linear infinite; animation-delay: -0.8s; }
+
+  @keyframes rec-eject-l {
+    0%   { transform: translate(62px, 65px); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { transform: translate(22px, 65px); opacity: 1; }
+    100% { transform: translate(17px, 65px); opacity: 0; }
+  }
+  @keyframes rec-eject-r {
+    0%   { transform: translate(68px, 65px); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { transform: translate(108px, 65px); opacity: 1; }
+    100% { transform: translate(113px, 65px); opacity: 0; }
+  }
+  @keyframes rec-in-t {
+    0%   { transform: translate(65px, 32px); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { transform: translate(65px, 58px); opacity: 1; }
+    100% { transform: translate(65px, 61px); opacity: 0; }
+  }
+  @keyframes rec-in-b {
+    0%   { transform: translate(65px, 98px); opacity: 0; }
+    12%  { opacity: 1; }
+    88%  { transform: translate(65px, 72px); opacity: 1; }
+    100% { transform: translate(65px, 69px); opacity: 0; }
+  }
 `;
 
 class PhysicsMagneticReconnection extends HTMLElement {
@@ -120,6 +155,12 @@ class PhysicsMagneticReconnection extends HTMLElement {
 
           <!-- Sweet-Parker Current Sheet (X-Point) -->
           <ellipse cx="65" cy="65" rx="8" ry="3" class="current-sheet" />
+
+          <!-- Inflow parcels and ejected plasmoids -->
+          <circle cx="0" cy="0" r="2.4" class="inflow-parcel in-t" />
+          <circle cx="0" cy="0" r="2.4" class="inflow-parcel in-b" />
+          <circle cx="0" cy="0" r="2.6" class="plasmoid pl-l" />
+          <circle cx="0" cy="0" r="2.6" class="plasmoid pl-r" />
           <text x="44" y="60" class="lbl lbl-sheet">X-POINT</text>
 
           <!-- Inflow & Outflow Velocity Vectors -->

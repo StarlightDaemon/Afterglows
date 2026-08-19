@@ -63,6 +63,35 @@ const mhdStyles = `
     animation: mhd-emf-spark 1.8s ease-in-out infinite alternate;
   }
 
+  /* Ionized gas slugs shooting down the channel. */
+  .plasma-slug {
+    fill: #ffd9a0;
+    filter: drop-shadow(0 0 4px #f97316);
+  }
+
+  .ps-1 { animation: mhd-slug-1 1.4s linear infinite; }
+  .ps-2 { animation: mhd-slug-2 1.4s linear infinite; animation-delay: -0.47s; }
+  .ps-3 { animation: mhd-slug-3 1.4s linear infinite; animation-delay: -0.93s; }
+
+  @keyframes mhd-slug-1 {
+    0% { transform: translate(14px, 58px); opacity: 0; }
+    10% { opacity: 1; }
+    90% { transform: translate(114px, 56px); opacity: 1; }
+    100% { transform: translate(118px, 56px); opacity: 0; }
+  }
+  @keyframes mhd-slug-2 {
+    0% { transform: translate(12px, 65px); opacity: 0; }
+    10% { opacity: 1; }
+    90% { transform: translate(116px, 65px); opacity: 1; }
+    100% { transform: translate(120px, 65px); opacity: 0; }
+  }
+  @keyframes mhd-slug-3 {
+    0% { transform: translate(14px, 72px); opacity: 0; }
+    10% { opacity: 1; }
+    90% { transform: translate(114px, 74px); opacity: 1; }
+    100% { transform: translate(118px, 74px); opacity: 0; }
+  }
+
   @keyframes mhd-emf-spark {
     0% { opacity: 0.5; stroke-width: 1; }
     100% { opacity: 1; stroke-width: 1.8; filter: drop-shadow(0 0 3px #fbbf24); }
@@ -140,6 +169,11 @@ class PhysicsMhdGenerator extends HTMLElement {
             <line x1="10" y1="65" x2="120" y2="65" stroke="#fbbf24" stroke-width="2.5" />
             <line x1="12" y1="72" x2="118" y2="74" />
           </g>
+
+          <!-- Streaming plasma slugs -->
+          <circle cx="0" cy="0" r="2.4" class="plasma-slug ps-1" />
+          <circle cx="0" cy="0" r="2.8" class="plasma-slug ps-2" />
+          <circle cx="0" cy="0" r="2.4" class="plasma-slug ps-3" />
 
           <!-- Top Anode Electrode (+ Lorentz deflection of ions) -->
           <rect x="40" y="38" width="50" height="4" class="electrode-anode" rx="1" />

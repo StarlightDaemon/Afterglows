@@ -75,9 +75,26 @@ const zpinchStyles = `
   }
 
   @keyframes compress-column {
-    0% { transform: scaleX(1.1); transform-origin: 65px 65px; }
-    100% { transform: scaleX(0.65); transform-origin: 65px 65px; }
+    0% { transform: scaleX(1.15); transform-origin: 65px 65px; }
+    100% { transform: scaleX(0.55); transform-origin: 65px 65px; }
   }
+
+  /* The azimuthal field rings implode with the column and the J x B force
+     arrows physically drive inward. */
+  .b-ring {
+    transform-origin: 65px 65px;
+    animation: compress-rings 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes compress-rings {
+    0% { transform: scaleX(1.1); }
+    100% { transform: scaleX(0.68); }
+  }
+
+  .pinch-left { animation: pinch-drive-l 2s ease-in-out infinite alternate; }
+  .pinch-right { animation: pinch-drive-r 2s ease-in-out infinite alternate; }
+  @keyframes pinch-drive-l { from { transform: translateX(-3px); } to { transform: translateX(10px); } }
+  @keyframes pinch-drive-r { from { transform: translateX(3px); } to { transform: translateX(-10px); } }
 `;
 
 class PhysicsZPinch extends HTMLElement {
@@ -101,11 +118,15 @@ class PhysicsZPinch extends HTMLElement {
           <ellipse cx="65" cy="92" rx="44" ry="12" class="b-ring" />
 
           <!-- Inward Radial Magnetic Pinch Force J x B -->
-          <line x1="22" y1="65" x2="42" y2="65" class="pinch-arrow" />
-          <polygon points="46,65 41,62 41,68" fill="#ffaa00" />
+          <g class="pinch-left">
+            <line x1="22" y1="65" x2="42" y2="65" class="pinch-arrow" />
+            <polygon points="46,65 41,62 41,68" fill="#ffaa00" />
+          </g>
 
-          <line x1="108" y1="65" x2="88" y2="65" class="pinch-arrow" />
-          <polygon points="84,65 89,62 89,68" fill="#ffaa00" />
+          <g class="pinch-right">
+            <line x1="108" y1="65" x2="88" y2="65" class="pinch-arrow" />
+            <polygon points="84,65 89,62 89,68" fill="#ffaa00" />
+          </g>
 
           <!-- Labels -->
           <text x="12" y="58" class="lbl lbl-pinch">F = J_z × B_θ</text>

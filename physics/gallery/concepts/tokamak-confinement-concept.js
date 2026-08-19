@@ -83,6 +83,25 @@ const tokaStyles = `
     0% { stroke-dashoffset: 0; }
     100% { stroke-dashoffset: -24; }
   }
+
+  /* Confined plasma bunch circulating the toroidal core. */
+  .plasma-bunch {
+    fill: #ff8fd9;
+    filter: drop-shadow(0 0 6px #ff33bb);
+    animation: toka-circulate 2.2s linear infinite;
+  }
+
+  @keyframes toka-circulate {
+    0%    { transform: translate(100px, 65px); }
+    12.5% { transform: translate(90px, 82px); }
+    25%   { transform: translate(65px, 89px); }
+    37.5% { transform: translate(40px, 82px); }
+    50%   { transform: translate(30px, 65px); }
+    62.5% { transform: translate(40px, 48px); }
+    75%   { transform: translate(65px, 41px); }
+    87.5% { transform: translate(90px, 48px); }
+    100%  { transform: translate(100px, 65px); }
+  }
 `;
 
 class PhysicsTokamakConfinement extends HTMLElement {
@@ -113,6 +132,9 @@ class PhysicsTokamakConfinement extends HTMLElement {
 
           <!-- High-Temperature Confined Fusion Plasma Core (100M K) -->
           <ellipse cx="65" cy="65" rx="35" ry="24" class="plasma-core" />
+
+          <!-- Circulating plasma bunch -->
+          <circle cx="0" cy="0" r="3" class="plasma-bunch" />
 
           <!-- Toroidal & Poloidal field vectors -->
           <text x="14" y="24" class="lbl lbl-b">B_tot = B_φ + B_θ</text>

@@ -74,9 +74,13 @@ const alfvenStyles = `
   .plasma-ion { animation: alf-bob 1.5s ease-in-out infinite alternate; }
   .b-pert { animation: alf-pert 1.5s ease-in-out infinite alternate; }
   .field-line { animation: alf-sway 3s ease-in-out infinite alternate; }
-  @keyframes alf-bob { from { transform: translateY(-3px); } to { transform: translateY(3px); } }
+  @keyframes alf-bob { from { transform: translateY(-8px); } to { transform: translateY(8px); } }
   @keyframes alf-pert { from { opacity: 0.5; } to { opacity: 1; } }
-  @keyframes alf-sway { from { transform: translateY(-1.5px); } to { transform: translateY(1.5px); } }
+  @keyframes alf-sway { from { transform: translateY(-4px); } to { transform: translateY(4px); } }
+
+  /* Stagger the strands so the transverse wave visibly propagates. */
+  .plasma-ion:nth-of-type(2), .field-line:nth-of-type(2) { animation-delay: -0.5s; }
+  .plasma-ion:nth-of-type(3), .field-line:nth-of-type(3) { animation-delay: -1s; }
 
 `;
 

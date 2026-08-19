@@ -51,9 +51,29 @@ const cycloStyles = `
     animation: draw-spiral 3.2s linear infinite;
   }
 
+  /* Ion physically riding the expanding spiral, then extracted. */
   .accelerating-ion {
     fill: #ff5577;
     filter: drop-shadow(0 0 5px #ff5577);
+    animation: ion-spiral 3.2s linear infinite;
+  }
+
+  @keyframes ion-spiral {
+    0%   { transform: translate(65px, 65px); opacity: 1; }
+    5%   { transform: translate(71px, 59px); }
+    9%   { transform: translate(65px, 53px); }
+    16%  { transform: translate(53px, 65px); }
+    22%  { transform: translate(65px, 77px); }
+    29%  { transform: translate(83px, 59px); }
+    35%  { transform: translate(65px, 41px); }
+    43%  { transform: translate(41px, 65px); }
+    50%  { transform: translate(65px, 89px); }
+    58%  { transform: translate(95px, 59px); }
+    65%  { transform: translate(65px, 29px); }
+    74%  { transform: translate(29px, 65px); }
+    82%  { transform: translate(65px, 101px); }
+    96%  { transform: translate(115px, 101px); opacity: 1; }
+    100% { transform: translate(119px, 101px); opacity: 0; }
   }
 
   .lbl {
@@ -120,8 +140,8 @@ class PhysicsCyclotronResonance extends HTMLElement {
             L 115 101
           " class="spiral-orbit" />
 
-          <!-- Extracted High-Energy Ion Beam -->
-          <circle cx="115" cy="101" r="2.5" class="accelerating-ion" />
+          <!-- Accelerating ion riding the spiral to extraction -->
+          <circle cx="0" cy="0" r="2.8" class="accelerating-ion" />
           <text x="82" y="112" class="lbl lbl-ion">EXTRACTED BEAM</text>
         </svg>
 

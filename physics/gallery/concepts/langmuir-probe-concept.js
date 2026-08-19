@@ -86,6 +86,22 @@ const langStyles = `
   @keyframes lang-glow { from { opacity: 0.45; } to { opacity: 1; filter: drop-shadow(0 0 5px #00ff66); } }
   @keyframes lang-mark { from { opacity: 0.15; } to { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
 
+  /* Bias-sweep operating point running the I-V characteristic. */
+  .sweep-runner {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 5px #00ff66);
+    animation: lang-runner 2.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes lang-runner {
+    0%   { transform: translate(15px, 72px); }
+    25%  { transform: translate(40px, 70px); }
+    45%  { transform: translate(58px, 67px); }
+    65%  { transform: translate(70px, 45px); }
+    85%  { transform: translate(90px, 28px); }
+    100% { transform: translate(115px, 26px); }
+  }
+
 `;
 
 class PhysicsLangmuirProbe extends HTMLElement {
@@ -113,6 +129,9 @@ class PhysicsLangmuirProbe extends HTMLElement {
             L 90 28
             L 115 26
           " class="iv-curve" />
+
+          <!-- Bias-sweep operating point -->
+          <circle cx="0" cy="0" r="2.8" class="sweep-runner" />
 
           <!-- Floating Potential V_f (I=0, x=54, y=65) -->
           <circle cx="54" cy="65" r="3.5" fill="#ffaa00" filter="drop-shadow(0 0 3px #ffaa00)" />
