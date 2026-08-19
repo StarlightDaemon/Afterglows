@@ -85,6 +85,26 @@ const braggStyles = `
   @keyframes bragg-diffp { from { opacity: 0.5; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
   @keyframes bragg-atom { from { opacity: 0.75; } to { opacity: 1; } }
 
+  /* X-ray photons riding both reflected beam paths. */
+  .xray-photon { fill: #ffb3c2; filter: drop-shadow(0 0 5px #ff5577); }
+  .xp-1 { animation: bragg-fly-1 2s linear infinite; }
+  .xp-2 { animation: bragg-fly-2 2s linear infinite; animation-delay: -1s; }
+
+  @keyframes bragg-fly-1 {
+    0%   { transform: translate(15px, 25px); opacity: 0; }
+    8%   { opacity: 1; }
+    50%  { transform: translate(50px, 55px); }
+    94%  { transform: translate(85px, 25px); opacity: 1; }
+    100% { transform: translate(88px, 23px); opacity: 0; }
+  }
+  @keyframes bragg-fly-2 {
+    0%   { transform: translate(40px, 25px); opacity: 0; }
+    8%   { opacity: 1; }
+    50%  { transform: translate(75px, 85px); }
+    94%  { transform: translate(110px, 25px); opacity: 1; }
+    100% { transform: translate(113px, 23px); opacity: 0; }
+  }
+
 `;
 
 class PhysicsBraggDiffraction extends HTMLElement {
@@ -125,6 +145,10 @@ class PhysicsBraggDiffraction extends HTMLElement {
           <!-- Extra Path Length Difference 2d sin θ -->
           <line x1="50" y1="55" x2="62.5" y2="70" class="path-diff" />
           <line x1="62.5" y1="70" x2="75" y2="85" class="path-diff" />
+
+          <!-- Travelling X-ray photons -->
+          <circle cx="0" cy="0" r="2.6" class="xray-photon xp-1" />
+          <circle cx="0" cy="0" r="2.6" class="xray-photon xp-2" />
 
           <!-- Labels -->
           <text x="12" y="18" class="lbl lbl-ray">X-RAY BEAM (λ)</text>

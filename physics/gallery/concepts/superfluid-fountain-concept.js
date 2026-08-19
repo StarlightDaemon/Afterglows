@@ -51,6 +51,35 @@ const superfluidStyles = `
     animation: sf-leak-flow 1.2s linear infinite;
   }
 
+  /* Helium droplets erupting from the nozzle in the fountain geyser. */
+  .fountain-drop {
+    fill: #e0f6ff;
+    filter: drop-shadow(0 0 4px #7dd3fc);
+  }
+
+  .fd-1 { animation: sf-erupt-1 1.3s ease-out infinite; }
+  .fd-2 { animation: sf-erupt-2 1.3s ease-out infinite; animation-delay: -0.43s; }
+  .fd-3 { animation: sf-erupt-3 1.3s ease-out infinite; animation-delay: -0.87s; }
+
+  @keyframes sf-erupt-1 {
+    0%   { transform: translate(65px, 24px); opacity: 0; }
+    15%  { opacity: 1; }
+    85%  { transform: translate(65px, 5px); opacity: 1; }
+    100% { transform: translate(65px, 3px); opacity: 0; }
+  }
+  @keyframes sf-erupt-2 {
+    0%   { transform: translate(65px, 24px); opacity: 0; }
+    15%  { opacity: 1; }
+    85%  { transform: translate(52px, 12px); opacity: 1; }
+    100% { transform: translate(50px, 11px); opacity: 0; }
+  }
+  @keyframes sf-erupt-3 {
+    0%   { transform: translate(65px, 24px); opacity: 0; }
+    15%  { opacity: 1; }
+    85%  { transform: translate(78px, 12px); opacity: 1; }
+    100% { transform: translate(80px, 11px); opacity: 0; }
+  }
+
   @keyframes sf-leak-flow {
     0% { stroke-dashoffset: 12; opacity: 0.5; }
     100% { stroke-dashoffset: 0; opacity: 1; }
@@ -140,6 +169,11 @@ class PhysicsSuperfluidFountain extends HTMLElement {
             <path d="M 65 24 L 65 8" fill="none" stroke="#ffffff" stroke-width="1.8" />
             <circle cx="65" cy="7" r="2.2" fill="#ffffff" />
           </g>
+          <!-- Erupting helium droplets -->
+          <circle cx="0" cy="0" r="1.9" class="fountain-drop fd-1" />
+          <circle cx="0" cy="0" r="1.7" class="fountain-drop fd-2" />
+          <circle cx="0" cy="0" r="1.7" class="fountain-drop fd-3" />
+
           <text x="32" y="16" class="lbl" fill="#ffffff">FOUNTAIN JET</text>
         </svg>
         <div class="hud">

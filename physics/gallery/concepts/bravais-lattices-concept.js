@@ -86,6 +86,21 @@ const bravaisStyles = `
   @keyframes brv-cell { from { opacity: 0.6; } to { opacity: 1; } }
   @keyframes brv-vec { to { stroke-dashoffset: -12; } }
 
+  /* Lattice walker stepping R = n1 a1 + n2 a2 around the unit cell. */
+  .lattice-walker {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 5px #ffaa00);
+    animation: brv-walk 2.8s linear infinite;
+  }
+
+  @keyframes brv-walk {
+    0%   { transform: translate(35px, 65px); }
+    25%  { transform: translate(65px, 65px); }
+    50%  { transform: translate(80px, 39px); }
+    75%  { transform: translate(50px, 39px); }
+    100% { transform: translate(35px, 65px); }
+  }
+
 `;
 
 class PhysicsBravaisLattices extends HTMLElement {
@@ -130,6 +145,9 @@ class PhysicsBravaisLattices extends HTMLElement {
           <circle cx="50" cy="91" r="2.5" class="lattice-point" />
           <circle cx="80" cy="91" r="2.5" class="lattice-point" />
           <circle cx="110" cy="91" r="2.5" class="lattice-point" />
+
+          <!-- Translational-symmetry walker -->
+          <circle cx="0" cy="0" r="2.6" class="lattice-walker" />
 
           <!-- Labels -->
           <text x="64" y="52" class="lbl lbl-cell">UNIT CELL</text>

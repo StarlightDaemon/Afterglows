@@ -92,6 +92,22 @@ const phononStyles = `
   @keyframes pho-run { to { stroke-dashoffset: -18; } }
   @keyframes pho-gap { from { opacity: 0.45; } to { opacity: 0.85; } }
 
+  /* Phonon quasiparticles sweeping along both dispersion branches. */
+  .phonon-qp { filter: drop-shadow(0 0 4px currentColor); }
+  .qp-opt { fill: #ff9db1; color: #ff5577; animation: pho-qp-opt 2.2s ease-in-out infinite alternate; }
+  .qp-ac { fill: #9dffc4; color: #00ff66; animation: pho-qp-ac 2.2s ease-in-out infinite alternate; animation-delay: -1.1s; }
+
+  @keyframes pho-qp-opt {
+    0%   { transform: translate(20px, 28px); }
+    50%  { transform: translate(62px, 33px); }
+    100% { transform: translate(100px, 52px); }
+  }
+  @keyframes pho-qp-ac {
+    0%   { transform: translate(20px, 108px); }
+    50%  { transform: translate(61px, 96px); }
+    100% { transform: translate(100px, 64px); }
+  }
+
 `;
 
 class PhysicsPhononsDispersion extends HTMLElement {
@@ -126,6 +142,10 @@ class PhysicsPhononsDispersion extends HTMLElement {
           <!-- Acoustic Branch: ω_ac(k) -->
           <path d="M 20 108 Q 60 98 100 64" class="branch-ac" />
           <text x="36" y="98" class="lbl lbl-ac">ACOUSTIC (v_s = dω/dk)</text>
+
+          <!-- Phonon quasiparticles on the branches -->
+          <circle cx="0" cy="0" r="2.6" class="phonon-qp qp-opt" />
+          <circle cx="0" cy="0" r="2.6" class="phonon-qp qp-ac" />
         </svg>
 
         <div class="hud">

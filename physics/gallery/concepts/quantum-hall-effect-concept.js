@@ -77,6 +77,24 @@ const qheStyles = `
   @keyframes qhe-step { to { stroke-dashoffset: -20; } }
   @keyframes qhe-sdh { from { opacity: 0.6; } to { opacity: 1; filter: drop-shadow(0 0 3px currentColor); } }
 
+  /* Field-sweep operating point climbing the quantized staircase. */
+  .sweep-dot {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 5px #00ff66);
+    animation: qhe-sweep 2.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes qhe-sweep {
+    0%   { transform: translate(20px, 95px); }
+    13%  { transform: translate(38px, 95px); }
+    25%  { transform: translate(46px, 80px); }
+    35%  { transform: translate(60px, 80px); }
+    54%  { transform: translate(70px, 56px); }
+    65%  { transform: translate(86px, 56px); }
+    86%  { transform: translate(96px, 28px); }
+    100% { transform: translate(115px, 28px); }
+  }
+
 `;
 
 class PhysicsQuantumHallEffect extends HTMLElement {
@@ -116,6 +134,9 @@ class PhysicsQuantumHallEffect extends HTMLElement {
             Q 91 60 96 106
             L 115 106
           " class="sdh-peaks" />
+
+          <!-- Field-sweep operating point -->
+          <circle cx="0" cy="0" r="2.8" class="sweep-dot" />
 
           <!-- Plateau Filling Factor Labels -->
           <text x="24" y="90" class="lbl lbl-nu">ν=4 (h/4e²)</text>

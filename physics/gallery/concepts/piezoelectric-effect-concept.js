@@ -88,8 +88,20 @@ const piezoStyles = `
 
   @keyframes compress-crystal {
     0% { transform: scale(1.0, 1.0); }
-    100% { transform: scale(1.15, 0.85); }
+    100% { transform: scale(1.24, 0.72); }
   }
+
+  /* The press physically drives in with the compression cycle, and the bound
+     surface charges displace with the crystal faces. */
+  .press-top { animation: press-drive-top 2.4s ease-in-out infinite alternate; }
+  .press-bot { animation: press-drive-bot 2.4s ease-in-out infinite alternate; }
+  @keyframes press-drive-top { from { transform: translateY(-3px); } to { transform: translateY(6px); } }
+  @keyframes press-drive-bot { from { transform: translateY(3px); } to { transform: translateY(-6px); } }
+
+  .charges-top { animation: charge-shift-top 2.4s ease-in-out infinite alternate; }
+  .charges-bot { animation: charge-shift-bot 2.4s ease-in-out infinite alternate; }
+  @keyframes charge-shift-top { from { transform: translateY(0); opacity: 0.55; } to { transform: translateY(5px); opacity: 1; } }
+  @keyframes charge-shift-bot { from { transform: translateY(0); opacity: 0.55; } to { transform: translateY(-5px); opacity: 1; } }
 `;
 
 class PhysicsPiezoelectricEffect extends HTMLElement {
@@ -107,23 +119,31 @@ class PhysicsPiezoelectricEffect extends HTMLElement {
           <rect x="35" y="45" width="60" height="40" rx="3" class="crystal-block" />
 
           <!-- Applied Compressive Stress Arrows -->
-          <line x1="65" y1="20" x2="65" y2="40" class="force-arrow" />
-          <polygon points="65,44 61,38 69,38" fill="#ff5577" />
-          <text x="68" y="28" class="lbl lbl-stress">STRESS σ ↓</text>
+          <g class="press-top">
+            <line x1="65" y1="20" x2="65" y2="40" class="force-arrow" />
+            <polygon points="65,44 61,38 69,38" fill="#ff5577" />
+            <text x="68" y="28" class="lbl lbl-stress">STRESS σ ↓</text>
+          </g>
 
-          <line x1="65" y1="110" x2="65" y2="90" class="force-arrow" />
-          <polygon points="65,86 61,92 69,92" fill="#ff5577" />
-          <text x="68" y="106" class="lbl lbl-stress">STRESS σ ↑</text>
+          <g class="press-bot">
+            <line x1="65" y1="110" x2="65" y2="90" class="force-arrow" />
+            <polygon points="65,86 61,92 69,92" fill="#ff5577" />
+            <text x="68" y="106" class="lbl lbl-stress">STRESS σ ↑</text>
+          </g>
 
           <!-- Top Bound Positive Surface Charge (+) -->
-          <text x="42" y="52" class="charge-pos">⊕</text>
-          <text x="61" y="52" class="charge-pos">⊕</text>
-          <text x="80" y="52" class="charge-pos">⊕</text>
+          <g class="charges-top">
+            <text x="42" y="52" class="charge-pos">⊕</text>
+            <text x="61" y="52" class="charge-pos">⊕</text>
+            <text x="80" y="52" class="charge-pos">⊕</text>
+          </g>
 
           <!-- Bottom Bound Negative Surface Charge (-) -->
-          <text x="42" y="82" class="charge-neg">⊖</text>
-          <text x="61" y="82" class="charge-neg">⊖</text>
-          <text x="80" y="82" class="charge-neg">⊖</text>
+          <g class="charges-bot">
+            <text x="42" y="82" class="charge-neg">⊖</text>
+            <text x="61" y="82" class="charge-neg">⊖</text>
+            <text x="80" y="82" class="charge-neg">⊖</text>
+          </g>
 
           <!-- Electric Dipole Polarization Vector P -->
           <line x1="18" y1="75" x2="18" y2="55" stroke="#ffaa00" stroke-width="1.5" />

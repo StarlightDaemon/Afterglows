@@ -83,6 +83,25 @@ const fermiStyles = `
   @keyframes fermi-breathe { from { opacity: 0.5; } to { opacity: 1; filter: drop-shadow(0 0 5px currentColor); } }
   @keyframes fermi-sym { from { opacity: 0.2; } to { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
 
+  /* Electron quasiparticle circulating the Fermi contour. */
+  .fermi-qp {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 5px #00ff66);
+    animation: fermi-orbit 2.6s linear infinite;
+  }
+
+  @keyframes fermi-orbit {
+    0%    { transform: translate(65px, 34px); }
+    12.5% { transform: translate(86px, 46px); }
+    25%   { transform: translate(96px, 65px); }
+    37.5% { transform: translate(86px, 84px); }
+    50%   { transform: translate(65px, 96px); }
+    62.5% { transform: translate(44px, 84px); }
+    75%   { transform: translate(34px, 65px); }
+    87.5% { transform: translate(44px, 46px); }
+    100%  { transform: translate(65px, 34px); }
+  }
+
 `;
 
 class PhysicsFermiSurface extends HTMLElement {
@@ -115,6 +134,9 @@ class PhysicsFermiSurface extends HTMLElement {
             Q 44 44 65 34
             Z
           " class="fermi-contour" />
+
+          <!-- Circulating electron quasiparticle -->
+          <circle cx="0" cy="0" r="2.8" class="fermi-qp" />
 
           <!-- High Symmetry Points: Γ (0,0), X (π/a, 0), M (π/a, π/a) -->
           <circle cx="65" cy="65" r="2" class="sym-pt" />

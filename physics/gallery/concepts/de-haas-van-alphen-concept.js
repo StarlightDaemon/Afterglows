@@ -42,6 +42,18 @@ const dhvaStyles = `
     animation: dhva-wave-drift 4s linear infinite;
   }
 
+  /* Electron cyclotron orbit riding the extremal Landau tube. */
+  .orbiting-electron {
+    fill: #f0abfc;
+    filter: drop-shadow(0 0 4px #c084fc);
+    animation: dhva-orbit 2.2s linear infinite;
+  }
+
+  @keyframes dhva-orbit {
+    0%   { transform: translate(65px, 46px) rotate(0deg) translate(22px, 0); }
+    100% { transform: translate(65px, 46px) rotate(360deg) translate(22px, 0); }
+  }
+
   @keyframes dhva-wave-drift {
     0% { stroke-dashoffset: 0; }
     100% { stroke-dashoffset: 40; }
@@ -90,6 +102,9 @@ class PhysicsDeHaasVanAlphen extends HTMLElement {
           <circle cx="65" cy="46" r="14" fill="none" stroke="#a855f7" stroke-width="1" stroke-dasharray="2 2" opacity="0.8" />
           <circle cx="65" cy="46" r="6" fill="none" stroke="#c084fc" stroke-width="0.8" />
           <text x="66" y="48" class="lbl lbl-landau">LANDAU TUBE</text>
+
+          <!-- Cyclotron electron on the extremal orbit -->
+          <circle cx="0" cy="0" r="2.4" class="orbiting-electron" />
 
           <!-- k-space Coordinate Axes -->
           <line x1="30" y1="46" x2="100" y2="46" stroke="#475569" stroke-width="0.6" stroke-dasharray="2 2" />
