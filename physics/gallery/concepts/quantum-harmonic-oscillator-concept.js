@@ -99,6 +99,19 @@ const qhoStyles = `
   }
   @keyframes qho-level { from { opacity: 0.35; stroke-width: 1; } to { opacity: 1; stroke-width: 2.2; } }
 
+  /* Coherent-state wave packet sloshing between the classical turning points
+     of the n=2 level. */
+  .coherent-packet {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 5px #00ff66);
+    animation: qho-slosh 1.7s ease-in-out infinite alternate;
+  }
+
+  @keyframes qho-slosh {
+    0% { transform: translate(33px, 45px); }
+    100% { transform: translate(97px, 45px); }
+  }
+
 `;
 
 class PhysicsQuantumHarmonicOscillator extends HTMLElement {
@@ -130,6 +143,9 @@ class PhysicsQuantumHarmonicOscillator extends HTMLElement {
           <line x1="50" y1="95" x2="80" y2="95" class="energy-line" />
           <path d="M 50 95 Q 65 80 80 95" class="psi-0" />
           <text x="14" y="97" class="lbl lbl-e0">n=0 (½ℏω)</text>
+
+          <!-- Coherent wave packet on the n=2 level -->
+          <circle cx="0" cy="0" r="3" class="coherent-packet" />
         </svg>
 
         <div class="hud">

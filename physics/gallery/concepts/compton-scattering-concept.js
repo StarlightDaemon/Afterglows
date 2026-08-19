@@ -98,6 +98,34 @@ const comptonStyles = `
   @keyframes cmp-recoil { from { opacity: 0.6; } to { opacity: 1; filter: drop-shadow(0 0 4px currentColor); } }
   @keyframes cmp-arc { from { opacity: 0.5; } to { opacity: 0.95; } }
 
+  /* Event choreography: incident photon flies in, scattered photon leaves at
+     angle theta while the struck electron recoils along phi. */
+  .ph-in { fill: #8ef2ff; filter: drop-shadow(0 0 5px #00e5ff); animation: cmp-ph-in 2.4s linear infinite; }
+  .ph-out { fill: #ff9db1; filter: drop-shadow(0 0 5px #ff5577); animation: cmp-ph-out 2.4s linear infinite; }
+  .e-out { fill: #9dffc4; filter: drop-shadow(0 0 5px #00ff66); animation: cmp-e-out 2.4s linear infinite; }
+
+  @keyframes cmp-ph-in {
+    0%   { transform: translate(12px, 65px); opacity: 0; }
+    6%   { opacity: 1; }
+    40%  { transform: translate(54px, 65px); opacity: 1; }
+    42%, 100% { transform: translate(54px, 65px); opacity: 0; }
+  }
+
+  @keyframes cmp-ph-out {
+    0%, 40% { transform: translate(55px, 65px); opacity: 0; }
+    42%  { opacity: 1; }
+    70%  { transform: translate(85px, 52px); }
+    96%  { transform: translate(114px, 36px); opacity: 1; }
+    100% { transform: translate(115px, 35px); opacity: 0; }
+  }
+
+  @keyframes cmp-e-out {
+    0%, 40% { transform: translate(55px, 65px); opacity: 0; }
+    42%  { opacity: 1; }
+    96%  { transform: translate(104px, 99px); opacity: 1; }
+    100% { transform: translate(105px, 100px); opacity: 0; }
+  }
+
 `;
 
 class PhysicsComptonScattering extends HTMLElement {
@@ -133,6 +161,11 @@ class PhysicsComptonScattering extends HTMLElement {
           <line x1="55" y1="65" x2="110" y2="65" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" stroke-dasharray="2 2" />
           <path d="M 75 65 A 20 20 0 0 0 71 52" class="angle-arc" />
           <text x="78" y="56" class="lbl lbl-theta">θ</text>
+
+          <!-- Scattering event particles -->
+          <circle cx="0" cy="0" r="2.8" class="ph-in" />
+          <circle cx="0" cy="0" r="2.8" class="ph-out" />
+          <circle cx="0" cy="0" r="2.4" class="e-out" />
         </svg>
 
         <div class="hud">

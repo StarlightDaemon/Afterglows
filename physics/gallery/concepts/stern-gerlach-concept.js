@@ -118,6 +118,29 @@ const sgStyles = `
     0% { stroke-dashoffset: 40; }
     100% { stroke-dashoffset: 0; }
   }
+
+  /* Silver atoms flying the two spin-split trajectories. */
+  .atom-dot { filter: drop-shadow(0 0 4px currentColor); }
+  .atom-up { fill: #ff8ba3; color: #ff5577; animation: atom-fly-up 2.2s linear infinite; }
+  .atom-down { fill: #7deeff; color: #00e5ff; animation: atom-fly-down 2.2s linear infinite; animation-delay: -1.1s; }
+
+  @keyframes atom-fly-up {
+    0%   { transform: translate(14px, 65px); opacity: 0; }
+    8%   { opacity: 1; }
+    40%  { transform: translate(52px, 65px); }
+    65%  { transform: translate(74px, 60px); }
+    94%  { transform: translate(107px, 39px); opacity: 1; }
+    100% { transform: translate(110px, 38px); opacity: 0; }
+  }
+
+  @keyframes atom-fly-down {
+    0%   { transform: translate(14px, 65px); opacity: 0; }
+    8%   { opacity: 1; }
+    40%  { transform: translate(52px, 65px); }
+    65%  { transform: translate(74px, 70px); }
+    94%  { transform: translate(107px, 91px); opacity: 1; }
+    100% { transform: translate(110px, 92px); opacity: 0; }
+  }
 `;
 
 class PhysicsSternGerlach extends HTMLElement {
@@ -145,6 +168,10 @@ class PhysicsSternGerlach extends HTMLElement {
           <!-- Deflected Spin Components -->
           <path d="M 52,65 Q 70,62 108,38" class="beam-up" />
           <path d="M 52,65 Q 70,68 108,92" class="beam-down" />
+
+          <!-- Flying silver atoms on the split beams -->
+          <circle cx="0" cy="0" r="2.6" class="atom-dot atom-up" />
+          <circle cx="0" cy="0" r="2.6" class="atom-dot atom-down" />
 
           <!-- Detector Screen -->
           <line x1="110" y1="25" x2="110" y2="105" class="screen" />

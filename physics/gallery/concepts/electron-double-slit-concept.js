@@ -63,9 +63,16 @@ const electronDoubleSlitStyles = `
   }
 
   .single-electron {
-    fill: #ffaa00;
-    filter: drop-shadow(0 0 3px #ffaa00);
+    fill: #ffcc55;
+    filter: drop-shadow(0 0 5px #ffaa00);
     animation: emit-electron 2.4s linear infinite;
+  }
+
+  .single-electron-b {
+    fill: #ffcc55;
+    filter: drop-shadow(0 0 5px #ffaa00);
+    animation: emit-electron-b 2.4s linear infinite;
+    animation-delay: -1.2s;
   }
 
   .lbl {
@@ -96,9 +103,19 @@ const electronDoubleSlitStyles = `
   }
 
   @keyframes emit-electron {
-    0% { cx: 20; cy: 65; opacity: 1; }
-    50% { cx: 50; cy: 65; opacity: 1; }
-    100% { cx: 110; cy: 50; opacity: 0; }
+    0%   { transform: translate(20px, 65px); opacity: 1; }
+    42%  { transform: translate(48px, 65px); opacity: 1; }
+    54%  { transform: translate(53px, 52px); opacity: 1; }
+    90%  { transform: translate(107px, 58px); opacity: 1; }
+    100% { transform: translate(110px, 58px); opacity: 0; }
+  }
+
+  @keyframes emit-electron-b {
+    0%   { transform: translate(20px, 65px); opacity: 1; }
+    42%  { transform: translate(48px, 65px); opacity: 1; }
+    54%  { transform: translate(53px, 78px); opacity: 1; }
+    90%  { transform: translate(107px, 73px); opacity: 1; }
+    100% { transform: translate(110px, 73px); opacity: 0; }
   }
 `;
 
@@ -115,7 +132,8 @@ class PhysicsElectronDoubleSlit extends HTMLElement {
         <svg class="slit-svg" viewBox="0 0 130 130">
           <!-- Electron Source -->
           <rect x="10" y="58" width="12" height="14" rx="2" class="electron-gun" />
-          <circle cx="20" cy="65" r="2" class="single-electron" />
+          <circle cx="0" cy="0" r="3.2" class="single-electron" />
+          <circle cx="0" cy="0" r="3.2" class="single-electron-b" />
 
           <!-- Double Slit Barrier at x = 50 -->
           <line x1="50" y1="15" x2="50" y2="48" class="slit-wall" />

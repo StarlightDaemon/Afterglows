@@ -79,6 +79,12 @@ const dipoleStyles = `
   @keyframes dip-flux { to { stroke-dashoffset: -18; } }
   @keyframes dip-surge { from { opacity: 0.3; transform: translateX(0); } to { opacity: 1; transform: translateX(5px); filter: drop-shadow(0 0 5px currentColor); } }
 
+  /* The two bar magnets physically pull together and relax apart. */
+  .dipole-1 { animation: dip-pull-1 1.8s ease-in-out infinite alternate; }
+  .dipole-2 { animation: dip-pull-2 1.8s ease-in-out infinite alternate; }
+  @keyframes dip-pull-1 { from { transform: translateX(-4px); } to { transform: translateX(7px); } }
+  @keyframes dip-pull-2 { from { transform: translateX(4px); } to { transform: translateX(-7px); } }
+
 `;
 
 class PhysicsMagneticDipoleForce extends HTMLElement {
@@ -93,18 +99,22 @@ class PhysicsMagneticDipoleForce extends HTMLElement {
       <div class="canvas-box">
         <svg class="dip-svg" viewBox="0 0 130 130">
           <!-- Magnetic Dipole 1 at (x=35, y=65) -->
-          <rect x="25" y="58" width="10" height="14" rx="1" class="bar-n1" />
-          <rect x="35" y="58" width="10" height="14" rx="1" class="bar-s1" />
-          <text x="27" y="67" class="lbl" fill="#fff">N</text>
-          <text x="37" y="67" class="lbl" fill="#fff">S</text>
-          <text x="26" y="50" class="lbl lbl-m1">DIPOLE m₁</text>
+          <g class="dipole-1">
+            <rect x="25" y="58" width="10" height="14" rx="1" class="bar-n1" />
+            <rect x="35" y="58" width="10" height="14" rx="1" class="bar-s1" />
+            <text x="27" y="67" class="lbl" fill="#fff">N</text>
+            <text x="37" y="67" class="lbl" fill="#fff">S</text>
+            <text x="26" y="50" class="lbl lbl-m1">DIPOLE m₁</text>
+          </g>
 
           <!-- Magnetic Dipole 2 at (x=95, y=65) -->
-          <rect x="85" y="58" width="10" height="14" rx="1" class="bar-n2" />
-          <rect x="95" y="58" width="10" height="14" rx="1" class="bar-s2" />
-          <text x="87" y="67" class="lbl" fill="#fff">N</text>
-          <text x="97" y="67" class="lbl" fill="#fff">S</text>
-          <text x="86" y="50" class="lbl lbl-m2">DIPOLE m₂</text>
+          <g class="dipole-2">
+            <rect x="85" y="58" width="10" height="14" rx="1" class="bar-n2" />
+            <rect x="95" y="58" width="10" height="14" rx="1" class="bar-s2" />
+            <text x="87" y="67" class="lbl" fill="#fff">N</text>
+            <text x="97" y="67" class="lbl" fill="#fff">S</text>
+            <text x="86" y="50" class="lbl lbl-m2">DIPOLE m₂</text>
+          </g>
 
           <!-- Connecting Dipole Flux Loops (Attraction) -->
           <path d="M 45 65 Q 65 42 85 65" class="flux-loop" />

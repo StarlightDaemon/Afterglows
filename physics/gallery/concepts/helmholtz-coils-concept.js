@@ -120,6 +120,35 @@ const helmholtzStyles = `
   @keyframes helm-cur { from { opacity: 0.6; } to { opacity: 1; } }
   @keyframes helm-zone { from { opacity: 0.5; } to { opacity: 0.9; } }
 
+  /* Test charges streaming along the uniform axial field lines. */
+  .field-charge {
+    fill: #ccffdd;
+    filter: drop-shadow(0 0 4px #00ff66);
+  }
+
+  .fc-1 { animation: helm-charge-1 2s linear infinite; }
+  .fc-2 { animation: helm-charge-2 2s linear infinite; animation-delay: -0.66s; }
+  .fc-3 { animation: helm-charge-3 2s linear infinite; animation-delay: -1.33s; }
+
+  @keyframes helm-charge-1 {
+    0% { transform: translate(10px, 57px); opacity: 0; }
+    8% { opacity: 1; }
+    92% { transform: translate(118px, 57px); opacity: 1; }
+    100% { transform: translate(122px, 57px); opacity: 0; }
+  }
+  @keyframes helm-charge-2 {
+    0% { transform: translate(10px, 46px); opacity: 0; }
+    8% { opacity: 1; }
+    92% { transform: translate(118px, 46px); opacity: 1; }
+    100% { transform: translate(122px, 46px); opacity: 0; }
+  }
+  @keyframes helm-charge-3 {
+    0% { transform: translate(10px, 68px); opacity: 0; }
+    8% { opacity: 1; }
+    92% { transform: translate(118px, 68px); opacity: 1; }
+    100% { transform: translate(122px, 68px); opacity: 0; }
+  }
+
 `;
 
 class PhysicsHelmholtzCoils extends HTMLElement {
@@ -154,6 +183,11 @@ class PhysicsHelmholtzCoils extends HTMLElement {
           <polygon points="68,57 62,54 62,60" fill="#00ff66" />
           <polygon points="68,46 62,43 62,49" fill="#00ff66" />
           <polygon points="68,68 62,65 62,71" fill="#00ff66" />
+
+          <!-- Streaming test charges on the axis lines -->
+          <circle cx="0" cy="0" r="2.4" class="field-charge fc-1" />
+          <circle cx="0" cy="0" r="2" class="field-charge fc-2" />
+          <circle cx="0" cy="0" r="2" class="field-charge fc-3" />
         </svg>
 
         <span class="separation-label">d = R (Separation)</span>

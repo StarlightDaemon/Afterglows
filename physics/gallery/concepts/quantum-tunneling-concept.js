@@ -99,6 +99,23 @@ const tunnelingStyles = `
     0% { stroke-dashoffset: 0; }
     100% { stroke-dashoffset: -20; }
   }
+
+  /* Wave packet: approaches the barrier, squeezes through attenuated, and
+     emerges as the reduced-amplitude transmitted packet. */
+  .wave-packet {
+    fill: #99f0ff;
+    filter: drop-shadow(0 0 5px #00e5ff);
+    animation: packet-tunnel 2.6s linear infinite;
+  }
+
+  @keyframes packet-tunnel {
+    0%   { transform: translate(14px, 62px) scale(1); opacity: 0; }
+    8%   { opacity: 1; }
+    38%  { transform: translate(51px, 62px) scale(1); opacity: 1; }
+    58%  { transform: translate(78px, 73px) scale(0.7); opacity: 0.5; }
+    92%  { transform: translate(115px, 74px) scale(0.85); opacity: 0.9; }
+    100% { transform: translate(119px, 74px) scale(0.85); opacity: 0; }
+  }
 `;
 
 class PhysicsQuantumTunneling extends HTMLElement {
@@ -128,6 +145,9 @@ class PhysicsQuantumTunneling extends HTMLElement {
 
           <!-- Transmitted Wavefunction (x > a) -->
           <path d="M 78 74 Q 83 67 88 74 T 98 74 T 108 74 T 118 74" class="wave-transmitted" stroke-dasharray="10 10" />
+
+          <!-- Tunnelling wave packet -->
+          <circle cx="0" cy="0" r="3.2" class="wave-packet" />
 
           <!-- Labels -->
           <text x="14" y="85" class="lbl lbl-psi">ψ_inc + ψ_refl</text>

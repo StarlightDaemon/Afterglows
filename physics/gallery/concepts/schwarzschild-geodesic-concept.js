@@ -65,6 +65,31 @@ const schwarzschildStyles = `
     stroke: #00ff66;
     stroke-width: 1;
     filter: drop-shadow(0 0 4px #00ff66);
+    animation: mass-orbit 4.5s linear infinite;
+  }
+
+  /* Slow apsidal precession frame: the elliptical orbit of the test mass
+     rotates gradually, producing the rosette. */
+  .precession-frame {
+    transform-origin: 65px 65px;
+    animation: rosette-precess 13.5s linear infinite;
+  }
+
+  @keyframes rosette-precess {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes mass-orbit {
+    0%    { transform: translate(101px, 65px); }
+    12.5% { transform: translate(90px, 82px); }
+    25%   { transform: translate(65px, 89px); }
+    37.5% { transform: translate(40px, 82px); }
+    50%   { transform: translate(29px, 65px); }
+    62.5% { transform: translate(40px, 48px); }
+    75%   { transform: translate(65px, 41px); }
+    87.5% { transform: translate(90px, 48px); }
+    100%  { transform: translate(101px, 65px); }
   }
 
   .lbl {
@@ -127,8 +152,10 @@ class PhysicsSchwarzschildGeodesic extends HTMLElement {
             C 10 55, 40 20, 75 18
           " class="rosette-orbit" />
 
-          <!-- Test Mass at periastron -->
-          <circle cx="95" cy="75" r="2.5" class="orbiting-mass" />
+          <!-- Test Mass tracing the precessing orbit -->
+          <g class="precession-frame">
+            <circle cx="0" cy="0" r="2.8" class="orbiting-mass" />
+          </g>
 
           <!-- Labels -->
           <text x="10" y="16" class="lbl lbl-prec">Δφ = 6πGM/a(1-e²)c²</text>

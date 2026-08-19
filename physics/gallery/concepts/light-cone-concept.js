@@ -45,13 +45,13 @@ const lightConeStyles = `
   }
 
   @keyframes cone-glow-future {
-    0% { fill: rgba(0, 229, 255, 0.04); }
-    100% { fill: rgba(0, 229, 255, 0.30); }
+    0% { fill: rgba(0, 229, 255, 0.08); }
+    100% { fill: rgba(0, 229, 255, 0.18); }
   }
 
   @keyframes cone-glow-past {
-    0% { fill: rgba(255, 170, 0, 0.22); }
-    100% { fill: rgba(255, 170, 0, 0.03); }
+    0% { fill: rgba(255, 170, 0, 0.14); }
+    100% { fill: rgba(255, 170, 0, 0.06); }
   }
 
   /* Spacetime Axes */
@@ -116,9 +116,23 @@ const lightConeStyles = `
     100% { stroke-dashoffset: 0; }
   }
 
+  /* Second photon riding the opposite null direction. */
+  .photon-pulse-left {
+    fill: #00e5ff;
+    filter: drop-shadow(0 0 7px #00e5ff);
+    animation: pulse-photon-left 2.4s linear infinite;
+  }
+
   @keyframes pulse-photon {
-    0% { cx: 65; cy: 65; opacity: 1; }
-    100% { cx: 105; cy: 25; opacity: 0; }
+    0% { transform: translate(65px, 65px); opacity: 1; }
+    88% { transform: translate(100px, 30px); opacity: 1; }
+    100% { transform: translate(105px, 25px); opacity: 0; }
+  }
+
+  @keyframes pulse-photon-left {
+    0% { transform: translate(65px, 65px); opacity: 1; }
+    88% { transform: translate(30px, 30px); opacity: 1; }
+    100% { transform: translate(25px, 25px); opacity: 0; }
   }
 `;
 
@@ -152,8 +166,9 @@ class PhysicsLightCone extends HTMLElement {
           <!-- Timelike Worldline (v < c) -->
           <path d="M 65,65 Q 75,50 68,36 T 78,16" class="worldline" />
 
-          <!-- Photon Pulse on Null Cone -->
-          <circle cx="65" cy="65" class="photon-pulse" />
+          <!-- Photon Pulses on the two null directions -->
+          <circle cx="0" cy="0" class="photon-pulse" />
+          <circle cx="0" cy="0" r="4" class="photon-pulse-left" />
 
           <!-- Event Origin (x=0, t=0) -->
           <circle cx="65" cy="65" class="origin-event" />

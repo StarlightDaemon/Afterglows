@@ -116,8 +116,8 @@ const levitationStyles = `
   }
 
   @keyframes quantum-float {
-    0% { transform: translateY(-4px) rotate(-1.5deg); }
-    100% { transform: translateY(4px) rotate(1.5deg); }
+    0% { transform: translateY(-12px) rotate(-3deg); }
+    100% { transform: translateY(6px) rotate(3deg); }
   }
 
   @keyframes vapor-glow {

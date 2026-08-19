@@ -90,12 +90,21 @@ const minkowskiStyles = `
 
   /* Motion pass */
   /* Boost sweep: primed axes glow while simultaneity slices march */
-  .boosted-axis { animation: mink-boost 2.8s ease-in-out infinite alternate; }
   .simultaneity-line { stroke-width: 2; stroke-dasharray: 5 4; animation: mink-slice 1.8s linear infinite; }
   .hyperbola { stroke-width: 2; stroke-dasharray: 6 4; animation: mink-hyp 2.6s linear infinite; }
-  @keyframes mink-boost { from { opacity: 0.35; stroke-width: 1.2; } to { opacity: 1; stroke-width: 2.6; filter: drop-shadow(0 0 4px currentColor); } }
   @keyframes mink-slice { to { stroke-dashoffset: -14; } }
   @keyframes mink-hyp { to { stroke-dashoffset: -16; } }
+
+  /* Boost sweep: β oscillates, scissoring the primed axes toward and away
+     from the light cone. Genuine rotation about the origin event. */
+  .boosted-ct, .boosted-x, .sim-frame {
+    transform-origin: 65px 65px;
+  }
+  .boosted-ct { animation: mink-boost-ct 2.8s ease-in-out infinite alternate; }
+  .boosted-x { animation: mink-boost-x 2.8s ease-in-out infinite alternate; }
+  .sim-frame { animation: mink-boost-x 2.8s ease-in-out infinite alternate; }
+  @keyframes mink-boost-ct { from { transform: rotate(9deg); } to { transform: rotate(-8deg); } }
+  @keyframes mink-boost-x { from { transform: rotate(-9deg); } to { transform: rotate(8deg); } }
 
 `;
 
@@ -120,20 +129,26 @@ class PhysicsMinkowskiDiagram extends HTMLElement {
           <text x="68" y="16" class="lbl lbl-rest">ct</text>
           <text x="114" y="62" class="lbl lbl-rest">x</text>
 
-          <!-- Boosted Primed Axes (β = 0.5, tan α = 0.5) -->
+          <!-- Boosted Primed Axes (β oscillating around 0.5) -->
           <!-- ct' tilted towards light cone -->
-          <line x1="42" y1="118" x2="88" y2="12" class="boosted-axis" />
+          <g class="boosted-ct">
+            <line x1="42" y1="118" x2="88" y2="12" class="boosted-axis" />
+            <text x="89" y="16" class="lbl lbl-boost">ct'</text>
+          </g>
           <!-- x' tilted towards light cone -->
-          <line x1="12" y1="88" x2="118" y2="42" class="boosted-axis" />
-          <text x="89" y="16" class="lbl lbl-boost">ct'</text>
-          <text x="114" y="40" class="lbl lbl-boost">x'</text>
+          <g class="boosted-x">
+            <line x1="12" y1="88" x2="118" y2="42" class="boosted-axis" />
+            <text x="114" y="40" class="lbl lbl-boost">x'</text>
+          </g>
 
           <!-- Invariant Spacetime Hyperbolas -->
           <path d="M 30,25 Q 65,45 100,25" class="hyperbola" />
           <path d="M 30,105 Q 65,85 100,105" class="hyperbola" />
 
-          <!-- Simultaneity Line of S' (t' = const) -->
-          <line x1="15" y1="65" x2="105" y2="25" class="simultaneity-line" />
+          <!-- Simultaneity Line of S' (t' = const), riding the boost sweep -->
+          <g class="sim-frame">
+            <line x1="15" y1="65" x2="105" y2="25" class="simultaneity-line" />
+          </g>
           <text x="12" y="24" class="lbl lbl-sim">t' = CONST</text>
           <text x="76" y="95" class="lbl lbl-null">c = 1</text>
         </svg>

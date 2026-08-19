@@ -65,16 +65,16 @@ const hallStyles = `
 
   .carrier-e {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: #00ff66;
-    box-shadow: 0 0 4px #00ff66;
+    box-shadow: 0 0 6px #00ff66, 0 0 10px rgba(0, 255, 102, 0.6);
   }
 
-  .e1 { top: 12px; left: 10px; animation: drift-e 2s linear infinite; }
-  .e2 { top: 14px; left: 35px; animation: drift-e 2s linear infinite 0.5s; }
-  .e3 { top: 12px; left: 60px; animation: drift-e 2s linear infinite 1.0s; }
+  .e1 { top: 12px; left: 5px; animation: drift-e 2s linear infinite; }
+  .e2 { top: 15px; left: 5px; animation: drift-e 2s linear infinite -0.66s; }
+  .e3 { top: 10px; left: 5px; animation: drift-e 2s linear infinite -1.33s; }
 
   /* Surface Charge Layers */
   .surface-neg {
@@ -172,8 +172,10 @@ const hallStyles = `
   }
 
   @keyframes drift-e {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(45px, -10px); }
+    0% { transform: translate(0, 0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translate(72px, -12px); opacity: 0; }
   }
 `;
 
