@@ -42,11 +42,11 @@ const sounderStyles = `
   }
 
   @keyframes ts-morse-click {
-    0%, 8% { transform: rotate(0deg); }
-    16%, 24% { transform: rotate(-16deg); } /* Dot down */
-    32%, 42% { transform: rotate(0deg); }
-    50%, 72% { transform: rotate(-16deg); } /* Dash down */
-    80%, 100% { transform: rotate(0deg); }
+    0%, 5% { transform: rotate(0deg); }
+    16%, 22% { transform: rotate(-16deg); } /* Dot down */
+    33%, 40% { transform: rotate(0deg); }
+    51%, 68% { transform: rotate(-16deg); } /* Dash down */
+    79%, 100% { transform: rotate(0deg); }
   }
 
   /* Anvil Click Shockwave Sound Ring */
