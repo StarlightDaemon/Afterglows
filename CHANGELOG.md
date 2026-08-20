@@ -210,6 +210,46 @@ trail some of these entries reference.
   cycler now rewinds the incoming frame's shadow-root animations to zero on
   switch, so each iteration performs its full story deterministically.
 
+## [1.10.0] - 2026-08-20
+
+### Added
+- **Five new CRT hardware archetypes** in the retro toolkit, bringing the
+  total to eleven: **Arcade CRT** (15kHz coin-op chassis with wide
+  scanline gaps and punchy dark-room bloom), **High-Res PC** (90s/2000s
+  multisync workstation monitor, razor-sharp and flicker-free), **Radar
+  Scope** (long-persistence PPI/avionics tube with heavy lingering
+  afterglow), **Surveillance** (24/7 CCTV monitor with a hum bar and
+  transmission snow), and **Portable Unit** (miniature field-service/
+  viewfinder tube with steep curvature). Documented in the retro README
+  alongside the existing six.
+
+### Fixed
+- **Concepts gallery geometric-motion fix batch — 95 tiles**: a full
+  sweep against the geometric-motion rubric across the concepts gallery,
+  converting tiles whose animation was intensity-only (opacity pulses,
+  glow, color cycling) into real translate/rotate/scale motion on a
+  visible element of the subject. **Telegraph Sounder** needed a
+  follow-up: its 16-degree lever rotation held static for most of the
+  loop, yielding only a ~32% active duty cycle, under the perception
+  threshold; a second pass restaged the four lever strokes to lift it to
+  44% active while preserving the swing amplitude and Morse rhythm.
+- **Physics gallery full verification and fix pass — 111 concepts
+  reviewed, 59 fixed**: every physics concept was re-checked against the
+  geometric-motion rubric, spanning waves & optics, fluids &
+  thermodynamic cycles, fields/relativity/quantum, statistical mechanics
+  & thermodynamics, plasma physics, acoustics, and condensed matter.
+  Fixes ranged from adding a moving tracer where none existed (a
+  travelling photon pulse, a sliding velocity marker, migrating grains)
+  to repairing subject motion that was present but broken or too faint
+  to register.
+- **CRT archetype distinctiveness**: the High-Res PC and Portable Unit
+  archetypes added above were tuned to separate them from neighboring
+  archetypes they read too similarly to — High-Res PC pushed toward a
+  flatter, sharper multisync look distinct from Studio's soft
+  reference-monitor halo, and Portable Unit given a steeper curve and
+  stronger vignette/bloom so it reads as a small, dark-cornered tube
+  instead of overlapping with Surveillance's noisy signature.
+
 ## [1.9.0] - 2026-08-17
 
 ### Fixed
