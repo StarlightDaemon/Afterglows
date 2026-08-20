@@ -24,7 +24,9 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 ## Confirmed Current State
 
 - Site deployed from repository root via GitHub Pages (CNAME configured).
-- Concepts gallery modularized and expanded; components versioned.
+- Concepts gallery curated to 200 concepts across 20 categories, with an
+  active iterative refinement pass (Refined v2/v3/v4) reworking individual
+  concepts' motion and physics; components versioned.
 - Stargate removed from Afterglows; it now lives in its own standalone repo (`E:\Citadel\Stargate`).
 - Dead Stargate UI hooks and dead media/sound code removed.
 - `backups/` directory excluded from git (local `.gitignore` entry).
@@ -32,7 +34,10 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 
 ## In Progress
 
-- Ongoing curation of concepts and library items.
+- Per-concept geometric-motion/physics refinement pass across the concepts
+  gallery (category by category — plasma, acoustics, statistical/thermo,
+  fields/relativity/quantum, and others), most recently condensed-matter
+  tiles.
 
 ## Not Yet Done
 
