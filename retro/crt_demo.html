@@ -66,9 +66,20 @@
             color: var(--crt-dim);
         }
 
+        /* body is a centering column flexbox with align-items:center, so an
+           unconstrained main sizes to the grid's intrinsic min-content width
+           (980px) and overflows horizontally at every viewport below
+           ~1060px. Pin main to the available width instead. */
+        main {
+            width: 100%;
+            max-width: 1200px;
+        }
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            /* min(300px, 100%) lets columns shrink below 300px when the
+               content area itself is narrower, instead of forcing overflow */
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
             gap: 40px;
             width: 100%;
             max-width: 1200px;
