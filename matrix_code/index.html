@@ -156,7 +156,9 @@
                 showcase used; phosphor/font stay on the shared gear) ---- */
         .controls {
             position: fixed;
-            top: 18px;
+            /* 56px injected .ag-header (--agh-bar-h) + 12px breathing room,
+               so the MODE row is never buried under the site bar. */
+            top: 68px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -169,6 +171,16 @@
             border: 1px solid var(--matrix-dim);
             box-shadow: 0 0 18px color-mix(in srgb, var(--matrix-glow) 12%, transparent);
             max-width: min(92vw, 860px);
+            /* The page itself is overflow:hidden (full-screen rain), so the
+               panel scrolls internally when it can't fit: cap it above the
+               bottom Back/gear chrome (24px inset + 48px control + 16px gap)
+               so every control stays reachable even at 320×568. */
+            max-height: calc(100vh - 68px - 88px);
+            max-height: calc(100dvh - 68px - 88px);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: var(--matrix-dim) transparent;
         }
 
         .control-row {
