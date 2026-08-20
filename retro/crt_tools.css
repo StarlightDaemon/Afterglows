@@ -257,18 +257,18 @@
    focus with minimal halation. Near-flat glass faceplate and clean shielded signal. */
 [data-crt-archetype="hires"] {
     --crt-scanline-gap: 2px;
-    --crt-scanline-dark: rgba(0, 0, 0, 0.10);
+    --crt-scanline-dark: rgba(0, 0, 0, 0.05);
     --crt-flicker-gap: 2px;
     --crt-flicker-speed: 0.06s;
-    --crt-flicker-depth: 0.006;
-    --crt-bloom: 0.42;
-    --crt-fringe: 0.15;
-    --crt-vignette: 0.35;
-    --crt-curve-x: 2px;
-    --crt-curve-y: 2px;
-    --crt-sweep: 0.15;
+    --crt-flicker-depth: 0.004;
+    --crt-bloom: 0.15;
+    --crt-fringe: 0.05;
+    --crt-vignette: 0.18;
+    --crt-curve-x: 1px;
+    --crt-curve-y: 1px;
+    --crt-sweep: 0.08;
     --crt-sweep-speed: 10s;
-    --crt-noise: 0.08;
+    --crt-noise: 0.04;
 }
 
 /* Radar — long-persistence PPI / avionics & sonar cascade tube.
@@ -324,14 +324,14 @@
     --crt-flicker-gap: 2px;
     --crt-flicker-speed: 0.13s;
     --crt-flicker-depth: 0.055;
-    --crt-bloom: 1.45;
+    --crt-bloom: 1.65;
     --crt-fringe: 0.2;
-    --crt-vignette: 1.6;
-    --crt-curve-x: 18px;
-    --crt-curve-y: 18px;
-    --crt-sweep: 1.4;
+    --crt-vignette: 1.9;
+    --crt-curve-x: 26px;
+    --crt-curve-y: 26px;
+    --crt-sweep: 0.9;
     --crt-sweep-speed: 3.0s;
-    --crt-noise: 1.1;
+    --crt-noise: 0.85;
 }
 
 /* --- 1. SCANLINES --- */
