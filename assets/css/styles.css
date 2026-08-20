@@ -1081,6 +1081,26 @@ section h2::after {
         grid-template-columns: 1fr;
     }
 
+    /* Single-column cards size to their content instead of the 2/3
+       poster ratio: with the ratio active, a card whose wrapped content
+       is taller than the ratio height transfers that height back into a
+       min-WIDTH (height x 2/3 = ~330px at 320px viewports), forcing the
+       1fr track wider than the viewport and clipping every card. The
+       ratio still applies above 600px, where content fits inside it. */
+    .project-card {
+        aspect-ratio: auto;
+    }
+
+    /* The unbreakable "afterglows.starlightdaemon.dev" token in the
+       about card and footer has a ~286px min-content width, which (plus
+       card padding) forced main and every section to 330px at a 320px
+       viewport — the other half of the horizontal-scroll bug. Let it
+       break mid-token when the line can't hold it. */
+    .about-intro,
+    .footer p {
+        overflow-wrap: anywhere;
+    }
+
     .skills-grid {
         grid-template-columns: 1fr;
     }
