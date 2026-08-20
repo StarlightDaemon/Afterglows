@@ -143,8 +143,11 @@ const springDamperStyles = `
     position: absolute;
     top: 0;
     left: 0;
-    width: 100px;
+    width: 50px;
     height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 90'%3E%3Cpath d='M 0 45 Q 12.5 15, 25 45 T 50 45' fill='none' stroke='rgba(0,229,255,0.7)' stroke-width='1.2'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 50px 100%;
     animation: trace-scroll 2.2s linear infinite;
   }
 
@@ -186,8 +189,8 @@ const springDamperStyles = `
   }
 
   @keyframes trace-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50px); }
+    0% { background-position-x: 0; }
+    100% { background-position-x: -50px; }
   }
 `;
 
@@ -219,10 +222,7 @@ class PhysicsSpringMassDamper extends HTMLElement {
 
         <div class="trace-container">
           <div class="trace-center"></div>
-          <svg class="trace-curve" viewBox="0 0 100 90">
-            <path fill="none" stroke="rgba(0, 229, 255, 0.7)" stroke-width="1.2"
-              d="M 0 45 Q 12.5 15, 25 45 T 50 45 T 75 45 T 100 45" />
-          </svg>
+          <div class="trace-curve"></div>
           <div class="trace-indicator"></div>
         </div>
 
