@@ -248,7 +248,15 @@
         }
 
         .theme-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
             padding: 7px 12px;
+            /* 44px is the minimum recommended touch target; the label
+               text alone is only ~31px tall, so pad the box, not the text. */
+            min-height: 44px;
+            min-width: 44px;
             border: 1px solid var(--crt-dim);
             background: transparent;
             color: var(--crt-green);
