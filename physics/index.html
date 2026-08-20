@@ -126,7 +126,15 @@
 
         .cat-chip,
         .filter-reset {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
             padding: 6px 12px;
+            /* 44px is the minimum recommended touch target; the label
+               text alone is only ~28px tall, so pad the box, not the text. */
+            min-height: 44px;
+            min-width: 44px;
             border: 1px solid rgba(130, 130, 130, 0.35);
             border-radius: 999px;
             background: transparent;
@@ -269,7 +277,15 @@
         }
 
         .concept-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
             padding: 3px 8px;
+            /* 44px is the minimum recommended touch target; the label
+               text alone is only ~21px tall, so pad the box, not the text. */
+            min-height: 44px;
+            min-width: 44px;
             border: 1px solid rgba(130, 130, 130, 0.3);
             border-radius: 4px;
             background: transparent;
