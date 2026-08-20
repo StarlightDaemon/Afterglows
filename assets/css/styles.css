@@ -414,6 +414,20 @@ img {
     font-size: var(--text-sm);
 }
 
+.footer a {
+    /* Inline links in running prose have no room for a 44px-tall touch
+       target without padding; inline-block lets that padding grow the
+       line box it sits on instead of overlapping the line above/below.
+       The vertical margin adds clearance when two links land on
+       consecutive wrapped lines at narrow widths (inline-block boxes on
+       adjacent lines otherwise touch with no gap between them). */
+    display: inline-block;
+    padding: 14px 4px;
+    margin: 5px 4px;
+    min-height: 44px;
+    box-sizing: border-box;
+}
+
 /* ===========================
    Buttons
    =========================== */
@@ -714,6 +728,10 @@ section h2::after {
     color: var(--text-secondary);
     transition: all var(--transition-fast);
     font-family: var(--font-mono);
+    /* 44px is the minimum recommended touch target; the icon+label
+       content is only ~20px tall, so pad the box rather than the text. */
+    min-height: 44px;
+    min-width: 44px;
 }
 
 .project-link-docs {
