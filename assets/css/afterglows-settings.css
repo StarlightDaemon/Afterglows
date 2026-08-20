@@ -241,6 +241,30 @@ html[data-font="jetbrains"] { --ag-font: 'JetBrains Mono', monospace; }
 .ag-font-btn[data-font="space"]     { font-family: 'Space Mono', monospace; }
 .ag-font-btn[data-font="fira"]      { font-family: 'Fira Code', monospace; }
 
+/* Narrow-viewport docking: below 480px the gear leaves the bottom-right
+   corner (where it sat on top of bottom-corner interactive content) and
+   docks into the site bar's reserved right slot, mirroring the Back
+   control in afterglows-header.css. The panel flips to open downward
+   from the bar instead of upward. */
+@media (max-width: 480px) {
+    .ag-settings {
+        top: 10px; /* (56px bar − 36px control) / 2 */
+        bottom: auto;
+        right: 16px;
+    }
+
+    .ag-gear {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .ag-panel {
+        bottom: auto;
+        top: 44px; /* 36px gear + 8px gap, below the bar */
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .ag-gear, .ag-swatch, .ag-font-btn { transition: none !important; }
 }

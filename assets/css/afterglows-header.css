@@ -181,6 +181,37 @@ html.ag-has-header {
     outline-offset: 3px;
 }
 
+/* -----------------------------------------
+   3. NARROW-VIEWPORT DOCKING
+   At phone widths the floating bottom-left Back control lands on top of
+   whatever interactive content reaches the bottom corners (concepts /
+   physics filter chips, matrix color buttons, the hub footer). Below
+   480px it docks into the site bar's reserved right slot as a compact
+   icon-only control, so no chrome floats over page content at any
+   scroll position. The settings gear docks the same way in
+   afterglows-settings.css (right: 16px, 36px square); Back sits to its
+   left: 16px inset + 36px gear + 8px gap = 60px.
+   ----------------------------------------- */
+@media (max-width: 480px) {
+    .ag-back {
+        top: 10px; /* (56px bar − 36px control) / 2 */
+        bottom: auto;
+        left: auto;
+        right: 60px;
+    }
+
+    .ag-back-link {
+        height: 36px;
+        padding: 0 10px;
+    }
+
+    /* Icon-only: the text label doesn't fit beside the wordmark at
+       320px. The link keeps its aria-label="Back". */
+    .ag-back-link span:not(.ag-back-arrow) {
+        display: none;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .ag-header, .ag-brand, .ag-back-link { transition: none !important; }
 }
