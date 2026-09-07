@@ -1,7 +1,7 @@
 # Current State
 
 **Branch:** main
-**Deployment:** Live at https://afterglows.starlightdaemon.dev/ via legacy repository-root GitHub Pages publishing; D-003's allowlisted Actions artifact is implemented locally but not yet deployed
+**Deployment:** Live at https://afterglows.starlightdaemon.dev/ via D-003's allowlisted GitHub Actions Pages artifact
 
 ---
 
@@ -23,8 +23,10 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 
 ## Confirmed Current State
 
-- Site deployed from repository root via GitHub Pages (CNAME configured).
-- Core theme fonts are vendored under `assets/fonts/`; the pending release artifact has no Google Fonts runtime dependency.
+- Site deployed through the allowlisted GitHub Actions Pages workflow (CNAME configured); repository-only paths are excluded from the public artifact.
+- Core theme fonts are vendored under `assets/fonts/`; the deployed artifact has no Google Fonts runtime dependency.
+- Locked npm dependency graph reports zero known vulnerabilities after updating
+  transitive `qs` to 6.16.0.
 - Concepts gallery contains 660 concepts across 9 top-level sections and 43
   definitive category folders. The former Physics collection is integrated
   into the same catalog and renderer; component tags remain stable while

@@ -1,5 +1,21 @@
 # Work Log
 
+## 2026-09-07 — Actions deployment and dependency maintenance
+
+- Updated transitive `qs` from 6.15.3 to 6.16.0, normalized the lockfile project
+  version to 1.9.0, refreshed the locked install, and confirmed zero known npm
+  vulnerabilities with no outdated direct dependencies.
+- Re-ran the unified gallery, browser-security, allowlisted build, and built-site
+  validations successfully: 660 concepts, 43 categories, 9 sections, 10 public
+  HTML files, 739 artifact files, and 4 sitemap URLs.
+- Pushed the release series through `e0da897` to `main`; GitHub Actions run
+  `34099309958` completed both build and deploy jobs successfully.
+- Verified production `/concepts/?section=physics&category=electromagnetism`
+  rendered 18 canonical cards under Physical Sciences without console errors or
+  horizontal overflow. Confirmed branded 404 responses for `/physics/`, the
+  retired long-form Concepts shell, and `/.raiden/`, with only same-origin
+  stylesheets and no Google Fonts references.
+
 ## 2026-09-07 — Unified Animation Concepts taxonomy
 
 - Audited the 549-item Concepts archive and 111-item Physics archive as one 660-component corpus; confirmed unique tags, labels, and filenames and no component-level dependency blocker.

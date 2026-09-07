@@ -2,15 +2,16 @@
 
 ## Open
 
-- **2026-09-07 — Release-readiness deployment:** review and commit the pending
-  release changes, push them to `main`, switch the GitHub Pages Source to
-  **GitHub Actions**, and verify the completed workflow. Production acceptance
-  must confirm the unified `/concepts/` taxonomy and deep links, absence of the
-  retired `/physics/` collection, the branded 404, self-hosted fonts with no
-  Google requests, and denial of repository-only paths such as `/.raiden/`.
+- None.
 
 ---
 
 ## Closed
 
+- **2026-09-07 — Release-readiness deployment:** pushed the unified gallery and
+  maintenance commits to `main`; the allowlisted GitHub Actions Pages workflow
+  completed successfully. Production acceptance confirmed `/concepts/` deep
+  links, branded 404 responses for retired and repository-only paths,
+  self-hosted assets, and the absence of Google Fonts requests. The dependency
+  audit was cleared by updating transitive `qs` to 6.16.0.
 - **2026-06-07** — WSL→macOS migration remediation complete. All `/mnt/e/` paths corrected to `E:\Citadel/` across AGENTS.md, prompt files, and state files. `commit-msg` hook execute bit set. `node_modules` reinstalled clean on ARM64 macOS.
