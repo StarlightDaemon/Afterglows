@@ -123,7 +123,12 @@ function updateCopyrightYear() {
     const footer = document.querySelector('.footer p');
     if (footer) {
         const currentYear = new Date().getFullYear();
-        footer.innerHTML = footer.innerHTML.replace(/©\s*\d{4}/, `© ${currentYear}`);
+        for (const node of footer.childNodes) {
+            if (node.nodeType === Node.TEXT_NODE && /©\s*\d{4}/.test(node.nodeValue)) {
+                node.nodeValue = node.nodeValue.replace(/©\s*\d{4}/, `© ${currentYear}`);
+                break;
+            }
+        }
     }
 }
 

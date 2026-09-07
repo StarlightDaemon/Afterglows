@@ -1,32 +1,18 @@
-import { CATEGORIES, CONCEPTS } from '../concepts/gallery/manifest.js';
-import { CATEGORIES as P_CATEGORIES, CONCEPTS as P_CONCEPTS } from '../physics/gallery/manifest.js';
+import { CATEGORIES, CONCEPTS, SECTIONS } from "../concepts/gallery/manifest.js";
 
-console.log('=== CONCEPTS INVENTORY ===');
-const byCat = {};
-for (const cat of CATEGORIES) byCat[cat.id] = [];
-for (const item of CONCEPTS) {
-  if (!byCat[item.category]) byCat[item.category] = [];
-  byCat[item.category].push(`${item.label} [${item.tag}]`);
-}
+console.log("=== UNIFIED ANIMATION CONCEPTS INVENTORY ===");
+console.log(`${CONCEPTS.length} concepts / ${SECTIONS.length} sections / ${CATEGORIES.length} categories`);
 
-for (const [cat, items] of Object.entries(byCat)) {
-  console.log(`\n### ${cat.toUpperCase()} (${items.length})`);
-  for (const item of items) {
-    console.log(`  - ${item}`);
-  }
-}
+for (const section of SECTIONS) {
+  const categories = CATEGORIES.filter((category) => category.section === section.id);
+  const sectionCount = CONCEPTS.filter((concept) => concept.section === section.id).length;
+  console.log(`\n## ${section.title.toUpperCase()} (${sectionCount})`);
 
-console.log('\n=== PHYSICS INVENTORY ===');
-const pByCat = {};
-for (const cat of P_CATEGORIES) pByCat[cat.id] = [];
-for (const item of P_CONCEPTS) {
-  if (!pByCat[item.category]) pByCat[item.category] = [];
-  pByCat[item.category].push(`${item.label} [${item.tag}]`);
-}
-
-for (const [cat, items] of Object.entries(pByCat)) {
-  console.log(`\n### PHYSICS / ${cat.toUpperCase()} (${items.length})`);
-  for (const item of items) {
-    console.log(`  - ${item}`);
+  for (const category of categories) {
+    const items = CONCEPTS.filter((concept) => concept.category === category.id);
+    console.log(`\n### ${category.title.toUpperCase()} (${items.length})`);
+    for (const concept of items) {
+      console.log(`  - ${concept.label} [${concept.tag}]`);
+    }
   }
 }

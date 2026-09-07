@@ -105,9 +105,17 @@
             link.className = 'ag-back-link';
             link.href = target;
             link.setAttribute('aria-label', 'Back');
-            link.innerHTML =
-                '<span class="ag-back-arrow" aria-hidden="true">&#9664;</span>' +
-                '<span>Back</span>';
+
+            var arrow = document.createElement('span');
+            arrow.className = 'ag-back-arrow';
+            arrow.setAttribute('aria-hidden', 'true');
+            arrow.textContent = '\u25C0';
+
+            var label = document.createElement('span');
+            label.textContent = 'Back';
+
+            link.appendChild(arrow);
+            link.appendChild(label);
 
             wrap.appendChild(link);
             document.body.appendChild(wrap);

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+    <title>Animation Concepts Archive | Afterglows</title>
+    <meta name="description" content="Browse 660 reusable animation concepts in one gallery, organized into 9 disciplines and 43 definitive categories spanning mathematics, physics, science, technology, culture, and imagination.">
+    <link rel="canonical" href="https://afterglows.starlightdaemon.dev/concepts/">
+    <meta property="og:title" content="Animation Concepts Archive | Afterglows">
+    <meta property="og:description" content="Browse 660 reusable animation concepts organized into 9 disciplines and 43 definitive categories.">
+    <meta property="og:url" content="https://afterglows.starlightdaemon.dev/concepts/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://afterglows.starlightdaemon.dev/assets/img/afterglows-social-card.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Afterglows Experimental Archive in green phosphor beside a geometric Thinker figure">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Animation Concepts Archive | Afterglows">
+    <meta name="twitter:description" content="Browse 660 reusable animation concepts across 9 disciplines and 43 categories.">
+    <meta name="twitter:image" content="https://afterglows.starlightdaemon.dev/assets/img/afterglows-social-card.jpg">
+    <link rel="icon" href="/assets/img/thinker-logo.svg" type="image/svg+xml">
+    <link rel="icon" href="/assets/img/thinker-logo.png" type="image/png">
+    <link rel="stylesheet" href="/assets/css/afterglows-settings.css">
+    <link rel="stylesheet" href="/assets/css/afterglows-header.css">
+    <!-- Unified theme + font controller (applies data-phosphor/data-font before paint) -->
+    <script src="/assets/js/afterglows-settings.js"></script>
+    <!-- Unified header + back navigation (injects site-wide chrome) -->
+    <script src="/assets/js/afterglows-header.js"></script>
+    <style>
+        /* Page chrome tracks the active phosphor theme + font; the concept
+           tiles keep their own hard-coded palettes (self-contained web
+           components in shadow DOM), which is intentional. */
+        :root {
+            --accent: var(--ag-color, #00cc00);
+            --bg: var(--ag-bg, #0d0d0d);
+        }
+
+        body {
+            padding: 40px;
+            background: var(--bg);
+            color: #fff;
+            font-family: var(--ag-font, monospace);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        .gallery-note {
+            max-width: 900px;
+            margin: 32px 0 0;
+            color: #8f8f8f;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .version-legend {
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .gallery-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px 18px;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 0 40px;
+        }
+
+        .toolbar-group {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toolbar-group-label {
+            color: #7a7a7a;
+            font-size: 0.62rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .concept-search {
+            min-width: 200px;
+            padding: 8px 12px;
+            border: 1px solid #2d2d2d;
+            border-radius: 4px;
+            background: #000;
+            color: #d8d8d8;
+            font-family: monospace;
+            font-size: 0.8rem;
+            caret-color: var(--accent);
+        }
+
+        .concept-search::placeholder {
+            color: #6a6a6a;
+        }
+
+        .concept-search:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 6px rgba(0, 204, 0, 0.35);
+        }
+
+        .filter-chip,
+        .filter-reset {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            padding: 4px 12px;
+            /* 44px is the minimum recommended touch target; the label
+               text alone is only ~23px tall, so pad the box, not the text. */
+            min-height: 44px;
+            min-width: 44px;
+            border: 1px solid rgba(130, 130, 130, 0.35);
+            border-radius: 999px;
+            background: transparent;
+            color: #9a9a9a;
+            font-family: monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: border-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+        }
+
+        .filter-chip[aria-pressed="true"] {
+            border-color: rgba(0, 204, 0, 0.55);
+            color: #8de08d;
+            box-shadow: 0 0 6px rgba(0, 204, 0, 0.25);
+        }
+
+        .filter-reset {
+            border-style: dashed;
+            border-color: rgba(130, 130, 130, 0.3);
+            color: #7a7a7a;
+        }
+
+        .filter-chip:focus-visible,
+        .filter-reset:focus-visible,
+        .concept-search:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .filter-count {
+            color: #7a7a7a;
+            font-size: 0.7rem;
+            letter-spacing: 0.6px;
+        }
+
+        .concept-sort {
+            padding: 8px 10px;
+            border: 1px solid #2d2d2d;
+            border-radius: 4px;
+            background: #000;
+            color: #d8d8d8;
+            font-family: monospace;
+            font-size: 0.72rem;
+            cursor: pointer;
+        }
+
+        .concept-sort:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 6px rgba(0, 204, 0, 0.35);
+        }
+
+        .concept-sort:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* The category toggle shares the chip look; it lights up while the
+           drawer is open. */
+        .cat-toggle[aria-expanded="true"] {
+            border-color: rgba(0, 204, 0, 0.55);
+            color: #8de08d;
+            box-shadow: 0 0 6px rgba(0, 204, 0, 0.25);
+        }
+
+        /* Full-width chip drawer below the toolbar controls. */
+        .cat-drawer {
+            display: none;
+            flex-basis: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .cat-drawer.is-open {
+            display: flex;
+        }
+
+        /* Date badge shown on cards under the date sorts. */
+        .meta-date {
+            color: #7a7a7a;
+            border-color: rgba(130, 130, 130, 0.25);
+            text-transform: none;
+            letter-spacing: 0.4px;
+        }
+
+        .gallery-empty {
+            width: 100%;
+            margin: 40px 0;
+            color: #8f8f8f;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .gallery-section {
+            width: 100%;
+            max-width: 1400px;
+            margin-bottom: 48px;
+        }
+
+        .gallery-supersection {
+            width: 100%;
+            max-width: 1400px;
+            margin-bottom: 64px;
+        }
+
+        .gallery-supersection .gallery-section {
+            margin-bottom: 40px;
+        }
+
+        .supersection-title {
+            margin: 0 0 30px;
+            padding: 12px 0;
+            border-top: 1px solid rgba(0, 204, 0, 0.55);
+            border-bottom: 1px solid rgba(0, 204, 0, 0.55);
+            color: var(--accent);
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            margin: 0 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 204, 0, 0.35);
+            color: var(--accent);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            width: 100%;
+        }
+
+        .concept-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-label {
+            color: #888;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .concept-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .meta-badge {
+            padding: 2px 7px;
+            border: 1px solid #2d2d2d;
+            border-radius: 999px;
+            font-size: 0.62rem;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: #a0a0a0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .meta-status-original {
+            border-color: rgba(130, 130, 130, 0.35);
+            color: #9a9a9a;
+        }
+
+        .meta-status-refined {
+            border-color: rgba(0, 204, 0, 0.35);
+            color: #8de08d;
+        }
+
+        .meta-status-new {
+            border-color: rgba(170, 255, 170, 0.5);
+            color: #c0ffb8;
+        }
+
+        .meta-status-color {
+            border-color: rgba(100, 220, 255, 0.45);
+            color: #7ee8fa;
+        }
+
+        .terminal-box {
+            width: 140px;
+            height: 140px;
+            border: 1px solid #333;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-box.is-versioned {
+            cursor: pointer;
+        }
+
+        .concept-versioner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .concept-frame {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 120ms ease-in-out;
+        }
+
+        .concept-frame.is-active {
+            opacity: 1;
+        }
+
+        .version-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: -2px;
+        }
+
+        .version-dot {
+            width: 7px;
+            height: 7px;
+            padding: 0;
+            border: 1px solid rgba(150, 150, 150, 0.45);
+            border-radius: 50%;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .version-dot.is-active {
+            background: rgba(170, 255, 170, 0.95);
+            border-color: rgba(170, 255, 170, 0.95);
+            box-shadow: 0 0 6px rgba(170, 255, 170, 0.35);
+        }
+
+        .concept-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 2px;
+        }
+
+        .concept-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            padding: 3px 9px;
+            /* 44px is the minimum recommended touch target; the label
+               text alone is only ~22px tall, so pad the box, not the text. */
+            min-height: 44px;
+            min-width: 44px;
+            border: 1px solid rgba(130, 130, 130, 0.3);
+            border-radius: 4px;
+            background: transparent;
+            color: #7a7a7a;
+            font-family: monospace;
+            font-size: 0.62rem;
+            line-height: 1.4;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: border-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+        }
+
+        .concept-action:hover {
+            border-color: rgba(0, 204, 0, 0.55);
+            color: var(--accent);
+        }
+
+        .concept-action:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            color: var(--accent);
+        }
+
+        .concept-copy.is-copied {
+            border-color: rgba(0, 204, 0, 0.55);
+            color: var(--accent);
+            box-shadow: 0 0 6px rgba(0, 204, 0, 0.25);
+        }
+
+        .sr-status {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Wave 2: Newest-additions landing banner */
+        .newest-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 0 20px;
+            padding: 10px 18px;
+            border: 1px solid rgba(0, 204, 0, 0.3);
+            border-radius: 6px;
+            background: rgba(0, 204, 0, 0.04);
+            color: #8de08d;
+            font-size: 0.78rem;
+            letter-spacing: 0.5px;
+        }
+
+        .newest-banner-icon {
+            color: var(--accent);
+            font-size: 0.7rem;
+        }
+
+        .newest-banner-text {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .newest-browse-all {
+            padding: 5px 14px;
+            border: 1px solid rgba(0, 204, 0, 0.5);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--accent);
+            font-family: monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 120ms ease, box-shadow 120ms ease;
+        }
+
+        .newest-browse-all:hover {
+            background: rgba(0, 204, 0, 0.12);
+            box-shadow: 0 0 8px rgba(0, 204, 0, 0.25);
+        }
+
+        .newest-browse-all:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+    </style>
+    <script type="module" src="./gallery/index.js"></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <main id="main">
+    <h1>Animation Concepts Archive</h1>
+
+    <p class="gallery-note">660 reusable motion studies in one catalog, organized into 9 disciplines and 43 definitive categories.</p>
+
+    <noscript><p style="color:#8f8f8f">This gallery renders animated web components with JavaScript, which appears to be disabled.</p></noscript>
+    <div id="gallery-root"></div>
+    <div class="gallery-note">
+        Tile status now tracks the refresh cycle directly on the page. Use <strong>Original v1</strong> for untouched archive concepts,
+        <strong>Refined v2</strong> for rebuilt concepts, and <strong>New v1</strong> for concepts added during the current expansion.
+        Future revisions can keep incrementing the version number on the same tile. Tiles with version history now default to the latest version and can be clicked to cycle through older ones.
+        <div class="version-legend">
+            <span class="meta-badge meta-status-original">Original v1</span>
+            <span class="meta-badge meta-status-refined">Refined v2</span>
+            <span class="meta-badge meta-status-new">New v1</span>
+            <span class="meta-badge meta-status-color">With Color v3</span>
+        </div>
+    </div>
+    </main>
+
+</body>
+
+</html>

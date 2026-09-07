@@ -41,6 +41,9 @@ audit-reports/
 .raiden/state/AUDIT_LOG.md
 .raiden/state/last-audit.md
 
+# Generated visual-audit captures — reproducible, high-volume evidence
+.audits/tooling/captures/
+
 # Local snapshots — not repo content
 backups/
 

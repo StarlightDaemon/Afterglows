@@ -1,7 +1,7 @@
 # Current State
 
 **Branch:** main
-**Deployment:** Live at https://afterglows.starlightdaemon.dev/ via GitHub Pages
+**Deployment:** Live at https://afterglows.starlightdaemon.dev/ via legacy repository-root GitHub Pages publishing; D-003's allowlisted Actions artifact is implemented locally but not yet deployed
 
 ---
 
@@ -17,16 +17,18 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 
 - **Matrix Code** (`matrix_code/`) — standalone CSS/JS library for digital rain, cyberpunk typography, and terminal aesthetics.
 - **Retro** (`retro/`) — high-fidelity CRT monitor simulation toolkit (scanlines, phosphor persistence, screen curvature).
-- **Concepts** (`concepts/`) — archived experimental UI motions, header animations, and interaction models; gallery modularized and versioned.
+- **Concepts** (`concepts/`) — the single catalog of reusable animation concepts, organized by discipline and definitive category; gallery modularized and versioned.
 
 ---
 
 ## Confirmed Current State
 
 - Site deployed from repository root via GitHub Pages (CNAME configured).
-- Concepts gallery curated to 200 concepts across 20 categories, with an
-  active iterative refinement pass (Refined v2/v3/v4) reworking individual
-  concepts' motion and physics; components versioned.
+- Core theme fonts are vendored under `assets/fonts/`; the pending release artifact has no Google Fonts runtime dependency.
+- Concepts gallery contains 660 concepts across 9 top-level sections and 43
+  definitive category folders. The former Physics collection is integrated
+  into the same catalog and renderer; component tags remain stable while
+  source paths follow the unified taxonomy.
 - Stargate removed from Afterglows; it now lives in its own standalone repo (`E:\Citadel\Stargate`).
 - Dead Stargate UI hooks and dead media/sound code removed.
 - `backups/` directory excluded from git (local `.gitignore` entry).
@@ -34,10 +36,8 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 
 ## In Progress
 
-- Per-concept geometric-motion/physics refinement pass across the concepts
-  gallery (category by category — plasma, acoustics, statistical/thermo,
-  fields/relativity/quantum, and others), most recently condensed-matter
-  tiles.
+- Per-concept geometric-motion refinement pass across the unified Concepts
+  gallery, most recently the physical-science categories.
 
 ## Not Yet Done
 

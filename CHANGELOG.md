@@ -15,6 +15,30 @@ trail some of these entries reference.
 
 ## [Unreleased]
 
+### Security
+- Local previews now build and serve the same allowlisted `dist/` artifact used
+  by GitHub Pages. The server binds to loopback, disables CORS and directory
+  listings, and refuses dotfiles instead of exposing the working copy.
+- GitHub Pages now deploys through an artifact workflow that excludes repository
+  control data, audit material, package metadata, scripts, and retired archives.
+- Public HTML pages no longer permit unrestricted inline script execution.
+  Remaining inline Matrix/CRT runtimes are authorized by exact CSP hashes, and
+  an automated security check rejects policy drift.
+- Shared site JavaScript now constructs fixed UI fragments with DOM APIs rather
+  than HTML injection sinks.
+- Replaced all Google Fonts runtime requests with pinned, self-hosted WOFF2
+  assets for IBM Plex Mono, VT323, Space Mono, Fira Code, and JetBrains Mono;
+  public CSPs now restrict font loading to the site origin.
+
+### Launch readiness
+- Added a branded custom 404 page with direct recovery links to the main collections.
+- Added favicon declarations and a 1200×630 social preview card to primary pages.
+- Published the unified animation archive directly at its canonical `/concepts/`
+  route and removed the obsolete standalone Physics route and long-form gallery
+  filename.
+- Added a built-artifact validator for internal paths, metadata, canonical routes,
+  sitemap coverage, custom-domain consistency, and 404 recovery.
+
 ### Added
 - Three gallery concepts from the verified subset of an external concept
   review (see `.audits/gemini-review-verification-2026-08-01.md`):
@@ -74,6 +98,22 @@ trail some of these entries reference.
   selection; isolate semantics unchanged.
 
 ### Changed
+- **Unified Animation Concepts catalog:** merged the 549-item Concepts archive
+  and 111-item Physics archive into one 660-item gallery. A definitive taxonomy
+  now places every component in one of 43 category folders under 9 top-level
+  disciplines, including dedicated electricity and electromagnetism, mechanics,
+  fluids, acoustics, quantum/atomic, and other physical-science categories.
+  Custom-element tags remain unchanged, while canonical source and copied embed
+  URLs now follow the category tree.
+- Retired the duplicate Physics manifest, renderer, page shell, homepage card,
+  documentation, and sitemap entry. The canonical Concepts renderer now handles
+  both component lineages, section/category deep links, provenance/version
+  filtering, and reduced-motion coverage.
+- Homepage project cards retain an exact 2:3 movie-poster ratio while scaling
+  through the existing one-, two-, and four-column responsive layout. Card
+  typography responds to poster width, the original inset/tag/divider rhythm is
+  preserved, and wide posters progressively reveal additional editorial copy
+  while narrow posters retain compact summaries without overflow.
 - **Category consolidation: 29 → 20.** Nine merges, no concept left
   unhoused: scanning→`systems` (Systems & Scanning), optics+labwork→`lab`
   (Lab & Optics), weather→`nature` (Nature & Weather), ufo→`scifi`

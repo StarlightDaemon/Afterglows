@@ -165,7 +165,10 @@
         gear.className = 'ag-gear';
         gear.setAttribute('aria-label', 'Theme and font settings');
         gear.setAttribute('aria-expanded', 'false');
-        gear.innerHTML = '<span aria-hidden="true">⚙</span>';
+        var gearIcon = document.createElement('span');
+        gearIcon.setAttribute('aria-hidden', 'true');
+        gearIcon.textContent = '⚙';
+        gear.appendChild(gearIcon);
 
         var panel = document.createElement('div');
         panel.className = 'ag-panel';
@@ -189,9 +192,17 @@
             b.style.setProperty('--ag-swatch-color', t.swatch);
             b.title = t.note;
             b.setAttribute('aria-label', t.name + ' — ' + t.note);
-            b.innerHTML =
-                '<span class="ag-chip" aria-hidden="true"></span>' +
-                '<span class="ag-chip-label">' + t.name.split(' ')[0] + '</span>';
+
+            var chip = document.createElement('span');
+            chip.className = 'ag-chip';
+            chip.setAttribute('aria-hidden', 'true');
+
+            var chipLabel = document.createElement('span');
+            chipLabel.className = 'ag-chip-label';
+            chipLabel.textContent = t.name.split(' ')[0];
+
+            b.appendChild(chip);
+            b.appendChild(chipLabel);
             b.addEventListener('click', function () { setPhosphor(t.key); });
             swatches.appendChild(b);
         });

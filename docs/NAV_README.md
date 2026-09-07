@@ -9,7 +9,7 @@ The site previously carried its own navigation chrome on every page: the root's 
 - **`/assets/js/afterglows-header.js`** — the single controller script. Injects a text-only "Afterglows" wordmark (fixed top-left) and, on any page that isn't the root home, a floating "Back" control (fixed bottom-left). Idempotent (`document.querySelector('.ag-header')` guard) and self-suppresses entirely inside iframes.
 - **`/assets/css/afterglows-header.css`** — the single stylesheet. Styles `.ag-header`/`.ag-brand`/`.ag-tagline` (wordmark) and `.ag-back`/`.ag-back-link` (back control), reading color/font from the shared `--ag-*` theme tokens with fallbacks to a page's local `--matrix-*` / `--crt-*` tokens when the theme stylesheet isn't loaded.
 
-Both files are linked by root-absolute path (`/assets/css/afterglows-header.css`, `/assets/js/afterglows-header.js`) from every page on the live site: the root `index.html`, the concepts gallery (`concepts/header-animation-concepts.html`), `matrix_code/index.html`, and `retro/crt_demo.html`. No page carries its own header or back-link markup — the chrome is guaranteed identical everywhere it appears.
+Both files are linked by root-absolute path (`/assets/css/afterglows-header.css`, `/assets/js/afterglows-header.js`) from every page on the live site: the root `index.html`, the concepts gallery (`concepts/index.html`), `matrix_code/index.html`, and `retro/crt_demo.html`. No page carries its own header or back-link markup — the chrome is guaranteed identical everywhere it appears.
 
 ## What It Injects
 
@@ -21,7 +21,7 @@ Both files are linked by root-absolute path (`/assets/css/afterglows-header.css`
 The back target is one level **up**, not always the root:
 
 - **Root home** (`/`, `/index.html`) — no back control. It IS home.
-- **A subsite hub** — `matrix_code/index.html`, `retro/crt_demo.html`, the concepts gallery (`concepts/header-animation-concepts.html`) — back goes to the Afterglows root (`/index.html`). This is the default: any page without an explicit override falls back to the root.
+- **A subsite hub** — `matrix_code/index.html`, `retro/crt_demo.html`, the concepts gallery (`concepts/index.html`) — back goes to the Afterglows root (`/index.html`). This is the default: any page without an explicit override falls back to the root.
 - **A demo sub-page** — a leaf page that should return to its hub instead of the root declares the target explicitly on the `<html>` tag:
   ```html
   <html lang="en" data-ag-back="index.html">

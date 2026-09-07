@@ -7,9 +7,10 @@ The site previously had three incompatible theme/font implementations: the root'
 ## Canonical Files
 
 - **`/assets/js/afterglows-settings.js`** — the single controller script. Applies the persisted phosphor theme + font to `<html>` as early as possible (before first paint, to avoid a flash of the default theme), injects an identical gear-button + settings panel into the bottom-right corner of every page, persists choices to `localStorage`, and live-syncs across tabs and same-origin iframes via the `storage` event. Exposes `window.AfterglowsSettings` (`THEMES`, `FONTS`, `getPhosphor()`, `setPhosphor(key)`, `getFont()`, `setFont(key)`, `onPhosphorChange(fn)`, `onFontChange(fn)`).
-- **`/assets/css/afterglows-settings.css`** — the single stylesheet. Defines the 8 phosphor palettes as generic `--ag-*` tokens (`--ag-color`, `--ag-color-rgb`, `--ag-dim`, `--ag-head`, `--ag-glow`, `--ag-bg`) keyed off `html[data-phosphor]`, the 4 font tokens as `--ag-font` keyed off `html[data-font]`, and the `.ag-*` gear/panel component styles.
+- **`/assets/css/afterglows-settings.css`** — the single stylesheet. Defines the 8 phosphor palettes as generic `--ag-*` tokens (`--ag-color`, `--ag-color-rgb`, `--ag-dim`, `--ag-head`, `--ag-glow`, `--ag-bg`) keyed off `html[data-phosphor]`, local `@font-face` declarations and the 4 font tokens as `--ag-font` keyed off `html[data-font]`, and the `.ag-*` gear/panel component styles.
+- **`/assets/fonts/`** — pinned, self-hosted WOFF2 files for all theme fonts plus the JetBrains Mono compatibility face. The directory includes each upstream SIL Open Font License and a source manifest. No page in the built release artifact requests font CSS or binaries from Google Fonts.
 
-Both files are linked by root-absolute path (`/assets/js/afterglows-settings.js`, `/assets/css/afterglows-settings.css`) from every page on the live site: the root `index.html`, the concepts gallery (`concepts/header-animation-concepts.html`), `matrix_code/index.html`, and `retro/crt_demo.html`. There is no per-page theme markup left anywhere — the gear and panel are injected by the script itself, so the control is guaranteed identical everywhere.
+Both files are linked by root-absolute path (`/assets/js/afterglows-settings.js`, `/assets/css/afterglows-settings.css`) from every page on the live site: the root `index.html`, the concepts gallery (`concepts/index.html`), `matrix_code/index.html`, and `retro/crt_demo.html`. There is no per-page theme markup left anywhere — the gear and panel are injected by the script itself, so the control is guaranteed identical everywhere.
 
 `matrix_code`'s former standalone iframe demo pages have been consolidated into `matrix_code/index.html` as switchable modes, so every live page now carries the gear. `matrix_code/phosphor_theme.js` — the older, lighter-weight boot-shim those pages used — is no longer loaded by any live page; it remains shipped purely as an optional portable helper for downstream copies of `matrix_tools.css` (see `matrix_code/README.md`).
 
@@ -40,6 +41,12 @@ Both files are linked by root-absolute path (`/assets/js/afterglows-settings.js`
 - **Fira** (Fira Code)
 
 JetBrains Mono still exists as an `--ag-font` mapping (`html[data-font="jetbrains"]`) in `afterglows-settings.css` for compatibility, but it is not exposed as a picker button in the panel.
+
+The four choices are typography variants within the theme system; they are not
+the eight phosphor color themes. Their WOFF2 files are part of the repository
+and the Pages artifact, with `font-display: swap` and system monospace
+fallbacks. See [`assets/fonts/README.md`](../assets/fonts/README.md) for the
+vendored versions, subsets, upstream projects, and license notices.
 
 ## Storage Contract
 

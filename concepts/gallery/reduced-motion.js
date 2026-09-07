@@ -3,7 +3,7 @@
 // WHY THIS EXISTS
 // Every concept module renders into its own shadow root. The page's
 // @media (prefers-reduced-motion: reduce) block in
-// header-animation-concepts.html uses a document-scope universal selector,
+// concepts/index.html uses a document-scope universal selector,
 // and document stylesheets do not cross a shadow boundary — so that rule
 // styles the gallery chrome and nothing inside the tiles. Measured before
 // this shim: with prefers-reduced-motion forced to "reduce", all 1828
@@ -46,8 +46,7 @@ function reducedMotionSheet() {
 // root is known to exist. Scoped to the given host tag prefixes so no other
 // component on the page is affected.
 //
-// Shared by both galleries: concepts/gallery uses the default CONCEPT-
-// prefix; physics/gallery imports this module and passes ["PHYSICS-"].
+// The unified gallery registers both the CONCEPT- and PHYSICS- lineages.
 const activePrefixes = new Set();
 
 export function installReducedMotion(prefixes = ["CONCEPT-"]) {

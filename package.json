@@ -2,9 +2,15 @@
   "name": "afterglows",
   "version": "1.9.0",
   "description": "Retro terminal archives and web demos.",
+  "type": "module",
   "scripts": {
-    "dev": "npx http-server . -p 3000 -c-1 --cors",
-    "start": "npm run dev"
+    "build": "node scripts/build-site.js",
+    "dev": "http-server dist -p 3000 -a 127.0.0.1 -c-1 -d false --no-dotfiles",
+    "predev": "npm run build",
+    "security:check": "node scripts/validate-security.js",
+    "site:check": "node scripts/validate-site.js",
+    "start": "npm run dev",
+    "test": "node scripts/validate-gallery.js"
   },
   "keywords": [
     "retro",

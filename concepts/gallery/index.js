@@ -11,31 +11,29 @@
 //   5. Lazily pauses/resumes concept animations based on viewport visibility
 //      via IntersectionObserver (Wave 1), so only viewport-adjacent concepts
 //      animate at any given time regardless of total gallery size.
-//   6. Defaults to a "Newest Additions" landing view on first load (Wave 2).
+//   6. Supports one curated hierarchy plus section/category deep links.
 //
 // Dependency-free, no build step, browser ESM only.
 
-import { CATEGORIES, CONCEPTS } from "./manifest.js";
+import { CATEGORIES, CONCEPTS, SECTIONS } from "./manifest.js";
 import { installReducedMotion } from "./reduced-motion.js";
 
 // Install before any concept module is imported: concept animations live in
 // shadow roots, which the page's document-scope reduced-motion rule cannot
 // reach. See reduced-motion.js.
-installReducedMotion();
+installReducedMotion(["CONCEPT-", "PHYSICS-"]);
 
 // --- Module loading -------------------------------------------------------
-// Path rule: tag "concept-foo-bar" -> "./concepts/foo-bar-concept.js"
-// (strip the "concept-" prefix, append "-concept.js").
-function modulePathForTag(tag) {
-  return `./concepts/${tag.replace(/^concept-/, "")}-concept.js`;
-}
-
-// Fire all imports. Elements auto-upgrade once each module defines its custom
-// element, so we do not await these before rendering.
-function importConceptModules() {
-  for (const concept of CONCEPTS) {
-    const path = modulePathForTag(concept.tag);
+// Load only modules represented in the current view. Elements auto-upgrade
+// once their module registers, and imports remain cached across filter changes.
+const importedModules = new Set();
+function importConceptModules(concepts) {
+  for (const concept of concepts) {
+    const path = concept.module;
+    if (importedModules.has(path)) continue;
+    importedModules.add(path);
     import(path).catch((error) => {
+      importedModules.delete(path);
       console.warn(`Failed to load concept module: ${path}`, error);
     });
   }
@@ -55,14 +53,15 @@ function esc(value) {
 // Reusable action row: "Copy" (embed snippet) + "Source" (view module file).
 // Rendered as the LAST child of every .concept-card, OUTSIDE the .terminal-box
 // so clicking these never triggers version cycling on versioned tiles.
-function renderActions(tag, label) {
-  const name = tag.replace(/^concept-/, "");
+function renderActions(concept) {
+  const { tag, label, module } = concept;
+  const sourceHref = `gallery/${module.replace(/^\.\//, "")}`;
   return (
     `<div class="concept-actions">` +
       `<button type="button" class="concept-action concept-copy" data-tag="${esc(tag)}"` +
         ` aria-label="Copy ${esc(label)} embed code">Copy</button>` +
       `<a class="concept-action concept-source"` +
-        ` href="gallery/concepts/${esc(name)}-concept.js"` +
+        ` href="${esc(sourceHref)}"` +
         ` aria-label="View ${esc(label)} source"` +
         ` target="_blank" rel="noopener noreferrer">Source</a>` +
     `</div>`
@@ -94,7 +93,7 @@ function renderPlainCard(concept) {
         `<span class="meta-badge ${esc(badgeCls)}">${esc(badge)}</span>` +
         renderDateBadge(concept) +
       `</div>` +
-      renderActions(tag, label) +
+      renderActions(concept) +
     `</div>`
   );
 }
@@ -141,7 +140,7 @@ function renderVersionedCard(concept) {
         renderDateBadge(concept) +
       `</div>` +
       `<div class="version-dots" role="group" aria-label="${esc(label)} versions">${dots}</div>` +
-      renderActions(tag, label) +
+      renderActions(concept) +
     `</div>`
   );
 }
@@ -181,17 +180,28 @@ function renderGallery(concepts) {
     return;
   }
 
-  const sections = CATEGORIES.map((category) => {
-    const inCategory = concepts.filter(
-      (concept) => concept.category === category.id
-    );
-    if (inCategory.length === 0) return "";
+  const sections = SECTIONS.map((section) => {
+    const categories = CATEGORIES
+      .filter((category) => category.section === section.id)
+      .map((category) => {
+        const inCategory = concepts.filter(
+          (concept) => concept.category === category.id
+        );
+        if (inCategory.length === 0) return "";
+        return (
+          `<section class="gallery-section" data-category="${esc(category.id)}">` +
+            `<h3 class="section-title">${esc(category.title)}</h3>` +
+            `<div class="gallery-grid">${inCategory.map(renderCard).join("")}</div>` +
+          `</section>`
+        );
+      })
+      .join("");
 
-    const cards = inCategory.map(renderCard).join("");
+    if (!categories) return "";
     return (
-      `<section class="gallery-section">` +
-        `<h2 class="section-title">${esc(category.title)}</h2>` +
-        `<div class="gallery-grid">${cards}</div>` +
+      `<section class="gallery-supersection" data-section="${esc(section.id)}">` +
+        `<h2 class="supersection-title">${esc(section.title)}</h2>` +
+        categories +
       `</section>`
     );
   });
@@ -323,7 +333,7 @@ function watchConceptUpgrades() {
 
 // --- Version cyclers ------------------------------------------------------
 // Ported verbatim from the trailing inline <script> in
-// header-animation-concepts.html. Same click / keydown(Enter/Space) / dot
+// concepts/index.html. Same click / keydown(Enter/Space) / dot
 // behavior, same aria-label and badge updates.
 function wireVersioners() {
   document.querySelectorAll('.terminal-box.is-versioned').forEach((box) => {
@@ -420,17 +430,18 @@ function statusOf(concept) {
 }
 
 // --- Wave 2: Newest additions --------------------------------------------
-// The most recently added batch date in the manifest (YYYY-MM-DD). Concepts
-// with this added date form the "Newest Additions" landing view. Derived from
-// the manifest rather than hardcoded so new content batches land on the
-// gallery automatically.
-const NEWEST_DATE = CONCEPTS.reduce((max, concept) => {
-  const day = concept.added ? concept.added.slice(0, 10) : "";
-  return day > max ? day : max;
-}, "");
+// Cap the landing view so a large same-day import cannot unexpectedly render
+// hundreds of live custom elements before the visitor chooses a section.
+const NEWEST_LIMIT = 36;
+const NEWEST_CONCEPTS = CONCEPTS
+  .slice()
+  .sort((a, b) => (b.added || "").localeCompare(a.added || ""))
+  .slice(0, NEWEST_LIMIT);
+const NEWEST_TAGS = new Set(NEWEST_CONCEPTS.map((concept) => concept.tag));
+const NEWEST_DATE = NEWEST_CONCEPTS[0]?.added?.slice(0, 10) || "";
 
 function isNewest(concept) {
-  return Boolean(concept.added && concept.added.startsWith(NEWEST_DATE));
+  return NEWEST_TAGS.has(concept.tag);
 }
 
 const STATUSES = [
@@ -490,7 +501,9 @@ function deriveChips(getValues, titleFor) {
 const MODELS = deriveChips(modelsOf, titleCase);
 const VERSIONS = deriveChips(versionsOf, (value) => value);
 
-// Live filter state. Defaults show the newest-additions landing view.
+// Live filter state. Preserve the lightweight newest-additions landing view;
+// section/category deep links open directly in curated taxonomy mode.
+const activeSections = new Set(SECTIONS.map((section) => section.id));
 const activeCategories = new Set(CATEGORIES.map((category) => category.id));
 const activeStatuses = new Set(STATUSES.map((status) => status.id));
 const activeOrigins = new Set(ORIGINS.map((origin) => origin.id));
@@ -507,6 +520,7 @@ let countReadout = null;
 
 // True when a concept passes all three filter dimensions.
 function isVisible(concept) {
+  if (!activeSections.has(concept.section)) return false;
   if (!activeCategories.has(concept.category)) return false;
   if (!activeStatuses.has(statusOf(concept))) return false;
   if (!agentsOf(concept).some((agent) => activeOrigins.has(agent))) return false;
@@ -540,6 +554,7 @@ function applyFilters() {
   }
 
   renderGallery(visible);
+  importConceptModules(visible);
   wireVersioners();
   installLazyObserver();
   updateBannerVisibility();
@@ -565,7 +580,7 @@ function makeChip(filter, value, title) {
 // Clicking "Browse all" switches to curated mode (full gallery).
 let newestBanner = null;
 
-const NEWEST_COUNT = CONCEPTS.filter(isNewest).length;
+const NEWEST_COUNT = NEWEST_TAGS.size;
 
 function ensureNewestBanner() {
   if (newestBanner) return newestBanner;
@@ -595,6 +610,44 @@ function updateBannerVisibility() {
   newestBanner.style.display = sortMode === "newest" ? "" : "none";
 }
 
+function applyLocationFilters() {
+  const params = new URLSearchParams(window.location.search);
+  const sectionId = params.get("section");
+  const categoryId = params.get("category");
+  const section = SECTIONS.find((item) => item.id === sectionId);
+  const category = CATEGORIES.find((item) => item.id === categoryId);
+
+  if (section) {
+    activeSections.clear();
+    activeSections.add(section.id);
+    sortMode = "curated";
+  }
+  if (category) {
+    activeCategories.clear();
+    activeCategories.add(category.id);
+    activeSections.clear();
+    activeSections.add(category.section);
+    sortMode = "curated";
+  }
+}
+
+function updateLocationFilters() {
+  if (!window.history?.replaceState) return;
+  const params = new URLSearchParams(window.location.search);
+  const sectionId = activeSections.size === 1 ? [...activeSections][0] : null;
+  const categoryId = activeCategories.size === 1 ? [...activeCategories][0] : null;
+  if (sectionId) params.set("section", sectionId);
+  else params.delete("section");
+  if (categoryId) params.set("category", categoryId);
+  else params.delete("category");
+  const query = params.toString();
+  try {
+    window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`);
+  } catch (error) {
+    // file:// previews may reject history mutation; filtering still works.
+  }
+}
+
 // Build the toolbar ONCE and insert it before #gallery-root.
 function initToolbar() {
   const mount = document.getElementById("gallery-root");
@@ -613,8 +666,7 @@ function initToolbar() {
   searchInput.setAttribute("aria-label", "Search concepts by name");
   toolbar.appendChild(searchInput);
 
-  // Sort mode. "newest" is the default landing view; curated keeps the
-  // category sections; the two date sorts flatten the gallery.
+  // Curated is the default for the unified taxonomy; date sorts flatten it.
   sortSelect = document.createElement("select");
   sortSelect.className = "concept-sort";
   sortSelect.setAttribute("aria-label", "Sort concepts");
@@ -629,8 +681,25 @@ function initToolbar() {
     option.textContent = title;
     sortSelect.appendChild(option);
   });
-  sortSelect.value = "newest"; // Match initial sortMode
+  sortSelect.value = sortMode;
   toolbar.appendChild(sortSelect);
+
+  const sectionGroup = document.createElement("div");
+  sectionGroup.className = "toolbar-group section-filter-group";
+  sectionGroup.setAttribute("role", "group");
+  sectionGroup.setAttribute("aria-label", "Filter by top-level section");
+  const sectionLabel = document.createElement("span");
+  sectionLabel.className = "toolbar-group-label";
+  sectionLabel.textContent = "Sections";
+  sectionGroup.appendChild(sectionLabel);
+  const sectionChips = SECTIONS.map((section) =>
+    makeChip("section", section.id, section.title)
+  );
+  sectionChips.forEach((chip) => {
+    chip.setAttribute("aria-pressed", activeSections.has(chip.dataset.value) ? "true" : "false");
+    sectionGroup.appendChild(chip);
+  });
+  toolbar.appendChild(sectionGroup);
 
   // Category filter: a compact toggle that discloses the chip drawer.
   // The toggle doubles as the current-selection summary.
@@ -654,7 +723,19 @@ function initToolbar() {
   const categoryChips = CATEGORIES.map((category) =>
     makeChip("category", category.id, category.title)
   );
-  categoryChips.forEach((chip) => catDrawer.appendChild(chip));
+  categoryChips.forEach((chip) => {
+    chip.setAttribute("aria-pressed", activeCategories.has(chip.dataset.value) ? "true" : "false");
+    catDrawer.appendChild(chip);
+  });
+
+  const syncCategoryAvailability = () => {
+    const narrowed = activeSections.size === 1;
+    categoryChips.forEach((chip) => {
+      const category = CATEGORIES.find((item) => item.id === chip.dataset.value);
+      chip.hidden = narrowed && !activeSections.has(category.section);
+    });
+  };
+  syncCategoryAvailability();
 
   // The toggle summary reflects the sole isolated category, or "All".
   const updateCatSummary = () => {
@@ -761,7 +842,30 @@ function initToolbar() {
     applyFilters();
   });
 
-  const allChips = categoryChips.concat(statusChips, originChips, modelChips, versionChips);
+  const allChips = sectionChips.concat(categoryChips, statusChips, originChips, modelChips, versionChips);
+
+  sectionChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const value = chip.dataset.value;
+      const isSoleActive = activeSections.size === 1 && activeSections.has(value);
+      activeSections.clear();
+      if (isSoleActive) SECTIONS.forEach((section) => activeSections.add(section.id));
+      else activeSections.add(value);
+
+      activeCategories.clear();
+      CATEGORIES.forEach((category) => activeCategories.add(category.id));
+      sortMode = "curated";
+      sortSelect.value = "curated";
+      sectionChips.forEach((sectionChip) => {
+        sectionChip.setAttribute("aria-pressed", activeSections.has(sectionChip.dataset.value) ? "true" : "false");
+      });
+      categoryChips.forEach((categoryChip) => categoryChip.setAttribute("aria-pressed", "true"));
+      syncCategoryAvailability();
+      updateCatSummary();
+      updateLocationFilters();
+      applyFilters();
+    });
+  });
 
   // Category chips ISOLATE rather than toggle: clicking one narrows
   // activeCategories down to just that category. Clicking the same chip
@@ -778,7 +882,12 @@ function initToolbar() {
         CATEGORIES.forEach((category) => activeCategories.add(category.id));
       } else {
         activeCategories.add(value);
+        const category = CATEGORIES.find((item) => item.id === value);
+        activeSections.clear();
+        activeSections.add(category.section);
       }
+      sortMode = "curated";
+      sortSelect.value = "curated";
 
       categoryChips.forEach((categoryChip) => {
         categoryChip.setAttribute(
@@ -786,7 +895,12 @@ function initToolbar() {
           activeCategories.has(categoryChip.dataset.value) ? "true" : "false"
         );
       });
+      sectionChips.forEach((sectionChip) => {
+        sectionChip.setAttribute("aria-pressed", activeSections.has(sectionChip.dataset.value) ? "true" : "false");
+      });
+      syncCategoryAvailability();
       updateCatSummary();
+      updateLocationFilters();
       applyFilters();
     });
   });
@@ -839,6 +953,8 @@ function initToolbar() {
   });
 
   reset.addEventListener("click", () => {
+    activeSections.clear();
+    SECTIONS.forEach((section) => activeSections.add(section.id));
     activeCategories.clear();
     CATEGORIES.forEach((category) => activeCategories.add(category.id));
     activeStatuses.clear();
@@ -854,7 +970,9 @@ function initToolbar() {
     sortMode = "curated";
     sortSelect.value = "curated";
     allChips.forEach((chip) => chip.setAttribute("aria-pressed", "true"));
+    syncCategoryAvailability();
     updateCatSummary();
+    updateLocationFilters();
     applyFilters();
   });
 }
@@ -863,7 +981,8 @@ function initToolbar() {
 // Absolute origin for the pasted embed snippet, so copied code works on any
 // site (the Source link stays relative for local preview — see renderActions).
 const EMBED_ORIGIN =
-  "https://afterglows.starlightdaemon.dev/concepts/gallery/concepts";
+  "https://afterglows.starlightdaemon.dev/concepts/gallery/";
+const CONCEPT_BY_TAG = new Map(CONCEPTS.map((concept) => [concept.tag, concept]));
 
 // Single shared visually-hidden live region for all copy announcements.
 // Created once by ensureLiveRegion(); reused for every tile.
@@ -915,10 +1034,10 @@ async function copyText(text) {
 
 // Build the two-line embed snippet for a card. The version (if any) is read
 // from the DOM at click time: the active frame's inner concept-* element.
-function buildSnippet(card, tag) {
-  const name = tag.replace(/^concept-/, "");
+function buildSnippet(card, concept) {
+  const { tag, module } = concept;
   const scriptLine =
-    `<script type="module" src="${EMBED_ORIGIN}/${name}-concept.js"></` +
+    `<script type="module" src="${EMBED_ORIGIN}${module.replace(/^\.\//, "")}"></` +
     `script>`;
 
   let version = "";
@@ -944,8 +1063,10 @@ async function handleGalleryClick(event) {
   if (!card) return;
 
   const tag = button.dataset.tag;
+  const concept = CONCEPT_BY_TAG.get(tag);
+  if (!concept) return;
   const label = card.querySelector(".concept-label")?.textContent.trim() || tag;
-  const snippet = buildSnippet(card, tag);
+  const snippet = buildSnippet(card, concept);
   const ok = await copyText(snippet);
 
   const original = button.dataset.copyLabel || button.textContent;
@@ -978,11 +1099,12 @@ function wireCopyDelegation() {
 }
 
 // --- Bootstrap ------------------------------------------------------------
-// Kick off module loading immediately (fire-and-forget), then build the
-// toolbar once, render the initial newest-additions view, wire versioners,
+// Build the toolbar once, render the requested taxonomy view, load its modules,
+// wire versioners,
 // and install the lazy observer once the DOM is ready.
 // #gallery-root may not exist yet at parse time.
 function init() {
+  applyLocationFilters();
   initToolbar();
   ensureNewestBanner();
   ensureLiveRegion();
@@ -996,7 +1118,6 @@ function init() {
   applyFilters();
 }
 
-importConceptModules();
 watchConceptUpgrades();
 
 if (document.readyState === "loading") {

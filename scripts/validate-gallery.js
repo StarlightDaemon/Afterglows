@@ -1,117 +1,141 @@
-import fs from 'fs';
-import path from 'path';
-import vm from 'vm';
+import fs from "node:fs";
+import path from "node:path";
+import vm from "node:vm";
+import { fileURLToPath } from "node:url";
 
-async function validate() {
-  const cMod = await import('../concepts/gallery/manifest.js');
-  const pMod = await import('../physics/gallery/manifest.js');
+import { CATEGORIES, CONCEPTS, SECTIONS } from "../concepts/gallery/manifest.js";
 
-  const cConcepts = cMod.CONCEPTS;
-  const cCats = cMod.CATEGORIES.map(c => c.id);
-  const pConcepts = pMod.CONCEPTS;
-  const pCats = pMod.CATEGORIES.map(c => c.id);
+const projectRoot = fileURLToPath(new URL("../", import.meta.url));
+const galleryRoot = path.join(projectRoot, "concepts", "gallery");
+const componentRoot = path.join(galleryRoot, "concepts");
+const errors = [];
+const warnings = [];
 
-  console.log('=== Concept Gallery Validator ===');
-  console.log(`Concepts count: ${cConcepts.length} in ${cCats.length} categories`);
-  console.log(`Physics count: ${pConcepts.length} in ${pCats.length} categories`);
-
-  const errors = [];
-  const warnings = [];
-  const allTags = new Set();
-  const allLabels = new Map();
-
-  // Check Physics tags
-  for (const p of pConcepts) {
-    if (allTags.has(p.tag)) errors.push(`Duplicate tag in physics: ${p.tag}`);
-    allTags.add(p.tag);
-    allLabels.set(p.label.toLowerCase(), `physics: ${p.tag}`);
-    if (!pCats.includes(p.category)) errors.push(`Unknown category in physics: ${p.category} for ${p.tag}`);
-  }
-
-  // Check Concepts
-  for (const c of cConcepts) {
-    if (allTags.has(c.tag)) errors.push(`Duplicate tag: ${c.tag}`);
-    allTags.add(c.tag);
-
-    const normLabel = c.label.toLowerCase();
-    if (allLabels.has(normLabel)) {
-      errors.push(`Duplicate label "${c.label}" on ${c.tag} (already used by ${allLabels.get(normLabel)})`);
-    }
-    allLabels.set(normLabel, `concepts: ${c.tag}`);
-
-    if (!cCats.includes(c.category)) {
-      errors.push(`Unknown category: "${c.category}" for ${c.tag}`);
-    }
-
-    if (!c.origin || !c.origin.contributions || !Array.isArray(c.origin.contributions) || c.origin.contributions.length === 0) {
-      errors.push(`Invalid/missing origin.contributions for: ${c.tag}`);
-    }
-
-    if (!c.added || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(c.added)) {
-      errors.push(`Invalid added ISO timestamp "${c.added}" on ${c.tag}`);
-    }
-
-    if (!c.updated || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(c.updated)) {
-      errors.push(`Invalid updated ISO timestamp "${c.updated}" on ${c.tag}`);
-    }
-
-    const filename = `${c.tag.replace(/^concept-/, '')}-concept.js`;
-    const expectedFile = path.resolve('concepts', 'gallery', 'concepts', filename);
-
-    if (!fs.existsSync(expectedFile)) {
-      errors.push(`Missing file: ${expectedFile} for tag ${c.tag}`);
-    } else {
-      const code = fs.readFileSync(expectedFile, 'utf8');
-      
-      // Syntax check by running in vm or checking parsing
-      try {
-        new vm.Script(code, { filename: expectedFile });
-      } catch (err) {
-        errors.push(`Syntax error in ${filename}: ${err.message}`);
-      }
-
-      // Check customElements.define
-      const defMatch = code.match(/customElements\.define\s*\(\s*['"]([^'"]+)['"]/);
-      if (!defMatch) {
-        errors.push(`Missing customElements.define in ${filename}`);
-      } else if (defMatch[1] !== c.tag) {
-        errors.push(`Custom element tag mismatch in ${filename}: defined as "${defMatch[1]}", manifest has "${c.tag}"`);
-      }
-
-      // Ensure shadowRoot is attached
-      if (!code.includes('attachShadow')) {
-        warnings.push(`No attachShadow found in ${filename}`);
-      }
+function walk(directory) {
+  const files = [];
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const absolute = path.join(directory, entry.name);
+    if (entry.isSymbolicLink()) {
+      errors.push(`Symlink is not allowed in the component tree: ${absolute}`);
+    } else if (entry.isDirectory()) {
+      files.push(...walk(absolute));
+    } else if (entry.isFile()) {
+      files.push(absolute);
     }
   }
+  return files;
+}
 
-  // Check for orphan files
-  const conceptsDir = path.resolve('concepts', 'gallery', 'concepts');
-  const files = fs.readdirSync(conceptsDir);
-  for (const f of files) {
-    if (f.endsWith('-concept.js')) {
-      const tag = 'concept-' + f.replace(/-concept\.js$/, '');
-      if (!cConcepts.some(c => c.tag === tag)) {
-        errors.push(`Orphan concept file not in manifest: ${f}`);
-      }
-    }
-  }
+function contained(root, target) {
+  const relative = path.relative(root, target);
+  return relative && !relative.startsWith("..") && !path.isAbsolute(relative);
+}
 
-  console.log(`\nValidation complete.`);
-  if (warnings.length > 0) {
-    console.log(`Warnings (${warnings.length}):`);
-    warnings.forEach(w => console.log(`  - ${w}`));
-  }
-  if (errors.length > 0) {
-    console.error(`ERRORS FOUND (${errors.length}):`);
-    errors.forEach(e => console.error(`  [!] ${e}`));
-    process.exit(1);
-  } else {
-    console.log(`SUCCESS: 0 errors found! All ${cConcepts.length} concepts are structurally valid and cleanly mapped.`);
+function unique(values, label) {
+  const seen = new Set();
+  for (const value of values) {
+    const normalized = String(value).toLowerCase();
+    if (seen.has(normalized)) errors.push(`Duplicate ${label}: ${value}`);
+    seen.add(normalized);
   }
 }
 
-validate().catch(err => {
-  console.error('Fatal validation error:', err);
+console.log("=== Unified Animation Concepts Validator ===");
+console.log(`${CONCEPTS.length} concepts in ${CATEGORIES.length} categories and ${SECTIONS.length} sections`);
+
+unique(SECTIONS.map((section) => section.id), "section id");
+unique(CATEGORIES.map((category) => category.id), "category id");
+unique(CONCEPTS.map((concept) => concept.tag), "custom-element tag");
+unique(CONCEPTS.map((concept) => concept.label), "concept label");
+unique(CONCEPTS.map((concept) => concept.module), "module path");
+
+const sectionIds = new Set(SECTIONS.map((section) => section.id));
+const categories = new Map(CATEGORIES.map((category) => [category.id, category]));
+const referencedFiles = new Set();
+
+for (const category of CATEGORIES) {
+  if (!sectionIds.has(category.section)) {
+    errors.push(`Unknown section ${category.section} on category ${category.id}`);
+  }
+  const actualCount = CONCEPTS.filter((concept) => concept.category === category.id).length;
+  if (actualCount !== category.expectedCount) {
+    errors.push(`${category.id}: expected ${category.expectedCount} concepts, found ${actualCount}`);
+  }
+}
+
+for (const concept of CONCEPTS) {
+  const category = categories.get(concept.category);
+  if (!category) {
+    errors.push(`Unknown category ${concept.category} on ${concept.tag}`);
+    continue;
+  }
+  if (concept.section !== category.section) {
+    errors.push(`Section/category mismatch on ${concept.tag}: ${concept.section}/${concept.category}`);
+  }
+  if (!concept.origin?.contributions?.length) {
+    errors.push(`Invalid or missing origin.contributions on ${concept.tag}`);
+  }
+  for (const field of ["added", "updated"]) {
+    if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(concept[field] || "")) {
+      errors.push(`Invalid ${field} timestamp on ${concept.tag}: ${concept[field]}`);
+    }
+  }
+  if (concept.versioned && (!concept.versions?.length || !concept.versions.some((version) => version.v === concept.default))) {
+    errors.push(`Invalid version history/default on ${concept.tag}`);
+  }
+
+  if (!/^\.\/concepts\/[a-z0-9-]+\/[a-z0-9-]+\/[a-z0-9-]+-concept\.js$/.test(concept.module)) {
+    errors.push(`Unsafe or noncanonical module path on ${concept.tag}: ${concept.module}`);
+    continue;
+  }
+  const expectedPrefix = `./concepts/${concept.section}/${concept.category}/`;
+  if (!concept.module.startsWith(expectedPrefix)) {
+    errors.push(`Module folder does not match taxonomy on ${concept.tag}: ${concept.module}`);
+  }
+
+  const file = path.resolve(galleryRoot, concept.module);
+  if (!contained(componentRoot, file)) {
+    errors.push(`Module escapes component root on ${concept.tag}: ${concept.module}`);
+    continue;
+  }
+  referencedFiles.add(file.toLowerCase());
+  if (!fs.existsSync(file)) {
+    errors.push(`Missing module for ${concept.tag}: ${concept.module}`);
+    continue;
+  }
+
+  const code = fs.readFileSync(file, "utf8");
+  try {
+    new vm.Script(code, { filename: file });
+  } catch (error) {
+    errors.push(`Syntax error in ${concept.module}: ${error.message}`);
+  }
+  const definition = code.match(/customElements\.define\s*\(\s*["']([^"']+)["']/);
+  if (!definition) errors.push(`Missing customElements.define in ${concept.module}`);
+  else if (definition[1] !== concept.tag) {
+    errors.push(`Tag mismatch in ${concept.module}: defines ${definition[1]}, manifest has ${concept.tag}`);
+  }
+  if (!code.includes("attachShadow")) warnings.push(`No attachShadow found in ${concept.module}`);
+}
+
+const canonicalFiles = walk(componentRoot).filter((file) => file.endsWith("-concept.js"));
+for (const file of canonicalFiles) {
+  if (!referencedFiles.has(file.toLowerCase())) {
+    errors.push(`Orphan component module: ${path.relative(projectRoot, file)}`);
+  }
+}
+if (canonicalFiles.length !== CONCEPTS.length) {
+  errors.push(`Canonical module count ${canonicalFiles.length} does not match catalog count ${CONCEPTS.length}`);
+}
+
+if (warnings.length) {
+  console.log(`Warnings (${warnings.length}):`);
+  for (const warning of warnings) console.log(`  - ${warning}`);
+}
+if (errors.length) {
+  console.error(`Gallery validation failed (${errors.length}):`);
+  for (const error of errors) console.error(`  - ${error}`);
   process.exit(1);
-});
+}
+
+console.log(`SUCCESS: all ${CONCEPTS.length} concepts are uniquely mapped and structurally valid.`);

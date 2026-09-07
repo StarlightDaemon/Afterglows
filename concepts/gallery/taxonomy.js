@@ -1,0 +1,166 @@
+// Definitive taxonomy for the unified Animation Concepts gallery.
+//
+// Every concept has exactly one primary category, which also determines its
+// canonical source folder. Cross-disciplinary relationships belong in future
+// facets rather than duplicate component files.
+
+export const SECTIONS = [
+  { id: "mathematics", title: "Mathematics & Information" },
+  { id: "physics", title: "Physical Sciences" },
+  { id: "chemistry", title: "Chemistry" },
+  { id: "life-sciences", title: "Life Sciences" },
+  { id: "earth-sciences", title: "Earth & Environment" },
+  { id: "astronomy-space", title: "Astronomy & Spaceflight" },
+  { id: "engineering-technology", title: "Engineering & Technology" },
+  { id: "arts-culture", title: "Arts, Culture & Play" },
+  { id: "imagination-belief", title: "Imagination & Belief" },
+];
+
+export const CATEGORIES = [
+  { id: "geometry-patterns", section: "mathematics", title: "Geometry & Pattern", expectedCount: 19 },
+  { id: "computing-systems", section: "mathematics", title: "Computing, Signals & Interfaces", expectedCount: 14 },
+  { id: "cryptography-information", section: "mathematics", title: "Cryptography & Information", expectedCount: 11 },
+  { id: "mechanics", section: "physics", title: "Classical Mechanics & Kinematics", expectedCount: 18 },
+  { id: "fluid-dynamics", section: "physics", title: "Fluid Dynamics", expectedCount: 20 },
+  { id: "waves-optics", section: "physics", title: "Waves & Optics", expectedCount: 18 },
+  { id: "acoustics", section: "physics", title: "Acoustics & Sonic Physics", expectedCount: 20 },
+  { id: "electromagnetism", section: "physics", title: "Electricity & Electromagnetism", expectedCount: 18 },
+  { id: "relativity", section: "physics", title: "Relativity & Spacetime", expectedCount: 11 },
+  { id: "quantum-atomic", section: "physics", title: "Quantum, Atomic & Nuclear Physics", expectedCount: 14 },
+  { id: "thermal-statistical", section: "physics", title: "Thermal & Statistical Physics", expectedCount: 16 },
+  { id: "plasma", section: "physics", title: "Plasma & Magnetohydrodynamics", expectedCount: 10 },
+  { id: "condensed-matter", section: "physics", title: "Condensed Matter & Crystallography", expectedCount: 24 },
+  { id: "spectroscopy", section: "physics", title: "Spectroscopy & Prismatics", expectedCount: 8 },
+  { id: "laboratory-chemistry", section: "chemistry", title: "Laboratory Chemistry", expectedCount: 7 },
+  { id: "alchemy-hermetica", section: "chemistry", title: "Alchemy & Hermetica", expectedCount: 17 },
+  { id: "cellular-microbiology", section: "life-sciences", title: "Cellular Biology & Microbiology", expectedCount: 19 },
+  { id: "terrestrial-ecology", section: "life-sciences", title: "Plants, Insects & Terrestrial Ecology", expectedCount: 22 },
+  { id: "birds", section: "life-sciences", title: "Birds & Aviary", expectedCount: 19 },
+  { id: "marine-life", section: "life-sciences", title: "Marine Life", expectedCount: 13 },
+  { id: "geology", section: "earth-sciences", title: "Geology & Earth Processes", expectedCount: 15 },
+  { id: "meteorology-atmosphere", section: "earth-sciences", title: "Meteorology & Atmospheric Phenomena", expectedCount: 23 },
+  { id: "oceanography-hydrology", section: "earth-sciences", title: "Oceanography & Hydrology", expectedCount: 4 },
+  { id: "astronomy-astrometry", section: "astronomy-space", title: "Astronomy & Astrometry", expectedCount: 24 },
+  { id: "orbital-gravitation", section: "astronomy-space", title: "Orbital Mechanics & Gravitation", expectedCount: 10 },
+  { id: "astronautics", section: "astronomy-space", title: "Astronautics & Spaceflight", expectedCount: 3 },
+  { id: "aeronautics", section: "astronomy-space", title: "Aeronautics & Flight", expectedCount: 11 },
+  { id: "mechanisms-tools", section: "engineering-technology", title: "Mechanisms & Tools", expectedCount: 19 },
+  { id: "horology", section: "engineering-technology", title: "Horology & Chronometry", expectedCount: 17 },
+  { id: "navigation-cartography", section: "engineering-technology", title: "Navigation & Cartography", expectedCount: 17 },
+  { id: "surveying-geodesy", section: "engineering-technology", title: "Surveying & Geodesy", expectedCount: 13 },
+  { id: "telecommunications", section: "engineering-technology", title: "Telegraphy & Telecommunications", expectedCount: 15 },
+  { id: "transport-commerce", section: "engineering-technology", title: "Transport, Civic Systems & Commerce", expectedCount: 18 },
+  { id: "domestic-office", section: "engineering-technology", title: "Domestic & Office Objects", expectedCount: 11 },
+  { id: "music-instruments", section: "arts-culture", title: "Music & Instruments", expectedCount: 21 },
+  { id: "games-sport", section: "arts-culture", title: "Games & Sport", expectedCount: 22 },
+  { id: "toys-kinetics", section: "arts-culture", title: "Toys & Kinetic Play", expectedCount: 12 },
+  { id: "textiles-craft", section: "arts-culture", title: "Textiles & Craft", expectedCount: 17 },
+  { id: "print-typography", section: "arts-culture", title: "Typography & Printmaking", expectedCount: 11 },
+  { id: "optical-media", section: "arts-culture", title: "Optical Media & Early Cinema", expectedCount: 14 },
+  { id: "science-fiction", section: "imagination-belief", title: "Science Fiction & Encounters", expectedCount: 18 },
+  { id: "supernatural-folklore", section: "imagination-belief", title: "Supernatural & Folklore", expectedCount: 16 },
+  { id: "magic-occult", section: "imagination-belief", title: "Magic & Occult", expectedCount: 11 },
+];
+
+const DEFAULT_CATEGORY = {
+  "concepts:geometry": "geometry-patterns",
+  "concepts:systems": "computing-systems",
+  "concepts:cipher": "cryptography-information",
+  "concepts:bio": "cellular-microbiology",
+  "concepts:garden": "terrestrial-ecology",
+  "concepts:birds": "birds",
+  "concepts:ocean": "marine-life",
+  "concepts:nature": "meteorology-atmosphere",
+  "concepts:geology": "geology",
+  "concepts:meteorology": "meteorology-atmosphere",
+  "concepts:space": "astronomy-astrometry",
+  "concepts:astronomy": "astronomy-astrometry",
+  "concepts:aero": "aeronautics",
+  "concepts:scifi": "science-fiction",
+  "concepts:occult": "supernatural-folklore",
+  "concepts:arcane": "magic-occult",
+  "concepts:alchemy": "alchemy-hermetica",
+  "concepts:retro": "computing-systems",
+  "concepts:mech": "mechanisms-tools",
+  "concepts:home": "domestic-office",
+  "concepts:city": "transport-commerce",
+  "concepts:music": "music-instruments",
+  "concepts:games": "games-sport",
+  "concepts:lab": "laboratory-chemistry",
+  "concepts:acoustics": "acoustics",
+  "concepts:optics": "optical-media",
+  "concepts:navigation": "navigation-cartography",
+  "concepts:horology": "horology",
+  "concepts:telecom": "telecommunications",
+  "concepts:surveying": "surveying-geodesy",
+  "concepts:print": "print-typography",
+  "concepts:crystallography": "condensed-matter",
+  "concepts:spectroscopy": "spectroscopy",
+  "concepts:textile": "textiles-craft",
+  "concepts:toys": "toys-kinetics",
+  "physics:mechanics": "mechanics",
+  "physics:orbital": "orbital-gravitation",
+  "physics:waves": "waves-optics",
+  "physics:fluids": "fluid-dynamics",
+  "physics:fields": "electromagnetism",
+  "physics:relativity": "relativity",
+  "physics:quantum": "quantum-atomic",
+  "physics:thermo": "thermal-statistical",
+  "physics:acoustics": "acoustics",
+  "physics:plasma": "plasma",
+  "physics:condensed": "condensed-matter",
+};
+
+const OVERRIDES_BY_CATEGORY = {
+  telecommunications: ["concept-radar", "concept-tape-reels", "concept-rotary-dial", "concept-rotary-phone", "concept-vacuum-radio"],
+  acoustics: ["concept-sonar", "concept-bat-echolocation", "physics-chladni-plate", "physics-mach-cone"],
+  "navigation-cartography": ["concept-compass", "concept-loran-navigation", "concept-wireframe-globe", "concept-lighthouse", "concept-sextant", "concept-wind-rose", "concept-viking-sunstone"],
+  "astronomy-astrometry": ["concept-heliostat", "concept-volvelle", "concept-orrery", "concept-antikythera"],
+  electromagnetism: ["concept-circuit", "concept-lightning", "concept-ball-lightning", "concept-kirlian-aura", "concept-ferrofluid", "concept-van-de-graaff", "concept-jacobs-ladder", "concept-kelvin-dropper", "concept-leyden-jar"],
+  "cryptography-information": ["concept-quipu-khipu"],
+  "quantum-atomic": ["concept-atom", "concept-cloud-chamber", "concept-spinthariscope", "concept-bubble-chamber", "concept-rutherford-scattering", "concept-crookes-tube"],
+  "waves-optics": ["concept-microscope", "concept-ocean-wave", "concept-prism", "concept-calcite-birefringence", "concept-fresnel-lens", "concept-arago-spot", "concept-camera-lucida", "concept-schlieren-airflow", "concept-newton-rings"],
+  plasma: ["concept-aurora"],
+  "thermal-statistical": ["concept-ember", "concept-crookes-radiometer", "concept-stirling-engine", "concept-aeolipile", "concept-bimetallic-coil", "concept-dipping-bird", "physics-brownian-motion", "physics-carnot-cycle"],
+  "terrestrial-ecology": ["concept-firefly", "concept-sprout"],
+  geology: ["concept-volcano", "concept-barchan-dune", "concept-geyser", "concept-stratum-fault", "concept-fulgurite-glass"],
+  "condensed-matter": ["concept-bismuth-crystal", "physics-bose-einstein-condensate", "physics-superconductor-levitation", "physics-hall-effect"],
+  "oceanography-hydrology": ["concept-seiche-oscillation", "concept-hydrothermal-vent", "concept-nodal-tide", "concept-maelstrom-vortex"],
+  "orbital-gravitation": ["concept-planet-rings", "concept-barycenter-binary"],
+  astronautics: ["concept-satellite", "concept-rocket", "concept-solar-sail"],
+  relativity: ["concept-wormhole", "concept-gravitational-lensing", "physics-black-hole-lensing", "physics-gravitational-redshift"],
+  birds: ["concept-raven"],
+  "alchemy-hermetica": ["concept-alchemical-transmutation", "concept-homunculus", "concept-ouroboros", "concept-thaumaturgy-circle", "concept-athanor-furnace", "concept-hermetic-caduceus", "concept-pelican-still"],
+  "optical-media": ["concept-phantasmagoria", "concept-polaroid", "concept-stereoscope", "concept-stroboscope", "concept-shadowbox-diorama", "concept-projector", "concept-disco"],
+  "games-sport": ["concept-pacman", "concept-joystick", "concept-invader", "concept-tetris", "concept-pong"],
+  "music-instruments": ["concept-audio-circle", "concept-turntable"],
+  horology: ["concept-hourglass", "concept-anaphoric-clock", "concept-clock-face", "concept-tourbillon", "concept-escapement-deadbeat", "concept-cuckoo-clock", "concept-tide-clock"],
+  "print-typography": ["concept-cuneiform-tablet"],
+  mechanics: ["concept-pendulum", "concept-newtons-cradle", "concept-spinning-top", "concept-slinky", "concept-yoyo", "concept-euler-disk", "physics-foucault-pendulum"],
+  "surveying-geodesy": ["concept-level", "concept-caliper", "concept-planimeter"],
+  "fluid-dynamics": ["concept-water-wheel", "concept-herons-fountain", "concept-peristaltic-pump", "concept-hydraulic-ram", "concept-balance-syphon", "concept-wind-tunnel", "concept-kalliroscope", "concept-cartesian-diver"],
+  "mechanisms-tools": ["concept-forge-bellows", "concept-butter-churn", "concept-treadle-grindstone", "physics-four-bar-linkage", "physics-cycloid-gear"],
+  "meteorology-atmosphere": ["concept-goethe-glass", "concept-aneroid-barometer"],
+  aeronautics: ["concept-balloon"],
+  "transport-commerce": ["concept-submarine", "concept-bathysphere"],
+  spectroscopy: ["concept-neon"],
+  "domestic-office": ["concept-flashlight"],
+};
+
+const CATEGORY_BY_ID = new Map(CATEGORIES.map((category) => [category.id, category]));
+const TAG_CATEGORY = new Map();
+for (const [category, tags] of Object.entries(OVERRIDES_BY_CATEGORY)) {
+  for (const tag of tags) {
+    if (TAG_CATEGORY.has(tag)) throw new Error(`Duplicate taxonomy override for ${tag}`);
+    TAG_CATEGORY.set(tag, category);
+  }
+}
+
+export function placementFor(source, concept) {
+  const categoryId = TAG_CATEGORY.get(concept.tag) || DEFAULT_CATEGORY[`${source}:${concept.category}`];
+  const category = CATEGORY_BY_ID.get(categoryId);
+  if (!category) {
+    throw new Error(`No definitive category for ${source}:${concept.category} (${concept.tag})`);
+  }
+  return { section: category.section, category: category.id };
+}

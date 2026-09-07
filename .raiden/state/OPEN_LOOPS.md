@@ -1,6 +1,13 @@
 # Open Loops
 
-No open loops at this time. Site is in active maintenance; no blocking work identified.
+## Open
+
+- **2026-09-07 — Release-readiness deployment:** review and commit the pending
+  release changes, push them to `main`, switch the GitHub Pages Source to
+  **GitHub Actions**, and verify the completed workflow. Production acceptance
+  must confirm the unified `/concepts/` taxonomy and deep links, absence of the
+  retired `/physics/` collection, the branded 404, self-hosted fonts with no
+  Google requests, and denial of repository-only paths such as `/.raiden/`.
 
 ---
 

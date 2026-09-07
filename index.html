@@ -4,25 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'">
-    <meta name="description" content="Open-source visual effects archive featuring Matrix digital rain, CRT phosphor and scanline effects, and 240 animation concepts across 20 categories to preview and reuse.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+    <meta name="description" content="Open-source visual effects archive featuring Matrix digital rain, CRT phosphor effects, and 660 reusable animation concepts across mathematics, physics, science, technology, culture, and imagination.">
     <meta name="author" content="StarlightDaemon">
     <title>Afterglows | Experimental Archive</title>
     <link rel="canonical" href="https://afterglows.starlightdaemon.dev/">
     <meta property="og:title" content="Afterglows | Experimental Archive">
-    <meta property="og:description" content="Open-source visual effects archive featuring Matrix digital rain, CRT phosphor and scanline effects, and 240 animation concepts across 20 categories to preview and reuse.">
+    <meta property="og:description" content="Open-source visual effects archive featuring Matrix rain, CRT effects, and one catalog of 660 reusable animation concepts.">
     <meta property="og:url" content="https://afterglows.starlightdaemon.dev/">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://afterglows.starlightdaemon.dev/assets/img/afterglows-social-card.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Afterglows Experimental Archive in green phosphor beside a geometric Thinker figure">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Afterglows | Experimental Archive">
+    <meta name="twitter:description" content="Matrix rain, CRT effects, and 660 animation concepts in one definitive catalog.">
+    <meta name="twitter:image" content="https://afterglows.starlightdaemon.dev/assets/img/afterglows-social-card.jpg">
+    <link rel="icon" href="/assets/img/thinker-logo.svg" type="image/svg+xml">
+    <link rel="icon" href="/assets/img/thinker-logo.png" type="image/png">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="/assets/css/afterglows-settings.css">
     <link rel="stylesheet" href="/assets/css/afterglows-header.css">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap"
-        rel="stylesheet">
 
     <!-- Unified theme + font controller (applies data-phosphor/data-font before paint) -->
     <script src="/assets/js/afterglows-settings.js"></script>
@@ -37,6 +40,7 @@
 
     <div class="page-wrapper">
         <main class="main-content" id="main">
+            <h1 class="visually-hidden">Afterglows Experimental Archive</h1>
 
             <section class="projects" id="projects">
                 <h2>Demos & Prototypes</h2>
@@ -48,8 +52,13 @@
                             <span class="project-status status-active">Promoted</span>
                         </div>
                         <p class="project-description">
-                            The Stargate dialing computer has been promoted to a standalone workspace and is no longer
-                            hosted in this archive.
+                            The Stargate dialing computer has been promoted to a standalone workspace, where its
+                            multi-generational interface and simulation continue beyond this archive.
+                            <span class="summary-detail">It remains linked here as the largest project to graduate from
+                                the collection.</span>
+                            <span class="summary-expanded">Its dedicated repository now carries the dialing interface,
+                                simulation generations, and project history as a complete system rather than reducing
+                                that work to a frozen exhibit.</span>
                         </p>
                         <div class="project-tech">
                             <span class="tech-tag">External</span>
@@ -87,8 +96,13 @@
                             <span class="project-status status-active">Library</span>
                         </div>
                         <p class="project-description">
-                            CRT monitor emulation toolkit with scanlines, phosphor glow, chromatic aberration, and
-                            power-on animations.
+                            A high-fidelity CRT simulation toolkit for scanlines, phosphor persistence, screen curvature,
+                            chromatic aberration, and reusable power-on effects.
+                            <span class="summary-detail">The components recreate the character and imperfect motion of
+                                physical displays without requiring vintage hardware.</span>
+                            <span class="summary-expanded">Combine the effects into a complete monitor treatment, from
+                                restrained terminal glass to degraded broadcast imagery, with direct control over every
+                                visual layer.</span>
                         </p>
                         <div class="project-tech">
                             <span class="tech-tag">CSS Effects</span>
@@ -127,9 +141,13 @@
                             <span class="project-status status-active">Library</span>
                         </div>
                         <p class="project-description">
-                            Digital rain and cyberpunk text effects in six switchable modes — pure-CSS classic
-                            columns plus Canvas-rendered rain, binary, film, draft, and trace — with rain color
-                            independent of the site theme.
+                            A standalone digital-rain toolkit with six switchable modes: classic CSS columns, Canvas rain,
+                            binary, film, draft, and trace, with independently themed colors.
+                            <span class="summary-detail">Each implementation is available as a focused demo and a
+                                reusable starting point for terminal interfaces.</span>
+                            <span class="summary-expanded">The modes range from lightweight decorative backgrounds to
+                                Canvas-driven fields for landing pages, dashboards, terminals, and standalone visual
+                                experiments.</span>
                         </p>
                         <div class="project-tech">
                             <span class="tech-tag">CSS + Canvas</span>
@@ -169,16 +187,22 @@
                             <span class="project-status status-beta">Archive</span>
                         </div>
                         <p class="project-description">
-                            240 animation concepts across 20 categories: Radar, DNA, Glitch, Hex Grid, and more.
+                            660 motion experiments across 9 disciplines and 43 categories explore mathematics, physics,
+                            biology, machines, and unusual interfaces.
+                            <span class="summary-detail">Versioned refinements preserve earlier approaches while newer
+                                studies improve motion, physical behavior, and visual identity.</span>
+                            <span class="summary-expanded">The gallery is both archive and laboratory: compare iterations,
+                                inspect source, and follow geometry, culture, and everyday systems as they become
+                                recognizable animated objects.</span>
                         </p>
                         <div class="project-tech">
-                            <span class="tech-tag">240 Demos</span>
-                            <span class="tech-tag">Pure CSS</span>
+                            <span class="tech-tag">660 Demos</span>
+                            <span class="tech-tag">Web Components</span>
                             <span class="tech-tag">Active Development</span>
                         </div>
                         <div class="project-links">
                             <div class="project-links-main">
-                                <a href="concepts/header-animation-concepts.html" class="project-link">
+                                <a href="concepts/" class="project-link">
                                     <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
                                         <rect x="3" y="3" width="7" height="7"></rect>
@@ -202,6 +226,7 @@
                             </a>
                         </div>
                     </article>
+
                 </div>
             </section>
 

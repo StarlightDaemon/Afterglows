@@ -10,9 +10,9 @@ The root `index.html` is the live site entry point, and the directories below ar
 *   **Description**: A standalone CSS library for Matrix digital rain and cyberpunk effects.
 *   **Key File**: `matrix_tools.css`
 
-### 2. [Concepts](../concepts/README.md)
-*   **Description**: An interactive, manifest-driven gallery of 240 animation concepts across 20 categories, spanning pure geometric/mathematical abstraction (Lissajous, Moiré, Fibonacci, Fractal Tree) through everyday subjects (kitchen appliances, office desk, workshop tools, toys, money, textiles) to the living world (ocean, birds, insects, garden). Supports search, category/status filtering, version cycling, and per-tile copy/source actions.
-*   **Key Files**: `header-animation-concepts.html`, `gallery/manifest.js`, `gallery/index.js`
+### 2. [Animation Concepts](../concepts/README.md)
+*   **Description**: The unified, manifest-driven gallery of 660 animation concepts across 9 top-level sections and 43 definitive categories. It includes the former Physics collection alongside mathematical abstractions, scientific demonstrations, mechanisms, everyday objects, culture, and speculative subjects. Supports section/category deep links, search, status and provenance filtering, sorting, version cycling, and per-tile copy/source actions.
+*   **Key Files**: `index.html`, `gallery/manifest.js`, `gallery/taxonomy.js`, `gallery/index.js`
 
 ### 3. [Retro](../retro/README.md)
 *   **Description**: A toolkit for CRT monitor effects, including scanlines, phosphor glow, and screen curvature.

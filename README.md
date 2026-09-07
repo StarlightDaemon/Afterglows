@@ -21,7 +21,9 @@ A standalone CSS & JS library for digital rain, cyberpunk typography, and termin
 A toolkit for high-fidelity CRT monitor simulation, including scanlines, phosphor persistence, and screen curvature.
 
 #### 🧪 **Concepts**
-An archive of experimental UI motions, header animations, and interaction models that never made it to production.
+The single catalog of 660 reusable motion studies, organized into 9 disciplines
+and 43 definitive category folders spanning mathematics, physical sciences,
+living systems, technology, culture, and imagination.
 
 ---
 
@@ -31,6 +33,20 @@ Every page on the live site shares two canonical, root-absolute asset pairs — 
 
 - **Theme + font** (`/assets/js/afterglows-settings.js` + `/assets/css/afterglows-settings.css`) — the gear button + panel in the bottom-right corner. See [`docs/THEME_README.md`](docs/THEME_README.md).
 - **Header + back navigation** (`/assets/js/afterglows-header.js` + `/assets/css/afterglows-header.css`) — the fixed "Afterglows" wordmark (top-left) and floating Back control (bottom-left). See [`docs/NAV_README.md`](docs/NAV_README.md).
+
+IBM Plex Mono, VT323, Space Mono, Fira Code, and the Matrix page's JetBrains
+Mono face are self-hosted under [`assets/fonts/`](assets/fonts/). The built
+release artifact does not contact Google Fonts.
+
+### Development and deployment
+
+- `npm start` serves a loopback-only local preview with dotfiles, directory listings, and CORS disabled.
+- `npm test` validates the gallery manifests and concept modules.
+- `npm run security:check` verifies public-page CSP coverage and shared-script safety invariants.
+- `npm run build` creates the allowlisted `dist/` artifact used by GitHub Pages. Operational directories and repository metadata are deliberately excluded.
+- `npm run site:check` validates built internal paths, canonical metadata, social cards, favicons, the sitemap, and the custom 404 page.
+
+See [`docs/DEPLOYMENT_NOTES.md`](docs/DEPLOYMENT_NOTES.md) for the Pages configuration.
 
 ---
 
