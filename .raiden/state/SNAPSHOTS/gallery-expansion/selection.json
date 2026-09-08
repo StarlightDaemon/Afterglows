@@ -1,0 +1,2898 @@
+{
+  "note": "Original researched selection retained for audit. Delivered and operator-deferred outcomes are authoritative in delivery.json; canonical subject definitions belong only in manifest metadata.",
+  "poolSize": 510,
+  "selected": [
+    {
+      "key": "M001",
+      "name": "Histogram Binning",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M002",
+      "name": "Empirical Cumulative Distribution",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M003",
+      "name": "Box Plot Quartiles",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M004",
+      "name": "Bootstrap Resampling",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M005",
+      "name": "Confidence Interval Coverage",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M006",
+      "name": "Central Limit Theorem",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M007",
+      "name": "Law of Large Numbers",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M008",
+      "name": "Bayesian Updating",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M009",
+      "name": "Poisson Arrival Process",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M010",
+      "name": "Markov Chain",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M011",
+      "name": "Absorbing Random Walk",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M012",
+      "name": "Monte Carlo Area Estimation",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M013",
+      "name": "Rejection Sampling",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M014",
+      "name": "Metropolis Sampling",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M031",
+      "name": "Kernel Density Estimation",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M032",
+      "name": "Autocorrelation",
+      "section": "mathematics",
+      "category": "statistics-probability"
+    },
+    {
+      "key": "M015",
+      "name": "Gradient Descent",
+      "section": "data-science",
+      "category": "optimization"
+    },
+    {
+      "key": "M016",
+      "name": "Projected Gradient Descent",
+      "section": "data-science",
+      "category": "optimization"
+    },
+    {
+      "key": "M017",
+      "name": "Simplex Linear Programming",
+      "section": "data-science",
+      "category": "optimization"
+    },
+    {
+      "key": "M018",
+      "name": "Simulated Annealing",
+      "section": "data-science",
+      "category": "optimization"
+    },
+    {
+      "key": "M019",
+      "name": "Pareto Frontier",
+      "section": "data-science",
+      "category": "optimization"
+    },
+    {
+      "key": "M020",
+      "name": "Least-Squares Regression",
+      "section": "data-science",
+      "category": "statistical-learning"
+    },
+    {
+      "key": "M021",
+      "name": "Principal Component Analysis",
+      "section": "data-science",
+      "category": "statistical-learning"
+    },
+    {
+      "key": "M022",
+      "name": "K-Means Clustering",
+      "section": "data-science",
+      "category": "statistical-learning"
+    },
+    {
+      "key": "M023",
+      "name": "DBSCAN Clustering",
+      "section": "data-science",
+      "category": "statistical-learning"
+    },
+    {
+      "key": "M024",
+      "name": "Agglomerative Clustering",
+      "section": "data-science",
+      "category": "statistical-learning"
+    },
+    {
+      "key": "M025",
+      "name": "Decision Tree Partition",
+      "section": "data-science",
+      "category": "statistical-learning"
+    },
+    {
+      "key": "M026",
+      "name": "Support Vector Margin",
+      "section": "data-science",
+      "category": "statistical-learning"
+    },
+    {
+      "key": "M027",
+      "name": "Nearest-Neighbor Classification",
+      "section": "data-science",
+      "category": "statistical-learning"
+    },
+    {
+      "key": "M028",
+      "name": "K-Fold Cross-Validation",
+      "section": "data-science",
+      "category": "statistical-learning"
+    },
+    {
+      "key": "M029",
+      "name": "ROC Threshold Sweep",
+      "section": "data-science",
+      "category": "statistical-learning"
+    },
+    {
+      "key": "M030",
+      "name": "Confusion Matrix",
+      "section": "data-science",
+      "category": "statistical-learning"
+    },
+    {
+      "key": "M033",
+      "name": "Binary Search",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M034",
+      "name": "Merge Sort",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M035",
+      "name": "Quicksort Partition",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M036",
+      "name": "Radix Sort",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M037",
+      "name": "Binary Heap",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M038",
+      "name": "AVL Tree Rotation",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M039",
+      "name": "Linear-Probing Hash Table",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M040",
+      "name": "Union-Find",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M041",
+      "name": "Prefix Trie",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M042",
+      "name": "Breadth-First Search",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M043",
+      "name": "Depth-First Search",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M044",
+      "name": "Topological Sort",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M045",
+      "name": "Dijkstra Shortest Path",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M046",
+      "name": "Kruskal Spanning Tree",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M047",
+      "name": "Augmenting-Path Max Flow",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M048",
+      "name": "A* Search",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M049",
+      "name": "Backtracking Maze",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M050",
+      "name": "Knapsack Dynamic Programming",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M051",
+      "name": "Edit Distance",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M052",
+      "name": "Finite-State Automaton",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M053",
+      "name": "Pushdown Automaton",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M054",
+      "name": "KMP String Search",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M055",
+      "name": "Huffman Coding",
+      "section": "computing",
+      "category": "information-coding"
+    },
+    {
+      "key": "M056",
+      "name": "Run-Length Encoding",
+      "section": "computing",
+      "category": "information-coding"
+    },
+    {
+      "key": "M057",
+      "name": "LZW Dictionary Coding",
+      "section": "computing",
+      "category": "information-coding"
+    },
+    {
+      "key": "M058",
+      "name": "Arithmetic Coding",
+      "section": "computing",
+      "category": "information-coding"
+    },
+    {
+      "key": "M059",
+      "name": "Hamming Error Correction",
+      "section": "computing",
+      "category": "information-coding"
+    },
+    {
+      "key": "M060",
+      "name": "Reed-Solomon Erasure Recovery",
+      "section": "computing",
+      "category": "information-coding"
+    },
+    {
+      "key": "M061",
+      "name": "Bloom Filter",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M062",
+      "name": "Merkle Tree",
+      "section": "computing",
+      "category": "information-coding"
+    },
+    {
+      "key": "M063",
+      "name": "Quadtree Subdivision",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M064",
+      "name": "Convex Hull",
+      "section": "computing",
+      "category": "algorithms-data-structures"
+    },
+    {
+      "key": "M065",
+      "name": "Shannon Entropy",
+      "section": "computing",
+      "category": "information-coding"
+    },
+    {
+      "key": "M066",
+      "name": "Convolutional Encoder",
+      "section": "computing",
+      "category": "information-coding"
+    },
+    {
+      "key": "M067",
+      "name": "TCP Three-Way Handshake",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M068",
+      "name": "TCP Sliding Window",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M069",
+      "name": "TCP Congestion Avoidance",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M070",
+      "name": "TCP Selective Acknowledgment",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M071",
+      "name": "Recursive DNS Resolution",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M072",
+      "name": "DHCP Address Lease",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M073",
+      "name": "ARP Address Resolution",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M074",
+      "name": "Longest-Prefix Routing",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M075",
+      "name": "Network Address Port Translation",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M076",
+      "name": "IPv4 Fragmentation",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M077",
+      "name": "Token-Bucket Rate Limiting",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M078",
+      "name": "Weighted Fair Queueing",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M079",
+      "name": "De-Jitter Buffer",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M080",
+      "name": "Ethernet Collision Backoff",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M081",
+      "name": "Spanning Tree Protocol",
+      "section": "computing",
+      "category": "network-systems"
+    },
+    {
+      "key": "M082",
+      "name": "Raft Consensus",
+      "section": "computing",
+      "category": "distributed-computing"
+    },
+    {
+      "key": "M083",
+      "name": "Quorum Read/Write Intersection",
+      "section": "computing",
+      "category": "distributed-computing"
+    },
+    {
+      "key": "M084",
+      "name": "Two-Phase Commit",
+      "section": "computing",
+      "category": "distributed-computing"
+    },
+    {
+      "key": "M085",
+      "name": "Vector Clocks",
+      "section": "computing",
+      "category": "distributed-computing"
+    },
+    {
+      "key": "M086",
+      "name": "Grow-Only Counter CRDT",
+      "section": "computing",
+      "category": "distributed-computing"
+    },
+    {
+      "key": "M087",
+      "name": "Consistent Hashing",
+      "section": "computing",
+      "category": "distributed-computing"
+    },
+    {
+      "key": "M088",
+      "name": "Gossip Dissemination",
+      "section": "computing",
+      "category": "distributed-computing"
+    },
+    {
+      "key": "M089",
+      "name": "Stream Backpressure",
+      "section": "computing",
+      "category": "distributed-computing"
+    },
+    {
+      "key": "M090",
+      "name": "Publish-Subscribe",
+      "section": "computing",
+      "category": "distributed-computing"
+    },
+    {
+      "key": "M091",
+      "name": "Work-Stealing Scheduler",
+      "section": "computing",
+      "category": "runtime-storage"
+    },
+    {
+      "key": "M092",
+      "name": "Write-Ahead Logging",
+      "section": "computing",
+      "category": "runtime-storage"
+    },
+    {
+      "key": "M093",
+      "name": "LSM-Tree Compaction",
+      "section": "computing",
+      "category": "runtime-storage"
+    },
+    {
+      "key": "M094",
+      "name": "Least-Recently-Used Cache",
+      "section": "computing",
+      "category": "runtime-storage"
+    },
+    {
+      "key": "M095",
+      "name": "Tracing Garbage Collection",
+      "section": "computing",
+      "category": "runtime-storage"
+    },
+    {
+      "key": "M096",
+      "name": "Pipeline Data Hazard",
+      "section": "computing",
+      "category": "runtime-storage"
+    },
+    {
+      "key": "M097",
+      "name": "Gestalt Proximity",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M098",
+      "name": "Gestalt Common Fate",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M099",
+      "name": "Amodal Completion",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M100",
+      "name": "Kanizsa Illusory Contour",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M101",
+      "name": "Motion Parallax",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M102",
+      "name": "Binocular Disparity",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M103",
+      "name": "Aperture Problem",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M104",
+      "name": "Biological Motion",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M105",
+      "name": "Visual Pop-Out",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M106",
+      "name": "Mental Rotation",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M107",
+      "name": "Necker Cube",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M108",
+      "name": "Change Blindness",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M109",
+      "name": "Visual Crowding",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "M110",
+      "name": "Plosive Speech Release",
+      "section": "mind-society",
+      "category": "perception-communication"
+    },
+    {
+      "key": "H001",
+      "name": "Cardiac Valve Cycle",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H002",
+      "name": "Venous Muscle Pump",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H003",
+      "name": "Diaphragmatic Ventilation",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H004",
+      "name": "Alveolar Gas Exchange",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H005",
+      "name": "Alveolar Surfactant",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H006",
+      "name": "Mucociliary Escalator",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H007",
+      "name": "Swallowing Airway Protection",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H008",
+      "name": "Intestinal Segmentation",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H009",
+      "name": "Villus Nutrient Absorption",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H010",
+      "name": "Glomerular Filtration",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H011",
+      "name": "Nephron Countercurrent Multiplier",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H012",
+      "name": "Micturition Reflex",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H013",
+      "name": "Sliding Filament Contraction",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H014",
+      "name": "Antagonistic Elbow Muscles",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H015",
+      "name": "Bone Remodeling",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H016",
+      "name": "Fracture Repair",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H017",
+      "name": "Evaporative Thermoregulation",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H018",
+      "name": "Insulin-Mediated Glucose Uptake",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H019",
+      "name": "Hemoglobin Oxygen Loading",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H020",
+      "name": "Bile Emulsification",
+      "section": "human-health",
+      "category": "anatomy-physiology"
+    },
+    {
+      "key": "H021",
+      "name": "Pupillary Light Reflex",
+      "section": "human-health",
+      "category": "neuroscience-senses"
+    },
+    {
+      "key": "H022",
+      "name": "Lens Accommodation",
+      "section": "human-health",
+      "category": "neuroscience-senses"
+    },
+    {
+      "key": "H023",
+      "name": "Cochlear Tonotopy",
+      "section": "human-health",
+      "category": "neuroscience-senses"
+    },
+    {
+      "key": "H024",
+      "name": "Semicircular Canal Sensing",
+      "section": "human-health",
+      "category": "neuroscience-senses"
+    },
+    {
+      "key": "H025",
+      "name": "Patellar Stretch Reflex",
+      "section": "human-health",
+      "category": "neuroscience-senses"
+    },
+    {
+      "key": "H026",
+      "name": "Saltatory Conduction",
+      "section": "human-health",
+      "category": "neuroscience-senses"
+    },
+    {
+      "key": "H027",
+      "name": "Crossed Extensor Reflex",
+      "section": "human-health",
+      "category": "neuroscience-senses"
+    },
+    {
+      "key": "H028",
+      "name": "Pacinian Adaptation",
+      "section": "human-health",
+      "category": "neuroscience-senses"
+    },
+    {
+      "key": "H029",
+      "name": "Retinal Center-Surround Response",
+      "section": "human-health",
+      "category": "neuroscience-senses"
+    },
+    {
+      "key": "H030",
+      "name": "Vestibulo-Ocular Reflex",
+      "section": "human-health",
+      "category": "neuroscience-senses"
+    },
+    {
+      "key": "H031",
+      "name": "Hemostatic Plug",
+      "section": "human-health",
+      "category": "immunity-medicine"
+    },
+    {
+      "key": "H032",
+      "name": "Phagocytosis",
+      "section": "human-health",
+      "category": "immunity-medicine"
+    },
+    {
+      "key": "H033",
+      "name": "Antibody Neutralization",
+      "section": "human-health",
+      "category": "immunity-medicine"
+    },
+    {
+      "key": "H034",
+      "name": "Leukocyte Diapedesis",
+      "section": "human-health",
+      "category": "immunity-medicine"
+    },
+    {
+      "key": "H035",
+      "name": "Clonal Selection",
+      "section": "human-health",
+      "category": "immunity-medicine"
+    },
+    {
+      "key": "H036",
+      "name": "Immunological Memory",
+      "section": "human-health",
+      "category": "immunity-medicine"
+    },
+    {
+      "key": "H037",
+      "name": "Balloon-Expanded Stent",
+      "section": "human-health",
+      "category": "immunity-medicine"
+    },
+    {
+      "key": "H038",
+      "name": "Hemodialysis Membrane Exchange",
+      "section": "human-health",
+      "category": "immunity-medicine"
+    },
+    {
+      "key": "H039",
+      "name": "Re-Epithelialization",
+      "section": "human-health",
+      "category": "immunity-medicine"
+    },
+    {
+      "key": "H040",
+      "name": "Sprouting Angiogenesis",
+      "section": "human-health",
+      "category": "immunity-medicine"
+    },
+    {
+      "key": "B001",
+      "name": "Replication Fork",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B002",
+      "name": "DNA Transcription",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B003",
+      "name": "RNA Splicing",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B004",
+      "name": "Ribosomal Translation",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B005",
+      "name": "Lac Operon Induction",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B006",
+      "name": "Nucleosome Packaging",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B007",
+      "name": "Polymerase Chain Reaction",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B008",
+      "name": "DNA Gel Electrophoresis",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B009",
+      "name": "Restriction-Ligation Cloning",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B010",
+      "name": "CRISPR-Cas9 Targeting",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B011",
+      "name": "Mitotic Chromosome Segregation",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B012",
+      "name": "Meiotic Reduction",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B013",
+      "name": "Meiotic Crossing Over",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B014",
+      "name": "Bacterial Conjugation",
+      "section": "life-sciences",
+      "category": "molecular-genetics"
+    },
+    {
+      "key": "B015",
+      "name": "Apoptotic Fragmentation",
+      "section": "life-sciences",
+      "category": "cellular-microbiology"
+    },
+    {
+      "key": "B016",
+      "name": "Macroautophagy",
+      "section": "life-sciences",
+      "category": "cellular-microbiology"
+    },
+    {
+      "key": "B017",
+      "name": "Kinesin Cargo Transport",
+      "section": "life-sciences",
+      "category": "cellular-microbiology"
+    },
+    {
+      "key": "B018",
+      "name": "ATP Synthase Rotary Catalysis",
+      "section": "life-sciences",
+      "category": "cellular-microbiology"
+    },
+    {
+      "key": "B019",
+      "name": "Sodium-Potassium Pump",
+      "section": "life-sciences",
+      "category": "cellular-microbiology"
+    },
+    {
+      "key": "B020",
+      "name": "Plant Cell Plasmolysis",
+      "section": "life-sciences",
+      "category": "cellular-microbiology"
+    },
+    {
+      "key": "B021",
+      "name": "Stomatal Turgor",
+      "section": "life-sciences",
+      "category": "terrestrial-ecology"
+    },
+    {
+      "key": "B022",
+      "name": "Phototropic Growth",
+      "section": "life-sciences",
+      "category": "terrestrial-ecology"
+    },
+    {
+      "key": "B023",
+      "name": "Xylem Cohesion-Tension",
+      "section": "life-sciences",
+      "category": "terrestrial-ecology"
+    },
+    {
+      "key": "B024",
+      "name": "Phloem Pressure Flow",
+      "section": "life-sciences",
+      "category": "terrestrial-ecology"
+    },
+    {
+      "key": "B025",
+      "name": "Root-Nodule Nitrogen Fixation",
+      "section": "life-sciences",
+      "category": "terrestrial-ecology"
+    },
+    {
+      "key": "B026",
+      "name": "Mycorrhizal Exchange",
+      "section": "life-sciences",
+      "category": "terrestrial-ecology"
+    },
+    {
+      "key": "B027",
+      "name": "Pollen Tube Guidance",
+      "section": "life-sciences",
+      "category": "terrestrial-ecology"
+    },
+    {
+      "key": "B028",
+      "name": "Angiosperm Double Fertilization",
+      "section": "life-sciences",
+      "category": "terrestrial-ecology"
+    },
+    {
+      "key": "B029",
+      "name": "Natural Selection",
+      "section": "life-sciences",
+      "category": "ecology-evolution"
+    },
+    {
+      "key": "B030",
+      "name": "Genetic Drift",
+      "section": "life-sciences",
+      "category": "ecology-evolution"
+    },
+    {
+      "key": "B031",
+      "name": "Allopatric Speciation",
+      "section": "life-sciences",
+      "category": "ecology-evolution"
+    },
+    {
+      "key": "B032",
+      "name": "Predator-Prey Cycle",
+      "section": "life-sciences",
+      "category": "ecology-evolution"
+    },
+    {
+      "key": "B033",
+      "name": "Keystone Predator Removal",
+      "section": "life-sciences",
+      "category": "ecology-evolution"
+    },
+    {
+      "key": "B034",
+      "name": "Ecological Succession",
+      "section": "life-sciences",
+      "category": "ecology-evolution"
+    },
+    {
+      "key": "B035",
+      "name": "Metapopulation Recolonization",
+      "section": "life-sciences",
+      "category": "ecology-evolution"
+    },
+    {
+      "key": "C001",
+      "name": "Heterogeneous Hydrogenation",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C002",
+      "name": "Competitive Enzyme Inhibition",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C003",
+      "name": "Micelle Self-Assembly",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C004",
+      "name": "Liquid-Liquid Extraction",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C005",
+      "name": "Ion-Exchange Softening",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C006",
+      "name": "Adsorption Breakthrough",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C007",
+      "name": "Buffer Action",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C008",
+      "name": "SN2 Inversion",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C009",
+      "name": "Fischer Esterification",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C010",
+      "name": "Chain-Growth Polymerization",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C011",
+      "name": "Elastomer Crosslinking",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C012",
+      "name": "Sol-Gel Network Formation",
+      "section": "chemistry",
+      "category": "molecular-chemistry"
+    },
+    {
+      "key": "C013",
+      "name": "Edge Dislocation Glide",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C014",
+      "name": "Precipitation Strengthening",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C015",
+      "name": "Curvature-Driven Grain Growth",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C016",
+      "name": "Solid-State Sintering",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C017",
+      "name": "Martensitic Transformation",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C018",
+      "name": "Shape-Memory Recovery",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C019",
+      "name": "Glass Tempering",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C020",
+      "name": "Laminated Glass Retention",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C021",
+      "name": "Pitting Corrosion",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C022",
+      "name": "Aluminum Anodizing",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C023",
+      "name": "Electroplating",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C024",
+      "name": "Atomic Layer Deposition",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C025",
+      "name": "Photolithographic Pattern Transfer",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C026",
+      "name": "Injection Molding",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C027",
+      "name": "Polymer Extrusion",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C028",
+      "name": "Extrusion Blow Molding",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C029",
+      "name": "Hot Rolling Reduction",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C030",
+      "name": "Continuous Casting",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "C031",
+      "name": "Catalytic Cracking",
+      "section": "chemistry",
+      "category": "industrial-chemistry"
+    },
+    {
+      "key": "C032",
+      "name": "Haber-Bosch Synthesis",
+      "section": "chemistry",
+      "category": "industrial-chemistry"
+    },
+    {
+      "key": "C033",
+      "name": "Chlor-Alkali Membrane Cell",
+      "section": "chemistry",
+      "category": "industrial-chemistry"
+    },
+    {
+      "key": "C034",
+      "name": "Basic Oxygen Steelmaking",
+      "section": "chemistry",
+      "category": "industrial-chemistry"
+    },
+    {
+      "key": "C035",
+      "name": "Froth Flotation",
+      "section": "chemistry",
+      "category": "industrial-chemistry"
+    },
+    {
+      "key": "C036",
+      "name": "Spray Drying",
+      "section": "chemistry",
+      "category": "industrial-chemistry"
+    },
+    {
+      "key": "C037",
+      "name": "Freeze Drying",
+      "section": "chemistry",
+      "category": "industrial-chemistry"
+    },
+    {
+      "key": "C038",
+      "name": "Gas-Solid Fluidization",
+      "section": "chemistry",
+      "category": "industrial-chemistry"
+    },
+    {
+      "key": "C039",
+      "name": "Vacuum Degassing of Steel",
+      "section": "chemistry",
+      "category": "industrial-chemistry"
+    },
+    {
+      "key": "C040",
+      "name": "Laser Powder Bed Fusion",
+      "section": "chemistry",
+      "category": "materials-processing"
+    },
+    {
+      "key": "S001",
+      "name": "Inverted Pendulum Stabilization",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S002",
+      "name": "Ball-and-Beam Control",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S003",
+      "name": "PID Position Tracking",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S004",
+      "name": "Integrator Anti-Windup",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S005",
+      "name": "Model Predictive Control",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S006",
+      "name": "Differential Drive",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S007",
+      "name": "Inverse Kinematics",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S008",
+      "name": "Kinematic Singularity",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S009",
+      "name": "Redundant Manipulator Null Motion",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S010",
+      "name": "Compliant Impedance Control",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S011",
+      "name": "SLAM Loop Closure",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S012",
+      "name": "Configuration-Space Obstacles",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S013",
+      "name": "Artificial Potential Field Navigation",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S014",
+      "name": "Hybrid Motion-Force Control",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S015",
+      "name": "Force-Closure Grasp",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S016",
+      "name": "Omnidirectional Mecanum Drive",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S017",
+      "name": "Tendon-Driven Soft Gripper",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S018",
+      "name": "Backlash Deadband",
+      "section": "engineering-technology",
+      "category": "control-robotics"
+    },
+    {
+      "key": "S019",
+      "name": "Sampling Aliasing",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S020",
+      "name": "Amplitude Quantization",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S021",
+      "name": "Successive-Approximation ADC",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S022",
+      "name": "Sigma-Delta Modulation",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S023",
+      "name": "Lock-In Detection",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S024",
+      "name": "Phase-Locked Loop",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S025",
+      "name": "Quadrature Encoder",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S026",
+      "name": "Strain-Gauge Wheatstone Bridge",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S027",
+      "name": "LVDT Displacement Sensor",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S028",
+      "name": "Time-Domain Reflectometry",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S029",
+      "name": "Oscilloscope Triggering",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S030",
+      "name": "Sample-and-Hold",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S031",
+      "name": "Pulse-Width Modulation",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S032",
+      "name": "Heterodyne Frequency Mixing",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S033",
+      "name": "Phased-Array Beam Steering",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S034",
+      "name": "Capacitive Touch Sensing",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S035",
+      "name": "MEMS Capacitive Accelerometer",
+      "section": "engineering-technology",
+      "category": "instrumentation-signals"
+    },
+    {
+      "key": "S036",
+      "name": "Pumped Hydroelectric Storage",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S037",
+      "name": "Flywheel Energy Storage",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S038",
+      "name": "PEM Fuel Cell",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S039",
+      "name": "Redox Flow Battery",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S040",
+      "name": "Wind-Turbine Pitch Regulation",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S041",
+      "name": "H-Bridge Inverter",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S042",
+      "name": "Buck Converter",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S043",
+      "name": "Transformer Mutual Induction",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S044",
+      "name": "Three-Phase Induction Motor",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S045",
+      "name": "Generator Synchronization",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S046",
+      "name": "Grid Frequency Response",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S047",
+      "name": "Regenerative Braking",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S048",
+      "name": "Reversible Heat Pump",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S049",
+      "name": "Compressed-Air Energy Storage",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S050",
+      "name": "Point-Absorber Wave Generator",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S051",
+      "name": "Binary Geothermal Power",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S052",
+      "name": "Molten-Salt Thermal Storage",
+      "section": "engineering-technology",
+      "category": "energy-systems"
+    },
+    {
+      "key": "S073",
+      "name": "Seismic Base Isolation",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S074",
+      "name": "Tuned Mass Damper",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S075",
+      "name": "Prestressed Concrete",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S076",
+      "name": "Truss Load Paths",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S077",
+      "name": "Arch Thrust",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S078",
+      "name": "Cantilever Deflection",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S079",
+      "name": "Cable-Stayed Load Transfer",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S080",
+      "name": "Bridge Expansion Joint",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S081",
+      "name": "Tunnel-Boring Advance",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S082",
+      "name": "Clarifier Sedimentation",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S083",
+      "name": "Activated-Sludge Treatment",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S084",
+      "name": "Roundabout Gap Acceptance",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S085",
+      "name": "Zipper Merge",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S086",
+      "name": "Traffic Shock Wave",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S087",
+      "name": "Railway Track Circuit",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S088",
+      "name": "Ship-to-Shore Container Crane",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S053",
+      "name": "Thermohaline Overturning",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S054",
+      "name": "Coastal Upwelling",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S055",
+      "name": "Ekman Spiral",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S056",
+      "name": "Estuarine Salt Wedge",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S057",
+      "name": "Turbidity Current",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S058",
+      "name": "Rip-Current Circulation",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S059",
+      "name": "Longshore Sediment Transport",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S060",
+      "name": "Tsunami Shoaling",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S061",
+      "name": "Ocean Internal Wave",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S062",
+      "name": "Groundwater Cone of Depression",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S063",
+      "name": "Artesian Aquifer",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S064",
+      "name": "Meander Cutoff",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S065",
+      "name": "Watershed Divide",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S066",
+      "name": "Impervious Runoff",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S067",
+      "name": "Ice-Albedo Feedback",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S068",
+      "name": "Ice-Shelf Buttressing",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S069",
+      "name": "Thermokarst Thaw Slump",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S070",
+      "name": "El Nino-Southern Oscillation",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S071",
+      "name": "Atmospheric River",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S072",
+      "name": "Orographic Rain Shadow",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S089",
+      "name": "Rocket Stage Separation",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S090",
+      "name": "Reaction-Wheel Attitude Control",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S091",
+      "name": "Thruster Docking",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S092",
+      "name": "Gridded Ion Thruster",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S093",
+      "name": "Aerobraking",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S094",
+      "name": "Ablative Heat Shield",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S095",
+      "name": "Sky-Crane Landing",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S096",
+      "name": "Webb Sunshield Deployment",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S097",
+      "name": "Rocker-Bogie Suspension",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S098",
+      "name": "Exoplanet Transit Photometry",
+      "section": "astronomy-space",
+      "category": "astronomy-astrometry"
+    },
+    {
+      "key": "S099",
+      "name": "Radial-Velocity Planet Detection",
+      "section": "astronomy-space",
+      "category": "astronomy-astrometry"
+    },
+    {
+      "key": "S100",
+      "name": "Astronomical Aperture Synthesis",
+      "section": "astronomy-space",
+      "category": "astronomy-astrometry"
+    },
+    {
+      "key": "S101",
+      "name": "Adaptive Optics",
+      "section": "astronomy-space",
+      "category": "astronomy-astrometry"
+    },
+    {
+      "key": "S102",
+      "name": "Segmented-Mirror Phasing",
+      "section": "astronomy-space",
+      "category": "astronomy-astrometry"
+    },
+    {
+      "key": "S103",
+      "name": "Touch-and-Go Asteroid Sampling",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S104",
+      "name": "Star-Tracker Attitude Determination",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S105",
+      "name": "Aerogel Dust Capture",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S106",
+      "name": "Market Clearing",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S107",
+      "name": "Order Book Matching",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S108",
+      "name": "Comparative Advantage",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S109",
+      "name": "Cobweb Price Dynamics",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S110",
+      "name": "Bank Run",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S111",
+      "name": "Ascending Auction",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S112",
+      "name": "Public Goods Free Riding",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S113",
+      "name": "Common-Pool Governance",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S114",
+      "name": "Schelling Segregation Model",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S115",
+      "name": "Bullwhip Effect",
+      "section": "mind-society",
+      "category": "economics-collective"
+    }
+  ],
+  "rejected": [
+    {
+      "scope": "computing",
+      "name": "Galton board",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Brownian random walk",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Percolation threshold",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Binomial pegboard",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Gaussian random walk",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Bivariate-normal ellipse",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Covariance ellipsoid",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Linear discriminant boundary",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Lasso descent",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Ridge regression",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Newton optimization",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Stochastic gradient descent",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Momentum optimization",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "HDBSCAN",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "K-medoids",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Mean shift",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Bubble sort",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Insertion sort",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Selection sort",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Heapsort",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Red-black rotation",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Splay tree",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Cuckoo hashing",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Counting Bloom filter",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Cuckoo filter",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Parity bit",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Reed-Solomon error decoding",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Paxos",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Zab",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Raft leader election alone",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Virtual-node consistent hashing",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Lamport scalar clock",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Gossip anti-entropy",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Leaky bucket",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "DNS cache alone",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "DHCP renewal alone",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Stop-and-wait ARQ",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Selective-repeat ARQ",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Phi phenomenon",
+      "reason": "Already represented by the baseline or an accepted subject"
+    },
+    {
+      "scope": "computing",
+      "name": "Gaussian bell curve",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Zipf rank bars",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Benford digit wheel",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "P-value scanner",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Correlation matrix",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Logistic sigmoid",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "t-SNE",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Random forest",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Gradient boosting",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "OPTICS",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Spectral clustering",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Normalizing flow",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Backpropagation",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Attention heatmap",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "B-tree split",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Skip list",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "LDPC belief propagation",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Turbo encoder",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Blockchain",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Binocular rivalry",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "computing",
+      "name": "Stroop interference",
+      "reason": "Proposed design depends on labels, is static, is misleading, or cannot preserve its defining mechanism at tile scale"
+    },
+    {
+      "scope": "life",
+      "name": "ECG cardiac tracing",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Arterial Pulse Wave",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Synaptic Transmitter Release",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Neuron Firing Tree",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Rotating Double Helix",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Erythrocyte Stream",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Viral Capsid Spin",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Phage DNA Injection",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Colony Growth Dish",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Bronchodilation Loop",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Alveolar Inflation",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Lymphatic Valve Pump",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Venous Valve Closure",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Aortic Valve Opening",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Intestinal Peristalsis",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Neuromuscular Junction",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Neuromuscular Toxin Block",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Refractory Wave",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Isolated Hair-Cell Bending",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Otolith Tilt Sensor",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Gravitropic Shoot Bending",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Heliotropic Tracking",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Transpiration Alone",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Root Water Uptake",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Pollen Germination Alone",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Embryonic Cleavage",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Binary Fission",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Bacterial Transformation",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Bacterial Transduction",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Genetic Bottleneck",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Founder Effect",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Fractional Distillation",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Reflux Condenser",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Step-Growth Polymerization",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Vulcanization",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Thermal Cure Network",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Membrane Dialysis",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Anodizing Color Sweep",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Cold Rolling",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Injection Blow Molding",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Chemical Vapor Deposition",
+      "reason": "Baseline alias or proposed visual mechanism overlaps an existing or accepted concept"
+    },
+    {
+      "scope": "life",
+      "name": "Glowing Mitochondrion",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "Brainwave Monitor",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "Blood Pressure Dial",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "EEG Strip",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "Pulse Oximeter Display",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "Full Phototransduction Cascade",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "HPA Endocrine Axis",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "Thyroid Feedback Axis",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "Renin-Angiotensin Cascade",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "Circadian Clock Face",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "Adaptive Radiation",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "Pulsing Food Web",
+      "reason": "Label-dependent or decorative design; causal pathway cannot be communicated legibly in the proposed tile"
+    },
+    {
+      "scope": "life",
+      "name": "Color Opponency",
+      "reason": "Reserved for another research territory to avoid a disciplinary duplicate; not selected by this pass"
+    },
+    {
+      "scope": "life",
+      "name": "Carbon Cycle",
+      "reason": "Reserved for another research territory to avoid a disciplinary duplicate; not selected by this pass"
+    },
+    {
+      "scope": "systems",
+      "name": "Watt Governor",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Bimetal Room Thermostat",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Passive Spring-Mass Damper",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Peristaltic Infusion Pump",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Hydraulic Ram Pump",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Four-Bar Pick-and-Place",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Walking Linkage Robot",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Earth Satellite Orbit",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Gravity-Assist Flyby",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Bielliptic Transfer",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Radar Range Sweep",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Active Sonar Ping",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Doppler Ambulance",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Michelson Displacement Meter",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Ship Canal Lift Lock",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Bascule Shipping Bridge",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Railway Level Crossing",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Solar Sail Deployment",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Cup Anemometer",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Hydraulic Jump Spillway",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Delta-Sigma Converter",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Rotary Variable Differential Transformer",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Single-Channel Optical Encoder",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Electric Motor PWM",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Robot Pick-and-Place",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "SCARA Arm",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Warehouse AGV",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Omnidirectional Roller Cart",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Acoustic Phased Array",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Optical Time-Domain Reflectometry",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Sea-Ice Reflectivity Loop",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Global Ocean Conveyor",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "La Nina Cycle",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Oxbow Lake Formation",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Flywheel UPS",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Tokamak Power Plant",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Stellarator Generator",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Rocket Launch Sequence",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Pumped Heat Storage",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Green-Wave Traffic Signals",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "PID Gain-Tuning Plot",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "Little's Law Checkout",
+      "reason": "Baseline alias or mechanism already covered in the selected set"
+    },
+    {
+      "scope": "systems",
+      "name": "GPS Receiver Dashboard",
+      "reason": "Proposed scene lacks a legible defined mechanism or depends on a miniature dashboard"
+    },
+    {
+      "scope": "systems",
+      "name": "Smart Grid Control Room",
+      "reason": "Proposed scene lacks a legible defined mechanism or depends on a miniature dashboard"
+    },
+    {
+      "scope": "systems",
+      "name": "Predictive Maintenance Gauge",
+      "reason": "Proposed scene lacks a legible defined mechanism or depends on a miniature dashboard"
+    },
+    {
+      "scope": "systems",
+      "name": "Weather Forecast Console",
+      "reason": "Proposed scene lacks a legible defined mechanism or depends on a miniature dashboard"
+    },
+    {
+      "scope": "systems",
+      "name": "Port Throughput Dashboard",
+      "reason": "Proposed scene lacks a legible defined mechanism or depends on a miniature dashboard"
+    },
+    {
+      "scope": "systems",
+      "name": "Spacecraft Telemetry Panel",
+      "reason": "Proposed scene lacks a legible defined mechanism or depends on a miniature dashboard"
+    },
+    {
+      "scope": "systems",
+      "name": "Balance-of-Payments Flow",
+      "reason": "Proposed scene lacks a legible defined mechanism or depends on a miniature dashboard"
+    },
+    {
+      "scope": "systems",
+      "name": "Carbon Credit Ticker",
+      "reason": "Proposed scene lacks a legible defined mechanism or depends on a miniature dashboard"
+    },
+    {
+      "scope": "systems",
+      "name": "General Economic Growth",
+      "reason": "Proposed scene lacks a legible defined mechanism or depends on a miniature dashboard"
+    },
+    {
+      "scope": "systems",
+      "name": "Quantum Navigation Compass",
+      "reason": "Proposed scene lacks a legible defined mechanism or depends on a miniature dashboard"
+    },
+    {
+      "scope": "systems",
+      "name": "Lithium-Ion Intercalation",
+      "reason": "Not selected: lower gap-coverage value or held for chemistry review"
+    },
+    {
+      "scope": "systems",
+      "name": "Lunar Space Elevator",
+      "reason": "Not selected: lower gap-coverage value or held for chemistry review"
+    },
+    {
+      "scope": "systems",
+      "name": "Orbital Ring Megastructure",
+      "reason": "Not selected: lower gap-coverage value or held for chemistry review"
+    }
+  ]
+}

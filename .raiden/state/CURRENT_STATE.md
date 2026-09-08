@@ -1,7 +1,7 @@
 # Current State
 
 **Branch:** main
-**Deployment:** Live at https://afterglows.starlightdaemon.dev/ via D-003's allowlisted GitHub Actions Pages artifact
+**Deployment:** Existing pre-expansion release live at https://afterglows.starlightdaemon.dev/ via D-003's allowlisted GitHub Actions Pages artifact; the 945-concept expansion is not deployed
 
 ---
 
@@ -27,23 +27,29 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 - Core theme fonts are vendored under `assets/fonts/`; the deployed artifact has no Google Fonts runtime dependency.
 - Locked npm dependency graph reports zero known vulnerabilities after updating
   transitive `qs` to 6.16.0.
-- Concepts gallery contains 660 concepts across 9 top-level sections and 43
-  definitive category folders. The former Physics collection is integrated
-  into the same catalog and renderer; component tags remain stable while
-  source paths follow the unified taxonomy.
+- The Concepts manifest and taxonomy are the authoritative catalog inventory.
+  The former Physics collection uses the same catalog and renderer; component
+  tags remain stable while source paths follow the unified taxonomy (D-004).
 - Stargate removed from Afterglows; it now lives in its own standalone repo (`E:\Citadel\Stargate`).
 - Dead Stargate UI hooks and dead media/sound code removed.
 - `backups/` directory excluded from git (local `.gitignore` entry).
 - `node_modules/` present (npm project); excluded from git.
 
+- The operator-scoped gallery expansion is reviewed, validated, and locally
+  committed. Implementation checkpoint:
+  `5f50f196d314e472398c64c44ef636f83698c290`. It has not been pushed,
+  released, or deployed. See
+  `SNAPSHOTS/gallery-expansion/closeout-report.md` for verification and limitations.
+
 ## In Progress
 
-- Per-concept geometric-motion refinement pass across the unified Concepts
-  gallery, most recently the physical-science categories.
+- No gallery-expansion work is in progress. The Afterglows Visual Standard
+  Campaign may begin from this clean local checkpoint but has not begun.
 
 ## Not Yet Done
 
-- No blocking work identified.
+- The Afterglows Visual Standard Campaign remains available as the next
+  operator-directed body of work.
 
 ## Known Constraints
 
