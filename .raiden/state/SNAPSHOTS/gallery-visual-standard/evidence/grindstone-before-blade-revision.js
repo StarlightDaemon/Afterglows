@@ -382,7 +382,7 @@ const visualStandardV2Styles = `
 }
 `;
 const visualStandardV2Markup = `
-<svg class="agvs2" viewBox="0 0 140 140" role="img" aria-label="A foot pedal drives a rigid pitman and rotating crank. The grindstone dips into a water trough while a wooden-handled knife holds its bright cutting bevel against the upper left rim.">
+<svg class="agvs2" viewBox="0 0 140 140" role="img" aria-label="A foot pedal drives a rigid pitman and rotating crank. The grindstone dips into a water trough while a tool rests against its upper left rim.">
 <title>TREADLE GRINDSTONE</title>
 <rect x="4" y="4" width="132" height="132" fill="#101914" rx="7" stroke="#3b5043"/>
 <text x="12" y="19" fill="#e3d6b9" font-size="7.5">TREADLE GRINDSTONE</text>
@@ -417,14 +417,8 @@ const visualStandardV2Markup = `
 <circle cx="42" cy="0" r="2" fill="#f0e4c9" />
 </g>
 <circle cx="25" cy="111" r="3" fill="#b3c2ad" />
-<g transform="translate(65 46) rotate(-36.86989765)">
-<path d="M-31 -10 H1 Q8 -10 12 -3 Q7 0 0 0 H-31Z" fill="#b9c9c7" stroke="#526b68" stroke-width=".8"/>
-<path d="M-31 -2 H0 Q7 -2 12 -3 Q7 0 0 0 H-31Z" fill="#eef2df"/>
-<rect x="-52" y="-10" width="21" height="10" fill="#795032" rx="2" stroke="#bc9260" stroke-width=".8"/>
-<rect x="-33" y="-10" width="3" height="10" fill="#d2c4a0" />
-<circle cx="-47" cy="-5" r="1" fill="#dbc48d" />
-<circle cx="-39" cy="-5" r="1" fill="#dbc48d" />
-</g>
+<path d="M26 44 L58 53 L60 56 L55 57 L24 48Z" fill="#c1c9bd" stroke="#7d9685"/>
+<line x1="15" y1="42" x2="28" y2="46" stroke="#b18a54" stroke-width="6" stroke-linecap="round" />
 <text x="14" y="31" fill="#b0c3b5" font-size="7">WET STONE</text>
 <text x="13" y="130" fill="#c3b290" font-size="6.5">TREADLE → CRANK → WHEEL</text>
 </svg>

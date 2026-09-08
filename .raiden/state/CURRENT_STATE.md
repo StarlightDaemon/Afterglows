@@ -43,13 +43,17 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 
 ## In Progress
 
-- No gallery-expansion work is in progress. The Afterglows Visual Standard
-  Campaign may begin from this clean local checkpoint but has not begun.
+- The Afterglows Visual Standard Campaign has all five Wave 01 candidates
+  approved. See `SNAPSHOTS/gallery-visual-standard/wave-01.json` and `wave-01-report.md`
+  in that directory for decisions, verification, evidence, and the local preview.
+  The revised grindstone is approved at 5/5. The operator requests roughly 20
+  revisions per review checkpoint and continuous correction between checkpoints;
+  see `campaign-workflow.md` in that directory. Local checkpoint commits for accepted batches
+  and automatic continuation are explicitly authorized. Wave 01 is ready to checkpoint.
 
 ## Not Yet Done
 
-- The Afterglows Visual Standard Campaign remains available as the next
-  operator-directed body of work.
+- Checkpoint Wave 01 and prepare the next campaign review (LOOP-002).
 
 ## Known Constraints
 

@@ -1,0 +1,792 @@
+{
+  "wave": 1,
+  "status": "complete-approved-checkpoint-authorized",
+  "startingCommit": "dd7e22168cb50a8e7cf6af708c1c9f0d27af60f6",
+  "usage": {
+    "weeklyUsedPercent": 16,
+    "fiveHour": "not-applicable-standard-codex; operator confirmed",
+    "checks": [
+      {
+        "stage": "before implementation",
+        "weeklyUsedPercent": 8
+      },
+      {
+        "stage": "after five modifications",
+        "weeklyUsedPercent": 9
+      },
+      {
+        "stage": "operator handoff",
+        "weeklyUsedPercent": 11
+      },
+      {
+        "stage": "after operator review",
+        "weeklyUsedPercent": 14
+      },
+      {
+        "stage": "before requested blade revision",
+        "weeklyUsedPercent": 15
+      },
+      {
+        "stage": "revised blade handoff",
+        "weeklyUsedPercent": 16
+      },
+      {
+        "stage": "after final Wave 01 approval",
+        "weeklyUsedPercent": 16
+      }
+    ]
+  },
+  "concepts": [
+    {
+      "tag": "concept-solenoid-engine",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The plunger, rod and crank drift apart; the coil pulse does not explain a timed pull.",
+      "candidateVersion": "v2",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "operatorDecision": "Approve",
+      "rating": 5,
+      "comment": "",
+      "verificationResult": "pass: candidate phases, live cycle, stable reduced-motion CSS, cleanup/reconnect, gallery versions/Copy/source, Codex/Astra/6 filters and 390px viewport",
+      "visualEvidencePaths": [
+        "evidence/assessment-1-25.jpg",
+        "evidence/assessment-1-75.jpg",
+        "evidence/candidate-0-upper.jpg",
+        "evidence/candidate-25-upper.jpg",
+        "evidence/candidate-50-upper.jpg",
+        "evidence/candidate-75-upper.jpg",
+        "evidence/candidate-90-upper.jpg",
+        "evidence/reduced-upper.jpg",
+        "evidence/live-upper.jpg",
+        "evidence/gallery-mobile-1.jpg"
+      ],
+      "sourceHashAfterCompletion": "8762a2b4ecba53c13e853a5d932feb86bc90598fc6af378e16c875cf60cd5605",
+      "deferredConcern": null,
+      "previousSourceSha256": "4a62c80fe781a59fc047d4babc66b8ade4fad59a9467c600d5743a60db6a50e8",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 1.2,
+      "implementationNote": "Rigid 35-unit rod; magnetic pull is timed to retraction, with flywheel-driven return. Educational timing schematic.",
+      "references": [],
+      "previousMetadata": {
+        "updated": "2026-08-15T00:10:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      }
+    },
+    {
+      "tag": "concept-jansen-linkage",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v1",
+      "classification": "defer",
+      "decisionReason": "Foot tracer moves independently of articulated bars. Defer a full kinematic reconstruction with a verified foot locus.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "source and desktop phase assessment; not accepted",
+      "visualEvidencePaths": [
+        "evidence/assessment-1-25.jpg",
+        "evidence/assessment-1-75.jpg"
+      ],
+      "sourceHashAfterCompletion": "451149e747c59b7d0e1a99749e91db719aedc93fcf02a554af4ad14f49f19802",
+      "deferredConcern": "Foot tracer moves independently of articulated bars. Defer a full kinematic reconstruction with a verified foot locus."
+    },
+    {
+      "tag": "concept-trip-hammer",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v1",
+      "classification": "defer",
+      "decisionReason": "Cam and helve lack maintained contact, lift direction is inconsistent with the left hammer, and sparks run beyond impact. Defer cam contact/release geometry.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "source and desktop phase assessment; not accepted",
+      "visualEvidencePaths": [
+        "evidence/assessment-1-25.jpg",
+        "evidence/assessment-1-75.jpg"
+      ],
+      "sourceHashAfterCompletion": "f1bc980044854fe4a2107df791903a862ed27a991ab0502a6f5d9749b22c6004",
+      "deferredConcern": "Cam and helve lack maintained contact, lift direction is inconsistent with the left hammer, and sparks run beyond impact. Defer cam contact/release geometry."
+    },
+    {
+      "tag": "concept-pantograph",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v1",
+      "classification": "defer",
+      "decisionReason": "Rotating rigid scaffold does not connect to the two traced paths; the 2.5:1 claim needs a solved scaling linkage. Defer geometric reconstruction.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "source and desktop phase assessment; not accepted",
+      "visualEvidencePaths": [
+        "evidence/assessment-1-25.jpg",
+        "evidence/assessment-1-75.jpg"
+      ],
+      "sourceHashAfterCompletion": "7843c642c5923ad11f96c124129ebfa2890731e559c9c7914af3137f903e8cc2",
+      "deferredConcern": "Rotating rigid scaffold does not connect to the two traced paths; the 2.5:1 claim needs a solved scaling linkage. Defer geometric reconstruction."
+    },
+    {
+      "tag": "concept-peaucellier-linkage",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v1",
+      "classification": "defer",
+      "decisionReason": "Rhombus bars stay fixed while vertices and tracer move separately. Defer exact linkage inversion and constraint validation.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "source and desktop phase assessment; not accepted",
+      "visualEvidencePaths": [
+        "evidence/assessment-1-25.jpg",
+        "evidence/assessment-1-75.jpg"
+      ],
+      "sourceHashAfterCompletion": "a729a2504190194884944716cd0d37c6303289360303d1bb91006b67c8a30f23",
+      "deferredConcern": "Rhombus bars stay fixed while vertices and tracer move separately. Defer exact linkage inversion and constraint validation."
+    },
+    {
+      "tag": "concept-treadwheel-crane",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The wheel turns one way while the hoist independently rises and falls; the rope does not reach the windlass.",
+      "candidateVersion": "v2",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "operatorDecision": "Approve",
+      "rating": 5,
+      "comment": "",
+      "verificationResult": "pass: candidate phases, live cycle, stable reduced-motion CSS, cleanup/reconnect, gallery versions/Copy/source, Codex/Astra/6 filters and 390px viewport",
+      "visualEvidencePaths": [
+        "evidence/assessment-2-25.jpg",
+        "evidence/assessment-2-75.jpg",
+        "evidence/candidate-0-upper.jpg",
+        "evidence/candidate-25-upper.jpg",
+        "evidence/candidate-50-upper.jpg",
+        "evidence/candidate-75-upper.jpg",
+        "evidence/candidate-90-upper.jpg",
+        "evidence/reduced-upper.jpg",
+        "evidence/live-upper.jpg",
+        "evidence/gallery-mobile-2.jpg"
+      ],
+      "sourceHashAfterCompletion": "21177268704b712e11685f05543797cdacca5a7f28b76ff5bedd382a68a5b903",
+      "deferredConcern": null,
+      "previousSourceSha256": "2daa7d60c7f48f4176b97db96779dea5cd6c93100033a03367a986d4ae5378b3",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 8,
+      "implementationNote": "Shared shaft and continuous rope route; load displacement equals windlass radius × angle. Controlled reversal closes the loop.",
+      "references": [],
+      "previousMetadata": {
+        "updated": "2026-08-15T01:54:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      }
+    },
+    {
+      "tag": "concept-forge-bellows",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "Disconnected leaves and constant packets obscure the double-chamber pump and reservoir mechanism.",
+      "candidateVersion": "v2",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "operatorDecision": "Approve",
+      "rating": 4,
+      "comment": "",
+      "verificationResult": "pass: candidate phases, live cycle, stable reduced-motion CSS, cleanup/reconnect, gallery versions/Copy/source, Codex/Astra/6 filters and 390px viewport",
+      "visualEvidencePaths": [
+        "evidence/assessment-2-25.jpg",
+        "evidence/assessment-2-75.jpg",
+        "evidence/candidate-0-upper.jpg",
+        "evidence/candidate-25-upper.jpg",
+        "evidence/candidate-50-upper.jpg",
+        "evidence/candidate-75-upper.jpg",
+        "evidence/candidate-90-upper.jpg",
+        "evidence/reduced-upper.jpg",
+        "evidence/live-upper.jpg",
+        "evidence/gallery-mobile-3.jpg"
+      ],
+      "sourceHashAfterCompletion": "58f2bd9a93221192fee967d5ef689893612cfd2a1f2515baa85fc35ac847f239",
+      "deferredConcern": null,
+      "previousSourceSha256": "6216ca69e4c205a010dd806f0e98290dd6612c7e85cc0363207e6938f9dd17e2",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 9.6,
+      "implementationNote": "Idealized double-chamber cutaway with inlet/transfer valves and weighted reservoir. Continuous delivery is balanced by periodic pump transfer.",
+      "references": [
+        "https://www.si.edu/object/forge-bellows-ca-1850:nmah_845591",
+        "https://www.nps.gov/places/blacksmith-shop-interior.htm"
+      ],
+      "previousMetadata": {
+        "updated": "2026-08-15T02:28:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      }
+    },
+    {
+      "tag": "concept-butter-churn",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The dasher emerges below the barrel and floating grains hide the agitation mechanism.",
+      "candidateVersion": "v2",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "operatorDecision": "Approve",
+      "rating": 4,
+      "comment": "",
+      "verificationResult": "pass: candidate phases, live cycle, stable reduced-motion CSS, cleanup/reconnect, gallery versions/Copy/source, Codex/Astra/6 filters and 390px viewport",
+      "visualEvidencePaths": [
+        "evidence/assessment-2-25.jpg",
+        "evidence/assessment-2-75.jpg",
+        "evidence/candidate-0-lower.jpg",
+        "evidence/candidate-25-lower.jpg",
+        "evidence/candidate-50-lower.jpg",
+        "evidence/candidate-75-lower.jpg",
+        "evidence/candidate-90-lower.jpg",
+        "evidence/reduced-lower.jpg",
+        "evidence/live-lower.jpg",
+        "evidence/gallery-mobile-4.jpg"
+      ],
+      "sourceHashAfterCompletion": "8703ad500a455430ce1c9580f4bd4900d4e78c3794f20ac8de775cf4f094eaf7",
+      "deferredConcern": null,
+      "previousSourceSha256": "7c769b2f7fbcebc53dc9147eae0fa925e4daae14fb2d99e63a9d714c4c4a34c8",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 4,
+      "implementationNote": "Cutaway preserves the wooden craft treatment; a perforated dasher stays within the cream and flow reverses with the stroke. Butter formation is not instantaneous.",
+      "references": [],
+      "previousMetadata": {
+        "updated": "2026-08-15T02:30:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      }
+    },
+    {
+      "tag": "concept-treadle-grindstone",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The independent pedal and wheel periods disagree and the pitman stretches instead of connecting fixed-length joints.",
+      "candidateVersion": "v2",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "operatorDecision": "Approve",
+      "rating": 5,
+      "comment": "",
+      "verificationResult": "pass: revised blade phase/live/reduced-motion/narrow comparison and reconnect; prior gallery integration checks retained with unchanged component lifecycle, CSS, manifest and renderer",
+      "visualEvidencePaths": [
+        "evidence/grindstone-blade-revision-0.jpg",
+        "evidence/grindstone-blade-revision-25.jpg",
+        "evidence/grindstone-blade-revision-50.jpg",
+        "evidence/grindstone-blade-revision-75.jpg",
+        "evidence/grindstone-blade-revision-90.jpg",
+        "evidence/grindstone-blade-revision-live.jpg",
+        "evidence/grindstone-blade-revision-reduced.jpg",
+        "evidence/grindstone-blade-revision-mobile.jpg"
+      ],
+      "sourceHashAfterCompletion": "680ca006a4bee6558c0c3198635cd2d76f15956b3057bf97743cc975a768e706",
+      "deferredConcern": null,
+      "previousSourceSha256": "8574b733b3d380c8bb393672a426318be25073c08c248285a9db967aee856a87",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 2.4,
+      "implementationNote": "Solved four-bar geometry keeps both pitman endpoints attached. A tapered steel knife, bright bevel, ferrule and riveted wooden handle clarify the tool. Its cutting edge is tangent to the wet stone at the upper-left rim.",
+      "references": [],
+      "previousMetadata": {
+        "updated": "2026-08-15T02:31:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "revisionHistory": [
+        {
+          "revision": 1,
+          "request": "Knife or blade is a bit odd looking",
+          "decision": "Revise",
+          "rating": 4,
+          "previousSourceHash": "5216979fdfb236e8d9d5114ec66d062affcb7225663aec2bbb147373e42c0f67",
+          "previousSourcePath": "evidence/grindstone-before-blade-revision.js",
+          "previousVisualEvidencePaths": [
+            "evidence/assessment-2-25.jpg",
+            "evidence/assessment-2-75.jpg",
+            "evidence/candidate-0-lower.jpg",
+            "evidence/candidate-25-lower.jpg",
+            "evidence/candidate-50-lower.jpg",
+            "evidence/candidate-75-lower.jpg",
+            "evidence/candidate-90-lower.jpg",
+            "evidence/reduced-lower.jpg",
+            "evidence/live-lower.jpg",
+            "evidence/gallery-mobile-5.jpg"
+          ],
+          "previousVerification": {
+            "phases": [
+              0,
+              0.25,
+              0.5,
+              0.75,
+              0.9
+            ],
+            "liveCycle": true,
+            "reducedMotionStyle": true,
+            "disconnectReconnect": true,
+            "narrowGallery": true,
+            "versionControls": true,
+            "copy": true,
+            "sourceLink": true,
+            "provenanceFilters": true,
+            "osMotionPreferenceSwitch": false,
+            "crossBrowser": false
+          },
+          "resultSourceHash": "680ca006a4bee6558c0c3198635cd2d76f15956b3057bf97743cc975a768e706",
+          "verification": "Required npm checks rerun and passed. Four approved source hashes and all grindstone candidate CSS/keyframes unchanged. Fresh blade phase/live/reduced/mobile comparison evidence; reconnect pass. Gallery integration checks inherited from unchanged interfaces."
+        }
+      ],
+      "revisionStatus": "approved"
+    },
+    {
+      "tag": "physics-four-bar-linkage",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v1",
+      "classification": "defer",
+      "decisionReason": "Live loop closure is already solved, but suppressed animation removes solved poses and leaves a disconnected static coupler. Defer versioned standalone reduced-motion repair.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "source and desktop phase assessment; not accepted",
+      "visualEvidencePaths": [
+        "evidence/assessment-2-25.jpg",
+        "evidence/assessment-2-75.jpg"
+      ],
+      "sourceHashAfterCompletion": "c891938827a02e1899bcd584e68f7cc90a7f84d6ecd811e5cc4f1605e6400cff",
+      "deferredConcern": "Live loop closure is already solved, but suppressed animation removes solved poses and leaves a disconnected static coupler. Defer versioned standalone reduced-motion repair.",
+      "previousCycleSeconds": 2.8
+    },
+    {
+      "tag": "physics-cycloid-gear",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v1",
+      "classification": "passes",
+      "decisionReason": "Pass: legible sun/planet/ring hierarchy, coherent 4:1 relative rates and an intact static assembly; preserve the existing technical green/gold treatment.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "pass: source and phase assessment, live gallery treatment and meaningful reduced-motion style pose; unchanged source",
+      "visualEvidencePaths": [
+        "evidence/assessment-3-25.jpg",
+        "evidence/assessment-3-75.jpg",
+        "evidence/passing-static-upper.jpg"
+      ],
+      "sourceHashAfterCompletion": "e335be5ebcb9a54c65593e8a7a13b2df9cccf77354c590184390c8ab064a6966",
+      "deferredConcern": null,
+      "previousCycleSeconds": 6
+    },
+    {
+      "tag": "concept-gears",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v2",
+      "classification": "defer",
+      "decisionReason": "Material treatment is strong, but tooth engagement and angular rates need a dedicated meshing check; palette changes alone would not justify a version.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "source and desktop phase assessment; not accepted",
+      "visualEvidencePaths": [
+        "evidence/assessment-3-25.jpg",
+        "evidence/assessment-3-75.jpg"
+      ],
+      "sourceHashAfterCompletion": "d9eb6eb210823e3482c5ea0d1ecadbe0ea5a5517cde710cdcd134a573c77fe5d",
+      "deferredConcern": "Material treatment is strong, but tooth engagement and angular rates need a dedicated meshing check; palette changes alone would not justify a version."
+    },
+    {
+      "tag": "concept-piston",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v2",
+      "classification": "defer",
+      "decisionReason": "The live crank and piston deserve endpoint geometry verification before refinement; defer a coupled slider-crank reconstruction.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "source and desktop phase assessment; not accepted",
+      "visualEvidencePaths": [
+        "evidence/assessment-3-25.jpg",
+        "evidence/assessment-3-75.jpg"
+      ],
+      "sourceHashAfterCompletion": "87cfc4a08fbe339624b76342d1f670e6f1069d5a98db21a674f737b3e515d61d",
+      "deferredConcern": "The live crank and piston deserve endpoint geometry verification before refinement; defer a coupled slider-crank reconstruction."
+    },
+    {
+      "tag": "concept-combo-lock",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v2",
+      "classification": "passes",
+      "decisionReason": "Pass: deliberate dial reversals and pauses precede shackle release; brass/chrome separation and the closed static pose remain clear.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "pass: source and phase assessment, live gallery treatment and meaningful reduced-motion style pose; unchanged source",
+      "visualEvidencePaths": [
+        "evidence/assessment-3-25.jpg",
+        "evidence/assessment-3-75.jpg",
+        "evidence/passing-static.jpg",
+        "evidence/passing-live-lower.jpg"
+      ],
+      "sourceHashAfterCompletion": "155a96bef5f0aee68a95cc709c3f9ba68d38bbd2b9d8fec8be5ea0a664f1febd",
+      "deferredConcern": null,
+      "previousCycleSeconds": 7
+    },
+    {
+      "tag": "concept-wrench",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v2",
+      "classification": "defer",
+      "decisionReason": "The nut advances in abrupt axial steps and the open jaw remains engaged through backswing. Defer engagement/disengagement timing and travel refinement.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "source and desktop phase assessment; not accepted",
+      "visualEvidencePaths": [
+        "evidence/assessment-3-25.jpg",
+        "evidence/assessment-3-75.jpg"
+      ],
+      "sourceHashAfterCompletion": "f129fd05cf1b0803aa85435333bdb173c68da66f833ce8440b1b657650b97862",
+      "deferredConcern": "The nut advances in abrupt axial steps and the open jaw remains engaged through backswing. Defer engagement/disengagement timing and travel refinement."
+    },
+    {
+      "tag": "concept-geneva-drive",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v2",
+      "classification": "defer",
+      "decisionReason": "Intermittent rotation is legible, but the pin/slot contact and locking dwell require a solved engagement profile. Defer that geometry.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "source and desktop phase assessment; not accepted",
+      "visualEvidencePaths": [
+        "evidence/assessment-4-25.jpg",
+        "evidence/assessment-4-75.jpg"
+      ],
+      "sourceHashAfterCompletion": "4760deab740ea51dd6c336af4e6205dd7bdbb6b1c3c29fe602cc60c7de6ae5e5",
+      "deferredConcern": "Intermittent rotation is legible, but the pin/slot contact and locking dwell require a solved engagement profile. Defer that geometry."
+    },
+    {
+      "tag": "concept-vise-anvil",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v2",
+      "classification": "defer",
+      "decisionReason": "Material finish is strong, but the movable jaw/lead screw/hammer sequencing needs an explicit workholding explanation. Defer mechanism redesign.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "source and desktop phase assessment; not accepted",
+      "visualEvidencePaths": [
+        "evidence/assessment-4-25.jpg",
+        "evidence/assessment-4-75.jpg"
+      ],
+      "sourceHashAfterCompletion": "eb4dbae9522a1a096e4a093aac8f0a24b0fe6250844ebdbc59ae5b22564d08e8",
+      "deferredConcern": "Material finish is strong, but the movable jaw/lead screw/hammer sequencing needs an explicit workholding explanation. Defer mechanism redesign."
+    },
+    {
+      "tag": "concept-centrifugal-governor",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v2",
+      "classification": "defer",
+      "decisionReason": "Animated balls and sleeve do not maintain link closure across the orbit. Defer a projected three-dimensional governor with constrained joints.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "source and desktop phase assessment; not accepted",
+      "visualEvidencePaths": [
+        "evidence/assessment-4-25.jpg",
+        "evidence/assessment-4-75.jpg"
+      ],
+      "sourceHashAfterCompletion": "23e2e191ab0fffadfc90b95b2ca07296faf9c0b59bb415274693b9c1ee6d03e4",
+      "deferredConcern": "Animated balls and sleeve do not maintain link closure across the orbit. Defer a projected three-dimensional governor with constrained joints."
+    },
+    {
+      "tag": "concept-solder",
+      "category": "mechanisms-tools",
+      "previousDefaultVersion": "v3",
+      "classification": "passes",
+      "decisionReason": "Pass: tool approach, solder feed, molten joint and cooling have distinct phases; the colored workbench treatment communicates the process and retains a useful static pose.",
+      "candidateVersion": null,
+      "candidateProvenance": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "verificationResult": "pass: source and phase assessment, live gallery treatment and meaningful reduced-motion style pose; unchanged source",
+      "visualEvidencePaths": [
+        "evidence/assessment-4-25.jpg",
+        "evidence/assessment-4-75.jpg",
+        "evidence/passing-solder-live.jpg",
+        "evidence/passing-solder-reduced.jpg"
+      ],
+      "sourceHashAfterCompletion": "0801f28d589084e234f23a18d301c36d9914379568d67248b44569ed53de9d0e",
+      "deferredConcern": null,
+      "previousCycleSeconds": 6.5
+    }
+  ],
+  "sharedDeferredConcerns": [
+    "Historical components rely on gallery-level animation suppression. Standalone reduced-motion coverage and meaningful poses require per-version review; no shared renderer change in this wave."
+  ],
+  "qualityReferences": [
+    {
+      "tag": "concept-three-phase-induction-motor",
+      "category": "energy-systems",
+      "classification": "passes",
+      "role": "reference-only; outside historical cohort",
+      "decisionReason": "Existing Astra reference: coupled physical quantities and distinct stable pose; reviewed phase-25 and reduced-motion evidence. No source change.",
+      "sourceHashAfterCompletion": "8d3561696abcbb22f7e43712051593b77958c097e6188616d6efc7d33b345ac7",
+      "visualEvidencePaths": [
+        "../gallery-expansion/visual-qa/batch-34-phase-25.png",
+        "../gallery-expansion/visual-qa/batch-34-reduced.png"
+      ],
+      "verificationResult": "Existing full expansion acceptance verified current source hash; evidence sampled for comparison."
+    },
+    {
+      "tag": "concept-regenerative-braking",
+      "category": "energy-systems",
+      "classification": "passes",
+      "role": "reference-only; outside historical cohort",
+      "decisionReason": "Existing Astra reference: coupled physical quantities and distinct stable pose; reviewed phase-25 and reduced-motion evidence. No source change.",
+      "sourceHashAfterCompletion": "85d42d1bfa641b562f6bb9a5afcecac1a8a4a1bf807089bbc6097523fe4e1bac",
+      "visualEvidencePaths": [
+        "../gallery-expansion/visual-qa/batch-34-phase-25.png",
+        "../gallery-expansion/visual-qa/batch-34-reduced.png"
+      ],
+      "verificationResult": "Existing full expansion acceptance verified current source hash; evidence sampled for comparison."
+    }
+  ],
+  "endingCommit": "dd7e22168cb50a8e7cf6af708c1c9f0d27af60f6",
+  "preview": {
+    "url": "http://127.0.0.1:3018/__qa/standard/",
+    "modifiedConceptsOnly": true,
+    "failures": 0,
+    "localStorageOnly": true,
+    "reviewSelections": "All five candidates approved; final ratings 5, 5, 4, 4, 5.",
+    "interfaceEvidence": "evidence/grindstone-blade-revision-mobile.jpg",
+    "reviewTags": [
+      "concept-treadle-grindstone"
+    ]
+  },
+  "checks": {
+    "npm test": "passed",
+    "npm run build": "passed; 1051 allowlisted files",
+    "npm run site:check": "passed; 10 HTML, 4 sitemap URLs",
+    "npm run security:check": "passed",
+    "npm run gallery:acceptance": "passed; 285 expansion evidence hashes preserved",
+    "geometry": "1201 phases: fixed link lengths, rope travel, periodic inventories and loop closure",
+    "browser": "all five v1/v2 and Copy/source paths; Codex/Astra/6 intersection; 390px viewport without overflow; local decision persistence and summary Copy",
+    "git diff --check": "passed",
+    "node scripts/validate-gallery-standard.js": "passed; 19 historical decisions, two unchanged reference studies, five source-bound candidates",
+    "simplified review": "passed: five prefilled approvals and ratings, exact blade comment, Play/Pause toggle, optional phase control, collapsed inspection panels and desktop layout",
+    "blade revision": "passed: preserved historical v1, four approved source hashes unchanged, only static SVG blade/description changed in product; five phases, live/reduced, reconnect and 390px comparison"
+  },
+  "limitations": [
+    "Reduced-motion mode applies actual CSS declarations; actual OS preference switching not exercised.",
+    "Local Chromium-based in-app browser only; hidden-document and broader device/cross-browser behavior not verified.",
+    "Copy retains canonical production URLs. Candidate v2 embeds become publicly available only after a separately authorized deployment.",
+    "Historical assessment screenshots use a six-second inspection timeline where a legacy period was not measured; the five operator comparison pairs use explicit full-cycle periods."
+  ],
+  "operatorReview": {
+    "source": "Operator-pasted review summary in conversation",
+    "startingCommit": "dd7e22168cb50a8e7cf6af708c1c9f0d27af60f6",
+    "allCandidatesResolved": true,
+    "batchDecision": "Approved; standing authorization for local checkpoint commits and automatic continuation.",
+    "interfacePreference": "Default controls: Approve, Revise, Keep previous, quality rating, one Play/Pause toggle, optional comment. Inspection tools collapsed.",
+    "bladeFeedback": "Revised blade approved at 5/5 with an empty comment; prior request retained in revisionHistory.",
+    "workflow": "campaign-workflow.md"
+  }
+}

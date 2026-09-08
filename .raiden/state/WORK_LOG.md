@@ -1,5 +1,74 @@
 # Work Log
 
+## 2026-09-08 — Standing checkpoint and continuation authorization
+
+- Operator explicitly authorized local commits for accepted batches and automatic
+  continuation at the revised cadence. Wave 01 is accepted and ready to checkpoint.
+  Push, release and deployment remain separate decisions.
+
+## 2026-09-08 — Wave 01 approved; review cadence revised
+
+- Recorded the latest complete operator review: all five v2 candidates approved,
+  ratings 5, 5, 4, 4, 5; the grindstone comment is now empty. Its earlier revision
+  request remains in the revision history.
+- Recorded the new cadence in `SNAPSHOTS/gallery-visual-standard/campaign-workflow.md`:
+  roughly 20 needed revisions per operator checkpoint; implement and verify clear
+  corrections, then continue without routine repeat review stops.
+- All product checks remain current. Weekly usage is 16%. The accepted local wave
+  is ready for checkpointing; commit authorization remains to be confirmed under
+  the original explicit commit boundary. No new product edits or next wave.
+
+## 2026-09-08 — Grindstone blade revision ready
+
+- Latest pasted and visible reviews supersede the earlier grindstone approval:
+  Revise, 4/5, blade appearance. The other four approvals and sources remain intact.
+- Redrew only the grindstone v2 blade with a tapered steel profile, cutting bevel,
+  ferrule and riveted wood handle, tangent to the stone. Historical v1 and all
+  candidate motion CSS/keyframes are unchanged; prior candidate source is retained.
+- Focused the simple comparison page on this revision; the copyable summary
+  retains all five wave decisions. Generator supports selecting one candidate.
+- Required npm test/build/site/security/gallery-acceptance checks pass. Fresh
+  phases, live/reduced-motion, reconnect and 390px comparison evidence recorded.
+  Weekly usage is 16%. Wave remains partial pending operator review; no commit,
+  next wave, push or deployment.
+
+## 2026-09-08 — Wave 01 operator feedback reconciled
+
+- Recorded the operator-pasted summary: all five v2 candidates approved;
+  solenoid and crane rated 5/5, bellows, churn and grindstone rated 4/5.
+  Preserved the grindstone blade appearance comment without interpreting it
+  as a revision request.
+- Simplified the comparison questionnaire to a single Play/Pause toggle,
+  three decisions, rating and optional comment. Inspection tools and technical
+  details are collapsed. Recorded decisions prefill the page; browser edits persist.
+- Weekly usage check after review: 14% used. All candidates remain the local
+  defaults. LOOP-002 now awaits the batch decision; no commit or next wave.
+- Verified all five prefilled approvals/ratings and the blade comment in the
+  browser, Play/Pause and optional phase controls, collapsed inspection panels,
+  and desktop layout. Syntax, candidate validation and diff checks pass.
+
+## 2026-09-08 — Visual Standard Wave 01 ready for operator review
+
+- Started on clean `main` at `dd7e22168cb50a8e7cf6af708c1c9f0d27af60f6`,
+  two commits ahead of local `origin/main`. Reviewed 19 historical Mechanisms
+  & Tools concepts: three pass, five gain Refined v2 candidates, eleven defer.
+  Two unchanged Astra energy-system studies supplied quality references.
+- Preserved all historical implementations with explicitly additive version
+  blocks and immutable baseline hashes. Added individual v2 and aggregate
+  Codex/Astra/6 provenance. Catalog stays at 945 concepts.
+- Extended the loopback gallery QA server with comparison/review tooling,
+  normalized cycle controls, reduced-motion CSS preview, browser-local
+  decisions/ratings/comments, visible summary and Copy. QA test selections
+  used isolated storage; actual operator decisions remain unresolved.
+- Required npm test/build/site/security/gallery-acceptance checks passed.
+  Candidate geometry, phases, live playback, cleanup/reconnect, reduced poses,
+  version controls/Copy/source, provenance filters and mobile gallery checks
+  passed. See `SNAPSHOTS/gallery-visual-standard/wave-01.json` for evidence.
+- Operator confirmed standard Codex uses the reported weekly window; the
+  five-hour window belongs to Spark. Weekly usage stayed below campaign gates.
+- LOOP-002 awaits review. No commit, push, release, deployment, dependency
+  change, Writ edit, or next wave occurred.
+
 ## 2026-09-07 — Gallery expansion committed and closed
 
 - Reconciled the full payload: 17 modified tracked files and 643 untracked

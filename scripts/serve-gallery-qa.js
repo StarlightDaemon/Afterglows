@@ -7,6 +7,8 @@ import { setTimeout as delay } from "node:timers/promises";
 
 // Optional local acceptance mode exercises UI actions while imports are pending.
 const port = Number(process.env.AFTERGLOWS_QA_PORT || 3018);
+const standardWave = Number(process.env.AFTERGLOWS_QA_WAVE || 1);
+if (!Number.isInteger(standardWave) || standardWave < 1 || standardWave > 999) throw new Error("Invalid visual standard wave");
 const moduleDelay = Number(process.env.AFTERGLOWS_QA_MODULE_DELAY_MS || 0);
 const failOnceModule = process.env.AFTERGLOWS_QA_FAIL_ONCE_MODULE || "";
 const failedModules = new Set();
@@ -20,10 +22,13 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535 ||
 
 const dist = fileURLToPath(new URL("../dist/", import.meta.url));
 const files = new Map([
+  ["/__qa/standard/", new URL("./gallery-standard.html", import.meta.url)],
+  ["/__qa/standard/review.js", new URL("./gallery-standard.js", import.meta.url)],
+  ["/__qa/standard/wave.json", new URL(`../.raiden/state/SNAPSHOTS/gallery-visual-standard/wave-${String(standardWave).padStart(2, "0")}.json`, import.meta.url)],
   ["/__qa/", new URL("./gallery-qa.html", import.meta.url)],
   ["/__qa/review.js", new URL("./gallery-qa.js", import.meta.url)],
 ]);
-const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".woff2": "font/woff2", ".svg": "image/svg+xml", ".png": "image/png", ".ico": "image/x-icon" };
+const types = { ".json": "application/json", ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".woff2": "font/woff2", ".svg": "image/svg+xml", ".png": "image/png", ".ico": "image/x-icon" };
 http.createServer(async (request, response) => {
   if (!["GET", "HEAD"].includes(request.method)) { response.writeHead(405).end(); return; }
   try {

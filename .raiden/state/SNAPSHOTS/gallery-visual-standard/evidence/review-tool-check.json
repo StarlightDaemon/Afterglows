@@ -1,0 +1,47 @@
+{
+  "isolatedTestStorage": true,
+  "reloadedDecision": "Keep previous",
+  "reloadedRating": 4,
+  "copyMatches": true,
+  "review": {
+    "wave": 1,
+    "startingCommit": "dd7e22168cb50a8e7cf6af708c1c9f0d27af60f6",
+    "reviews": [
+      {
+        "tag": "concept-solenoid-engine",
+        "candidate": "v2",
+        "decision": "Keep previous",
+        "rating": 4,
+        "comment": "QA persistence check; not an operator decision."
+      },
+      {
+        "tag": "concept-treadwheel-crane",
+        "candidate": "v2",
+        "decision": "Unresolved",
+        "rating": null,
+        "comment": ""
+      },
+      {
+        "tag": "concept-forge-bellows",
+        "candidate": "v2",
+        "decision": "Unresolved",
+        "rating": null,
+        "comment": ""
+      },
+      {
+        "tag": "concept-butter-churn",
+        "candidate": "v2",
+        "decision": "Unresolved",
+        "rating": null,
+        "comment": ""
+      },
+      {
+        "tag": "concept-treadle-grindstone",
+        "candidate": "v2",
+        "decision": "Unresolved",
+        "rating": null,
+        "comment": ""
+      }
+    ]
+  }
+}

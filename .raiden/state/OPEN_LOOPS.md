@@ -2,7 +2,14 @@
 
 ## Open
 
-- No open work from the operator-scoped gallery expansion.
+- **LOOP-002 — Visual Standard Campaign:** all five Wave 01 candidates are
+  approved, including the revised grindstone at 5/5. The operator requests
+  roughly 20 revisions per review checkpoint and faster continuation after
+  clear corrections. See `campaign-workflow.md` alongside the wave ledger.
+  Local checkpoint commits and automatic continuation are explicitly authorized.
+  Checkpoint the accepted wave, then prepare the next review.
+  Evidence and preview instructions:
+  `SNAPSHOTS/gallery-visual-standard/wave-01-report.md`.
 
 ---
 

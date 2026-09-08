@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Solenoid Engine",
+    "copyV2": true,
+    "source": "gallery/concepts/engineering-technology/mechanisms-tools/solenoid-engine-concept.js",
+    "size": {
+      "content": 375,
+      "width": 375
+    }
+  },
+  {
+    "name": "Medieval Treadwheel Crane",
+    "copyV2": true,
+    "source": "gallery/concepts/engineering-technology/mechanisms-tools/treadwheel-crane-concept.js",
+    "size": {
+      "content": 375,
+      "width": 375
+    }
+  },
+  {
+    "name": "Double-Chamber Forge Bellows",
+    "copyV2": true,
+    "source": "gallery/concepts/engineering-technology/mechanisms-tools/forge-bellows-concept.js",
+    "size": {
+      "content": 375,
+      "width": 375
+    }
+  },
+  {
+    "name": "Wooden Dasher Butter Churn",
+    "copyV2": true,
+    "source": "gallery/concepts/engineering-technology/mechanisms-tools/butter-churn-concept.js",
+    "size": {
+      "content": 375,
+      "width": 375
+    }
+  },
+  {
+    "name": "Treadle Sharpening Grindstone",
+    "copyV2": true,
+    "source": "gallery/concepts/engineering-technology/mechanisms-tools/treadle-grindstone-concept.js",
+    "size": {
+      "content": 375,
+      "width": 375
+    }
+  }
+]
