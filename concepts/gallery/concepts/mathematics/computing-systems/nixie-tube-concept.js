@@ -148,14 +148,26 @@ class ConceptNixieTube extends HTMLElement {
     const digits = ['3', '7', '4', '9', '2', '8', '5', '0'];
     let idx = 0;
     const numEl = this.shadowRoot.getElementById('num');
-    this._timer = setInterval(() => {
-      idx = (idx + 1) % digits.length;
-      if (numEl) numEl.textContent = digits[idx];
-    }, 1000);
+    this._motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+    this._syncMotion = () => {
+      clearInterval(this._timer);
+      this._timer = null;
+      if (this._motionPreference.matches || !this.isConnected) return;
+      this._timer = setInterval(() => {
+        idx = (idx + 1) % digits.length;
+        if (numEl) numEl.textContent = digits[idx];
+      }, 1000);
+    };
+    this._motionPreference.addEventListener('change', this._syncMotion);
+    this._syncMotion();
   }
 
   disconnectedCallback() {
-    if (this._timer) clearInterval(this._timer);
+    clearInterval(this._timer);
+    this._timer = null;
+    this._motionPreference?.removeEventListener('change', this._syncMotion);
+    this._motionPreference = null;
+    this._syncMotion = null;
   }
 }
 

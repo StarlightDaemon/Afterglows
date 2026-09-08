@@ -75,6 +75,26 @@ for (const concept of CONCEPTS) {
   if (!concept.origin?.contributions?.length) {
     errors.push(`Invalid or missing origin.contributions on ${concept.tag}`);
   }
+  if (concept.source === "expansion") {
+    for (const field of ["definition", "motionThesis", "distinction"]) {
+      if (typeof concept[field] !== "string" || !concept[field].trim()) {
+        errors.push(`Expansion entry ${concept.tag} requires ${field}`);
+      }
+    }
+    if (!Array.isArray(concept.aliases) || !Array.isArray(concept.facets) ||
+        [...(concept.aliases || []), ...(concept.facets || [])].some((value) => typeof value !== "string" || !value.trim())) {
+      errors.push(`Invalid aliases/facets on ${concept.tag}`);
+    }
+    if (!concept.references?.length || concept.references.some((ref) => {
+      try { return new URL(ref).protocol !== "https:"; } catch { return true; }
+    })) errors.push(`Expansion entry ${concept.tag} requires HTTPS factual references`);
+    if (!Number.isFinite(concept.cycleSeconds) || concept.cycleSeconds <= 0 || !concept.medium) {
+      errors.push(`Missing animation design metadata on ${concept.tag}`);
+    }
+    if (!concept.origin?.contributions?.some((contribution) => contribution.agent === "codex" && contribution.model === "astra" && contribution.version === "6")) {
+      errors.push(`Missing confirmed Codex/Astra provenance on ${concept.tag}`);
+    }
+  }
   for (const field of ["added", "updated"]) {
     if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(concept[field] || "")) {
       errors.push(`Invalid ${field} timestamp on ${concept.tag}: ${concept[field]}`);
@@ -116,6 +136,39 @@ for (const concept of CONCEPTS) {
     errors.push(`Tag mismatch in ${concept.module}: defines ${definition[1]}, manifest has ${concept.tag}`);
   }
   if (!code.includes("attachShadow")) warnings.push(`No attachShadow found in ${concept.module}`);
+  if (concept.source === "expansion") {
+    // Nonzero CSS width/height require units, including SVG geometry rules.
+    // Browsers silently discard these declarations and leave misleading poses.
+    const styles = code.match(/<style>([\s\S]*?)<\/style>/)?.[1] || "";
+    for (const dimension of styles.matchAll(/(?<![-\w])(?:width|height):\s*((?:\d*\.)?\d+)(?=[;\s}])/g)) {
+      if (Number(dimension[1]) !== 0) errors.push(`Unitless CSS dimension in ${concept.module}: ${dimension[0]}`);
+    }
+    // These bare names are consumed as animation-shorthand keywords.
+    if (/@keyframes\s+(?:none|normal|reverse|alternate|alternate-reverse|forwards|backwards|both|running|paused|linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|infinite)\s*\{/.test(styles)) {
+      errors.push(`Ambiguous animation-shorthand keyframe name in ${concept.module}`);
+    }
+    const registrations = [];
+    try {
+      vm.runInNewContext(code, {
+        HTMLElement: class {},
+        customElements: {
+          get: () => undefined,
+          define: (tag, component) => registrations.push({ tag, component }),
+        },
+      }, { timeout: 1000, filename: file });
+      if (registrations.length !== 1 || registrations[0].tag !== concept.tag) {
+        errors.push(`Expansion module must register exactly its canonical tag: ${concept.module}`);
+      }
+    } catch (error) {
+      errors.push(`Registration fails in ${concept.module}: ${error.message}`);
+    }
+    if (/\b(?:import\s|fetch\s*\(|XMLHttpRequest|WebSocket|eval\s*\()/.test(code)) {
+      errors.push(`Expansion component is not self-contained: ${concept.module}`);
+    }
+    if (!/attachShadow\(\{\s*mode:\s*["']open["']/.test(code) || !code.includes("prefers-reduced-motion")) {
+      errors.push(`Missing open Shadow DOM or standalone reduced-motion support: ${concept.module}`);
+    }
+  }
 }
 
 const canonicalFiles = walk(componentRoot).filter((file) => file.endsWith("-concept.js"));

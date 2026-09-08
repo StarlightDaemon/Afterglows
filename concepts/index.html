@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
     <title>Animation Concepts Archive | Afterglows</title>
-    <meta name="description" content="Browse 660 reusable animation concepts in one gallery, organized into 9 disciplines and 43 definitive categories spanning mathematics, physics, science, technology, culture, and imagination.">
+    <meta name="description" content="Browse 945 reusable animation concepts in one gallery, organized into 13 disciplines and 63 definitive categories spanning mathematics, physics, science, technology, culture, and imagination.">
     <link rel="canonical" href="https://afterglows.starlightdaemon.dev/concepts/">
     <meta property="og:title" content="Animation Concepts Archive | Afterglows">
-    <meta property="og:description" content="Browse 660 reusable animation concepts organized into 9 disciplines and 43 definitive categories.">
+    <meta property="og:description" content="Browse 945 reusable animation concepts organized into 13 disciplines and 63 definitive categories.">
     <meta property="og:url" content="https://afterglows.starlightdaemon.dev/concepts/">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://afterglows.starlightdaemon.dev/assets/img/afterglows-social-card.jpg">
@@ -18,7 +18,7 @@
     <meta property="og:image:alt" content="Afterglows Experimental Archive in green phosphor beside a geometric Thinker figure">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Animation Concepts Archive | Afterglows">
-    <meta name="twitter:description" content="Browse 660 reusable animation concepts across 9 disciplines and 43 categories.">
+    <meta name="twitter:description" content="Browse 945 reusable animation concepts across 13 disciplines and 63 categories.">
     <meta name="twitter:image" content="https://afterglows.starlightdaemon.dev/assets/img/afterglows-social-card.jpg">
     <link rel="icon" href="/assets/img/thinker-logo.svg" type="image/svg+xml">
     <link rel="icon" href="/assets/img/thinker-logo.png" type="image/png">
@@ -52,6 +52,30 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--accent);
+        }
+
+        .concept-description {
+            width: 140px;
+            color: #bcbcbc;
+            font-size: 0.72rem;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .concept-description summary {
+            cursor: pointer;
+            padding: 8px;
+            color: var(--accent);
+        }
+
+        .concept-description p {
+            margin: 6px 0 12px;
+            text-align: left;
+        }
+
+        .concept-load-error {
+            padding: 12px;
+            font-size: 0.75rem;
         }
 
         .gallery-note {
@@ -511,7 +535,7 @@
     <main id="main">
     <h1>Animation Concepts Archive</h1>
 
-    <p class="gallery-note">660 reusable motion studies in one catalog, organized into 9 disciplines and 43 definitive categories.</p>
+    <p class="gallery-note">945 reusable motion studies in one catalog, organized into 13 disciplines and 63 definitive categories.</p>
 
     <noscript><p style="color:#8f8f8f">This gallery renders animated web components with JavaScript, which appears to be disabled.</p></noscript>
     <div id="gallery-root"></div>

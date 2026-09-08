@@ -10,7 +10,8 @@
     "security:check": "node scripts/validate-security.js",
     "site:check": "node scripts/validate-site.js",
     "start": "npm run dev",
-    "test": "node scripts/validate-gallery.js"
+    "test": "node scripts/validate-gallery.js && node scripts/test-gallery-baseline.js && node scripts/test-module-queue.js && node scripts/test-module-retry.js && node scripts/test-nixie-lifecycle.js && node scripts/test-provenance.js && node scripts/test-copy-fallback.js",
+    "gallery:acceptance": "node scripts/validate-expansion-complete.js"
   },
   "keywords": [
     "retro",

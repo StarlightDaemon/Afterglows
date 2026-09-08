@@ -11,7 +11,7 @@ The root `index.html` is the live site entry point, and the directories below ar
 *   **Key File**: `matrix_tools.css`
 
 ### 2. [Animation Concepts](../concepts/README.md)
-*   **Description**: The unified, manifest-driven gallery of 660 animation concepts across 9 top-level sections and 43 definitive categories. It includes the former Physics collection alongside mathematical abstractions, scientific demonstrations, mechanisms, everyday objects, culture, and speculative subjects. Supports section/category deep links, search, status and provenance filtering, sorting, version cycling, and per-tile copy/source actions.
+*   **Description**: The unified, manifest-driven gallery of 945 animation concepts across 13 top-level sections and 63 definitive categories. It includes the former Physics collection alongside mathematical abstractions, scientific demonstrations, mechanisms, everyday objects, culture, and speculative subjects. Supports section/category deep links, search, status and provenance filtering, sorting, version cycling, and per-tile copy/source actions.
 *   **Key Files**: `index.html`, `gallery/manifest.js`, `gallery/taxonomy.js`, `gallery/index.js`
 
 ### 3. [Retro](../retro/README.md)

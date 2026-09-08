@@ -1,0 +1,77 @@
+import { expansionEntries } from "./expansion-entry.js";
+
+const added = "2026-09-07T10:12:35Z";
+export const CONCEPTS = expansionEntries("computing", "information-coding", [
+  {
+    id: "huffman-coding", label: "Huffman Coding", aliases: ["Huffman code", "optimal prefix code"], added,
+    definition: "Huffman coding repeatedly combines the two least frequent nodes to construct a binary prefix code with minimum weighted codeword length.",
+    motionThesis: "The lowest weights merge upward into a coding tree, then unequal-length bit paths trace back to their symbols.",
+    distinction: "Frequency-driven bottom-up merges create unequal code lengths rather than sharing existing word prefixes in a trie.",
+    facets: ["information theory", "compression", "prefix codes"], cycleSeconds: 10,
+    references: ["https://algs4.cs.princeton.edu/55compression/Huffman.java.html"],
+  },
+  {
+    id: "run-length-encoding", label: "Run-Length Encoding", aliases: ["RLE", "run-length coding"], added,
+    definition: "Run-length encoding represents each contiguous run of identical symbols by its length and, when needed, its symbol value.",
+    motionThesis: "A scan brackets a binary stream's consecutive runs and emits counts four, three, and two with their corresponding zero or one values.",
+    distinction: "Only adjacent repetition is grouped; no dictionary phrases or global frequency tree are built.",
+    facets: ["information theory", "compression", "runs"], cycleSeconds: 9,
+    references: ["https://algs4.cs.princeton.edu/55compression/RunLength.java.html"],
+  },
+  {
+    id: "lzw-dictionary-coding", label: "LZW Dictionary Coding", aliases: ["Lempel–Ziv–Welch", "LZW compression"], added,
+    definition: "LZW emits codes for longest dictionary phrases while extending the dictionary with each matched phrase plus the next input symbol.",
+    motionThesis: "ABABABA parses into A, B, AB, and ABA as phrase entries grow and the final output reuses the newest dictionary code.",
+    distinction: "Adaptive multi-symbol phrase reuse rather than grouping identical neighboring symbols.",
+    facets: ["information theory", "compression", "dictionary codes"], cycleSeconds: 11,
+    references: ["https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/LZW.java.html"],
+  },
+  {
+    id: "arithmetic-coding", label: "Arithmetic Coding", aliases: ["interval coding", "range subdivision"], added,
+    definition: "Arithmetic coding represents a message by successively narrowing a numeric interval according to symbol probabilities.",
+    motionThesis: "The known three-symbol message BAC selects nested intervals in a fixed probability model, yielding binary prefix 10011 through explicitly zoomed subdivisions.",
+    distinction: "One whole-message interval rather than an independent prefix-tree codeword per symbol.",
+    facets: ["information theory", "compression", "probability"], cycleSeconds: 10,
+    references: ["https://www.cs.cmu.edu/~15750/handouts/lec20-nov19-compression2-fall-2024.pdf"],
+  },
+  {
+    id: "hamming-error-correction", label: "Hamming Error Correction", aliases: ["Hamming(7,4)", "syndrome decoding"], added,
+    definition: "A Hamming code uses parity-check redundancy to locate and correct a single flipped bit.",
+    motionThesis: "Three parity masks identify flipped position six through syndrome 110, then restoring that bit returns the syndrome to zero.",
+    distinction: "Failed checks locate an unknown erroneous bit rather than recovering a known missing symbol.",
+    facets: ["information theory", "error correction", "parity"], cycleSeconds: 10,
+    references: ["https://www.cs.princeton.edu/courses/archive/spr18/cos126/assignments/hamming/"],
+  },
+  {
+    id: "reed-solomon-erasure-recovery", label: "Reed–Solomon Erasure Recovery", aliases: ["RS erasure decoding", "polynomial erasure recovery"], added,
+    definition: "Reed–Solomon erasure decoding recovers a degree-bounded polynomial from enough surviving finite-field evaluations to reconstruct missing symbols.",
+    motionThesis: "Three surviving evaluations recover a quadratic's coefficients modulo seven and regenerate the two known missing coded symbols.",
+    distinction: "Known erasures of whole field symbols, with no misleading real-valued curve or claim that the first packets are original data.",
+    facets: ["information theory", "error correction", "finite fields"], cycleSeconds: 11,
+    references: ["https://homes.cs.washington.edu/~anuprao/pubs/codingtheory/lecture4.pdf"],
+  },
+  {
+    id: "merkle-tree", label: "Merkle Tree", aliases: ["hash tree", "Merkle hash tree"], added,
+    definition: "A Merkle tree recursively hashes ordered child digests so a root commits to data and sibling paths support membership proofs.",
+    motionThesis: "Sibling hashes verify C's root path, then changing C to X updates only that leaf and its ancestors while the other digests remain fixed.",
+    distinction: "Fixed SHA-256 commitments and selective ancestor updates; displayed four-digit prefixes abbreviate full digests.",
+    facets: ["information theory", "cryptography", "integrity proofs"], cycleSeconds: 11,
+    references: ["https://www.rfc-editor.org/rfc/rfc9162.html#section-2.1"],
+  },
+  {
+    id: "shannon-entropy", label: "Shannon Entropy", aliases: ["information entropy", "discrete entropy"], added,
+    definition: "Shannon entropy is expected self-information, measured as the probability-weighted sum of negative base-two log probabilities.",
+    motionThesis: "Four exact distributions show probability widths times surprisal heights, with their total areas representing zero, one, one-and-a-half, and two bits.",
+    distinction: "Probability times information area, rather than a frequency histogram receiving observations.",
+    facets: ["information theory", "probability", "uncertainty"], cycleSeconds: 10,
+    references: ["https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf"],
+  },
+  {
+    id: "convolutional-encoder", label: "Convolutional Encoder", aliases: ["convolutional coding", "shift-register encoder"], added,
+    definition: "A convolutional encoder produces redundant output streams from input bits and finite memory through binary convolution.",
+    motionThesis: "Two XOR tap paths compute a pair from the current input and old register contents before the memory shifts and tail zeros flush it.",
+    distinction: "Streaming finite-memory redundancy, rather than block parity repair or a diagram with only abstract states.",
+    facets: ["information theory", "error correction", "digital communication"], cycleSeconds: 12,
+    references: ["https://ocw.mit.edu/courses/6-02-introduction-to-eecs-ii-digital-communication-systems-fall-2012/resources/mit6_02f12_chap07/"],
+  },
+]);

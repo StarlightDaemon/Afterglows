@@ -1,0 +1,11 @@
+import assert from "node:assert/strict";
+import { matchesProvenance } from "../concepts/gallery/provenance.js";
+import { CONCEPTS } from "../concepts/gallery/manifest.js";
+const mixed = CONCEPTS.find((concept) => concept.tag === "concept-nixie-tube").origin.contributions;
+const filters = (origin, model, version) => ({ origins: new Set(origin), models: new Set(model), versions: new Set(version) });
+assert.equal(matchesProvenance(mixed, filters(["gemini"], ["astra"], ["6"])), false, "do not attribute another contributor's model to Gemini");
+assert.equal(matchesProvenance(mixed, filters(["codex"], ["astra"], ["6"])), true);
+assert.equal(matchesProvenance(mixed, filters(["gemini"], ["unspecified"], ["unspecified"])), true);
+assert.equal(matchesProvenance(mixed, filters(["codex"], ["astra"], [])), false);
+assert.equal(matchesProvenance([], filters(["codex"], ["astra"], ["6"])), false);
+console.log("SUCCESS: provenance dimensions match the same contribution, including unspecified values.");

@@ -21,8 +21,8 @@ A standalone CSS & JS library for digital rain, cyberpunk typography, and termin
 A toolkit for high-fidelity CRT monitor simulation, including scanlines, phosphor persistence, and screen curvature.
 
 #### 🧪 **Concepts**
-The single catalog of 660 reusable motion studies, organized into 9 disciplines
-and 43 definitive category folders spanning mathematics, physical sciences,
+The single catalog of 945 reusable motion studies, organized into 13 disciplines
+and 63 definitive category folders spanning mathematics, physical sciences,
 living systems, technology, culture, and imagination.
 
 ---

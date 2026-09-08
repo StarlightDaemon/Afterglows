@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Afterglows local visual review</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 16px; background: #0b1010; color: #d8e9e1; font: 13px system-ui; }
+  header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+  button, select { padding: 7px; background: #142a23; color: inherit; border: 1px solid #5d8172; border-radius: 3px; }
+  button { cursor: pointer; }
+  input[type="number"] { width: 4.5em; padding: 6px; background: #142a23; color: inherit; border: 1px solid #5d8172; }
+  button[aria-pressed="true"] { background: #396748; }
+  main { display: grid; grid-template-columns: repeat(auto-fit, 160px); max-width: 700px; gap: 14px; align-items: start; }
+  article { width: 160px; }
+  .tile { width: 140px; height: 140px; border: 1px solid #375b51; }
+  h2 { font-size: 12px; font-weight: 500; line-height: 1.4; margin: 6px 0; }
+  .status { font-size: 11px; color: #9cbaa9; }
+  #report { margin: 10px 0; }
+</style>
+<header>
+  <button id="previous">Previous batch</button>
+  <select id="batch" aria-label="Review batch"></select>
+  <button id="next">Next batch</button>
+  <button data-phase="0">0%</button>
+  <button data-phase="0.25">25%</button>
+  <button data-phase="0.5">50%</button>
+  <button data-phase="0.75">75%</button>
+  <button data-phase="0.9">90%</button>
+  <button id="play">Play</button>
+  <label><input type="checkbox" id="reduced">Reduced-motion style preview</label>
+  <label>Cycle percent <input id="phase-number" type="number" min="0" max="99" step="1" value="50"></label>
+</header>
+<p id="report" role="status">Loading review batch…</p>
+<main></main>
+<script type="module" src="/__qa/review.js"></script>
+</html>

@@ -15,6 +15,19 @@ trail some of these entries reference.
 
 ## [Unreleased]
 
+### Concepts expansion
+- Expanded the catalog from 660 to 945 concepts, adding 285 researched motion
+  studies across 13 sections and 63 categories. Added Data Science & Optimization,
+  Computing, Human Health, and Mind & Society while preserving historical placements.
+- Added canonical definitions, motion descriptions, factual references, and
+  Codex/Astra provenance, with accessible About details and richer search.
+- Bounded near-viewport module loading and mounting, preserved the 36-item newest
+  view, and added temporary-import recovery, provenance tuple matching, clipboard
+  cleanup, and live reduced-motion handling for the legacy Nixie animation.
+- Added preservation, lifecycle, metadata, and source-bound visual acceptance checks.
+  The operator ended expansion at the completed scope; 55 researched subjects
+  remain explicitly deferred. No release or deployment accompanies these changes.
+
 ### Security
 - Local previews now build and serve the same allowlisted `dist/` artifact used
   by GitHub Pages. The server binds to loopback, disables CORS and directory

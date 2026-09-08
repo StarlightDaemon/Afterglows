@@ -1,43 +1,13 @@
-// Data-driven gallery renderer for the Header Animation Concepts archive.
-//
-// This module replaces the previous 39 static import statements. It:
-//   1. Reads gallery structure/data from ./manifest.js.
-//   2. Dynamically imports each concept module so it self-registers its custom
-//      element. Imports are fire-and-forget; custom elements auto-upgrade, so
-//      the DOM can be rendered before the modules finish loading.
-//   3. Renders sections and cards into #gallery-root using the exact class /
-//      attribute contract the page CSS depends on.
-//   4. Wires the version cyclers for tiles that carry version history.
-//   5. Lazily pauses/resumes concept animations based on viewport visibility
-//      via IntersectionObserver (Wave 1), so only viewport-adjacent concepts
-//      animate at any given time regardless of total gallery size.
-//   6. Supports one curated hierarchy plus section/category deep links.
-//
-// Dependency-free, no build step, browser ESM only.
-
+// Canonical gallery: bounded viewport imports and mounts, accessible metadata,
+// taxonomy navigation, provenance filters, versions, and reusable source actions.
 import { CATEGORIES, CONCEPTS, SECTIONS } from "./manifest.js";
 import { installReducedMotion } from "./reduced-motion.js";
+import { ModuleQueue } from "./module-queue.js";
+import { createModuleLoader } from "./module-loader.js";
+import { matchesProvenance } from "./provenance.js";
 
-// Install before any concept module is imported: concept animations live in
-// shadow roots, which the page's document-scope reduced-motion rule cannot
-// reach. See reduced-motion.js.
 installReducedMotion(["CONCEPT-", "PHYSICS-"]);
-
-// --- Module loading -------------------------------------------------------
-// Load only modules represented in the current view. Elements auto-upgrade
-// once their module registers, and imports remain cached across filter changes.
-const importedModules = new Set();
-function importConceptModules(concepts) {
-  for (const concept of concepts) {
-    const path = concept.module;
-    if (importedModules.has(path)) continue;
-    importedModules.add(path);
-    import(path).catch((error) => {
-      importedModules.delete(path);
-      console.warn(`Failed to load concept module: ${path}`, error);
-    });
-  }
-}
+const moduleQueue = new ModuleQueue(createModuleLoader((path) => import(path), import.meta.url));
 
 // --- Rendering helpers ----------------------------------------------------
 // Escape text destined for HTML text/attribute contexts.
@@ -68,6 +38,21 @@ function renderActions(concept) {
   );
 }
 
+// Definitions and motion theses have one fact home in the manifest.
+// Native details gives keyboard and touch users the same access as pointer users.
+function renderDescription(concept) {
+  if (!concept.definition) return "";
+  return `<details class="concept-description"><summary>About <span class="sr-status">${esc(concept.label)}</span></summary>` +
+    `<p>${esc(concept.definition)}</p><p>${esc(concept.motionThesis)}</p></details>`;
+}
+
+const searchText = new Map(CONCEPTS.map((concept) => [concept.tag, [
+  concept.label, concept.definition, concept.motionThesis,
+  ...(concept.aliases || []), ...(concept.facets || []),
+  SECTIONS.find((section) => section.id === concept.section)?.title,
+  CATEGORIES.find((category) => category.id === concept.category)?.title,
+].filter(Boolean).join(" ").toLowerCase()]));
+
 // When a date sort is active this holds "added" or "updated" and every card
 // shows the corresponding date next to its status badge; null in curated
 // (category-sectioned) mode.
@@ -86,14 +71,14 @@ function renderDateBadge(concept) {
 function renderPlainCard(concept) {
   const { tag, label, badge, badgeCls } = concept;
   return (
-    `<div class="concept-card">` +
-      `<div class="terminal-box"><${tag}></${tag}></div>` +
+    `<div class="concept-card" data-concept="${esc(tag)}">` +
+      `<div class="terminal-box"><template class="concept-payload"><${tag}></${tag}></template></div>` +
       `<div class="concept-label">${esc(label)}</div>` +
       `<div class="concept-meta">` +
         `<span class="meta-badge ${esc(badgeCls)}">${esc(badge)}</span>` +
         renderDateBadge(concept) +
       `</div>` +
-      renderActions(concept) +
+      renderActions(concept) + renderDescription(concept) +
     `</div>`
   );
 }
@@ -112,7 +97,7 @@ function renderVersionedCard(concept) {
           ` data-version-label="${esc(`${label} ${v}`)}"` +
           ` data-badge-label="${esc(frameBadge)}"` +
           ` data-badge-class="${esc(frameBadgeCls)}">` +
-          `<${tag} version="${esc(v)}"></${tag}>` +
+          `<template class="concept-payload"><${tag} version="${esc(v)}"></${tag}></template>` +
         `</div>`
       );
     })
@@ -129,7 +114,7 @@ function renderVersionedCard(concept) {
     .join("");
 
   return (
-    `<div class="concept-card">` +
+    `<div class="concept-card" data-concept="${esc(tag)}">` +
       `<div class="terminal-box is-versioned" tabindex="0" role="button"` +
         ` aria-label="Cycle ${esc(label)} versions">` +
         `<div class="concept-versioner">${frames}</div>` +
@@ -140,7 +125,7 @@ function renderVersionedCard(concept) {
         renderDateBadge(concept) +
       `</div>` +
       `<div class="version-dots" role="group" aria-label="${esc(label)} versions">${dots}</div>` +
-      renderActions(concept) +
+      renderActions(concept) + renderDescription(concept) +
     `</div>`
   );
 }
@@ -209,127 +194,70 @@ function renderGallery(concepts) {
   mount.innerHTML = sections.join("");
 }
 
-// --- Wave 1: Viewport-based lazy animation pause/resume -------------------
-//
-// Concept custom elements remain mounted in the DOM at all times (preserving
-// all existing event wiring, version state, and reduced-motion adoptedSheets).
-// When a .terminal-box scrolls well outside the viewport we pause its
-// animations via the Web Animations API; when it re-enters we resume them.
-// The rootMargin of 300px gives a generous buffer so animations are running
-// before the card is visible, avoiding a "starts cold" stutter.
-//
-// Shadow roots must be walked explicitly: getAnimations({subtree:true}) from
-// light DOM does not cross shadow boundaries.
-
+// The full catalog contains lightweight card shells. Only nearby active
+// versions are mounted; disconnecting hosts also stops component JS lifecycles.
+// Templates never upgrade, even after their module is cached by the browser.
 let lazyObserver = null;
+let intersectionState = new Map();
 
-// Walk all shadow-root-bearing descendants of a terminal-box and collect
-// every active animation. The terminal-box itself may contain concept
-// elements directly (plain card) or wrapped in .concept-frame divs
-// (versioned card).
-function shadowAnimationsOf(terminalBox) {
-  const anims = [];
-  terminalBox.querySelectorAll("*").forEach((el) => {
-    if (!el.shadowRoot) return;
-    [el, ...el.shadowRoot.querySelectorAll("*")].forEach((node) => {
-      node.getAnimations().forEach((a) => anims.push(a));
-    });
-  });
-  return anims;
+function unmountBox(box) {
+  box.querySelectorAll("[data-mounted-concept]").forEach((host) => host.remove());
 }
 
-function pauseBox(terminalBox) {
-  shadowAnimationsOf(terminalBox).forEach((a) => a.pause());
-}
-
-function resumeBox(terminalBox) {
-  shadowAnimationsOf(terminalBox).forEach((a) => {
-    // Only play animations that are paused — don't disturb finished ones.
-    if (a.playState === "paused") a.play();
+function mountBox(box) {
+  if (!box.isConnected || !intersectionState.get(box) || document.hidden) return;
+  box.querySelectorAll("template.concept-payload").forEach((template) => {
+    const frame = template.closest(".concept-frame");
+    if (frame && !frame.classList.contains("is-active")) return;
+    if (template.parentElement.querySelector("[data-mounted-concept]")) return;
+    const host = template.content.firstElementChild.cloneNode(true);
+    host.dataset.mountedConcept = "true";
+    template.after(host);
   });
 }
 
-// (Re)install the IntersectionObserver after every renderGallery call.
-// All boxes start paused; the observer immediately fires for any that are
-// already in the (expanded) viewport and resumes them.
-//
-// Timing note: concept modules are imported fire-and-forget, so custom
-// elements may upgrade (and begin animating) after the observer first fires
-// for their terminal-box. We track each box's last-known intersection state
-// in a Map, then run a deferred sweep ~1.5 s later to catch any elements
-// that upgraded while their box was already off-screen.
-let intersectionState = new Map(); // box -> boolean (true=intersecting)
+function requestBox(box) {
+  const concept = CONCEPT_BY_TAG.get(box.closest(".concept-card").dataset.concept);
+  const wanted = () => box.isConnected && intersectionState.get(box) && !document.hidden;
+  box.setAttribute("aria-busy", "true");
+  moduleQueue.request(concept.module, wanted).then((loaded) => {
+    if (loaded && wanted()) {
+      box.querySelector(".concept-load-error")?.remove();
+      mountBox(box);
+    }
+  }).catch((error) => {
+    if (!wanted()) return;
+    console.error(`Failed to load concept module: ${concept.module}`, error);
+    if (!box.querySelector(".concept-load-error")) {
+      const message = document.createElement("span");
+      message.className = "concept-load-error";
+      message.setAttribute("role", "status");
+      message.textContent = "Preview unavailable. Revisit to retry.";
+      box.appendChild(message);
+    }
+  }).finally(() => box.removeAttribute("aria-busy"));
+}
 
 function installLazyObserver() {
-  if (lazyObserver) {
-    lazyObserver.disconnect();
-    lazyObserver = null;
-  }
+  lazyObserver?.disconnect();
   intersectionState = new Map();
+  lazyObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      intersectionState.set(entry.target, entry.isIntersecting);
+      if (entry.isIntersecting) requestBox(entry.target);
+      else unmountBox(entry.target);
+    }
+  }, { rootMargin: "200px 0px", threshold: 0 });
+  document.querySelectorAll("#gallery-root .terminal-box").forEach((box) => lazyObserver.observe(box));
+}
 
-  const boxes = document.querySelectorAll("#gallery-root .terminal-box");
-  if (!boxes.length) return;
-
-  lazyObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        intersectionState.set(entry.target, entry.isIntersecting);
-        if (entry.isIntersecting) {
-          resumeBox(entry.target);
-        } else {
-          pauseBox(entry.target);
-        }
-      });
-    },
-    { rootMargin: "300px 0px", threshold: 0 }
-  );
-
-  boxes.forEach((box) => {
-    lazyObserver.observe(box);
+// A hidden page has no live tile instances, including timer-driven legacy ones.
+document.addEventListener("visibilitychange", () => {
+  intersectionState.forEach((visible, box) => {
+    if (document.hidden) unmountBox(box);
+    else if (visible) requestBox(box);
   });
-
-  // Deferred sweep: concept modules resolve at various times. Run a second
-  // pause pass ~1.5 s and ~3 s after render to catch animations that appear
-  // late for reasons the upgrade watcher below can't see (e.g. a concept
-  // building DOM on its own timer after upgrade).
-  setTimeout(pauseSweep, 1500);
-  setTimeout(pauseSweep, 3000);
-}
-
-// Pause every box whose last-known intersection state is "outside".
-function pauseSweep() {
-  intersectionState.forEach((isIntersecting, box) => {
-    if (!isIntersecting) pauseBox(box);
-  });
-}
-
-// Deterministic late-upgrade coverage: a module that resolves after the last
-// timed sweep would otherwise animate off-screen forever (the observer only
-// fires on intersection *changes*, so an already-off-screen box never gets
-// another callback). customElements.whenDefined resolves exactly when each
-// concept's elements upgrade, so schedule a coalesced sweep per definition.
-// The double rAF lets the fresh shadow roots' animations start before the
-// pause pass runs.
-let upgradeSweepQueued = false;
-function scheduleUpgradeSweep() {
-  if (upgradeSweepQueued) return;
-  upgradeSweepQueued = true;
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      upgradeSweepQueued = false;
-      pauseSweep();
-    });
-  });
-}
-
-function watchConceptUpgrades() {
-  for (const concept of CONCEPTS) {
-    customElements.whenDefined(concept.tag)
-      .then(scheduleUpgradeSweep)
-      .catch(() => {}); // invalid tag name: module never defines, nothing to pause
-  }
-}
-
+});
 
 // --- Version cyclers ------------------------------------------------------
 // Ported verbatim from the trailing inline <script> in
@@ -346,33 +274,13 @@ function wireVersioners() {
 
     if (currentIndex === -1) currentIndex = frames.length - 1;
 
-    // Hidden frames keep animating, so without this a newly shown version
-    // lands at an arbitrary mid-cycle phase — for concepts with long idle
-    // or dark stretches (Anglerfish, Wind Chimes), every version then looks
-    // identical when tabbing through. Rewinding the incoming frame's
-    // animations makes each version play its full cycle from the start.
-    // Shadow roots must be walked explicitly: getAnimations({subtree:true})
-    // from the light DOM does not cross the shadow boundary here.
-    const restartFrameAnimations = (frame) => {
-      const host = frame.firstElementChild;
-      if (!host || !host.shadowRoot) return;
-      [host, ...host.shadowRoot.querySelectorAll('*')].forEach((node) => {
-        node.getAnimations().forEach((animation) => {
-          animation.currentTime = 0;
-          // Ensure the animation is playing even if the lazy observer had
-          // previously paused this box while it was off-screen.
-          if (animation.playState === 'paused') animation.play();
-        });
-      });
-    };
-
     const render = (nextIndex) => {
       const changed = nextIndex !== currentIndex;
       currentIndex = nextIndex;
       frames.forEach((frame, index) => {
         frame.classList.toggle('is-active', index === currentIndex);
       });
-      if (changed) restartFrameAnimations(frames[currentIndex]);
+      if (changed) { unmountBox(box); mountBox(box); }
       dots.forEach((dot, index) => {
         dot.classList.toggle('is-active', index === currentIndex);
         dot.setAttribute('aria-pressed', index === currentIndex ? 'true' : 'false');
@@ -460,10 +368,7 @@ function agentsOf(concept) {
     : [];
 }
 
-const ORIGINS = [
-  { id: "claude", title: "Claude" },
-  { id: "gemini", title: "Gemini" },
-];
+const ORIGINS = deriveChips(agentsOf, titleCase);
 
 // Model/version aren't a fixed list like agents — new values show up as new
 // contributions get recorded, so their chip sets are derived from whatever's
@@ -523,10 +428,10 @@ function isVisible(concept) {
   if (!activeSections.has(concept.section)) return false;
   if (!activeCategories.has(concept.category)) return false;
   if (!activeStatuses.has(statusOf(concept))) return false;
-  if (!agentsOf(concept).some((agent) => activeOrigins.has(agent))) return false;
-  if (!modelsOf(concept).some((model) => activeModels.has(idOf(model)))) return false;
-  if (!versionsOf(concept).some((version) => activeVersions.has(idOf(version)))) return false;
-  if (searchTerm && !concept.label.toLowerCase().includes(searchTerm)) {
+  if (!matchesProvenance(concept.origin?.contributions || [], {
+    origins: activeOrigins, models: activeModels, versions: activeVersions,
+  })) return false;
+  if (searchTerm && !searchText.get(concept.tag).includes(searchTerm)) {
     return false;
   }
   return true;
@@ -554,7 +459,6 @@ function applyFilters() {
   }
 
   renderGallery(visible);
-  importConceptModules(visible);
   wireVersioners();
   installLazyObserver();
   updateBannerVisibility();
@@ -662,8 +566,8 @@ function initToolbar() {
   searchInput = document.createElement("input");
   searchInput.type = "search";
   searchInput.className = "concept-search";
-  searchInput.placeholder = "Search concepts by name…";
-  searchInput.setAttribute("aria-label", "Search concepts by name");
+  searchInput.placeholder = "Search names, definitions, topics…";
+  searchInput.setAttribute("aria-label", "Search names, definitions, and topics");
   toolbar.appendChild(searchInput);
 
   // Curated is the default for the unified taxonomy; date sorts flatten it.
@@ -833,6 +737,10 @@ function initToolbar() {
     if (searchTimer) clearTimeout(searchTimer);
     searchTimer = setTimeout(() => {
       searchTerm = searchInput.value.trim().toLowerCase();
+      if (searchTerm && sortMode === "newest") {
+        sortMode = "curated";
+        sortSelect.value = sortMode;
+      }
       applyFilters();
     }, 120);
   });
@@ -1015,8 +923,10 @@ async function copyText(text) {
       // Fall through to the legacy path below.
     }
   }
+  const previousFocus = document.activeElement;
+  let textarea;
   try {
-    const textarea = document.createElement("textarea");
+    textarea = document.createElement("textarea");
     textarea.value = text;
     textarea.setAttribute("readonly", "");
     textarea.style.position = "fixed";
@@ -1024,11 +934,12 @@ async function copyText(text) {
     textarea.style.left = "-9999px";
     document.body.appendChild(textarea);
     textarea.select();
-    const ok = document.execCommand("copy");
-    textarea.remove();
-    return ok;
+    return document.execCommand("copy");
   } catch (error) {
     return false;
+  } finally {
+    textarea?.remove();
+    if (previousFocus?.isConnected) previousFocus.focus?.({ preventScroll: true });
   }
 }
 
@@ -1043,8 +954,8 @@ function buildSnippet(card, concept) {
   let version = "";
   const activeFrame = card.querySelector(".concept-frame.is-active");
   if (activeFrame) {
-    const el = activeFrame.querySelector(tag);
-    version = (el && el.getAttribute("version")) || "";
+    const el = activeFrame.querySelector(tag) || activeFrame.querySelector("template").content.firstElementChild;
+    version = el.getAttribute("version") || "";
   }
 
   const tagLine = version
@@ -1117,8 +1028,6 @@ function init() {
   }
   applyFilters();
 }
-
-watchConceptUpgrades();
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init, { once: true });

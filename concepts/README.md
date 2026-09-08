@@ -1,7 +1,7 @@
 # Animation Concepts Archive
 
-The canonical Afterglows gallery contains **660 reusable animation concepts** in
-one catalog. The collection is organized into **9 top-level sections** and **43
+The canonical Afterglows gallery contains **945 reusable animation concepts** in
+one catalog. The collection is organized into **13 top-level sections** and **63
 definitive categories**; each category owns a matching source folder.
 
 ## Structure
@@ -10,10 +10,12 @@ definitive categories**; each category owns a matching source folder.
 - `gallery/manifest.js` — unified catalog consumed by the gallery.
 - `gallery/taxonomy.js` — definitive section/category definitions and migration
   classifications.
-- `gallery/manifests/` — preserved metadata/provenance shards for the original
-  Concepts and Physics batches.
-- `gallery/index.js` — the sole renderer, module loader, filters, sorting,
-  version cycling, and Copy/Source actions.
+- `gallery/manifests/` — preserved historical metadata and direct canonical
+  discipline shards for the expansion.
+- `gallery/index.js` — the renderer, filters, sorting, version cycling, and
+  Copy/Source actions.
+- `gallery/module-queue.js` and `gallery/module-loader.js` — bounded imports,
+  shared pending loads, caching, and recovery from temporary import failures.
 - `gallery/concepts/<section>/<category>/*.js` — canonical custom-element
   implementations. Every concept has one primary physical location.
 
@@ -28,6 +30,14 @@ the prefixes identify their implementation lineage, not separate galleries.
 | Mathematics & Information | Geometry & Pattern | 19 |
 |  | Computing, Signals & Interfaces | 14 |
 |  | Cryptography & Information | 11 |
+|  | Statistics & Probability | 16 |
+| Data Science & Optimization | Optimization & Decision Methods | 5 |
+|  | Statistical Learning | 11 |
+| Computing | Algorithms & Data Structures | 25 |
+|  | Information Theory & Coding | 9 |
+|  | Computer Networks | 15 |
+|  | Distributed Systems | 9 |
+|  | Runtime & Storage | 6 |
 | Physical Sciences | Classical Mechanics & Kinematics | 18 |
 |  | Fluid Dynamics | 20 |
 |  | Waves & Optics | 18 |
@@ -39,26 +49,38 @@ the prefixes identify their implementation lineage, not separate galleries.
 |  | Plasma & Magnetohydrodynamics | 10 |
 |  | Condensed Matter & Crystallography | 24 |
 |  | Spectroscopy & Prismatics | 8 |
-| Chemistry | Laboratory Chemistry | 7 |
+| Chemistry | Molecular Chemistry | 12 |
+|  | Materials & Processing | 19 |
+|  | Industrial Chemistry | 9 |
+|  | Laboratory Chemistry | 7 |
 |  | Alchemy & Hermetica | 17 |
-| Life Sciences | Cellular Biology & Microbiology | 19 |
-|  | Plants, Insects & Terrestrial Ecology | 22 |
+| Human Health | Anatomy & Physiology | 20 |
+|  | Neuroscience & Senses | 10 |
+|  | Immunity & Medicine | 10 |
+| Life Sciences | Molecular Genetics | 14 |
+|  | Cellular Biology & Microbiology | 25 |
+|  | Ecology & Evolution | 7 |
+|  | Plants, Insects & Terrestrial Ecology | 30 |
 |  | Birds & Aviary | 19 |
 |  | Marine Life | 13 |
 | Earth & Environment | Geology & Earth Processes | 15 |
 |  | Meteorology & Atmospheric Phenomena | 23 |
-|  | Oceanography & Hydrology | 4 |
+|  | Oceanography & Hydrology | 12 |
 | Astronomy & Spaceflight | Astronomy & Astrometry | 24 |
 |  | Orbital Mechanics & Gravitation | 10 |
 |  | Astronautics & Spaceflight | 3 |
 |  | Aeronautics & Flight | 11 |
-| Engineering & Technology | Mechanisms & Tools | 19 |
+| Engineering & Technology | Energy Systems | 17 |
+|  | Instrumentation & Signals | 17 |
+|  | Control & Robotics | 18 |
+|  | Mechanisms & Tools | 19 |
 |  | Horology & Chronometry | 17 |
 |  | Navigation & Cartography | 17 |
 |  | Surveying & Geodesy | 13 |
 |  | Telegraphy & Telecommunications | 15 |
 |  | Transport, Civic Systems & Commerce | 18 |
 |  | Domestic & Office Objects | 11 |
+| Mind & Society | Perception & Communication | 14 |
 | Arts, Culture & Play | Music & Instruments | 21 |
 |  | Games & Sport | 22 |
 |  | Toys & Kinetic Play | 12 |
@@ -68,7 +90,7 @@ the prefixes identify their implementation lineage, not separate galleries.
 | Imagination & Belief | Science Fiction & Encounters | 18 |
 |  | Supernatural & Folklore | 16 |
 |  | Magic & Occult | 11 |
-| **Total** | **43 categories** | **660** |
+| **Total** | **63 categories** | **945** |
 
 The gallery accepts deep links through `section` and `category` query
 parameters, for example `/concepts/?section=physics` and
@@ -89,16 +111,37 @@ Use a tile's **Copy** action to obtain its current canonical module URL and tag:
 
 1. Add the component to its definitive
    `gallery/concepts/<section>/<category>/` folder.
-2. Add its metadata to the appropriate shard in `gallery/manifests/`.
-3. If the shard's historical category does not map to the desired definitive
-   category, add a narrow tag override in `gallery/taxonomy.js`.
-4. Preserve the existing origin contribution structure and stamp `added` and
-   `updated` as ISO-UTC timestamps; never guess missing model information.
-5. Run `npm test`. The validator enforces taxonomy counts, canonical folder
-   placement, unique tags/labels/paths, metadata, syntax, custom-element
-   registration, and orphan detection across all 660 modules.
+2. Add new subjects to a discipline shard in `gallery/manifests/` using
+   `expansionEntries`, and import that shard directly in `gallery/manifest.js`.
+   Each entry states its canonical section and category. Historical shards and
+   taxonomy overrides preserve earlier placements; new entries do not need them.
+3. Record a concise definition, motion thesis, relevant aliases and facets,
+   authoritative references, and an independently designed animation cycle.
+   Definitions and motion descriptions belong in the manifest, which supplies
+   accessible card details and search text.
+4. Record actual contributions and whole-second ISO-UTC `added` and `updated`
+   timestamps; never guess missing model information. Update the category's
+   `expectedCount` in `gallery/taxonomy.js`.
+5. Run `npm test`, build, site and security checks, then review the animation
+   at multiple phases and with reduced motion. The validator checks taxonomy,
+   canonical paths, unique identities, metadata, syntax, registration, and orphans.
+
+The gallery mounts only nearby active versions and limits concurrent module
+imports. Keep component lifecycles safe to disconnect and remount, pause
+animation off-screen, and provide an understandable reduced-motion state.
+A failed preview retries only when revisited, using a fresh request URL to bypass
+browser-cached failures. Canonical metadata, Source links, and copied embeds
+retain the stable module URL.
 
 Versioned concepts keep all historical frames in one component module and use
 the existing `default`/`versions` metadata. Do not duplicate a component merely
 to give it a secondary disciplinary association; add facets to the catalog when
 cross-disciplinary browsing is needed.
+
+## Expansion acceptance
+
+`npm run gallery:acceptance` verifies the operator-approved delivered scope,
+selection outcomes, unique canonical modules, and current-source visual-review
+evidence. The original research pool and the delivered/deferred decision are
+retained under `.raiden/state/SNAPSHOTS/gallery-expansion/`; these local review
+artifacts are excluded from the public site build.
