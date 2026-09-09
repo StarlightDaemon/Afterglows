@@ -1,0 +1,455 @@
+{
+  "note": "Identity and selection outcomes only; canonical definitions, design assumptions and references live in manifest shards.",
+  "reconsidered": "All 55 previously deferred selections S061–S115 were researched again against the revised catalog and retained.",
+  "extra": "S116, Frost Heave by Ice-Lens Growth, fills a distinct ground-ice mechanism gap and offsets the preserved Wind Rose retirement.",
+  "selected": [
+    {
+      "key": "S061",
+      "label": "Ocean Internal Wave",
+      "tag": "concept-ocean-internal-wave",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/ocean-internal-wave-concept.js",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S062",
+      "label": "Groundwater Cone of Depression",
+      "tag": "concept-groundwater-cone-of-depression",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/groundwater-cone-of-depression-concept.js",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S063",
+      "label": "Artesian Aquifer",
+      "tag": "concept-artesian-aquifer",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/artesian-aquifer-concept.js",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S064",
+      "label": "Meander Cutoff",
+      "tag": "concept-meander-cutoff",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/meander-cutoff-concept.js",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S065",
+      "label": "Watershed Divide",
+      "tag": "concept-watershed-divide",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/watershed-divide-concept.js",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S066",
+      "label": "Impervious Runoff",
+      "tag": "concept-impervious-runoff",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/impervious-runoff-concept.js",
+      "section": "earth-sciences",
+      "category": "oceanography-hydrology"
+    },
+    {
+      "key": "S067",
+      "label": "Ice-Albedo Feedback",
+      "tag": "concept-ice-albedo-feedback",
+      "module": "./concepts/earth-sciences/climate-systems/ice-albedo-feedback-concept.js",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S068",
+      "label": "Ice-Shelf Buttressing",
+      "tag": "concept-ice-shelf-buttressing",
+      "module": "./concepts/earth-sciences/climate-systems/ice-shelf-buttressing-concept.js",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S069",
+      "label": "Thermokarst Thaw Slump",
+      "tag": "concept-thermokarst-thaw-slump",
+      "module": "./concepts/earth-sciences/climate-systems/thermokarst-thaw-slump-concept.js",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S070",
+      "label": "El Nino-Southern Oscillation",
+      "tag": "concept-el-nino-southern-oscillation",
+      "module": "./concepts/earth-sciences/climate-systems/el-nino-southern-oscillation-concept.js",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S071",
+      "label": "Atmospheric River",
+      "tag": "concept-atmospheric-river",
+      "module": "./concepts/earth-sciences/climate-systems/atmospheric-river-concept.js",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S072",
+      "label": "Orographic Rain Shadow",
+      "tag": "concept-orographic-rain-shadow",
+      "module": "./concepts/earth-sciences/climate-systems/orographic-rain-shadow-concept.js",
+      "section": "earth-sciences",
+      "category": "climate-systems"
+    },
+    {
+      "key": "S116",
+      "label": "Frost Heave by Ice-Lens Growth",
+      "tag": "concept-frost-heave-ice-lens",
+      "module": "./concepts/earth-sciences/geology/frost-heave-ice-lens-concept.js",
+      "section": "earth-sciences",
+      "category": "geology"
+    },
+    {
+      "key": "S073",
+      "label": "Seismic Base Isolation",
+      "tag": "concept-seismic-base-isolation",
+      "module": "./concepts/engineering-technology/civil-logistics/seismic-base-isolation-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S074",
+      "label": "Tuned Mass Damper",
+      "tag": "concept-tuned-mass-damper",
+      "module": "./concepts/engineering-technology/civil-logistics/tuned-mass-damper-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S075",
+      "label": "Prestressed Concrete",
+      "tag": "concept-prestressed-concrete",
+      "module": "./concepts/engineering-technology/civil-logistics/prestressed-concrete-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S076",
+      "label": "Truss Load Paths",
+      "tag": "concept-truss-load-paths",
+      "module": "./concepts/engineering-technology/civil-logistics/truss-load-paths-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S077",
+      "label": "Arch Thrust",
+      "tag": "concept-arch-thrust",
+      "module": "./concepts/engineering-technology/civil-logistics/arch-thrust-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S078",
+      "label": "Cantilever Deflection",
+      "tag": "concept-cantilever-deflection",
+      "module": "./concepts/engineering-technology/civil-logistics/cantilever-deflection-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S079",
+      "label": "Cable-Stayed Load Transfer",
+      "tag": "concept-cable-stayed-load-transfer",
+      "module": "./concepts/engineering-technology/civil-logistics/cable-stayed-load-transfer-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S080",
+      "label": "Bridge Expansion Joint",
+      "tag": "concept-bridge-expansion-joint",
+      "module": "./concepts/engineering-technology/civil-logistics/bridge-expansion-joint-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S081",
+      "label": "Tunnel-Boring Advance",
+      "tag": "concept-tunnel-boring-advance",
+      "module": "./concepts/engineering-technology/civil-logistics/tunnel-boring-advance-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S082",
+      "label": "Clarifier Sedimentation",
+      "tag": "concept-clarifier-sedimentation",
+      "module": "./concepts/engineering-technology/civil-logistics/clarifier-sedimentation-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S083",
+      "label": "Activated-Sludge Treatment",
+      "tag": "concept-activated-sludge-treatment",
+      "module": "./concepts/engineering-technology/civil-logistics/activated-sludge-treatment-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S084",
+      "label": "Roundabout Gap Acceptance",
+      "tag": "concept-roundabout-gap-acceptance",
+      "module": "./concepts/engineering-technology/civil-logistics/roundabout-gap-acceptance-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S085",
+      "label": "Zipper Merge",
+      "tag": "concept-zipper-merge",
+      "module": "./concepts/engineering-technology/civil-logistics/zipper-merge-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S086",
+      "label": "Traffic Shock Wave",
+      "tag": "concept-traffic-shock-wave",
+      "module": "./concepts/engineering-technology/civil-logistics/traffic-shock-wave-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S087",
+      "label": "Railway Track Circuit",
+      "tag": "concept-railway-track-circuit",
+      "module": "./concepts/engineering-technology/civil-logistics/railway-track-circuit-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S088",
+      "label": "Ship-to-Shore Container Crane",
+      "tag": "concept-ship-to-shore-container-crane",
+      "module": "./concepts/engineering-technology/civil-logistics/ship-to-shore-container-crane-concept.js",
+      "section": "engineering-technology",
+      "category": "civil-logistics"
+    },
+    {
+      "key": "S089",
+      "label": "Rocket Stage Separation",
+      "tag": "concept-rocket-stage-separation",
+      "module": "./concepts/astronomy-space/astronautics/rocket-stage-separation-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S090",
+      "label": "Reaction-Wheel Attitude Control",
+      "tag": "concept-reaction-wheel-attitude-control",
+      "module": "./concepts/astronomy-space/astronautics/reaction-wheel-attitude-control-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S091",
+      "label": "Thruster Docking",
+      "tag": "concept-thruster-docking",
+      "module": "./concepts/astronomy-space/astronautics/thruster-docking-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S092",
+      "label": "Gridded Ion Thruster",
+      "tag": "concept-gridded-ion-thruster",
+      "module": "./concepts/astronomy-space/astronautics/gridded-ion-thruster-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S093",
+      "label": "Aerobraking",
+      "tag": "concept-aerobraking",
+      "module": "./concepts/astronomy-space/astronautics/aerobraking-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S094",
+      "label": "Ablative Heat Shield",
+      "tag": "concept-ablative-heat-shield",
+      "module": "./concepts/astronomy-space/astronautics/ablative-heat-shield-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S095",
+      "label": "Sky-Crane Landing",
+      "tag": "concept-sky-crane-landing",
+      "module": "./concepts/astronomy-space/astronautics/sky-crane-landing-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S096",
+      "label": "Webb Sunshield Deployment",
+      "tag": "concept-webb-sunshield-deployment",
+      "module": "./concepts/astronomy-space/astronautics/webb-sunshield-deployment-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S097",
+      "label": "Rocker-Bogie Suspension",
+      "tag": "concept-rocker-bogie-suspension",
+      "module": "./concepts/astronomy-space/astronautics/rocker-bogie-suspension-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S098",
+      "label": "Exoplanet Transit Photometry",
+      "tag": "concept-exoplanet-transit-photometry",
+      "module": "./concepts/astronomy-space/astronomy-astrometry/exoplanet-transit-photometry-concept.js",
+      "section": "astronomy-space",
+      "category": "astronomy-astrometry"
+    },
+    {
+      "key": "S099",
+      "label": "Radial-Velocity Planet Detection",
+      "tag": "concept-radial-velocity-planet-detection",
+      "module": "./concepts/astronomy-space/astronomy-astrometry/radial-velocity-planet-detection-concept.js",
+      "section": "astronomy-space",
+      "category": "astronomy-astrometry"
+    },
+    {
+      "key": "S100",
+      "label": "Astronomical Aperture Synthesis",
+      "tag": "concept-astronomical-aperture-synthesis",
+      "module": "./concepts/astronomy-space/astronomy-astrometry/astronomical-aperture-synthesis-concept.js",
+      "section": "astronomy-space",
+      "category": "astronomy-astrometry"
+    },
+    {
+      "key": "S101",
+      "label": "Adaptive Optics",
+      "tag": "concept-adaptive-optics",
+      "module": "./concepts/astronomy-space/astronomy-astrometry/adaptive-optics-concept.js",
+      "section": "astronomy-space",
+      "category": "astronomy-astrometry"
+    },
+    {
+      "key": "S102",
+      "label": "Segmented-Mirror Phasing",
+      "tag": "concept-segmented-mirror-phasing",
+      "module": "./concepts/astronomy-space/astronomy-astrometry/segmented-mirror-phasing-concept.js",
+      "section": "astronomy-space",
+      "category": "astronomy-astrometry"
+    },
+    {
+      "key": "S103",
+      "label": "Touch-and-Go Asteroid Sampling",
+      "tag": "concept-touch-and-go-asteroid-sampling",
+      "module": "./concepts/astronomy-space/astronautics/touch-and-go-asteroid-sampling-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S104",
+      "label": "Star-Tracker Attitude Determination",
+      "tag": "concept-star-tracker-attitude-determination",
+      "module": "./concepts/astronomy-space/astronautics/star-tracker-attitude-determination-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S105",
+      "label": "Aerogel Dust Capture",
+      "tag": "concept-aerogel-dust-capture",
+      "module": "./concepts/astronomy-space/astronautics/aerogel-dust-capture-concept.js",
+      "section": "astronomy-space",
+      "category": "astronautics"
+    },
+    {
+      "key": "S106",
+      "label": "Market Clearing",
+      "tag": "concept-market-clearing",
+      "module": "./concepts/mind-society/economics-collective/market-clearing-concept.js",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S107",
+      "label": "Order Book Matching",
+      "tag": "concept-order-book-matching",
+      "module": "./concepts/mind-society/economics-collective/order-book-matching-concept.js",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S108",
+      "label": "Comparative Advantage",
+      "tag": "concept-comparative-advantage",
+      "module": "./concepts/mind-society/economics-collective/comparative-advantage-concept.js",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S109",
+      "label": "Cobweb Price Dynamics",
+      "tag": "concept-cobweb-price-dynamics",
+      "module": "./concepts/mind-society/economics-collective/cobweb-price-dynamics-concept.js",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S110",
+      "label": "Bank Run",
+      "tag": "concept-bank-run",
+      "module": "./concepts/mind-society/economics-collective/bank-run-concept.js",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S111",
+      "label": "Ascending Auction",
+      "tag": "concept-ascending-auction",
+      "module": "./concepts/mind-society/economics-collective/ascending-auction-concept.js",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S112",
+      "label": "Public Goods Free Riding",
+      "tag": "concept-public-goods-free-riding",
+      "module": "./concepts/mind-society/economics-collective/public-goods-free-riding-concept.js",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S113",
+      "label": "Common-Pool Governance",
+      "tag": "concept-common-pool-governance",
+      "module": "./concepts/mind-society/economics-collective/common-pool-governance-concept.js",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S114",
+      "label": "Schelling Segregation Model",
+      "tag": "concept-schelling-segregation-model",
+      "module": "./concepts/mind-society/economics-collective/schelling-segregation-model-concept.js",
+      "section": "mind-society",
+      "category": "economics-collective"
+    },
+    {
+      "key": "S115",
+      "label": "Bullwhip Effect",
+      "tag": "concept-bullwhip-effect",
+      "module": "./concepts/mind-society/economics-collective/bullwhip-effect-concept.js",
+      "section": "mind-society",
+      "category": "economics-collective"
+    }
+  ]
+}

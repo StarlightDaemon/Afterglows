@@ -1,7 +1,16 @@
 // Final expansion gate; deliberately stricter than the intermediate-wave tests.
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { CATEGORIES, CONCEPTS, SECTIONS } from "../concepts/gallery/manifest.js";
+import { CATEGORIES as CURRENT_CATEGORIES, CONCEPTS as CURRENT_CONCEPTS, SECTIONS, ACTIVE_CONCEPTS, RETIRED_CONCEPTS } from "../concepts/gallery/manifest.js";
+import {historicalConcept, currentCuration as transition} from './gallery-curation-state.js';
+
+// Validate the original delivery against its preserved subset, then the resumed
+// delivery against today's complete catalog. Historical decisions stay intact.
+const resumedRoot = new URL("../.raiden/state/SNAPSHOTS/gallery-expansion-resumed/", import.meta.url);
+const baseline = JSON.parse(fs.readFileSync(new URL("baseline.json", resumedRoot), "utf8"));
+const baselineTags = new Set(baseline.entries.map(({ concept }) => concept.tag));
+const CONCEPTS = CURRENT_CONCEPTS.filter((concept) => baselineTags.has(concept.tag)).map(historicalConcept);
+const CATEGORIES = CURRENT_CATEGORIES.filter((category) => CONCEPTS.some((concept) => concept.category === category.id));
 
 const selection = JSON.parse(fs.readFileSync(new URL("../.raiden/state/SNAPSHOTS/gallery-expansion/selection.json", import.meta.url), "utf8"));
 const delivery = JSON.parse(fs.readFileSync(new URL("../.raiden/state/SNAPSHOTS/gallery-expansion/delivery.json", import.meta.url), "utf8"));
@@ -40,5 +49,44 @@ for (const concept of additions) {
   assert.equal(concept.category, candidate.category, "Selected category changed: " + concept.label);
 }
 assert.equal(seen.size, delivered.size, "Every delivered subject must be implemented");
+const resumed = JSON.parse(fs.readFileSync(new URL("delivery.json", resumedRoot), "utf8"));
+const resumedSelection = JSON.parse(fs.readFileSync(new URL("selection.json", resumedRoot), "utf8"));
+const newConcepts = CURRENT_CONCEPTS.filter((concept) => !baselineTags.has(concept.tag) && !['curation','finale'].includes(concept.source));
+assert.equal(resumed.decision, "operator-resumed-expansion");
+assert.equal(resumed.status, "reviewed", "Resumed delivery must complete review");
+assert.equal(resumed.baseline.head, baseline.head);
+assert.equal(resumed.baseline.active, baseline.activeCount);
+assert.equal(resumed.baseline.preserved, baseline.preservedCount);
+assert.equal(ACTIVE_CONCEPTS.length, transition.activeCount, "Operator-authorized consolidated inventory");
+assert.equal(CURRENT_CONCEPTS.length, transition.preservedCount, "Retired records stay preserved separately");
+assert.deepEqual(resumed.delivered, {
+  active: 1000, preserved: 1001,
+  additions: newConcepts.length, sections: SECTIONS.length, categories: CURRENT_CATEGORIES.length,
+});
+assert.equal(newConcepts.length, 56);
+assert.equal(baseline.entries.length + newConcepts.length + transition.additions.length, CURRENT_CONCEPTS.length);
+assert.deepEqual(resumed.retiredTags, baseline.retiredTags, 'Historical delivery retirement is preserved');
+assert.deepEqual(new Set(RETIRED_CONCEPTS.map(c => c.tag)), new Set(transition.retiredTags));
+assert.equal(new Set(CURRENT_CONCEPTS.map((concept) => concept.module)).size, CURRENT_CONCEPTS.length);
+const resumedKeys = new Set(resumed.selectedKeys);
+assert.equal(resumedKeys.size, 56);
+assert.deepEqual(resumedKeys, new Set([...deferred, "S116"]), "Reassessed deferred subjects plus one distinct replacement");
+assert.deepEqual(resumedSelection.selected, newConcepts.map(({ key, label, tag, module, section, category }) => ({ key, label, tag, module, section, category })));
+assert.deepEqual(new Set(newConcepts.map((concept) => concept.key)), resumedKeys);
+for (const concept of newConcepts) {
+  assert.equal(concept.source, "expansion");
+  assert.ok(ACTIVE_CONCEPTS.includes(concept), "Every resumed addition must be active");
+  if (deferred.has(concept.key)) {
+    const original = selection.selected.find((candidate) => candidate.key === concept.key);
+    assert.equal(identity(concept.label), identity(original.name), "Retained deferred subject changed: " + concept.key);
+    assert.equal(concept.section, original.section, "Deferred section changed: " + concept.key);
+    assert.equal(concept.category, original.category, "Deferred category changed: " + concept.key);
+  }
+}
+await import("./test-resumption-preservation.js");
 await import("./validate-visual-qa.js");
-if (!process.exitCode) console.log(`Delivered expansion accepted: ${CONCEPTS.length} canonical concepts, ${additions.length} reviewed additions, ${deferred.size} explicitly deferred subjects.`);
+await import('./test-curation-models.mjs');
+await import('./validate-curation-review.js');
+await import('./test-final-two.mjs');
+await import('./validate-final-two-review.js');
+if (!process.exitCode) console.log(`Final target verified: ${ACTIVE_CONCEPTS.length} active / ${CURRENT_CONCEPTS.length} preserved; five retirements unchanged. Historical deliveries and both consolidation and final-pair models preserved.`);

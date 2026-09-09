@@ -1,0 +1,85 @@
+{
+  "status": "reviewed-ready-for-operator",
+  "operatorApproval": null,
+  "phases": [
+    25,
+    50,
+    75,
+    85
+  ],
+  "entries": [
+    {
+      "tag": "concept-rotary-pulse-dial",
+      "sha256": "5cbd89c896afe33567a4125fc8c00121fa58993eab076f3c251e9e3da42123f3",
+      "nativeDimensions": [
+        140,
+        140
+      ],
+      "reviewDimensions": [
+        238,
+        238
+      ],
+      "reducedAnimatedElements": 0,
+      "remounted": true
+    },
+    {
+      "tag": "concept-spirit-board",
+      "sha256": "78ccaf061ef866c79746966564b434307e217fdc13ee9c74ab043ed0eee11174",
+      "nativeDimensions": [
+        140,
+        140
+      ],
+      "reviewDimensions": [
+        238,
+        238
+      ],
+      "reducedAnimatedElements": 0,
+      "remounted": true
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "phase-25.jpg",
+      "sha256": "dbc46933545dc961ab3ea42516701250ea93f43bb7f450b8ebcfd04f455a82b5"
+    },
+    {
+      "path": "phase-50.jpg",
+      "sha256": "6d1f762d399654c8fcf57cb5471cdd814285da8b47157110c84161d133bf4323"
+    },
+    {
+      "path": "phase-75.jpg",
+      "sha256": "c787c051c3522ae762b155bb10fc6c058507ea352d3fbf28c82011a92a19fab5"
+    },
+    {
+      "path": "phase-85.jpg",
+      "sha256": "ba1c017c27f590a15ea8f9aeceb043080ff8cc72c36e3e94b5ac6e81a0dbacb0"
+    },
+    {
+      "path": "reduced-remount.jpg",
+      "sha256": "e21e121be4fcda4e75f950aa1afda571e3cabe44cb2eb3c7a3b402e6a768474c"
+    },
+    {
+      "path": "mobile.jpg",
+      "sha256": "d166ba34fc9473e6e28d56fb9273e892af8b82636ff64dab75e1831d56365ac6"
+    },
+    {
+      "path": "gallery-search.jpg",
+      "sha256": "9dda5051351f318d6cc938205045c885586a7e153468266f11268d8561c0f1c6"
+    }
+  ],
+  "galleryCount": "Showing 998 of 998",
+  "searchCount": "Showing 1 of 998",
+  "retiredLinks": [],
+  "pageErrors": [],
+  "mobile": {
+    "viewport": 390,
+    "documentWidth": 375,
+    "horizontalOverflow": false
+  },
+  "preservation": "All 1001 pre-consolidation records and source hashes remain exact, including five now-retired entries.",
+  "limits": [
+    "Local Chromium; no cross-browser certification.",
+    "Reduced-motion CSS preview, not OS preference changes.",
+    "Two places remain below the former 1000 active target; no filler added."
+  ]
+}

@@ -5,11 +5,14 @@ const wave = await fetch("./wave.json").then(r => { if (!r.ok) throw Error("Wave
 document.title = `Afterglows · Wave ${String(wave.wave).padStart(2, "0")} review`;
 document.querySelector("h1").textContent = `Wave ${String(wave.wave).padStart(2, "0")} · ${wave.title || "Mechanisms & Tools"}`;
 const audit = new URLSearchParams(location.search).has("audit");
-const selected = wave.concepts.filter(c => audit || (c.classification === "refine" && (!wave.preview?.reviewTags || wave.preview.reviewTags.includes(c.tag))));
-const key = `afterglows-visual-standard-${wave.wave}-${wave.startingCommit}${new URLSearchParams(location.search).has("test") ? "-tool-verification" : ""}`;
+const paged = audit || new URLSearchParams(location.search).has("inspect");
+const selected = wave.concepts.filter(c => audit || (!c.retirement && c.classification === "refine" && (!wave.preview?.reviewTags || wave.preview.reviewTags.includes(c.tag))));
+const key = `afterglows-visual-standard-${wave.wave}-${wave.startingCommit}${wave.preview?.reviewRevision ? `-${wave.preview.reviewRevision}` : ""}${new URLSearchParams(location.search).has("test") ? "-tool-verification" : ""}`;
 let decisions = Object.fromEntries(wave.concepts.filter(c => c.operatorDecision).map(c => [c.tag, {decision:c.operatorDecision,rating:c.rating,comment:c.comment || ""}]));
 let storageIssue = "";
 try { const stored = JSON.parse(localStorage.getItem(key) || "{}"); if (stored && typeof stored === "object" && !Array.isArray(stored)) decisions = {...decisions,...stored}; } catch { storageIssue = "Browser storage unavailable; copy the summary before leaving."; }
+// A later operator retirement supersedes browser-local pre-retirement feedback.
+for (const row of wave.concepts.filter(c => c.retirement)) decisions[row.tag] = {decision:"Retire",rating:row.rating,comment:row.comment || ""};
 let group = 0;
 let ticket = 0;
 let mounted = [];
@@ -34,7 +37,7 @@ function reduce(host, enabled) {
 async function render() {
   const turn = ++ticket;
   mounted = []; main.replaceChildren();
-  const cohort = audit ? selected.slice(group*5,group*5+5) : selected;
+  const cohort = paged ? selected.slice(group*5,group*5+5) : selected;
   let failed = 0;
   for (const row of cohort) {
     const concept = CONCEPTS.find(c => c.tag === row.tag);
@@ -71,16 +74,17 @@ async function render() {
       play.onclick = () => { if (reduced) return;
         if (playing) { const a = animationList(hosts[0])[0]; if (a) phase = (Number(a.currentTime)/duration(0))%1; seek(phase); return; }
         playing = true; play.textContent = "Pause"; const start = document.timeline.currentTime;
-        hosts.forEach((h,i) => animationList(h).forEach(a => { a.playbackRate = duration(i)/(cycle*1000); a.play(); a.startTime = start - phase*cycle*1000; }));
-        info.textContent = "Playing · synchronized cycle progress";
+        hosts.forEach((h,i) => animationList(h).forEach(a => { const native=wave.synchronizeCycles===false; a.playbackRate = native ? 1 : duration(i)/(cycle*1000); a.play(); a.startTime = start - phase*(native ? duration(i) : cycle*1000); }));
+        info.textContent = wave.synchronizeCycles === false ? "Playing · native timing" : "Playing · synchronized cycle progress";
       };
       card.append(play);
       const label = element("label"); const toggle = element("input"); toggle.type="checkbox";
-      toggle.onchange = () => { reduced=toggle.checked; play.disabled=reduced; hosts.forEach(h=>reduce(h,reduced)); seek(phase); };
+      const setReduced = enabled => { reduced=enabled; toggle.checked=enabled; play.disabled=reduced; hosts.forEach(h=>reduce(h,reduced)); seek(phase); };
+      toggle.onchange = () => setReduced(toggle.checked);
       label.append(toggle,document.createTextNode(" Reduced motion"));
       const inspection = element("details"); inspection.open = audit;
       inspection.append(element("summary","Inspection tools"),controls,label,info,
-        element("p","Play synchronizes cycle progress. Reduced motion previews component CSS; it does not change the OS preference.","note"),
+        element("p",`${wave.synchronizeCycles === false ? "Play starts both studies together at their native timing." : "Play synchronizes cycle progress."} Reduced motion previews component CSS; it does not change the OS preference.`,"note"),
         element("div",`${concept.category} · ${concept.tag}`,"meta"),
         element("p",audit ? "Historical version" : "Previous: historical version · Refined: Codex / Astra / 6","meta"),
         element("p",row.implementationNote || row.decisionReason || "Historical assessment", "note"));
@@ -104,7 +108,7 @@ async function render() {
         field.append(options,ratingLabel,comment);card.append(field);
       }
       card.append(inspection);
-      mounted.push({hosts,seek});
+      mounted.push({hosts,seek,setReduced,play,reconnect:remount,get playing(){return playing;}});
       await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));seek(phase);
     } catch(error) {failed++;card.append(element("p",String(error),"error"));console.error(error);}
   }
@@ -112,7 +116,19 @@ async function render() {
   summary();
 }
 document.querySelector("#copy").onclick=async()=>{try{await navigator.clipboard.writeText(document.querySelector("#summary").textContent);document.querySelector("#copy-status").textContent="Copied";}catch{document.querySelector("#copy-status").textContent="Copy unavailable; select and copy the visible summary.";}};
-document.querySelector("#audit-nav").hidden=!audit;
+document.querySelector("#audit-nav").hidden=!paged;
 document.querySelector("#back").onclick=()=>{group=Math.max(0,group-1);render();};
 document.querySelector("#next").onclick=()=>{group=Math.min(Math.ceil(selected.length/5)-1,group+1);render();};
+// Group controls are restricted to the internal inspection URL.
+if (paged && !audit) {
+  const nav=document.querySelector('#audit-nav');
+  for(const p of [0,.25,.5,.75,.9]) {const b=element('button',`Group ${p*100}%`);b.onclick=()=>mounted.forEach(m=>m.seek(p));nav.append(b);}
+  for(const [label,action] of [
+    ['Play group',m=>{if(!m.playing)m.play.click();}],
+    ['Pause group',m=>{if(m.playing)m.play.click();}],
+    ['Reduce group',m=>m.setReduced(true)],
+    ['Restore group motion',m=>m.setReduced(false)],
+    ['Reconnect group',m=>m.reconnect.click()]
+  ]) {const b=element('button',label);b.onclick=()=>mounted.forEach(action);nav.append(b);}
+}
 render();

@@ -3,7 +3,7 @@ import path from "node:path";
 import vm from "node:vm";
 import { fileURLToPath } from "node:url";
 
-import { CATEGORIES, CONCEPTS, SECTIONS } from "../concepts/gallery/manifest.js";
+import { CATEGORIES, CONCEPTS, SECTIONS, COMPATIBILITY_MODULES } from "../concepts/gallery/manifest.js";
 
 const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const galleryRoot = path.join(projectRoot, "concepts", "gallery");
@@ -75,7 +75,7 @@ for (const concept of CONCEPTS) {
   if (!concept.origin?.contributions?.length) {
     errors.push(`Invalid or missing origin.contributions on ${concept.tag}`);
   }
-  if (concept.source === "expansion") {
+  if (["expansion", "curation", "finale"].includes(concept.source)) {
     for (const field of ["definition", "motionThesis", "distinction"]) {
       if (typeof concept[field] !== "string" || !concept[field].trim()) {
         errors.push(`Expansion entry ${concept.tag} requires ${field}`);
@@ -136,7 +136,7 @@ for (const concept of CONCEPTS) {
     errors.push(`Tag mismatch in ${concept.module}: defines ${definition[1]}, manifest has ${concept.tag}`);
   }
   if (!code.includes("attachShadow")) warnings.push(`No attachShadow found in ${concept.module}`);
-  if (concept.source === "expansion") {
+  if (["expansion", "curation", "finale"].includes(concept.source)) {
     // Nonzero CSS width/height require units, including SVG geometry rules.
     // Browsers silently discard these declarations and leave misleading poses.
     const styles = code.match(/<style>([\s\S]*?)<\/style>/)?.[1] || "";
@@ -171,7 +171,21 @@ for (const concept of CONCEPTS) {
   }
 }
 
-const canonicalFiles = walk(componentRoot).filter((file) => file.endsWith("-concept.js"));
+const compatibilityFiles = new Set();
+for (const alias of COMPATIBILITY_MODULES) {
+  const file = path.resolve(galleryRoot, alias.module);
+  const target = path.resolve(galleryRoot, alias.target);
+  if (!contained(componentRoot, file) || !referencedFiles.has(target.toLowerCase()) || referencedFiles.has(file.toLowerCase())) {
+    errors.push(`Invalid compatibility mapping: ${alias.module}`);
+    continue;
+  }
+  const relative = path.relative(path.dirname(file), target).replaceAll('\\', '/');
+  const expected = `// Preserved embed URL; canonical Wind Rose now belongs to meteorology.\nimport(${JSON.stringify(relative)});\n`;
+  if (!fs.existsSync(file) || fs.readFileSync(file, 'utf8') !== expected) errors.push(`Invalid compatibility shim: ${alias.module}`);
+  if (compatibilityFiles.has(file.toLowerCase())) errors.push(`Duplicate compatibility shim: ${alias.module}`);
+  compatibilityFiles.add(file.toLowerCase());
+}
+const canonicalFiles = walk(componentRoot).filter((file) => file.endsWith("-concept.js") && !compatibilityFiles.has(file.toLowerCase()));
 for (const file of canonicalFiles) {
   if (!referencedFiles.has(file.toLowerCase())) {
     errors.push(`Orphan component module: ${path.relative(projectRoot, file)}`);

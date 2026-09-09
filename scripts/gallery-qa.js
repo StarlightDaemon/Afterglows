@@ -1,7 +1,8 @@
 import { CONCEPTS } from "/concepts/gallery/manifest.js";
 
 // Keep review batches stable when a later subject returns to an earlier shard.
-const additions = CONCEPTS.filter((concept) => concept.source === "expansion")
+const since = new URLSearchParams(location.search).get("since");
+const additions = CONCEPTS.filter((concept) => concept.source === "expansion" && (!since || Date.parse(concept.added) >= Date.parse(since)))
   .sort((a, b) => Date.parse(a.added) - Date.parse(b.added));
 const size = 8;
 const select = document.querySelector("#batch");
@@ -33,14 +34,20 @@ function seek(value) {
     }
     host.closest("article").dataset.animationCount = animations(host).length;
   }
-  report.textContent = `${current.length} / ${Math.min(size, additions.length - batch * size)} registered and mounted; phase ${Math.round(phase * 100)}%; ${reduced.checked ? "reduced-motion declarations applied" : "animations paused for inspection"}.`;
+  const requestedPhase = phase;
+  const ticket = generation;
+  report.textContent = "Settling review frame…";
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    if (ticket !== generation || requestedPhase !== phase) return;
+    report.textContent = `${current.length} / ${Math.min(size, additions.length - batch * size)} registered and mounted; phase ${Math.round(phase * 100)}%; ${reduced.checked ? "reduced-motion declarations applied" : "animations paused for inspection"}.`;
+  }));
 }
 
 async function render() {
   const ticket = ++generation;
   const subjects = additions.slice(batch * size, (batch + 1) * size);
   select.value = batch;
-  history.replaceState(null, "", `?batch=${batch}`);
+  history.replaceState(null, "", `?batch=${batch}${since ? `&since=${encodeURIComponent(since)}` : ""}`);
   main.replaceChildren();
   current = [];
   report.textContent = "Loading review batch…";

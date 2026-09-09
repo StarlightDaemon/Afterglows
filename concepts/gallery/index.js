@@ -1,6 +1,6 @@
 // Canonical gallery: bounded viewport imports and mounts, accessible metadata,
 // taxonomy navigation, provenance filters, versions, and reusable source actions.
-import { CATEGORIES, CONCEPTS, SECTIONS } from "./manifest.js";
+import { CATEGORIES, ACTIVE_CONCEPTS as CONCEPTS, SECTIONS } from "./manifest.js";
 import { installReducedMotion } from "./reduced-motion.js";
 import { ModuleQueue } from "./module-queue.js";
 import { createModuleLoader } from "./module-loader.js";

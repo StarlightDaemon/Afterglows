@@ -1,3 +1,12 @@
+// BEGIN VISUAL STANDARD v2
+// Refined v2 by Codex / Astra / 6; historical markup/styles below remain intact.
+const visualStandardV2Styles=".vs2-frame{width:134px;height:128px;box-sizing:border-box}.vs2-frame [class$=\"-stage\"]{width:110px;height:102px}.vs2-frame svg[class$=\"-svg\"]{width:98px;height:94px}.vs2-frame [class$=\"-label\"]{left:4px;right:4px;bottom:4px;font-size:7px;line-height:1.15;text-align:center;letter-spacing:.2px}\n.tb-pegs,.tb-pegs circle{animation:none;opacity:.8;filter:none;transform:none}.tb-peg-runner{animation:vs2-peg 6s steps(1,end) infinite;filter:none}@keyframes vs2-peg{0%,100%{transform:translate(0,-14px)}25%{transform:translate(8px,-8px)}50%{transform:translate(12px,0)}75%{transform:translate(0,-8px)}}\n@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.tb-peg-runner{transform:translate(8px,-8px)}.tb-pegs{transform:none;opacity:.8}}";
+function applyVisualStandardV2(root){
+ const style=document.createElement('style');style.textContent=visualStandardV2Styles;root.append(style);
+ const frame=root.querySelector('div');frame.classList.add('vs2-frame');frame.setAttribute('role','img');frame.setAttribute('aria-label',"Traverse Board Dead Reckoning. The recording peg now dwells at discrete chart holes, with restrained fixed pegs and an intact static record.");
+
+}
+// END VISUAL STANDARD v2
 const traverseStyles = `
   :host {
     display: flex;
@@ -88,6 +97,10 @@ const traverseStyles = `
 `;
 
 class ConceptTraverseBoard extends HTMLElement {
+// BEGIN VISUAL STANDARD v2
+  static get observedAttributes(){return ['version'];}
+  attributeChangedCallback(){if(this.isConnected)this.connectedCallback();}
+// END VISUAL STANDARD v2
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -154,6 +167,9 @@ class ConceptTraverseBoard extends HTMLElement {
         <div class="tb-label">TRAVERSE BOARD</div>
       </div>
     `;
+// BEGIN VISUAL STANDARD v2
+    if(this.getAttribute('version')!=='v1')applyVisualStandardV2(this.shadowRoot);
+// END VISUAL STANDARD v2
   }
 }
 

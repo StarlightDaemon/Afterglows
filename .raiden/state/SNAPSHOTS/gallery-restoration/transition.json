@@ -1,0 +1,143 @@
+{
+  "decision": "operator-restore-retired-studies",
+  "status": "restored-awaiting-retirement-choice",
+  "instruction": "Re-implement any retired animations, then broadly search for overlapping animations and present retirement candidates to keep1000 active.",
+  "before": {
+    "tag": "concept-wind-rose",
+    "label": "Portolan Wind Rose",
+    "category": "navigation-cartography",
+    "origin": {
+      "contributions": [
+        {
+          "agent": "gemini",
+          "model": null,
+          "version": null
+        },
+        {
+          "agent": "codex",
+          "model": "astra",
+          "version": "6"
+        }
+      ]
+    },
+    "added": "2026-08-15T01:58:00Z",
+    "updated": "2026-09-08T18:00:00Z",
+    "versioned": true,
+    "badge": "Refined v2",
+    "badgeCls": "meta-status-refined",
+    "default": "v2",
+    "versions": [
+      {
+        "v": "v1",
+        "badge": "Original v1",
+        "badgeCls": "meta-status-original"
+      },
+      {
+        "v": "v2",
+        "badge": "Refined v2",
+        "badgeCls": "meta-status-refined",
+        "origin": {
+          "contributions": [
+            {
+              "agent": "codex",
+              "model": "astra",
+              "version": "6"
+            }
+          ]
+        }
+      }
+    ],
+    "source": "concepts",
+    "section": "engineering-technology",
+    "module": "./concepts/engineering-technology/navigation-cartography/wind-rose-concept.js"
+  },
+  "after": {
+    "tag": "concept-wind-rose",
+    "label": "Wind Rose",
+    "category": "meteorology-atmosphere",
+    "origin": {
+      "contributions": [
+        {
+          "agent": "gemini",
+          "model": null,
+          "version": null
+        },
+        {
+          "agent": "codex",
+          "model": "astra",
+          "version": "6"
+        }
+      ]
+    },
+    "added": "2026-08-15T01:58:00Z",
+    "updated": "2026-09-09T08:00:00Z",
+    "versioned": true,
+    "badge": "Refined v3",
+    "badgeCls": "meta-status-refined",
+    "default": "v3",
+    "versions": [
+      {
+        "v": "v1",
+        "badge": "Original v1",
+        "badgeCls": "meta-status-original"
+      },
+      {
+        "v": "v2",
+        "badge": "Refined v2",
+        "badgeCls": "meta-status-refined",
+        "origin": {
+          "contributions": [
+            {
+              "agent": "codex",
+              "model": "astra",
+              "version": "6"
+            }
+          ]
+        }
+      },
+      {
+        "v": "v3",
+        "badge": "Refined v3",
+        "badgeCls": "meta-status-refined",
+        "origin": {
+          "contributions": [
+            {
+              "agent": "codex",
+              "model": "astra",
+              "version": "6"
+            }
+          ]
+        }
+      }
+    ],
+    "definition": "A meteorological wind rose summarizes how often wind comes from each direction and the corresponding speed ranges.",
+    "motionThesis": "Twenty synthetic equal-duration readings accumulate into sorted radial speed bands; calm readings remain separate, and the completed distribution holds before replay.",
+    "distinction": "The current count-scale meteorological study replaces the former cartographic interpretation. Synthetic data; direction means FROM, and radial length rather than area counts readings.",
+    "references": [
+      "https://www.bom.gov.au/climate/averages/wind/wind_rose.shtml",
+      "https://forecast.weather.gov/glossary.php?word=WIND+ROSE"
+    ],
+    "aliases": [
+      "windrose",
+      "wind frequency"
+    ],
+    "facets": [
+      "wind-direction",
+      "meteorology",
+      "polar-histogram"
+    ],
+    "cycleSeconds": 18,
+    "source": "concepts",
+    "section": "earth-sciences",
+    "module": "./concepts/earth-sciences/meteorology-atmosphere/wind-rose-concept.js"
+  },
+  "previousSource": "previous-wind-rose.js",
+  "previousSha256": "24cb7d7728c9a48d7663430c01422dba798b1f9df1677b111576e8716f9cce29",
+  "integratedSha256": "a06791c2c6b20e5d63afc722f9f71576ba3fdc39fcd2c755515fa6b95466f32b",
+  "candidateSha256": "1dd5c512cae9e094a347a15bb0ae3840f0596dab686c7cd02d08a01433f33edd",
+  "compatibilitySha256": "6d7f751871cdaf3546069b0d160f67f370d72be939d8a8c0b5d9b3d78c51238b",
+  "retiredTags": [],
+  "activeCount": 1001,
+  "targetAfterChoice": 1000,
+  "operatorRetirementChoice": null
+}

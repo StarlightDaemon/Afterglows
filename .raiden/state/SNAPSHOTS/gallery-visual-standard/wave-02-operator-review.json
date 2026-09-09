@@ -1,0 +1,26 @@
+{
+  "wave": 2,
+  "startingCommit": "48cf4abb2dfe597909b403da057b68381a2ff595",
+  "reviews": [
+    {"tag":"concept-wireframe-globe","candidate":"v2","decision":"Revise","rating":1,"comment":"As far as the operator can tell, visually these are almost identical animations. The refined version 2 has a little bit different timing, but very similar overall."},
+    {"tag":"concept-rotary-phone","candidate":"v2","decision":"Approve","rating":4,"comment":""},
+    {"tag":"concept-wind-rose","candidate":"v2","decision":"Revise","rating":2,"comment":"The changes here don't make any sense or aren't very visible. It's almost like we've just done less animation."},
+    {"tag":"concept-nocturnal-dial","candidate":"v2","decision":"Revise","rating":2,"comment":""},
+    {"tag":"concept-kamal-navigator","candidate":"v2","decision":"Revise","rating":2,"comment":""},
+    {"tag":"concept-traverse-board","candidate":"v2","decision":"Approve","rating":3,"comment":""},
+    {"tag":"concept-chip-log","candidate":"v2","decision":"Revise","rating":3,"comment":"This animation just doesn't make a lot of sense. Maybe I don't know what it's supposed to be depicting. Let's either refine it or remove it."},
+    {"tag":"concept-davis-backstaff","candidate":"v2","decision":"Approve","rating":3,"comment":""},
+    {"tag":"concept-pelorus-dial","candidate":"v2","decision":"Approve","rating":4,"comment":""},
+    {"tag":"concept-cross-staff","candidate":"v2","decision":"Approve","rating":4,"comment":""},
+    {"tag":"concept-hadley-octant","candidate":"v2","decision":"Revise","rating":2,"comment":"Little to now movement."},
+    {"tag":"concept-lead-sounding","candidate":"v2","decision":"Approve","rating":4,"comment":""},
+    {"tag":"concept-station-pointer","candidate":"v2","decision":"Approve","rating":4,"comment":""},
+    {"tag":"concept-chappe-semaphore","candidate":"v2","decision":"Revise","rating":1,"comment":"Okay, I'm not sure if this can really be animated. It appears that neither of these is super great. Not even actually sure what's going on. So we either need a full revision or a removal."},
+    {"tag":"concept-baudot-distributor","candidate":"v2","decision":"Approve","rating":5,"comment":""},
+    {"tag":"concept-wheatstone-abc","candidate":"v2","decision":"Approve","rating":5,"comment":""},
+    {"tag":"concept-heliograph-flash","candidate":"v2","decision":"Revise","rating":3,"comment":""},
+    {"tag":"concept-telegraph-sounder","candidate":"v2","decision":"Approve","rating":4,"comment":""},
+    {"tag":"concept-siphon-recorder","candidate":"v2","decision":"Approve","rating":5,"comment":""},
+    {"tag":"concept-rotary-spark-gap","candidate":"v2","decision":"Approve","rating":3,"comment":""}
+  ]
+}

@@ -1,0 +1,162 @@
+[
+  {
+    "description": "Wireframe Globe. Retained the green wire sphere; separated stable meridians and softened the scanning band.",
+    "frameHeight": 113.8616943359375,
+    "frameWidth": 113.8617172241211,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-wireframe-globe"
+  },
+  {
+    "description": "Rotary Phone. Ten finger holes, a steady handset and five discrete return pulses make a single dialled digit legible.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-rotary-phone"
+  },
+  {
+    "description": "Portolan Wind Rose. The printed rose stays fixed; a restrained course marker travels along a rhumb line.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-wind-rose"
+  },
+  {
+    "description": "Nocturnal Star Clock Dial. The index approaches and dwells on a sighting direction; a quiet polar reference and larger dial preserve the brass instrument.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-nocturnal-dial"
+  },
+  {
+    "description": "Kamal Latitude Guide. Hold the measured card and taut cord together; moving light along the two sight lines explains a held observation.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-kamal-navigator"
+  },
+  {
+    "description": "Traverse Board Dead Reckoning. The recording peg now dwells at discrete chart holes, with restrained fixed pegs and an intact static record.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-traverse-board"
+  },
+  {
+    "description": "Chip Log & Knot Line. The reel turns on its own axle, a fixed chip meets its bridle, and the knotted line advances at the reel rim speed.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-chip-log"
+  },
+  {
+    "description": "Davis Quadrant Backstaff. A held observation keeps both vanes attached to their rays; directional light paths retain purposeful motion.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-davis-backstaff"
+  },
+  {
+    "description": "Pelorus Bearing Sighter. Inset the sight ray, steady the support ring, and give the bearing arm time to settle at each reading.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-pelorus-dial"
+  },
+  {
+    "description": "Jacob's Cross-Staff. Restore the crosspiece at the sighting position; keep the star and horizon lines attached and animate only their directional traces.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-cross-staff"
+  },
+  {
+    "description": "Hadley Reflecting Octant. Keep the index at the illustrated sighting and let the ray sequence carry the explanation; enlarge the ebony-and-brass frame.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-hadley-octant"
+  },
+  {
+    "description": "Deep Sea Sounding Lead. A fixed line origin pays out to the moving weight; seabed contact precedes the short silt cloud.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-lead-sounding"
+  },
+  {
+    "description": "Three-Arm Station Pointer. The outer arms settle on the two plotted landmarks; the stable pose retains all three measured directions.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-station-pointer"
+  },
+  {
+    "description": "Chappe Optical Semaphore Tower. Three articulated arms move together between held code poses; remove unrelated packet and beacon effects.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-chappe-semaphore"
+  },
+  {
+    "description": "Baudot Multiplex Distributor. Twenty contact divisions form four five-contact groups; the active sector follows the sweeping brush.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-baudot-distributor"
+  },
+  {
+    "description": "Wheatstone ABC Dial Telegraph. The dial advances in eight exact character positions and the active key matches the pointer.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-wheatstone-abc"
+  },
+  {
+    "description": "Solar Heliograph Flash Station. Hold the aimed mirror steady; key depression and a restrained reflected beam now share a dot-and-dash timing.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-heliograph-flash"
+  },
+  {
+    "description": "Telegraph Sounder & Resonator. The armature moves down toward the coils; coil glow and click rings follow the dot-and-dash contact sequence.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-telegraph-sounder"
+  },
+  {
+    "description": "Kelvin Siphon Recorder. A visible capillary tip writes a travelling trace; coil and ink displacement share the same phase.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-siphon-recorder"
+  },
+  {
+    "description": "Rotary Quenched Spark Gap. Separate the electrodes with visible gaps; each of eight alignments per revolution triggers one short arc.",
+    "frameHeight": 128,
+    "frameWidth": 134,
+    "reconnect": "pass",
+    "reducedAnimatedElements": 0,
+    "tag": "concept-rotary-spark-gap"
+  }
+]

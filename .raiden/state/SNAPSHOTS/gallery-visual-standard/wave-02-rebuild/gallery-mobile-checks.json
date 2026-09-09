@@ -1,0 +1,47 @@
+[
+  {
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/wireframe-globe-concept.js",
+    "tag": "concept-wireframe-globe",
+    "version": "v2",
+    "width": 375,
+    "clipboardV2": true
+  },
+  {
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/wind-rose-concept.js",
+    "tag": "concept-wind-rose",
+    "version": "v2",
+    "width": 375,
+    "clipboardV2": true
+  },
+  {
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/kamal-navigator-concept.js",
+    "tag": "concept-kamal-navigator",
+    "version": "v2",
+    "width": 375,
+    "clipboardV2": true
+  },
+  {
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/chip-log-concept.js",
+    "tag": "concept-chip-log",
+    "version": "v2",
+    "width": 375,
+    "clipboardV2": true
+  },
+  {
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/telecommunications/chappe-semaphore-concept.js",
+    "tag": "concept-chappe-semaphore",
+    "version": "v2",
+    "width": 375,
+    "clipboardV2": true
+  }
+]

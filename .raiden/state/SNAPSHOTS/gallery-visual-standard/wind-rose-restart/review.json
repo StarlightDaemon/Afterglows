@@ -1,0 +1,75 @@
+{
+  "status": "ready-for-operator-assessment",
+  "reviewedAt": "2026-09-09T07:22:13.538Z",
+  "instruction": "Completely scrap both the old and new model and revise under absolutely new terms; determine what a wind rose is and build the animation for it.",
+  "candidate": {
+    "file": "wind-rose-candidate.js",
+    "sha256": "1dd5c512cae9e094a347a15bb0ae3840f0596dab686c7cd02d08a01433f33edd",
+    "label": "Wind Rose",
+    "definition": "A meteorological summary of wind FROM-direction frequency and speed ranges.",
+    "sourceDesign": "Entirely new; neither previous model imported",
+    "proposedPlacement": {
+      "section": "earth-sciences",
+      "category": "meteorology-atmosphere"
+    }
+  },
+  "previous": {
+    "canonicalModule": "./concepts/engineering-technology/navigation-cartography/wind-rose-concept.js",
+    "sha256": "24cb7d7728c9a48d7663430c01422dba798b1f9df1677b111576e8716f9cce29",
+    "unchanged": true,
+    "status": "retired"
+  },
+  "gallery": {
+    "active": 1000,
+    "preserved": 1001
+  },
+  "browser": {
+    "phases": [
+      5,
+      28.5,
+      30,
+      55,
+      58.5,
+      85
+    ],
+    "registeredPreviews": 2,
+    "reducedMotionStylePreview": true,
+    "runningCssUnderReducedMotion": 0,
+    "remount": true,
+    "mobileViewport": [
+      390,
+      844
+    ],
+    "horizontalOverflow": false,
+    "errorLogs": [],
+    "screenshots": [
+      "phase-5.png",
+      "phase-28.5.png",
+      "phase-30.png",
+      "phase-55.png",
+      "phase-58.5.png",
+      "phase-85.png",
+      "reduced.png",
+      "mobile.png",
+      "live-start.png",
+      "live-later.png"
+    ]
+  },
+  "model": {
+    "test": "node scripts/test-wind-rose.js",
+    "result": "pass",
+    "sampledStates": 1801,
+    "totalObservations": 20,
+    "directional": 18,
+    "calm": 2,
+    "sourceReview": "Read-only specialist review passed after corrections"
+  },
+  "limitations": [
+    "OS preference switching and actual document visibility transitions were not exercised",
+    "One browser engine",
+    "Synthetic equal-duration observations"
+  ],
+  "operatorDecision": null,
+  "integration": "pending operator assessment",
+  "publication": "none"
+}

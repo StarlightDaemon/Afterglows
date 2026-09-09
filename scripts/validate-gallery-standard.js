@@ -4,20 +4,23 @@ import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { CONCEPTS } from '../concepts/gallery/manifest.js';
 import './gallery-standard-wave-01.js';
+import {historicalConcept, historicalSourceURL} from './gallery-curation-state.js';
 
 const base = new URL('../.raiden/state/SNAPSHOTS/gallery-visual-standard/', import.meta.url);
-const wave = JSON.parse(fs.readFileSync(new URL('wave-01.json', base), 'utf8'));
+const waveNumber=Number(process.argv.find(a=>a.startsWith('--wave='))?.split('=')[1] || 1);
+assert.ok(Number.isInteger(waveNumber)&&waveNumber>=1&&waveNumber<=2);
+const wave = JSON.parse(fs.readFileSync(new URL(`wave-${String(waveNumber).padStart(2,'0')}.json`, base), 'utf8'));
 const changes = wave.concepts.filter(c => c.classification === 'refine');
 assert.ok(wave.concepts.length + wave.qualityReferences.length <= 30);
 assert.ok(changes.length > 0 && changes.length <= 20);
 assert.equal(new Set(wave.concepts.map(c => c.tag)).size, wave.concepts.length);
 for (const row of [...wave.concepts, ...wave.qualityReferences]) {
-  const concept = CONCEPTS.find(c => c.tag === row.tag);
+  const concept = historicalConcept(CONCEPTS.find(c => c.tag === row.tag));
   assert.ok(concept, row.tag);
   assert.equal(concept.category, row.category);
   assert.ok(['passes', 'refine', 'defer'].includes(row.classification));
   assert.ok(row.decisionReason && row.verificationResult && !row.verificationResult.includes('pending'));
-  const source = fs.readFileSync(new URL(concept.module, new URL('../concepts/gallery/', import.meta.url)), 'utf8').replaceAll('\r\n','\n');
+  const source = fs.readFileSync(historicalSourceURL(concept), 'utf8').replaceAll('\r\n','\n');
   assert.equal(crypto.createHash('sha256').update(source).digest('hex'), row.sourceHashAfterCompletion, `Evidence stale: ${row.tag}`);
   for (const evidence of row.visualEvidencePaths) {
     const bytes = fs.readFileSync(new URL(evidence, base));

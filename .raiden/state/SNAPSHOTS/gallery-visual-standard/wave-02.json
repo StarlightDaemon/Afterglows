@@ -1,0 +1,1912 @@
+{
+  "wave": 2,
+  "title": "Communication & Navigation",
+  "status": "operator-reviewed-three-revisions-open-one-retired",
+  "startingCommit": "48cf4abb2dfe597909b403da057b68381a2ff595",
+  "previousCheckpoint": {
+    "wave": 1,
+    "commit": "48cf4abb2dfe597909b403da057b68381a2ff595",
+    "approvals": 5
+  },
+  "usage": {
+    "weeklyUsedPercent": 24,
+    "bucket": "codex",
+    "windowDurationMins": 10080,
+    "checks": [
+      {
+        "stage": "before Wave 02",
+        "weeklyUsedPercent": 16
+      },
+      {
+        "stage": "after subgroup 1",
+        "weeklyUsedPercent": 17
+      },
+      {
+        "stage": "after subgroup 2",
+        "weeklyUsedPercent": 18
+      },
+      {
+        "stage": "after subgroup 3",
+        "weeklyUsedPercent": 18
+      },
+      {
+        "stage": "after subgroup 4 and product checks",
+        "weeklyUsedPercent": 18
+      },
+      {
+        "stage": "final evidence review",
+        "weeklyUsedPercent": 20
+      },
+      {
+        "stage": "before five deeper rebuilds",
+        "weeklyUsedPercent": 22
+      },
+      {
+        "stage": "after five-rebuild sweep",
+        "weeklyUsedPercent": 24
+      }
+    ],
+    "note": "Standard Codex exposes a weekly window only in this account response; Spark is a separate bucket. All checks below the campaign guardrails."
+  },
+  "concepts": [
+    {
+      "tag": "concept-wireframe-globe",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "Suppressing animation collapses all meridians onto the same outline; scanning glow obscures the grid.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 5,
+      "comment": "",
+      "sourceHashAfterCompletion": "5963ebea85956498ec7df81b85645b34257f034ae11c068065b9d7a5d55d8005",
+      "visualEvidencePaths": [
+        "wave-02-rebuild/phase-0-row1.jpg",
+        "wave-02-rebuild/phase-25-row1.jpg",
+        "wave-02-rebuild/phase-50-row1.jpg",
+        "wave-02-rebuild/phase-75-row1.jpg",
+        "wave-02-rebuild/phase-90-row1.jpg",
+        "wave-02-rebuild/live-final-row1.jpg",
+        "wave-02-rebuild/reduced-row1.jpg",
+        "wave-02-rebuild/mobile-1.jpg"
+      ],
+      "previousSourceSha256": "a26d5062a04c5d4a4ab3b20691d8ea4193046ce4b22dcd9a69a9d52e713ddcd2",
+      "candidateCycleSeconds": 12,
+      "previousCycleSeconds": 14.4,
+      "implementationNote": "Make rotation read as depth: projected grid, near/far contrast, tilted axis and a tracked gold meridian.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: scene rebuild sweep; operator assessment outstanding",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-07-23T20:34:33Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "claude",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "path": "wave-02-rebuild/lifecycle-reduced.json",
+        "reconnect": "pass",
+        "animatedElements": 0
+      },
+      "evidenceRebinding": "Removed blank-line trailing whitespace only inside the new v2 block; executable code, styling and captured appearance unchanged.",
+      "revisionHistory": [
+        {
+          "revision": "initial Wave 02 candidate",
+          "source": "wave-02-rebuild/previous/concept-wireframe-globe.js",
+          "sourceSha256": "245b2be46354d7281b7f6c6ab8fea565aceb190a5c193678fd538368e9b9c762",
+          "operatorDecision": "Revise",
+          "rating": 1,
+          "comment": "As far as the operator can tell, visually these are almost identical animations. The refined version 2 has a little bit different timing, but very similar overall.",
+          "visualEvidencePaths": [
+            "wave-02-evidence/assessment-1.jpg",
+            "wave-02-evidence/group-1-phase-0.jpg",
+            "wave-02-evidence/group-1-phase-25.jpg",
+            "wave-02-evidence/group-1-phase-50.jpg",
+            "wave-02-evidence/group-1-phase-75.jpg",
+            "wave-02-evidence/group-1-phase-90.jpg",
+            "wave-02-evidence/group-1-live.jpg",
+            "wave-02-evidence/group-1-reduced.jpg",
+            "wave-02-evidence/mobile-1.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "concept-sextant",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "defer",
+      "decisionReason": "Fixed numerical altitude does not follow the moving arm; defer a solved double-reflection optical reconstruction.",
+      "candidateVersion": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "sourceHashAfterCompletion": "91e8ed67057a1df6308844b2188a4bbceb375c08b1ee42735e5ce3a5c40ad6bd",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-1.jpg"
+      ],
+      "deferredConcern": "Fixed numerical altitude does not follow the moving arm; defer a solved double-reflection optical reconstruction.",
+      "verificationResult": "source and original visual assessment; not accepted"
+    },
+    {
+      "tag": "concept-rotary-phone",
+      "category": "telecommunications",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The nominal ten-hole dial has only eight holes, and pulse glow does not distinguish individual return pulses.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 4,
+      "comment": "",
+      "sourceHashAfterCompletion": "e218c554c9a85347f526025a34953d2b4317141f5ab11bffe0e20d9727e7c9ef",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-1.jpg",
+        "wave-02-evidence/group-1-phase-0.jpg",
+        "wave-02-evidence/group-1-phase-25.jpg",
+        "wave-02-evidence/group-1-phase-50.jpg",
+        "wave-02-evidence/group-1-phase-75.jpg",
+        "wave-02-evidence/group-1-phase-90.jpg",
+        "wave-02-evidence/group-1-live.jpg",
+        "wave-02-evidence/group-1-reduced.jpg",
+        "wave-02-evidence/mobile-2.jpg"
+      ],
+      "previousSourceSha256": "dbf2afb88608796285e63b5baa950e0f0a03f8962c844e02136b4c3953cfda01",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "Ten finger holes, a steady handset and five discrete return pulses make a single dialled digit legible.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T00:20:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Rotary Phone. Ten finger holes, a steady handset and five discrete return pulses make a single dialled digit legible.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-rotary-phone"
+      }
+    },
+    {
+      "tag": "concept-loran-navigation",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "defer",
+      "decisionReason": "The vessel does not follow a computed time-difference intersection; defer exact station/hyperbola geometry.",
+      "candidateVersion": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "sourceHashAfterCompletion": "79aed28a941892b308929a03ac5fc71e73ba9d908d11d206a5ee63d61dd585e7",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-1.jpg"
+      ],
+      "deferredConcern": "The vessel does not follow a computed time-difference intersection; defer exact station/hyperbola geometry.",
+      "verificationResult": "source and original visual assessment; not accepted"
+    },
+    {
+      "tag": "concept-wind-rose",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "A printed portolan rose hunts like a magnetic compass while a marker orbits independently of the rhumb lines.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Retire",
+      "rating": 4,
+      "comment": "",
+      "sourceHashAfterCompletion": "24cb7d7728c9a48d7663430c01422dba798b1f9df1677b111576e8716f9cce29",
+      "visualEvidencePaths": [
+        "wave-02-rebuild/phase-0-row1.jpg",
+        "wave-02-rebuild/phase-25-row1.jpg",
+        "wave-02-rebuild/phase-50-row1.jpg",
+        "wave-02-rebuild/phase-75-row1.jpg",
+        "wave-02-rebuild/phase-90-row1.jpg",
+        "wave-02-rebuild/live-final-row1.jpg",
+        "wave-02-rebuild/reduced-row1.jpg",
+        "wave-02-rebuild/mobile-2.jpg"
+      ],
+      "previousSourceSha256": "d34f0b684c59386d372b5f7becf4275384994b97a7ea8d304d4843eb2e44d771",
+      "candidateCycleSeconds": 9,
+      "previousCycleSeconds": 6,
+      "implementationNote": "Use the rose: plot a bearing, follow it with a ship, and arrive at a coast on a parchment chart.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: scene rebuild sweep; operator assessment outstanding",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T01:58:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "path": "wave-02-rebuild/lifecycle-reduced.json",
+        "reconnect": "pass",
+        "animatedElements": 0
+      },
+      "evidenceRebinding": "Removed blank-line trailing whitespace only inside the new v2 block; executable code, styling and captured appearance unchanged.",
+      "revisionHistory": [
+        {
+          "revision": "initial Wave 02 candidate",
+          "source": "wave-02-rebuild/previous/concept-wind-rose.js",
+          "sourceSha256": "95902df0a09b5d2f0036d392e74e5e1791b102b9823335fe1dd18ccd0da1f33b",
+          "operatorDecision": "Revise",
+          "rating": 2,
+          "comment": "The changes here don't make any sense or aren't very visible. It's almost like we've just done less animation.",
+          "visualEvidencePaths": [
+            "wave-02-evidence/assessment-1.jpg",
+            "wave-02-evidence/group-1-phase-0.jpg",
+            "wave-02-evidence/group-1-phase-25.jpg",
+            "wave-02-evidence/group-1-phase-50.jpg",
+            "wave-02-evidence/group-1-phase-75.jpg",
+            "wave-02-evidence/group-1-phase-90.jpg",
+            "wave-02-evidence/group-1-live.jpg",
+            "wave-02-evidence/group-1-reduced.jpg",
+            "wave-02-evidence/mobile-3.jpg"
+          ]
+        }
+      ],
+      "retirement": {
+        "status": "retired-from-active-gallery",
+        "source": "Operator clarification after depth-1 review",
+        "instruction": "Not sure really, we could just retire this one for now and maybe come back later.",
+        "sourceAndVersionsPreserved": true,
+        "revisit": "Only on operator request"
+      }
+    },
+    {
+      "tag": "concept-viking-sunstone",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "defer",
+      "decisionReason": "The two images do not model polarization or intensity matching; defer a physically explained optical model and historical uncertainty.",
+      "candidateVersion": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "sourceHashAfterCompletion": "031884ef2c71b00bf5c4a56991cc155fee50e20dc0cc523d734ea2cca5b81e56",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-2.jpg"
+      ],
+      "deferredConcern": "The two images do not model polarization or intensity matching; defer a physically explained optical model and historical uncertainty.",
+      "verificationResult": "source and original visual assessment; not accepted"
+    },
+    {
+      "tag": "concept-nocturnal-dial",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The star-clock arm continually scans through the fixed star group and the pulsing polar marker dominates the reading.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Revise",
+      "rating": 2,
+      "comment": "",
+      "sourceHashAfterCompletion": "4de89f6b01c2929bfa68f8caddc7eb44376757f50bdf6aa5fdd4cc25678f7d18",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-2.jpg",
+        "wave-02-evidence/group-1-phase-0.jpg",
+        "wave-02-evidence/group-1-phase-25.jpg",
+        "wave-02-evidence/group-1-phase-50.jpg",
+        "wave-02-evidence/group-1-phase-75.jpg",
+        "wave-02-evidence/group-1-phase-90.jpg",
+        "wave-02-evidence/group-1-live.jpg",
+        "wave-02-evidence/group-1-reduced.jpg",
+        "wave-02-evidence/mobile-4.jpg"
+      ],
+      "previousSourceSha256": "e71393eb09894b30c6b1bde6c1345341dd59cff8c181c51966e8e8df5a8b4f61",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "The index approaches and dwells on a sighting direction; a quiet polar reference and larger dial preserve the brass instrument.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T02:59:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Nocturnal Star Clock Dial. The index approaches and dwells on a sighting direction; a quiet polar reference and larger dial preserve the brass instrument.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-nocturnal-dial"
+      },
+      "evidenceRebinding": "Removed blank-line trailing whitespace only inside the new v2 block; executable code, styling and captured appearance unchanged."
+    },
+    {
+      "tag": "concept-kamal-navigator",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The card slides away from the fixed cord and its moving sight rays lose the intended horizon/star alignment.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 4,
+      "comment": "",
+      "sourceHashAfterCompletion": "e264a91e653cd93ce919afd68215283c2cbd43c42c372571ed92fd7cd5672b25",
+      "visualEvidencePaths": [
+        "wave-02-rebuild/phase-0-row1.jpg",
+        "wave-02-rebuild/phase-25-row1.jpg",
+        "wave-02-rebuild/phase-50-row1.jpg",
+        "wave-02-rebuild/phase-75-row1.jpg",
+        "wave-02-rebuild/phase-90-row1.jpg",
+        "wave-02-rebuild/live-final-row1.jpg",
+        "wave-02-rebuild/reduced-row1.jpg",
+        "wave-02-rebuild/mobile-3.jpg"
+      ],
+      "previousSourceSha256": "4777fd41c4c18f91fb897ea1ec1bac9b15f96bee07e92294b6f7f7dd0fcdc52d",
+      "candidateCycleSeconds": 9,
+      "previousCycleSeconds": 3,
+      "implementationNote": "Show adjustment, overshoot and alignment of card edges with the star sightline and horizon.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: scene rebuild sweep; operator assessment outstanding",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T02:59:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "path": "wave-02-rebuild/lifecycle-reduced.json",
+        "reconnect": "pass",
+        "animatedElements": 0
+      },
+      "evidenceRebinding": "Removed blank-line trailing whitespace only inside the new v2 block; executable code, styling and captured appearance unchanged.",
+      "revisionHistory": [
+        {
+          "revision": "initial Wave 02 candidate",
+          "source": "wave-02-rebuild/previous/concept-kamal-navigator.js",
+          "sourceSha256": "00fe89667cb567e3ea50678c94c80b12416179d2492da2f8b63f4d43b8191267",
+          "operatorDecision": "Revise",
+          "rating": 2,
+          "comment": "",
+          "visualEvidencePaths": [
+            "wave-02-evidence/assessment-2.jpg",
+            "wave-02-evidence/group-1-phase-0.jpg",
+            "wave-02-evidence/group-1-phase-25.jpg",
+            "wave-02-evidence/group-1-phase-50.jpg",
+            "wave-02-evidence/group-1-phase-75.jpg",
+            "wave-02-evidence/group-1-phase-90.jpg",
+            "wave-02-evidence/group-1-live.jpg",
+            "wave-02-evidence/group-1-reduced.jpg",
+            "wave-02-evidence/mobile-5.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "concept-traverse-board",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "A bright moving peg glides between holes and doubles in size, obscuring rather than recording a bearing.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 3,
+      "comment": "",
+      "sourceHashAfterCompletion": "419e21efe452b3cabd2f4e9b9911d5eea054b1552494d2aedb078653a81d1b98",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-2.jpg",
+        "wave-02-evidence/group-2-phase-0.jpg",
+        "wave-02-evidence/group-2-phase-25.jpg",
+        "wave-02-evidence/group-2-phase-50.jpg",
+        "wave-02-evidence/group-2-phase-75.jpg",
+        "wave-02-evidence/group-2-phase-90.jpg",
+        "wave-02-evidence/group-2-live.jpg",
+        "wave-02-evidence/group-2-reduced.jpg",
+        "wave-02-evidence/mobile-6.jpg"
+      ],
+      "previousSourceSha256": "b3a7e93b6bbfd84d693a1711565a1729c828572e16d2f07f6403fd9a8f03d8a5",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "The recording peg now dwells at discrete chart holes, with restrained fixed pegs and an intact static record.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T02:59:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Traverse Board Dead Reckoning. The recording peg now dwells at discrete chart holes, with restrained fixed pegs and an intact static record.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-traverse-board"
+      },
+      "evidenceRebinding": "Removed blank-line trailing whitespace only inside the new v2 block; executable code, styling and captured appearance unchanged."
+    },
+    {
+      "tag": "concept-chip-log",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The reel rotates around an offset point and the bobbing chip detaches from the line; reduced motion drops its essential translation.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 4,
+      "comment": "",
+      "sourceHashAfterCompletion": "adce797ea8d5623d4990bb8a44279bb36df846cd472e8558a902c0499b44990b",
+      "visualEvidencePaths": [
+        "wave-02-rebuild/phase-0-row2.jpg",
+        "wave-02-rebuild/phase-25-row2.jpg",
+        "wave-02-rebuild/phase-50-row2.jpg",
+        "wave-02-rebuild/phase-75-row2.jpg",
+        "wave-02-rebuild/phase-90-row2.jpg",
+        "wave-02-rebuild/live-final-row2.jpg",
+        "wave-02-rebuild/reduced-row2.jpg",
+        "wave-02-rebuild/mobile-4.jpg"
+      ],
+      "previousSourceSha256": "0dcec9cd129403b23ed2a48c605b8ea129c7e538962d725aaec9847d38e5f08b",
+      "candidateCycleSeconds": 9,
+      "previousCycleSeconds": 6,
+      "implementationNote": "Connect a stationary weighted log to moving boat, reel payout, spaced knots and a draining sandglass.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: scene rebuild sweep; operator assessment outstanding",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T02:59:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "path": "wave-02-rebuild/lifecycle-reduced.json",
+        "reconnect": "pass",
+        "animatedElements": 0
+      },
+      "revisionHistory": [
+        {
+          "revision": "initial Wave 02 candidate",
+          "source": "wave-02-rebuild/previous/concept-chip-log.js",
+          "sourceSha256": "05f147e81321aa421a51ddfa9c00672cee1c7eb6b6861a94b6a2d9cce979ca58",
+          "operatorDecision": "Revise",
+          "rating": 3,
+          "comment": "This animation just doesn't make a lot of sense. Maybe I don't know what it's supposed to be depicting. Let's either refine it or remove it.",
+          "visualEvidencePaths": [
+            "wave-02-evidence/assessment-2.jpg",
+            "wave-02-evidence/group-2-phase-0.jpg",
+            "wave-02-evidence/group-2-phase-25.jpg",
+            "wave-02-evidence/group-2-phase-50.jpg",
+            "wave-02-evidence/group-2-phase-75.jpg",
+            "wave-02-evidence/group-2-phase-90.jpg",
+            "wave-02-evidence/group-2-live.jpg",
+            "wave-02-evidence/group-2-reduced.jpg",
+            "wave-02-evidence/mobile-7.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "concept-davis-backstaff",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "Both vanes move independently of the fixed shadow and sight lines, disconnecting the observation.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 3,
+      "comment": "",
+      "sourceHashAfterCompletion": "aadc37841ca3fe8f85e2c7281f40850f7b2e77c0955410a509ec1196a277716c",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-3.jpg",
+        "wave-02-evidence/group-2-phase-0.jpg",
+        "wave-02-evidence/group-2-phase-25.jpg",
+        "wave-02-evidence/group-2-phase-50.jpg",
+        "wave-02-evidence/group-2-phase-75.jpg",
+        "wave-02-evidence/group-2-phase-90.jpg",
+        "wave-02-evidence/group-2-live.jpg",
+        "wave-02-evidence/group-2-reduced.jpg",
+        "wave-02-evidence/mobile-8.jpg"
+      ],
+      "previousSourceSha256": "22c7ad2761b871122aa1e45d15dc6662e15ed9ee712ee13d549aca5b13497888",
+      "candidateCycleSeconds": 1.5,
+      "previousCycleSeconds": 1.5,
+      "implementationNote": "A held observation keeps both vanes attached to their rays; directional light paths retain purposeful motion.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T02:59:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Davis Quadrant Backstaff. A held observation keeps both vanes attached to their rays; directional light paths retain purposeful motion.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-davis-backstaff"
+      },
+      "evidenceRebinding": "Removed blank-line trailing whitespace only inside the new v2 block; executable code, styling and captured appearance unchanged."
+    },
+    {
+      "tag": "concept-pelorus-dial",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The sight ray reaches the SVG boundary and clips during the bearing sweep; the counter-rotating ring distracts from the sighting.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 4,
+      "comment": "",
+      "sourceHashAfterCompletion": "62dd8994781fcd67f6f9b1c18f9db6b4b5afda93b1cd432a23a5902a18c69f02",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-3.jpg",
+        "wave-02-evidence/group-2-phase-0.jpg",
+        "wave-02-evidence/group-2-phase-25.jpg",
+        "wave-02-evidence/group-2-phase-50.jpg",
+        "wave-02-evidence/group-2-phase-75.jpg",
+        "wave-02-evidence/group-2-phase-90.jpg",
+        "wave-02-evidence/group-2-live.jpg",
+        "wave-02-evidence/group-2-reduced.jpg",
+        "wave-02-evidence/mobile-9.jpg"
+      ],
+      "previousSourceSha256": "24e1abd3259d9309d308e78c7b79fba17ba3b10e27d285fd1829b1434e789c00",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "Inset the sight ray, steady the support ring, and give the bearing arm time to settle at each reading.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T02:59:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Pelorus Bearing Sighter. Inset the sight ray, steady the support ring, and give the bearing arm time to settle at each reading.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-pelorus-dial"
+      }
+    },
+    {
+      "tag": "concept-cross-staff",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "CSS translation overrides the SVG placement of the sliding crosspiece, moving it outside the instrument and tile.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 4,
+      "comment": "",
+      "sourceHashAfterCompletion": "911306e8e7574d0aafcd1252a5675b4244c08827f064910d77eff8cea4166dcb",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-3.jpg",
+        "wave-02-evidence/group-2-phase-0.jpg",
+        "wave-02-evidence/group-2-phase-25.jpg",
+        "wave-02-evidence/group-2-phase-50.jpg",
+        "wave-02-evidence/group-2-phase-75.jpg",
+        "wave-02-evidence/group-2-phase-90.jpg",
+        "wave-02-evidence/group-2-live.jpg",
+        "wave-02-evidence/group-2-reduced.jpg",
+        "wave-02-evidence/mobile-10.jpg"
+      ],
+      "previousSourceSha256": "b731e0775c3a6c885f1a178470852acc909c979f122644e6d4b375541f47ff55",
+      "candidateCycleSeconds": 1.5,
+      "previousCycleSeconds": 1.5,
+      "implementationNote": "Restore the crosspiece at the sighting position; keep the star and horizon lines attached and animate only their directional traces.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T02:59:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Jacob's Cross-Staff. Restore the crosspiece at the sighting position; keep the star and horizon lines attached and animate only their directional traces.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-cross-staff"
+      },
+      "evidenceRebinding": "Removed blank-line trailing whitespace only inside the new v2 block; executable code, styling and captured appearance unchanged."
+    },
+    {
+      "tag": "concept-hadley-octant",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The index mirror moves away from the fixed reflected ray path, so the optical explanation breaks during the sweep.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Revise",
+      "rating": 2,
+      "comment": "Little to now movement.",
+      "sourceHashAfterCompletion": "c4e5330a7e08a7f355a7d489cb762ca45cf2dd171ff3143dcd544b3a662c7689",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-3.jpg",
+        "wave-02-evidence/group-3-phase-0.jpg",
+        "wave-02-evidence/group-3-phase-25.jpg",
+        "wave-02-evidence/group-3-phase-50.jpg",
+        "wave-02-evidence/group-3-phase-75.jpg",
+        "wave-02-evidence/group-3-phase-90.jpg",
+        "wave-02-evidence/group-3-live.jpg",
+        "wave-02-evidence/group-3-reduced.jpg",
+        "wave-02-evidence/mobile-11.jpg"
+      ],
+      "previousSourceSha256": "2773cf98cc3be464cfe509ee8eae42a592a7080f9340521dc53fb1f26cd48034",
+      "candidateCycleSeconds": 1.2,
+      "previousCycleSeconds": 1.2,
+      "implementationNote": "Keep the index at the illustrated sighting and let the ray sequence carry the explanation; enlarge the ebony-and-brass frame.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T02:59:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Hadley Reflecting Octant. Keep the index at the illustrated sighting and let the ray sequence carry the explanation; enlarge the ebony-and-brass frame.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-hadley-octant"
+      },
+      "evidenceRebinding": "Removed blank-line trailing whitespace only inside the new v2 block; executable code, styling and captured appearance unchanged."
+    },
+    {
+      "tag": "concept-lead-sounding",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The entire line shifts off the top of the drawing and the silt effect runs while the lead is still above the seabed.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 4,
+      "comment": "",
+      "sourceHashAfterCompletion": "86cb148324e3fe3ce6def83aaf373940264b94d1051e877f02a6b0209e3c5184",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-3.jpg",
+        "wave-02-evidence/group-3-phase-0.jpg",
+        "wave-02-evidence/group-3-phase-25.jpg",
+        "wave-02-evidence/group-3-phase-50.jpg",
+        "wave-02-evidence/group-3-phase-75.jpg",
+        "wave-02-evidence/group-3-phase-90.jpg",
+        "wave-02-evidence/group-3-live.jpg",
+        "wave-02-evidence/group-3-reduced.jpg",
+        "wave-02-evidence/mobile-12.jpg"
+      ],
+      "previousSourceSha256": "613f9bd6fbbc5f94ab27779ffdc76ea9aa8902c2060514acec6f5623911d73fb",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "A fixed line origin pays out to the moving weight; seabed contact precedes the short silt cloud.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T02:59:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Deep Sea Sounding Lead. A fixed line origin pays out to the moving weight; seabed contact precedes the short silt cloud.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-lead-sounding"
+      }
+    },
+    {
+      "tag": "concept-station-pointer",
+      "category": "navigation-cartography",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The two outer arms sweep independently of stationary landmarks, and reduced motion stacks all three arms together.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 4,
+      "comment": "",
+      "sourceHashAfterCompletion": "68bb22fe054e19a42722225a3c9a9e2b86d8b2661e244d865655c08d920d7e19",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-4.jpg",
+        "wave-02-evidence/group-3-phase-0.jpg",
+        "wave-02-evidence/group-3-phase-25.jpg",
+        "wave-02-evidence/group-3-phase-50.jpg",
+        "wave-02-evidence/group-3-phase-75.jpg",
+        "wave-02-evidence/group-3-phase-90.jpg",
+        "wave-02-evidence/group-3-live.jpg",
+        "wave-02-evidence/group-3-reduced.jpg",
+        "wave-02-evidence/mobile-13.jpg"
+      ],
+      "previousSourceSha256": "03e598e2e06a9f3fcf24f38f6b9850a4469d0f60866c142b98fbdfe6b2656c22",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "The outer arms settle on the two plotted landmarks; the stable pose retains all three measured directions.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T02:59:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Three-Arm Station Pointer. The outer arms settle on the two plotted landmarks; the stable pose retains all three measured directions.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-station-pointer"
+      },
+      "evidenceRebinding": "Removed blank-line trailing whitespace only inside the new v2 block; executable code, styling and captured appearance unchanged."
+    },
+    {
+      "tag": "concept-chappe-semaphore",
+      "category": "telecommunications",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "Continuously sweeping arms, a floating packet and beacon obscure the semaphore character positions.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 3,
+      "comment": "Could use more details",
+      "sourceHashAfterCompletion": "040326317bdd452caf6a2fde439465bbef7cbf3b32ac2fade6ec8a7f29f553b2",
+      "visualEvidencePaths": [
+        "wave-02-rebuild/phase-0-row2.jpg",
+        "wave-02-rebuild/phase-25-row2.jpg",
+        "wave-02-rebuild/phase-50-row2.jpg",
+        "wave-02-rebuild/phase-75-row2.jpg",
+        "wave-02-rebuild/phase-90-row2.jpg",
+        "wave-02-rebuild/live-final-row2.jpg",
+        "wave-02-rebuild/reduced-row2.jpg",
+        "wave-02-rebuild/mobile-5.jpg"
+      ],
+      "previousSourceSha256": "1598cb55e0597b4dc0cd0d91d9178d6d8baba9f17689b0018a762323ee9efefc",
+      "candidateCycleSeconds": 10,
+      "previousCycleSeconds": 6,
+      "implementationNote": "Show articulated code poses held by one station and copied by a second after observation.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: scene rebuild sweep; operator assessment outstanding",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T03:05:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "path": "wave-02-rebuild/lifecycle-reduced.json",
+        "reconnect": "pass",
+        "animatedElements": 0
+      },
+      "evidenceRebinding": "Removed blank-line trailing whitespace only inside the new v2 block; executable code, styling and captured appearance unchanged.",
+      "revisionHistory": [
+        {
+          "revision": "initial Wave 02 candidate",
+          "source": "wave-02-rebuild/previous/concept-chappe-semaphore.js",
+          "sourceSha256": "c4216019fa0db3117b79b50f9e077317c9ba20ca49440246854008f196442925",
+          "operatorDecision": "Revise",
+          "rating": 1,
+          "comment": "Okay, I'm not sure if this can really be animated. It appears that neither of these is super great. Not even actually sure what's going on. So we either need a full revision or a removal.",
+          "visualEvidencePaths": [
+            "wave-02-evidence/assessment-4.jpg",
+            "wave-02-evidence/group-3-phase-0.jpg",
+            "wave-02-evidence/group-3-phase-25.jpg",
+            "wave-02-evidence/group-3-phase-50.jpg",
+            "wave-02-evidence/group-3-phase-75.jpg",
+            "wave-02-evidence/group-3-phase-90.jpg",
+            "wave-02-evidence/group-3-live.jpg",
+            "wave-02-evidence/group-3-reduced.jpg",
+            "wave-02-evidence/mobile-14.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "concept-baudot-distributor",
+      "category": "telecommunications",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "Sector glow is unrelated to the brush position and the drawn dividers do not show five contacts per channel.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 5,
+      "comment": "",
+      "sourceHashAfterCompletion": "5e04e74b152c9bf281abbdfe7f88a0d85b801d4ce602008561f32bbaedd8a19e",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-4.jpg",
+        "wave-02-evidence/group-3-phase-0.jpg",
+        "wave-02-evidence/group-3-phase-25.jpg",
+        "wave-02-evidence/group-3-phase-50.jpg",
+        "wave-02-evidence/group-3-phase-75.jpg",
+        "wave-02-evidence/group-3-phase-90.jpg",
+        "wave-02-evidence/group-3-live.jpg",
+        "wave-02-evidence/group-3-reduced.jpg",
+        "wave-02-evidence/mobile-15.jpg"
+      ],
+      "previousSourceSha256": "010319b53e82be34e72e74d9b8370394f866d5b50b4a6cd4945cd6ec95bca03a",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "Twenty contact divisions form four five-contact groups; the active sector follows the sweeping brush.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T03:05:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Baudot Multiplex Distributor. Twenty contact divisions form four five-contact groups; the active sector follows the sweeping brush.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-baudot-distributor"
+      }
+    },
+    {
+      "tag": "concept-wheatstone-abc",
+      "category": "telecommunications",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "Pointer steps land between the eight illustrated characters, while the same key flashes independently.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 5,
+      "comment": "",
+      "sourceHashAfterCompletion": "ae66eea795243adce14700f3ec0d8c9cca5f13e19f8e1c1b326681479dd817a4",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-4.jpg",
+        "wave-02-evidence/group-4-phase-0.jpg",
+        "wave-02-evidence/group-4-phase-25.jpg",
+        "wave-02-evidence/group-4-phase-50.jpg",
+        "wave-02-evidence/group-4-phase-75.jpg",
+        "wave-02-evidence/group-4-phase-90.jpg",
+        "wave-02-evidence/group-4-live.jpg",
+        "wave-02-evidence/group-4-reduced.jpg",
+        "wave-02-evidence/mobile-16.jpg"
+      ],
+      "previousSourceSha256": "ca38598dfa066442bc9ca30da70c18cdf2246b2289b9bfa25e9b3a487402ff6f",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "The dial advances in eight exact character positions and the active key matches the pointer.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T03:05:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Wheatstone ABC Dial Telegraph. The dial advances in eight exact character positions and the active key matches the pointer.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-wheatstone-abc"
+      }
+    },
+    {
+      "tag": "concept-heliograph-flash",
+      "category": "telecommunications",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The key, mirror and beam run at unrelated periods and the beam floats away from the mirror.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Revise",
+      "rating": 3,
+      "comment": "",
+      "sourceHashAfterCompletion": "252ac398a64419576bc16e9f20b9d87bd32612f07a3b72712550e4c03d5ae977",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-4.jpg",
+        "wave-02-evidence/group-4-phase-0.jpg",
+        "wave-02-evidence/group-4-phase-25.jpg",
+        "wave-02-evidence/group-4-phase-50.jpg",
+        "wave-02-evidence/group-4-phase-75.jpg",
+        "wave-02-evidence/group-4-phase-90.jpg",
+        "wave-02-evidence/group-4-live.jpg",
+        "wave-02-evidence/group-4-reduced.jpg",
+        "wave-02-evidence/mobile-17.jpg"
+      ],
+      "previousSourceSha256": "394f34fa30df4fc444544e0c97db8376222c4c734184654a934c441d2a6c1fce",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "Hold the aimed mirror steady; key depression and a restrained reflected beam now share a dot-and-dash timing.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T03:05:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Solar Heliograph Flash Station. Hold the aimed mirror steady; key depression and a restrained reflected beam now share a dot-and-dash timing.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-heliograph-flash"
+      }
+    },
+    {
+      "tag": "concept-marconi-detector",
+      "category": "telecommunications",
+      "previousDefaultVersion": "v1",
+      "classification": "defer",
+      "decisionReason": "The coil response is unrelated to moving-wire magnetic history; defer a legible hysteresis/demodulation explanation.",
+      "candidateVersion": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "sourceHashAfterCompletion": "d6acaabeffeeabab18ddb64c427cf4651a5601ed90ae0961cc3912c41163e198",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-5.jpg"
+      ],
+      "deferredConcern": "The coil response is unrelated to moving-wire magnetic history; defer a legible hysteresis/demodulation explanation.",
+      "verificationResult": "source and original visual assessment; not accepted"
+    },
+    {
+      "tag": "concept-hughes-telegraph",
+      "category": "telecommunications",
+      "previousDefaultVersion": "v1",
+      "classification": "defer",
+      "decisionReason": "Typewheel, platen and paper advance need a shared character-selection model; defer printing synchronization.",
+      "candidateVersion": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "sourceHashAfterCompletion": "1fb45729fdf739b2d356727e5cb1b9bedb3a731e4ea1d7b429bd1c5f7d37c6d0",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-5.jpg"
+      ],
+      "deferredConcern": "Typewheel, platen and paper advance need a shared character-selection model; defer printing synchronization.",
+      "verificationResult": "source and original visual assessment; not accepted"
+    },
+    {
+      "tag": "concept-strowger-switch",
+      "category": "telecommunications",
+      "previousDefaultVersion": "v1",
+      "classification": "defer",
+      "decisionReason": "The wiper leaves the contact-bank geometry during rotation; defer a projected bank and exact two-motion selection model.",
+      "candidateVersion": null,
+      "operatorDecision": null,
+      "rating": null,
+      "comment": null,
+      "sourceHashAfterCompletion": "892c1b16a0f8d23bf5fbfad644b3ee62ba8136858fc65e1a911f1825adb373c0",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-5.jpg"
+      ],
+      "deferredConcern": "The wiper leaves the contact-bank geometry during rotation; defer a projected bank and exact two-motion selection model.",
+      "verificationResult": "source and original visual assessment; not accepted"
+    },
+    {
+      "tag": "concept-telegraph-sounder",
+      "category": "telecommunications",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The arm moves away from the electromagnets on the labelled pull, and acoustic rings run independently of contact.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 4,
+      "comment": "",
+      "sourceHashAfterCompletion": "5566fdef9ce862dc5d5366afeb183a984a301c9fedcb7b9390336315e40e5478",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-5.jpg",
+        "wave-02-evidence/group-4-phase-0.jpg",
+        "wave-02-evidence/group-4-phase-25.jpg",
+        "wave-02-evidence/group-4-phase-50.jpg",
+        "wave-02-evidence/group-4-phase-75.jpg",
+        "wave-02-evidence/group-4-phase-90.jpg",
+        "wave-02-evidence/group-4-live.jpg",
+        "wave-02-evidence/group-4-reduced.jpg",
+        "wave-02-evidence/mobile-18.jpg"
+      ],
+      "previousSourceSha256": "c0a100b12ebea447caf6394a44a5f3287980bbd54b8dced1b0a706cb0adecb85",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "The armature moves down toward the coils; coil glow and click rings follow the dot-and-dash contact sequence.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T03:05:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Telegraph Sounder & Resonator. The armature moves down toward the coils; coil glow and click rings follow the dot-and-dash contact sequence.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-telegraph-sounder"
+      }
+    },
+    {
+      "tag": "concept-siphon-recorder",
+      "category": "telecommunications",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "The continuous ink stroke does not advance, the siphon tip is hidden under the paper, and coil/tip motions are unrelated.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 5,
+      "comment": "",
+      "sourceHashAfterCompletion": "656ae2ca3096b180f4fe87666e3ea65fc691e5b93e8bce6335a944c788ccb725",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-5.jpg",
+        "wave-02-evidence/group-4-phase-0.jpg",
+        "wave-02-evidence/group-4-phase-25.jpg",
+        "wave-02-evidence/group-4-phase-50.jpg",
+        "wave-02-evidence/group-4-phase-75.jpg",
+        "wave-02-evidence/group-4-phase-90.jpg",
+        "wave-02-evidence/group-4-live.jpg",
+        "wave-02-evidence/group-4-reduced.jpg",
+        "wave-02-evidence/mobile-19.jpg"
+      ],
+      "previousSourceSha256": "acdc76f18b162cbbbcfaeb6856639698dd6eb22356c79edd29daff1e3918ef42",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "A visible capillary tip writes a travelling trace; coil and ink displacement share the same phase.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T03:05:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Kelvin Siphon Recorder. A visible capillary tip writes a travelling trace; coil and ink displacement share the same phase.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-siphon-recorder"
+      }
+    },
+    {
+      "tag": "concept-rotary-spark-gap",
+      "category": "telecommunications",
+      "previousDefaultVersion": "v1",
+      "classification": "refine",
+      "decisionReason": "Stationary and rotating electrodes overlap, and fast flicker occurs without electrode alignment.",
+      "candidateVersion": "v2",
+      "operatorDecision": "Approve",
+      "rating": 3,
+      "comment": "",
+      "sourceHashAfterCompletion": "705bd07c9194e51ce31f2dc34a4d219280e7e5a49a38c282db86e8d35f972ce9",
+      "visualEvidencePaths": [
+        "wave-02-evidence/assessment-6.jpg",
+        "wave-02-evidence/group-4-phase-0.jpg",
+        "wave-02-evidence/group-4-phase-25.jpg",
+        "wave-02-evidence/group-4-phase-50.jpg",
+        "wave-02-evidence/group-4-phase-75.jpg",
+        "wave-02-evidence/group-4-phase-90.jpg",
+        "wave-02-evidence/group-4-live.jpg",
+        "wave-02-evidence/group-4-reduced.jpg",
+        "wave-02-evidence/mobile-20.jpg"
+      ],
+      "previousSourceSha256": "bbf608234e4ae0a7992d3cf15b567685a397162649cac2bf8ae2a6d559039ec3",
+      "candidateCycleSeconds": 6,
+      "previousCycleSeconds": 6,
+      "implementationNote": "Separate the electrodes with visible gaps; each of eight alignments per revolution triggers one short arc.",
+      "candidateProvenance": {
+        "agent": "codex",
+        "model": "astra",
+        "version": "6"
+      },
+      "verificationResult": "pass: source preservation, five phase samples, live playback, stable reduced-motion CSS, reconnect, narrow gallery and controls",
+      "deferredConcern": null,
+      "previousMetadata": {
+        "updated": "2026-08-15T03:05:00Z",
+        "versioned": false,
+        "badge": "New v1",
+        "badgeCls": "meta-status-new",
+        "default": null,
+        "versions": [],
+        "origin": {
+          "contributions": [
+            {
+              "agent": "gemini",
+              "model": null,
+              "version": null
+            }
+          ]
+        }
+      },
+      "verification": {
+        "phases": [
+          0,
+          0.25,
+          0.5,
+          0.75,
+          0.9
+        ],
+        "liveCycle": true,
+        "reducedMotionStyle": true,
+        "disconnectReconnect": true,
+        "narrowGallery": true,
+        "versionControls": true,
+        "copy": true,
+        "sourceLink": true,
+        "provenanceFilters": true,
+        "osMotionPreferenceSwitch": false,
+        "crossBrowser": false
+      },
+      "lifecycleEvidence": {
+        "description": "Rotary Quenched Spark Gap. Separate the electrodes with visible gaps; each of eight alignments per revolution triggers one short arc.",
+        "frameHeight": 128,
+        "frameWidth": 134,
+        "reconnect": "pass",
+        "reducedAnimatedElements": 0,
+        "tag": "concept-rotary-spark-gap"
+      }
+    }
+  ],
+  "qualityReferences": [],
+  "preview": {
+    "url": "http://127.0.0.1:3018/__qa/standard/",
+    "modifiedConceptsOnly": true,
+    "failures": 0,
+    "localStorageOnly": true,
+    "reviewSelections": "16 approvals, three remaining revision requests, one retired wind rose.",
+    "interfaceEvidence": "wave-02-rebuild/review-page.jpg",
+    "reviewTags": [
+      "concept-wireframe-globe",
+      "concept-wind-rose",
+      "concept-kamal-navigator",
+      "concept-chip-log",
+      "concept-chappe-semaphore"
+    ],
+    "reviewRevision": "depth-1"
+  },
+  "endingCommit": "48cf4abb2dfe597909b403da057b68381a2ff595",
+  "synchronizeCycles": false,
+  "checks": {
+    "npm test": "passed; 945 concepts; 660 historical entries preserved with 25 additive campaign refinements",
+    "npm run build": "passed; 1051 allowlisted files",
+    "npm run site:check": "passed; 10 HTML, 4 sitemap URLs",
+    "npm run security:check": "passed",
+    "npm run gallery:acceptance": "passed; 285 expansion evidence hashes preserved, 55 subjects deferred",
+    "browser": "Five rebuilt pairs swept in phases/live/reduced/reconnect; 390px gallery v1/v2, Source, clipboard v2 bytes and combined provenance filters. Other 15 retain prior source-bound evidence.",
+    "subgroups": "Four groups of five; source validation, historical baseline and build passed after each group",
+    "node scripts/validate-gallery-standard.js --wave=2": "passed; 26 decisions and 20 verified candidates with current hashes",
+    "operator review": "passed; 20 cards, 40 mounted versions, no failures, 20 unresolved decisions, all inspection panels collapsed",
+    "git diff --check": "passed",
+    "local QA syntax": "passed; node --check scripts/gallery-standard.js",
+    "rebuild": "Five full scene rebuilds; 1,201 geometry/sequence samples; full product checks and browser sweep passed"
+  },
+  "limitations": [
+    "Reduced-motion preview applies actual component CSS; OS preference switching was not exercised.",
+    "Local Chromium-based in-app browser only; hidden-document transitions and broader device/cross-browser behavior not verified.",
+    "Copy success was confirmed in the gallery UI; clipboard bytes were not independently read. Canonical production v2 embeds require a separately authorized deployment.",
+    "Phase controls sample explicit inspection intervals. Wave 02 pairs play at native timing; this does not claim that different historical subcycles are normalized.",
+    "These are compact illustrative refinements; six subjects needing deeper physical reconstruction remain deferred and unchanged."
+  ],
+  "references": [
+    {
+      "tag": "concept-traverse-board",
+      "url": "https://www.rmg.co.uk/collections/objects/rmgc-object-43910",
+      "use": "Historical course and speed peg recording context."
+    },
+    {
+      "tag": "concept-baudot-distributor",
+      "url": "https://collection.sciencemuseumgroup.org.uk/objects/co33376/baudot-distributor-for-printing-telegraph",
+      "use": "Material and historical artifact reference."
+    },
+    {
+      "tag": "concept-wheatstone-abc",
+      "url": "https://blog.sciencemuseum.org.uk/revealing-the-real-cooke-and-wheatstone-telegraph-dial/",
+      "use": "Dial telegraph historical context; eight-position animation remains an illustrative simplification."
+    }
+  ],
+  "operatorReview": {
+    "source": "wave-02-rebuild/operator-review.json",
+    "startingCommit": "48cf4abb2dfe597909b403da057b68381a2ff595",
+    "allCandidatesResolved": false,
+    "approved": 16,
+    "revise": 3,
+    "batchDecision": "16 approved, three revision requests open; wind rose retired from the active gallery at operator request with source/version history preserved.",
+    "assessment": "wave-02-reassessment.md",
+    "hold": {
+      "date": "2026-09-08",
+      "reason": "Operator-requested conservation of weekly token allotment",
+      "resume": "Only on explicit operator instruction",
+      "plan": "wave-02-reassessment.md",
+      "implementationStarted": false,
+      "resumed": true,
+      "resumeScope": "Five deeper rebuilds and one sweep/report, explicitly requested by operator."
+    },
+    "rebuild": {
+      "tags": [
+        "concept-wireframe-globe",
+        "concept-wind-rose",
+        "concept-kamal-navigator",
+        "concept-chip-log",
+        "concept-chappe-semaphore"
+      ],
+      "revision": "depth-1",
+      "startingWeeklyUsedPercent": 22,
+      "report": "wave-02-rebuild/report.md",
+      "endingWeeklyUsedPercent": 24,
+      "reviewSource": "wave-02-rebuild/operator-review.json",
+      "approved": 4,
+      "revise": 0,
+      "averageRating": 4,
+      "windRoseClarification": "Operator requested retirement for now, with possible future reconsideration.",
+      "retired": 1
+    },
+    "retired": 1
+  }
+}

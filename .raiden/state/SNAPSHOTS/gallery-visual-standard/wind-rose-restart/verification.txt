@@ -1,0 +1,39 @@
+Final local verification — 2026-09-09
+PASS: Wind Rose bearing/speed boundaries, 20-record conservation, sorted stack totals, 1,801 accumulation states and inward observation cues.
+
+> afterglows@1.9.0 test
+> node scripts/validate-gallery.js && node scripts/test-gallery-baseline.js && node scripts/test-resumption-preservation.js && node scripts/test-module-queue.js && node scripts/test-module-retry.js && node scripts/test-nixie-lifecycle.js && node scripts/test-provenance.js && node scripts/test-copy-fallback.js
+
+=== Unified Animation Concepts Validator ===
+1001 concepts in 66 categories and 13 sections
+SUCCESS: all 1001 concepts are uniquely mapped and structurally valid.
+SUCCESS: 660 historical entries preserved; one declared motion-compatibility edit; 25 additive version refinements.
+SUCCESS: all 945 revised baseline sources and complete metadata preserved; retirement unchanged.
+SUCCESS: bounded unique imports, shared waiters, stale cancellation, caching, and failure recovery.
+SUCCESS: cached browser import failures recover through one shared fresh-URL retry.
+SUCCESS: legacy JS reduced-motion changes and remount cleanup.
+SUCCESS: provenance dimensions match the same contribution, including unspecified values.
+SUCCESS: clipboard fallback cleans up and restores focus on success, refusal, and exceptions.
+
+> afterglows@1.9.0 build
+> node scripts/build-site.js
+
+Built allowlisted Pages artifact: 1111 files in E:\Citadel\Afterglows\dist
+
+> afterglows@1.9.0 site:check
+> node scripts/validate-site.js
+
+Site validation passed for 10 HTML files, 1111 artifact files, and 4 sitemap URLs.
+
+> afterglows@1.9.0 security:check
+> node scripts/validate-security.js
+
+Security validation passed for 10 public HTML files and shared JavaScript.
+
+> afterglows@1.9.0 gallery:acceptance
+> node scripts/validate-expansion-complete.js
+
+SUCCESS: all 945 revised baseline sources and complete metadata preserved; retirement unchanged.
+Visual review evidence verified for 341 current expansion sources, with phase and reduced-motion style screenshots.
+Resumed expansion accepted: 1000 active / 1001 preserved; 56 new and 285 prior reviewed additions; all 55 formerly deferred subjects delivered.
+git diff --check: PASS (LF/CRLF normalization notices only).

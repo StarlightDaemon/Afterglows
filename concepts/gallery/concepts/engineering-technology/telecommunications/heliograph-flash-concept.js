@@ -1,3 +1,12 @@
+// BEGIN VISUAL STANDARD v2
+// Refined v2 by Codex / Astra / 6; historical markup/styles below remain intact.
+const visualStandardV2Styles=".vs2-frame{width:134px;height:128px;box-sizing:border-box}.vs2-frame [class$=\"-stage\"]{width:110px;height:102px}.vs2-frame svg[class$=\"-svg\"]{width:98px;height:94px}.vs2-frame [class$=\"-label\"]{left:4px;right:4px;bottom:4px;font-size:7px;line-height:1.15;text-align:center;letter-spacing:.2px}\n.hg-mirror-gimbal,.hg-mirror-glint{animation:none;transform:none;filter:none}.hg-signal-packet{display:none}.hg-flash-beam{animation:vs2-heliobeam 6s steps(1,end) infinite;transform:none}.hg-key-lever{animation:vs2-heliokey 6s steps(1,end) infinite}@keyframes vs2-heliobeam{0%,20%,70%,100%{opacity:.08}12%,45%{opacity:.8}}@keyframes vs2-heliokey{0%,20%,70%,100%{transform:rotate(0)}12%,45%{transform:rotate(8deg)}}\n@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.hg-key-lever{transform:rotate(8deg)}.hg-flash-beam{opacity:.5;transform:none}}";
+function applyVisualStandardV2(root){
+ const style=document.createElement('style');style.textContent=visualStandardV2Styles;root.append(style);
+ const frame=root.querySelector('div');frame.classList.add('vs2-frame');frame.setAttribute('role','img');frame.setAttribute('aria-label',"Solar Heliograph Flash Station. Hold the aimed mirror steady; key depression and a restrained reflected beam now share a dot-and-dash timing.");
+ root.querySelector('.hg-flash-beam').setAttribute('points','30,24 70,9 70,39');
+}
+// END VISUAL STANDARD v2
 const heliographStyles = `
   :host {
     display: flex;
@@ -113,6 +122,10 @@ const heliographStyles = `
 `;
 
 class ConceptHeliographFlash extends HTMLElement {
+// BEGIN VISUAL STANDARD v2
+  static get observedAttributes(){return ['version'];}
+  attributeChangedCallback(){if(this.isConnected)this.connectedCallback();}
+// END VISUAL STANDARD v2
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -164,6 +177,9 @@ class ConceptHeliographFlash extends HTMLElement {
         <div class="hg-label">SOLAR HELIOGRAPH 1869</div>
       </div>
     `;
+// BEGIN VISUAL STANDARD v2
+    if(this.getAttribute('version')!=='v1')applyVisualStandardV2(this.shadowRoot);
+// END VISUAL STANDARD v2
   }
 }
 

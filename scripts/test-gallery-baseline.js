@@ -1,10 +1,16 @@
 import fs from "node:fs";
 import crypto from "node:crypto";
 import assert from "node:assert/strict";
-import { CONCEPTS } from "../concepts/gallery/manifest.js";
+import { CONCEPTS, ACTIVE_CONCEPTS, RETIRED_CONCEPTS } from "../concepts/gallery/manifest.js";
+import { candidateTags as wave2Tags } from './gallery-standard-wave-02.js';
+import {historicalConcept, historicalSourceURL, currentCuration as transition} from './gallery-curation-state.js';
 
 const baseline = JSON.parse(fs.readFileSync(new URL("./fixtures/gallery-baseline.json", import.meta.url), "utf8"));
-const current = new Map(CONCEPTS.map((concept) => [concept.tag, concept]));
+const current = new Map(CONCEPTS.map((concept) => [concept.tag, historicalConcept(concept)]));
+assert.deepEqual(new Set(RETIRED_CONCEPTS.map(c => c.tag)), new Set(transition.retiredTags));
+assert.equal(ACTIVE_CONCEPTS.length, CONCEPTS.length - RETIRED_CONCEPTS.length);
+assert.ok(ACTIVE_CONCEPTS.some(c => c.tag === "concept-wind-rose"));
+assert.equal(new Set([...ACTIVE_CONCEPTS, ...RETIRED_CONCEPTS].map(c => c.tag)).size, CONCEPTS.length, "Retirement must preserve the complete inventory");
 const sha = (value) => crypto.createHash("sha256").update(value).digest("hex");
 // The expansion baseline remains immutable. Version additions must reconstruct
 // its exact metadata and source, rather than replacing the historical hashes.
@@ -12,6 +18,18 @@ const wave = JSON.parse(fs.readFileSync(new URL("../.raiden/state/SNAPSHOTS/gall
 const permitted = new Set(["concept-solenoid-engine", "concept-treadwheel-crane", "concept-forge-bellows", "concept-butter-churn", "concept-treadle-grindstone"]);
 const refinements = new Map(wave.concepts.filter(c => c.classification === "refine").map(c => [c.tag, c]));
 assert.deepEqual(new Set(refinements.keys()), permitted, "Wave 01 must remain bounded to its five reviewed version additions");
+const wave2URL = new URL("../.raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02.json", import.meta.url);
+if (fs.existsSync(wave2URL)) {
+  const next = JSON.parse(fs.readFileSync(wave2URL, "utf8"));
+  const additions = next.concepts.filter(c => c.classification === "refine");
+  assert.ok(additions.length <= 20 && next.concepts.length <= 30);
+  for (const row of additions) {
+    assert.ok(wave2Tags.includes(row.tag), 'Only assessed Wave 02 candidates may extend the baseline');
+    assert.ok(["telecommunications", "navigation-cartography"].includes(row.category));
+    assert.ok(!refinements.has(row.tag), "Historical versions cannot be silently rebased");
+    refinements.set(row.tag, row);
+  }
+}
 for (const entry of baseline.entries) {
   const concept = current.get(entry.tag);
   assert.ok(concept, `Historical concept removed: ${entry.tag}`);
@@ -35,7 +53,7 @@ for (const entry of baseline.entries) {
   }
   assert.equal(sha(JSON.stringify(metadata)), entry.metadataSha256, `Historical metadata changed: ${entry.tag}`);
   if (entry.tag !== "concept-nixie-tube") {
-    let body = fs.readFileSync(new URL(`../concepts/gallery/${entry.module}`, import.meta.url), "utf8").replaceAll("\r\n", "\n");
+    let body = fs.readFileSync(historicalSourceURL(concept), "utf8").replaceAll("\r\n", "\n");
     if (refinement) {
       const additions = body.match(/\/\/ BEGIN VISUAL STANDARD v2\n[\s\S]*?\/\/ END VISUAL STANDARD v2\n/g) || [];
       assert.equal(additions.length, 3, `Expected explicit additive version blocks: ${entry.tag}`);

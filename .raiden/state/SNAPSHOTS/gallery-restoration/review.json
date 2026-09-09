@@ -1,0 +1,116 @@
+{
+  "status": "restoration-verified-awaiting-retirement-choice",
+  "date": "2026-09-09",
+  "counts": {
+    "active": 1001,
+    "preserved": 1001,
+    "retired": 0
+  },
+  "operatorRetirementChoice": null,
+  "sourceHashes": {
+    "windRose": "a06791c2c6b20e5d63afc722f9f71576ba3fdc39fcd2c755515fa6b95466f32b",
+    "previousWindRose": "24cb7d7728c9a48d7663430c01422dba798b1f9df1677b111576e8716f9cce29",
+    "compatibility": "6d7f751871cdaf3546069b0d160f67f370d72be939d8a8c0b5d9b3d78c51238b",
+    "candidate": "1dd5c512cae9e094a347a15bb0ae3840f0596dab686c7cd02d08a01433f33edd",
+    "comparisonPage": "a20d266453e3457c29ef2d428ca098fca0c5c8e5b18f1c8373c48f37637d1f6a",
+    "comparisonScript": "0d0b8598d30053007fc27460c8060540e052c203a15887a0035f520d6eab3d6b",
+    "proposals": "cf2a043b635b500c743d577cf1d33237da5dc19f4ea147ad6fa17776fb6dd67c"
+  },
+  "pairs": [
+    {
+      "retire": "concept-will-o-wisp",
+      "retireSha256": "0866753c12b7dc89b47683cc721aef8c0d6a2a10b3c5a41cf8b5d7eb3b9b6518",
+      "keep": "concept-wisp",
+      "keepSha256": "61b49b82373fb8fa7dcf219db9c1e1cef45fb5f2d08df5c65dff09500351beb9"
+    },
+    {
+      "retire": "concept-rotary-dial",
+      "retireSha256": "3ab6caac0682e8f8545b4900d997ff4e2b60f03c73459c63f1ee2222acf5be9f",
+      "keep": "concept-rotary-phone",
+      "keepSha256": "e218c554c9a85347f526025a34953d2b4317141f5ab11bffe0e20d9727e7c9ef"
+    },
+    {
+      "retire": "concept-planchette",
+      "retireSha256": "b77f7f00e3dc46f3a5986d2b041b0867625dff6e865d4682625d455ba8b5ea06",
+      "keep": "concept-ouija",
+      "keepSha256": "3c49cec96bfbbe8cf6138d35b3974be5d8b0350e0f0f8bba25956915b122e372"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "marsh-light.png",
+      "sha256": "67ab365a8bab6c2e859d0cc2db93aeb4744ac279841541db90d58fc7397be086",
+      "bytes": 73216
+    },
+    {
+      "path": "rotary-dial.png",
+      "sha256": "386abbe85cd73d602cbe337406e54bf7cc0c8b08f369d05659d6a3163f274bbe",
+      "bytes": 75584
+    },
+    {
+      "path": "planchette.png",
+      "sha256": "c6324b52a2460cb6b33f53ad4a1c51137598d3abcc20b39defa528a05aeb7b9d",
+      "bytes": 76917
+    },
+    {
+      "path": "wind-rose-v3.png",
+      "sha256": "5f3ce1624a067d7cd28432f1dac94cba63fd162ea278aa4fcb6be7610f6a4f6c",
+      "bytes": 79442
+    },
+    {
+      "path": "wind-rose-reduced-remount.png",
+      "sha256": "aa8d119ba47a421656871b2573f713d661b2050c4a2304df85cb00d6bf091223",
+      "bytes": 81124
+    },
+    {
+      "path": "wind-rose-mobile.png",
+      "sha256": "9fda6877b2c69ecbd1714161800d489ea70d90c630aa260de76a17b1399a5798",
+      "bytes": 45472
+    },
+    {
+      "path": "wind-rose-gallery.png",
+      "sha256": "6fc65b9ae55af031079bd6adb5c2d47853f8413f38d6af97d3ffe3e3d36a28d7",
+      "bytes": 80448
+    }
+  ],
+  "checks": {
+    "galleryCount": "Showing 1001 of 1001",
+    "windSearch": "Showing 1 of 1001",
+    "windPlacement": "meteorology-atmosphere",
+    "windDefault": "v3",
+    "galleryVersions": [
+      "v1",
+      "v2",
+      "v3"
+    ],
+    "compatibilityURL": true,
+    "reducedMotionRemount": {
+      "hosts": 2,
+      "animatedCSS": [
+        0,
+        0
+      ]
+    },
+    "mobile": {
+      "viewportWidth": 390,
+      "documentWidth": 375,
+      "horizontalOverflow": false
+    },
+    "browserPageErrors": [],
+    "commandsPassed": [
+      "npm test",
+      "npm run build",
+      "npm run site:check",
+      "npm run security:check",
+      "npm run gallery:acceptance",
+      "node scripts/test-wind-rose.js",
+      "node scripts/validate-gallery-standard.js --wave=2",
+      "git diff --check"
+    ]
+  },
+  "limits": [
+    "Targeted source/render review; not fresh visual QA of all 1001 studies.",
+    "Reduced motion uses authored media-rule preview; not an OS preference change.",
+    "Local Chromium only; no deployment."
+  ]
+}

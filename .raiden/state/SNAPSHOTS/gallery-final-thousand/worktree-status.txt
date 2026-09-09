@@ -1,0 +1,130 @@
+ M .raiden/state/CURRENT_STATE.md
+ M .raiden/state/DECISIONS.md
+ M .raiden/state/OPEN_LOOPS.md
+ M .raiden/state/SNAPSHOTS/gallery-visual-standard/campaign-workflow.md
+ M .raiden/state/WORK_LOG.md
+ M CHANGELOG.md
+ M README.md
+ M concepts/README.md
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/chip-log-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/cross-staff-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/davis-backstaff-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/hadley-octant-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/kamal-navigator-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/lead-sounding-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/nocturnal-dial-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/pelorus-dial-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/station-pointer-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/traverse-board-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/wind-rose-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/wireframe-globe-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/baudot-distributor-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/chappe-semaphore-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/heliograph-flash-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/rotary-phone-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/rotary-spark-gap-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/siphon-recorder-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/telegraph-sounder-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/wheatstone-abc-concept.js
+ M concepts/gallery/index.js
+ M concepts/gallery/manifest.js
+ M concepts/gallery/manifests/concepts.js
+ M concepts/gallery/taxonomy.js
+ M concepts/index.html
+ M docs/DEMOS_OVERVIEW.md
+ M index.html
+ M package.json
+ M scripts/gallery-qa.js
+ M scripts/gallery-standard.js
+ M scripts/serve-gallery-qa.js
+ M scripts/test-gallery-baseline.js
+ M scripts/validate-expansion-complete.js
+ M scripts/validate-gallery-standard.js
+ M scripts/validate-gallery.js
+ M scripts/validate-visual-qa.js
+?? .raiden/state/SNAPSHOTS/gallery-consolidation/
+?? .raiden/state/SNAPSHOTS/gallery-exit-completion.json
+?? .raiden/state/SNAPSHOTS/gallery-exit-handoff.md
+?? .raiden/state/SNAPSHOTS/gallery-exit-status.txt
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/
+?? .raiden/state/SNAPSHOTS/gallery-final-thousand/
+?? .raiden/state/SNAPSHOTS/gallery-restoration/
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-operator-review.json
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-reassessment.md
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-report.md
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02.json
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wind-rose-restart/
+?? concepts/gallery/concepts/astronomy-space/astronautics/ablative-heat-shield-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/aerobraking-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/aerogel-dust-capture-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/gridded-ion-thruster-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/reaction-wheel-attitude-control-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/rocker-bogie-suspension-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/rocket-stage-separation-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/sky-crane-landing-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/star-tracker-attitude-determination-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/thruster-docking-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/touch-and-go-asteroid-sampling-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/webb-sunshield-deployment-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronomy-astrometry/adaptive-optics-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronomy-astrometry/astronomical-aperture-synthesis-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronomy-astrometry/exoplanet-transit-photometry-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronomy-astrometry/radial-velocity-planet-detection-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronomy-astrometry/segmented-mirror-phasing-concept.js
+?? concepts/gallery/concepts/earth-sciences/climate-systems/
+?? concepts/gallery/concepts/earth-sciences/geology/frost-heave-ice-lens-concept.js
+?? concepts/gallery/concepts/earth-sciences/meteorology-atmosphere/wind-rose-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/artesian-aquifer-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/groundwater-cone-of-depression-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/impervious-runoff-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/meander-cutoff-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/ocean-internal-wave-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/watershed-divide-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/
+?? concepts/gallery/concepts/engineering-technology/instrumentation-signals/linear-chirp-concept.js
+?? concepts/gallery/concepts/engineering-technology/telecommunications/rotary-pulse-dial-concept.js
+?? concepts/gallery/concepts/imagination-belief/supernatural-folklore/spirit-board-concept.js
+?? concepts/gallery/concepts/mathematics/geometry-patterns/archimedes-trammel-concept.js
+?? concepts/gallery/concepts/mind-society/economics-collective/
+?? concepts/gallery/manifests/curation.js
+?? concepts/gallery/manifests/final-two.js
+?? concepts/gallery/manifests/resumed-civil.js
+?? concepts/gallery/manifests/resumed-earth.js
+?? concepts/gallery/manifests/resumed-economics.js
+?? concepts/gallery/manifests/resumed-space.js
+?? scripts/apply-curation-consolidation.mjs
+?? scripts/build-curation-studies.mjs
+?? scripts/build-final-two.mjs
+?? scripts/build-wind-rose-candidate.mjs
+?? scripts/curation-models.mjs
+?? scripts/expansion/capture-resumption-baseline.mjs
+?? scripts/expansion/format-resumed.py
+?? scripts/expansion/resumed-art.mjs
+?? scripts/expansion/resumed-civil.mjs
+?? scripts/expansion/resumed-earth.mjs
+?? scripts/expansion/resumed-economics.mjs
+?? scripts/expansion/resumed-space.mjs
+?? scripts/expansion/write-resumed-delivery.mjs
+?? scripts/final-two-models.mjs
+?? scripts/gallery-curation-state.js
+?? scripts/gallery-standard-wave-02-rebuild.js
+?? scripts/gallery-standard-wave-02.js
+?? scripts/integrate-final-two.mjs
+?? scripts/restore-wind-rose.mjs
+?? scripts/retirement-candidates.js
+?? scripts/retirement-review.html
+?? scripts/retirement-review.js
+?? scripts/review-gallery-overlap.mjs
+?? scripts/test-curation-models.mjs
+?? scripts/test-final-two.mjs
+?? scripts/test-resumption-preservation.js
+?? scripts/test-wind-rose.js
+?? scripts/validate-curation-review.js
+?? scripts/validate-curation-state.js
+?? scripts/validate-final-gallery-state.js
+?? scripts/validate-final-two-review.js
+?? scripts/wind-rose-model.mjs
+?? scripts/wind-rose-review.html
+?? scripts/wind-rose-review.js

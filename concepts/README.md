@@ -1,8 +1,12 @@
 # Animation Concepts Archive
 
-The canonical Afterglows gallery contains **945 reusable animation concepts** in
-one catalog. The collection is organized into **13 top-level sections** and **63
-definitive categories**; each category owns a matching source folder.
+The active Afterglows gallery contains **1,000 reusable animation concepts**.
+The preserved catalog contains **1,005**, including five retired studies. Two
+fresh studies consolidate the rotary and spirit-board pairs. Wind Rose remains
+active as v3, at the standard gallery size. The collection has **13 sections**
+and **66 categories**; each category owns a matching source folder. Trammel of
+Archimedes and Linear Chirp complete the target. This pass is closed; no automatic
+continuation is pending.
 
 ## Structure
 
@@ -25,9 +29,9 @@ the prefixes identify their implementation lineage, not separate galleries.
 
 ## Definitive taxonomy
 
-| Section | Category | Count |
+| Section | Category | Active count |
 | --- | --- | ---: |
-| Mathematics & Information | Geometry & Pattern | 19 |
+| Mathematics & Information | Geometry & Pattern | 20 |
 |  | Computing, Signals & Interfaces | 14 |
 |  | Cryptography & Information | 11 |
 |  | Statistics & Probability | 16 |
@@ -63,24 +67,27 @@ the prefixes identify their implementation lineage, not separate galleries.
 |  | Plants, Insects & Terrestrial Ecology | 30 |
 |  | Birds & Aviary | 19 |
 |  | Marine Life | 13 |
-| Earth & Environment | Geology & Earth Processes | 15 |
-|  | Meteorology & Atmospheric Phenomena | 23 |
-|  | Oceanography & Hydrology | 12 |
-| Astronomy & Spaceflight | Astronomy & Astrometry | 24 |
+| Earth & Environment | Climate & Cryosphere | 6 |
+|  | Geology & Earth Processes | 16 |
+|  | Meteorology & Atmospheric Phenomena | 24 |
+|  | Oceanography & Hydrology | 18 |
+| Astronomy & Spaceflight | Astronomy & Astrometry | 29 |
 |  | Orbital Mechanics & Gravitation | 10 |
-|  | Astronautics & Spaceflight | 3 |
+|  | Astronautics & Spaceflight | 15 |
 |  | Aeronautics & Flight | 11 |
-| Engineering & Technology | Energy Systems | 17 |
-|  | Instrumentation & Signals | 17 |
+| Engineering & Technology | Civil Infrastructure & Logistics | 16 |
+|  | Energy Systems | 17 |
+|  | Instrumentation & Signals | 18 |
 |  | Control & Robotics | 18 |
 |  | Mechanisms & Tools | 19 |
 |  | Horology & Chronometry | 17 |
-|  | Navigation & Cartography | 17 |
+|  | Navigation & Cartography | 16 |
 |  | Surveying & Geodesy | 13 |
-|  | Telegraphy & Telecommunications | 15 |
+|  | Telegraphy & Telecommunications | 14 |
 |  | Transport, Civic Systems & Commerce | 18 |
 |  | Domestic & Office Objects | 11 |
-| Mind & Society | Perception & Communication | 14 |
+| Mind & Society | Economics & Collective Systems | 10 |
+|  | Perception & Communication | 14 |
 | Arts, Culture & Play | Music & Instruments | 21 |
 |  | Games & Sport | 22 |
 |  | Toys & Kinetic Play | 12 |
@@ -88,9 +95,12 @@ the prefixes identify their implementation lineage, not separate galleries.
 |  | Typography & Printmaking | 11 |
 |  | Optical Media & Early Cinema | 14 |
 | Imagination & Belief | Science Fiction & Encounters | 18 |
-|  | Supernatural & Folklore | 16 |
+|  | Supernatural & Folklore | 14 |
 |  | Magic & Occult | 11 |
-| **Total** | **63 categories** | **945** |
+| **Active total** | **66 categories** | **1,000** |
+
+Counts describe the active gallery. Five retired records remain preserved.
+The current closeout and evidence are in `.raiden/state/SNAPSHOTS/gallery-final-thousand/`.
 
 The gallery accepts deep links through `section` and `category` query
 parameters, for example `/concepts/?section=physics` and
@@ -143,5 +153,13 @@ cross-disciplinary browsing is needed.
 `npm run gallery:acceptance` verifies the operator-approved delivered scope,
 selection outcomes, unique canonical modules, and current-source visual-review
 evidence. The original research pool and the delivered/deferred decision are
-retained under `.raiden/state/SNAPSHOTS/gallery-expansion/`; these local review
-artifacts are excluded from the public site build.
+retained under `.raiden/state/SNAPSHOTS/gallery-expansion/`. The resumed delivery,
+preservation baseline, operator report, and 56 further source-bound reviews are
+under `.raiden/state/SNAPSHOTS/gallery-expansion-resumed/`. The gate preserves the historical
+1,000-active delivery, all 55 formerly deferred subjects plus Frost Heave, and
+all baseline sources and metadata. A bounded restoration transition separately
+verifies Wind Rose v3, its previous implementations and compatibility URL. Current
+acceptance separately verifies D-012 and D-013: 1,000 active / 1,005 preserved,
+five explicit retirements, two consolidations, two final additions and unchanged
+prior sources. Final-pair model tests and source-bound render evidence are required.
+These local review artifacts are excluded from the public site build.

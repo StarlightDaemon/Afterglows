@@ -1,0 +1,84 @@
+{
+  "status": "reviewed",
+  "operatorRating": null,
+  "phases": [
+    25,
+    50,
+    75,
+    85
+  ],
+  "entries": [
+    {
+      "tag": "concept-archimedes-trammel",
+      "sha256": "d87f2f991330b39955f4c846e170319e87e9ae95c209db27ce289df469e2f730",
+      "nativeDimensions": [
+        140,
+        140
+      ],
+      "reviewDimensions": [
+        238,
+        238
+      ],
+      "reducedAnimatedElements": 0,
+      "remounted": true
+    },
+    {
+      "tag": "concept-linear-chirp",
+      "sha256": "62ccf6a983b12d42861be8e24d42ba8a6c7bbd9d2824b710335086a6cceaac1f",
+      "nativeDimensions": [
+        140,
+        140
+      ],
+      "reviewDimensions": [
+        238,
+        238
+      ],
+      "reducedAnimatedElements": 0,
+      "remounted": true
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "phase-25.jpg",
+      "sha256": "cf940e9b8284661a5ad2465697f7e1ab53de07a015743085d3d6dd35f4957926"
+    },
+    {
+      "path": "phase-50.jpg",
+      "sha256": "65bb54fda07426e07cccd744d6149f2fd908a8d93215282ee7cacff2b53c6ad7"
+    },
+    {
+      "path": "phase-75.jpg",
+      "sha256": "47bfc61c68a09e4b4119b9fd127ff1a77e009c214ee636fb418d03440f672f05"
+    },
+    {
+      "path": "phase-85.jpg",
+      "sha256": "42d5950dcc0f2e97ef516871897221f6ac51706766dc1bd6e85a20481d7a08a4"
+    },
+    {
+      "path": "reduced-remount.jpg",
+      "sha256": "3972e09d817ea20267503279f44e6957ca73da342ac964e1a946057087dbfb77"
+    },
+    {
+      "path": "mobile.jpg",
+      "sha256": "bb5664b38ae8467d5814e538055a132b69b3532cc8c6fc1738a7ba71a692b084"
+    },
+    {
+      "path": "gallery-search.jpg",
+      "sha256": "384b312a5febdde8f107411fcfdfc6cca60d72ad7e506093ca0f1d6c5c05312a"
+    }
+  ],
+  "galleryCount": "Showing 1000 of 1000",
+  "searches": [
+    "trammel",
+    "chirp"
+  ],
+  "retiredLinks": [],
+  "pageErrors": [],
+  "mobile": {
+    "viewport": 390,
+    "documentWidth": 375,
+    "horizontalOverflow": false,
+    "capture": "Browser renderer downscaled the screenshot; layout also checked from DOM dimensions."
+  },
+  "preservation": "All 1003 pre-pass metadata records and sources remain exact."
+}

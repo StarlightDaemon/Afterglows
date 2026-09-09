@@ -22,6 +22,12 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535 ||
 
 const dist = fileURLToPath(new URL("../dist/", import.meta.url));
 const files = new Map([
+  ["/__qa/retirement/", new URL("./retirement-review.html", import.meta.url)],
+  ["/__qa/retirement/review.js", new URL("./retirement-review.js", import.meta.url)],
+  ["/__qa/retirement/candidates.js", new URL("./retirement-candidates.js", import.meta.url)],
+  ["/__qa/wind-rose/", new URL("./wind-rose-review.html", import.meta.url)],
+  ["/__qa/wind-rose/review.js", new URL("./wind-rose-review.js", import.meta.url)],
+  ["/__qa/wind-rose/candidate.js", new URL("../.raiden/state/SNAPSHOTS/gallery-visual-standard/wind-rose-restart/wind-rose-candidate.js", import.meta.url)],
   ["/__qa/standard/", new URL("./gallery-standard.html", import.meta.url)],
   ["/__qa/standard/review.js", new URL("./gallery-standard.js", import.meta.url)],
   ["/__qa/standard/wave.json", new URL(`../.raiden/state/SNAPSHOTS/gallery-visual-standard/wave-${String(standardWave).padStart(2, "0")}.json`, import.meta.url)],

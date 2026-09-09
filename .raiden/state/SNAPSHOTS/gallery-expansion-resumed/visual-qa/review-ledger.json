@@ -1,0 +1,1181 @@
+{
+  "note": "Root inspected all listed animation phases and the actual reduced-motion CSS pose after source and mechanism review; hashes match the rendered build.",
+  "entries": [
+    {
+      "tag": "concept-ocean-internal-wave",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/ocean-internal-wave-concept.js",
+      "sha256": "196428d9ac796017355639f777070ab892e14c98bc3c708df7e5deaa1da44f39",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-01-phase-5.png",
+        "batch-01-phase-35.png",
+        "batch-01-phase-60.png",
+        "batch-01-phase-90.png",
+        "batch-01-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:47:59.264Z"
+    },
+    {
+      "tag": "concept-groundwater-cone-of-depression",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/groundwater-cone-of-depression-concept.js",
+      "sha256": "d005756fcaa6d29968cfcb2bf0bbc25dd35b435cd7d746cdc16880e2ed70d702",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-01-phase-5.png",
+        "batch-01-phase-35.png",
+        "batch-01-phase-60.png",
+        "batch-01-phase-90.png",
+        "batch-01-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:47:59.266Z"
+    },
+    {
+      "tag": "concept-artesian-aquifer",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/artesian-aquifer-concept.js",
+      "sha256": "d44baf4422f0ce6f8f419450ed6f0585eae36eb564033c86546a9bb3ec9b21dd",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-01-phase-5.png",
+        "batch-01-phase-35.png",
+        "batch-01-phase-60.png",
+        "batch-01-phase-90.png",
+        "batch-01-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:47:59.266Z"
+    },
+    {
+      "tag": "concept-meander-cutoff",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/meander-cutoff-concept.js",
+      "sha256": "f92c97ac935f8580246b1686e374a1df1ae662839f669537444916e8f253a508",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-01-phase-5.png",
+        "batch-01-phase-35.png",
+        "batch-01-phase-60.png",
+        "batch-01-phase-90.png",
+        "batch-01-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:47:59.266Z"
+    },
+    {
+      "tag": "concept-watershed-divide",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/watershed-divide-concept.js",
+      "sha256": "8ff4a6de4374ae738e78b0ab84dbe50f2e1e4e203cb4563ed8b9f4d3b429f947",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-01-phase-5.png",
+        "batch-01-phase-35.png",
+        "batch-01-phase-60.png",
+        "batch-01-phase-90.png",
+        "batch-01-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:47:59.266Z"
+    },
+    {
+      "tag": "concept-impervious-runoff",
+      "module": "./concepts/earth-sciences/oceanography-hydrology/impervious-runoff-concept.js",
+      "sha256": "92f8fb32ed6d599c2f0ba5773eb491686d3d27add57e62f7f045a0eda0a88c88",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-01-phase-5.png",
+        "batch-01-phase-35.png",
+        "batch-01-phase-60.png",
+        "batch-01-phase-90.png",
+        "batch-01-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:47:59.266Z"
+    },
+    {
+      "tag": "concept-ice-albedo-feedback",
+      "module": "./concepts/earth-sciences/climate-systems/ice-albedo-feedback-concept.js",
+      "sha256": "8597e7878e8ba4c3de9da649be08ba2dab3b92a1859286c59fcadcaaadcef0e8",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-01-phase-5.png",
+        "batch-01-phase-35.png",
+        "batch-01-phase-60.png",
+        "batch-01-phase-90.png",
+        "batch-01-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:47:59.266Z"
+    },
+    {
+      "tag": "concept-ice-shelf-buttressing",
+      "module": "./concepts/earth-sciences/climate-systems/ice-shelf-buttressing-concept.js",
+      "sha256": "f8c086384b14b2c13b573a977a308e2dd5dcd919a9eb09886bfd40a4bc0c6986",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-01-phase-5.png",
+        "batch-01-phase-35.png",
+        "batch-01-phase-60.png",
+        "batch-01-phase-90.png",
+        "batch-01-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:47:59.266Z"
+    },
+    {
+      "tag": "concept-thermokarst-thaw-slump",
+      "module": "./concepts/earth-sciences/climate-systems/thermokarst-thaw-slump-concept.js",
+      "sha256": "1e9d932af945c36db87caf4f447d7d758a2142812720787946bc4d71bc425f0a",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-02-phase-5.png",
+        "batch-02-phase-35.png",
+        "batch-02-phase-60.png",
+        "batch-02-phase-90.png",
+        "batch-02-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:51:56.745Z"
+    },
+    {
+      "tag": "concept-el-nino-southern-oscillation",
+      "module": "./concepts/earth-sciences/climate-systems/el-nino-southern-oscillation-concept.js",
+      "sha256": "ffbe4be09c6eb75920ef0ca34deea5ac1e9573a3e02c7bfefcbbe6a50b7164ca",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-02-phase-5.png",
+        "batch-02-phase-35.png",
+        "batch-02-phase-60.png",
+        "batch-02-phase-90.png",
+        "batch-02-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:51:56.745Z"
+    },
+    {
+      "tag": "concept-atmospheric-river",
+      "module": "./concepts/earth-sciences/climate-systems/atmospheric-river-concept.js",
+      "sha256": "7cb813d61302c26b7507859778942b279ea0277f62fccf35dfcb32a698c295a0",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-02-phase-5.png",
+        "batch-02-phase-35.png",
+        "batch-02-phase-60.png",
+        "batch-02-phase-90.png",
+        "batch-02-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:51:56.746Z"
+    },
+    {
+      "tag": "concept-orographic-rain-shadow",
+      "module": "./concepts/earth-sciences/climate-systems/orographic-rain-shadow-concept.js",
+      "sha256": "401c5185e8eecd5fdc45fba168afce92d5e96599ebca2e17620df0a58cee7e8e",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-02-phase-5.png",
+        "batch-02-phase-35.png",
+        "batch-02-phase-60.png",
+        "batch-02-phase-90.png",
+        "batch-02-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:51:56.746Z"
+    },
+    {
+      "tag": "concept-frost-heave-ice-lens",
+      "module": "./concepts/earth-sciences/geology/frost-heave-ice-lens-concept.js",
+      "sha256": "0192321df5eaf738a68a2ca5cd7cfd0b18ce3a3df80db2636baacb0db36621a8",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-02-phase-5.png",
+        "batch-02-phase-35.png",
+        "batch-02-phase-60.png",
+        "batch-02-phase-90.png",
+        "batch-02-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:51:56.746Z"
+    },
+    {
+      "tag": "concept-seismic-base-isolation",
+      "module": "./concepts/engineering-technology/civil-logistics/seismic-base-isolation-concept.js",
+      "sha256": "268355d0ae2e2eb54bad66292500e7583fb80c42b435bdb5ce99c024295956bf",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-02-phase-5.png",
+        "batch-02-phase-35.png",
+        "batch-02-phase-60.png",
+        "batch-02-phase-90.png",
+        "batch-02-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:51:56.746Z"
+    },
+    {
+      "tag": "concept-tuned-mass-damper",
+      "module": "./concepts/engineering-technology/civil-logistics/tuned-mass-damper-concept.js",
+      "sha256": "7f2e027ea5b331aac7a21d7906861b053b2b70210989690a6d0e9810e2a221eb",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-02-phase-5.png",
+        "batch-02-phase-35.png",
+        "batch-02-phase-60.png",
+        "batch-02-phase-90.png",
+        "batch-02-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:51:56.746Z"
+    },
+    {
+      "tag": "concept-prestressed-concrete",
+      "module": "./concepts/engineering-technology/civil-logistics/prestressed-concrete-concept.js",
+      "sha256": "569d8e4d890a7ac486499e5e9f18cfbdffdd31b2d5543dd75d8026d48c2d2d40",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-02-phase-5.png",
+        "batch-02-phase-35.png",
+        "batch-02-phase-60.png",
+        "batch-02-phase-90.png",
+        "batch-02-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:51:56.746Z"
+    },
+    {
+      "tag": "concept-truss-load-paths",
+      "module": "./concepts/engineering-technology/civil-logistics/truss-load-paths-concept.js",
+      "sha256": "6be03a2c583a405e3c6931c22e9d866b1556e577c903a75d645b27a1848cf579",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-03-phase-5.png",
+        "batch-03-phase-35.png",
+        "batch-03-phase-60.png",
+        "batch-03-phase-90.png",
+        "batch-03-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:19.590Z"
+    },
+    {
+      "tag": "concept-arch-thrust",
+      "module": "./concepts/engineering-technology/civil-logistics/arch-thrust-concept.js",
+      "sha256": "114f45c246eaf7064487dde1dedb460635e8a04b06b1b9f7178a223530cf385a",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-03-phase-5.png",
+        "batch-03-phase-35.png",
+        "batch-03-phase-60.png",
+        "batch-03-phase-90.png",
+        "batch-03-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:19.590Z"
+    },
+    {
+      "tag": "concept-cantilever-deflection",
+      "module": "./concepts/engineering-technology/civil-logistics/cantilever-deflection-concept.js",
+      "sha256": "905518dd2ada5928dfd340dc69bdc613df33d30b9d37b8ad2f19747caac6d6c1",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-03-phase-5.png",
+        "batch-03-phase-35.png",
+        "batch-03-phase-60.png",
+        "batch-03-phase-90.png",
+        "batch-03-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:19.590Z"
+    },
+    {
+      "tag": "concept-cable-stayed-load-transfer",
+      "module": "./concepts/engineering-technology/civil-logistics/cable-stayed-load-transfer-concept.js",
+      "sha256": "9481094c5506ff55fb5c06e8d662dec806ba5293eefc31636fa0ad3985c5f9ee",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-03-phase-5.png",
+        "batch-03-phase-35.png",
+        "batch-03-phase-60.png",
+        "batch-03-phase-90.png",
+        "batch-03-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:19.590Z"
+    },
+    {
+      "tag": "concept-bridge-expansion-joint",
+      "module": "./concepts/engineering-technology/civil-logistics/bridge-expansion-joint-concept.js",
+      "sha256": "cb9878257674a0d5642d549839362b64aec89dc4281932b9a1c6daba01a8be2a",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-03-phase-5.png",
+        "batch-03-phase-35.png",
+        "batch-03-phase-60.png",
+        "batch-03-phase-90.png",
+        "batch-03-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:19.590Z"
+    },
+    {
+      "tag": "concept-tunnel-boring-advance",
+      "module": "./concepts/engineering-technology/civil-logistics/tunnel-boring-advance-concept.js",
+      "sha256": "0bdf41461429ac9e0046c84fd957d51043eceec7db4da216dcf84ec54ff1cfed",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-03-phase-5.png",
+        "batch-03-phase-35.png",
+        "batch-03-phase-60.png",
+        "batch-03-phase-90.png",
+        "batch-03-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:19.590Z"
+    },
+    {
+      "tag": "concept-clarifier-sedimentation",
+      "module": "./concepts/engineering-technology/civil-logistics/clarifier-sedimentation-concept.js",
+      "sha256": "6f735cf2b478385a696e6dcff93a4d4a270923e6d98c561de29d302325c8c612",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-03-phase-5.png",
+        "batch-03-phase-35.png",
+        "batch-03-phase-60.png",
+        "batch-03-phase-90.png",
+        "batch-03-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:19.590Z"
+    },
+    {
+      "tag": "concept-activated-sludge-treatment",
+      "module": "./concepts/engineering-technology/civil-logistics/activated-sludge-treatment-concept.js",
+      "sha256": "54c70cf8eafae7d1b57a1fbae9bb2665e71abaf0fdb0b93a092719a4df6866d8",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-03-phase-5.png",
+        "batch-03-phase-35.png",
+        "batch-03-phase-60.png",
+        "batch-03-phase-90.png",
+        "batch-03-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:19.590Z"
+    },
+    {
+      "tag": "concept-roundabout-gap-acceptance",
+      "module": "./concepts/engineering-technology/civil-logistics/roundabout-gap-acceptance-concept.js",
+      "sha256": "62cabd10613d6d1593791e65ca5cdd70056fb699254ef81eaa68694965f6f592",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-04-phase-5.png",
+        "batch-04-phase-35.png",
+        "batch-04-phase-60.png",
+        "batch-04-phase-90.png",
+        "batch-04-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:43.069Z"
+    },
+    {
+      "tag": "concept-zipper-merge",
+      "module": "./concepts/engineering-technology/civil-logistics/zipper-merge-concept.js",
+      "sha256": "786506b2d44e28fbae29aa5f96bf86e8c2c03f2d64bbc7c646adc8e2ff730a8c",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-04-phase-5.png",
+        "batch-04-phase-35.png",
+        "batch-04-phase-60.png",
+        "batch-04-phase-90.png",
+        "batch-04-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:43.069Z"
+    },
+    {
+      "tag": "concept-traffic-shock-wave",
+      "module": "./concepts/engineering-technology/civil-logistics/traffic-shock-wave-concept.js",
+      "sha256": "6dd6e6592402adbcc78869f4611c697461498f90e3bcfffb7af4057a03f31ffc",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-04-phase-5.png",
+        "batch-04-phase-35.png",
+        "batch-04-phase-60.png",
+        "batch-04-phase-90.png",
+        "batch-04-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:43.069Z"
+    },
+    {
+      "tag": "concept-railway-track-circuit",
+      "module": "./concepts/engineering-technology/civil-logistics/railway-track-circuit-concept.js",
+      "sha256": "6bc7326ec0bc7371ab53647be41ced570da152049f110c4b43b7bbd8e3f75c7e",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-04-phase-5.png",
+        "batch-04-phase-35.png",
+        "batch-04-phase-60.png",
+        "batch-04-phase-90.png",
+        "batch-04-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:43.069Z"
+    },
+    {
+      "tag": "concept-ship-to-shore-container-crane",
+      "module": "./concepts/engineering-technology/civil-logistics/ship-to-shore-container-crane-concept.js",
+      "sha256": "131b04a2041500e7019fba61251dbc9515409ee3d35de07e32b801c2d4257b40",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-04-phase-5.png",
+        "batch-04-phase-35.png",
+        "batch-04-phase-60.png",
+        "batch-04-phase-90.png",
+        "batch-04-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:43.069Z"
+    },
+    {
+      "tag": "concept-rocket-stage-separation",
+      "module": "./concepts/astronomy-space/astronautics/rocket-stage-separation-concept.js",
+      "sha256": "5d5ea678bf8c7d6bd750fc23c0f5bb00c98ef6adb3eb9b1c4b69aab59f63e681",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-04-phase-5.png",
+        "batch-04-phase-35.png",
+        "batch-04-phase-60.png",
+        "batch-04-phase-90.png",
+        "batch-04-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:43.069Z"
+    },
+    {
+      "tag": "concept-reaction-wheel-attitude-control",
+      "module": "./concepts/astronomy-space/astronautics/reaction-wheel-attitude-control-concept.js",
+      "sha256": "72c6be1aee2217f59459f459f0e70341874f8696a289ede836dbfc37ea13daf4",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-04-phase-5.png",
+        "batch-04-phase-35.png",
+        "batch-04-phase-60.png",
+        "batch-04-phase-90.png",
+        "batch-04-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:43.069Z"
+    },
+    {
+      "tag": "concept-thruster-docking",
+      "module": "./concepts/astronomy-space/astronautics/thruster-docking-concept.js",
+      "sha256": "dec5da2fda7c93199b2163e946d6d372b8303d7d830d506e90e9661b12fa59e9",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-04-phase-5.png",
+        "batch-04-phase-35.png",
+        "batch-04-phase-60.png",
+        "batch-04-phase-90.png",
+        "batch-04-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:53:43.069Z"
+    },
+    {
+      "tag": "concept-gridded-ion-thruster",
+      "module": "./concepts/astronomy-space/astronautics/gridded-ion-thruster-concept.js",
+      "sha256": "65c20c668dd6908969915b9ff8c3f13294ed358da1f7e447db9711ba48f908d6",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-05-phase-5.png",
+        "batch-05-phase-35.png",
+        "batch-05-phase-60.png",
+        "batch-05-phase-90.png",
+        "batch-05-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:54:03.257Z"
+    },
+    {
+      "tag": "concept-aerobraking",
+      "module": "./concepts/astronomy-space/astronautics/aerobraking-concept.js",
+      "sha256": "123eebe9eef7efe3152523883151491096c4dd290fcf7173bcbd892645a8a057",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-05-phase-5.png",
+        "batch-05-phase-35.png",
+        "batch-05-phase-60.png",
+        "batch-05-phase-90.png",
+        "batch-05-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:54:03.257Z"
+    },
+    {
+      "tag": "concept-ablative-heat-shield",
+      "module": "./concepts/astronomy-space/astronautics/ablative-heat-shield-concept.js",
+      "sha256": "8ffae1b8387c4c61f1575c9752756053aee101c9fc1ee8d90df6acd9b6348561",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-05-phase-5.png",
+        "batch-05-phase-35.png",
+        "batch-05-phase-60.png",
+        "batch-05-phase-90.png",
+        "batch-05-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:54:03.257Z"
+    },
+    {
+      "tag": "concept-sky-crane-landing",
+      "module": "./concepts/astronomy-space/astronautics/sky-crane-landing-concept.js",
+      "sha256": "ff00d2ab8a1bb10edce02467f0dff775a6ab6d0ae899b6950693971557574b50",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-05-phase-5.png",
+        "batch-05-phase-35.png",
+        "batch-05-phase-60.png",
+        "batch-05-phase-90.png",
+        "batch-05-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:54:03.257Z"
+    },
+    {
+      "tag": "concept-webb-sunshield-deployment",
+      "module": "./concepts/astronomy-space/astronautics/webb-sunshield-deployment-concept.js",
+      "sha256": "1c62c4784311a9357d55625ee462616f010ec675e68fd3b8d42a1fbd1f591c04",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-05-phase-5.png",
+        "batch-05-phase-35.png",
+        "batch-05-phase-60.png",
+        "batch-05-phase-90.png",
+        "batch-05-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:54:03.257Z"
+    },
+    {
+      "tag": "concept-rocker-bogie-suspension",
+      "module": "./concepts/astronomy-space/astronautics/rocker-bogie-suspension-concept.js",
+      "sha256": "124ae66e2c17f74cf78167515560b61af46bad00da20399547acb3b2981690de",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-05-phase-5.png",
+        "batch-05-phase-35.png",
+        "batch-05-phase-60.png",
+        "batch-05-phase-90.png",
+        "batch-05-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:54:03.257Z"
+    },
+    {
+      "tag": "concept-exoplanet-transit-photometry",
+      "module": "./concepts/astronomy-space/astronomy-astrometry/exoplanet-transit-photometry-concept.js",
+      "sha256": "50307f9e4dfad2089f0c144047d9a3eb111fe2136bf3a9c1af9a5d6664134bb6",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-05-phase-5.png",
+        "batch-05-phase-35.png",
+        "batch-05-phase-60.png",
+        "batch-05-phase-90.png",
+        "batch-05-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:54:03.258Z"
+    },
+    {
+      "tag": "concept-radial-velocity-planet-detection",
+      "module": "./concepts/astronomy-space/astronomy-astrometry/radial-velocity-planet-detection-concept.js",
+      "sha256": "db7284887a0124c19e3ed4e992389c7dbb575327aae5f2608d6a20a8d498de7a",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-05-phase-5.png",
+        "batch-05-phase-35.png",
+        "batch-05-phase-60.png",
+        "batch-05-phase-90.png",
+        "batch-05-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:54:03.258Z"
+    },
+    {
+      "tag": "concept-astronomical-aperture-synthesis",
+      "module": "./concepts/astronomy-space/astronomy-astrometry/astronomical-aperture-synthesis-concept.js",
+      "sha256": "b873ed86e5f0180547a540c4af1b6275f6a536d9ef1e2a09a7678a93f591c6fb",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-06-phase-5.png",
+        "batch-06-phase-35.png",
+        "batch-06-phase-60.png",
+        "batch-06-phase-90.png",
+        "batch-06-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:25.750Z"
+    },
+    {
+      "tag": "concept-adaptive-optics",
+      "module": "./concepts/astronomy-space/astronomy-astrometry/adaptive-optics-concept.js",
+      "sha256": "bad2ddbb5085ba631c062b2b36ae3bc103a469b2039829ecf8f2f4331a91e95a",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-06-phase-5.png",
+        "batch-06-phase-35.png",
+        "batch-06-phase-60.png",
+        "batch-06-phase-90.png",
+        "batch-06-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:25.750Z"
+    },
+    {
+      "tag": "concept-segmented-mirror-phasing",
+      "module": "./concepts/astronomy-space/astronomy-astrometry/segmented-mirror-phasing-concept.js",
+      "sha256": "42141f9afa5c6278dc0ab8258eba858f58141cf81e96184e61ba85413b5b548c",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-06-phase-5.png",
+        "batch-06-phase-35.png",
+        "batch-06-phase-60.png",
+        "batch-06-phase-90.png",
+        "batch-06-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:25.750Z"
+    },
+    {
+      "tag": "concept-touch-and-go-asteroid-sampling",
+      "module": "./concepts/astronomy-space/astronautics/touch-and-go-asteroid-sampling-concept.js",
+      "sha256": "a744a91f07683ad7c1fbf8ddccec9885b678d675d46f8d31f72f22459bb9be49",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-06-phase-5.png",
+        "batch-06-phase-35.png",
+        "batch-06-phase-60.png",
+        "batch-06-phase-90.png",
+        "batch-06-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:25.750Z"
+    },
+    {
+      "tag": "concept-star-tracker-attitude-determination",
+      "module": "./concepts/astronomy-space/astronautics/star-tracker-attitude-determination-concept.js",
+      "sha256": "562252c85b5e6c7f8ee1874b57391bc21f7be79ec6d73d7fbfee885e9b9c0202",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-06-phase-5.png",
+        "batch-06-phase-35.png",
+        "batch-06-phase-60.png",
+        "batch-06-phase-90.png",
+        "batch-06-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:25.750Z"
+    },
+    {
+      "tag": "concept-aerogel-dust-capture",
+      "module": "./concepts/astronomy-space/astronautics/aerogel-dust-capture-concept.js",
+      "sha256": "0860f55f23cd8b5389d3e38345b18aaa75a87aa1664d1533d94a4e4a88bc6b4d",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-06-phase-5.png",
+        "batch-06-phase-35.png",
+        "batch-06-phase-60.png",
+        "batch-06-phase-90.png",
+        "batch-06-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:25.750Z"
+    },
+    {
+      "tag": "concept-market-clearing",
+      "module": "./concepts/mind-society/economics-collective/market-clearing-concept.js",
+      "sha256": "a2745f40e0c273193c840a343c2e4bb7ce7e6a5b27286171a13d0d38f67bd16b",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-06-phase-5.png",
+        "batch-06-phase-35.png",
+        "batch-06-phase-60.png",
+        "batch-06-phase-90.png",
+        "batch-06-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:25.750Z"
+    },
+    {
+      "tag": "concept-order-book-matching",
+      "module": "./concepts/mind-society/economics-collective/order-book-matching-concept.js",
+      "sha256": "0fe49071e901f8312b7945ad70ebe80e059efb767e5e4ed1c6d160d169cd8c40",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-06-phase-5.png",
+        "batch-06-phase-35.png",
+        "batch-06-phase-60.png",
+        "batch-06-phase-90.png",
+        "batch-06-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:25.750Z"
+    },
+    {
+      "tag": "concept-comparative-advantage",
+      "module": "./concepts/mind-society/economics-collective/comparative-advantage-concept.js",
+      "sha256": "9e16b0c48b9203a4ce6e6ff89daa8dd957425c4161a216dca3c158166c0c1c8f",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-07-phase-5.png",
+        "batch-07-phase-35.png",
+        "batch-07-phase-60.png",
+        "batch-07-phase-90.png",
+        "batch-07-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:53.021Z"
+    },
+    {
+      "tag": "concept-cobweb-price-dynamics",
+      "module": "./concepts/mind-society/economics-collective/cobweb-price-dynamics-concept.js",
+      "sha256": "f1cf88ab59ddcc68b6195e4d7a927e6d5e8a846153079a0049c18b0741e51997",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-07-phase-5.png",
+        "batch-07-phase-35.png",
+        "batch-07-phase-60.png",
+        "batch-07-phase-90.png",
+        "batch-07-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:53.021Z"
+    },
+    {
+      "tag": "concept-bank-run",
+      "module": "./concepts/mind-society/economics-collective/bank-run-concept.js",
+      "sha256": "9a5f2d5cec0db5e0eaa884c0bef0b722ebdf93280a96a81faf988796d2e3c197",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-07-phase-5.png",
+        "batch-07-phase-35.png",
+        "batch-07-phase-60.png",
+        "batch-07-phase-90.png",
+        "batch-07-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:53.021Z"
+    },
+    {
+      "tag": "concept-ascending-auction",
+      "module": "./concepts/mind-society/economics-collective/ascending-auction-concept.js",
+      "sha256": "4f3f4d22efef9c39493c96160fbba0253bf199684d4c286b9737cb0db0542b15",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-07-phase-5.png",
+        "batch-07-phase-35.png",
+        "batch-07-phase-60.png",
+        "batch-07-phase-90.png",
+        "batch-07-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:53.021Z"
+    },
+    {
+      "tag": "concept-public-goods-free-riding",
+      "module": "./concepts/mind-society/economics-collective/public-goods-free-riding-concept.js",
+      "sha256": "0d40f5f4314e89f06f678e121c1bd5fa5d282ed37a259bd0b647fe36bbf84427",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-07-phase-5.png",
+        "batch-07-phase-35.png",
+        "batch-07-phase-60.png",
+        "batch-07-phase-90.png",
+        "batch-07-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:53.021Z"
+    },
+    {
+      "tag": "concept-common-pool-governance",
+      "module": "./concepts/mind-society/economics-collective/common-pool-governance-concept.js",
+      "sha256": "d6a690f6b85c271db15a415d1c30dd82b76e83b20a173f57ec97070421082b5b",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-07-phase-5.png",
+        "batch-07-phase-35.png",
+        "batch-07-phase-60.png",
+        "batch-07-phase-90.png",
+        "batch-07-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:53.021Z"
+    },
+    {
+      "tag": "concept-schelling-segregation-model",
+      "module": "./concepts/mind-society/economics-collective/schelling-segregation-model-concept.js",
+      "sha256": "98e8539af9abeb94e5b6d6155810aa8eb18a4bda468505c16779d65f25c8b0b7",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-07-phase-5.png",
+        "batch-07-phase-35.png",
+        "batch-07-phase-60.png",
+        "batch-07-phase-90.png",
+        "batch-07-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:53.021Z"
+    },
+    {
+      "tag": "concept-bullwhip-effect",
+      "module": "./concepts/mind-society/economics-collective/bullwhip-effect-concept.js",
+      "sha256": "57cc8bd71d06841a16a84e6e52fe2bc65119f9a2d8ea77fb7b392525092d8c9c",
+      "registered": true,
+      "phases": [
+        0.05,
+        0.35,
+        0.6,
+        0.9
+      ],
+      "reducedMotionStylePreview": true,
+      "screenshots": [
+        "batch-07-phase-5.png",
+        "batch-07-phase-35.png",
+        "batch-07-phase-60.png",
+        "batch-07-phase-90.png",
+        "batch-07-reduced.png"
+      ],
+      "reviewedAt": "2026-09-09T06:55:53.021Z"
+    }
+  ]
+}

@@ -45,6 +45,14 @@ import { CONCEPTS as instrumentationSignals } from "./manifests/instrumentation-
 import { CONCEPTS as energySystems } from "./manifests/energy-systems.js";
 
 import { CONCEPTS as oceanographyHydrology } from "./manifests/oceanography-hydrology.js";
+import { CONCEPTS as resumedEarth } from "./manifests/resumed-earth.js";
+import { CONCEPTS as resumedCivil } from "./manifests/resumed-civil.js";
+import { CONCEPTS as resumedSpace } from "./manifests/resumed-space.js";
+import { CONCEPTS as resumedEconomics } from "./manifests/resumed-economics.js";
+
+import { CONCEPTS as curation } from "./manifests/curation.js";
+
+import { CONCEPTS as finalTwo } from "./manifests/final-two.js";
 
 function canonicalEntry(source, concept) {
   const placement = placementFor(source, concept);
@@ -84,7 +92,22 @@ const unifiedConcepts = [
   ...instrumentationSignals,
   ...energySystems,
   ...oceanographyHydrology,
+  ...resumedEarth,
+  ...resumedCivil,
+  ...resumedSpace,
+  ...resumedEconomics,
+  ...curation,
+  ...finalTwo,
 ];
 
 export { CATEGORIES, SECTIONS };
 export const CONCEPTS = unifiedConcepts;
+
+// Operator-retired studies keep their canonical metadata and embed URLs so they
+// can be revisited. The active gallery consumes ACTIVE_CONCEPTS exclusively.
+const retiredTags = new Set(["concept-will-o-wisp","concept-rotary-dial","concept-rotary-phone","concept-planchette","concept-ouija"]);
+export const RETIRED_CONCEPTS = unifiedConcepts.filter(concept => retiredTags.has(concept.tag));
+export const ACTIVE_CONCEPTS = unifiedConcepts.filter(concept => !retiredTags.has(concept.tag));
+
+// Compatibility URLs are shims, not additional catalog records.
+export const COMPATIBILITY_MODULES = [{module:"./concepts/engineering-technology/navigation-cartography/wind-rose-concept.js",target:"./concepts/earth-sciences/meteorology-atmosphere/wind-rose-concept.js"}];

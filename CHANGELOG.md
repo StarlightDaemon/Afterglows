@@ -1,5 +1,24 @@
 # Changelog
 
+## Local final additions — 2026-09-09
+
+- Added Trammel of Archimedes and Linear Chirp after a recorded random selection.
+- Completed the 1,000-active target, with 1,005 preserved records and five retirements.
+- Added source-bound model/render evidence and completed the closeout report.
+
+## Local consolidation — 2026-09-09
+
+- Retired the selected marsh-light entry and both older rotary and spirit-board pairs.
+- Built Rotary Pulse Dial and Spirit Board & Planchette from fresh models.
+- Retained Wind Rose v3; removed duplicate-size review panels.
+- Current inventory: 998 active / 1,003 preserved. Prior sources remain intact.
+
+## Local curation — 2026-09-09
+
+- Restored Wind Rose as meteorological v3, preserving v1/v2 and its previous embed URL.
+- Catalog has 1,001 active studies pending one operator retirement choice.
+- Added a local overlap comparison and source-bound restoration checks.
+
 All notable changes to this project are documented here, in [Keep a
 Changelog](https://keepachangelog.com/en/1.1.0/) style. This project follows
 [Semantic Versioning](https://semver.org/); versions are recorded as
@@ -15,7 +34,19 @@ trail some of these entries reference.
 
 ## [Unreleased]
 
-### Concepts expansion
+### Resumed concepts expansion
+- Reached 1,000 active studies and 1,001 preserved records with 56 further
+  researched additions across earth science, civil infrastructure, spaceflight,
+  astronomical measurement, and economics. Added three categories, bringing
+  the taxonomy to 66 categories within the existing 13 sections.
+- Reassessed and completed all 55 previously deferred selections, plus the
+  distinct Frost Heave by Ice-Lens Growth study. Preserved the retired wind rose
+  and all 945 revised baseline records and sources.
+- Added four-phase and reduced-motion render evidence for every new study,
+  baseline preservation checks, and active-versus-preserved acceptance checks.
+  No release or deployment accompanies this local work.
+
+### Initial concepts expansion
 - Expanded the catalog from 660 to 945 concepts, adding 285 researched motion
   studies across 13 sections and 63 categories. Added Data Science & Optimization,
   Computing, Human Health, and Mind & Society while preserving historical placements.
@@ -26,7 +57,8 @@ trail some of these entries reference.
   cleanup, and live reduced-motion handling for the legacy Nixie animation.
 - Added preservation, lifecycle, metadata, and source-bound visual acceptance checks.
   The operator ended expansion at the completed scope; 55 researched subjects
-  remain explicitly deferred. No release or deployment accompanies these changes.
+  were deferred at that checkpoint and are delivered in the resumed expansion.
+  No release or deployment accompanies these changes.
 
 ### Security
 - Local previews now build and serve the same allowlisted `dist/` artifact used

@@ -1,3 +1,12 @@
+// BEGIN VISUAL STANDARD v2
+// Refined v2 by Codex / Astra / 6; historical markup/styles below remain intact.
+const visualStandardV2Styles=".vs2-frame{width:134px;height:128px;box-sizing:border-box}.vs2-frame [class$=\"-stage\"]{width:110px;height:102px}.vs2-frame svg[class$=\"-svg\"]{width:98px;height:94px}.vs2-frame [class$=\"-label\"]{left:4px;right:4px;bottom:4px;font-size:7px;line-height:1.15;text-align:center;letter-spacing:.2px}\n.cs-sliding-vane{animation:none;transform:translate(38px,36.5px)}\n@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.cs-sliding-vane{transform:translate(38px,36.5px)}}";
+function applyVisualStandardV2(root){
+ const style=document.createElement('style');style.textContent=visualStandardV2Styles;root.append(style);
+ const frame=root.querySelector('div');frame.classList.add('vs2-frame');frame.setAttribute('role','img');frame.setAttribute('aria-label',"Jacob's Cross-Staff. Restore the crosspiece at the sighting position; keep the star and horizon lines attached and animate only their directional traces.");
+
+}
+// END VISUAL STANDARD v2
 const crossStaffStyles = `
   :host {
     display: flex;
@@ -81,6 +90,10 @@ const crossStaffStyles = `
 `;
 
 class ConceptCrossStaff extends HTMLElement {
+// BEGIN VISUAL STANDARD v2
+  static get observedAttributes(){return ['version'];}
+  attributeChangedCallback(){if(this.isConnected)this.connectedCallback();}
+// END VISUAL STANDARD v2
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -137,6 +150,9 @@ class ConceptCrossStaff extends HTMLElement {
         <div class="cs-label">JACOB'S CROSS-STAFF</div>
       </div>
     `;
+// BEGIN VISUAL STANDARD v2
+    if(this.getAttribute('version')!=='v1')applyVisualStandardV2(this.shadowRoot);
+// END VISUAL STANDARD v2
   }
 }
 

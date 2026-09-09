@@ -7,15 +7,19 @@ import { fileURLToPath } from "node:url";
 import { CONCEPTS } from "../concepts/gallery/manifest.js";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
-const qa = path.join(root, ".raiden/state/SNAPSHOTS/gallery-expansion/visual-qa");
-const ledger = JSON.parse(fs.readFileSync(path.join(qa, "review-ledger.json"), "utf8"));
+const directories = ["gallery-expansion", "gallery-expansion-resumed"].map((name) => path.join(root, ".raiden/state/SNAPSHOTS", name, "visual-qa"));
 const additions = CONCEPTS.filter((concept) => concept.source === "expansion");
+const baseline = JSON.parse(fs.readFileSync(path.join(root, ".raiden/state/SNAPSHOTS/gallery-expansion-resumed/baseline.json"), "utf8"));
+const baselineTags = new Set(baseline.entries.map(({ concept }) => concept.tag));
 const reviews = new Map();
 const failures = [];
 
-for (const review of ledger.entries) {
-  if (reviews.has(review.tag)) failures.push(`Duplicate review: ${review.tag}`);
-  reviews.set(review.tag, review);
+for (const qa of directories) {
+  const ledger = JSON.parse(fs.readFileSync(path.join(qa, "review-ledger.json"), "utf8"));
+  for (const review of ledger.entries) {
+    if (reviews.has(review.tag)) failures.push(`Duplicate review: ${review.tag}`);
+    reviews.set(review.tag, { ...review, qa });
+  }
 }
 for (const concept of additions) {
   const review = reviews.get(concept.tag);
@@ -29,11 +33,14 @@ for (const concept of additions) {
   }
   if (!Number.isFinite(Date.parse(review.reviewedAt))) failures.push(`Invalid review date: ${concept.tag}`);
   for (const screenshot of review.screenshots || []) {
-    if (path.basename(screenshot) !== screenshot || !screenshot.endsWith(".png") || !fs.existsSync(path.join(qa, screenshot))) {
+    if (path.basename(screenshot) !== screenshot || !screenshot.endsWith(".png") || !fs.existsSync(path.join(review.qa, screenshot))) {
       failures.push(`Missing or invalid screenshot: ${concept.tag} / ${screenshot}`);
     }
   }
   if ((review.screenshots || []).length < 3) failures.push(`Missing phase/static screenshots: ${concept.tag}`);
+  if (!baselineTags.has(concept.tag) && (new Set(review.phases).size < 4 || new Set(review.screenshots || []).size < 5)) {
+    failures.push(`Resumed review requires four phases and a static pose: ${concept.tag}`);
+  }
 }
 for (const tag of reviews.keys()) {
   if (!additions.some((concept) => concept.tag === tag)) failures.push(`Orphaned review: ${tag}`);

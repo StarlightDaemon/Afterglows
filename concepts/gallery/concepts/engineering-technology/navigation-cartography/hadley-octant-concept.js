@@ -1,3 +1,12 @@
+// BEGIN VISUAL STANDARD v2
+// Refined v2 by Codex / Astra / 6; historical markup/styles below remain intact.
+const visualStandardV2Styles=".vs2-frame{width:134px;height:128px;box-sizing:border-box}.vs2-frame [class$=\"-stage\"]{width:110px;height:102px}.vs2-frame svg[class$=\"-svg\"]{width:98px;height:94px}.vs2-frame [class$=\"-label\"]{left:4px;right:4px;bottom:4px;font-size:7px;line-height:1.15;text-align:center;letter-spacing:.2px}\n.ho-index-arm{animation:none;transform:none}\n@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.ho-index-arm{transform:none}.ho-light-beam{stroke-dashoffset:0}}";
+function applyVisualStandardV2(root){
+ const style=document.createElement('style');style.textContent=visualStandardV2Styles;root.append(style);
+ const frame=root.querySelector('div');frame.classList.add('vs2-frame');frame.setAttribute('role','img');frame.setAttribute('aria-label',"Hadley Reflecting Octant. Keep the index at the illustrated sighting and let the ray sequence carry the explanation; enlarge the ebony-and-brass frame.");
+
+}
+// END VISUAL STANDARD v2
 const hadleyStyles = `
   :host {
     display: flex;
@@ -75,6 +84,10 @@ const hadleyStyles = `
 `;
 
 class ConceptHadleyOctant extends HTMLElement {
+// BEGIN VISUAL STANDARD v2
+  static get observedAttributes(){return ['version'];}
+  attributeChangedCallback(){if(this.isConnected)this.connectedCallback();}
+// END VISUAL STANDARD v2
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -123,6 +136,9 @@ class ConceptHadleyOctant extends HTMLElement {
         <div class="ho-label">HADLEY OCTANT</div>
       </div>
     `;
+// BEGIN VISUAL STANDARD v2
+    if(this.getAttribute('version')!=='v1')applyVisualStandardV2(this.shadowRoot);
+// END VISUAL STANDARD v2
   }
 }
 

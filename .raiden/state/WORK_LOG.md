@@ -1,5 +1,170 @@
 # Work Log
 
+## 2026-09-09 — Production release requested
+
+- D-014 records explicit operator authorization to push completed work live.
+- Re-ran all release checks and gallery acceptance; all pass, including zero
+  known dependency vulnerabilities and 1,000 active / 1,005 preserved records.
+- Fetched origin/main and confirmed no conflicting remote changes. Preparing
+  the release commit and existing allowlisted Pages deployment under LOOP-006.
+- Evidence: `SNAPSHOTS/gallery-live-release/report.md`; prior closeout reports
+  remain immutable records of their individual passes.
+
+## 2026-09-09 — Final two additions and full closeout
+
+- Recorded a random draw without replacement after catalog overlap screening;
+  selected Trammel of Archimedes and Linear Chirp. Saved the plan before building.
+- Added two standalone 140px SVG/CSS studies with definitions, mechanisms,
+  distinctions, references and Codex/Astra provenance. 1,000 active / 1,005 preserved.
+- Preserved every pre-pass record/source and all five retirements. Tested
+  geometry/signal models, four phase renders, reduced motion/remount, narrow
+  layout and native gallery filtering/counts.
+- Updated counts, taxonomy table, current state and handoff; D-013 and LOOP-005
+  close the requested engagement. `SNAPSHOTS/gallery-final-thousand/closeout-report.md`
+  records evidence and limitations. No commit, push or deployment occurred.
+
+## 2026-09-09 — Operator-selected retirements and fresh consolidations
+
+- Implemented D-012: five old studies retired, two fresh studies added,
+  suggested Wisp and Wind Rose retained. 998 active / 1,003 preserved.
+- Captured all 1,001 pre-consolidation records and hashes; every prior source
+  and complete metadata remains unchanged. Old embeddings remain available.
+- Built fresh deterministic dial/pulse and board/aperture models, checked
+  phases, reduced-motion styles, remount and gallery behavior.
+- Replaced the retirement-choice page with the completed review; Wind Rose
+  appears once and all preview stages use the same enlargement.
+- Current report: `SNAPSHOTS/gallery-consolidation/report.md`. LOOP-004 closed;
+  remaining gap to 1,000 deferred. No commit, push, release or deployment.
+
+## 2026-09-09 — Retired-study restoration and overlap shortlist
+
+- Restored the only retired record, Wind Rose, as meteorological v3; retained
+  v1/v2 exactly and kept its old embed URL through a declared compatibility shim.
+- Current inventory is 1,001 active / 1,001 preserved. No new retirement chosen.
+- Scanned all catalog metadata across 13 sections and 66 categories, compared
+  500,500 label/alias pairs, and source-reviewed three retirement proposals.
+  Built a local live comparison with render evidence.
+- Added explicit restoration validation without rewriting historical baselines
+  or visual-review evidence; updated current count surfaces and D-011/LOOP-004.
+- Verification and limitations: `SNAPSHOTS/gallery-restoration/report.md`.
+  No commit, push, release, deployment or unrelated campaign continuation.
+
+## 2026-09-09 — Exit report and engagement completion
+
+- Verified 1,000 active studies plus the completed Wind Rose replacement:
+  1,001 including the replacement, without counting previous versions again.
+  Canonical catalog remains 1,001 preserved records, including retired Wind Rose.
+- Re-ran gallery acceptance and Wind Rose model checks; verified the candidate's
+  source hash and all ten evidence images. No implementation changes in this pass.
+- Wrote `SNAPSHOTS/gallery-exit-handoff.md` with completed work, verification,
+  artifact index, repository state, deferred backlog and next-session strategy.
+  D-010 and `gallery-exit-completion.json` mark this engagement complete.
+- Closed LOOP-002 administratively, preserving unresolved feedback as deferred
+  backlog; LOOP-003 remains complete. Stopped automatic continuation. No inferred
+  Wind Rose approval, integration, reactivation, commit or publication.
+- Retained the operator's open local Wind Rose preview for inspection. No new
+  automation or further development was scheduled.
+
+## 2026-09-09 — Wind Rose rebuilt from first principles
+
+- Operator explicitly requested a complete restart after the thousand-study
+  expansion. Built a fresh meteorological animation from BOM/NWS definitions
+  and 20 synthetic observations, without importing either previous design.
+- Verified direction/speed bins, conservation, sorted stacks, cue clearances,
+  phase renders, completed reduced-motion pose, remount and mobile layout.
+  Standalone candidate and evidence: `SNAPSHOTS/gallery-visual-standard/wind-rose-restart/`.
+- Candidate is ready for operator assessment. Canonical retired v1/v2 source
+  and all 945 baseline records remain unchanged; 1,000 active / 1,001 preserved.
+  No integration, commit, push, release or deployment occurred.
+- Finished the expansion handoff's taxonomy table correction: all 66 category
+  rows now derive from the active manifest and sum to 1,000.
+
+## 2026-09-09 — Thousand-active-study expansion complete
+
+- Assessed the revised 944-active / 945-preserved gallery and captured complete
+  metadata/source hashes before additions. Retained all approvals, pending
+  campaign revisions and the Wind Rose retirement.
+- Implemented and reviewed 56 independently designed studies, completing all
+  55 deferred selections plus Frost Heave. Final inventory: 1,000 active,
+  1,001 preserved, 13 sections, 66 categories. Definitions, motion descriptions,
+  assumptions and primary references live in four canonical manifest shards.
+- Read-only earth/economics, civil and space reviews passed after corrections;
+  all 56 rendered at four phases and reduced-motion poses. Source-bound evidence
+  verifies all 341 expansion additions. Required tests/build/site/security and
+  acceptance checks pass. See `SNAPSHOTS/gallery-expansion-resumed/operator-report.md`.
+- Closed LOOP-003; retained LOOP-002. No commit, push, release or deployment.
+  Starting and ending HEAD: `48cf4abb2dfe597909b403da057b68381a2ff595` on main.
+
+## Wind rose retired at operator request
+
+- Operator chose retirement for now, with possible later reconsideration.
+  Excluded wind rose from active gallery/search and routine review; preserved
+  all canonical metadata, v1/v2 sources and exact feedback. D-007 records this.
+- Active gallery: 944; preserved catalog: 945. Wave 02: 16 approvals, three open
+  revisions and one retirement. Semaphore's detail note remains an approval.
+- Updated public counts and documentation; test/build/site/security/expansion
+  acceptance and campaign validation passed. No component source changes,
+  commit, push or deployment in this retirement pass.
+
+
+## Deeper rebuild review — 16 approved, four revisions open
+
+- Recorded the latest exact 20-item review and bound it to current source hashes.
+  Four rebuilt studies approved: globe 5, kamal 4, chip log 4, semaphore 3.
+  Semaphore's "Could use more details" note remains attached to its approval.
+- Wind rose remains Revise at 4/5 without a comment; asked for the requested
+  change. Nocturnal dial, octant and heliograph remain open outside the completed
+  five-study pass. No new visual edits, commits or deployments in this feedback pass.
+
+
+## Five deeper rebuilds — completed sweep
+
+- Operator explicitly resumed globe, wind rose, kamal, chip log and semaphore
+  with more individual depth, then a sweep and report. Implemented coordinated
+  scenes and preserved the five rejected sources with their feedback/evidence.
+- Twelve approved sources and the other three revision-request sources remain
+  unchanged. Historical v1 preservation and all required product checks pass.
+- All five swept in phase/live/reduced/reconnect and narrow gallery with version,
+  Copy, Source and provenance controls. See `wave-02-rebuild/report.md`.
+- Weekly account usage read 22% before and 24% after. One focused review is ready;
+  work remains uncommitted and undeployed. No further batch was started.
+
+
+## 2026-09-08 — Refinement plan agreed; explicit operator hold
+
+- Operator approved the three-study rebuild plan (globe, chip log, semaphore)
+  and requested documentation and a hold, citing rapid weekly token consumption.
+- Plan, exact feedback, 12 approvals and eight revision requests are preserved.
+  Resume only on explicit operator instruction. No trial implementation,
+  automatic continuation, scheduled work, commit or deployment in this pass.
+
+
+## 2026-09-08 — Wave 02 feedback; quality recalibration hold
+
+- Recorded all 20 exact operator decisions, ratings and comments: 12 Approve,
+  eight Revise, average 3.2/5. Preserved candidate source and visual evidence.
+- Assessed the implementation shift from coordinated scene rebuilds in Wave 01
+  to mostly style/geometry adjustments in Wave 02. Technical fixes and reduced
+  motion did not consistently deliver a visible improvement in live animation.
+- Held new visual work following the operator's scaling concern. Proposed three
+  substantial rebuild trials (globe, chip log, semaphore), followed by a single
+  calibration review before wider continuation. See `wave-02-reassessment.md`.
+  No visual edits, removals, commit, new wave, push or deployment in this pass.
+
+## 2026-09-08 — Wave 01 checkpoint; Wave 02 review ready
+
+- Committed all five approved Wave 01 refinements and campaign records locally:
+  `48cf4abb2dfe597909b403da057b68381a2ff595`. Standing local commit authorization
+  is recorded in the campaign workflow; no further routine commit permission needed.
+- Assessed 26 communication/navigation concepts, refined 20 as additive v2 studies
+  and deferred six requiring deeper physical reconstruction. Preserved historical
+  sources, version provenance and the 945-concept catalog.
+- Completed four internal groups of five without operator stops. Full product
+  checks pass; final phase/live/reduced/reconnect and narrow-gallery evidence is
+  bound to source hashes in `SNAPSHOTS/gallery-visual-standard/wave-02.json`.
+- Prepared one simplified 20-candidate review. Wave 02 remains uncommitted and
+  operator decisions are unresolved. Weekly usage is 20%; no push or deployment.
+
 ## 2026-09-08 — Standing checkpoint and continuation authorization
 
 - Operator explicitly authorized local commits for accepted batches and automatic

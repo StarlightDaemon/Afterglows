@@ -1,3 +1,12 @@
+// BEGIN VISUAL STANDARD v2
+// Refined v2 by Codex / Astra / 6; historical markup/styles below remain intact.
+const visualStandardV2Styles=".vs2-frame{width:134px;height:128px;box-sizing:border-box}.vs2-frame [class$=\"-stage\"]{width:110px;height:102px}.vs2-frame svg[class$=\"-svg\"]{width:98px;height:94px}.vs2-frame [class$=\"-label\"]{left:4px;right:4px;bottom:4px;font-size:7px;line-height:1.15;text-align:center;letter-spacing:.2px}\n.nt-alidade-arm{animation:vs2-nocturnal 6s ease-in-out infinite}.nt-polaris{animation:none;transform:none;filter:none}@keyframes vs2-nocturnal{0%,100%{transform:rotate(-20deg)}35%,75%{transform:rotate(42deg)}}\n@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.nt-alidade-arm{transform:rotate(42deg)}.nt-polaris{transform:none}}";
+function applyVisualStandardV2(root){
+ const style=document.createElement('style');style.textContent=visualStandardV2Styles;root.append(style);
+ const frame=root.querySelector('div');frame.classList.add('vs2-frame');frame.setAttribute('role','img');frame.setAttribute('aria-label',"Nocturnal Star Clock Dial. The index approaches and dwells on a sighting direction; a quiet polar reference and larger dial preserve the brass instrument.");
+
+}
+// END VISUAL STANDARD v2
 const nocturnalStyles = `
   :host {
     display: flex;
@@ -75,6 +84,10 @@ const nocturnalStyles = `
 `;
 
 class ConceptNocturnalDial extends HTMLElement {
+// BEGIN VISUAL STANDARD v2
+  static get observedAttributes(){return ['version'];}
+  attributeChangedCallback(){if(this.isConnected)this.connectedCallback();}
+// END VISUAL STANDARD v2
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -132,6 +145,9 @@ class ConceptNocturnalDial extends HTMLElement {
         <div class="nt-label">NOCTURNAL STAR CLOCK</div>
       </div>
     `;
+// BEGIN VISUAL STANDARD v2
+    if(this.getAttribute('version')!=='v1')applyVisualStandardV2(this.shadowRoot);
+// END VISUAL STANDARD v2
   }
 }
 

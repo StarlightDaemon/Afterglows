@@ -2,18 +2,49 @@
 
 ## Open
 
-- **LOOP-002 — Visual Standard Campaign:** all five Wave 01 candidates are
-  approved, including the revised grindstone at 5/5. The operator requests
-  roughly 20 revisions per review checkpoint and faster continuation after
-  clear corrections. See `campaign-workflow.md` alongside the wave ledger.
-  Local checkpoint commits and automatic continuation are explicitly authorized.
-  Checkpoint the accepted wave, then prepare the next review.
-  Evidence and preview instructions:
-  `SNAPSHOTS/gallery-visual-standard/wave-01-report.md`.
+- **LOOP-006 — Publish completed gallery:** release checks passed under D-014;
+  commit and push all completed work, verify GitHub Pages and the live inventory,
+  then record the result. The D-013 implementation engagement remains complete.
+
+## Deferred backlog
+
+
+- Three existing revision requests (nocturnal dial, octant, heliograph), and six other campaign
+  subjects remain deferred. Their exact feedback and evidence are preserved.
+  This is not a claim that those revisions were implemented or approved.
+- Resume only on a new operator instruction. The detailed next-session strategy
+  and artifact index are in `SNAPSHOTS/gallery-exit-handoff.md` (D-010).
 
 ---
 
 ## Closed
+
+- **2026-09-09 — LOOP-005, final two and closeout:** randomly selected and
+  delivered Trammel of Archimedes and Linear Chirp; reached 1,000 active /
+  1,005 preserved. Preserved all prior sources and five retirements. Recorded
+  model/render verification, updated documentation and completed the exit
+  report at `SNAPSHOTS/gallery-final-thousand/closeout-report.md` (D-013).
+
+- **2026-09-09 — LOOP-004:** operator chose the marsh-light retirement and
+  requested two fresh consolidations. Five old studies are retired, two new
+  studies built, Wind Rose retained, and all prior source/metadata preserved.
+  D-012 and `SNAPSHOTS/gallery-consolidation/report.md` record the outcome.
+
+- **2026-09-09 — LOOP-002, campaign engagement closed at operator request:**
+  completed the exit report and handoff; moved unresolved revision and integration
+  items into the deferred backlog above. Preserved the 16 approvals, historical
+  retirement, exact feedback and completed fresh Wind Rose candidate. No visual
+  approval or reactivation is inferred. The current engagement is complete;
+  this administrative closure does not mark pending revisions as fixed.
+
+
+- **2026-09-09 — LOOP-003, resumed gallery expansion:** delivered 56 reviewed
+  additions, reaching 1,000 active / 1,001 preserved studies in 13 sections and
+  66 categories. All 945 baseline records and sources, Wave 02 decisions and
+  the Wind Rose retirement are preserved. All 55 formerly deferred selections
+  plus distinct Frost Heave are implemented. See
+  `SNAPSHOTS/gallery-expansion-resumed/operator-report.md`. No commit, push,
+  release or deployment occurred. LOOP-002 remained open at that checkpoint and is now deferred under D-010.
 
 - **2026-09-07 — LOOP-001, gallery expansion:** the operator ended additions
   at the completed scope and requested review/close-out. Implemented subjects

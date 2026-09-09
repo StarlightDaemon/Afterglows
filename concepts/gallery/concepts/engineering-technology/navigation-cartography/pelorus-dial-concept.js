@@ -1,3 +1,12 @@
+// BEGIN VISUAL STANDARD v2
+// Refined v2 by Codex / Astra / 6; historical markup/styles below remain intact.
+const visualStandardV2Styles=".vs2-frame{width:134px;height:128px;box-sizing:border-box}.vs2-frame [class$=\"-stage\"]{width:110px;height:102px}.vs2-frame svg[class$=\"-svg\"]{width:98px;height:94px}.vs2-frame [class$=\"-label\"]{left:4px;right:4px;bottom:4px;font-size:7px;line-height:1.15;text-align:center;letter-spacing:.2px}\n.pr-gimbal-ring{animation:none;transform:none}.pr-sighting-vane{animation:vs2-bearing 6s ease-in-out infinite}@keyframes vs2-bearing{0%,100%{transform:rotate(-35deg)}35%,65%{transform:rotate(40deg)}}\n@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.pr-sighting-vane{transform:rotate(40deg)}.pr-gimbal-ring{transform:none}}";
+function applyVisualStandardV2(root){
+ const style=document.createElement('style');style.textContent=visualStandardV2Styles;root.append(style);
+ const frame=root.querySelector('div');frame.classList.add('vs2-frame');frame.setAttribute('role','img');frame.setAttribute('aria-label',"Pelorus Bearing Sighter. Inset the sight ray, steady the support ring, and give the bearing arm time to settle at each reading.");
+ root.querySelector('.pr-sight-ray').setAttribute('y2','4');
+}
+// END VISUAL STANDARD v2
 const pelorusStyles = `
   :host {
     display: flex;
@@ -85,6 +94,10 @@ const pelorusStyles = `
 `;
 
 class ConceptPelorusDial extends HTMLElement {
+// BEGIN VISUAL STANDARD v2
+  static get observedAttributes(){return ['version'];}
+  attributeChangedCallback(){if(this.isConnected)this.connectedCallback();}
+// END VISUAL STANDARD v2
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -140,6 +153,9 @@ class ConceptPelorusDial extends HTMLElement {
         <div class="pr-label">PELORUS SIGHTER</div>
       </div>
     `;
+// BEGIN VISUAL STANDARD v2
+    if(this.getAttribute('version')!=='v1')applyVisualStandardV2(this.shadowRoot);
+// END VISUAL STANDARD v2
   }
 }
 

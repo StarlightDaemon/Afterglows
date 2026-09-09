@@ -1,0 +1,182 @@
+[
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/wireframe-globe-concept.js",
+    "tag": "concept-wireframe-globe",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/telecommunications/rotary-phone-concept.js",
+    "tag": "concept-rotary-phone",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/wind-rose-concept.js",
+    "tag": "concept-wind-rose",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/nocturnal-dial-concept.js",
+    "tag": "concept-nocturnal-dial",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/kamal-navigator-concept.js",
+    "tag": "concept-kamal-navigator",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/traverse-board-concept.js",
+    "tag": "concept-traverse-board",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/chip-log-concept.js",
+    "tag": "concept-chip-log",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/davis-backstaff-concept.js",
+    "tag": "concept-davis-backstaff",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/pelorus-dial-concept.js",
+    "tag": "concept-pelorus-dial",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/cross-staff-concept.js",
+    "tag": "concept-cross-staff",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/hadley-octant-concept.js",
+    "tag": "concept-hadley-octant",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/lead-sounding-concept.js",
+    "tag": "concept-lead-sounding",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/navigation-cartography/station-pointer-concept.js",
+    "tag": "concept-station-pointer",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/telecommunications/chappe-semaphore-concept.js",
+    "tag": "concept-chappe-semaphore",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/telecommunications/baudot-distributor-concept.js",
+    "tag": "concept-baudot-distributor",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/telecommunications/wheatstone-abc-concept.js",
+    "tag": "concept-wheatstone-abc",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/telecommunications/heliograph-flash-concept.js",
+    "tag": "concept-heliograph-flash",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/telecommunications/telegraph-sounder-concept.js",
+    "tag": "concept-telegraph-sounder",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/telecommunications/siphon-recorder-concept.js",
+    "tag": "concept-siphon-recorder",
+    "version": "v2",
+    "width": 375
+  },
+  {
+    "copy": "Copied ✓",
+    "mounted": true,
+    "scrollWidth": 375,
+    "source": "gallery/concepts/engineering-technology/telecommunications/rotary-spark-gap-concept.js",
+    "tag": "concept-rotary-spark-gap",
+    "version": "v2",
+    "width": 375
+  }
+]

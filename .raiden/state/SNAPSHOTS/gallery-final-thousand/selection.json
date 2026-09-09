@@ -1,0 +1,20 @@
+{
+  "method": "Uniform draw without replacement using node:crypto.randomInt; no reroll.",
+  "eligiblePool": [
+    "Tusi Couple",
+    "Trammel of Archimedes",
+    "Linear Chirp"
+  ],
+  "rejectedBeforeDraw": [
+    {
+      "name": "Newton’s Rings",
+      "reason": "Already present as concept-newton-rings."
+    }
+  ],
+  "selected": [
+    "Trammel of Archimedes",
+    "Linear Chirp"
+  ],
+  "startingActive": 998,
+  "startingPreserved": 1003
+}

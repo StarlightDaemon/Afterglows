@@ -1,3 +1,12 @@
+// BEGIN VISUAL STANDARD v2
+// Refined v2 by Codex / Astra / 6; historical markup/styles below remain intact.
+const visualStandardV2Styles=".vs2-frame{width:134px;height:128px;box-sizing:border-box}.vs2-frame [class$=\"-stage\"]{width:110px;height:102px}.vs2-frame svg[class$=\"-svg\"]{width:98px;height:94px}.vs2-frame [class$=\"-label\"]{left:4px;right:4px;bottom:4px;font-size:7px;line-height:1.15;text-align:center;letter-spacing:.2px}\n.rtp-cradle{animation:none;transform:none}.rtp-finger-wheel{animation:vs2-dial 6s linear infinite}.rtp-pulse-spark{animation:vs2-phone-pulse 6s steps(1,end) infinite;box-shadow:0 0 4px #8cffaa}@keyframes vs2-dial{0%,10%{transform:rotate(0)}30%,36%{transform:rotate(150deg)}66%,100%{transform:rotate(0)}}@keyframes vs2-phone-pulse{0%,36%,40%,46%,52%,58%,64%,100%{opacity:0}38%,44%,50%,56%,62%{opacity:1}}\n@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rtp-finger-wheel{transform:rotate(0)}.rtp-pulse-spark{opacity:0}}";
+function applyVisualStandardV2(root){
+ const style=document.createElement('style');style.textContent=visualStandardV2Styles;root.append(style);
+ const frame=root.querySelector('div');frame.classList.add('vs2-frame');frame.setAttribute('role','img');frame.setAttribute('aria-label',"Rotary Phone. Ten finger holes, a steady handset and five discrete return pulses make a single dialled digit legible.");
+ const wheel=root.querySelector('.rtp-finger-wheel');wheel.replaceChildren();for(let i=0;i<10;i++){const hole=document.createElement('div');hole.className='rtp-hole';const a=(-120+i*30)*Math.PI/180;hole.style.left=(20+17*Math.cos(a))+'px';hole.style.top=(20+17*Math.sin(a))+'px';wheel.append(hole);}root.querySelector('.rtp-label').textContent='DIAL 5 · RETURN PULSES';
+}
+// END VISUAL STANDARD v2
 const rotaryPhoneStyles = `
   :host {
     display: flex;
@@ -163,6 +172,10 @@ const rotaryPhoneStyles = `
 `;
 
 class ConceptRotaryPhone extends HTMLElement {
+// BEGIN VISUAL STANDARD v2
+  static get observedAttributes(){return ['version'];}
+  attributeChangedCallback(){if(this.isConnected)this.connectedCallback();}
+// END VISUAL STANDARD v2
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -196,6 +209,9 @@ class ConceptRotaryPhone extends HTMLElement {
         <div class="rtp-label">PULSE DIAL: 867-5309</div>
       </div>
     `;
+// BEGIN VISUAL STANDARD v2
+    if(this.getAttribute('version')!=='v1')applyVisualStandardV2(this.shadowRoot);
+// END VISUAL STANDARD v2
   }
 }
 

@@ -1,3 +1,12 @@
+// BEGIN VISUAL STANDARD v2
+// Refined v2 by Codex / Astra / 6; historical markup/styles below remain intact.
+const visualStandardV2Styles=".vs2-frame{width:134px;height:128px;box-sizing:border-box}.vs2-frame [class$=\"-stage\"]{width:110px;height:102px}.vs2-frame svg[class$=\"-svg\"]{width:98px;height:94px}.vs2-frame [class$=\"-label\"]{left:4px;right:4px;bottom:4px;font-size:7px;line-height:1.15;text-align:center;letter-spacing:.2px}\n.sg-rotary-wheel{animation-duration:6s}.sg-spark-arc{stroke-width:1.6;animation:vs2-gap 0.75s linear infinite;filter:none}@keyframes vs2-gap{0%,4%,100%{opacity:1;stroke:#e8ffff}12%,90%{opacity:0}}\n@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.sg-rotary-wheel{transform:rotate(0)}.sg-spark-arc{opacity:.6;stroke:#a4e9ef}}";
+function applyVisualStandardV2(root){
+ const style=document.createElement('style');style.textContent=visualStandardV2Styles;root.append(style);
+ const frame=root.querySelector('div');frame.classList.add('vs2-frame');frame.setAttribute('role','img');frame.setAttribute('aria-label',"Rotary Quenched Spark Gap. Separate the electrodes with visible gaps; each of eight alignments per revolution triggers one short arc.");
+ const posts=root.querySelectorAll('.sg-electrode-post');posts[0].setAttribute('d','M34 4H42L40 12H36Z');posts[1].setAttribute('d','M36 60H40L42 68H34Z');const fixed=root.querySelectorAll('svg > circle[fill="#ffd700"]');fixed[0].setAttribute('cy','12');fixed[1].setAttribute('cy','60');const arcs=root.querySelectorAll('.sg-spark-arc');arcs[0].setAttribute('y1','13');arcs[0].setAttribute('y2','15');arcs[1].setAttribute('y1','57');arcs[1].setAttribute('y2','59');
+}
+// END VISUAL STANDARD v2
 const sparkGapStyles = `
   :host {
     display: flex;
@@ -78,6 +87,10 @@ const sparkGapStyles = `
 `;
 
 class ConceptRotarySparkGap extends HTMLElement {
+// BEGIN VISUAL STANDARD v2
+  static get observedAttributes(){return ['version'];}
+  attributeChangedCallback(){if(this.isConnected)this.connectedCallback();}
+// END VISUAL STANDARD v2
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -134,6 +147,9 @@ class ConceptRotarySparkGap extends HTMLElement {
         <div class="sg-label">ROTARY SPARK GAP</div>
       </div>
     `;
+// BEGIN VISUAL STANDARD v2
+    if(this.getAttribute('version')!=='v1')applyVisualStandardV2(this.shadowRoot);
+// END VISUAL STANDARD v2
   }
 }
 

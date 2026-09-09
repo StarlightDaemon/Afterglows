@@ -1,0 +1,268 @@
+Branch: main
+HEAD: 48cf4abb2dfe597909b403da057b68381a2ff595
+
+Status at completed local handoff:
+ M .raiden/state/CURRENT_STATE.md
+ M .raiden/state/DECISIONS.md
+ M .raiden/state/OPEN_LOOPS.md
+ M .raiden/state/SNAPSHOTS/gallery-visual-standard/campaign-workflow.md
+ M .raiden/state/WORK_LOG.md
+ M CHANGELOG.md
+ M README.md
+ M concepts/README.md
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/chip-log-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/cross-staff-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/davis-backstaff-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/hadley-octant-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/kamal-navigator-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/lead-sounding-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/nocturnal-dial-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/pelorus-dial-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/station-pointer-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/traverse-board-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/wind-rose-concept.js
+ M concepts/gallery/concepts/engineering-technology/navigation-cartography/wireframe-globe-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/baudot-distributor-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/chappe-semaphore-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/heliograph-flash-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/rotary-phone-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/rotary-spark-gap-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/siphon-recorder-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/telegraph-sounder-concept.js
+ M concepts/gallery/concepts/engineering-technology/telecommunications/wheatstone-abc-concept.js
+ M concepts/gallery/index.js
+ M concepts/gallery/manifest.js
+ M concepts/gallery/manifests/concepts.js
+ M concepts/gallery/taxonomy.js
+ M concepts/index.html
+ M docs/DEMOS_OVERVIEW.md
+ M index.html
+ M package.json
+ M scripts/gallery-qa.js
+ M scripts/gallery-standard.js
+ M scripts/test-gallery-baseline.js
+ M scripts/validate-expansion-complete.js
+ M scripts/validate-gallery-standard.js
+ M scripts/validate-visual-qa.js
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/assessment.md
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/baseline.json
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/delivery.json
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/ending-status.txt
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/operator-report.md
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/selection.json
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-01-phase-0.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-01-phase-25.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-01-phase-35.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-01-phase-5.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-01-phase-50.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-01-phase-60.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-01-phase-75.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-01-phase-90.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-01-reduced.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-02-phase-25.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-02-phase-35.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-02-phase-5.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-02-phase-60.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-02-phase-75.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-02-phase-90.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-02-reduced.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-03-phase-35.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-03-phase-5.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-03-phase-60.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-03-phase-90.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-03-reduced.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-04-phase-35.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-04-phase-5.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-04-phase-60.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-04-phase-90.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-04-reduced.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-05-phase-35.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-05-phase-5.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-05-phase-60.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-05-phase-90.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-05-reduced.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-06-phase-35.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-06-phase-5.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-06-phase-60.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-06-phase-90.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-06-reduced.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-07-phase-35.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-07-phase-5.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-07-phase-60.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-07-phase-90.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/batch-07-reduced.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/gallery-desktop-economics-later.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/gallery-desktop-economics.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/gallery-mobile-civil.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/gallery-mobile-context.png
+?? .raiden/state/SNAPSHOTS/gallery-expansion-resumed/visual-qa/review-ledger.json
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/assessment-1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/assessment-2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/assessment-3.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/assessment-4.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/assessment-5.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/assessment-6.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/gallery-mobile-checks.json
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-1-live.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-1-phase-0.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-1-phase-25.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-1-phase-50.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-1-phase-75.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-1-phase-90.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-1-reduced.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-1-review.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-2-live.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-2-phase-0.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-2-phase-25.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-2-phase-50.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-2-phase-75.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-2-phase-90.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-2-reduced.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-2-review.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-3-live.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-3-phase-0.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-3-phase-25.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-3-phase-50.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-3-phase-75.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-3-phase-90.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-3-reduced.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-3-review.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-4-live.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-4-phase-0.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-4-phase-25.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-4-phase-50.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-4-phase-75.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-4-phase-90.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-4-reduced.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/group-4-review.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/lifecycle-reduced.json
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-10.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-11.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-12.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-13.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-14.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-15.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-16.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-17.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-18.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-19.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-20.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-3.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-4.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-5.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-6.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-7.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-8.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/mobile-9.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-evidence/operator-review.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-operator-review.json
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-reassessment.md
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/gallery-mobile-checks.json
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/lifecycle-reduced.json
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/live-final-row1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/live-final-row2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/live-later-row1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/live-later-row2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/live-start-row1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/live-start-row2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/mobile-1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/mobile-2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/mobile-3.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/mobile-4.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/mobile-5.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/operator-review.json
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/phase-0-row1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/phase-0-row2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/phase-25-row1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/phase-25-row2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/phase-50-row1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/phase-50-row2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/phase-75-row1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/phase-75-row2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/phase-90-row1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/phase-90-row2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/previous/concept-chappe-semaphore.js
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/previous/concept-chip-log.js
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/previous/concept-kamal-navigator.js
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/previous/concept-wind-rose.js
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/previous/concept-wireframe-globe.js
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/reduced-row1.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/reduced-row2.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/report.md
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/review-page.jpg
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/wind-rose-retirement.json
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02-report.md
+?? .raiden/state/SNAPSHOTS/gallery-visual-standard/wave-02.json
+?? concepts/gallery/concepts/astronomy-space/astronautics/ablative-heat-shield-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/aerobraking-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/aerogel-dust-capture-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/gridded-ion-thruster-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/reaction-wheel-attitude-control-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/rocker-bogie-suspension-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/rocket-stage-separation-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/sky-crane-landing-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/star-tracker-attitude-determination-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/thruster-docking-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/touch-and-go-asteroid-sampling-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronautics/webb-sunshield-deployment-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronomy-astrometry/adaptive-optics-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronomy-astrometry/astronomical-aperture-synthesis-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronomy-astrometry/exoplanet-transit-photometry-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronomy-astrometry/radial-velocity-planet-detection-concept.js
+?? concepts/gallery/concepts/astronomy-space/astronomy-astrometry/segmented-mirror-phasing-concept.js
+?? concepts/gallery/concepts/earth-sciences/climate-systems/atmospheric-river-concept.js
+?? concepts/gallery/concepts/earth-sciences/climate-systems/el-nino-southern-oscillation-concept.js
+?? concepts/gallery/concepts/earth-sciences/climate-systems/ice-albedo-feedback-concept.js
+?? concepts/gallery/concepts/earth-sciences/climate-systems/ice-shelf-buttressing-concept.js
+?? concepts/gallery/concepts/earth-sciences/climate-systems/orographic-rain-shadow-concept.js
+?? concepts/gallery/concepts/earth-sciences/climate-systems/thermokarst-thaw-slump-concept.js
+?? concepts/gallery/concepts/earth-sciences/geology/frost-heave-ice-lens-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/artesian-aquifer-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/groundwater-cone-of-depression-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/impervious-runoff-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/meander-cutoff-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/ocean-internal-wave-concept.js
+?? concepts/gallery/concepts/earth-sciences/oceanography-hydrology/watershed-divide-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/activated-sludge-treatment-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/arch-thrust-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/bridge-expansion-joint-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/cable-stayed-load-transfer-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/cantilever-deflection-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/clarifier-sedimentation-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/prestressed-concrete-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/railway-track-circuit-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/roundabout-gap-acceptance-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/seismic-base-isolation-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/ship-to-shore-container-crane-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/traffic-shock-wave-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/truss-load-paths-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/tuned-mass-damper-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/tunnel-boring-advance-concept.js
+?? concepts/gallery/concepts/engineering-technology/civil-logistics/zipper-merge-concept.js
+?? concepts/gallery/concepts/mind-society/economics-collective/ascending-auction-concept.js
+?? concepts/gallery/concepts/mind-society/economics-collective/bank-run-concept.js
+?? concepts/gallery/concepts/mind-society/economics-collective/bullwhip-effect-concept.js
+?? concepts/gallery/concepts/mind-society/economics-collective/cobweb-price-dynamics-concept.js
+?? concepts/gallery/concepts/mind-society/economics-collective/common-pool-governance-concept.js
+?? concepts/gallery/concepts/mind-society/economics-collective/comparative-advantage-concept.js
+?? concepts/gallery/concepts/mind-society/economics-collective/market-clearing-concept.js
+?? concepts/gallery/concepts/mind-society/economics-collective/order-book-matching-concept.js
+?? concepts/gallery/concepts/mind-society/economics-collective/public-goods-free-riding-concept.js
+?? concepts/gallery/concepts/mind-society/economics-collective/schelling-segregation-model-concept.js
+?? concepts/gallery/manifests/resumed-civil.js
+?? concepts/gallery/manifests/resumed-earth.js
+?? concepts/gallery/manifests/resumed-economics.js
+?? concepts/gallery/manifests/resumed-space.js
+?? scripts/expansion/capture-resumption-baseline.mjs
+?? scripts/expansion/format-resumed.py
+?? scripts/expansion/resumed-art.mjs
+?? scripts/expansion/resumed-civil.mjs
+?? scripts/expansion/resumed-earth.mjs
+?? scripts/expansion/resumed-economics.mjs
+?? scripts/expansion/resumed-space.mjs
+?? scripts/expansion/write-resumed-delivery.mjs
+?? scripts/gallery-standard-wave-02-rebuild.js
+?? scripts/gallery-standard-wave-02.js
+?? scripts/test-resumption-preservation.js

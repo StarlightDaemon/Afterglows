@@ -1,0 +1,7 @@
+# Keep ordinary text portable across Windows and the Linux Pages runner.
+* text=auto eol=lf
+
+# Reviewed sources and archival evidence are bound to exact byte hashes.
+# Preserve their original line endings rather than invalidating review history.
+concepts/gallery/concepts/** -text
+.raiden/state/SNAPSHOTS/** -text

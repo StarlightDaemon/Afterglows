@@ -1,0 +1,160 @@
+// BEGIN VISUAL STANDARD v2
+// Refined v2 by Codex / Astra / 6; historical markup/styles below remain intact.
+const visualStandardV2Styles=".vs2-frame{width:134px;height:128px;box-sizing:border-box}.vs2-frame [class$=\"-stage\"]{width:110px;height:102px}.vs2-frame svg[class$=\"-svg\"]{width:98px;height:94px}.vs2-frame [class$=\"-label\"]{left:4px;right:4px;bottom:4px;font-size:7px;line-height:1.15;text-align:center;letter-spacing:.2px}\n.km-card-plate{animation:none;transform:none}.km-cord-line{animation:none;stroke:#d5dbe0}\n@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.km-card-plate{transform:none}.km-polaris-beam,.km-horizon-beam{stroke-dashoffset:0}}";
+function applyVisualStandardV2(root){
+ const style=document.createElement('style');style.textContent=visualStandardV2Styles;root.append(style);
+ const frame=root.querySelector('div');frame.classList.add('vs2-frame');frame.setAttribute('role','img');frame.setAttribute('aria-label',"Kamal Latitude Guide. Hold the measured card and taut cord together; moving light along the two sight lines explains a held observation.");
+
+}
+// END VISUAL STANDARD v2
+const kamalStyles = `
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .km-box {
+    width: 118px;
+    height: 102px;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #15222e 0%, #03080e 100%);
+    border: 1.5px solid rgba(79, 195, 247, 0.45);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(79, 195, 247, 0.15);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .km-stage {
+    position: relative;
+    width: 90px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .km-svg {
+    width: 76px;
+    height: 72px;
+  }
+
+  /* Knotted distance cord vibration/tautness */
+  .km-cord-line {
+    stroke: #b0bec5;
+    stroke-width: 1;
+    animation: km-taut 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes km-taut {
+    0% { stroke: #90a4ae; }
+    100% { stroke: #ffffff; filter: drop-shadow(0 0 2px #4fc3f7); }
+  }
+
+  /* Polaris Star Sight Beam */
+  .km-polaris-beam {
+    stroke: #ffd700;
+    stroke-dasharray: 4 3;
+    animation: km-sight 1.5s linear infinite;
+  }
+
+  @keyframes km-sight {
+    to { stroke-dashoffset: -10; }
+  }
+
+  /* Sea Horizon Beam */
+  .km-horizon-beam {
+    stroke: #00e5ff;
+    stroke-dasharray: 4 3;
+    animation: km-sight 1.5s linear infinite;
+  }
+
+  /* Wooden Kamal Card Plate — slid along the cord toward the eye and back */
+  .km-card-plate {
+    fill: #5d4037;
+    stroke: #ffe0b2;
+    stroke-width: 1.2;
+    animation: km-card-slide 2.75s ease-in-out infinite alternate;
+  }
+
+  @keyframes km-card-slide {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-9px, -2px) rotate(-2deg); }
+  }
+
+  .km-label {
+    position: absolute;
+    bottom: 3px;
+    font-size: 6.5px;
+    font-family: monospace;
+    color: rgba(79, 195, 247, 0.85);
+    letter-spacing: 0.5px;
+  }
+`;
+
+class ConceptKamalNavigator extends HTMLElement {
+// BEGIN VISUAL STANDARD v2
+  static get observedAttributes(){return ['version'];}
+  attributeChangedCallback(){if(this.isConnected)this.connectedCallback();}
+// END VISUAL STANDARD v2
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    this.shadowRoot.innerHTML = `
+      <style>${kamalStyles}</style>
+      <div class="km-box">
+        <div class="km-stage">
+          <svg class="km-svg" viewBox="0 0 76 72">
+            <!-- Sea Horizon Line in background -->
+            <line x1="4" y1="52" x2="72" y2="52" stroke="#01579b" stroke-width="1.5" />
+            <rect x="4" y="52" width="68" height="14" fill="rgba(1, 87, 155, 0.2)" />
+
+            <!-- Polaris (Pole Star) in Night Sky -->
+            <circle cx="62" cy="14" r="2" fill="#ffffff" filter="drop-shadow(0 0 4px #ffd700)" />
+
+            <!-- Navigator's Teeth/Anchor Point on Left -->
+            <circle cx="10" cy="36" r="2.5" fill="#cfd8dc" stroke="#90a4ae" stroke-width="0.8" />
+
+            <!-- Knotted Hemp Chord extending from teeth through card center hole -->
+            <line x1="10" y1="36" x2="50" y2="36" class="km-cord-line" />
+            <!-- Knots (Isba latitude finger units) -->
+            <circle cx="18" cy="36" r="1.5" fill="#ffd700" />
+            <circle cx="26" cy="36" r="1.5" fill="#ffd700" />
+            <circle cx="34" cy="36" r="1.5" fill="#ffd700" />
+
+            <!-- Rectangular Teak Wood Kamal Card -->
+            <g class="km-card-plate">
+              <rect x="42" y="20" width="16" height="32" rx="1.5" />
+              <!-- Center aperture hole for knotted cord string -->
+              <circle cx="50" cy="36" r="1.5" fill="#15222e" stroke="#d7ccc8" stroke-width="0.8" />
+              <!-- Upper sighting edge notch (Polaris alignment) -->
+              <polygon points="50,20 48,22 52,22" fill="#ffd700" />
+              <!-- Lower sighting edge notch (Horizon alignment) -->
+              <polygon points="50,52 48,50 52,50" fill="#00e5ff" />
+
+              <!-- Celestial Sight Ray: Card Top -> Polaris (rides with the card) -->
+              <line x1="50" y1="20" x2="66" y2="12" class="km-polaris-beam" stroke-width="1.8" />
+
+              <!-- Horizon Sight Ray: Card Bottom -> Horizon -->
+              <line x1="50" y1="52" x2="72" y2="52" class="km-horizon-beam" stroke-width="1.8" />
+            </g>
+          </svg>
+        </div>
+        <div class="km-label">KAMAL NAVIGATOR</div>
+      </div>
+    `;
+// BEGIN VISUAL STANDARD v2
+    if(this.getAttribute('version')!=='v1')applyVisualStandardV2(this.shadowRoot);
+// END VISUAL STANDARD v2
+  }
+}
+
+customElements.define('concept-kamal-navigator', ConceptKamalNavigator);
