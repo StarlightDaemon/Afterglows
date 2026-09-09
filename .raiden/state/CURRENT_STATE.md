@@ -1,7 +1,7 @@
 # Current State
 
 **Branch:** main
-**Deployment:** D-014 authorizes publishing the completed 1,000-active gallery through the existing allowlisted GitHub Pages workflow; release checks passed, deployment verification in progress. See `SNAPSHOTS/gallery-live-release/report.md`.
+**Deployment:** The 1,000-active gallery is live at https://afterglows.starlightdaemon.dev/concepts/. Release `6c0fe58a88b97f967b124365917d0e7592cd048e` passed GitHub Pages build/deploy and production verification under D-014. See `SNAPSHOTS/gallery-live-release/report.md`.
 
 ---
 
@@ -67,9 +67,10 @@ review remains available on port 3022 for the operator. Implementation and QA
 completion do not fabricate operator visual ratings. Unrelated campaign requests
 remain deferred below. D-014 separately authorizes publication of this work.
 
-The release pass is committing and publishing the pre-existing campaign/expansion
+The release pass committed and published the pre-existing campaign/expansion
 work and subsequent restoration/consolidation/final additions together. LOOP-006
-tracks deployment verification; the production report above records its outcome.
+is closed after successful deployment and production verification. The production
+report above records the outcome; its documentation follow-up leaves public files unchanged.
 
 ## Deferred follow-up
 

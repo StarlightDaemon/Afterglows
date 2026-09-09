@@ -3,7 +3,7 @@
 ## D-014
 
 - Date: 2026-09-09
-- Status: Release authorized; deployment verification in progress
+- Status: Complete — published and verified live
 - Decision: The operator requested pushing everything live if ready. Commit and
   push the completed gallery and its evidence to main, using the existing
   allowlisted GitHub Pages workflow after release checks pass.
@@ -12,7 +12,12 @@
   and the deferred revision backlog. No additional animation batch is implied.
 - Readiness: npm test, gallery:acceptance, build, site:check, security:check and
   dependency audit passed; zero known dependency vulnerabilities.
-- Evidence: `SNAPSHOTS/gallery-live-release/report.md`. LOOP-006 tracks deployment.
+- Outcome: Release `6c0fe58a88b97f967b124365917d0e7592cd048e` pushed to main;
+  GitHub Pages run `34330183996` completed successfully. Live inventory is
+  1,000 active, with five retired entries absent; 53 public files match the
+  tested artifact, including the full static gallery manifest/import graph.
+- Evidence: `SNAPSHOTS/gallery-live-release/report.md`, `live-verification.json`
+  and `browser-verification.json`. LOOP-006 is closed.
 
 ## D-013
 

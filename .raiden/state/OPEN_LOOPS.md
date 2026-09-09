@@ -2,9 +2,9 @@
 
 ## Open
 
-- **LOOP-006 — Publish completed gallery:** release checks passed under D-014;
-  commit and push all completed work, verify GitHub Pages and the live inventory,
-  then record the result. The D-013 implementation engagement remains complete.
+None for this engagement. Implementation and closeout are complete under D-013;
+publication and production verification are complete under D-014. No automatic
+continuation is pending. Deferred campaign requests below remain unresolved.
 
 ## Deferred backlog
 
@@ -18,6 +18,12 @@
 ---
 
 ## Closed
+
+- **2026-09-09 — LOOP-006, production publication:** committed and pushed all
+  completed work to main at `6c0fe58a88b97f967b124365917d0e7592cd048e`. Pages run
+  `34330183996` succeeded. Verified 1,000 active / 1,005 preserved, five exclusions,
+  new-study and Wind Rose rendering, 53 matching public files and repository-only
+  404s. See `SNAPSHOTS/gallery-live-release/report.md` (D-014).
 
 - **2026-09-09 — LOOP-005, final two and closeout:** randomly selected and
   delivered Trammel of Archimedes and Linear Chirp; reached 1,000 active /

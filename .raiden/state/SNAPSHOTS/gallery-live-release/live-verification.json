@@ -1,0 +1,302 @@
+{
+  "status": "verified",
+  "verifiedAt": "2026-09-09T08:39:57.087Z",
+  "revision": "6c0fe58a88b97f967b124365917d0e7592cd048e",
+  "workflow": "https://github.com/StarlightDaemon/Afterglows/actions/runs/34330183996",
+  "url": "https://afterglows.starlightdaemon.dev/concepts/",
+  "activeCount": 1000,
+  "preservedCount": 1005,
+  "retiredTags": [
+    "concept-ouija",
+    "concept-rotary-dial",
+    "concept-planchette",
+    "concept-will-o-wisp",
+    "concept-rotary-phone"
+  ],
+  "method": "Live HTTP bytes compared to the tested staged Pages artifact; catalog counts come from the matching local manifest graph.",
+  "files": [
+    {
+      "path": "concepts/gallery/concepts/earth-sciences/meteorology-atmosphere/wind-rose-concept.js",
+      "status": 200,
+      "sha256": "a06791c2c6b20e5d63afc722f9f71576ba3fdc39fcd2c755515fa6b95466f32b"
+    },
+    {
+      "path": "concepts/gallery/concepts/engineering-technology/instrumentation-signals/linear-chirp-concept.js",
+      "status": 200,
+      "sha256": "62ccf6a983b12d42861be8e24d42ba8a6c7bbd9d2824b710335086a6cceaac1f"
+    },
+    {
+      "path": "concepts/gallery/concepts/engineering-technology/navigation-cartography/wind-rose-concept.js",
+      "status": 200,
+      "sha256": "6d7f751871cdaf3546069b0d160f67f370d72be939d8a8c0b5d9b3d78c51238b"
+    },
+    {
+      "path": "concepts/gallery/concepts/engineering-technology/telecommunications/rotary-dial-concept.js",
+      "status": 200,
+      "sha256": "3ab6caac0682e8f8545b4900d997ff4e2b60f03c73459c63f1ee2222acf5be9f"
+    },
+    {
+      "path": "concepts/gallery/concepts/engineering-technology/telecommunications/rotary-phone-concept.js",
+      "status": 200,
+      "sha256": "e218c554c9a85347f526025a34953d2b4317141f5ab11bffe0e20d9727e7c9ef"
+    },
+    {
+      "path": "concepts/gallery/concepts/engineering-technology/telecommunications/rotary-pulse-dial-concept.js",
+      "status": 200,
+      "sha256": "5cbd89c896afe33567a4125fc8c00121fa58993eab076f3c251e9e3da42123f3"
+    },
+    {
+      "path": "concepts/gallery/concepts/imagination-belief/supernatural-folklore/ouija-concept.js",
+      "status": 200,
+      "sha256": "3c49cec96bfbbe8cf6138d35b3974be5d8b0350e0f0f8bba25956915b122e372"
+    },
+    {
+      "path": "concepts/gallery/concepts/imagination-belief/supernatural-folklore/planchette-concept.js",
+      "status": 200,
+      "sha256": "b77f7f00e3dc46f3a5986d2b041b0867625dff6e865d4682625d455ba8b5ea06"
+    },
+    {
+      "path": "concepts/gallery/concepts/imagination-belief/supernatural-folklore/spirit-board-concept.js",
+      "status": 200,
+      "sha256": "78ccaf061ef866c79746966564b434307e217fdc13ee9c74ab043ed0eee11174"
+    },
+    {
+      "path": "concepts/gallery/concepts/imagination-belief/supernatural-folklore/will-o-wisp-concept.js",
+      "status": 200,
+      "sha256": "0866753c12b7dc89b47683cc721aef8c0d6a2a10b3c5a41cf8b5d7eb3b9b6518"
+    },
+    {
+      "path": "concepts/gallery/concepts/imagination-belief/supernatural-folklore/wisp-concept.js",
+      "status": 200,
+      "sha256": "61b49b82373fb8fa7dcf219db9c1e1cef45fb5f2d08df5c65dff09500351beb9"
+    },
+    {
+      "path": "concepts/gallery/concepts/mathematics/geometry-patterns/archimedes-trammel-concept.js",
+      "status": 200,
+      "sha256": "d87f2f991330b39955f4c846e170319e87e9ae95c209db27ce289df469e2f730"
+    },
+    {
+      "path": "concepts/gallery/index.js",
+      "status": 200,
+      "sha256": "0456704892b3b934e53df23790c2ef24e72aa70fe690062b6e208bdf1d48ce2f"
+    },
+    {
+      "path": "concepts/gallery/manifest.js",
+      "status": 200,
+      "sha256": "b2c467e110944139e3631909afcea164e66dd75e8739453ac70b9d45867ed004"
+    },
+    {
+      "path": "concepts/gallery/manifests/algorithms.js",
+      "status": 200,
+      "sha256": "4edd8675766a382cd8ae305be4fe5c0af6d47c14cc56b98194390e3635ecf3f6"
+    },
+    {
+      "path": "concepts/gallery/manifests/anatomy-physiology.js",
+      "status": 200,
+      "sha256": "d12c48fd0a410c81c51e28ae0d8aa01ad41e5b4bef619a7604b61760d8fb89e9"
+    },
+    {
+      "path": "concepts/gallery/manifests/cellular-expansion.js",
+      "status": 200,
+      "sha256": "e0d0233472052e1de7f3d033c8efc0592feed219dd7adb2f2860dcc3573c65c6"
+    },
+    {
+      "path": "concepts/gallery/manifests/concepts.js",
+      "status": 200,
+      "sha256": "1ce8ca2ec492fb70c7838418532d3c040a0802ed54ea3328556e3f8199d55bf8"
+    },
+    {
+      "path": "concepts/gallery/manifests/control-robotics.js",
+      "status": 200,
+      "sha256": "a41edeadd52122432ad7b7c032ada12a1a1fd7fdca7c9607c55686543ba51546"
+    },
+    {
+      "path": "concepts/gallery/manifests/curation.js",
+      "status": 200,
+      "sha256": "4c53565af7e1e1dba08a48b995aabb05e7fd1a7bd6e140da04c622876375bf19"
+    },
+    {
+      "path": "concepts/gallery/manifests/distributed-computing.js",
+      "status": 200,
+      "sha256": "219a1de0bd29457fb57aa09487bb61c051caef0210b4eef62f5da064abb6720a"
+    },
+    {
+      "path": "concepts/gallery/manifests/ecology-evolution.js",
+      "status": 200,
+      "sha256": "517479ba4b9dee392f7219ae53201b86ea736afda5637aaf7d79653d6fb8ac71"
+    },
+    {
+      "path": "concepts/gallery/manifests/energy-systems.js",
+      "status": 200,
+      "sha256": "4c903b07137d75b93f678788d6cf4fafdb2fa2cacfb01a05e8f2413795335be6"
+    },
+    {
+      "path": "concepts/gallery/manifests/expansion-entry.js",
+      "status": 200,
+      "sha256": "7971c129558ca90867d0d08fb3c606c78f26eafea298193b504c558c45ed5702"
+    },
+    {
+      "path": "concepts/gallery/manifests/final-two.js",
+      "status": 200,
+      "sha256": "f1994f5b77951467616ae027384d5cf49ebd94bd9f31e48186cb3a01ef379892"
+    },
+    {
+      "path": "concepts/gallery/manifests/immunity-medicine.js",
+      "status": 200,
+      "sha256": "b85a18bd2168d273aae686fcde969865f2eb0b7b2001605773d7745444c61312"
+    },
+    {
+      "path": "concepts/gallery/manifests/industrial-chemistry.js",
+      "status": 200,
+      "sha256": "aa82af15e3bd422da9c76043cec42d5d535a5c81151944df167334c833304488"
+    },
+    {
+      "path": "concepts/gallery/manifests/information-coding.js",
+      "status": 200,
+      "sha256": "94badc8d7eaddb92efd155904b96a866b30de917cacf5ece245f06c71203d5e2"
+    },
+    {
+      "path": "concepts/gallery/manifests/instrumentation-signals.js",
+      "status": 200,
+      "sha256": "55e015ef28ac27b8d87ed06e560bf8055d9114ea4b04c47d897f41dbe66a47ae"
+    },
+    {
+      "path": "concepts/gallery/manifests/materials-processing.js",
+      "status": 200,
+      "sha256": "cfdeb8a83cdb615000ab0e1d7adc12c7eebf903a3b8b03e9f5df2612bd8583ea"
+    },
+    {
+      "path": "concepts/gallery/manifests/molecular-chemistry.js",
+      "status": 200,
+      "sha256": "5fabfe5ddf381bce0cc7d164ad38a2a4cea265e64ebee5ae7be6412e5ea5f143"
+    },
+    {
+      "path": "concepts/gallery/manifests/molecular-genetics.js",
+      "status": 200,
+      "sha256": "81b8460489b5fcca811f65003b864f1273eb6661b8ef3e8243016a014000fee0"
+    },
+    {
+      "path": "concepts/gallery/manifests/network-systems.js",
+      "status": 200,
+      "sha256": "43ff448f82c404d9074d2e1a8093cbd35a48364b8391c4cd147df4cb25d16e3f"
+    },
+    {
+      "path": "concepts/gallery/manifests/neuroscience-senses.js",
+      "status": 200,
+      "sha256": "1f4c74e0468dba529987ec1f7d20ef7ff9ef6f88d9d46c9f7a6313f4747ac594"
+    },
+    {
+      "path": "concepts/gallery/manifests/oceanography-hydrology.js",
+      "status": 200,
+      "sha256": "b98a005cb70689e9efaf6706622a3805462efad8ed0b3883d148cd84532dd40c"
+    },
+    {
+      "path": "concepts/gallery/manifests/optimization.js",
+      "status": 200,
+      "sha256": "f620260ead61cf9cc8e51ef0fc2416060b9790283fcb908a9889f184fe3d31eb"
+    },
+    {
+      "path": "concepts/gallery/manifests/perception-communication.js",
+      "status": 200,
+      "sha256": "de9c66917455a68e5fff21b8cd28c855721c0f7bf4fab53716f0f5586b7f73f8"
+    },
+    {
+      "path": "concepts/gallery/manifests/physics.js",
+      "status": 200,
+      "sha256": "72c1c34884d48607ad905f93d7b2fb45107b9173e281a5d12e24e7e99aaf288d"
+    },
+    {
+      "path": "concepts/gallery/manifests/resumed-civil.js",
+      "status": 200,
+      "sha256": "9b59c5afd17635c7fc6b5df4b384914ee9a1b5104e2cea4b54ca3d374884351b"
+    },
+    {
+      "path": "concepts/gallery/manifests/resumed-earth.js",
+      "status": 200,
+      "sha256": "f24241fc51376a5ff23e12c541a53d7171a354fa9bd5bebbd0ef9d7e6737cf7d"
+    },
+    {
+      "path": "concepts/gallery/manifests/resumed-economics.js",
+      "status": 200,
+      "sha256": "33a190712700409349f55aca614add63b8998465e65877662a9ea56102441ac0"
+    },
+    {
+      "path": "concepts/gallery/manifests/resumed-space.js",
+      "status": 200,
+      "sha256": "34959ee0a5e774863c0b15fbb8b96050d0b88aa0dc3edd150718b13beafdb694"
+    },
+    {
+      "path": "concepts/gallery/manifests/runtime-storage.js",
+      "status": 200,
+      "sha256": "ffd9e308de2d7ab79a261a876d889fd5d21310bf0c2f051a4da1ef178ca95e0c"
+    },
+    {
+      "path": "concepts/gallery/manifests/statistical-learning.js",
+      "status": 200,
+      "sha256": "ce13907cad1c4cd19eeae1b82a4428f58d692c73b5f97352cb9061b2cfaa21f9"
+    },
+    {
+      "path": "concepts/gallery/manifests/statistics.js",
+      "status": 200,
+      "sha256": "326aa11f352ef3b33ba8ec6117572e0eceab616bc5c2a2af0ed416c5070c45f5"
+    },
+    {
+      "path": "concepts/gallery/manifests/terrestrial-expansion.js",
+      "status": 200,
+      "sha256": "871d4b83a4ff68872c8d0d071804bffc4a0d9b2b27e76dc1691949f8b7aaca19"
+    },
+    {
+      "path": "concepts/gallery/module-loader.js",
+      "status": 200,
+      "sha256": "fde570a31c67ab7f5e07b1fc32e41833e6ff474bd99dbbef7c9ef5de08be7c64"
+    },
+    {
+      "path": "concepts/gallery/module-queue.js",
+      "status": 200,
+      "sha256": "8360f9258f4833df8beeabff77aa1726163d77c76707952a4eadaefc36f93946"
+    },
+    {
+      "path": "concepts/gallery/provenance.js",
+      "status": 200,
+      "sha256": "b4c7d989979414aeb0873bc9636d7280629d1829aa5fce0052769e859c2b2ff1"
+    },
+    {
+      "path": "concepts/gallery/reduced-motion.js",
+      "status": 200,
+      "sha256": "372117f773c8b739f1e86ac7f6f8392be6a9d9216c2b4199d25085a38d022770"
+    },
+    {
+      "path": "concepts/gallery/taxonomy.js",
+      "status": 200,
+      "sha256": "2a5dd23be0e8601e92ff08d2706e0a16fae46f6f728a444d2a07dbf836c45547"
+    },
+    {
+      "path": "concepts/index.html",
+      "status": 200,
+      "sha256": "03f00607f3e12f7aa70b8eb1dc5bf2b2b35d86ddcac99fc04dba48f251fd8ed0"
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "sha256": "4c14e7a8a736312d3df419cae3a0a2f50f8416b3771a7cd604b2f8d19bd7da93"
+    }
+  ],
+  "excluded": [
+    {
+      "path": ".raiden/state/CURRENT_STATE.md",
+      "status": 404
+    },
+    {
+      "path": "scripts/retirement-review.html",
+      "status": 404
+    },
+    {
+      "path": "package.json",
+      "status": 404
+    },
+    {
+      "path": "__qa/retirement/",
+      "status": 404
+    }
+  ]
+}

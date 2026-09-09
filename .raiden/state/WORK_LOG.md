@@ -5,8 +5,15 @@
 - D-014 records explicit operator authorization to push completed work live.
 - Re-ran all release checks and gallery acceptance; all pass, including zero
   known dependency vulnerabilities and 1,000 active / 1,005 preserved records.
-- Fetched origin/main and confirmed no conflicting remote changes. Preparing
-  the release commit and existing allowlisted Pages deployment under LOOP-006.
+- Fetched origin/main and confirmed no conflicting remote changes. Committed
+  and pushed release `6c0fe58a88b97f967b124365917d0e7592cd048e`; Pages build and
+  deploy completed successfully in run `34330183996`.
+- Preserved exact reviewed source/evidence bytes with Git attributes and tested
+  an isolated staged export. Historical baselines remain unchanged.
+- Verified the live 1,000-card inventory, absent retired cards, rendered final
+  pair and Wind Rose v3, no browser error logs, 53 matching public files and
+  four repository-only/local-QA paths returning 404. Closed LOOP-006 and saved
+  production screenshots and machine-readable verification.
 - Evidence: `SNAPSHOTS/gallery-live-release/report.md`; prior closeout reports
   remain immutable records of their individual passes.
 

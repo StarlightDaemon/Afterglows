@@ -1,0 +1,32 @@
+{
+  "status": "verified",
+  "verifiedAt": "2026-09-09T08:42:00.257Z",
+  "url": "https://afterglows.starlightdaemon.dev/concepts/",
+  "revision": "6c0fe58a88b97f967b124365917d0e7592cd048e",
+  "inventory": {
+    "status": "Showing 1000 of 1000",
+    "cards": 1000,
+    "retiredCards": []
+  },
+  "rendered": [
+    "concept-archimedes-trammel",
+    "concept-linear-chirp",
+    "concept-wind-rose"
+  ],
+  "windRoseDefault": "v3",
+  "browserErrorLogs": [],
+  "screenshots": [
+    {
+      "file": "live-trammel.jpg",
+      "sha256": "7fff81a56c3dbc47f18eee0c6ab49e8c1ce2c59cfaa4f1fcab59df96009f0360"
+    },
+    {
+      "file": "live-chirp.jpg",
+      "sha256": "49625e900cb3df07c887823b6775b43a3212b45780c3fa9ae824fc804058065b"
+    },
+    {
+      "file": "live-wind-rose.jpg",
+      "sha256": "8a9050577ebacc8ed8f6257369f35e7f96dc6be812c08ac2e8b0a7e202a40e00"
+    }
+  ]
+}

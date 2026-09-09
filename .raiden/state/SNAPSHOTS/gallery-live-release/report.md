@@ -34,7 +34,33 @@ Earlier reports saying no deployment occurred describe their historical passes.
 
 ## Deployment
 
-Pending release commit, push, workflow completion and live verification.
+Release commit: `6c0fe58a88b97f967b124365917d0e7592cd048e`,
+`feat(concepts): complete curated thousand-animation gallery`. All three earlier
+local checkpoints and the completed work were pushed normally to main.
+
+[GitHub Pages run 34330183996](https://github.com/StarlightDaemon/Afterglows/actions/runs/34330183996)
+completed successfully, including both build and deploy jobs.
+
+Production verification passed:
+
+- 53 public files match the tested staged artifact byte for byte, covering the
+  full static gallery import/manifest graph, homepage/gallery HTML, final pair,
+  consolidations, retained Wisp, five retired source modules, Wind Rose v3 and
+  its preserved old-URL shim. Details: `live-verification.json`.
+- Browser “Browse all” reports **Showing 1000 of 1000**, with 1,000 cards and no
+  cards for the five retired tags. The matching manifest preserves 1,005 records.
+- Trammel of Archimedes and Linear Chirp render on production. Wind Rose renders
+  its v3 by default in Meteorology & Atmospheric Phenomena. Search works and no
+  browser error logs were returned. Screenshots and DOM observations are indexed
+  by `browser-verification.json`.
+- `.raiden/state/CURRENT_STATE.md`, `scripts/retirement-review.html`,
+  `package.json` and `__qa/retirement/` return HTTP 404 on production.
+
+D-014 and LOOP-006 are complete. The subsequent documentation commit records this
+verified release and its evidence; it changes no public artifact files. No version
+tag was requested or created. Production testing is a deployment smoke test,
+not a new visual review of every historical animation; prior evidence and deferred
+revision limitations remain in force.
 
 ## Handoff
 
