@@ -4,9 +4,10 @@
 //   <name>  capture basename without .png (e.g. physics-375, concepts-320-p1)
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import puppeteer from "puppeteer-core";
 
-const CAP = "E:/Citadel/Afterglows/.audits/tooling/captures/responsive-2026-08-20";
+const CAP = fileURLToPath(new URL("./captures/responsive-2026-08-20", import.meta.url));
 const name = process.argv[2];
 const SLICE_H = parseInt(process.argv[3] || "2200", 10);
 const PER_SHEET = parseInt(process.argv[4] || "6", 10);

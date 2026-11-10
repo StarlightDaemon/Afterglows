@@ -1,9 +1,10 @@
 // Contact sheet: rows = tiles, cols = f0 | f1 | diff mask. Args: outfile tag...
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import puppeteer from "puppeteer-core";
 
-const CAP = "E:/Citadel/Afterglows/.audits/tooling/captures";
+const CAP = fileURLToPath(new URL("./captures", import.meta.url));
 // Optional leading "--n <frames>" selects how many f<i>.png frames per row
 // (default 2 frames + the f0/f1 diff mask).
 let argv = process.argv.slice(2);

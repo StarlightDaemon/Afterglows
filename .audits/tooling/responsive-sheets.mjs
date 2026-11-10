@@ -3,9 +3,10 @@
 // by responsive-capture.mjs.
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import puppeteer from "puppeteer-core";
 
-const CAP = "E:/Citadel/Afterglows/.audits/tooling/captures/responsive-2026-08-20";
+const CAP = fileURLToPath(new URL("./captures/responsive-2026-08-20", import.meta.url));
 const PAGES = ["hub", "concepts", "physics", "matrix", "retro"];
 const WIDTHS = [320, 375, 414, 600, 768, 900];
 const COL_W = 260;       // displayed column width

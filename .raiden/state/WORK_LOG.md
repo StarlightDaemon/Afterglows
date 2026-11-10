@@ -1,5 +1,20 @@
 # Work Log
 
+## 2026-11-10 — Location references made root-relative
+
+- The repository now lives at the workspace root as `Afterglows/` (formerly
+  under `Citadel/`). Live references no longer carry drive letters:
+  `.raiden/local/README.md` records RAIDEN and Stargate relative to this repo
+  root (`../Citadel/Raiden/`, `../Citadel/Stargate/`) and defines the
+  `<afterglows-root>`/`<raiden-root>` placeholders the local prompts now use.
+- Eleven `.audits/tooling/*.mjs` scripts derive the repo root and capture
+  directories from `import.meta.url` instead of a hardcoded absolute path.
+- Dated records (audits, snapshots, closed loops and earlier work-log entries)
+  keep their original paths as written, per the 2026-07-14 audit finding F3.
+- Operator-local, untracked: removed the blanket `git push` allow rule and a
+  stale scratchpad entry from `.claude/settings.local.json`; the workspace file
+  beside the repo now opens `Afterglows` rather than `Citadel/Afterglows`.
+
 ## 2026-11-10 — Security review and D-015 release
 
 - Reviewed dependencies, workflows, repository rules, local tool settings and

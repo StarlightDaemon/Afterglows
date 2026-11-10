@@ -39,7 +39,7 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 - The Concepts manifest and taxonomy are the authoritative catalog inventory.
   The former Physics collection uses the same catalog and renderer; component
   tags remain stable while source paths follow the unified taxonomy (D-004).
-- Stargate removed from Afterglows; it now lives in its own standalone repo (`E:\Citadel\Stargate`).
+- Stargate removed from Afterglows; it now lives in its own standalone repo (`../Citadel/Stargate/` from this repo root; see `.raiden/local/README.md`).
 - Dead Stargate UI hooks and dead media/sound code removed.
 - `backups/` directory excluded from git (local `.gitignore` entry).
 - `node_modules/` present (npm project); excluded from git.

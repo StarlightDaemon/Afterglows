@@ -5,9 +5,10 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import puppeteer from "puppeteer-core";
 
-const REPO_ROOT = "E:/Citadel/Afterglows";
+const REPO_ROOT = fileURLToPath(new URL("../../", import.meta.url));
 const OUT = path.join(REPO_ROOT, ".audits/tooling/captures/verify");
 const PORT = 3192;
 const CHROME = process.env.CHROME_PATH || "C:/Program Files/Google/Chrome/Application/chrome.exe";

@@ -3,9 +3,10 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import puppeteer from "puppeteer-core";
 
-const ROOT = "E:/Citadel/Afterglows";
+const ROOT = fileURLToPath(new URL("../../", import.meta.url));
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".png": "image/png", ".svg": "image/svg+xml" };
 const srv = http.createServer((req, res) => {
   let u = decodeURIComponent(req.url.split("?")[0]);
