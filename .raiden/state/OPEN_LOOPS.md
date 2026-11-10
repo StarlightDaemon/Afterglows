@@ -2,9 +2,12 @@
 
 ## Open
 
-- **LOOP-008 — D-015 publication (D-016):** push the navigation refinement and
-  dependency remediation to `main`, close superseded PR #2 and verify
-  production. Deferred campaign requests below remain unresolved.
+None. Deferred campaign requests below remain unresolved.
+
+Operator housekeeping (not blocking): remote branches
+`maintenance/site-quality-checks-2026-10-20` (merged PR #1) and
+`security/afterglows-follow-redirects-1.16.1-2026-10-21` (closed PR #2) remain;
+delete them when convenient.
 
 ## Deferred backlog
 
@@ -18,6 +21,13 @@
 ---
 
 ## Closed
+
+- **2026-11-10 — LOOP-008, D-015 publication:** pushed
+  `2d9db686b6eb4680ae000a742fc38de0c31e1491` to main; Pages run `42884423764`
+  succeeded. Live `/concepts/` serves the release byte-for-byte, defaults to 36
+  recent studies, search deep links work, the empty Filters badge is hidden,
+  repository-only paths return 404 and there are no browser errors. PR #2
+  closed as superseded (D-016).
 
 - **2026-09-09 — LOOP-007, gallery navigation refinement:** replaced the
   always-visible filter inventory with Recent/Browse and an off-canvas filter

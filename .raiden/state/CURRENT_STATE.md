@@ -2,10 +2,10 @@
 
 **Branch:** main
 **Deployment:** The 1,000-active gallery is live at https://afterglows.starlightdaemon.dev/concepts/. Release `6c0fe58a88b97f967b124365917d0e7592cd048e` passed GitHub Pages build/deploy and production verification under D-014. See `SNAPSHOTS/gallery-live-release/report.md`.
-**Release in progress:** Gallery navigation refinement D-015 and the
-lockfile-only dependency remediation are authorized for publication under
-D-016. Deploys had been blocked since 2026-10-21 by a dev-only
-`follow-redirects` audit failure; PR #2 is superseded.
+**Latest release (2026-11-10):** Gallery navigation refinement D-015 and the
+lockfile-only dependency remediation are live under D-016 at
+`2d9db686b6eb4680ae000a742fc38de0c31e1491` (Pages run `42884423764`). This
+cleared the deploy block present since 2026-10-21; PR #2 is closed as superseded.
 
 ---
 

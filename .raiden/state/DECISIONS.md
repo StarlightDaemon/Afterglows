@@ -3,7 +3,7 @@
 ## D-016
 
 - Date: 2026-11-10
-- Status: Authorized by the operator; release in progress
+- Status: Complete — released at `2d9db68`, Pages run `42884423764`, production verified
 - Decision: Publish D-015 with a lockfile-only dependency remediation. Pushes
   to `main` have failed `npm audit --audit-level=high` since 2026-10-21 (run
   `39556752011`) because of dev-only `follow-redirects@1.16.0`

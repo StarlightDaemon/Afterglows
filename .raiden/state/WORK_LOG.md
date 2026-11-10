@@ -12,6 +12,11 @@
   overrode `[hidden]`; verified both empty and active states in the browser.
 - Fast-forwarded to `origin/main` (PR #1 verify workflow). Test, security,
   build and site checks pass. Release authorized under D-016.
+- Pushed `2d9db68`; Pages run `42884423764` built and deployed successfully.
+  Verified live gallery files match the release, Recent shows 36 cards, search
+  deep links work, the badge is hidden without filters, repository-only paths
+  404 and the browser logged no errors. Closed PR #2 as superseded. Remote
+  branch deletion was not performed (left for the operator).
 - Noted for the operator: `.claude/settings.local.json` (untracked) allows
   unprompted `git push` and lists a scratchpad path from the former
   `E:\Citadel\Afterglows` location.
