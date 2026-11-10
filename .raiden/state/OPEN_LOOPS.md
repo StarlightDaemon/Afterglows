@@ -2,9 +2,9 @@
 
 ## Open
 
-None for this engagement. Implementation and closeout are complete under D-013;
-publication and production verification are complete under D-014. No automatic
-continuation is pending. Deferred campaign requests below remain unresolved.
+- **LOOP-008 — D-015 publication (D-016):** push the navigation refinement and
+  dependency remediation to `main`, close superseded PR #2 and verify
+  production. Deferred campaign requests below remain unresolved.
 
 ## Deferred backlog
 
@@ -18,6 +18,12 @@ continuation is pending. Deferred campaign requests below remain unresolved.
 ---
 
 ## Closed
+
+- **2026-09-09 — LOOP-007, gallery navigation refinement:** replaced the
+  always-visible filter inventory with Recent/Browse and an off-canvas filter
+  sheet, normalized query state, added progressive rendering and completed
+  adversarial automated/browser verification under D-015. Local only; no
+  commit, push or deployment occurred.
 
 - **2026-09-09 — LOOP-006, production publication:** committed and pushed all
   completed work to main at `6c0fe58a88b97f967b124365917d0e7592cd048e`. Pages run

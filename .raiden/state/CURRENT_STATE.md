@@ -2,6 +2,10 @@
 
 **Branch:** main
 **Deployment:** The 1,000-active gallery is live at https://afterglows.starlightdaemon.dev/concepts/. Release `6c0fe58a88b97f967b124365917d0e7592cd048e` passed GitHub Pages build/deploy and production verification under D-014. See `SNAPSHOTS/gallery-live-release/report.md`.
+**Release in progress:** Gallery navigation refinement D-015 and the
+lockfile-only dependency remediation are authorized for publication under
+D-016. Deploys had been blocked since 2026-10-21 by a dev-only
+`follow-redirects` audit failure; PR #2 is superseded.
 
 ---
 
@@ -22,6 +26,11 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 ---
 
 ## Confirmed Current State
+
+- The local Concepts gallery now defaults to the latest 36 studies with only
+  Search, Recent/Browse, Filters and result count exposed. Topic, order and
+  provenance use a responsive filter sheet; shareable state is validated,
+  legacy deep links remain valid and large result sets render progressively.
 
 - Site deployed through the allowlisted GitHub Actions Pages workflow (CNAME configured); repository-only paths are excluded from the public artifact.
 - Core theme fonts are vendored under `assets/fonts/`; the deployed artifact has no Google Fonts runtime dependency.

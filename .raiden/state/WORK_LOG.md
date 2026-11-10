@@ -1,5 +1,37 @@
 # Work Log
 
+## 2026-11-10 — Security review and D-015 release
+
+- Reviewed dependencies, workflows, repository rules, local tool settings and
+  the D-015 gallery code. No critical findings; public pages keep a
+  `script-src 'self'` CSP, card markup is escaped and URL state is allowlisted.
+- High finding: dev-only `follow-redirects@1.16.0` advisories have blocked the
+  Pages deploy gate since 2026-10-21. PR #2 (1.16.1) is insufficient. Updated
+  the lockfile to `follow-redirects` 1.16.3 and `qs` 6.17.1; audit is clean.
+- Fixed an empty Filters badge that rendered because `display: inline-grid`
+  overrode `[hidden]`; verified both empty and active states in the browser.
+- Fast-forwarded to `origin/main` (PR #1 verify workflow). Test, security,
+  build and site checks pass. Release authorized under D-016.
+- Noted for the operator: `.claude/settings.local.json` (untracked) allows
+  unprompted `git push` and lists a scratchpad path from the former
+  `E:\Citadel\Afterglows` location.
+
+## 2026-09-09 — Gallery navigation refinement
+
+- Implemented D-015: simplified the gallery landing surface to Search,
+  Recent/Browse, Filters and count; moved topic, ordering and provenance into a
+  responsive filter sheet with removable active-state summaries.
+- Separated view, order, query and filter state; preserved legacy deep links,
+  added validated shareable state, deterministic date ties and 60-card
+  progressive rendering. Empty filter buckets no longer appear.
+- Added `gallery-query.js` and adversarial tests covering recent/browse scope,
+  search, taxonomy, contradictory filters, empty results, same-contribution
+  provenance and stable ties. Browser checks also covered malformed/hostile URL
+  state, accessibility labels, focus containment, mobile overflow, progressive
+  loading, existing version cycling and Copy behavior.
+- `npm test`, build, site validation, security validation and browser error-log
+  checks pass. LOOP-007 is closed locally; nothing was committed or published.
+
 ## 2026-09-09 — Production release requested
 
 - D-014 records explicit operator authorization to push completed work live.

@@ -4,7 +4,7 @@ import { CATEGORIES, ACTIVE_CONCEPTS as CONCEPTS, SECTIONS } from "./manifest.js
 import { installReducedMotion } from "./reduced-motion.js";
 import { ModuleQueue } from "./module-queue.js";
 import { createModuleLoader } from "./module-loader.js";
-import { matchesProvenance } from "./provenance.js";
+import { queryConcepts, RECENT_LIMIT, statusOf } from "./gallery-query.js";
 
 installReducedMotion(["CONCEPT-", "PHYSICS-"]);
 const moduleQueue = new ModuleQueue(createModuleLoader((path) => import(path), import.meta.url));
@@ -152,11 +152,7 @@ function renderGallery(concepts) {
   }
 
   if (activeDateField) {
-    const title = sortMode === "newest"
-      ? "Newest additions"
-      : activeDateField === "added"
-        ? "All concepts — newest first"
-        : "All concepts — recently updated";
+    const title = currentFlatTitle();
     mount.innerHTML =
       `<section class="gallery-section">` +
         `<h2 class="section-title">${esc(title)}</h2>` +
@@ -325,225 +321,122 @@ function wireVersioners() {
   });
 }
 
-// --- Filter toolbar -------------------------------------------------------
-// The toolbar is created once and inserted BEFORE #gallery-root (outside it),
-// so it survives re-renders and the search input keeps focus while typing.
-
-// Map a concept's badgeCls to a status id used for filtering.
-function statusOf(concept) {
-  if (/\bmeta-status-color\b/.test(concept.badgeCls)) return "color";
-  if (/\bmeta-status-refined\b/.test(concept.badgeCls)) return "refined";
-  if (/\bmeta-status-new\b/.test(concept.badgeCls)) return "new";
-  return "original";
-}
-
-// --- Wave 2: Newest additions --------------------------------------------
-// Cap the landing view so a large same-day import cannot unexpectedly render
-// hundreds of live custom elements before the visitor chooses a section.
-const NEWEST_LIMIT = 36;
-const NEWEST_CONCEPTS = CONCEPTS
-  .slice()
-  .sort((a, b) => (b.added || "").localeCompare(a.added || ""))
-  .slice(0, NEWEST_LIMIT);
-const NEWEST_TAGS = new Set(NEWEST_CONCEPTS.map((concept) => concept.tag));
-const NEWEST_DATE = NEWEST_CONCEPTS[0]?.added?.slice(0, 10) || "";
-
-function isNewest(concept) {
-  return NEWEST_TAGS.has(concept.tag);
-}
-
-const STATUSES = [
-  { id: "original", title: "Original" },
-  { id: "refined", title: "Refined" },
-  { id: "new", title: "New" },
-  { id: "color", title: "With Color" },
-];
-
-// A concept's origin.contributions may list more than one contributor (e.g.
-// Gemini built it, Claude later patched or rebuilt it) — origin filtering is
-// an "any contribution's agent matches" test, not an exact-match like status.
-function agentsOf(concept) {
-  return (concept.origin && Array.isArray(concept.origin.contributions))
-    ? concept.origin.contributions.map((contribution) => contribution.agent)
-    : [];
-}
-
-const ORIGINS = deriveChips(agentsOf, titleCase);
-
-// Model/version aren't a fixed list like agents — new values show up as new
-// contributions get recorded, so their chip sets are derived from whatever's
-// actually present in CONCEPTS rather than hardcoded. A missing (null) value
-// gets its own "Unspecified" bucket rather than being dropped.
-function fieldOf(field) {
-  return (concept) =>
-    (concept.origin && Array.isArray(concept.origin.contributions))
-      ? concept.origin.contributions.map((contribution) => contribution[field])
-      : [];
-}
-const modelsOf = fieldOf("model");
-const versionsOf = fieldOf("version");
-
+// --- Gallery navigation ---------------------------------------------------
+// The public surface stays intentionally small: Search, Recent/Browse, and
+// one Filters button. Topic, ordering, and provenance live in the filter sheet.
+const STATUS_TITLES = new Map([
+  ["original", "Original"], ["refined", "Refined"],
+  ["new", "New"], ["color", "With Color"],
+]);
 const UNSPECIFIED = "unspecified";
-function idOf(value) {
-  return value === null ? UNSPECIFIED : value;
-}
+const PAGE_SIZE = 60;
+
 function titleCase(slug) {
-  return slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  return slug.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 }
 
-function deriveChips(getValues, titleFor) {
-  const seen = new Set();
-  CONCEPTS.forEach((concept) => getValues(concept).forEach((value) => seen.add(value)));
-  const known = [...seen].filter((value) => value !== null).sort();
-  const chips = known.map((value) => ({ id: idOf(value), title: titleFor(value) }));
-  if (seen.has(null)) chips.push({ id: UNSPECIFIED, title: "Unspecified" });
-  return chips;
+function contributionValues(field) {
+  return [...new Set(CONCEPTS.flatMap((concept) =>
+    (concept.origin?.contributions || []).map((contribution) => contribution[field] ?? UNSPECIFIED)
+  ))].sort((a, b) => String(a).localeCompare(String(b)));
 }
 
-const MODELS = deriveChips(modelsOf, titleCase);
-const VERSIONS = deriveChips(versionsOf, (value) => value);
-
-// Live filter state. Preserve the lightweight newest-additions landing view;
-// section/category deep links open directly in curated taxonomy mode.
-const activeSections = new Set(SECTIONS.map((section) => section.id));
-const activeCategories = new Set(CATEGORIES.map((category) => category.id));
-const activeStatuses = new Set(STATUSES.map((status) => status.id));
-const activeOrigins = new Set(ORIGINS.map((origin) => origin.id));
-const activeModels = new Set(MODELS.map((model) => model.id));
-const activeVersions = new Set(VERSIONS.map((version) => version.id));
-let searchTerm = "";
-let sortMode = "newest"; // "newest" | "curated" | "added" | "updated"
-
-// Cached toolbar element references, populated by initToolbar().
-let searchInput = null;
-let sortSelect = null;
-let catToggle = null;
-let countReadout = null;
-
-// True when a concept passes all three filter dimensions.
-function isVisible(concept) {
-  if (!activeSections.has(concept.section)) return false;
-  if (!activeCategories.has(concept.category)) return false;
-  if (!activeStatuses.has(statusOf(concept))) return false;
-  if (!matchesProvenance(concept.origin?.contributions || [], {
-    origins: activeOrigins, models: activeModels, versions: activeVersions,
-  })) return false;
-  if (searchTerm && !searchText.get(concept.tag).includes(searchTerm)) {
-    return false;
-  }
-  return true;
-}
-
-// Recompute the visible list, apply the active sort, rebuild the gallery,
-// re-wire versioners, install the lazy observer, and refresh the count readout.
-function applyFilters() {
-  let visible = CONCEPTS.filter(isVisible);
-
-  if (sortMode === "newest") {
-    // Newest additions: only the latest batch, sorted by added desc.
-    // Concepts without a matching added date are excluded gracefully.
-    visible = visible.filter(isNewest)
-      .sort((a, b) => b.added.localeCompare(a.added));
-    activeDateField = "added";
-  } else if (sortMode === "curated") {
-    activeDateField = null;
-  } else {
-    // "added" or "updated" date sort
-    activeDateField = sortMode;
-    visible = visible.slice().sort((a, b) =>
-      (b[activeDateField] || "").localeCompare(a[activeDateField] || "")
-    );
-  }
-
-  renderGallery(visible);
-  wireVersioners();
-  installLazyObserver();
-  updateBannerVisibility();
-
-  if (countReadout) {
-    countReadout.textContent = `Showing ${visible.length} of ${CONCEPTS.length}`;
-  }
-}
-
-function makeChip(filter, value, title) {
-  const chip = document.createElement("button");
-  chip.type = "button";
-  chip.className = "filter-chip";
-  chip.dataset.filter = filter;
-  chip.dataset.value = value;
-  chip.setAttribute("aria-pressed", "true");
-  chip.textContent = title;
-  return chip;
-}
-
-// --- Newest-additions banner (Wave 2) ------------------------------------
-// A dismissable banner shown at the top of the gallery when in "newest" mode.
-// Clicking "Browse all" switches to curated mode (full gallery).
-let newestBanner = null;
-
-const NEWEST_COUNT = NEWEST_TAGS.size;
-
-function ensureNewestBanner() {
-  if (newestBanner) return newestBanner;
-  newestBanner = document.createElement("div");
-  newestBanner.className = "newest-banner";
-  newestBanner.setAttribute("role", "status");
-  newestBanner.innerHTML =
-    `<span class="newest-banner-text">` +
-      `<span class="newest-banner-icon">&#10022;</span> ` +
-      `<strong>${NEWEST_COUNT} newest additions</strong> &middot; added ${NEWEST_DATE}` +
-    `</span>` +
-    `<button type="button" class="newest-browse-all" id="newest-browse-all">` +
-      `Browse all concepts &rarr;` +
-    `</button>`;
-
-  newestBanner.querySelector(".newest-browse-all").addEventListener("click", () => {
-    sortMode = "curated";
-    if (sortSelect) sortSelect.value = "curated";
-    applyFilters();
+function countOptions(valuesForConcept) {
+  const counts = new Map();
+  CONCEPTS.forEach((concept) => {
+    new Set(valuesForConcept(concept)).forEach((value) => counts.set(value, (counts.get(value) || 0) + 1));
   });
-
-  return newestBanner;
+  return counts;
 }
 
-function updateBannerVisibility() {
-  if (!newestBanner) return;
-  newestBanner.style.display = sortMode === "newest" ? "" : "none";
+const AVAILABLE = {
+  origins: contributionValues("agent"),
+  models: contributionValues("model"),
+  versions: contributionValues("version"),
+};
+const STATUS_COUNTS = countOptions((concept) => [statusOf(concept)]);
+const ORIGIN_COUNTS = countOptions((concept) =>
+  (concept.origin?.contributions || []).map((contribution) => contribution.agent)
+);
+const MODEL_COUNTS = countOptions((concept) =>
+  (concept.origin?.contributions || []).map((contribution) => contribution.model ?? UNSPECIFIED)
+);
+const VERSION_COUNTS = countOptions((concept) =>
+  (concept.origin?.contributions || []).map((contribution) => contribution.version ?? UNSPECIFIED)
+);
+
+const filterState = {
+  view: "recent",
+  order: "added",
+  query: "",
+  section: "",
+  category: "",
+  statuses: new Set(),
+  origins: new Set(),
+  models: new Set(),
+  versions: new Set(),
+};
+
+let searchInput = null;
+let countReadout = null;
+let filterButton = null;
+let filterBadge = null;
+let recentTab = null;
+let browseTab = null;
+let filterLayer = null;
+let filterPanel = null;
+let sectionSelect = null;
+let categorySelect = null;
+let orderSelect = null;
+let activeFilterRow = null;
+let technicalSummary = null;
+let renderLimit = PAGE_SIZE;
+let lastFiltered = [];
+let focusBeforePanel = null;
+
+function parseList(params, name, allowed) {
+  const values = (params.get(name) || "").split(",").filter(Boolean);
+  return new Set(values.filter((value) => allowed.includes(value)));
 }
 
 function applyLocationFilters() {
   const params = new URLSearchParams(window.location.search);
-  const sectionId = params.get("section");
-  const categoryId = params.get("category");
-  const section = SECTIONS.find((item) => item.id === sectionId);
-  const category = CATEGORIES.find((item) => item.id === categoryId);
+  const section = SECTIONS.find((item) => item.id === params.get("section"));
+  const category = CATEGORIES.find((item) => item.id === params.get("category"));
+  const requestedBrowse = params.get("view") === "browse";
+  const hasBrowseState = requestedBrowse || section || category || params.has("q") || params.has("sort") ||
+    params.has("status") || params.has("origin") || params.has("model") || params.has("version");
 
-  if (section) {
-    activeSections.clear();
-    activeSections.add(section.id);
-    sortMode = "curated";
-  }
-  if (category) {
-    activeCategories.clear();
-    activeCategories.add(category.id);
-    activeSections.clear();
-    activeSections.add(category.section);
-    sortMode = "curated";
-  }
+  filterState.view = hasBrowseState ? "browse" : "recent";
+  filterState.query = (params.get("q") || "").trim().slice(0, 120);
+  filterState.section = category?.section || section?.id || "";
+  filterState.category = category?.id || "";
+  filterState.order = ["curated", "added", "updated"].includes(params.get("sort"))
+    ? params.get("sort")
+    : hasBrowseState ? "curated" : "added";
+  filterState.statuses = parseList(params, "status", [...STATUS_COUNTS.keys()]);
+  filterState.origins = parseList(params, "origin", AVAILABLE.origins);
+  filterState.models = parseList(params, "model", AVAILABLE.models);
+  filterState.versions = parseList(params, "version", AVAILABLE.versions);
+}
+
+function setOrDelete(params, name, value) {
+  if (value) params.set(name, value);
+  else params.delete(name);
 }
 
 function updateLocationFilters() {
   if (!window.history?.replaceState) return;
-  const params = new URLSearchParams(window.location.search);
-  const sectionId = activeSections.size === 1 ? [...activeSections][0] : null;
-  const categoryId = activeCategories.size === 1 ? [...activeCategories][0] : null;
-  if (sectionId) params.set("section", sectionId);
-  else params.delete("section");
-  if (categoryId) params.set("category", categoryId);
-  else params.delete("category");
+  const params = new URLSearchParams();
+  if (filterState.view === "browse") params.set("view", "browse");
+  setOrDelete(params, "q", filterState.query);
+  setOrDelete(params, "section", filterState.section);
+  setOrDelete(params, "category", filterState.category);
+  if (filterState.view === "browse" && filterState.order !== "curated") params.set("sort", filterState.order);
+  const parameterFor = { statuses: "status", origins: "origin", models: "model", versions: "version" };
+  Object.entries(parameterFor).forEach(([key, parameter]) => {
+    if (filterState[key].size) params.set(parameter, [...filterState[key]].sort().join(","));
+  });
   const query = params.toString();
   try {
     window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`);
@@ -552,335 +445,417 @@ function updateLocationFilters() {
   }
 }
 
-// Build the toolbar ONCE and insert it before #gallery-root.
+function currentFlatTitle() {
+  if (filterState.view === "recent") return `Latest ${RECENT_LIMIT} additions`;
+  if (filterState.query) return "Search results";
+  const category = CATEGORIES.find((item) => item.id === filterState.category);
+  const section = SECTIONS.find((item) => item.id === filterState.section);
+  const scope = category?.title || section?.title || "All concepts";
+  return filterState.order === "updated" ? `${scope} — recently updated` : `${scope} — newest first`;
+}
+
+function filterCount() {
+  return Number(Boolean(filterState.query)) + Number(Boolean(filterState.category || filterState.section)) +
+    filterState.statuses.size + filterState.origins.size + filterState.models.size + filterState.versions.size;
+}
+
+function enterBrowseForNarrowing() {
+  if (filterState.view === "recent") {
+    filterState.view = "browse";
+    filterState.order = "added";
+  }
+}
+
+function clearFilters({ keepView = true } = {}) {
+  filterState.query = "";
+  filterState.section = "";
+  filterState.category = "";
+  filterState.statuses.clear();
+  filterState.origins.clear();
+  filterState.models.clear();
+  filterState.versions.clear();
+  if (!keepView) {
+    filterState.view = "recent";
+    filterState.order = "added";
+  }
+}
+
+function optionLabel(value, title, counts) {
+  return `${title} (${counts.get(value) || 0})`;
+}
+
+function addOption(select, value, title, parent = select) {
+  const option = document.createElement("option");
+  option.value = value;
+  option.textContent = title;
+  parent.appendChild(option);
+}
+
+function populateCategorySelect() {
+  if (!categorySelect) return;
+  categorySelect.replaceChildren();
+  addOption(categorySelect, "", "All categories");
+  const sections = filterState.section
+    ? SECTIONS.filter((section) => section.id === filterState.section)
+    : SECTIONS;
+  sections.forEach((section) => {
+    const categories = CATEGORIES.filter((category) => category.section === section.id);
+    if (!categories.length) return;
+    const group = document.createElement("optgroup");
+    group.label = section.title;
+    categories.forEach((category) => addOption(categorySelect, category.id, `${category.title} (${category.expectedCount})`, group));
+    categorySelect.appendChild(group);
+  });
+  categorySelect.value = filterState.category;
+}
+
+function renderCheckGroup(key, title, options, counts, titleFor) {
+  const fieldset = document.createElement("fieldset");
+  fieldset.className = "filter-check-group";
+  const legend = document.createElement("legend");
+  legend.textContent = title;
+  fieldset.appendChild(legend);
+  options.filter((value) => counts.get(value) > 0).forEach((value) => {
+    const label = document.createElement("label");
+    label.className = "filter-check";
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.dataset.set = key;
+    input.value = value;
+    const span = document.createElement("span");
+    span.textContent = optionLabel(value, titleFor(value), counts);
+    label.append(input, span);
+    fieldset.appendChild(label);
+  });
+  return fieldset;
+}
+
+function makeFilterPanel() {
+  filterLayer = document.createElement("div");
+  filterLayer.className = "filter-layer";
+  filterLayer.hidden = true;
+  filterLayer.innerHTML = `<div class="filter-scrim" aria-hidden="true"></div>`;
+
+  filterPanel = document.createElement("aside");
+  filterPanel.className = "filter-panel";
+  filterPanel.id = "gallery-filters";
+  filterPanel.setAttribute("role", "dialog");
+  filterPanel.setAttribute("aria-modal", "true");
+  filterPanel.setAttribute("aria-labelledby", "filter-panel-title");
+  filterPanel.innerHTML =
+    `<div class="filter-panel-header"><div>` +
+      `<h2 id="filter-panel-title">Browse and filter</h2>` +
+      `<p>Choose a topic or adjust how the catalog is ordered.</p>` +
+    `</div><button type="button" class="filter-close" aria-label="Close filters">&times;</button></div>`;
+
+  const form = document.createElement("div");
+  form.className = "filter-form";
+
+  const sectionField = document.createElement("label");
+  sectionField.className = "filter-field";
+  sectionField.innerHTML = `<span>Discipline</span>`;
+  sectionSelect = document.createElement("select");
+  sectionSelect.className = "filter-select";
+  sectionSelect.setAttribute("aria-label", "Discipline");
+  addOption(sectionSelect, "", "All disciplines");
+  SECTIONS.forEach((section) => addOption(sectionSelect, section.id, section.title));
+  sectionField.appendChild(sectionSelect);
+
+  const categoryField = document.createElement("label");
+  categoryField.className = "filter-field";
+  categoryField.innerHTML = `<span>Category</span>`;
+  categorySelect = document.createElement("select");
+  categorySelect.className = "filter-select";
+  categorySelect.setAttribute("aria-label", "Category");
+  categoryField.appendChild(categorySelect);
+
+  const orderField = document.createElement("label");
+  orderField.className = "filter-field";
+  orderField.innerHTML = `<span>Order</span>`;
+  orderSelect = document.createElement("select");
+  orderSelect.className = "filter-select";
+  orderSelect.setAttribute("aria-label", "Order");
+  [["curated", "Curated by topic"], ["added", "Newest added"], ["updated", "Recently updated"]]
+    .forEach(([value, title]) => addOption(orderSelect, value, title));
+  orderField.appendChild(orderSelect);
+  form.append(sectionField, categoryField, orderField);
+
+  const technical = document.createElement("details");
+  technical.className = "technical-filters";
+  technicalSummary = document.createElement("summary");
+  technicalSummary.textContent = "Technical metadata";
+  technical.appendChild(technicalSummary);
+  technical.appendChild(renderCheckGroup("statuses", "Status", [...STATUS_COUNTS.keys()], STATUS_COUNTS, (value) => STATUS_TITLES.get(value)));
+  technical.appendChild(renderCheckGroup("origins", "Origin", AVAILABLE.origins, ORIGIN_COUNTS, titleCase));
+  technical.appendChild(renderCheckGroup("models", "Model", AVAILABLE.models, MODEL_COUNTS, (value) => value === UNSPECIFIED ? "Unspecified" : titleCase(value)));
+  technical.appendChild(renderCheckGroup("versions", "Model version", AVAILABLE.versions, VERSION_COUNTS, (value) => value === UNSPECIFIED ? "Unspecified" : value));
+  form.appendChild(technical);
+
+  const actions = document.createElement("div");
+  actions.className = "filter-panel-actions";
+  actions.innerHTML = `<button type="button" class="filter-clear">Clear filters</button><button type="button" class="filter-done">Show results</button>`;
+  form.appendChild(actions);
+  filterPanel.appendChild(form);
+  filterLayer.appendChild(filterPanel);
+  document.body.appendChild(filterLayer);
+
+  filterLayer.querySelector(".filter-scrim").addEventListener("click", closeFilterPanel);
+  filterLayer.querySelector(".filter-close").addEventListener("click", closeFilterPanel);
+  filterLayer.querySelector(".filter-done").addEventListener("click", closeFilterPanel);
+  filterLayer.querySelector(".filter-clear").addEventListener("click", () => {
+    clearFilters();
+    syncControls();
+    applyFilters();
+  });
+  sectionSelect.addEventListener("change", () => {
+    filterState.section = sectionSelect.value;
+    filterState.category = "";
+    enterBrowseForNarrowing();
+    populateCategorySelect();
+    syncControls();
+    applyFilters();
+  });
+  categorySelect.addEventListener("change", () => {
+    filterState.category = categorySelect.value;
+    if (filterState.category) {
+      filterState.section = CATEGORIES.find((category) => category.id === filterState.category)?.section || "";
+    }
+    enterBrowseForNarrowing();
+    syncControls();
+    applyFilters();
+  });
+  orderSelect.addEventListener("change", () => {
+    filterState.view = "browse";
+    filterState.order = orderSelect.value;
+    syncControls();
+    applyFilters();
+  });
+  technical.addEventListener("change", (event) => {
+    const input = event.target.closest("input[data-set]");
+    if (!input) return;
+    const selected = filterState[input.dataset.set];
+    if (input.checked) selected.add(input.value);
+    else selected.delete(input.value);
+    enterBrowseForNarrowing();
+    syncControls();
+    applyFilters();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (filterLayer.hidden) return;
+    if (event.key === "Escape") closeFilterPanel();
+    if (event.key !== "Tab") return;
+    const focusable = [...filterPanel.querySelectorAll("button, select, input, summary")]
+      .filter((element) => !element.disabled && !element.hidden && element.offsetParent !== null);
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+}
+
+function openFilterPanel() {
+  focusBeforePanel = document.activeElement;
+  filterLayer.hidden = false;
+  document.body.classList.add("filters-open");
+  filterButton.setAttribute("aria-expanded", "true");
+  filterPanel.querySelector(".filter-close").focus();
+}
+
+function closeFilterPanel() {
+  if (!filterLayer || filterLayer.hidden) return;
+  filterLayer.hidden = true;
+  document.body.classList.remove("filters-open");
+  filterButton.setAttribute("aria-expanded", "false");
+  focusBeforePanel?.focus?.();
+}
+
+function labelForFilter(key, value) {
+  if (key === "section") return SECTIONS.find((item) => item.id === value)?.title || value;
+  if (key === "category") return CATEGORIES.find((item) => item.id === value)?.title || value;
+  if (key === "statuses") return STATUS_TITLES.get(value) || value;
+  if (value === UNSPECIFIED) return "Unspecified";
+  return key === "versions" ? value : titleCase(value);
+}
+
+function updateActiveFilters() {
+  const filters = [];
+  if (filterState.query) filters.push(["query", filterState.query]);
+  if (filterState.category) filters.push(["category", filterState.category]);
+  else if (filterState.section) filters.push(["section", filterState.section]);
+  ["statuses", "origins", "models", "versions"].forEach((key) => {
+    filterState[key].forEach((value) => filters.push([key, value]));
+  });
+  activeFilterRow.replaceChildren();
+  filters.forEach(([key, value]) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "active-filter";
+    button.dataset.clear = key;
+    button.dataset.value = value;
+    const label = key === "query" ? `“${value}”` : labelForFilter(key, value);
+    button.textContent = `${label} ×`;
+    button.setAttribute("aria-label", `Remove ${label} filter`);
+    activeFilterRow.appendChild(button);
+  });
+  if (filters.length) {
+    const clear = document.createElement("button");
+    clear.type = "button";
+    clear.className = "active-filter-clear";
+    clear.textContent = "Clear all";
+    activeFilterRow.appendChild(clear);
+  }
+  activeFilterRow.hidden = filters.length === 0;
+}
+
+function syncControls() {
+  if (searchInput) searchInput.value = filterState.query;
+  recentTab?.setAttribute("aria-pressed", filterState.view === "recent" ? "true" : "false");
+  browseTab?.setAttribute("aria-pressed", filterState.view === "browse" ? "true" : "false");
+  if (sectionSelect) sectionSelect.value = filterState.section;
+  populateCategorySelect();
+  if (orderSelect) orderSelect.value = filterState.order;
+  filterPanel?.querySelectorAll("input[data-set]").forEach((input) => {
+    input.checked = filterState[input.dataset.set].has(input.value);
+  });
+  const count = filterCount();
+  if (filterBadge) {
+    filterBadge.textContent = count ? String(count) : "";
+    filterBadge.hidden = count === 0;
+  }
+  if (technicalSummary) {
+    const advanced = filterState.statuses.size + filterState.origins.size + filterState.models.size + filterState.versions.size;
+    technicalSummary.textContent = advanced ? `Technical metadata (${advanced})` : "Technical metadata";
+  }
+  updateActiveFilters();
+}
+
+function appendLoadMore(rendered, total) {
+  if (rendered >= total) return;
+  const wrapper = document.createElement("div");
+  wrapper.className = "load-more-wrap";
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "load-more";
+  button.textContent = `Load more (${total - rendered} remaining)`;
+  wrapper.appendChild(button);
+  document.getElementById("gallery-root")?.appendChild(wrapper);
+}
+
+function applyFilters({ resetPage = true } = {}) {
+  if (resetPage) renderLimit = PAGE_SIZE;
+  lastFiltered = queryConcepts(CONCEPTS, filterState, searchText, AVAILABLE);
+  activeDateField = filterState.view === "recent" || filterState.order === "added"
+    ? "added"
+    : filterState.order === "updated" ? "updated" : null;
+  const rendered = lastFiltered.slice(0, renderLimit);
+  renderGallery(rendered);
+  appendLoadMore(rendered.length, lastFiltered.length);
+  wireVersioners();
+  installLazyObserver();
+  updateLocationFilters();
+  syncControls();
+
+  if (countReadout) {
+    if (filterState.view === "recent") countReadout.textContent = `${lastFiltered.length} recent`;
+    else if (rendered.length < lastFiltered.length) countReadout.textContent = `${rendered.length} of ${lastFiltered.length} loaded`;
+    else countReadout.textContent = `${lastFiltered.length} result${lastFiltered.length === 1 ? "" : "s"}`;
+  }
+}
+
 function initToolbar() {
   const mount = document.getElementById("gallery-root");
   if (!mount) return;
-
   const toolbar = document.createElement("div");
   toolbar.className = "gallery-toolbar";
-  toolbar.setAttribute("role", "search");
-  toolbar.setAttribute("aria-label", "Filter and search concepts");
+  toolbar.setAttribute("role", "region");
+  toolbar.setAttribute("aria-label", "Search and browse concepts");
 
-  // Search input.
   searchInput = document.createElement("input");
   searchInput.type = "search";
   searchInput.className = "concept-search";
-  searchInput.placeholder = "Search names, definitions, topics…";
-  searchInput.setAttribute("aria-label", "Search names, definitions, and topics");
-  toolbar.appendChild(searchInput);
+  searchInput.maxLength = 120;
+  searchInput.placeholder = `Search all ${CONCEPTS.length.toLocaleString()} concepts…`;
+  searchInput.setAttribute("aria-label", "Search all concepts by name, definition, or topic");
 
-  // Curated is the default for the unified taxonomy; date sorts flatten it.
-  sortSelect = document.createElement("select");
-  sortSelect.className = "concept-sort";
-  sortSelect.setAttribute("aria-label", "Sort concepts");
-  [
-    ["newest", "Sort: Newest additions"],
-    ["curated", "Sort: Curated"],
-    ["added", "Sort: Newest first"],
-    ["updated", "Sort: Recently updated"],
-  ].forEach(([value, title]) => {
-    const option = document.createElement("option");
-    option.value = value;
-    option.textContent = title;
-    sortSelect.appendChild(option);
-  });
-  sortSelect.value = sortMode;
-  toolbar.appendChild(sortSelect);
+  const viewTabs = document.createElement("div");
+  viewTabs.className = "view-tabs";
+  viewTabs.setAttribute("role", "group");
+  viewTabs.setAttribute("aria-label", "Gallery view");
+  recentTab = document.createElement("button");
+  recentTab.type = "button";
+  recentTab.className = "view-tab";
+  recentTab.textContent = "Recent";
+  browseTab = document.createElement("button");
+  browseTab.type = "button";
+  browseTab.className = "view-tab";
+  browseTab.textContent = "Browse";
+  viewTabs.append(recentTab, browseTab);
 
-  const sectionGroup = document.createElement("div");
-  sectionGroup.className = "toolbar-group section-filter-group";
-  sectionGroup.setAttribute("role", "group");
-  sectionGroup.setAttribute("aria-label", "Filter by top-level section");
-  const sectionLabel = document.createElement("span");
-  sectionLabel.className = "toolbar-group-label";
-  sectionLabel.textContent = "Sections";
-  sectionGroup.appendChild(sectionLabel);
-  const sectionChips = SECTIONS.map((section) =>
-    makeChip("section", section.id, section.title)
-  );
-  sectionChips.forEach((chip) => {
-    chip.setAttribute("aria-pressed", activeSections.has(chip.dataset.value) ? "true" : "false");
-    sectionGroup.appendChild(chip);
-  });
-  toolbar.appendChild(sectionGroup);
+  filterButton = document.createElement("button");
+  filterButton.type = "button";
+  filterButton.className = "filter-button";
+  filterButton.setAttribute("aria-expanded", "false");
+  filterButton.setAttribute("aria-controls", "gallery-filters");
+  filterButton.append("Filters ");
+  filterBadge = document.createElement("span");
+  filterBadge.className = "filter-button-count";
+  filterBadge.hidden = true;
+  filterButton.appendChild(filterBadge);
 
-  // Category filter: a compact toggle that discloses the chip drawer.
-  // The toggle doubles as the current-selection summary.
-  const categoryGroup = document.createElement("div");
-  categoryGroup.className = "toolbar-group";
-  categoryGroup.setAttribute("role", "group");
-  categoryGroup.setAttribute("aria-label", "Filter by category");
-  catToggle = document.createElement("button");
-  catToggle.type = "button";
-  catToggle.className = "filter-chip cat-toggle";
-  catToggle.setAttribute("aria-expanded", "false");
-  catToggle.setAttribute("aria-controls", "cat-drawer");
-  categoryGroup.appendChild(catToggle);
-  toolbar.appendChild(categoryGroup);
-
-  const catDrawer = document.createElement("div");
-  catDrawer.className = "cat-drawer";
-  catDrawer.id = "cat-drawer";
-  catDrawer.setAttribute("role", "group");
-  catDrawer.setAttribute("aria-label", "Category filters");
-  const categoryChips = CATEGORIES.map((category) =>
-    makeChip("category", category.id, category.title)
-  );
-  categoryChips.forEach((chip) => {
-    chip.setAttribute("aria-pressed", activeCategories.has(chip.dataset.value) ? "true" : "false");
-    catDrawer.appendChild(chip);
-  });
-
-  const syncCategoryAvailability = () => {
-    const narrowed = activeSections.size === 1;
-    categoryChips.forEach((chip) => {
-      const category = CATEGORIES.find((item) => item.id === chip.dataset.value);
-      chip.hidden = narrowed && !activeSections.has(category.section);
-    });
-  };
-  syncCategoryAvailability();
-
-  // The toggle summary reflects the sole isolated category, or "All".
-  const updateCatSummary = () => {
-    const sole =
-      activeCategories.size === 1
-        ? CATEGORIES.find((category) => activeCategories.has(category.id))
-        : null;
-    catToggle.textContent = `Categories: ${sole ? sole.title : "All"} ▾`;
-  };
-  updateCatSummary();
-
-  catToggle.addEventListener("click", () => {
-    const open = catDrawer.classList.toggle("is-open");
-    catToggle.setAttribute("aria-expanded", open ? "true" : "false");
-  });
-
-  // Status filter group.
-  const statusGroup = document.createElement("div");
-  statusGroup.className = "toolbar-group";
-  statusGroup.setAttribute("role", "group");
-  statusGroup.setAttribute("aria-label", "Filter by status");
-  const statusLabel = document.createElement("span");
-  statusLabel.className = "toolbar-group-label";
-  statusLabel.textContent = "Status";
-  statusGroup.appendChild(statusLabel);
-  const statusChips = STATUSES.map((status) =>
-    makeChip("status", status.id, status.title)
-  );
-  statusChips.forEach((chip) => statusGroup.appendChild(chip));
-  toolbar.appendChild(statusGroup);
-
-  // Origin filter group: which agent(s) built or revised the concept.
-  const originGroup = document.createElement("div");
-  originGroup.className = "toolbar-group";
-  originGroup.setAttribute("role", "group");
-  originGroup.setAttribute("aria-label", "Filter by origin");
-  const originLabel = document.createElement("span");
-  originLabel.className = "toolbar-group-label";
-  originLabel.textContent = "Origin";
-  originGroup.appendChild(originLabel);
-  const originChips = ORIGINS.map((origin) =>
-    makeChip("origin", origin.id, origin.title)
-  );
-  originChips.forEach((chip) => originGroup.appendChild(chip));
-  toolbar.appendChild(originGroup);
-
-  // Model filter group: which model tier/family made the contribution.
-  const modelGroup = document.createElement("div");
-  modelGroup.className = "toolbar-group";
-  modelGroup.setAttribute("role", "group");
-  modelGroup.setAttribute("aria-label", "Filter by model");
-  const modelLabel = document.createElement("span");
-  modelLabel.className = "toolbar-group-label";
-  modelLabel.textContent = "Model";
-  modelGroup.appendChild(modelLabel);
-  const modelChips = MODELS.map((model) => makeChip("model", model.id, model.title));
-  modelChips.forEach((chip) => modelGroup.appendChild(chip));
-  toolbar.appendChild(modelGroup);
-
-  // Version filter group: which specific model version made the contribution.
-  const versionGroup = document.createElement("div");
-  versionGroup.className = "toolbar-group";
-  versionGroup.setAttribute("role", "group");
-  versionGroup.setAttribute("aria-label", "Filter by model version");
-  const versionLabel = document.createElement("span");
-  versionLabel.className = "toolbar-group-label";
-  versionLabel.textContent = "Version";
-  versionGroup.appendChild(versionLabel);
-  const versionChips = VERSIONS.map((version) => makeChip("version", version.id, version.title));
-  versionChips.forEach((chip) => versionGroup.appendChild(chip));
-  toolbar.appendChild(versionGroup);
-
-  // Reset button.
-  const reset = document.createElement("button");
-  reset.type = "button";
-  reset.className = "filter-reset";
-  reset.textContent = "Reset";
-  toolbar.appendChild(reset);
-
-  // Count readout.
   countReadout = document.createElement("span");
   countReadout.className = "filter-count";
   countReadout.setAttribute("role", "status");
-  toolbar.appendChild(countReadout);
+  countReadout.setAttribute("aria-live", "polite");
+  countReadout.tabIndex = -1;
 
-  // The chip drawer renders as a full-width row under the controls.
-  toolbar.appendChild(catDrawer);
+  activeFilterRow = document.createElement("div");
+  activeFilterRow.className = "active-filters";
+  activeFilterRow.setAttribute("aria-label", "Active filters");
+  activeFilterRow.hidden = true;
 
+  toolbar.append(searchInput, viewTabs, filterButton, countReadout, activeFilterRow);
   mount.parentNode.insertBefore(toolbar, mount);
+  makeFilterPanel();
 
-  // --- Wiring ---
-  // Debounce the search input a touch so typing stays smooth.
   let searchTimer = null;
   searchInput.addEventListener("input", () => {
     if (searchTimer) clearTimeout(searchTimer);
     searchTimer = setTimeout(() => {
-      searchTerm = searchInput.value.trim().toLowerCase();
-      if (searchTerm && sortMode === "newest") {
-        sortMode = "curated";
-        sortSelect.value = sortMode;
-      }
+      filterState.query = searchInput.value.trim();
+      if (filterState.query) enterBrowseForNarrowing();
       applyFilters();
-    }, 120);
+    }, 160);
   });
-
-  sortSelect.addEventListener("change", () => {
-    sortMode = sortSelect.value;
+  recentTab.addEventListener("click", () => {
+    clearFilters({ keepView: false });
     applyFilters();
   });
-
-  const allChips = sectionChips.concat(categoryChips, statusChips, originChips, modelChips, versionChips);
-
-  sectionChips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const value = chip.dataset.value;
-      const isSoleActive = activeSections.size === 1 && activeSections.has(value);
-      activeSections.clear();
-      if (isSoleActive) SECTIONS.forEach((section) => activeSections.add(section.id));
-      else activeSections.add(value);
-
-      activeCategories.clear();
-      CATEGORIES.forEach((category) => activeCategories.add(category.id));
-      sortMode = "curated";
-      sortSelect.value = "curated";
-      sectionChips.forEach((sectionChip) => {
-        sectionChip.setAttribute("aria-pressed", activeSections.has(sectionChip.dataset.value) ? "true" : "false");
-      });
-      categoryChips.forEach((categoryChip) => categoryChip.setAttribute("aria-pressed", "true"));
-      syncCategoryAvailability();
-      updateCatSummary();
-      updateLocationFilters();
-      applyFilters();
-    });
+  browseTab.addEventListener("click", () => {
+    filterState.view = "browse";
+    filterState.order = "curated";
+    applyFilters();
   });
-
-  // Category chips ISOLATE rather than toggle: clicking one narrows
-  // activeCategories down to just that category. Clicking the same chip
-  // again while it is the sole active category restores the all-on default.
-  // Clicking a different category chip switches the isolation to it.
-  categoryChips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const value = chip.dataset.value;
-      const isSoleActive =
-        activeCategories.size === 1 && activeCategories.has(value);
-
-      activeCategories.clear();
-      if (isSoleActive) {
-        CATEGORIES.forEach((category) => activeCategories.add(category.id));
-      } else {
-        activeCategories.add(value);
-        const category = CATEGORIES.find((item) => item.id === value);
-        activeSections.clear();
-        activeSections.add(category.section);
-      }
-      sortMode = "curated";
-      sortSelect.value = "curated";
-
-      categoryChips.forEach((categoryChip) => {
-        categoryChip.setAttribute(
-          "aria-pressed",
-          activeCategories.has(categoryChip.dataset.value) ? "true" : "false"
-        );
-      });
-      sectionChips.forEach((sectionChip) => {
-        sectionChip.setAttribute("aria-pressed", activeSections.has(sectionChip.dataset.value) ? "true" : "false");
-      });
-      syncCategoryAvailability();
-      updateCatSummary();
-      updateLocationFilters();
-      applyFilters();
-    });
-  });
-
-  // Status chips keep the original toggle (exclude) semantics.
-  statusChips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const pressed = chip.getAttribute("aria-pressed") === "true";
-      const next = !pressed;
-      chip.setAttribute("aria-pressed", next ? "true" : "false");
-      if (next) activeStatuses.add(chip.dataset.value);
-      else activeStatuses.delete(chip.dataset.value);
-      applyFilters();
-    });
-  });
-
-  // Origin chips: same independent toggle (exclude) semantics as status.
-  originChips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const pressed = chip.getAttribute("aria-pressed") === "true";
-      const next = !pressed;
-      chip.setAttribute("aria-pressed", next ? "true" : "false");
-      if (next) activeOrigins.add(chip.dataset.value);
-      else activeOrigins.delete(chip.dataset.value);
-      applyFilters();
-    });
-  });
-
-  // Model / version chips: same independent toggle (exclude) semantics.
-  modelChips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const pressed = chip.getAttribute("aria-pressed") === "true";
-      const next = !pressed;
-      chip.setAttribute("aria-pressed", next ? "true" : "false");
-      if (next) activeModels.add(chip.dataset.value);
-      else activeModels.delete(chip.dataset.value);
-      applyFilters();
-    });
-  });
-
-  versionChips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const pressed = chip.getAttribute("aria-pressed") === "true";
-      const next = !pressed;
-      chip.setAttribute("aria-pressed", next ? "true" : "false");
-      if (next) activeVersions.add(chip.dataset.value);
-      else activeVersions.delete(chip.dataset.value);
-      applyFilters();
-    });
-  });
-
-  reset.addEventListener("click", () => {
-    activeSections.clear();
-    SECTIONS.forEach((section) => activeSections.add(section.id));
-    activeCategories.clear();
-    CATEGORIES.forEach((category) => activeCategories.add(category.id));
-    activeStatuses.clear();
-    STATUSES.forEach((status) => activeStatuses.add(status.id));
-    activeOrigins.clear();
-    ORIGINS.forEach((origin) => activeOrigins.add(origin.id));
-    activeModels.clear();
-    MODELS.forEach((model) => activeModels.add(model.id));
-    activeVersions.clear();
-    VERSIONS.forEach((version) => activeVersions.add(version.id));
-    searchTerm = "";
-    searchInput.value = "";
-    sortMode = "curated";
-    sortSelect.value = "curated";
-    allChips.forEach((chip) => chip.setAttribute("aria-pressed", "true"));
-    syncCategoryAvailability();
-    updateCatSummary();
-    updateLocationFilters();
+  filterButton.addEventListener("click", openFilterPanel);
+  activeFilterRow.addEventListener("click", (event) => {
+    if (event.target.closest(".active-filter-clear")) {
+      clearFilters();
+    } else {
+      const button = event.target.closest(".active-filter");
+      if (!button) return;
+      const key = button.dataset.clear;
+      if (key === "query") filterState.query = "";
+      else if (key === "section") filterState.section = "";
+      else if (key === "category") {
+        filterState.category = "";
+        filterState.section = "";
+      } else filterState[key].delete(button.dataset.value);
+    }
     applyFilters();
   });
 }
@@ -967,6 +942,13 @@ function buildSnippet(card, concept) {
 
 // Delegated click handler on the persistent #gallery-root (attached once).
 async function handleGalleryClick(event) {
+  const loadMore = event.target.closest(".load-more");
+  if (loadMore) {
+    renderLimit += PAGE_SIZE;
+    applyFilters({ resetPage: false });
+    (document.querySelector(".load-more") || countReadout)?.focus?.();
+    return;
+  }
   const button = event.target.closest(".concept-copy");
   if (!button) return;
 
@@ -1017,15 +999,8 @@ function wireCopyDelegation() {
 function init() {
   applyLocationFilters();
   initToolbar();
-  ensureNewestBanner();
   ensureLiveRegion();
   wireCopyDelegation();
-  // Insert the banner before the toolbar (toolbar is now in the DOM).
-  const mount = document.getElementById("gallery-root");
-  const toolbar = document.querySelector(".gallery-toolbar");
-  if (newestBanner && mount && mount.parentNode) {
-    mount.parentNode.insertBefore(newestBanner, toolbar || mount);
-  }
   applyFilters();
 }
 

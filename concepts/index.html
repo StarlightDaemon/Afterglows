@@ -47,6 +47,10 @@
             align-items: center;
         }
 
+        main {
+            width: 100%;
+        }
+
         h1 {
             margin-bottom: 16px;
             text-transform: uppercase;
@@ -99,36 +103,28 @@
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content: center;
-            gap: 12px 18px;
+            justify-content: flex-start;
+            gap: 12px;
             width: 100%;
             max-width: 1400px;
-            margin: 0 0 40px;
-        }
-
-        .toolbar-group {
-            display: inline-flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .toolbar-group-label {
-            color: #7a7a7a;
-            font-size: 0.62rem;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
+            margin: 0 0 32px;
+            padding: 14px;
+            border: 1px solid rgba(130, 130, 130, 0.25);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.48);
         }
 
         .concept-search {
-            min-width: 200px;
-            padding: 8px 12px;
+            flex: 1 1 320px;
+            min-width: 240px;
+            min-height: 44px;
+            padding: 10px 14px;
             border: 1px solid #2d2d2d;
             border-radius: 4px;
             background: #000;
             color: #d8d8d8;
-            font-family: monospace;
-            font-size: 0.8rem;
+            font-family: var(--ag-font, monospace);
+            font-size: 0.875rem;
             caret-color: var(--accent);
         }
 
@@ -142,95 +138,292 @@
             box-shadow: 0 0 6px rgba(0, 204, 0, 0.35);
         }
 
-        .filter-chip,
-        .filter-reset {
+        .view-tabs {
             display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-            padding: 4px 12px;
-            /* 44px is the minimum recommended touch target; the label
-               text alone is only ~23px tall, so pad the box, not the text. */
+            border: 1px solid #2d2d2d;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .view-tab,
+        .filter-button,
+        .filter-close,
+        .filter-clear,
+        .filter-done,
+        .active-filter,
+        .active-filter-clear,
+        .load-more {
             min-height: 44px;
             min-width: 44px;
             border: 1px solid rgba(130, 130, 130, 0.35);
-            border-radius: 999px;
             background: transparent;
-            color: #9a9a9a;
-            font-family: monospace;
-            font-size: 0.68rem;
-            letter-spacing: 0.6px;
-            text-transform: uppercase;
+            color: #aaa;
+            font-family: var(--ag-font, monospace);
+            font-size: 0.875rem;
             cursor: pointer;
             transition: border-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
         }
 
-        .filter-chip[aria-pressed="true"] {
+        .view-tab {
+            padding: 8px 14px;
+            border: 0;
+            border-radius: 0;
+        }
+
+        .view-tab + .view-tab {
+            border-left: 1px solid #2d2d2d;
+        }
+
+        .view-tab[aria-pressed="true"] {
+            background: rgba(var(--ag-color-rgb, 0, 204, 0), 0.12);
+            color: var(--accent);
+        }
+
+        .filter-button {
+            padding: 8px 14px;
+            border-radius: 5px;
+        }
+
+        .filter-button:hover,
+        .filter-button[aria-expanded="true"] {
             border-color: rgba(0, 204, 0, 0.55);
             color: #8de08d;
             box-shadow: 0 0 6px rgba(0, 204, 0, 0.25);
         }
 
-        .filter-reset {
-            border-style: dashed;
-            border-color: rgba(130, 130, 130, 0.3);
-            color: #7a7a7a;
+        .filter-button-count {
+            display: inline-grid;
+            place-items: center;
+            min-width: 20px;
+            height: 20px;
+            margin-left: 4px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #001800;
+            font-size: 0.72rem;
+            font-weight: 700;
         }
 
-        .filter-chip:focus-visible,
-        .filter-reset:focus-visible,
-        .concept-search:focus-visible {
+        .filter-button-count[hidden] {
+            display: none;
+        }
+
+        .view-tab:focus-visible,
+        .filter-button:focus-visible,
+        .filter-close:focus-visible,
+        .filter-clear:focus-visible,
+        .filter-done:focus-visible,
+        .active-filter:focus-visible,
+        .active-filter-clear:focus-visible,
+        .load-more:focus-visible,
+        .concept-search:focus-visible,
+        .filter-select:focus-visible,
+        .filter-check input:focus-visible + span,
+        .technical-filters summary:focus-visible {
             outline: 2px solid var(--accent);
             outline-offset: 2px;
         }
 
         .filter-count {
+            margin-left: auto;
             color: #7a7a7a;
-            font-size: 0.7rem;
-            letter-spacing: 0.6px;
+            font-size: 0.8125rem;
+            white-space: nowrap;
         }
 
-        .concept-sort {
+        .active-filters {
+            display: flex;
+            flex: 1 0 100%;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-top: 2px;
+        }
+
+        .active-filters[hidden] {
+            display: none;
+        }
+
+        .active-filter,
+        .active-filter-clear {
+            min-height: 44px;
+            max-width: 100%;
+            padding: 5px 11px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+        }
+
+        .active-filter {
+            border-color: rgba(0, 204, 0, 0.45);
+            color: #8de08d;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .active-filter-clear {
+            border-style: dashed;
+            color: #888;
+        }
+
+        .filter-layer {
+            position: fixed;
+            inset: 56px 0 0;
+            z-index: 2147481000;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .filter-layer[hidden] {
+            display: none;
+        }
+
+        .filter-scrim {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            border: 0;
+            background: rgba(0, 0, 0, 0.68);
+            cursor: default;
+        }
+
+        .filter-panel {
+            position: relative;
+            width: min(440px, 100%);
+            height: 100%;
+            box-sizing: border-box;
+            overflow-y: auto;
+            padding: 24px;
+            border-left: 1px solid var(--accent);
+            background: color-mix(in srgb, var(--bg) 94%, black);
+            box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55);
+        }
+
+        body.filters-open {
+            overflow: hidden;
+        }
+
+        .filter-panel-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 26px;
+        }
+
+        .filter-panel h2 {
+            margin: 0 0 6px;
+            color: var(--accent);
+            font-size: 1.15rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .filter-panel p {
+            margin: 0;
+            color: #888;
+            font-size: 0.8125rem;
+            line-height: 1.5;
+        }
+
+        .filter-close {
+            flex: 0 0 44px;
+            border-radius: 4px;
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .filter-form,
+        .filter-field {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .filter-form {
+            gap: 20px;
+        }
+
+        .filter-field > span,
+        .filter-check-group legend {
+            color: #aaa;
+            font-size: 0.8125rem;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .filter-select {
+            width: 100%;
+            min-height: 44px;
             padding: 8px 10px;
-            border: 1px solid #2d2d2d;
+            border: 1px solid #353535;
             border-radius: 4px;
             background: #000;
-            color: #d8d8d8;
-            font-family: monospace;
-            font-size: 0.72rem;
+            color: #ddd;
+            font-family: var(--ag-font, monospace);
+            font-size: 0.875rem;
+        }
+
+        .technical-filters {
+            padding: 0;
+            border-top: 1px solid #292929;
+            border-bottom: 1px solid #292929;
+        }
+
+        .technical-filters summary {
+            min-height: 44px;
+            padding: 14px 2px;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .filter-check-group {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px 12px;
+            margin: 4px 0 20px;
+            padding: 0;
+            border: 0;
+        }
+
+        .filter-check-group legend {
+            grid-column: 1 / -1;
+            margin-bottom: 4px;
+        }
+
+        .filter-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 36px;
+            color: #aaa;
+            font-size: 0.8125rem;
             cursor: pointer;
         }
 
-        .concept-sort:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 6px rgba(0, 204, 0, 0.35);
+        .filter-check input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
         }
 
-        .concept-sort:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
-        /* The category toggle shares the chip look; it lights up while the
-           drawer is open. */
-        .cat-toggle[aria-expanded="true"] {
-            border-color: rgba(0, 204, 0, 0.55);
-            color: #8de08d;
-            box-shadow: 0 0 6px rgba(0, 204, 0, 0.25);
-        }
-
-        /* Full-width chip drawer below the toolbar controls. */
-        .cat-drawer {
-            display: none;
-            flex-basis: 100%;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .cat-drawer.is-open {
+        .filter-panel-actions {
             display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 4px;
+        }
+
+        .filter-clear,
+        .filter-done {
+            flex: 1;
+            padding: 8px 14px;
+            border-radius: 4px;
+        }
+
+        .filter-done {
+            border-color: rgba(0, 204, 0, 0.55);
+            color: var(--accent);
         }
 
         /* Date badge shown on cards under the date sorts. */
@@ -473,58 +666,84 @@
             }
         }
 
-        /* Wave 2: Newest-additions landing banner */
-        .newest-banner {
+        .load-more-wrap {
             display: flex;
-            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
             gap: 14px;
             width: 100%;
-            max-width: 1400px;
-            margin: 0 0 20px;
-            padding: 10px 18px;
-            border: 1px solid rgba(0, 204, 0, 0.3);
-            border-radius: 6px;
-            background: rgba(0, 204, 0, 0.04);
-            color: #8de08d;
-            font-size: 0.78rem;
-            letter-spacing: 0.5px;
+            margin: 12px 0 48px;
         }
 
-        .newest-banner-icon {
-            color: var(--accent);
-            font-size: 0.7rem;
-        }
-
-        .newest-banner-text {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .newest-browse-all {
-            padding: 5px 14px;
-            border: 1px solid rgba(0, 204, 0, 0.5);
+        .load-more {
+            padding: 9px 18px;
             border-radius: 999px;
-            background: transparent;
             color: var(--accent);
-            font-family: monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.6px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 120ms ease, box-shadow 120ms ease;
         }
 
-        .newest-browse-all:hover {
-            background: rgba(0, 204, 0, 0.12);
+        .load-more:hover {
+            border-color: var(--accent);
             box-shadow: 0 0 8px rgba(0, 204, 0, 0.25);
         }
 
-        .newest-browse-all:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
+        .gallery-guide {
+            max-width: 900px;
+            margin: 8px auto 0;
+            color: #8f8f8f;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .gallery-guide summary {
+            min-height: 44px;
+            cursor: pointer;
+            color: #aaa;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            h1 {
+                font-size: 1.45rem;
+                text-align: center;
+            }
+
+            .gallery-note {
+                margin-top: 20px;
+            }
+
+            .gallery-toolbar {
+                padding: 10px;
+            }
+
+            .concept-search {
+                flex-basis: 100%;
+                min-width: 0;
+            }
+
+            .filter-count {
+                flex: 1;
+                text-align: right;
+            }
+
+            .filter-panel {
+                width: 100%;
+                padding: 20px 18px;
+                border-left: 0;
+                border-top: 1px solid var(--accent);
+            }
+
+            .filter-check-group {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 24px 16px;
+            }
         }
     </style>
     <script type="module" src="./gallery/index.js"></script>
@@ -535,21 +754,19 @@
     <main id="main">
     <h1>Animation Concepts Archive</h1>
 
-    <p class="gallery-note">1,000 reusable motion studies in one catalog, organized into 13 disciplines and 66 definitive categories.</p>
+    <p class="gallery-note">The latest additions are ready to explore. Search the full archive or browse by topic when you want to narrow in.</p>
 
     <noscript><p style="color:#8f8f8f">This gallery renders animated web components with JavaScript, which appears to be disabled.</p></noscript>
     <div id="gallery-root"></div>
-    <div class="gallery-note">
-        Tile status now tracks the refresh cycle directly on the page. Use <strong>Original v1</strong> for untouched archive concepts,
-        <strong>Refined v2</strong> for rebuilt concepts, and <strong>New v1</strong> for concepts added during the current expansion.
-        Future revisions can keep incrementing the version number on the same tile. Tiles with version history now default to the latest version and can be clicked to cycle through older ones.
+    <details class="gallery-guide">
+        <summary>About versions and reuse</summary>
+        <p>Badges preserve each study’s revision history. Versioned tiles open on the latest design; activate the tile or its dots to compare earlier versions. Use <strong>Copy</strong> for an embed snippet or <strong>Source</strong> to inspect the component.</p>
         <div class="version-legend">
-            <span class="meta-badge meta-status-original">Original v1</span>
-            <span class="meta-badge meta-status-refined">Refined v2</span>
-            <span class="meta-badge meta-status-new">New v1</span>
-            <span class="meta-badge meta-status-color">With Color v3</span>
+            <span class="meta-badge meta-status-refined">Refined</span>
+            <span class="meta-badge meta-status-new">New</span>
+            <span class="meta-badge meta-status-color">With Color</span>
         </div>
-    </div>
+    </details>
     </main>
 
 </body>

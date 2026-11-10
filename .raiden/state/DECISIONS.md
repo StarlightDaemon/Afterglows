@@ -1,5 +1,47 @@
 # Decisions
 
+## D-016
+
+- Date: 2026-11-10
+- Status: Authorized by the operator; release in progress
+- Decision: Publish D-015 with a lockfile-only dependency remediation. Pushes
+  to `main` have failed `npm audit --audit-level=high` since 2026-10-21 (run
+  `39556752011`) because of dev-only `follow-redirects@1.16.0`
+  (http-server → http-proxy). PR #2 bumped to 1.16.1, which remains inside
+  GHSA-mrwp-f3q8-3g9p (<=1.16.1), so it is superseded rather than merged.
+- Changes: `follow-redirects` 1.16.3 and `qs` 6.17.1 in `package-lock.json`
+  only (clears the high advisories and the moderate qs advisory); the Filters
+  button count badge now honors `[hidden]` so no empty dot appears when no
+  filters are active.
+- Verification before push: `npm audit` reports zero vulnerabilities; `npm
+  test`, security, build and site checks pass; local browser preview showed no
+  console errors.
+- Scope: commit and push to `main`, close PR #2 as superseded, delete the merged
+  PR #1 branch and verify production.
+
+## D-015
+
+- Date: 2026-09-09
+- Status: Implemented and verified locally; not committed or published
+- Decision: Replace the public gallery's always-visible filter inventory with
+  progressive disclosure. The default view is the latest 36 additions; Search,
+  Recent/Browse, Filters and the result count are the only persistent controls.
+  Topic, ordering and provenance remain available in an off-canvas filter sheet.
+- Behavior: Search and new topic selections move from Recent into the full
+  catalog ordered newest-first. Browse opens the curated taxonomy. Active state
+  is summarized in removable pills and serialized into validated query
+  parameters; legacy section/category links remain valid. Full result sets
+  render in 60-card increments.
+- Rationale: Taxonomy and provenance remain valuable, but exposing 13 discipline
+  chips and all production metadata before the gallery made the archive harder
+  to scan. View, order, query and filters now have separate semantics.
+- Verification: Added adversarial query tests and exercised default Recent,
+  exact and hostile search, curated Browse, progressive loading, topic and date
+  ordering, provenance tuples, empty state, reset, URL restoration/sanitization,
+  keyboard dismissal/focus containment, narrow layout, version cycling and Copy.
+  Full test, build, site and security checks pass with no browser errors.
+- Scope: Local implementation only. No commit, push or deployment is inferred.
+
 ## D-014
 
 - Date: 2026-09-09

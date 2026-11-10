@@ -102,9 +102,17 @@ the prefixes identify their implementation lineage, not separate galleries.
 Counts describe the active gallery. Five retired records remain preserved.
 The current closeout and evidence are in `.raiden/state/SNAPSHOTS/gallery-final-thousand/`.
 
-The gallery accepts deep links through `section` and `category` query
-parameters, for example `/concepts/?section=physics` and
-`/concepts/?section=physics&category=electromagnetism`.
+The gallery opens on the latest 36 additions. Search covers the full catalog;
+**Browse** exposes the curated taxonomy, and **Filters** contains the single-topic
+picker, ordering, and collapsed technical metadata controls. Large result sets
+render in 60-card increments so browsing the full archive does not create all
+1,000 card shells at once.
+
+Gallery state is shareable through query parameters. Existing `section` and
+`category` deep links remain supported, for example `/concepts/?section=physics`
+and `/concepts/?section=physics&category=electromagnetism`. The interface also
+records `view`, `q`, `sort`, `status`, `origin`, `model`, and `version` when those
+choices are active; unknown values are discarded on load.
 
 ## Reusing a concept
 
