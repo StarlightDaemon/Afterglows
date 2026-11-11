@@ -1,5 +1,18 @@
 # Work Log
 
+## 2026-11-10 — Release v2.0.0
+
+- Tagged the untagged work since `v1.10.0` as **v2.0.0** at operator request.
+  Major per SemVer: the 2026-09-07 unification moved all 660 published
+  module URLs to category paths and removed `/physics/` and
+  `/concepts/header-animation-concepts.html` without redirects (verified 404
+  in production), breaking existing embeds.
+- CHANGELOG: `[Unreleased]` became `[2.0.0] - 2026-11-10` with a Breaking
+  section and upgrade guidance; added the missing `[1.10.0]` and new
+  `[2.0.0]` link references. `package.json` and the lockfile are 2.0.0.
+- Annotated tag `v2.0.0` points at the release commit; no GitHub Release
+  object (the project records versions as tags only).
+
 ## 2026-11-10 — Audit triage: F-01 and F-06 (D-017)
 
 - F-01: replaced `http-server` with `scripts/serve-site.js` (loopback only,

@@ -15,10 +15,26 @@ trail some of these entries reference.
 
 ## [Unreleased]
 
-Everything in this section is live on the site but not yet tagged. It shipped
-in production releases `6c0fe58` (2026-09-09) and `2d9db68` (2026-11-10).
-Statements below that a change was "local only" describe the state when that
-entry was written.
+## [2.0.0] - 2026-11-10
+
+This release tags work that reached production before it was versioned, in
+deploys `6c0fe58` (2026-09-09), `2d9db68` (2026-11-10) and the maintenance
+commits that followed. Statements below that a change was "local only"
+describe the state when that entry was written.
+
+### Breaking
+- Concept module URLs now follow the category tree
+  (`/concepts/gallery/concepts/<discipline>/<category>/<name>-concept.js`).
+  The 660 flat module URLs published in 1.10.0, such as
+  `/concepts/gallery/concepts/abduction-concept.js`, return 404; update any
+  embed `<script src>` to the URL the gallery's **Copy** button now provides.
+  Custom-element tag names are unchanged.
+- The standalone `/physics/` gallery and
+  `/concepts/header-animation-concepts.html` were removed without redirects.
+  Both collections live in the unified gallery at `/concepts/`; legacy
+  `section`/`category` deep links into it keep working.
+- The `http-server` devDependency was removed; `npm start` now runs the
+  built-in `scripts/serve-site.js`.
 
 ### Repository maintenance — 2026-11-10
 - Made live location references relative to the repository root; RAIDEN and
@@ -605,6 +621,8 @@ against.
 At this point Afterglows and Stargate were not yet split into separate
 projects — see [1.0.0](#100) for that milestone.
 
+[2.0.0]: #200---2026-11-10
+[1.10.0]: #1100---2026-08-20
 [1.9.0]: #190---2026-08-17
 [1.8.1]: #181---2026-07-24
 [1.8.0]: #180---2026-07-24
