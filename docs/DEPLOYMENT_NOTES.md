@@ -38,7 +38,8 @@ The GitHub Pages configuration should remain aligned with this repository:
 - Run `npm run site:check` after the build to verify internal paths, canonical metadata, social preview and favicon assets, sitemap coverage, and the custom 404 page.
 - Run `npm run security:check` after changing a CSP or inline script. Inline Matrix/CRT scripts use CSP hashes, so intentional changes require updating the matching hash.
 - Theme fonts are first-party assets under `assets/fonts/`; public CSPs restrict `font-src` to `'self'`. Keep the WOFF2 files and their bundled OFL notices in the Pages artifact.
-- The local development server binds only to `127.0.0.1`, disables CORS and directory listings, and refuses dotfiles. Do not weaken those defaults for routine previewing.
+- The local development server (`scripts/serve-site.js`, no dependencies) binds only to `127.0.0.1`, disables CORS, caching and directory listings, refuses dotfiles and paths outside `dist/`, and serves the custom 404 page. `npm test` covers that behavior and `npm run security:check` pins the bind address. Do not weaken those defaults for routine previewing.
+- Concept modules have a 150 KB gzip transfer budget enforced by `npm test` (`scripts/test-module-budget.js`). Generate repeated geometry at runtime rather than inlining precomputed frames; two pre-budget modules are hash-pinned exemptions.
 - Do not use `your-username.github.io/Afterglows/` placeholders in current Afterglows docs.
 - If another repository links to Afterglows, treat that as a consumer, not the deployment owner.
 - GitHub UI settings and DNS records are external to this repository and must be maintained separately.

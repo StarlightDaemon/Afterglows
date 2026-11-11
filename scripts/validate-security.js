@@ -126,11 +126,21 @@ for (const match of settingsCss.matchAll(/src:\s*url\(['"]?([^'")]+\.woff2)['"]?
 
 const packageJson = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
 const devCommand = packageJson.scripts?.dev ?? '';
-for (const required of ['http-server dist', '-a 127.0.0.1', '-d false', '--no-dotfiles']) {
-    if (!devCommand.includes(required)) errors.push(`package.json: dev command is missing ${required}`);
+// The local preview is the dependency-free scripts/serve-site.js; its request
+// handling (dotfiles, traversal, listings, CORS) is covered by
+// scripts/test-serve-site.js. These checks pin the command and the bind address.
+if (devCommand !== 'node scripts/serve-site.js') {
+    errors.push('package.json: dev command must be "node scripts/serve-site.js"');
 }
 for (const forbidden of ['npx ', '--cors']) {
     if (devCommand.includes(forbidden)) errors.push(`package.json: dev command must not contain ${forbidden.trim()}`);
+}
+const previewServer = fs.readFileSync(path.join(projectRoot, 'scripts', 'serve-site.js'), 'utf8');
+if (!previewServer.includes('export const HOST = "127.0.0.1";') || !previewServer.includes('server.listen(port, HOST,')) {
+    errors.push('scripts/serve-site.js: preview server must listen on 127.0.0.1 only');
+}
+if (/Access-Control-Allow-/i.test(previewServer)) {
+    errors.push('scripts/serve-site.js: preview server must not send CORS headers');
 }
 
 if (errors.length > 0) {

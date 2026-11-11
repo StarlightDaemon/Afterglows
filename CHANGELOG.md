@@ -29,6 +29,11 @@ entry was written.
 - Documented the audit tooling setup in `.audits/tooling/README.md` and pointed
   its reusable capture tools at the unified gallery.
 - Aligned `package.json` with the existing `v1.10.0` tag.
+- Replaced the `http-server` devDependency with the dependency-free
+  `scripts/serve-site.js` preview server; the project now has no npm
+  dependencies, so dev-only advisories can no longer block deploys.
+- Added a 150 KB gzip budget for concept modules to `npm test`, with the two
+  pre-budget modules (LVDT, phased array) pinned as hash exemptions.
 
 ### Gallery navigation and dependency remediation — 2026-11-10
 - The concepts gallery now opens on the 36 newest studies, with Search,

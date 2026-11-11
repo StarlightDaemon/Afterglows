@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build-site.js",
-    "dev": "http-server dist -p 3000 -a 127.0.0.1 -c-1 -d false --no-dotfiles",
+    "dev": "node scripts/serve-site.js",
     "predev": "npm run build",
     "security:check": "node scripts/validate-security.js",
     "site:check": "node scripts/validate-site.js",
     "start": "npm run dev",
-    "test": "node scripts/validate-gallery.js && node scripts/test-gallery-baseline.js && node scripts/test-resumption-preservation.js && node scripts/test-module-queue.js && node scripts/test-module-retry.js && node scripts/test-nixie-lifecycle.js && node scripts/test-provenance.js && node scripts/test-gallery-query.js && node scripts/test-copy-fallback.js",
+    "test": "node scripts/validate-gallery.js && node scripts/test-gallery-baseline.js && node scripts/test-resumption-preservation.js && node scripts/test-module-queue.js && node scripts/test-module-retry.js && node scripts/test-nixie-lifecycle.js && node scripts/test-provenance.js && node scripts/test-gallery-query.js && node scripts/test-copy-fallback.js && node scripts/test-serve-site.js && node scripts/test-module-budget.js",
     "gallery:acceptance": "node scripts/validate-expansion-complete.js"
   },
   "keywords": [
@@ -20,8 +20,5 @@
     "css"
   ],
   "author": "StarlightDaemon",
-  "license": "MIT",
-  "devDependencies": {
-    "http-server": "^14.1.1"
-  }
+  "license": "MIT"
 }

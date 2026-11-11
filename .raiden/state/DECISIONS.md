@@ -1,5 +1,32 @@
 # Decisions
 
+## D-017
+
+- Date: 2026-11-10
+- Status: Implemented; operator authorized both triage outcomes
+- Context: Workspace audit `7acd6ca` findings F-01 and F-06 (speculative
+  triage).
+- F-01 decision — act: replace the `http-server` devDependency with the
+  dependency-free `scripts/serve-site.js`, modelled on the existing
+  `serve-gallery-qa.js`. `http-server` served only `npm start`, yet its
+  48-package dev tree (several pinned majors behind) was the sole path by which
+  an advisory could fail the deploy audit gate, as it did 2026-10-21 to
+  2026-11-10. The upstream repository is active but has not published since
+  2022-05-31. The project now has zero npm dependencies. Loopback binding,
+  dotfile/traversal refusal, no listings, no CORS and no caching are covered
+  by `scripts/test-serve-site.js`; `validate-security.js` pins the command and
+  bind address.
+- F-06 decision — accept existing modules, prevent recurrence: most large
+  modules are repetitive and compress 25–150× (Schelling 711 KB → 26 KB on the
+  wire); only LVDT (330 KB gzipped, precomputed `path()` keyframes) and phased
+  array (161 KB) are materially heavy, both load lazily and neither is in the
+  default view. Their sources are byte-preserved, and a lighter version in the
+  same file would not reduce transfer, so a rewrite is not justified.
+  `scripts/test-module-budget.js` enforces a 150 KB gzip budget on every
+  concept module, exempting only those two by SHA-256.
+- Revisit: if a visual-standard wave revisits LVDT or phased array, generate
+  their waveform frames at runtime and drop the exemption.
+
 ## D-016
 
 - Date: 2026-11-10

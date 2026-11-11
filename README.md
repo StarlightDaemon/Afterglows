@@ -44,7 +44,7 @@ release artifact does not contact Google Fonts.
 
 ### Development and deployment
 
-- `npm start` serves a loopback-only local preview with dotfiles, directory listings, and CORS disabled.
+- `npm start` builds `dist/` and serves it at `http://127.0.0.1:3000/` through the dependency-free `scripts/serve-site.js`: loopback only, with dotfiles, directory listings, CORS, and caching disabled, and the custom 404 page for unknown paths. Pass `-- --port <n>` or set `PORT` to change the port. The project has no npm dependencies, so `npm ci` installs nothing.
 - `npm test` validates the gallery manifests and concept modules.
 - `npm run security:check` verifies public-page CSP coverage and shared-script safety invariants.
 - `npm run build` creates the allowlisted `dist/` artifact used by GitHub Pages. Operational directories and repository metadata are deliberately excluded.

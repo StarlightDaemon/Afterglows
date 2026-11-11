@@ -1,5 +1,21 @@
 # Work Log
 
+## 2026-11-10 — Audit triage: F-01 and F-06 (D-017)
+
+- F-01: replaced `http-server` with `scripts/serve-site.js` (loopback only,
+  dist/ only, no dotfiles, listings, CORS or caching, custom 404, directory
+  trailing-slash redirects). Added `scripts/test-serve-site.js` covering
+  traversal (raw, encoded and backslash), hidden paths, scheme-relative
+  requests, NUL bytes, methods and headers; updated `validate-security.js`.
+  `npm uninstall` removed all 48 packages; the lockfile has no dependencies.
+  Dropped `cache: npm` from both workflows since nothing is installed.
+- F-06: measured all 1,006 modules (p50 6.5 KB, p90 45 KB raw); only LVDT and
+  phased array exceed 150 KB gzipped. Added `scripts/test-module-budget.js`
+  with those two hash-pinned; a probe file confirmed the budget fails as
+  intended. No preserved source changed.
+- Updated README, DEPLOYMENT_NOTES and CHANGELOG. The operator's untracked
+  `.claude/launch.json` now previews through `npm run dev`.
+
 ## 2026-11-10 — Workspace audit remediation (F-02 to F-05)
 
 - Ran the workspace audit at `7acd6ca` (report
