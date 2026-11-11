@@ -1,5 +1,18 @@
 # Work Log
 
+## 2026-11-10 — 2.0 closeout
+
+- Confirmed the v2.0.0 breaking changes are intentional under D-004 and
+  documented, not reverted: no sibling repository on the operator's drive and
+  no public GitHub code references the retired URLs, so no compatibility shims
+  were added. Embeds use `<script type="module">`, so one-line import shims
+  remain possible if a consumer surfaces.
+- Production and GitHub health-checked (routes, 404, HTTPS redirect,
+  certificate, Pages config, PRs, issues, alerts, branches); all healthy.
+- Rewrote `CURRENT_STATE.md` for v2.0.0: removed stale claims (local-only
+  gallery, npm dependency tree, `node_modules`, port-3022 review server) and
+  condensed history into pointers. Stopped the local preview server.
+
 ## 2026-11-10 — Release v2.0.0
 
 - Tagged the untagged work since `v1.10.0` as **v2.0.0** at operator request.

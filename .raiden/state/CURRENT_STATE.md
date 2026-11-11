@@ -1,11 +1,13 @@
 # Current State
 
 **Branch:** main
-**Deployment:** The 1,000-active gallery is live at https://afterglows.starlightdaemon.dev/concepts/. Release `6c0fe58a88b97f967b124365917d0e7592cd048e` passed GitHub Pages build/deploy and production verification under D-014. See `SNAPSHOTS/gallery-live-release/report.md`.
-**Latest release (2026-11-10):** Gallery navigation refinement D-015 and the
-lockfile-only dependency remediation are live under D-016 at
-`2d9db686b6eb4680ae000a742fc38de0c31e1491` (Pages run `42884423764`). This
-cleared the deploy block present since 2026-10-21; PR #2 is closed as superseded.
+**Release:** **v2.0.0** (2026-11-10) — annotated tag on `ad75ba9`, published as
+the GitHub Release "v2.0.0 — Unified 1,000-study gallery" (marked Latest).
+**Deployment:** Live at https://afterglows.starlightdaemon.dev/ through the
+allowlisted GitHub Actions Pages workflow; every push to `main` deploys.
+Production was health-checked at 2026-11-10 closeout (see below).
+**Engagement:** The 2.0 work is closed out. No loops are open; the deferred
+campaign backlog below resumes only on a new operator instruction.
 
 ---
 
@@ -21,65 +23,70 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 
 - **Matrix Code** (`matrix_code/`) — standalone CSS/JS library for digital rain, cyberpunk typography, and terminal aesthetics.
 - **Retro** (`retro/`) — high-fidelity CRT monitor simulation toolkit (scanlines, phosphor persistence, screen curvature).
-- **Concepts** (`concepts/`) — the single catalog of reusable animation concepts, organized by discipline and definitive category; gallery modularized and versioned.
+- **Concepts** (`concepts/`) — the single catalog of reusable animation concepts:
+  **1,000 active / 1,005 preserved** studies (five retired) in 13 sections and
+  66 categories; gallery modularized and versioned.
 
 ---
 
 ## Confirmed Current State
 
-- The local Concepts gallery now defaults to the latest 36 studies with only
-  Search, Recent/Browse, Filters and result count exposed. Topic, order and
-  provenance use a responsive filter sheet; shareable state is validated,
-  legacy deep links remain valid and large result sets render progressively.
+- **Gallery (D-015, live):** `/concepts/` opens on the latest 36 studies with
+  only Search, Recent/Browse, Filters and result count exposed. Topic, order and
+  provenance use a responsive filter sheet; shareable URL state is validated,
+  legacy `section`/`category` deep links remain valid and large result sets
+  render progressively.
+- **Catalog (D-004):** the Concepts manifest and taxonomy are the authoritative
+  inventory. The former Physics collection uses the same catalog and renderer;
+  component tags are stable while source paths follow the unified taxonomy.
+  The standalone `/physics/` gallery and the 660 flat module URLs from v1.10.0
+  are retired and return the branded 404 — a deliberate, documented breaking
+  change in v2.0.0. No local or public GitHub consumer of the old URLs was found
+  at closeout, so no compatibility shims were added.
+- **Publishing:** the build ships an explicit allowlist (`scripts/build-site.js`);
+  repository-only paths return 404 in production. Workflow actions are pinned to
+  commit SHAs and kept current by `.github/dependabot.yml`. HTTPS is enforced on
+  the custom domain.
+- **Dependencies (D-017):** the project has **no npm dependencies**; `npm ci`
+  installs nothing and the deploy's `npm audit --audit-level=high` gate cannot
+  be blocked by dev tooling. `npm start` builds and serves `dist/` through the
+  dependency-free, loopback-only `scripts/serve-site.js`.
+- **Checks:** `npm test` (11 suites, including preview-server behavior and a
+  150 KB gzip budget per concept module with two hash-pinned exemptions),
+  `npm run security:check`, `npm run build` and `npm run site:check` all run in
+  CI before every deploy.
+- Core theme fonts are vendored under `assets/fonts/` with their licenses; the
+  deployed artifact has no Google Fonts runtime dependency.
+- Location references are relative to the repository root; RAIDEN and Stargate
+  locations live in `.raiden/local/README.md`. Stargate is its own standalone
+  repo.
+- Audit tooling under `.audits/tooling/` is documented in its README; its
+  `puppeteer-core` install is local to that directory and gitignored.
 
-- Site deployed through the allowlisted GitHub Actions Pages workflow (CNAME configured); repository-only paths are excluded from the public artifact.
-- Core theme fonts are vendored under `assets/fonts/`; the deployed artifact has no Google Fonts runtime dependency.
-- Locked npm dependency graph reports zero known vulnerabilities after updating
-  transitive `qs` to 6.16.0.
-- The Concepts manifest and taxonomy are the authoritative catalog inventory.
-  The former Physics collection uses the same catalog and renderer; component
-  tags remain stable while source paths follow the unified taxonomy (D-004).
-- Stargate removed from Afterglows; it now lives in its own standalone repo (`../Citadel/Stargate/` from this repo root; see `.raiden/local/README.md`).
-- Dead Stargate UI hooks and dead media/sound code removed.
-- `backups/` directory excluded from git (local `.gitignore` entry).
-- `node_modules/` present (npm project); excluded from git.
+## 2.0 closeout (2026-11-10)
 
-- The operator-scoped gallery expansion is reviewed, validated, and locally
-  committed. Implementation checkpoint:
-  `5f50f196d314e472398c64c44ef636f83698c290`. Publication was deferred at that
-  historical checkpoint and is now authorized under D-014. See
-  `SNAPSHOTS/gallery-expansion/closeout-report.md` for verification and limitations.
+- Workspace audit at `7acd6ca`: 0 Critical/High/Medium, 6 Low, 11 Info. All six
+  Low findings are resolved: F-02–F-05 fixed, F-01 implemented and F-06 accepted
+  with a size budget (D-017). The report and summaries are in gitignored,
+  protocol-owned files (`audit-reports/`, `AUDIT_LOG.md`, `last-audit.md`).
+- Production health at closeout: sitemap routes, `robots.txt`, `sitemap.xml`,
+  social card and favicons return 200; unknown paths serve the branded 404;
+  HTTP redirects to HTTPS; the Let's Encrypt certificate is valid to
+  2027-01-15; Pages reports `built` with HTTPS enforced.
+- GitHub at closeout: no open PRs, issues, Dependabot alerts or secret-scanning
+  alerts; `main` is the only branch. Code scanning is not configured (optional
+  for a dependency-free static site).
 
-- Historical resumed expansion completed locally with: **1,000 active studies / 1,001 preserved
-  records**, 13 sections and 66 categories. All 56 additions are reviewed at four
-  phases and in reduced-motion poses; all 945 revised baseline records and source
-  hashes are unchanged. LOOP-003 is closed. See
-  `SNAPSHOTS/gallery-expansion-resumed/operator-report.md` for acceptance evidence
-  and limitations. That historical pass ended uncommitted and undeployed at
-  `48cf4abb2dfe597909b403da057b68381a2ff595`; D-014 now covers publication.
+## History
 
-## Current engagement — complete
-
-The operator requested two random additions and full closeout (D-013). A recorded
-uniform draw from three eligible concepts selected Trammel of Archimedes and
-Linear Chirp. Both are implemented, reviewed and integrated. The target is met:
-**1,000 active / 1,005 preserved**, five retired entries, 13 sections, 66 categories.
-
-All 1,003 pre-pass records and source hashes remain exact, including Wind Rose v3,
-the fresh rotary and spirit-board consolidations, retained Wisp and five retired
-studies. LOOP-005 is closed. Current closeout, verification, evidence index and
-handoff: `SNAPSHOTS/gallery-final-thousand/closeout-report.md`. Completion marker:
-`SNAPSHOTS/gallery-final-thousand/completion.json`.
-
-No further additions, review batch or automatic continuation is pending. The local
-review remains available on port 3022 for the operator. Implementation and QA
-completion do not fabricate operator visual ratings. Unrelated campaign requests
-remain deferred below. D-014 separately authorizes publication of this work.
-
-The release pass committed and published the pre-existing campaign/expansion
-work and subsequent restoration/consolidation/final additions together. LOOP-006
-is closed after successful deployment and production verification. The production
-report above records the outcome; its documentation follow-up leaves public files unchanged.
+- Gallery expansion, resumed expansion, consolidation and the final two
+  additions (D-010–D-013) are complete; evidence and handoffs live under
+  `SNAPSHOTS/` (closeout: `SNAPSHOTS/gallery-final-thousand/closeout-report.md`).
+- First production release of the thousand-study gallery: `6c0fe58`, D-014
+  (`SNAPSHOTS/gallery-live-release/report.md`).
+- D-015 navigation and the dependency remediation shipped at `2d9db68` under
+  D-016 after deploys had been blocked 2026-10-21 to 2026-11-10.
+- Implementation and QA completion never stand in for operator visual ratings.
 
 ## Deferred follow-up
 
@@ -92,19 +99,12 @@ report above records the outcome; its documentation follow-up leaves public file
   Wave 02 assessed 26 communication/navigation concepts. Historical operator review of the
   20 v2 candidates recorded 16 approvals, three open revision requests and one
   retired wind rose (since restored under D-011); six other subjects remain deferred. Four of the five deeper
-  rebuilds are approved. The operator retired wind rose from the active gallery
-  for possible later reconsideration, preserving its source and versions. See
-  `SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/report.md`.
-  See `SNAPSHOTS/gallery-visual-standard/wave-02.json` and `wave-02-report.md`
-  for source-bound evidence, checks and limitations. Exact feedback is in
-  `wave-02-rebuild/operator-review.json`; the refinement rationale is in
-  `wave-02-reassessment.md` in that directory. Wave 02 is included in D-014.
+  rebuilds are approved. See `SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/report.md`,
+  `wave-02.json`, `wave-02-report.md`, `wave-02-rebuild/operator-review.json`
+  (exact feedback) and `wave-02-reassessment.md` in that directory.
   The operator requests roughly 20 revisions per review checkpoint and continuous
   correction between checkpoints; see `campaign-workflow.md` in that directory.
-  Local checkpoint authorization for accepted batches is retained as historical
-  campaign context; automatic continuation is stopped by D-010. Its retirement checkpoint
-  had 944 active / 945 preserved studies; current expanded totals are recorded
-  above. Current deployment status is recorded at the top of this document.
+  Automatic continuation is stopped by D-010.
 
 ## Deferred, not marked resolved
 
@@ -112,8 +112,12 @@ report above records the outcome; its documentation follow-up leaves public file
   octant and heliograph remain open revision requests outside the completed
   five-study pass (LOOP-002). Wind Rose restoration is separately authorized and
   complete under D-011; no approval of unrelated revisions is inferred.
+- If a visual-standard wave revisits LVDT or phased array, generate their
+  waveform frames at runtime and drop their size-budget exemptions (D-017).
 
 ## Known Constraints
 
 - `_archive/` holds retired material; do not promote to live collections without operator review.
-- `node_modules/` is present locally; it should remain gitignored.
+- Concept sources in the preserved baselines are byte-hash protected; change
+  them only through an operator-approved visual-standard wave.
+- `commit-msg` hook forbids `Co-Authored-By` lines; mainline is `main`.
