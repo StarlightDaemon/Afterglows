@@ -14,6 +14,10 @@
 - Operator-local, untracked: removed the blanket `git push` allow rule and a
   stale scratchpad entry from `.claude/settings.local.json`; the workspace file
   beside the repo now opens `Afterglows` rather than `Citadel/Afterglows`.
+- At operator request, deleted remote branches
+  `maintenance/site-quality-checks-2026-10-20` (merged PR #1) and
+  `security/afterglows-follow-redirects-1.16.1-2026-10-21` (closed PR #2);
+  origin now carries only `main`.
 
 ## 2026-11-10 — Security review and D-015 release
 

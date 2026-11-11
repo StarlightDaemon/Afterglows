@@ -4,11 +4,6 @@
 
 None. Deferred campaign requests below remain unresolved.
 
-Operator housekeeping (not blocking): remote branches
-`maintenance/site-quality-checks-2026-10-20` (merged PR #1) and
-`security/afterglows-follow-redirects-1.16.1-2026-10-21` (closed PR #2) remain;
-delete them when convenient.
-
 ## Deferred backlog
 
 
