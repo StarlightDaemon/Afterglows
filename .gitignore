@@ -24,6 +24,14 @@ build/
 .env.local
 .env.*.local
 
+# Keys and certificates
+*.pem
+*.key
+id_rsa*
+*.p12
+*.pfx
+*.keystore
+
 # Logs
 logs/
 *.log

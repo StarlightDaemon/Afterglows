@@ -16,8 +16,9 @@ fs.mkdirSync(OUT, { recursive: true });
 
 const PAGE_KEYS = {
   hub: "/",
-  concepts: "/concepts/header-animation-concepts.html",
-  physics: "/physics/",
+  // The concepts and physics galleries were unified at /concepts/ (2026-09-07).
+  concepts: "/concepts/",
+  physics: "/concepts/?view=browse&section=physics",
   matrix: "/matrix_code/",
   retro: "/retro/crt_demo.html",
 };

@@ -18,7 +18,7 @@ const srv = http.createServer((req, res) => {
 });
 await new Promise((r) => srv.listen(3197, "127.0.0.1", r));
 const b = await puppeteer.launch({
-  executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  executablePath: process.env.CHROME_PATH || "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
   headless: true,
 });
 const p = await b.newPage();

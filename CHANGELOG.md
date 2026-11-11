@@ -1,24 +1,5 @@
 # Changelog
 
-## Local final additions — 2026-09-09
-
-- Added Trammel of Archimedes and Linear Chirp after a recorded random selection.
-- Completed the 1,000-active target, with 1,005 preserved records and five retirements.
-- Added source-bound model/render evidence and completed the closeout report.
-
-## Local consolidation — 2026-09-09
-
-- Retired the selected marsh-light entry and both older rotary and spirit-board pairs.
-- Built Rotary Pulse Dial and Spirit Board & Planchette from fresh models.
-- Retained Wind Rose v3; removed duplicate-size review panels.
-- Current inventory: 998 active / 1,003 preserved. Prior sources remain intact.
-
-## Local curation — 2026-09-09
-
-- Restored Wind Rose as meteorological v3, preserving v1/v2 and its previous embed URL.
-- Catalog has 1,001 active studies pending one operator retirement choice.
-- Added a local overlap comparison and source-bound restoration checks.
-
 All notable changes to this project are documented here, in [Keep a
 Changelog](https://keepachangelog.com/en/1.1.0/) style. This project follows
 [Semantic Versioning](https://semver.org/); versions are recorded as
@@ -33,6 +14,49 @@ where it became canonical. Retroactive tags were assigned during a
 trail some of these entries reference.
 
 ## [Unreleased]
+
+Everything in this section is live on the site but not yet tagged. It shipped
+in production releases `6c0fe58` (2026-09-09) and `2d9db68` (2026-11-10).
+Statements below that a change was "local only" describe the state when that
+entry was written.
+
+### Repository maintenance — 2026-11-10
+- Made live location references relative to the repository root; RAIDEN and
+  Stargate locations are recorded once in `.raiden/local/README.md`.
+- Pinned GitHub Actions to release commit SHAs and added a Dependabot
+  configuration to keep them current.
+- Added key and certificate patterns to `.gitignore`.
+- Documented the audit tooling setup in `.audits/tooling/README.md` and pointed
+  its reusable capture tools at the unified gallery.
+- Aligned `package.json` with the existing `v1.10.0` tag.
+
+### Gallery navigation and dependency remediation — 2026-11-10
+- The concepts gallery now opens on the 36 newest studies, with Search,
+  Recent/Browse, Filters and a result count as the only persistent controls.
+  Topic, ordering and provenance filters live in an off-canvas sheet; active
+  filters appear as removable pills.
+- Filter state is serialized into validated URL parameters, legacy
+  section/category links keep working, and large result sets render in
+  60-card increments. Query logic moved to `gallery-query.js` with tests.
+- Fixed an empty Filters badge that appeared when no filters were active.
+- Updated dev-only `follow-redirects` to 1.16.3 and `qs` to 6.17.1, clearing
+  the high advisories that had blocked deploys since 2026-10-21.
+
+### Final additions — 2026-09-09
+- Added Trammel of Archimedes and Linear Chirp after a recorded random selection.
+- Completed the 1,000-active target, with 1,005 preserved records and five retirements.
+- Added source-bound model/render evidence and completed the closeout report.
+
+### Consolidation — 2026-09-09
+- Retired the selected marsh-light entry and both older rotary and spirit-board pairs.
+- Built Rotary Pulse Dial and Spirit Board & Planchette from fresh models.
+- Retained Wind Rose v3; removed duplicate-size review panels.
+- Inventory at that point: 998 active / 1,003 preserved. Prior sources remain intact.
+
+### Curation — 2026-09-09
+- Restored Wind Rose as meteorological v3, preserving v1/v2 and its previous embed URL.
+- Catalog had 1,001 active studies pending one operator retirement choice.
+- Added a local overlap comparison and source-bound restoration checks.
 
 ### Resumed concepts expansion
 - Reached 1,000 active studies and 1,001 preserved records with 56 further

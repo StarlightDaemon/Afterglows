@@ -1,5 +1,27 @@
 # Work Log
 
+## 2026-11-10 — Workspace audit remediation (F-02 to F-05)
+
+- Ran the workspace audit at `7acd6ca` (report
+  `audit-reports/audit-2026-11-10-7acd6ca.md`, gitignored): 0 Critical/High/
+  Medium, 6 Low, 11 Info. At operator request, remediated the four bounded
+  findings; F-01 (http-server replacement) and F-06 (oversized concept modules)
+  await triage.
+- F-04: added key/certificate patterns to `.gitignore`; no tracked file is
+  newly ignored.
+- F-05: pinned every workflow action to its release commit SHA with a version
+  comment and added `.github/dependabot.yml` for weekly grouped action updates.
+- F-03: added `.audits/tooling/README.md` (isolated `puppeteer-core` install,
+  `CHROME_PATH`), gave the remaining four scripts the `CHROME_PATH` override,
+  and repointed `verify-capture.mjs`/`snap-viewport.mjs` from the removed
+  `header-animation-concepts.html` and `/physics/` pages to the unified gallery.
+  Both were run end to end against the current site; historical harnesses are
+  documented as such rather than rewritten.
+- F-02: `package.json`/lockfile now match the existing `v1.10.0` tag; the three
+  "Local …" CHANGELOG sections moved under `[Unreleased]` with entries for the
+  2026-11-10 release and maintenance. No new tag was created.
+- `npm audit`, `npm test`, security, build and site checks pass.
+
 ## 2026-11-10 — Location references made root-relative
 
 - The repository now lives at the workspace root as `Afterglows/` (formerly

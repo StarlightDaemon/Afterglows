@@ -20,7 +20,7 @@ const W = LABEL + COLS * (T * S + PAD);
 const H = tags.length * (T * S + PAD);
 
 const browser = await puppeteer.launch({
-  executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  executablePath: process.env.CHROME_PATH || "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
   headless: true,
 });
 const page = await browser.newPage();

@@ -1,6 +1,6 @@
 {
   "name": "afterglows",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "Retro terminal archives and web demos.",
   "type": "module",
   "scripts": {
