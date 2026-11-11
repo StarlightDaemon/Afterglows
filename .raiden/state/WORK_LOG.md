@@ -10,8 +10,10 @@
 - CHANGELOG: `[Unreleased]` became `[2.0.0] - 2026-11-10` with a Breaking
   section and upgrade guidance; added the missing `[1.10.0]` and new
   `[2.0.0]` link references. `package.json` and the lockfile are 2.0.0.
-- Annotated tag `v2.0.0` points at the release commit; no GitHub Release
-  object (the project records versions as tags only).
+- Annotated tag `v2.0.0` points at the release commit `ad75ba9`. At operator
+  request, published GitHub Release "v2.0.0 — Unified 1,000-study gallery"
+  (marked Latest) with breaking-change upgrade guidance and highlights; it is
+  the project's first GitHub Release, as earlier versions exist as tags only.
 
 ## 2026-11-10 — Audit triage: F-01 and F-06 (D-017)
 
