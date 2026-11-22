@@ -1,6 +1,6 @@
 // Canonical gallery: bounded viewport imports and mounts, accessible metadata,
 // taxonomy navigation, provenance filters, versions, and reusable source actions.
-import { CATEGORIES, ACTIVE_CONCEPTS as CONCEPTS, SECTIONS } from "./manifest.js";
+import { CARDS as CONCEPTS, CATEGORIES, SECTIONS } from "./card-catalog.js";
 import { installReducedMotion } from "./reduced-motion.js";
 import { ModuleQueue } from "./module-queue.js";
 import { createModuleLoader } from "./module-loader.js";
@@ -46,12 +46,17 @@ function renderDescription(concept) {
     `<p>${esc(concept.definition)}</p><p>${esc(concept.motionThesis)}</p></details>`;
 }
 
-const searchText = new Map(CONCEPTS.map((concept) => [concept.tag, [
-  concept.label, concept.definition, concept.motionThesis,
-  ...(concept.aliases || []), ...(concept.facets || []),
-  SECTIONS.find((section) => section.id === concept.section)?.title,
-  CATEGORIES.find((category) => category.id === concept.category)?.title,
-].filter(Boolean).join(" ").toLowerCase()]));
+let searchText;
+function buildSearchText() {
+  const titles = items => new Map(items.map(item => [item.id, item.title]));
+  const sectionTitles = titles(SECTIONS);
+  const categoryTitles = titles(CATEGORIES);
+  return new Map(CONCEPTS.map(concept => [concept.tag, [
+    concept.label, concept.definition, concept.motionThesis,
+    ...(concept.aliases || []), ...(concept.facets || []),
+    sectionTitles.get(concept.section), categoryTitles.get(concept.category),
+  ].filter(Boolean).join(" ").toLowerCase()]));
+}
 
 // When a date sort is active this holds "added" or "updated" and every card
 // shows the corresponding date next to its status badge; null in curated
@@ -136,94 +141,106 @@ function renderCard(concept) {
     : renderPlainCard(concept);
 }
 
-// (Re)build ONLY #gallery-root from a given concept array, one section per
-// category. Categories with no visible concepts are skipped entirely so no
-// empty section headers appear. An empty list yields a single message.
-// Under a date sort the section structure would bury the timeline, so the
-// whole list renders as one flat section instead.
-function renderGallery(concepts) {
-  const mount = document.getElementById("gallery-root");
-  if (!mount) return;
-
-  if (concepts.length === 0) {
-    mount.innerHTML =
-      `<p class="gallery-empty" role="status">No concepts match your filters.</p>`;
-    return;
+function createSection(title, kind) {
+  const section = document.createElement("section");
+  const grouped = kind === "section";
+  section.className = grouped ? "gallery-supersection" : "gallery-section";
+  const heading = document.createElement(kind === "category" ? "h3" : "h2");
+  heading.className = grouped ? "supersection-title" : "section-title";
+  heading.textContent = title;
+  section.append(heading);
+  if (!grouped) {
+    const grid = document.createElement("div");
+    grid.className = "gallery-grid";
+    section.append(grid);
   }
-
-  if (activeDateField) {
-    const title = currentFlatTitle();
-    mount.innerHTML =
-      `<section class="gallery-section">` +
-        `<h2 class="section-title">${esc(title)}</h2>` +
-        `<div class="gallery-grid">${concepts.map(renderCard).join("")}</div>` +
-      `</section>`;
-    return;
-  }
-
-  const sections = SECTIONS.map((section) => {
-    const categories = CATEGORIES
-      .filter((category) => category.section === section.id)
-      .map((category) => {
-        const inCategory = concepts.filter(
-          (concept) => concept.category === category.id
-        );
-        if (inCategory.length === 0) return "";
-        return (
-          `<section class="gallery-section" data-category="${esc(category.id)}">` +
-            `<h3 class="section-title">${esc(category.title)}</h3>` +
-            `<div class="gallery-grid">${inCategory.map(renderCard).join("")}</div>` +
-          `</section>`
-        );
-      })
-      .join("");
-
-    if (!categories) return "";
-    return (
-      `<section class="gallery-supersection" data-section="${esc(section.id)}">` +
-        `<h2 class="supersection-title">${esc(section.title)}</h2>` +
-        categories +
-      `</section>`
-    );
-  });
-
-  mount.innerHTML = sections.join("");
+  return section;
 }
 
-// The full catalog contains lightweight card shells. Only nearby active
-// versions are mounted; disconnecting hosts also stops component JS lifecycles.
-// Templates never upgrade, even after their module is cached by the browser.
-let lazyObserver = null;
-let intersectionState = new Map();
+// A later page can introduce a category earlier in the taxonomy. Insert its
+// section at the canonical position without moving any existing section.
+function ensureGroup(parent, kind, item, taxonomy) {
+  const existing = parent.querySelector(`[data-${kind}="${item.id}"]`);
+  if (existing) return existing;
+  const following = new Set(taxonomy.slice(taxonomy.indexOf(item) + 1).map(entry => entry.id));
+  const next = Array.from(parent.children).find(child =>
+    following.has(child.dataset[kind]) || child.classList.contains("load-more-wrap")
+  );
+  const group = createSection(item.title, kind);
+  group.dataset[kind] = item.id;
+  parent.insertBefore(group, next ?? null);
+  return group;
+}
+
+function appendCards(section, concepts) {
+  const template = document.createElement("template");
+  template.innerHTML = concepts.map(renderCard).join("");
+  const boxes = template.content.querySelectorAll(".terminal-box");
+  section.querySelector(".gallery-grid").append(template.content);
+  for (const box of boxes) {
+    if (box.classList.contains("is-versioned")) wireVersioner(box);
+    if (!document.hidden) observeBox(box);
+  }
+}
+
+function appendGalleryPage(mount, concepts) {
+  if (activeDateField) {
+    const section = mount.querySelector(".gallery-section") ??
+      mount.appendChild(createSection(currentFlatTitle(), "timeline"));
+    appendCards(section, concepts);
+    return;
+  }
+  for (const category of CATEGORIES) {
+    const cards = concepts.filter(concept => concept.category === category.id);
+    if (!cards.length) continue;
+    const section = SECTIONS.find(item => item.id === category.section);
+    const parent = ensureGroup(mount, "section", section, SECTIONS);
+    appendCards(ensureGroup(parent, "category", category, CATEGORIES), cards);
+  }
+}
+
+// Importing a module registers its element. The card template stays inert
+// until the preview enters the viewport and we insert the selected version.
+const nearbyBoxes = new Set();
+const visibleBoxes = new Set();
+let preparedPreviews = new WeakMap();
+
+function selectedTemplate(box) {
+  return box.querySelector(":scope > .concept-payload, .concept-frame.is-active > .concept-payload");
+}
 
 function unmountBox(box) {
   box.querySelectorAll("[data-mounted-concept]").forEach((host) => host.remove());
 }
 
 function mountBox(box) {
-  if (!box.isConnected || !intersectionState.get(box) || document.hidden) return;
-  box.querySelectorAll("template.concept-payload").forEach((template) => {
-    const frame = template.closest(".concept-frame");
-    if (frame && !frame.classList.contains("is-active")) return;
-    if (template.parentElement.querySelector("[data-mounted-concept]")) return;
-    const host = template.content.firstElementChild.cloneNode(true);
-    host.dataset.mountedConcept = "true";
-    template.after(host);
-  });
+  if (!box.isConnected || !visibleBoxes.has(box) || document.hidden) return;
+  if (box.querySelector("[data-mounted-concept]")) return;
+  const template = selectedTemplate(box);
+  const prepared = preparedPreviews.get(box);
+  const host = prepared?.template === template
+    ? prepared.host : document.importNode(template.content.firstElementChild, true);
+  preparedPreviews.delete(box);
+  host.dataset.mountedConcept = "true";
+  template.after(host);
+}
+
+function moduleForBox(box) {
+  return CONCEPT_BY_TAG.get(box.closest(".concept-card").dataset.concept).module;
 }
 
 function requestBox(box) {
-  const concept = CONCEPT_BY_TAG.get(box.closest(".concept-card").dataset.concept);
-  const wanted = () => box.isConnected && intersectionState.get(box) && !document.hidden;
+  const path = moduleForBox(box);
+  const wanted = () => box.isConnected && visibleBoxes.has(box) && !document.hidden;
   box.setAttribute("aria-busy", "true");
-  moduleQueue.request(concept.module, wanted).then((loaded) => {
+  moduleQueue.request(path, wanted).then((loaded) => {
     if (loaded && wanted()) {
       box.querySelector(".concept-load-error")?.remove();
       mountBox(box);
     }
   }).catch((error) => {
     if (!wanted()) return;
-    console.error(`Failed to load concept module: ${concept.module}`, error);
+    console.error(`Failed to load concept module: ${path}`, error);
     if (!box.querySelector(".concept-load-error")) {
       const message = document.createElement("span");
       message.className = "concept-load-error";
@@ -234,91 +251,128 @@ function requestBox(box) {
   }).finally(() => box.removeAttribute("aria-busy"));
 }
 
-function installLazyObserver() {
-  lazyObserver?.disconnect();
-  intersectionState = new Map();
-  lazyObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      intersectionState.set(entry.target, entry.isIntersecting);
-      if (entry.isIntersecting) requestBox(entry.target);
-      else unmountBox(entry.target);
+// Observe playback first so newly visible previews get first use of import slots.
+// A shared edge can be "intersecting" with zero area. The small positive
+// threshold gives us another notification as the first pixels enter view.
+const playbackObserver = new IntersectionObserver((entries) => {
+  for (const { target: box, isIntersecting, intersectionRect } of entries) {
+    if (isIntersecting && intersectionRect.width > 0 && intersectionRect.height > 0) {
+      if (!visibleBoxes.has(box)) {
+        visibleBoxes.add(box);
+        requestBox(box);
+      }
+    } else if (visibleBoxes.delete(box)) {
+      unmountBox(box);
     }
-  }, { rootMargin: "200px 0px", threshold: 0 });
-  document.querySelectorAll("#gallery-root .terminal-box").forEach((box) => lazyObserver.observe(box));
+  }
+}, { threshold: [0, 0.000001] });
+
+const preloadObserver = new IntersectionObserver((entries) => {
+  for (const { target: box, isIntersecting } of entries) {
+    if (isIntersecting) {
+      nearbyBoxes.add(box);
+      const wanted = () => box.isConnected && nearbyBoxes.has(box) && !document.hidden;
+      // Only a visible request owns playback, error feedback, and the busy state.
+      // If a preload fails, entering the viewport retries through the same loader.
+      moduleQueue.request(moduleForBox(box), wanted, { preload: true }).then((loaded) => {
+        if (!loaded || !wanted() || visibleBoxes.has(box)) return;
+        const template = selectedTemplate(box);
+        const host = document.importNode(template.content.firstElementChild, true);
+        preparedPreviews.set(box, { template, host });
+      }).catch(() => {});
+    } else {
+      nearbyBoxes.delete(box);
+      preparedPreviews.delete(box);
+    }
+  }
+}, { rootMargin: "200px 0px" });
+
+function observeBox(box) {
+  playbackObserver.observe(box);
+  preloadObserver.observe(box);
 }
 
-// A hidden page has no live tile instances, including timer-driven legacy ones.
+function resetObservers() {
+  for (const observer of [playbackObserver, preloadObserver]) {
+    observer.disconnect();
+    observer.takeRecords();
+  }
+  nearbyBoxes.clear();
+  visibleBoxes.clear();
+  preparedPreviews = new WeakMap();
+}
+
 document.addEventListener("visibilitychange", () => {
-  intersectionState.forEach((visible, box) => {
-    if (document.hidden) unmountBox(box);
-    else if (visible) requestBox(box);
-  });
+  if (document.hidden) visibleBoxes.forEach(unmountBox);
+  resetObservers();
+  if (!document.hidden) document.querySelectorAll("#gallery-root .terminal-box").forEach(observeBox);
 });
 
 // --- Version cyclers ------------------------------------------------------
 // Ported verbatim from the trailing inline <script> in
 // concepts/index.html. Same click / keydown(Enter/Space) / dot
 // behavior, same aria-label and badge updates.
-function wireVersioners() {
-  document.querySelectorAll('.terminal-box.is-versioned').forEach((box) => {
-    const versioner = box.querySelector('.concept-versioner');
-    const frames = Array.from(versioner.querySelectorAll('.concept-frame'));
-    const dots = Array.from(box.parentElement.querySelectorAll('.version-dot'));
-    const metaBadge = box.parentElement.querySelector('.concept-meta .meta-badge');
-    const conceptLabel = box.parentElement.querySelector('.concept-label')?.textContent.trim() || 'concept';
-    let currentIndex = frames.findIndex((frame) => frame.classList.contains('is-active'));
+function wireVersioner(box) {
+  const versioner = box.querySelector('.concept-versioner');
+  const frames = Array.from(versioner.querySelectorAll('.concept-frame'));
+  const dots = Array.from(box.parentElement.querySelectorAll('.version-dot'));
+  const metaBadge = box.parentElement.querySelector('.concept-meta .meta-badge');
+  const conceptLabel = box.parentElement.querySelector('.concept-label')?.textContent.trim() || 'concept';
+  let currentIndex = frames.findIndex((frame) => frame.classList.contains('is-active'));
 
-    if (currentIndex === -1) currentIndex = frames.length - 1;
+  if (currentIndex === -1) currentIndex = frames.length - 1;
 
-    const render = (nextIndex) => {
-      const changed = nextIndex !== currentIndex;
-      currentIndex = nextIndex;
-      frames.forEach((frame, index) => {
-        frame.classList.toggle('is-active', index === currentIndex);
-      });
-      if (changed) { unmountBox(box); mountBox(box); }
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('is-active', index === currentIndex);
-        dot.setAttribute('aria-pressed', index === currentIndex ? 'true' : 'false');
-      });
-
-      const activeFrame = frames[currentIndex];
-      if (metaBadge) {
-        metaBadge.textContent = activeFrame.dataset.badgeLabel || activeFrame.dataset.versionLabel || '';
-        metaBadge.className = 'meta-badge';
-        if (activeFrame.dataset.badgeClass) {
-          activeFrame.dataset.badgeClass.split(/\s+/).filter(Boolean).forEach((className) => {
-            metaBadge.classList.add(className);
-          });
-        }
-      }
-
-      if (activeFrame.dataset.versionLabel) {
-        box.setAttribute('aria-label', `Cycle ${conceptLabel} versions. Currently showing ${activeFrame.dataset.versionLabel}`);
-      }
-    };
-
-    const cycle = () => {
-      render((currentIndex + 1) % frames.length);
-    };
-
-    box.addEventListener('click', cycle);
-    box.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        cycle();
-      }
+  const render = (nextIndex) => {
+    const changed = nextIndex !== currentIndex;
+    currentIndex = nextIndex;
+    frames.forEach((frame, index) => {
+      frame.classList.toggle('is-active', index === currentIndex);
     });
-
+    if (changed && box.querySelector("[data-mounted-concept]")) {
+      unmountBox(box);
+      mountBox(box);
+    }
     dots.forEach((dot, index) => {
-      dot.addEventListener('click', (event) => {
-        event.stopPropagation();
-        render(index);
-      });
+      dot.classList.toggle('is-active', index === currentIndex);
+      dot.setAttribute('aria-pressed', index === currentIndex ? 'true' : 'false');
     });
 
-    render(currentIndex);
+    const activeFrame = frames[currentIndex];
+    if (metaBadge) {
+      metaBadge.textContent = activeFrame.dataset.badgeLabel || activeFrame.dataset.versionLabel || '';
+      metaBadge.className = 'meta-badge';
+      if (activeFrame.dataset.badgeClass) {
+        activeFrame.dataset.badgeClass.split(/\s+/).filter(Boolean).forEach((className) => {
+          metaBadge.classList.add(className);
+        });
+      }
+    }
+
+    if (activeFrame.dataset.versionLabel) {
+      box.setAttribute('aria-label', `Cycle ${conceptLabel} versions. Currently showing ${activeFrame.dataset.versionLabel}`);
+    }
+  };
+
+  const cycle = () => {
+    render((currentIndex + 1) % frames.length);
+  };
+
+  box.addEventListener('click', cycle);
+  box.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      cycle();
+    }
   });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', (event) => {
+      event.stopPropagation();
+      render(index);
+    });
+  });
+
+  render(currentIndex);
 }
 
 // --- Gallery navigation ---------------------------------------------------
@@ -390,7 +444,7 @@ let categorySelect = null;
 let orderSelect = null;
 let activeFilterRow = null;
 let technicalSummary = null;
-let renderLimit = PAGE_SIZE;
+let renderedCount = 0;
 let lastFiltered = [];
 let focusBeforePanel = null;
 
@@ -493,6 +547,11 @@ function addOption(select, value, title, parent = select) {
 
 function populateCategorySelect() {
   if (!categorySelect) return;
+  if (categorySelect.dataset.section === filterState.section) {
+    categorySelect.value = filterState.category;
+    return;
+  }
+  categorySelect.dataset.section = filterState.section;
   categorySelect.replaceChildren();
   addOption(categorySelect, "", "All categories");
   const sections = filterState.section
@@ -604,15 +663,12 @@ function makeFilterPanel() {
   filterLayer.querySelector(".filter-done").addEventListener("click", closeFilterPanel);
   filterLayer.querySelector(".filter-clear").addEventListener("click", () => {
     clearFilters();
-    syncControls();
     applyFilters();
   });
   sectionSelect.addEventListener("change", () => {
     filterState.section = sectionSelect.value;
     filterState.category = "";
     enterBrowseForNarrowing();
-    populateCategorySelect();
-    syncControls();
     applyFilters();
   });
   categorySelect.addEventListener("change", () => {
@@ -621,13 +677,11 @@ function makeFilterPanel() {
       filterState.section = CATEGORIES.find((category) => category.id === filterState.category)?.section || "";
     }
     enterBrowseForNarrowing();
-    syncControls();
     applyFilters();
   });
   orderSelect.addEventListener("change", () => {
     filterState.view = "browse";
     filterState.order = orderSelect.value;
-    syncControls();
     applyFilters();
   });
   technical.addEventListener("change", (event) => {
@@ -637,7 +691,6 @@ function makeFilterPanel() {
     if (input.checked) selected.add(input.value);
     else selected.delete(input.value);
     enterBrowseForNarrowing();
-    syncControls();
     applyFilters();
   });
 
@@ -735,37 +788,51 @@ function syncControls() {
   updateActiveFilters();
 }
 
-function appendLoadMore(rendered, total) {
-  if (rendered >= total) return;
-  const wrapper = document.createElement("div");
-  wrapper.className = "load-more-wrap";
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "load-more";
-  button.textContent = `Load more (${total - rendered} remaining)`;
-  wrapper.appendChild(button);
-  document.getElementById("gallery-root")?.appendChild(wrapper);
+function renderNextPage(mount) {
+  const total = lastFiltered.length;
+  const page = lastFiltered.slice(renderedCount, renderedCount + PAGE_SIZE);
+  if (page.length) appendGalleryPage(mount, page);
+  renderedCount += page.length;
+  let button = mount.querySelector(".load-more");
+  if (countReadout) {
+    if (filterState.view === "recent") countReadout.textContent = `${total} recent`;
+    else if (renderedCount < total) countReadout.textContent = `${renderedCount} of ${total} loaded`;
+    else countReadout.textContent = `${total} result${total === 1 ? "" : "s"}`;
+  }
+  if (renderedCount === total) {
+    if (button === document.activeElement) countReadout?.focus({ preventScroll: true });
+    button?.parentElement.remove();
+    return;
+  }
+  if (!button) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "load-more-wrap";
+    button = document.createElement("button");
+    button.type = "button";
+    button.className = "load-more";
+    wrapper.append(button);
+    mount.append(wrapper);
+  }
+  button.textContent = `Load more (${total - renderedCount} remaining)`;
 }
 
-function applyFilters({ resetPage = true } = {}) {
-  if (resetPage) renderLimit = PAGE_SIZE;
+function applyFilters() {
+  const mount = document.getElementById("gallery-root");
+  if (!mount) return;
+  if (filterState.query) searchText ??= buildSearchText();
   lastFiltered = queryConcepts(CONCEPTS, filterState, searchText, AVAILABLE);
   activeDateField = filterState.view === "recent" || filterState.order === "added"
     ? "added"
     : filterState.order === "updated" ? "updated" : null;
-  const rendered = lastFiltered.slice(0, renderLimit);
-  renderGallery(rendered);
-  appendLoadMore(rendered.length, lastFiltered.length);
-  wireVersioners();
-  installLazyObserver();
+  resetObservers();
+  mount.replaceChildren();
+  renderedCount = 0;
+  if (!lastFiltered.length) {
+    mount.innerHTML = `<p class="gallery-empty" role="status">No concepts match your filters.</p>`;
+  }
+  renderNextPage(mount);
   updateLocationFilters();
   syncControls();
-
-  if (countReadout) {
-    if (filterState.view === "recent") countReadout.textContent = `${lastFiltered.length} recent`;
-    else if (rendered.length < lastFiltered.length) countReadout.textContent = `${rendered.length} of ${lastFiltered.length} loaded`;
-    else countReadout.textContent = `${lastFiltered.length} result${lastFiltered.length === 1 ? "" : "s"}`;
-  }
 }
 
 function initToolbar() {
@@ -830,7 +897,7 @@ function initToolbar() {
       filterState.query = searchInput.value.trim();
       if (filterState.query) enterBrowseForNarrowing();
       applyFilters();
-    }, 160);
+    }, 75);
   });
   recentTab.addEventListener("click", () => {
     clearFilters({ keepView: false });
@@ -944,9 +1011,17 @@ function buildSnippet(card, concept) {
 async function handleGalleryClick(event) {
   const loadMore = event.target.closest(".load-more");
   if (loadMore) {
-    renderLimit += PAGE_SIZE;
-    applyFilters({ resetPage: false });
-    (document.querySelector(".load-more") || countReadout)?.focus?.();
+    // Grouped additions can insert rows above the reader. Keep a visible
+    // preview in place even if the browser anchors scrolling to the button.
+    const scrollTop = window.scrollY;
+    const anchor = Array.from(visibleBoxes).find(box => {
+      const rect = box.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    });
+    const top = anchor?.getBoundingClientRect().top;
+    renderNextPage(event.currentTarget);
+    const delta = anchor ? anchor.getBoundingClientRect().top - top : scrollTop - window.scrollY;
+    if (delta) window.scrollBy({ top: delta, behavior: "instant" });
     return;
   }
   const button = event.target.closest(".concept-copy");
@@ -974,8 +1049,7 @@ async function handleGalleryClick(event) {
     announce("Copy failed", true);
   }
 
-  // Revert after a beat; guard against the button having been re-rendered
-  // (renderGallery replaces innerHTML on filter changes).
+  // A filter change may have removed this card before the label resets.
   window.setTimeout(() => {
     if (!button.isConnected) return;
     button.textContent = button.dataset.copyLabel || "Copy";

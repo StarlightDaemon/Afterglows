@@ -36,6 +36,9 @@ These target pages that exist on the current site:
 |---|---|
 | `verify-capture.mjs` | Full-page stitched capture plus layout metrics at one or more viewports. Page keys: `hub`, `concepts`, `physics` (the Physical Sciences view of the unified gallery), `matrix`, `retro`, or any URL path. |
 | `snap-viewport.mjs` | Single-viewport screenshot at a scroll position, for inspecting one region. Same page keys. |
+| `test-viewport-playback.mjs` | Run `node .audits/tooling/test-viewport-playback.mjs` to check preview loading, visibility, tab switching, stale imports, versions, reduced motion, and import recovery in Chromium. |
+| `test-load-more.mjs` | Run `npm run build`, then `node .audits/tooling/test-load-more.mjs` to verify pagination, live animations, version selection, focus, and ordering. Add `--mobile` for the touch-emulated viewport. |
+| `test-gallery-search.mjs` | Run `npm run build`, then `node .audits/tooling/test-gallery-search.mjs` to check catalog loading, search input, filter choices, deep links, and keyboard focus. |
 | `montage.mjs`, `responsive-sheets.mjs`, `responsive-slices.mjs` | Post-process existing captures into contact sheets and slices. They read from `captures/` and do not load pages. |
 
 Example, from the repository root:

@@ -25,36 +25,36 @@ function allOrSelected(options, values) {
   return options.size ? options : new Set(values);
 }
 
-export function matchesSelectedProvenance(contributions, selections, available) {
+function selectedProvenance(selections, available) {
   const { origins, models, versions } = selections;
-  if (!origins.size && !models.size && !versions.size) return true;
-  return matchesProvenance(contributions, {
+  if (!origins.size && !models.size && !versions.size) return null;
+  return {
     origins: allOrSelected(origins, available.origins),
     models: allOrSelected(models, available.models),
     versions: allOrSelected(versions, available.versions),
-  });
+  };
+}
+
+export function matchesSelectedProvenance(contributions, selections, available) {
+  const selected = selectedProvenance(selections, available);
+  return !selected || matchesProvenance(contributions, selected);
 }
 
 export function queryConcepts(concepts, state, searchText, available) {
   const query = state.query.trim().toLowerCase();
-  const recentTags = new Set(newestConcepts(concepts).map((concept) => concept.tag));
-  let visible = concepts.filter((concept) => {
-    if (state.view === "recent" && !recentTags.has(concept.tag)) return false;
+  const recent = state.view === "recent";
+  const candidates = recent ? newestConcepts(concepts) : concepts;
+  const selected = selectedProvenance(state, available);
+  const visible = candidates.filter((concept) => {
     if (state.section && concept.section !== state.section) return false;
     if (state.category && concept.category !== state.category) return false;
     if (state.statuses.size && !state.statuses.has(statusOf(concept))) return false;
-    if (!matchesSelectedProvenance(
-      concept.origin?.contributions || [],
-      state,
-      available
-    )) return false;
+    if (selected && !matchesProvenance(concept.origin?.contributions || [], selected)) return false;
     return !query || (searchText.get(concept.tag) || "").includes(query);
   });
 
-  if (state.view === "recent" || state.order === "added") {
-    visible = visible.slice().sort(compareDate("added"));
-  } else if (state.order === "updated") {
-    visible = visible.slice().sort(compareDate("updated"));
+  if (!recent && (state.order === "added" || state.order === "updated")) {
+    visible.sort(compareDate(state.order));
   }
   return visible;
 }

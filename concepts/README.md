@@ -11,7 +11,9 @@ continuation is pending.
 ## Structure
 
 - `index.html` — canonical `/concepts/` gallery page.
-- `gallery/manifest.js` — unified catalog consumed by the gallery.
+- `gallery/manifest.js` — authoritative unified catalog.
+- `gallery/card-catalog.js` — active card data for the renderer. The Pages
+  build writes this module from the manifest so startup needs one catalog request.
 - `gallery/taxonomy.js` — definitive section/category definitions and migration
   classifications.
 - `gallery/manifests/` — preserved historical metadata and direct canonical
@@ -144,9 +146,12 @@ Use a tile's **Copy** action to obtain its current canonical module URL and tag:
    at multiple phases and with reduced motion. The validator checks taxonomy,
    canonical paths, unique identities, metadata, syntax, registration, and orphans.
 
-The gallery mounts only nearby active versions and limits concurrent module
-imports. Keep component lifecycles safe to disconnect and remount, pause
-animation off-screen, and provide an understandable reduced-motion state.
+Within 200 pixels above or below the viewport, the gallery can load a study
+and prepare its selected version as a detached element. Visible previews have
+priority within the four-import limit. A preview mounts when it enters view,
+disconnects when it leaves, and also disconnects when the tab is hidden.
+Keep constructors safe to run while detached. Start timers and observers on
+connection, release them on disconnection, and provide a reduced-motion state.
 A failed preview retries only when revisited, using a fresh request URL to bypass
 browser-cached failures. Canonical metadata, Source links, and copied embeds
 retain the stable module URL.
