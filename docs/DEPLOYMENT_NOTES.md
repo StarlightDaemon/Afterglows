@@ -7,8 +7,8 @@ Use this document as a reference for the repository's deployment shape, not as a
 ## Target Hosting Model
 
 The accepted deployment boundary is governed by `.raiden/state/DECISIONS.md`
-D-003. It is implemented locally but remains pending until the workflow is
-committed, pushed, selected as the Pages source, and successfully deployed.
+D-003. GitHub Actions builds and tests the allowlisted artifact, then publishes
+it to the custom domain through GitHub Pages.
 
 - Repository: `StarlightDaemon/Afterglows`
 - Live domain: `afterglows.starlightdaemon.dev`
@@ -17,7 +17,7 @@ committed, pushed, selected as the Pages source, and successfully deployed.
 - Public underscored directory: `_templates/`
 - Repository-only directories such as `.raiden/`, `.audits/`, `_archive/`, and `scripts/` are excluded from the artifact
 
-Pull requests and pushes to `main` run the gallery browser suite against
+Pull requests and pushes to `main` run the site browser suite against
 the built artifact. On `main`, the deploy workflow uploads that tested
 `dist/` directory to Pages after site validation succeeds.
 

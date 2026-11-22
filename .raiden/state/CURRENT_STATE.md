@@ -5,7 +5,8 @@
 the GitHub Release "v2.0.0 — Unified 1,000-study gallery" (marked Latest).
 **Deployment:** Live at https://afterglows.starlightdaemon.dev/ through the
 allowlisted GitHub Actions Pages workflow; every push to `main` deploys.
-Production was health-checked at 2026-11-10 closeout (see below).
+The November 22 gallery maintenance deployment `c7dea21` was verified on the
+custom domain after [Pages run 44998769775](https://github.com/StarlightDaemon/Afterglows/actions/runs/44998769775).
 **Engagement:** The 2.0 work is closed out. No loops are open; the deferred
 campaign backlog below resumes only on a new operator instruction.
 
@@ -35,7 +36,9 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
   only Search, Recent/Browse, Filters and result count exposed. Topic, order and
   provenance use a responsive filter sheet; shareable URL state is validated,
   legacy `section`/`category` deep links remain valid and large result sets
-  render progressively.
+  append 60 cards at a time with focus, selected versions and running previews
+  preserved. The published renderer reads one active card catalog, preloads
+  nearby studies and mounts previews only in the viewport.
 - **Catalog (D-004):** the Concepts manifest and taxonomy are the authoritative
   inventory. The former Physics collection uses the same catalog and renderer;
   component tags are stable while source paths follow the unified taxonomy.
@@ -47,21 +50,21 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
   repository-only paths return 404 in production. Workflow actions are pinned to
   commit SHAs and kept current by `.github/dependabot.yml`. HTTPS is enforced on
   the custom domain.
-- **Dependencies (D-017):** the project has **no npm dependencies**; `npm ci`
+- **Dependencies (D-017):** the root site has **no npm dependencies**; `npm ci`
   installs nothing and the deploy's `npm audit --audit-level=high` gate cannot
   be blocked by dev tooling. `npm start` builds and serves `dist/` through the
   dependency-free, loopback-only `scripts/serve-site.js`.
 - **Checks:** `npm test` (11 suites, including preview-server behavior and a
   150 KB gzip budget per concept module with two hash-pinned exemptions),
-  `npm run security:check`, `npm run build` and `npm run site:check` all run in
-  CI before every deploy.
+  `npm run security:check`, `npm run test:browser` (including the Pages build)
+  and `npm run site:check` all run in CI before every deploy.
 - Core theme fonts are vendored under `assets/fonts/` with their licenses; the
   deployed artifact has no Google Fonts runtime dependency.
 - Location references are relative to the repository root; RAIDEN and Stargate
   locations live in `.raiden/local/README.md`. Stargate is its own standalone
   repo.
 - Audit tooling under `.audits/tooling/` is documented in its README; its
-  `puppeteer-core` install is local to that directory and gitignored.
+  `puppeteer-core` version and lockfile are tracked in that directory.
 
 ## 2.0 closeout (2026-11-10)
 
