@@ -27,15 +27,16 @@ export async function testViewportPlayback(context, gallery) {
   await page.waitForFunction(visibleBoxesMounted);
   // Pick an unloaded card by its current geometry. Font metrics and viewport
   // restoration can differ across hosts and between successive navigations.
-  async function distantCard() {
-    return page.$$eval(".concept-card", cards => {
+  async function distantCard(targetPage) {
+    await targetPage.evaluate(() => document.fonts.ready.then(() => undefined));
+    return targetPage.$$eval(".concept-card", cards => {
       const card = cards.find(card => !customElements.get(card.dataset.concept) &&
         card.getBoundingClientRect().top > innerHeight + 800);
       if (!card) throw new Error("Expected an unloaded card beyond the preload margin");
       return { tag: card.dataset.concept, url: card.querySelector(".concept-source").href };
     });
   }
-  const warm = await distantCard();
+  const warm = await distantCard(page);
   assert.equal(await page.evaluate(tag => Boolean(customElements.get(tag)), warm.tag), false);
 
   // Bring a fresh card within the 200px loading margin, then expose one pixel.
@@ -81,7 +82,7 @@ export async function testViewportPlayback(context, gallery) {
   await background.close();
 
   // Hold an actual module response while scrolling past its card and changing results.
-  const delayed = await distantCard();
+  const delayed = await distantCard(page);
   console.log("Checking delayed module response for", delayed.tag);
   await page.setRequestInterception(true);
   let heldRequest;
@@ -190,25 +191,36 @@ export async function testViewportPlayback(context, gallery) {
 
   // A speculative failure is silent. Entering the viewport retries it once,
   // including when the card never left the loading margin between attempts.
-  await page.goto(gallery);
-  await page.waitForFunction(visibleBoxesMounted);
-  requested.length = 0;
-  const retryCard = await distantCard();
+  const preloadPage = await context.newPage();
+  await preloadPage.setViewport({ width: 1000, height: 700 });
+  preloadPage.on("pageerror", error => errors.push(error.message));
+  await preloadPage.goto(gallery);
+  await preloadPage.waitForFunction(visibleBoxesMounted);
+  const retryCard = await distantCard(preloadPage);
   console.log("Checking failed speculative import for", retryCard.tag);
-  failURL = retryCard.url;
-  const failedPreload = page.waitForResponse(response => response.url() === retryCard.url && response.status() === 503);
-  await alignBox(page, retryCard.tag, 800);
-  await failedPreload;
-  await page.waitForNetworkIdle();
-  assert.deepEqual(requested, [retryCard.url]);
+  const attempts = [];
+  await preloadPage.setRequestInterception(true);
+  preloadPage.on("request", request => {
+    if (new URL(request.url()).pathname === new URL(retryCard.url).pathname) {
+      attempts.push(request.url());
+      if (attempts.length === 1) return request.respond({ status: 503, body: "Test interruption" });
+    }
+    return request.continue();
+  });
+  await alignBox(preloadPage, retryCard.tag, 800);
+  // A failed script can finish as a network error in Chromium. Resource
+  // Timing observes completion in either case, including HTTP error responses.
+  await preloadPage.waitForFunction(url => performance.getEntriesByName(url).length > 0, {}, retryCard.url);
+  await preloadPage.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  assert.deepEqual(attempts, [retryCard.url]);
   const warmCard = `[data-concept="${retryCard.tag}"]`;
-  assert.equal(await page.$(warmCard + " .concept-load-error"), null);
-  assert.equal(await page.$(warmCard + " [data-mounted-concept]"), null);
-  await alignBox(page, retryCard.tag, 650);
-  await page.waitForFunction(visibleBoxesMounted);
-  await page.waitForSelector(warmCard + " [data-mounted-concept]");
-  assert.equal(requested.length, 2);
-  assert.equal(new URL(requested[1]).pathname, new URL(retryCard.url).pathname);
+  assert.equal(await preloadPage.$(warmCard + " .concept-load-error"), null);
+  assert.equal(await preloadPage.$(warmCard + " [data-mounted-concept]"), null);
+  await alignBox(preloadPage, retryCard.tag, 650);
+  await preloadPage.waitForFunction(visibleBoxesMounted);
+  await preloadPage.waitForSelector(warmCard + " [data-mounted-concept]");
+  assert.equal(attempts.length, 2);
+  assert.ok(new URL(attempts[1]).searchParams.has("ag-retry"));
   assert.ok(new URL(requested[1]).searchParams.has("ag-retry"));
   assert.deepEqual(errors, []);
   console.log("PASS: near-only preload, partial visibility, cached remount, hidden tab, stale import, versions, reduced motion, and failed import recovery.");
