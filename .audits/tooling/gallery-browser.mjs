@@ -27,7 +27,9 @@ export async function withGalleryBrowser(run, buildDir = dist) {
 
 export function runBrowserChecks(checks) {
   return withGalleryBrowser(async (browser, gallery) => {
+    console.log("Running gallery checks with", await browser.version());
     for (const check of checks) {
+      console.log("Running", check.name);
       const context = await browser.createBrowserContext();
       try {
         await check(context, gallery);

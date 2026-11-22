@@ -25,12 +25,17 @@ export async function testViewportPlayback(context, gallery) {
   await page.goto(gallery);
   await page.bringToFront();
   await page.waitForFunction(visibleBoxesMounted);
-  const [warm, delayed] = await page.$$eval(".concept-card", cards =>
-    [cards[15], cards[27]].map(card => ({
-      tag: card.dataset.concept,
-      url: card.querySelector(".concept-source").href,
-    }))
-  );
+  // Pick an unloaded card by its current geometry. Font metrics and viewport
+  // restoration can differ across hosts and between successive navigations.
+  async function distantCard() {
+    return page.$$eval(".concept-card", cards => {
+      const card = cards.find(card => !customElements.get(card.dataset.concept) &&
+        card.getBoundingClientRect().top > innerHeight + 800);
+      if (!card) throw new Error("Expected an unloaded card beyond the preload margin");
+      return { tag: card.dataset.concept, url: card.querySelector(".concept-source").href };
+    });
+  }
+  const warm = await distantCard();
   assert.equal(await page.evaluate(tag => Boolean(customElements.get(tag)), warm.tag), false);
 
   // Bring a fresh card within the 200px loading margin, then expose one pixel.
@@ -66,6 +71,7 @@ export async function testViewportPlayback(context, gallery) {
   await page.waitForFunction(visibleBoxesMounted);
   assert.equal(await page.evaluate(url => performance.getEntriesByName(url).length, warm.url), 1);
 
+  console.log("Verified viewport boundaries; checking background tab cleanup.");
   const background = await context.newPage();
   await background.bringToFront();
   // Timer polling also runs when Chromium suspends background animation frames.
@@ -75,6 +81,8 @@ export async function testViewportPlayback(context, gallery) {
   await background.close();
 
   // Hold an actual module response while scrolling past its card and changing results.
+  const delayed = await distantCard();
+  console.log("Checking delayed module response for", delayed.tag);
   await page.setRequestInterception(true);
   let heldRequest;
   let failURL;
@@ -139,6 +147,7 @@ export async function testViewportPlayback(context, gallery) {
     hosts.map(host => [host.getAttribute("version"), host.parentElement.matches(".concept-frame.is-active")])),
     [[selectedVersion, true]], "only the newly selected version can mount on viewport entry");
 
+  console.log("Verified stale response and offscreen version selection; checking motion preferences.");
   const versionedURL = gallery + "?q=Fractal%20Tree";
   await page.goto(versionedURL);
   const card = '[data-concept="concept-fractal-tree"]';
@@ -184,20 +193,22 @@ export async function testViewportPlayback(context, gallery) {
   await page.goto(gallery);
   await page.waitForFunction(visibleBoxesMounted);
   requested.length = 0;
-  failURL = warm.url;
-  const failedPreload = page.waitForResponse(response => response.url() === warm.url && response.status() === 503);
-  await alignBox(page, warm.tag, 800);
+  const retryCard = await distantCard();
+  console.log("Checking failed speculative import for", retryCard.tag);
+  failURL = retryCard.url;
+  const failedPreload = page.waitForResponse(response => response.url() === retryCard.url && response.status() === 503);
+  await alignBox(page, retryCard.tag, 800);
   await failedPreload;
   await page.waitForNetworkIdle();
-  assert.deepEqual(requested, [warm.url]);
-  const warmCard = `[data-concept="${warm.tag}"]`;
+  assert.deepEqual(requested, [retryCard.url]);
+  const warmCard = `[data-concept="${retryCard.tag}"]`;
   assert.equal(await page.$(warmCard + " .concept-load-error"), null);
   assert.equal(await page.$(warmCard + " [data-mounted-concept]"), null);
-  await alignBox(page, warm.tag, 650);
+  await alignBox(page, retryCard.tag, 650);
   await page.waitForFunction(visibleBoxesMounted);
   await page.waitForSelector(warmCard + " [data-mounted-concept]");
   assert.equal(requested.length, 2);
-  assert.equal(new URL(requested[1]).pathname, new URL(warm.url).pathname);
+  assert.equal(new URL(requested[1]).pathname, new URL(retryCard.url).pathname);
   assert.ok(new URL(requested[1]).searchParams.has("ag-retry"));
   assert.deepEqual(errors, []);
   console.log("PASS: near-only preload, partial visibility, cached remount, hidden tab, stale import, versions, reduced motion, and failed import recovery.");

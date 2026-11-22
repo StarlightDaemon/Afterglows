@@ -39,9 +39,9 @@ npm run profile:gallery -- --build dist --out .audits/tooling/captures/startup-c
 Each profile uses five cold contexts. The output contains six screenshots and
 `report.json` with browser version, renderer hash, profile settings, raw
 samples and medians. Desktop uses 20 ms emulated latency, and mobile uses
-60 ms and 4× CPU throttling. Use `--baseline <report.json>` to compare result
-signatures and screenshot hashes on the same browser and host. Timing results
-are informational.
+60 ms and 4× CPU throttling. Use `--baseline <report.json>` to verify result
+signatures and record screenshot hash matches on the same browser and host.
+The profiler reports timing and screenshot differences for inspection.
 
 Generated images and metrics go under `.audits/tooling/captures/`, which is
 gitignored as reproducible, high-volume evidence.
