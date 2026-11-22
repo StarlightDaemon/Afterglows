@@ -22,8 +22,9 @@ never ships this directory.
 ## Gallery verification
 
 Run `npm run test:browser` from the repository root. It builds once and serves
-`dist/` on a temporary loopback port. Playback, search, desktop pagination
-and mobile pagination each get a fresh browser context. Pull requests and
+`dist/` on a temporary loopback port. Playback, search, desktop and mobile
+pagination, Matrix motion preferences, and Retro keyboard controls
+each get a fresh browser context. Pull requests and
 Pages deployments run this same command. Individual gallery tests below use
 the existing build. The older visual captures serve the source tree directly.
 

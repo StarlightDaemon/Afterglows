@@ -15,6 +15,11 @@ trail some of these entries reference.
 
 ## [Unreleased]
 
+- The Concepts gallery preloads nearby studies, plays only visible previews, and appends the next 60 cards while preserving playback, version selection and focus.
+- The Pages build emits a single active card catalog. Search reuses its index and avoids redundant sorting and filter updates.
+- Matrix canvas modes respond to live reduced-motion changes and resume a single animation loop when motion is enabled in a visible tab.
+- Browser checks cover the built Concepts, Matrix and Retro pages. The isolated tooling has a locked install, scheduled dependency updates, a pull-request advisory check and an on-demand startup/search profiler.
+
 ## [2.0.0] - 2026-11-10
 
 This release tags work that reached production before it was versioned, in

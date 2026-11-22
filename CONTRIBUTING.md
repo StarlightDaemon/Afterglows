@@ -16,10 +16,12 @@ This repository welcomes:
 
 ### Adding a New Prototype
 
-1. **Create a Folder**: Use a descriptive name (e.g., `Hologram Effect`, `Pixel Rain`)
-2. **Add Your Files**: HTML, CSS, JS - keep it self-contained
-3. **Document It**: Create a `README.md` in your folder (see `_templates/README_TEMPLATE.md`)
-4. **Link It**: Update the main `index.html` to add a card linking to your demo
+1. Copy `_templates/prototype-template/` to a descriptive folder such as `pixel-rain/`. Keep the HTML, CSS and JavaScript together and document the demo using `_templates/README_TEMPLATE.md`.
+2. For a new top-level folder, add its name to `publicDirectories` in `scripts/build-site.js` so it reaches Pages. Include its HTML files in the `htmlFiles` scan in `scripts/validate-security.js` so CI checks their content-security policies.
+3. Link the homepage card to the actual entry file, for example `pixel-rain/demo.html`.
+4. Run `npm run build`, `npm run security:check` and `npm run site:check`. Run `npm start` and follow the homepage link in the local preview to confirm the published layout works.
+
+For a study in the Concepts gallery, follow the existing collection’s [authoring guide](concepts/README.md).
 
 ### Editing Site Copy or Docs
 
@@ -51,11 +53,7 @@ This is a creative laboratory - there's no strict style guide. However:
 1. Fork this repository
 2. Create a branch (`git checkout -b add-hologram-effect`)
 3. Add your prototype following the structure above
-4. Commit your changes
-   ```
-   git clone https://github.com/StarlightDaemon/Afterglows.git
-   cd Afterglows
-   ```
+4. Commit your changes with a description of the prototype or fix.
 5. Push to your fork (`git push origin add-hologram-effect`)
 6. Open a Pull Request
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-j9TWxaNMO1jYTZRNENJRSG1BvWMYuN5PiYwZYZ0isLo='; object-src 'none'; base-uri 'self'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'sha256-eKRt5KINz1hlUm57CzImcbhZy7fWmM4cEfO5fBnVfBk='; object-src 'none'; base-uri 'self'; form-action 'none'">
     <title>Matrix Code | Digital Rain</title>
     <meta name="description" content="One full-screen Matrix digital-rain experience with switchable modes — pure-CSS classic katakana columns, interactive Canvas rain that reacts to the cursor, and minimal binary — in eight phosphor color themes plus film extras.">
     <link rel="canonical" href="https://afterglows.starlightdaemon.dev/matrix_code/">
@@ -440,15 +440,6 @@
         }
 
         function init() {
-            sizeCanvas();
-            // Guard: a zero-sized viewport (hidden tab / pre-layout load)
-            // would build an empty, permanently blank model. Retry until
-            // the viewport reports a real size.
-            if (width === 0 || height === 0) {
-                cancelAnimationFrame(initRetryId);
-                initRetryId = requestAnimationFrame(init);
-                return;
-            }
             const columns = Math.floor(width / style.colGap);
             drops = [];
             for (let i = 0; i < columns; i++) {
@@ -505,7 +496,7 @@
         // resize (zoom step, window dragged between monitors).
         function watchDpr() {
             matchMedia('(resolution: ' + (window.devicePixelRatio || 1) + 'dppx)')
-                .addEventListener('change', () => { init(); watchDpr(); }, { once: true });
+                .addEventListener('change', () => { startEngine(); watchDpr(); }, { once: true });
         }
         watchDpr();
 
@@ -667,11 +658,19 @@
         // shared.
         let activeInit = init;
         let activeDraw = draw;
+        let needsInit = true;
 
         function startEngine() {
-            cancelAnimationFrame(rafId);
-            rafId = null;
+            stopEngine();
+            needsInit = true;
+            if (mode === 'classic' || document.hidden) { return; }
+            sizeCanvas();
+            if (width === 0 || height === 0) {
+                initRetryId = requestAnimationFrame(startEngine);
+                return;
+            }
             activeInit();
+            needsInit = false;
             if (reducedMotion.matches) {
                 // Reduced-motion gate: render one static frame only.
                 activeDraw();
@@ -686,6 +685,7 @@
             cancelAnimationFrame(rafId);
             cancelAnimationFrame(initRetryId);
             rafId = null;
+            initRetryId = null;
         }
 
         // ================= FILM MODE =================
@@ -743,12 +743,6 @@
         }
 
         function initFilm() {
-            sizeCanvas();
-            if (width === 0 || height === 0) {
-                cancelAnimationFrame(initRetryId);
-                initRetryId = requestAnimationFrame(initFilm);
-                return;
-            }
             filmCols = Math.floor(width / FILM.fontSize);
             filmRows = Math.ceil(height / FILM.fontSize);
             filmDrops = [];
@@ -873,12 +867,6 @@
         }
 
         function initDraft() {
-            sizeCanvas();
-            if (width === 0 || height === 0) {
-                cancelAnimationFrame(initRetryId);
-                initRetryId = requestAnimationFrame(initDraft);
-                return;
-            }
             draftCols = Math.ceil(width / DRAFT.fontSize);
             draftRows = Math.floor(height / DRAFT.fontSize);
             draftWaves = [];
@@ -1006,12 +994,6 @@
         }
 
         function initTrace() {
-            sizeCanvas();
-            if (width === 0 || height === 0) {
-                cancelAnimationFrame(initRetryId);
-                initRetryId = requestAnimationFrame(initTrace);
-                return;
-            }
             trace = buildTraceMessage(0);
             ctx.fillStyle = theme.bg;
             ctx.fillRect(0, 0, width, height);
@@ -1295,13 +1277,16 @@
         setRainColor(rainColor, false);
 
         // ================= LIFECYCLE =================
-        // Visibility pause/resume (canvas modes; CSS animations pause free).
+        reducedMotion.addEventListener('change', startEngine);
+
+        // Resume an existing animation on return. A preference or mode change
+        // made in a hidden tab needs a fresh frame using the current settings.
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                cancelAnimationFrame(rafId);
-                rafId = null;
-            } else if (mode !== 'classic' && !reducedMotion.matches && rafId === null) {
-                rafId = requestAnimationFrame(activeDraw);
+                stopEngine();
+            } else if (mode !== 'classic') {
+                if (needsInit) { startEngine(); }
+                else if (!reducedMotion.matches && rafId === null) { rafId = requestAnimationFrame(activeDraw); }
             }
         });
 
@@ -1316,7 +1301,7 @@
                 if (mode === 'classic') {
                     buildClassic();
                 } else {
-                    activeInit();
+                    startEngine();
                 }
             }, 150);
         });
