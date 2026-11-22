@@ -1,29 +1,19 @@
 import assert from "node:assert/strict";
-import { once } from "node:events";
-import { fileURLToPath } from "node:url";
-import puppeteer from "puppeteer-core";
 import { ACTIVE_CONCEPTS, CATEGORIES, SECTIONS } from "../../concepts/gallery/manifest.js";
 import { compareDate } from "../../concepts/gallery/gallery-query.js";
-import { createSiteServer, HOST } from "../../scripts/serve-site.js";
+import { runBrowserChecks } from "./gallery-browser.mjs";
 
-const server = createSiteServer(fileURLToPath(new URL("../../dist/", import.meta.url)));
-server.listen(0, HOST);
-await once(server, "listening");
-const gallery = `http://${HOST}:${server.address().port}/concepts/`;
-const chrome = process.env.CHROME_PATH || "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const tags = cards => cards.map(card => card.dataset.concept);
 const categories = SECTIONS.flatMap(section => CATEGORIES.filter(category => category.section === section.id));
 function curatedOrder(page) {
   return categories.flatMap(category => page.filter(card => card.category === category.id)).map(card => card.tag);
 }
 
-let browser;
-try {
-  browser = await puppeteer.launch({ executablePath: chrome, headless: true });
-  const page = await browser.newPage();
+export async function testLoadMore(context, gallery, mobile = false) {
+  const page = await context.newPage();
   const errors = [];
   page.on("pageerror", error => errors.push(error.message));
-  await page.setViewport(process.argv.includes("--mobile")
+  await page.setViewport(mobile
     ? { width: 390, height: 844, isMobile: true, hasTouch: true }
     : { width: 1280, height: 900 });
   await page.goto(gallery + "?view=browse");
@@ -112,7 +102,10 @@ try {
   }
   assert.deepEqual(errors, []);
   console.log("PASS: append-only pagination, animation continuity, versions, focus, taxonomy order, flat sorts, final page and filter resets.");
-} finally {
-  await browser?.close();
-  server.close();
 }
+
+export function testMobileLoadMore(context, gallery) {
+  return testLoadMore(context, gallery, true);
+}
+
+if (import.meta.main) await runBrowserChecks([process.argv.includes("--mobile") ? testMobileLoadMore : testLoadMore]);

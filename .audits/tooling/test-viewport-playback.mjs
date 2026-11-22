@@ -1,15 +1,5 @@
 import assert from "node:assert/strict";
-import { once } from "node:events";
-import { fileURLToPath } from "node:url";
-import puppeteer from "puppeteer-core";
-import { createSiteServer, HOST } from "../../scripts/serve-site.js";
-
-const server = createSiteServer(fileURLToPath(new URL("../../", import.meta.url)));
-server.listen(0, HOST);
-await once(server, "listening");
-const gallery = `http://${HOST}:${server.address().port}/concepts/`;
-const chrome = process.env.CHROME_PATH || "C:/Program Files/Google/Chrome/Application/chrome.exe";
-let browser;
+import { runBrowserChecks } from "./gallery-browser.mjs";
 
 // Use actual browser geometry as an independent oracle for the gallery's observers.
 function visibleBoxesMounted() {
@@ -27,9 +17,8 @@ async function alignBox(page, tag, top) {
   }, top);
 }
 
-try {
-  browser = await puppeteer.launch({ executablePath: chrome, headless: true });
-  const page = await browser.newPage();
+export async function testViewportPlayback(context, gallery) {
+  const page = await context.newPage();
   await page.setViewport({ width: 1000, height: 700 });
   const errors = [];
   page.on("pageerror", error => errors.push(error.message));
@@ -77,7 +66,7 @@ try {
   await page.waitForFunction(visibleBoxesMounted);
   assert.equal(await page.evaluate(url => performance.getEntriesByName(url).length, warm.url), 1);
 
-  const background = await browser.newPage();
+  const background = await context.newPage();
   await background.bringToFront();
   // Timer polling also runs when Chromium suspends background animation frames.
   await page.waitForFunction(() => document.hidden && !document.querySelector("[data-mounted-concept]"), { polling: 100 });
@@ -212,7 +201,6 @@ try {
   assert.ok(new URL(requested[1]).searchParams.has("ag-retry"));
   assert.deepEqual(errors, []);
   console.log("PASS: near-only preload, partial visibility, cached remount, hidden tab, stale import, versions, reduced motion, and failed import recovery.");
-} finally {
-  if (browser) await browser.close();
-  server.close();
 }
+
+if (import.meta.main) await runBrowserChecks([testViewportPlayback]);

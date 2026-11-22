@@ -1,21 +1,9 @@
 import assert from "node:assert/strict";
-import { once } from "node:events";
-import { fileURLToPath } from "node:url";
-import puppeteer from "puppeteer-core";
 import { CATEGORIES } from "../../concepts/gallery/manifest.js";
-import { createSiteServer, HOST } from "../../scripts/serve-site.js";
+import { runBrowserChecks } from "./gallery-browser.mjs";
 
-const server = createSiteServer(fileURLToPath(new URL("../../dist/", import.meta.url)));
-server.listen(0, HOST);
-await once(server, "listening");
-const url = `http://${HOST}:${server.address().port}/concepts/`;
-let browser;
-try {
-  browser = await puppeteer.launch({
-    executablePath: process.env.CHROME_PATH || "C:/Program Files/Google/Chrome/Application/chrome.exe",
-    headless: true,
-  });
-  const page = await browser.newPage();
+export async function testGallerySearch(context, url) {
+  const page = await context.newPage();
   const errors = [];
   page.on("pageerror", e => errors.push(e.message));
   const section = 'select[aria-label="Discipline"]';
@@ -59,7 +47,6 @@ try {
   assert.equal(await page.$eval(".concept-search", el => el === document.activeElement), true);
   assert.deepEqual(errors, []);
   console.log("PASS: single built catalog request, filtered deep link, scoped category choices, focus, and latest-input search.");
-} finally {
-  await browser?.close();
-  server.close();
 }
+
+if (import.meta.main) await runBrowserChecks([testGallerySearch]);

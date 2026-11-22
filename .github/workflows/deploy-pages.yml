@@ -35,8 +35,11 @@ jobs:
       - name: Validate browser security controls
         run: npm run security:check
 
-      - name: Build allowlisted site artifact
-        run: npm run build
+      - name: Install locked browser tooling
+        run: npm ci --prefix .audits/tooling --include=dev --ignore-scripts --no-audit --no-fund
+
+      - name: Build artifact and test gallery in Chrome
+        run: npm run test:browser
 
       - name: Validate built site paths and metadata
         run: npm run site:check

@@ -4,6 +4,9 @@
   "description": "Retro terminal archives and web demos.",
   "type": "module",
   "scripts": {
+    "pretest:browser": "npm run build",
+    "test:browser": "node .audits/tooling/test-browser.mjs",
+    "profile:gallery": "node .audits/tooling/profile-gallery.mjs",
     "build": "node scripts/build-site.js",
     "dev": "node scripts/serve-site.js",
     "predev": "npm run build",

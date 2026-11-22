@@ -1,0 +1,8 @@
+{
+  "name": "afterglows-browser-tooling",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "puppeteer-core": "25.17.0"
+  }
+}
