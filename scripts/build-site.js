@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { CARDS, CATEGORIES, SECTIONS } from '../concepts/gallery/card-catalog.js';
 
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const outputRoot = path.join(projectRoot, 'dist');
@@ -96,6 +97,11 @@ for (const directory of publicDirectories) {
 for (const file of publicRootFiles) {
     copyTree(path.join(projectRoot, file), path.join(outputRoot, file));
 }
+
+// Resolve the authoring shards at build time, ahead of the browser's first render.
+fs.writeFileSync(path.join(outputRoot, 'concepts/gallery/card-catalog.js'),
+    Object.entries({ CARDS, CATEGORIES, SECTIONS })
+        .map(([name, data]) => `export const ${name} = ${JSON.stringify(data)};\n`).join(''));
 
 const artifactFiles = walk(outputRoot);
 const leakedEntries = artifactFiles.filter((file) => forbiddenArtifactEntries.has(file.split('/')[0]));

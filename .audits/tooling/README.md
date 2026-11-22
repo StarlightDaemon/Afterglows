@@ -7,23 +7,41 @@ never ships this directory.
 ## Requirements
 
 - Node.js 24 (the version CI uses).
-- `puppeteer-core` 25 (tested with 25.17.0). It is intentionally **not** in the
-  root `package.json`, so the root lockfile and the deploy audit gate stay free
-  of browser-automation dependencies. Install it beside the scripts:
+- Install the audit tooling from its own lockfile, from the repository root:
 
   ```bash
-  npm install --prefix .audits/tooling --no-save --no-package-lock --ignore-scripts puppeteer-core@25
+  npm ci --prefix .audits/tooling --include=dev --ignore-scripts --no-audit --no-fund
   ```
 
   This creates `.audits/tooling/node_modules/`, which `.gitignore` already
   excludes. Re-run it after a fresh clone.
-- A local Chrome or Chromium. Every script launches
-  `C:\Program Files\Google\Chrome\Application\chrome.exe` unless the
-  `CHROME_PATH` environment variable points elsewhere.
+- The gallery suite and profiler use installed Chrome Stable on Windows, macOS
+  or Linux. Set `CHROME_PATH` to select a different executable. Older capture
+  scripts default to the standard Windows Chrome path.
 
-Each script serves the repository root itself over a loopback HTTP server, so no
-build step or separate dev server is needed. Paths resolve from the script's own
-location; run the scripts from any working directory.
+## Gallery verification
+
+Run `npm run test:browser` from the repository root. It builds once and serves
+`dist/` on a temporary loopback port. Playback, search, desktop pagination
+and mobile pagination each get a fresh browser context. Pull requests and
+Pages deployments run this same command. Individual gallery tests below use
+the existing build. The older visual captures serve the source tree directly.
+
+## Startup and search profiling
+
+Run this command against an existing build. Build and output paths resolve
+from the working directory. Choose a separate output directory for each run.
+
+```sh
+npm run profile:gallery -- --build dist --out .audits/tooling/captures/startup-current
+```
+
+Each profile uses five cold contexts. The output contains six screenshots and
+`report.json` with browser version, renderer hash, profile settings, raw
+samples and medians. Desktop uses 20 ms emulated latency, and mobile uses
+60 ms and 4× CPU throttling. Use `--baseline <report.json>` to verify result
+signatures and record screenshot hash matches on the same browser and host.
+The profiler reports timing and screenshot differences for inspection.
 
 Generated images and metrics go under `.audits/tooling/captures/`, which is
 gitignored as reproducible, high-volume evidence.
@@ -36,6 +54,9 @@ These target pages that exist on the current site:
 |---|---|
 | `verify-capture.mjs` | Full-page stitched capture plus layout metrics at one or more viewports. Page keys: `hub`, `concepts`, `physics` (the Physical Sciences view of the unified gallery), `matrix`, `retro`, or any URL path. |
 | `snap-viewport.mjs` | Single-viewport screenshot at a scroll position, for inspecting one region. Same page keys. |
+| `test-viewport-playback.mjs` | Run `npm run build`, then `node .audits/tooling/test-viewport-playback.mjs` to check preview loading, visibility, tab switching, stale imports, versions, reduced motion, and import recovery in Chromium. |
+| `test-load-more.mjs` | Run `npm run build`, then `node .audits/tooling/test-load-more.mjs` to verify pagination, live animations, version selection, focus, and ordering. Add `--mobile` for the touch-emulated viewport. |
+| `test-gallery-search.mjs` | Run `npm run build`, then `node .audits/tooling/test-gallery-search.mjs` to check catalog loading, search input, filter choices, deep links, and keyboard focus. |
 | `montage.mjs`, `responsive-sheets.mjs`, `responsive-slices.mjs` | Post-process existing captures into contact sheets and slices. They read from `captures/` and do not load pages. |
 
 Example, from the repository root:

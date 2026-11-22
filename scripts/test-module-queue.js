@@ -58,4 +58,38 @@ assert.equal(await cachedWhileBusy, true, "cached work must not wait for a diffe
 sharedReleases.get("same").resolve();
 assert.deepEqual(await Promise.all([sharedFirst, sharedAgain, fullAgain]), [true, true, true]);
 assert.equal(shared.active, 0, "one completion must release exactly one unique-import slot");
-console.log("SUCCESS: bounded unique imports, shared waiters, stale cancellation, caching, and failure recovery.");
+
+// A card entering the viewport can overtake older preloads. Its queued
+// preload and visible request must then share one import.
+const priorityStarts = [];
+const priorityReleases = new Map();
+const priority = new ModuleQueue((path) => {
+  priorityStarts.push(path);
+  return new Promise((resolve) => priorityReleases.set(path, resolve));
+}, 1);
+const preload = { preload: true };
+const loading = priority.request("loading", () => true, preload);
+const waiting = priority.request("nearby", () => true, preload);
+const approaching = priority.request("approaching", () => true, preload);
+let stillNearby = true;
+const abandoned = priority.request("abandoned", () => stillNearby, preload);
+const entering = priority.request("approaching", () => true);
+const nextVisible = priority.request("visible", () => true);
+await tick();
+assert.deepEqual(priorityStarts, ["loading"]);
+stillNearby = false;
+priorityReleases.get("loading")();
+await loading;
+assert.equal(await abandoned, false, "a stale preload should never start");
+assert.deepEqual(priorityStarts, ["loading", "approaching"]);
+priorityReleases.get("approaching")();
+assert.deepEqual(await Promise.all([approaching, entering]), [true, true]);
+assert.deepEqual(priorityStarts, ["loading", "approaching", "visible"]);
+priorityReleases.get("visible")();
+await nextVisible;
+assert.deepEqual(priorityStarts, ["loading", "approaching", "visible", "nearby"]);
+priorityReleases.get("nearby")();
+assert.equal(await waiting, true);
+assert.equal(priority.active, 0);
+
+console.log("SUCCESS: bounded unique imports, visible request priority, shared waiters, stale cancellation, caching, and failure recovery.");

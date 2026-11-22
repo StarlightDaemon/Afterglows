@@ -1,7 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isDeepStrictEqual } from 'node:util';
 import { CONCEPTS } from '../concepts/gallery/manifest.js';
+import * as sourceCatalog from '../concepts/gallery/card-catalog.js';
 
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const outputRoot = path.join(projectRoot, 'dist');
@@ -121,6 +123,13 @@ for (const expected of ['/', '/concepts/', '/matrix_code/', '/retro/crt_demo.htm
 
 const cname = fs.readFileSync(path.join(outputRoot, 'CNAME'), 'utf8').trim();
 if (cname !== 'afterglows.starlightdaemon.dev') errors.push(`CNAME: unexpected hostname ${cname}`);
+
+const builtCatalog = await import('../dist/concepts/gallery/card-catalog.js');
+for (const name of Object.keys(sourceCatalog)) {
+    if (!isDeepStrictEqual(builtCatalog[name], sourceCatalog[name])) {
+        errors.push(`Gallery build changed catalog data: ${name}`);
+    }
+}
 
 if (errors.length > 0) {
     console.error(`Site validation failed (${errors.length}):`);

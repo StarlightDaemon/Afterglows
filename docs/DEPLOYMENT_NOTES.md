@@ -17,9 +17,9 @@ committed, pushed, selected as the Pages source, and successfully deployed.
 - Public underscored directory: `_templates/`
 - Repository-only directories such as `.raiden/`, `.audits/`, `_archive/`, and `scripts/` are excluded from the artifact
 
-The currently deployed site still uses the legacy repository-root boundary.
-Treat the transition as incomplete until the production acceptance checks in
-the release-readiness report pass.
+Pull requests and pushes to `main` run the gallery browser suite against
+the built artifact. On `main`, the deploy workflow uploads that tested
+`dist/` directory to Pages after site validation succeeds.
 
 ## GitHub Pages Settings
 
