@@ -13,7 +13,7 @@ Node.js 24. The root site has **no npm dependencies**, so there is nothing to in
 - Preview: `npm start` (builds, then serves `dist/` on loopback only)
 - Browser suite: `npm run test:browser`. It needs Chrome Stable and the audit tooling, installed once per clone or worktree with `npm ci --prefix .audits/tooling --include=dev --ignore-scripts --no-audit --no-fund`.
 
-CI runs the test, security, browser and site checks before every deploy.
+Before every deploy, CI (`.github/workflows/deploy-pages.yml`) runs `npm ci`, `npm audit --audit-level=high`, then the test, security, browser and site checks.
 
 ## Layout
 

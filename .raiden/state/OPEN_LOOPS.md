@@ -4,7 +4,7 @@
 
 ## Active
 
-No open items.
+Nothing is open. One deferred item:
 
 - **LOOP-009 · deferred · gate: Heath** · Visual-standard campaign remainder:
   three existing revision requests (nocturnal dial, octant, heliograph) and six
