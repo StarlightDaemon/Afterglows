@@ -6,12 +6,12 @@
 
 Nothing is open. One deferred item:
 
-- **LOOP-009 · deferred · gate: Heath** · Visual-standard campaign remainder:
+- **LOOP-009 · deferred · gate: owner** · Visual-standard campaign remainder:
   three existing revision requests (nocturnal dial, octant, heliograph) and six
   other campaign subjects. Carried over from LOOP-002 when the engagement closed
   (D-010). Their exact feedback and evidence are preserved. This is not a claim
   that those revisions were implemented or approved.
-  Restarts when: Heath gives a new instruction. Evidence: next-session strategy
+  Restarts when: the owner gives a new instruction. Evidence: next-session strategy
   and artifact index in `SNAPSHOTS/gallery-exit-handoff.md`; exact feedback in
   `SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/operator-review.json`.
 
