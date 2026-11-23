@@ -1,17 +1,19 @@
 # Open Loops
 
-## Open
+<!-- Statuses: open · deferred · held: <who> · no-action · accepted · closed. Each active item: ID, status, gate owner, next step or restart condition, evidence. IDs never change or get reused. -->
 
-None. Deferred campaign requests below remain unresolved.
+## Active
 
-## Deferred backlog
+No open items.
 
-
-- Three existing revision requests (nocturnal dial, octant, heliograph), and six other campaign
-  subjects remain deferred. Their exact feedback and evidence are preserved.
-  This is not a claim that those revisions were implemented or approved.
-- Resume only on a new operator instruction. The detailed next-session strategy
-  and artifact index are in `SNAPSHOTS/gallery-exit-handoff.md` (D-010).
+- **LOOP-009 · deferred · gate: Heath** · Visual-standard campaign remainder:
+  three existing revision requests (nocturnal dial, octant, heliograph) and six
+  other campaign subjects. Carried over from LOOP-002 when the engagement closed
+  (D-010). Their exact feedback and evidence are preserved. This is not a claim
+  that those revisions were implemented or approved.
+  Restarts when: Heath gives a new instruction. Evidence: next-session strategy
+  and artifact index in `SNAPSHOTS/gallery-exit-handoff.md`; exact feedback in
+  `SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/operator-review.json`.
 
 ---
 

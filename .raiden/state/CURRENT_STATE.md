@@ -113,7 +113,7 @@ Afterglows is a workspace and live site for visual experiments, CSS/JS libraries
 
 - Preserve all 16 approvals and the historical wind-rose retirement record. Nocturnal dial,
   octant and heliograph remain open revision requests outside the completed
-  five-study pass (LOOP-002). Wind Rose restoration is separately authorized and
+  five-study pass (LOOP-002; tracked as deferred LOOP-009 in `OPEN_LOOPS.md`). Wind Rose restoration is separately authorized and
   complete under D-011; no approval of unrelated revisions is inferred.
 - If a visual-standard wave revisits LVDT or phased array, generate their
   waveform frames at runtime and drop their size-budget exemptions (D-017).
