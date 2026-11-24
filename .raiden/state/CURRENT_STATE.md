@@ -8,7 +8,7 @@ Current facts only. Dated history is in `WORK_LOG.md`; decisions in `DECISIONS.m
 - **Live site:** https://afterglows.starlightdaemon.dev/, deployed by the allowlisted GitHub Actions Pages workflow. **Every push to `main` deploys.** HTTPS is enforced on the custom domain.
 - **Latest deploy:** `37d8d6a` (2026-11-23, documentation only); the Pages workflow succeeded.
 - **Evidence:** release and closeout reports in `SNAPSHOTS/gallery-live-release/report.md` and `SNAPSHOTS/gallery-final-thousand/closeout-report.md`, the GitHub Release, and the dated entries in `WORK_LOG.md` (the 2.0 closeout audit, production health and GitHub checks are in its 2026-11-10 and 2026-11-23 entries).
-- **Engagement:** the 2.0 work is closed out. LOOP-009 (visual-standard remainder) restarted 2026-11-24 with the nocturnal dial: a rewritten v2 is on branch `claude/nocturnal-dial`, owner-approved, not yet merged (D-018). Octant, heliograph and six others stay deferred.
+- **Engagement:** the 2.0 work is closed out. LOOP-009 (visual-standard remainder) restarted 2026-11-24 with the nocturnal dial: a rewritten v2 is on branch `claude/nocturnal-dial`, owner-approved and merged to local `main`, not yet pushed or deployed (D-018). Octant, heliograph and six others stay deferred.
 
 ## Collections
 

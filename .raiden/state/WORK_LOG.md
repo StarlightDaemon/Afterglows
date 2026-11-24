@@ -8,7 +8,7 @@ Because earlier snapshots pin concept sources by whole-file hash, the change is 
 
 Verified locally: `npm test`, `npm run security:check`, `npm run build`, `npm run site:check` and `validate-gallery-standard --wave=2` pass. Checked in the in-app browser against the built site on loopback: renders, no console errors, arm and sky rotate together, the hour marker steps in 15° notches, three frames at 0, 6 and 12 s. Not checked: reduced-motion in a browser (the CSS pose was only read), 390 px mobile layout, other browsers. Nothing pushed.
 
-Later the same day the owner viewed the live dial at 4× size and approved it (no star rating given). The decision is recorded in the ledger entry. It is not yet merged to `main`.
+Later the same day the owner viewed the live dial at 4× size and approved it (no star rating given). The decision is recorded in the ledger entry. It was then fast-forward merged into local `main` at the owner's request. Not pushed, so the live site is unchanged.
 
 ## 2026-11-23 — CURRENT_STATE.md trimmed to current facts
 
