@@ -3,7 +3,7 @@
 ## D-018
 
 - Date: 2026-11-24
-- Status: Implemented on branch `claude/nocturnal-dial`; approved by the owner 2026-11-24 after viewing it live (no star rating); merged to local `main`
+- Status: Implemented on branch `claude/nocturnal-dial`; approved by the owner 2026-11-24 after viewing it (no star rating); deployed in `eaaf46f`
 - Context: LOOP-009 restarted on the owner's instruction, nocturnal dial first.
   The only recorded feedback on its v2 is "Revise, 2/5" with no comment
   (`SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/operator-review.json`).

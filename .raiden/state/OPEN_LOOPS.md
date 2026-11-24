@@ -7,12 +7,12 @@
 One loop is open:
 
 - **LOOP-009 · open · gate: owner** · Visual-standard campaign remainder. Restarted
-  2026-11-24 with the nocturnal dial. Its v2 is rewritten on branch
-  `claude/nocturnal-dial` (D-018; checks pass). **Owner approved the new motion
-  2026-11-24** (no star rating given; the old v2 was Revise, 2/5) and it was
-  merged to local `main` the same day. **Next:** pushing `main` deploys it to the
-  live site, so that waits for the owner's go-ahead. Octant and heliograph (existing revision requests) and six
-  other campaign subjects stay deferred until the owner names the next one.
+  2026-11-24 with the nocturnal dial. Its v2 is rewritten (D-018).
+  **Owner approved the new motion 2026-11-24** (no star rating given; the old v2
+  was Revise, 2/5). It was merged and pushed the same day; Pages run
+  `45461039931` succeeded and the live site serves it. The nocturnal dial is
+  done. **Next:** the owner names the next subject. Octant and heliograph
+  (existing revision requests) and six other campaign subjects stay deferred.
   Carried over from LOOP-002 (D-010). This is not a claim that any revision was
   approved. Evidence: `SNAPSHOTS/gallery-visual-standard/loop-009/` (ledger,
   previous source, three live frames); strategy in `SNAPSHOTS/gallery-exit-handoff.md`;

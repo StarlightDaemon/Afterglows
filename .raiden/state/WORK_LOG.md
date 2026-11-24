@@ -2,6 +2,8 @@
 
 ## 2026-11-24 — LOOP-009 restarted: nocturnal dial v2 rewritten
 
+**Outcome:** owner-approved, merged to `main` and pushed with the owner's OK (`c46db25..eaaf46f`). Pages run 45461039931 succeeded (build and deploy jobs), and the live site serves the new `nocturnal-dial-concept.js` (checked by fetching it; the dial was not watched animating on the live page). The notes below were written before the push.
+
 On the owner's instruction, branch `claude/nocturnal-dial` (from `c46db25`). The recorded feedback on the old v2 was only "Revise, 2/5", so the redesign is a judgement call, not an application of specific comments: the sky now turns once around the fixed polar star in 24 s, the arm stays on the pointer star, and a marker steps hour by hour on a 24-notch ring (details in D-018). Only the v2 blocks of `nocturnal-dial-concept.js` changed; v1 is byte-identical.
 
 Because earlier snapshots pin concept sources by whole-file hash, the change is recorded in `SNAPSHOTS/gallery-visual-standard/loop-009/` (ledger, preserved previous source, three live frames), and `scripts/source-revisions.js` lets the pin checks honour it.
