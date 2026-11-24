@@ -9,6 +9,10 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+# Read-only by default; the deploy job below adds the two scopes Pages needs.
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest

@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { checkWorkflow } from './workflow-policy.js';
 
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const errors = [];
@@ -143,10 +144,18 @@ if (/Access-Control-Allow-/i.test(previewServer)) {
     errors.push('scripts/serve-site.js: preview server must not send CORS headers');
 }
 
+// GitHub Actions policy (pinning, permissions, triggers): see scripts/workflow-policy.js.
+const workflowDirectory = path.join(projectRoot, '.github', 'workflows');
+const workflowFiles = fs.readdirSync(workflowDirectory).filter((name) => /\.ya?ml$/.test(name));
+if (workflowFiles.length === 0) errors.push('.github/workflows: no workflow files found to check');
+for (const name of workflowFiles) {
+    errors.push(...checkWorkflow(name, fs.readFileSync(path.join(workflowDirectory, name), 'utf8')));
+}
+
 if (errors.length > 0) {
     console.error(`Security validation failed (${errors.length}):`);
     for (const error of errors) console.error(`  - ${error}`);
     process.exit(1);
 }
 
-console.log(`Security validation passed for ${htmlFiles.length} public HTML files and shared JavaScript.`);
+console.log(`Security validation passed for ${htmlFiles.length} public HTML files, shared JavaScript and ${workflowFiles.length} workflows.`);
