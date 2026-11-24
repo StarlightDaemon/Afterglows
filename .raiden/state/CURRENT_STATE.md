@@ -8,7 +8,7 @@ Current facts only. Dated history is in `WORK_LOG.md`; decisions in `DECISIONS.m
 - **Live site:** https://afterglows.starlightdaemon.dev/, deployed by the allowlisted GitHub Actions Pages workflow. **Every push to `main` deploys.** HTTPS is enforced on the custom domain.
 - **Latest deploy:** `37d8d6a` (2026-11-23, documentation only); the Pages workflow succeeded.
 - **Evidence:** release and closeout reports in `SNAPSHOTS/gallery-live-release/report.md` and `SNAPSHOTS/gallery-final-thousand/closeout-report.md`, the GitHub Release, and the dated entries in `WORK_LOG.md` (the 2.0 closeout audit, production health and GitHub checks are in its 2026-11-10 and 2026-11-23 entries).
-- **Engagement:** the 2.0 work is closed out. Nothing is open; the visual-standard campaign remainder is deferred as LOOP-009 until the owner gives a new instruction.
+- **Engagement:** the 2.0 work is closed out. LOOP-009 (visual-standard remainder) restarted 2026-11-24 with the nocturnal dial: a rewritten v2 is on branch `claude/nocturnal-dial`, not merged, awaiting the owner's rating (D-018). Octant, heliograph and six others stay deferred.
 
 ## Collections
 
@@ -26,7 +26,7 @@ Current facts only. Dated history is in `WORK_LOG.md`; decisions in `DECISIONS.m
 
 ## Constraints
 
-- Concept sources in the preserved baselines are byte-hash protected; change them only in an owner-approved visual-standard wave.
+- Concept sources in the preserved baselines are byte-hash protected; change them only in an owner-approved visual-standard wave, and record the change in `SNAPSHOTS/gallery-visual-standard/loop-009/revisions.json` (D-018).
 - `_archive/` holds retired material; don't promote it to a live collection without the owner's review.
 - If a visual-standard wave revisits LVDT or phased array, generate their waveform frames at runtime and drop their size-budget exemptions (D-017).
 - Implementation and QA never stand in for the owner's visual ratings.

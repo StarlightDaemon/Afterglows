@@ -5,6 +5,7 @@ import crypto from 'node:crypto';
 import { CONCEPTS } from '../concepts/gallery/manifest.js';
 import './gallery-standard-wave-01.js';
 import {historicalConcept, historicalSourceURL} from './gallery-curation-state.js';
+import {expectedSourceSha} from './source-revisions.js';
 
 const base = new URL('../.raiden/state/SNAPSHOTS/gallery-visual-standard/', import.meta.url);
 const waveNumber=Number(process.argv.find(a=>a.startsWith('--wave='))?.split('=')[1] || 1);
@@ -21,7 +22,7 @@ for (const row of [...wave.concepts, ...wave.qualityReferences]) {
   assert.ok(['passes', 'refine', 'defer'].includes(row.classification));
   assert.ok(row.decisionReason && row.verificationResult && !row.verificationResult.includes('pending'));
   const source = fs.readFileSync(historicalSourceURL(concept), 'utf8').replaceAll('\r\n','\n');
-  assert.equal(crypto.createHash('sha256').update(source).digest('hex'), row.sourceHashAfterCompletion, `Evidence stale: ${row.tag}`);
+  assert.equal(crypto.createHash('sha256').update(source).digest('hex'), expectedSourceSha(row.tag, row.sourceHashAfterCompletion), `Evidence stale: ${row.tag}`);
   for (const evidence of row.visualEvidencePaths) {
     const bytes = fs.readFileSync(new URL(evidence, base));
     assert.ok(bytes.length > 500, `Empty evidence: ${evidence}`);

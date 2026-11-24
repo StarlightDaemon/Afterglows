@@ -4,16 +4,18 @@
 
 ## Active
 
-Nothing is open. One deferred item:
+One loop is open:
 
-- **LOOP-009 · deferred · gate: owner** · Visual-standard campaign remainder:
-  three existing revision requests (nocturnal dial, octant, heliograph) and six
-  other campaign subjects. Carried over from LOOP-002 when the engagement closed
-  (D-010). Their exact feedback and evidence are preserved. This is not a claim
-  that those revisions were implemented or approved.
-  Restarts when: the owner gives a new instruction. Evidence: next-session strategy
-  and artifact index in `SNAPSHOTS/gallery-exit-handoff.md`; exact feedback in
-  `SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/operator-review.json`.
+- **LOOP-009 · open · gate: owner** · Visual-standard campaign remainder. Restarted
+  2026-11-24 with the nocturnal dial. Its v2 is rewritten on branch
+  `claude/nocturnal-dial` (D-018; checks pass; not merged or pushed). **Next:**
+  the owner rates the new motion (the old v2 was Revise, 2/5, no comment), then
+  the branch is merged. Octant and heliograph (existing revision requests) and six
+  other campaign subjects stay deferred until the owner names the next one.
+  Carried over from LOOP-002 (D-010). This is not a claim that any revision was
+  approved. Evidence: `SNAPSHOTS/gallery-visual-standard/loop-009/` (ledger,
+  previous source, three live frames); strategy in `SNAPSHOTS/gallery-exit-handoff.md`;
+  exact feedback in `SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/operator-review.json`.
 
 ---
 

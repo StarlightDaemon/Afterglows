@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import {CONCEPTS,ACTIVE_CONCEPTS,RETIRED_CONCEPTS} from '../concepts/gallery/manifest.js';
+import {expectedSourceSha} from './source-revisions.js';
 const root=new URL('../.raiden/state/SNAPSHOTS/gallery-consolidation/',import.meta.url);
 export const curation=JSON.parse(fs.readFileSync(new URL('decision.json',root),'utf8'));
 const baseline=JSON.parse(fs.readFileSync(new URL('baseline.json',root),'utf8'));
@@ -16,7 +17,7 @@ assert.ok(ACTIVE_CONCEPTS.some(c=>c.tag==='concept-wisp'));
 assert.equal(baseline.entries.length,1001);
 for(const row of baseline.entries){
   assert.deepEqual(CONCEPTS.find(c=>c.tag===row.concept.tag),row.concept,'Pre-consolidation metadata changed: '+row.concept.tag);
-  assert.equal(sha(fs.readFileSync(new URL('../concepts/gallery/'+row.concept.module,import.meta.url))),row.sha256,'Pre-consolidation source changed: '+row.concept.tag);
+  assert.equal(sha(fs.readFileSync(new URL('../concepts/gallery/'+row.concept.module,import.meta.url))),expectedSourceSha(row.concept.tag,row.sha256),'Pre-consolidation source changed: '+row.concept.tag);
 }
 assert.deepEqual(new Set(curation.additions.map(r=>r.concept.tag)),new Set(['concept-rotary-pulse-dial','concept-spirit-board']));
 for(const row of curation.additions){

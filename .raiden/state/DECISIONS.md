@@ -1,5 +1,27 @@
 # Decisions
 
+## D-018
+
+- Date: 2026-11-24
+- Status: Implemented on branch `claude/nocturnal-dial`; awaiting the owner's visual rating
+- Context: LOOP-009 restarted on the owner's instruction, nocturnal dial first.
+  The only recorded feedback on its v2 is "Revise, 2/5" with no comment
+  (`SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/operator-review.json`).
+- Decision: replace the v2 motion inside the file's declared v2 blocks (v1 is
+  untouched). Previously the long arm swept back and forth while the polar star
+  pulsed. Now the sky turns once around the fixed polar star every 24 s, the arm
+  stays aimed at the pointer star, and a marker steps hour by hour (15° a notch,
+  24 notches) around the dial. Reduced motion shows a still pose.
+- Mechanism: earlier snapshots pin every concept source by whole-file hash, so a
+  revision needs an explicit record. `SNAPSHOTS/gallery-visual-standard/loop-009/revisions.json`
+  holds the previous and current hashes; the previous source is kept beside it.
+  `scripts/source-revisions.js` lets the pin checks accept the revised file only
+  when it matches the ledger. Editing the file again fails the tests until a new
+  entry is recorded. Octant and heliograph can use the same ledger.
+- Not done: the manifest and provenance are unchanged, so the revision is not yet
+  credited to its author (the provenance tests pin the existing contributions);
+  that is an owner call. The 2/5 rating predates this rewrite and is not replaced.
+
 ## D-017
 
 - Date: 2026-11-10

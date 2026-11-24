@@ -44,7 +44,7 @@ This file and `.raiden/state/` are authoritative for this repo. Read in this ord
 2. The `## Active` section at the top of `.raiden/state/OPEN_LOOPS.md`: open, deferred and held items (statuses: `open`, `deferred`, `held: <who>`, `no-action`, `accepted`, `closed`).
 3. Only when needed: `DECISIONS.md` (why things are the way they are; IDs `D-0xx`), `WORK_LOG.md` and `SNAPSHOTS/` (history and evidence).
 
-Current picture: no open loops; the visual-standard campaign remainder is deferred until the owner gives a new instruction (LOOP-009). Release and publication evidence is linked from `CURRENT_STATE.md` and the closed entries in `OPEN_LOOPS.md`.
+Current picture: one open loop, the visual-standard campaign remainder (LOOP-009), restarted with the nocturnal dial; the other subjects stay deferred until the owner names the next one. Release and publication evidence is linked from `CURRENT_STATE.md` and the closed entries in `OPEN_LOOPS.md`.
 
 Update `CURRENT_STATE.md` and `OPEN_LOOPS.md` when you finish or pause work. Keep one home per fact and link evidence; don't paste it in. Never renumber or reuse a loop or decision ID. Medium+ audit findings become loops.
 

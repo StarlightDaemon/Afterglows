@@ -1,5 +1,13 @@
 # Work Log
 
+## 2026-11-24 — LOOP-009 restarted: nocturnal dial v2 rewritten
+
+On the owner's instruction, branch `claude/nocturnal-dial` (from `c46db25`). The recorded feedback on the old v2 was only "Revise, 2/5", so the redesign is a judgement call, not an application of specific comments: the sky now turns once around the fixed polar star in 24 s, the arm stays on the pointer star, and a marker steps hour by hour on a 24-notch ring (details in D-018). Only the v2 blocks of `nocturnal-dial-concept.js` changed; v1 is byte-identical.
+
+Because earlier snapshots pin concept sources by whole-file hash, the change is recorded in `SNAPSHOTS/gallery-visual-standard/loop-009/` (ledger, preserved previous source, three live frames), and `scripts/source-revisions.js` lets the pin checks honour it.
+
+Verified locally: `npm test`, `npm run security:check`, `npm run build`, `npm run site:check` and `validate-gallery-standard --wave=2` pass. Checked in the in-app browser against the built site on loopback: renders, no console errors, arm and sky rotate together, the hour marker steps in 15° notches, three frames at 0, 6 and 12 s. Not checked: reduced-motion in a browser (the CSS pose was only read), 390 px mobile layout, other browsers. The new motion has no owner rating yet. Nothing pushed.
+
 ## 2026-11-23 — CURRENT_STATE.md trimmed to current facts
 
 `CURRENT_STATE.md` had grown to about 7 KB, over the 4 KB budget for files agents read at startup. It now holds current facts only. Its previous text is preserved below, verbatim, as it stood on 2026-11-23 (section headings moved down one level). Statements in it may be superseded; for example the latest deploy is now `37d8d6a`, not `c7dea21`. The deferred campaign remainder is tracked as LOOP-009 in `OPEN_LOOPS.md`.
