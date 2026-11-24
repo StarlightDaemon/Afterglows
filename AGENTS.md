@@ -29,7 +29,7 @@ Before every deploy, CI (`.github/workflows/deploy-pages.yml`) runs `npm ci`, `n
 ## Key rules
 
 - Main branch is `main`. Agent work goes on `<agent>/<task>` branches in their own worktrees.
-- **Every push to `main` deploys the live site** through GitHub Actions Pages. Pushing is a deployment: ask the owner first.
+- **Every push to `main` deploys the live site** through GitHub Actions Pages. Pushing is a deployment. See Standing delegation v1 in AGENTS.md.
 - No `Co-Authored-By` or other agent attribution lines in commits; the `commit-msg` hook enforces this. Never bypass it.
 - Keep the root site dependency-free (D-017). Don't add npm packages to the root `package.json`.
 - A new top-level folder reaches Pages only if it's added to `publicDirectories` in `scripts/build-site.js`, and its HTML files must be added to the scan in `scripts/validate-security.js`.
@@ -55,3 +55,34 @@ One agent per worktree. Before starting, read the Claims section of `../../HANDO
 A stale worktree record from another machine (`afterglows-milestone-2`) shows as prunable: leave it alone and never run `git worktree prune`.
 
 This repository is public: don't commit personal names, absolute local paths or details of the owner's private tooling.
+
+## Standing delegation v1 (operator: StarlightDaemon)
+Applies to every agent working in this repo: Claude Code, Codex, Gemini CLI.
+
+Do without asking, then report once at the end of the task:
+- Read, build, test, lint. Wait for CI yourself; don't hand back "pending".
+- Create agent branches (claude/*, codex/*, gemini/*); commit, rebase,
+  fast-forward and merge them. Create agent worktrees.
+- Push agent branches (never force). Open and update PRs; enable auto-fix.
+- Merge a PR into the default branch when all checks pass, no review
+  requests changes, and the merge doesn't publish (see Publication surface).
+- Delete agent branches, local and remote, once their commits are in the
+  default branch or another pushed branch.
+- Keep records current: HANDOFF, OPEN-LOOPS, CHANGELOG and any doc that
+  describes branch or PR state.
+
+Ask once, in one message listing everything pending:
+- Tags, releases, leaving a -dev version, or any merge that publishes.
+- Force push, or rewriting history that's already pushed.
+- Any other deletion: worktrees, backup refs, files or branches an agent
+  didn't create, commits that exist nowhere else.
+- Committing, moving or discarding StarlightDaemon's uncommitted work.
+- CI workflows, branch protection, repo settings, secrets, agent permission
+  settings, and this section.
+- Anything against live hosts, services or devices.
+
+Stop and report: failing checks you can't fix within the task, conflicts in
+files StarlightDaemon is editing, or anything this section doesn't cover.
+
+### Publication surface
+Merging to `main` publishes: every push to `main` deploys the live site https://afterglows.starlightdaemon.dev/ through `.github/workflows/deploy-pages.yml`. Every merge to `main` is gated.
