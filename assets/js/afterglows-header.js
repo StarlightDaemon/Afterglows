@@ -51,22 +51,16 @@
     }
 
     /* Explicit per-page override wins (demo sub-pages point at their
-       hub); otherwise every non-home page falls back to the root. */
-    function sameOriginHref(value) {
-        // Only same-origin http(s) targets become links, so a bad data-ag-back
-        // value (for example a javascript: or off-site URL) can never be followed.
-        try {
-            var url = new URL(value, window.location.href);
-            var web = url.protocol === 'http:' || url.protocol === 'https:';
-            return web && url.origin === window.location.origin
-                ? url.pathname + url.search + url.hash
-                : null;
-        } catch (e) { return null; }
-    }
-
+       hub); otherwise every non-home page falls back to the root.
+       data-ag-back is matched against a short list of hub paths and the
+       link gets the matching literal, never the attribute's own text, so a
+       bad value (a javascript: or off-site URL) can never become a link. */
     function backTarget() {
         var explicit = root.getAttribute('data-ag-back');
-        if (explicit) { return sameOriginHref(explicit) || '/index.html'; }
+        if (explicit === 'index.html') { return 'index.html'; }
+        if (explicit === '../index.html') { return '../index.html'; }
+        if (explicit === '/index.html') { return '/index.html'; }
+        if (explicit) { return '/index.html'; }
         if (isRootHome()) { return null; }
         return '/index.html';
     }

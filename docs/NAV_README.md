@@ -41,7 +41,7 @@ Add both tags to `<head>`, by root-absolute path:
 <script src="/assets/js/afterglows-header.js"></script>
 ```
 
-If the new page is a demo/leaf page that should return to a hub instead of the root, add `data-ag-back` to `<html>` pointing at the hub's index, relative to the new page:
+If the new page is a demo/leaf page that should return to a hub instead of the root, add `data-ag-back` to `<html>` pointing at the hub's index, relative to the new page. Only `index.html`, `../index.html` and `/index.html` are accepted; any other value falls back to the root:
 
 ```html
 <html lang="en" data-ag-back="index.html">

@@ -21,8 +21,10 @@
   - Bump `puppeteer-core` to 25.18.1 (tooling only).
   - CodeQL's first run raised two alerts. `js/xss-through-dom` (rated high) in
     `afterglows-header.js`: `data-ag-back` is set only by the repo's own HTML, so
-    it was not exploitable, but the back link now accepts only same-origin http(s)
-    targets (`scripts/test-header-back.js`). `js/server-side-unvalidated-url-redirection`
+    it was not exploitable, and a first same-origin URL check did not satisfy
+    CodeQL, so the script now matches the attribute against three known hub
+    paths and gives the link the matching literal, never the attribute text
+    (`scripts/test-header-back.js`, doc line in `docs/NAV_README.md`). `js/server-side-unvalidated-url-redirection`
     (medium) in `serve-site.js`: the loopback preview server already refused
     `//` paths, so no redirect to another host was possible; the redirect is
     now built from the encoded path and tested.

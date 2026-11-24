@@ -31,13 +31,17 @@ function backHref(pageUrl, dataAgBack) {
 
 const hub = 'https://afterglows.example/matrix_code/demo_binary.html';
 
-// A declared hub target resolves exactly as the relative link did before.
-assert.equal(backHref(hub, 'index.html'), '/matrix_code/index.html');
-assert.equal(backHref(hub, '../index.html'), '/index.html');
-assert.equal(backHref(hub, '/concepts/?q=a#b'), '/concepts/?q=a#b');
+// The three accepted hub paths are used exactly as documented.
+assert.equal(backHref(hub, 'index.html'), 'index.html');
+assert.equal(backHref(hub, '../index.html'), '../index.html');
+assert.equal(backHref(hub, '/index.html'), '/index.html');
 
-// Anything that is not a same-origin web URL falls back to the site root.
+// Anything else falls back to the site root; the attribute text is never used.
 for (const bad of [
+  '/concepts/?q=a#b',
+  'index.html?x=1',
+  ' index.html',
+  'INDEX.HTML',
   'javascript:alert(1)',
   'JaVaScRiPt:alert(1)',
   'data:text/html,<script>alert(1)</script>',
@@ -54,4 +58,4 @@ for (const bad of [
 assert.equal(backHref('https://afterglows.example/', null), null);
 assert.equal(backHref('https://afterglows.example/concepts/', null), '/index.html');
 
-console.log('SUCCESS: the back link only ever points at a same-origin web path.');
+console.log('SUCCESS: the back link only ever points at one of the known hub paths or the site root.');
