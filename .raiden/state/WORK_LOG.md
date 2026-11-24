@@ -1,5 +1,15 @@
 # Work Log
 
+## 2026-11-24 — Security maintenance audit and fixes
+
+Audit of `6fd4c72` by protocol (gitleaks on the tree and all 336 commits, `npm audit` on both lockfiles, workflow and GitHub settings review, live probes of hidden paths and headers, manual review of the shipped JavaScript). Result: no Critical, High or Medium findings; five Low (no security policy, no code scanning, Actions policy not enforced and no CI check of workflows, tooling one release behind, meta-tag CSP limits). Decisions and the CodeQL follow-ups are in D-019.
+
+Deployed: `c26d1d1` (workflow policy check and test, CodeQL, `.github/SECURITY.md`, `puppeteer-core` 25.18.1, top-level read-only permissions in the deploy workflow). Pages run 45464999669 and CodeQL run 45464999546 succeeded. A second commit hardened the two CodeQL alerts (header back link, preview-server redirect) with tests. Repository settings changed through the GitHub API: Actions restricted to GitHub-owned with SHA pinning required, private vulnerability reporting enabled, empty wiki disabled.
+
+Verified locally: `npm test` (13 suites), `security:check`, `build`, `site:check`, both `npm audit` runs, `npm run test:browser` in Chrome. Both new tests were checked to fail on the unsafe input they guard against.
+
+Owner follow-up: Dependabot has never opened a PR although it has been configured since 2026-11-10 and `puppeteer-core` 25.18.1 was out on 2026-11-17. The cause is not visible through the API; check Insights → Dependency graph → Dependabot for errors. The audit's gitignored report and state files are in the primary checkout.
+
 ## 2026-11-24 — LOOP-009 restarted: nocturnal dial v2 rewritten
 
 **Outcome:** owner-approved, merged to `main` and pushed with the owner's OK (`c46db25..eaaf46f`). Pages run 45461039931 succeeded (build and deploy jobs), and the live site serves the new `nocturnal-dial-concept.js` (checked by fetching it; the dial was not watched animating on the live page). The notes below were written before the push.

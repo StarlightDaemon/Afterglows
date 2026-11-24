@@ -10,6 +10,8 @@ const sandbox = fs.mkdtempSync(path.join(os.tmpdir(), "afterglows-serve-"));
 const root = path.join(sandbox, "site");
 fs.mkdirSync(path.join(root, "sub"), { recursive: true });
 fs.mkdirSync(path.join(root, "empty"));
+fs.mkdirSync(path.join(root, "with space"));
+fs.writeFileSync(path.join(root, "with space", "index.html"), "<p>spaced</p>");
 fs.writeFileSync(path.join(root, "index.html"), "<p>home</p>");
 fs.writeFileSync(path.join(root, "404.html"), "<p>custom 404</p>");
 fs.writeFileSync(path.join(root, "style.css"), "body{}");
@@ -57,6 +59,16 @@ try {
   assert.equal(redirect.status, 301);
   assert.equal(redirect.headers.location, "/sub/?x=1", "Directories redirect to a trailing slash");
   assert.equal((await request("/sub/")).body, "<p>sub</p>");
+
+  // The redirect keeps the original encoding and always stays on this origin.
+  const spaced = await request("/with%20space");
+  assert.equal(spaced.status, 301);
+  assert.equal(spaced.headers.location, "/with%20space/", "Redirect keeps the encoded path");
+  for (const probe of ["/%2F%2Fsub", "/%2f%2fsub", "/%5Csub", "/\\sub", "/sub/%2F%2F"]) {
+    const response = await request(probe);
+    assert.ok(response.status === 404 || response.status === 200, `${probe} is served or refused, never redirected`);
+    assert.equal(response.headers.location, undefined, `${probe} must not redirect`);
+  }
 
   for (const probe of [
     "/missing",

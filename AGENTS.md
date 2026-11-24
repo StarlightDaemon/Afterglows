@@ -6,7 +6,7 @@ Retro terminal archives and web demos: the Matrix Code and Retro libraries plus 
 
 Node.js 24. The root site has **no npm dependencies**, so there is nothing to install.
 
-- Test: `npm test` (12 suites, a few seconds)
+- Test: `npm test` (13 suites, a few seconds)
 - Security check: `npm run security:check` (HTML policies, preview server and the workflow rules in `scripts/workflow-policy.js`)
 - Build: `npm run build` (writes the allowlisted Pages artifact to `dist/`, which Git ignores)
 - Site check: `npm run site:check` (run it after a build)

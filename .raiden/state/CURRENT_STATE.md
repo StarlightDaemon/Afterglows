@@ -6,7 +6,7 @@ Current facts only. Dated history is in `WORK_LOG.md`; decisions in `DECISIONS.m
 
 - **Release:** v2.0.0 (2026-11-10), annotated tag on `ad75ba9`, published as the GitHub Release "v2.0.0 — Unified 1,000-study gallery" (marked Latest).
 - **Live site:** https://afterglows.starlightdaemon.dev/, deployed by the allowlisted GitHub Actions Pages workflow. **Every push to `main` deploys.** HTTPS is enforced on the custom domain.
-- **Latest deploy:** `eaaf46f` (2026-11-24, the nocturnal dial v2); Pages run 45461039931 succeeded and the live site serves the new dial file. The commit that records this is docs only.
+- **Latest deploy:** 2026-11-24, the security maintenance in D-019 (`c26d1d1` and the commit after it); the Pages workflow succeeded. The nocturnal dial v2 deployed earlier that day in `eaaf46f`.
 - **Evidence:** release and closeout reports in `SNAPSHOTS/gallery-live-release/report.md` and `SNAPSHOTS/gallery-final-thousand/closeout-report.md`, the GitHub Release, and the dated entries in `WORK_LOG.md` (the 2.0 closeout audit, production health and GitHub checks are in its 2026-11-10 and 2026-11-23 entries).
 - **Engagement:** the 2.0 work is closed out. LOOP-009 (visual-standard remainder) restarted 2026-11-24 with the nocturnal dial: a rewritten v2, owner-approved, is live (D-018). Octant, heliograph and six others stay deferred.
 
@@ -22,7 +22,8 @@ Current facts only. Dated history is in `WORK_LOG.md`; decisions in `DECISIONS.m
 - **Retired URLs:** the standalone `/physics/` gallery and the 660 flat module URLs from v1.10.0 return the branded 404 (a deliberate breaking change in v2.0.0; no consumers were found).
 - **Publishing:** the build ships an explicit allowlist (`scripts/build-site.js`); repository-only paths return 404 in production. Workflow actions are pinned to commit SHAs and kept current by Dependabot.
 - **Dependencies (D-017):** the root site has no npm dependencies. `npm start` builds and serves `dist/` through the loopback-only `scripts/serve-site.js`. Core fonts are vendored under `assets/fonts/` with their licences.
-- **Checks:** `npm test` (11 suites, including a 150 KB gzip budget per concept module with two hash-pinned exemptions), `npm run security:check`, `npm run test:browser` and `npm run site:check`, all run in CI before every deploy.
+- **Checks:** `npm test` (13 suites, including a 150 KB gzip budget per concept module with two hash-pinned exemptions), `npm run security:check`, `npm run test:browser` and `npm run site:check`, all run in CI before every deploy.
+- **Security (D-019):** last audit 2026-11-24, no Critical/High/Medium findings. `scripts/workflow-policy.js` (run by `npm test` and `security:check`) pins actions to SHAs and limits workflow permissions. CodeQL runs on push, pull request and weekly. Actions are restricted to GitHub-owned with SHA pinning required; private vulnerability reporting is on (`.github/SECURITY.md`). Pages cannot send headers, so CSP is by meta tag (no `frame-ancestors`; accepted).
 
 ## Constraints
 

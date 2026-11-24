@@ -1,5 +1,36 @@
 # Decisions
 
+## D-019
+
+- Date: 2026-11-24
+- Status: Implemented and deployed; owner asked for the audit and its fixes
+- Context: security maintenance audit at `6fd4c72` (report in the gitignored
+  `audit-reports/`; previous audit 2026-11-10). Result: 0 Critical, 0 High,
+  0 Medium, 5 Low. No secrets in the tree or 336 commits; 0 dependency
+  vulnerabilities; all actions pinned and current.
+- Decisions:
+  - Enforce workflow rules in code: `scripts/workflow-policy.js` (SHA-pinned
+    actions, no `pull_request_target`/`workflow_run`, declared read-only
+    permissions, per-file write allowlist, no secrets or `github.event.*`
+    interpolation), tested by `scripts/test-workflow-policy.js`. The deploy
+    workflow gained a top-level read-only `permissions` block.
+  - Add CodeQL (JavaScript, SHA-pinned; push, PR, weekly) and `.github/SECURITY.md`.
+  - Repository settings: Actions limited to GitHub-owned actions, SHA pinning
+    required, private vulnerability reporting on, the empty wiki off. A new
+    third-party action therefore needs a deliberate settings change.
+  - Bump `puppeteer-core` to 25.18.1 (tooling only).
+  - CodeQL's first run raised two alerts. `js/xss-through-dom` (rated high) in
+    `afterglows-header.js`: `data-ag-back` is set only by the repo's own HTML, so
+    it was not exploitable, but the back link now accepts only same-origin http(s)
+    targets (`scripts/test-header-back.js`). `js/server-side-unvalidated-url-redirection`
+    (medium) in `serve-site.js`: the loopback preview server already refused
+    `//` paths, so no redirect to another host was possible; the redirect is
+    now built from the encoded path and tested.
+- Accepted: pages cannot send response headers on GitHub Pages, so CSP is a meta
+  tag with `style-src 'unsafe-inline'` (concept modules inject shadow-DOM styles)
+  and no `frame-ancestors`. The site has no accounts or state-changing actions.
+  Revisit if it moves to a host that can set headers.
+
 ## D-018
 
 - Date: 2026-11-24

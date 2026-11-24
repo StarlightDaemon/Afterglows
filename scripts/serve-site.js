@@ -61,7 +61,7 @@ export function createSiteServer(root) {
     let file = target;
     let stat = await statOrNull(file);
     if (stat?.isDirectory()) {
-      if (!pathname.endsWith("/")) return { redirect: `${pathname}/${search}` };
+      if (!pathname.endsWith("/")) return { redirect: true };
       file = path.join(target, "index.html");
       stat = await statOrNull(file);
     }
@@ -114,7 +114,11 @@ export function createSiteServer(root) {
       }
       const resolved = await resolveRequest(pathname, url.search);
       if (resolved?.redirect) {
-        response.writeHead(301, { ...BASE_HEADERS, Location: resolved.redirect }).end();
+        // Built from the original, still-encoded path (never the decoded one) and kept
+        // on this origin: one leading slash, then a path segment, so it cannot become
+        // a scheme-relative URL.
+        const tail = url.pathname.replace(/^\/+/, "");
+        response.writeHead(301, { ...BASE_HEADERS, Location: `/${tail}/${url.search}` }).end();
       } else if (resolved?.file) {
         await send(response, method, 200, resolved.file);
       } else {
