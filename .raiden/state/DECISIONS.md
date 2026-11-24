@@ -3,7 +3,7 @@
 ## D-018
 
 - Date: 2026-11-24
-- Status: Implemented on branch `claude/nocturnal-dial`; awaiting the owner's visual rating
+- Status: Implemented on branch `claude/nocturnal-dial`; approved by the owner 2026-11-24 after viewing it live (no star rating)
 - Context: LOOP-009 restarted on the owner's instruction, nocturnal dial first.
   The only recorded feedback on its v2 is "Revise, 2/5" with no comment
   (`SNAPSHOTS/gallery-visual-standard/wave-02-rebuild/operator-review.json`).
@@ -20,7 +20,8 @@
   entry is recorded. Octant and heliograph can use the same ledger.
 - Not done: the manifest and provenance are unchanged, so the revision is not yet
   credited to its author (the provenance tests pin the existing contributions);
-  that is an owner call. The 2/5 rating predates this rewrite and is not replaced.
+  that is an owner call. The old 2/5 rating is kept as history; the approval is
+  recorded separately in the ledger.
 
 ## D-017
 

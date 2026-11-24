@@ -7,7 +7,8 @@
       "tag": "concept-nocturnal-dial",
       "previousSha256": "4de89f6b01c2929bfa68f8caddc7eb44376757f50bdf6aa5fdd4cc25678f7d18",
       "previousSource": "nocturnal-dial/previous-v2-nocturnal-dial.js",
-      "currentSha256": "f738cfe724a21f4f58e5bcd7b6703ddf421d182432cb3cf7819d43ce96db17f3"
+      "currentSha256": "f738cfe724a21f4f58e5bcd7b6703ddf421d182432cb3cf7819d43ce96db17f3",
+      "ownerDecision": { "date": "2026-11-24", "decision": "Approve", "rating": null, "comment": "", "note": "Given in chat after viewing the live dial at 4x size; no star rating was given." }
     }
   ]
 }
