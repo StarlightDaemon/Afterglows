@@ -20,6 +20,17 @@ trail some of these entries reference.
 - Matrix canvas modes respond to live reduced-motion changes and resume a single animation loop when motion is enabled in a visible tab.
 - Browser checks cover the built Concepts, Matrix and Retro pages. The isolated tooling has a locked install, scheduled dependency updates, a pull-request advisory check and an on-demand startup/search profiler.
 
+### Security maintenance — 2026-11-24
+- Added `scripts/workflow-policy.js`, run by `npm test` and `npm run security:check`. It fails the build if a workflow uses an action that is not pinned to a commit SHA, uses `pull_request_target` or `workflow_run`, omits declared read-only permissions, grants write permissions outside a per-file allowlist, or interpolates secrets or `github.event.*` into a script. The deploy workflow gained a top-level read-only `permissions` block.
+- Added a CodeQL workflow for JavaScript (SHA-pinned; runs on push, pull request and weekly) and `.github/SECURITY.md`, which points to GitHub private vulnerability reporting.
+- Hardened two code paths after CodeQL's first run, neither of which was exploitable: the header back link now uses one of three known hub paths instead of the `data-ag-back` attribute text, and the loopback preview server builds its directory redirect from the encoded path.
+- Bumped the browser tooling's `puppeteer-core` to 25.18.1.
+- Repository settings (not in Git): Actions are limited to GitHub-owned actions with SHA pinning required, private vulnerability reporting is on, and the empty wiki is off.
+- Added a Standing delegation v1 block to `AGENTS.md` and `.gemini/settings.json` (agent configuration only; neither file is published).
+
+### Nocturnal dial — 2026-11-24
+- Rewrote the motion of the nocturnal dial study (owner-approved); its source revisions are recorded in a ledger under `.raiden/state/SNAPSHOTS/gallery-visual-standard/loop-009/`.
+
 ## [2.0.0] - 2026-11-10
 
 This release tags work that reached production before it was versioned, in
